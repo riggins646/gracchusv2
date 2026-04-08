@@ -4329,28 +4329,28 @@ export default function App() {
         "border-b border-gray-800/50 " +
         "bg-black sticky top-0 z-40"
       }>
-        <div className="max-w-[1400px] mx-auto px-3 sm:px-6">
-          {/* Top bar: brand + meta */}
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
+          {/* Top bar: brand + meta — stacks to two rows on mobile */}
           <div className={
-            "flex items-center justify-between " +
-            "py-3"
+            "flex flex-col md:flex-row md:items-center md:justify-between " +
+            "py-3 md:py-3 gap-2 md:gap-0"
           }>
             <div className="flex items-center gap-2.5">
               <img
                 src="/gracchus-icon.svg"
                 alt="Gracchus"
-                className="w-5 h-5"
+                className="w-4 h-4 md:w-5 md:h-5"
               />
               <span className={
-                "text-[11px] uppercase tracking-[0.2em] " +
+                "text-[10px] md:text-[11px] uppercase tracking-[0.2em] " +
                 "font-medium text-gray-400"
               }>
                 GRACCHUS
               </span>
             </div>
             <div className={
-              "flex items-center gap-6 " +
-              "text-[10px] uppercase " +
+              "flex items-center gap-4 md:gap-6 " +
+              "text-[9px] md:text-[10px] uppercase " +
               "tracking-[0.15em] text-gray-600"
             }>
               <span>
