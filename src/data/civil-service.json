@@ -1,0 +1,325 @@
+{
+  "timeline": [
+    {
+      "year": 2000,
+      "headcount": 496000,
+      "fte": 496000
+    },
+    {
+      "year": 2001,
+      "headcount": 505000,
+      "fte": 505000
+    },
+    {
+      "year": 2002,
+      "headcount": 512000,
+      "fte": 512000
+    },
+    {
+      "year": 2003,
+      "headcount": 516000,
+      "fte": 516000
+    },
+    {
+      "year": 2004,
+      "headcount": 520000,
+      "fte": 520000
+    },
+    {
+      "year": 2005,
+      "headcount": 524000,
+      "fte": 524000
+    },
+    {
+      "year": 2006,
+      "headcount": 520000,
+      "fte": 520000
+    },
+    {
+      "year": 2007,
+      "headcount": 517000,
+      "fte": 517000
+    },
+    {
+      "year": 2008,
+      "headcount": 513000,
+      "fte": 513000
+    },
+    {
+      "year": 2009,
+      "headcount": 509000,
+      "fte": 509000
+    },
+    {
+      "year": 2010,
+      "headcount": 481000,
+      "fte": 481000
+    },
+    {
+      "year": 2011,
+      "headcount": 461000,
+      "fte": 461000
+    },
+    {
+      "year": 2012,
+      "headcount": 440000,
+      "fte": 440000
+    },
+    {
+      "year": 2013,
+      "headcount": 420000,
+      "fte": 420000
+    },
+    {
+      "year": 2014,
+      "headcount": 405000,
+      "fte": 405000
+    },
+    {
+      "year": 2015,
+      "headcount": 395000,
+      "fte": 375000
+    },
+    {
+      "year": 2016,
+      "headcount": 418340,
+      "fte": 398000
+    },
+    {
+      "year": 2017,
+      "headcount": 421500,
+      "fte": 401000
+    },
+    {
+      "year": 2018,
+      "headcount": 418000,
+      "fte": 398000
+    },
+    {
+      "year": 2019,
+      "headcount": 419399,
+      "fte": 399000
+    },
+    {
+      "year": 2020,
+      "headcount": 455620,
+      "fte": 423050
+    },
+    {
+      "year": 2021,
+      "headcount": 484880,
+      "fte": 452320
+    },
+    {
+      "year": 2022,
+      "headcount": 510750,
+      "fte": 478850
+    },
+    {
+      "year": 2023,
+      "headcount": 531400,
+      "fte": 498700
+    },
+    {
+      "year": 2024,
+      "headcount": 542840,
+      "fte": 510125
+    },
+    {
+      "year": 2025,
+      "headcount": 549660,
+      "fte": 516150
+    }
+  ],
+  "departments": [
+    {
+      "dept": "DWP",
+      "headcount": 96890,
+      "fte": 84415,
+      "change": 3075,
+      "changePct": 3.3
+    },
+    {
+      "dept": "MoJ",
+      "headcount": 96210,
+      "fte": 90100,
+      "change": 220,
+      "changePct": 0.2
+    },
+    {
+      "dept": "HMRC",
+      "headcount": 69000,
+      "fte": 67000,
+      "change": 500,
+      "changePct": 0.7
+    },
+    {
+      "dept": "MoD",
+      "headcount": 58000,
+      "fte": 56500,
+      "change": -2000,
+      "changePct": -3.3
+    },
+    {
+      "dept": "Home Office",
+      "headcount": 52000,
+      "fte": 50500,
+      "change": 800,
+      "changePct": 1.6
+    },
+    {
+      "dept": "DHSC",
+      "headcount": 31000,
+      "fte": 30000,
+      "change": 200,
+      "changePct": 0.6
+    },
+    {
+      "dept": "Land Registry",
+      "headcount": 14800,
+      "fte": 9700,
+      "change": 100,
+      "changePct": 0.7
+    },
+    {
+      "dept": "DfT",
+      "headcount": 12500,
+      "fte": 12100,
+      "change": 50,
+      "changePct": 0.4
+    },
+    {
+      "dept": "Cabinet Office",
+      "headcount": 11800,
+      "fte": 11400,
+      "change": 200,
+      "changePct": 1.7
+    },
+    {
+      "dept": "DBT",
+      "headcount": 10500,
+      "fte": 10200,
+      "change": 950,
+      "changePct": 9.9
+    },
+    {
+      "dept": "DfE",
+      "headcount": 9800,
+      "fte": 9500,
+      "change": -520,
+      "changePct": -5.0
+    },
+    {
+      "dept": "FCDO",
+      "headcount": 9200,
+      "fte": 8900,
+      "change": 100,
+      "changePct": 1.1
+    },
+    {
+      "dept": "DESNZ",
+      "headcount": 8900,
+      "fte": 8700,
+      "change": 730,
+      "changePct": 8.9
+    },
+    {
+      "dept": "DCMS",
+      "headcount": 7600,
+      "fte": 7400,
+      "change": 550,
+      "changePct": 7.8
+    },
+    {
+      "dept": "Defra",
+      "headcount": 7200,
+      "fte": 7000,
+      "change": 150,
+      "changePct": 2.1
+    }
+  ],
+  "payGrades": [
+    {
+      "grade": "AA/AO",
+      "headcount": 97000,
+      "medianSalary": 24490
+    },
+    {
+      "grade": "EO",
+      "headcount": 95000,
+      "medianSalary": 30314
+    },
+    {
+      "grade": "HEO",
+      "headcount": 89000,
+      "medianSalary": 37661
+    },
+    {
+      "grade": "SEO",
+      "headcount": 67305,
+      "medianSalary": 44251
+    },
+    {
+      "grade": "Grade 7",
+      "headcount": 38000,
+      "medianSalary": 59819
+    },
+    {
+      "grade": "Grade 6",
+      "headcount": 28000,
+      "medianSalary": 75000
+    },
+    {
+      "grade": "SCS",
+      "headcount": 7525,
+      "medianSalary": 88970
+    }
+  ],
+  "regional": [
+    {
+      "region": "London",
+      "headcount": 107693,
+      "pct": 19.6
+    },
+    {
+      "region": "North West",
+      "headcount": 72800,
+      "pct": 13.3
+    },
+    {
+      "region": "South East",
+      "headcount": 65000,
+      "pct": 11.8
+    },
+    {
+      "region": "Midlands",
+      "headcount": 48000,
+      "pct": 8.7
+    },
+    {
+      "region": "Scotland",
+      "headcount": 42000,
+      "pct": 7.6
+    },
+    {
+      "region": "Wales",
+      "headcount": 28000,
+      "pct": 5.1
+    },
+    {
+      "region": "N. Ireland",
+      "headcount": 18500,
+      "pct": 3.4
+    },
+    {
+      "region": "Other",
+      "headcount": 167667,
+      "pct": 30.5
+    }
+  ],
+  "sources": [
+    "Cabinet Office Civil Service Statistics 2025",
+    "ONS Public Sector Employment",
+    "Institute for Government Whitehall Monitor 2025"
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "metadata": {
+    "source": "HM Treasury PESA 2025, Table 1.12; Departmental Annual Reports & Estimates 2024-25",
+    "year": "2024-25",
+    "totalPolicySpending": 1164.0,
+    "totalManagedExpenditure": 1292.0,
+    "excludedAdjustments": 80.2,
+    "adjustmentNote": "Excludes £80.2bn in non-cash accounting adjustments (APF indemnity, nuclear provisions, CfD derivatives, loan write-offs)"
+  },
+  "yearTrend": [
+    { "year": "2020-21", "total": 972 },
+    { "year": "2021-22", "total": 1063 },
+    { "year": "2022-23", "total": 1098 },
+    { "year": "2023-24", "total": 1119 },
+    { "year": "2024-25", "total": 1164 }
+  ],
+  "departments": [
+    {
+      "name": "Work and Pensions",
+      "short": "DWP",
+      "spend": 297.5,
+      "color": "#dc2626",
+      "children": [
+        { "name": "State Pension", "spend": 137.0 },
+        { "name": "Universal Credit", "spend": 52.8 },
+        { "name": "Housing Benefit", "spend": 22.1 },
+        { "name": "Disability Living Allowance / PIP", "spend": 28.4 },
+        { "name": "Employment & Support Allowance", "spend": 14.2 },
+        { "name": "Pension Credit", "spend": 5.0 },
+        { "name": "Attendance Allowance", "spend": 7.5 },
+        { "name": "Carer's Allowance", "spend": 4.8 },
+        { "name": "DWP admin & other", "spend": 10.4 },
+        { "name": "Other benefits", "spend": 15.3 }
+      ]
+    },
+    {
+      "name": "Health & Social Care",
+      "short": "DHSC",
+      "spend": 223.2,
+      "color": "#047857",
+      "children": [
+        { "name": "Acute hospital services", "spend": 88.0 },
+        { "name": "Specialised commissioning", "spend": 25.0 },
+        { "name": "Primary care (GP, dental, pharmacy)", "spend": 18.5 },
+        { "name": "Mental health services", "spend": 13.7 },
+        { "name": "Capital investment", "spend": 12.7 },
+        { "name": "Prescribing & medicines", "spend": 11.3 },
+        { "name": "Resource AME (provisions)", "spend": 10.9 },
+        { "name": "Community health services", "spend": 7.0 },
+        { "name": "Continuing healthcare", "spend": 5.4 },
+        { "name": "NHSE running costs & other", "spend": 3.9 },
+        { "name": "Ambulance services", "spend": 3.9 },
+        { "name": "Social care grants", "spend": 3.4 },
+        { "name": "DHSC admin & other", "spend": 3.1 },
+        { "name": "Health Education / workforce", "spend": 2.1 },
+        { "name": "UKHSA, NICE, CQC & ALBs", "spend": 1.9 },
+        { "name": "Other", "spend": 12.4 }
+      ]
+    },
+    {
+      "name": "Education",
+      "short": "DfE",
+      "spend": 132.9,
+      "color": "#1e3a5f",
+      "children": [
+        { "name": "Schools (core funding)", "spend": 58.8 },
+        { "name": "16-19 education & skills", "spend": 14.2 },
+        { "name": "Early years", "spend": 8.7 },
+        { "name": "Higher education / student loans", "spend": 20.5 },
+        { "name": "SEND & high needs", "spend": 10.8 },
+        { "name": "Pupil Premium", "spend": 2.9 },
+        { "name": "Teachers' pensions", "spend": 10.6 },
+        { "name": "DfE admin & other", "spend": 6.4 }
+      ]
+    },
+    {
+      "name": "Debt interest",
+      "short": "Debt",
+      "spend": 84.8,
+      "color": "#b91c1c",
+      "children": [
+        { "name": "Gilt coupon payments", "spend": 52.0 },
+        { "name": "Index-linked uplift", "spend": 18.5 },
+        { "name": "NS&I interest", "spend": 8.3 },
+        { "name": "Other debt costs", "spend": 6.0 }
+      ]
+    },
+    {
+      "name": "Defence",
+      "short": "MoD",
+      "spend": 71.5,
+      "color": "#78716c",
+      "children": [
+        { "name": "Equipment & support", "spend": 23.4 },
+        { "name": "Military personnel", "spend": 17.8 },
+        { "name": "Infrastructure & estate", "spend": 9.2 },
+        { "name": "Operations", "spend": 6.1 },
+        { "name": "Defence nuclear", "spend": 5.8 },
+        { "name": "Civilian personnel", "spend": 4.7 },
+        { "name": "Other defence", "spend": 4.5 }
+      ]
+    },
+    {
+      "name": "Scottish Government",
+      "short": "SG",
+      "spend": 71.0,
+      "color": "#1e40af",
+      "children": [
+        { "name": "Health & social care", "spend": 19.8 },
+        { "name": "Social security", "spend": 13.2 },
+        { "name": "Education & skills", "spend": 10.6 },
+        { "name": "Local government", "spend": 9.5 },
+        { "name": "Transport", "spend": 5.3 },
+        { "name": "Justice", "spend": 3.8 },
+        { "name": "Other devolved", "spend": 8.8 }
+      ]
+    },
+    {
+      "name": "MHCLG — Local Gov",
+      "short": "MHCLG-LG",
+      "spend": 34.4,
+      "color": "#065f46",
+      "children": [
+        { "name": "Local government grants", "spend": 22.5 },
+        { "name": "Business rates retention", "spend": 7.1 },
+        { "name": "MHCLG admin & other", "spend": 4.8 }
+      ]
+    },
+    {
+      "name": "HM Revenue & Customs",
+      "short": "HMRC",
+      "spend": 34.1,
+      "color": "#854d0e",
+      "children": [
+        { "name": "Tax credits / child benefit", "spend": 22.4 },
+        { "name": "HMRC operations", "spend": 6.2 },
+        { "name": "HMRC admin & other", "spend": 5.5 }
+      ]
+    },
+    {
+      "name": "Northern Ireland",
+      "short": "NI",
+      "spend": 31.6,
+      "color": "#15803d",
+      "children": [
+        { "name": "Health & social care", "spend": 8.1 },
+        { "name": "Education", "spend": 4.2 },
+        { "name": "Social security", "spend": 6.5 },
+        { "name": "Other devolved", "spend": 12.8 }
+      ]
+    },
+    {
+      "name": "Transport",
+      "short": "DfT",
+      "spend": 30.5,
+      "color": "#ca8a04",
+      "children": [
+        { "name": "Rail (incl. HS2)", "spend": 15.2 },
+        { "name": "Roads (National Highways)", "spend": 7.8 },
+        { "name": "Local transport grants", "spend": 4.1 },
+        { "name": "DfT admin & other", "spend": 3.4 }
+      ]
+    },
+    {
+      "name": "Welsh Government",
+      "short": "WG",
+      "spend": 25.4,
+      "color": "#991b1b",
+      "children": [
+        { "name": "Health & social services", "spend": 10.2 },
+        { "name": "Local government", "spend": 5.1 },
+        { "name": "Education", "spend": 3.8 },
+        { "name": "Other devolved", "spend": 6.3 }
+      ]
+    },
+    {
+      "name": "Home Office",
+      "short": "HO",
+      "spend": 22.5,
+      "color": "#1f2937",
+      "children": [
+        { "name": "Police grants", "spend": 10.8 },
+        { "name": "Immigration & asylum", "spend": 6.4 },
+        { "name": "Counter-terrorism & security", "spend": 2.1 },
+        { "name": "HO admin & other", "spend": 3.2 }
+      ]
+    },
+    {
+      "name": "Cabinet Office",
+      "short": "CO",
+      "spend": 18.0,
+      "color": "#4338ca"
+    },
+    {
+      "name": "Justice",
+      "short": "MoJ",
+      "spend": 13.6,
+      "color": "#6b21a8",
+      "children": [
+        { "name": "HMPPS (prisons & probation)", "spend": 7.2 },
+        { "name": "Courts & tribunals (HMCTS)", "spend": 3.1 },
+        { "name": "Legal aid", "spend": 2.0 },
+        { "name": "MoJ admin & other", "spend": 1.3 }
+      ]
+    },
+    {
+      "name": "Science & Technology",
+      "short": "DSIT",
+      "spend": 13.2,
+      "color": "#2563eb"
+    },
+    {
+      "name": "MHCLG — Housing",
+      "short": "MHCLG-H",
+      "spend": 12.9,
+      "color": "#059669"
+    },
+    {
+      "name": "FCDO",
+      "short": "FCDO",
+      "spend": 12.1,
+      "color": "#7c3aed"
+    },
+    {
+      "name": "Energy & Net Zero",
+      "short": "DESNZ",
+      "spend": 8.6,
+      "color": "#0d9488"
+    },
+    {
+      "name": "Other departments",
+      "short": "Other",
+      "spend": 8.4,
+      "color": "#6b7280"
+    },
+    {
+      "name": "Culture, Media & Sport",
+      "short": "DCMS",
+      "spend": 7.2,
+      "color": "#d97706"
+    },
+    {
+      "name": "DEFRA",
+      "short": "DEFRA",
+      "spend": 6.0,
+      "color": "#16a34a"
+    },
+    {
+      "name": "Intelligence",
+      "short": "SIA",
+      "spend": 4.5,
+      "color": "#1e293b"
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "_comment": "Curated sub-department spending breakdowns. Sources: Departmental Annual Reports & Estimates 2024-25, PESA supplementary tables. 'proportional' items use share-of-total (0.0–1.0); recalculated when the top-line changes. Review when new PESA edition is published (usually July).",
+  "_lastReviewed": "2025-03",
+  "departments": {
+    "DWP": {
+      "type": "proportional",
+      "source": "DWP Annual Report 2024-25, benefit expenditure tables",
+      "items": [
+        { "name": "State Pension", "share": 0.4605 },
+        { "name": "Universal Credit", "share": 0.1775 },
+        { "name": "Housing Benefit", "share": 0.0743 },
+        { "name": "Disability Living Allowance / PIP", "share": 0.0955 },
+        { "name": "Employment & Support Allowance", "share": 0.0477 },
+        { "name": "Pension Credit", "share": 0.0168 },
+        { "name": "Attendance Allowance", "share": 0.0252 },
+        { "name": "Carer's Allowance", "share": 0.0161 },
+        { "name": "DWP admin & other", "share": 0.0350 },
+        { "name": "Other benefits", "share": 0.0514 }
+      ]
+    },
+    "DHSC": {
+      "type": "proportional",
+      "source": "DHSC Annual Report 2024-25, NHSE allocation breakdowns",
+      "items": [
+        { "name": "Acute hospital services", "share": 0.3943 },
+        { "name": "Specialised commissioning", "share": 0.1120 },
+        { "name": "Primary care (GP, dental, pharmacy)", "share": 0.0829 },
+        { "name": "Mental health services", "share": 0.0614 },
+        { "name": "Capital investment", "share": 0.0569 },
+        { "name": "Prescribing & medicines", "share": 0.0506 },
+        { "name": "Resource AME (provisions)", "share": 0.0488 },
+        { "name": "Community health services", "share": 0.0314 },
+        { "name": "Continuing healthcare", "share": 0.0242 },
+        { "name": "NHSE running costs & other", "share": 0.0175 },
+        { "name": "Ambulance services", "share": 0.0175 },
+        { "name": "Social care grants", "share": 0.0152 },
+        { "name": "DHSC admin & other", "share": 0.0139 },
+        { "name": "Health Education / workforce", "share": 0.0094 },
+        { "name": "UKHSA, NICE, CQC & ALBs", "share": 0.0085 },
+        { "name": "Other", "share": 0.0555 }
+      ]
+    },
+    "DfE": {
+      "type": "proportional",
+      "source": "DfE Annual Report 2024-25, Estimates memorandum",
+      "items": [
+        { "name": "Schools (core funding)", "share": 0.4424 },
+        { "name": "16-19 education & skills", "share": 0.1068 },
+        { "name": "Early years", "share": 0.0655 },
+        { "name": "Higher education / student loans", "share": 0.1543 },
+        { "name": "SEND & high needs", "share": 0.0813 },
+        { "name": "Pupil Premium", "share": 0.0218 },
+        { "name": "Teachers' pensions", "share": 0.0798 },
+        { "name": "DfE admin & other", "share": 0.0481 }
+      ]
+    },
+    "Debt": {
+      "type": "proportional",
+      "source": "DMO Annual Review, OBR fiscal supplementary tables",
+      "items": [
+        { "name": "Gilt coupon payments", "share": 0.6132 },
+        { "name": "Index-linked uplift", "share": 0.2182 },
+        { "name": "NS&I interest", "share": 0.0979 },
+        { "name": "Other debt costs", "share": 0.0708 }
+      ]
+    },
+    "MoD": {
+      "type": "proportional",
+      "source": "MoD Annual Report 2024-25, equipment plan",
+      "items": [
+        { "name": "Equipment & support", "share": 0.3273 },
+        { "name": "Military personnel", "share": 0.2490 },
+        { "name": "Infrastructure & estate", "share": 0.1287 },
+        { "name": "Operations", "share": 0.0853 },
+        { "name": "Defence nuclear", "share": 0.0811 },
+        { "name": "Civilian personnel", "share": 0.0657 },
+        { "name": "Other defence", "share": 0.0629 }
+      ]
+    },
+    "SG": {
+      "type": "proportional",
+      "source": "Scottish Government Budget 2024-25",
+      "items": [
+        { "name": "Health & social care", "share": 0.2789 },
+        { "name": "Social security", "share": 0.1859 },
+        { "name": "Education & skills", "share": 0.1493 },
+        { "name": "Local government", "share": 0.1338 },
+        { "name": "Transport", "share": 0.0746 },
+        { "name": "Justice", "share": 0.0535 },
+        { "name": "Other devolved", "share": 0.1239 }
+      ]
+    },
+    "MHCLG-LG": {
+      "type": "proportional",
+      "source": "MHCLG Estimates 2024-25",
+      "items": [
+        { "name": "Local government grants", "share": 0.6541 },
+        { "name": "Business rates retention", "share": 0.2064 },
+        { "name": "MHCLG admin & other", "share": 0.1395 }
+      ]
+    },
+    "HMRC": {
+      "type": "proportional",
+      "source": "HMRC Annual Report 2024-25",
+      "items": [
+        { "name": "Tax credits / child benefit", "share": 0.6569 },
+        { "name": "HMRC operations", "share": 0.1818 },
+        { "name": "HMRC admin & other", "share": 0.1613 }
+      ]
+    },
+    "NI": {
+      "type": "proportional",
+      "source": "NI Executive Budget 2024-25",
+      "items": [
+        { "name": "Health & social care", "share": 0.2532 },
+        { "name": "Education", "share": 0.1329 },
+        { "name": "Social security", "share": 0.2057 },
+        { "name": "Other devolved", "share": 0.4082 }
+      ]
+    },
+    "DfT": {
+      "type": "proportional",
+      "source": "DfT Annual Report 2024-25",
+      "items": [
+        { "name": "Rail (incl. HS2)", "share": 0.4984 },
+        { "name": "Roads (National Highways)", "share": 0.2557 },
+        { "name": "Local transport grants", "share": 0.1344 },
+        { "name": "DfT admin & other", "share": 0.1115 }
+      ]
+    },
+    "WG": {
+      "type": "proportional",
+      "source": "Welsh Government Budget 2024-25",
+      "items": [
+        { "name": "Health & social services", "share": 0.4016 },
+        { "name": "Local government", "share": 0.2008 },
+        { "name": "Education", "share": 0.1496 },
+        { "name": "Other devolved", "share": 0.2480 }
+      ]
+    },
+    "HO": {
+      "type": "proportional",
+      "source": "Home Office Annual Report 2024-25",
+      "items": [
+        { "name": "Police grants", "share": 0.4800 },
+        { "name": "Immigration & asylum", "share": 0.2844 },
+        { "name": "Counter-terrorism & security", "share": 0.0933 },
+        { "name": "HO admin & other", "share": 0.1422 }
+      ]
+    },
+    "MoJ": {
+      "type": "proportional",
+      "source": "MoJ Annual Report 2024-25",
+      "items": [
+        { "name": "HMPPS (prisons & probation)", "share": 0.5294 },
+        { "name": "Courts & tribunals (HMCTS)", "share": 0.2279 },
+        { "name": "Legal aid", "share": 0.1471 },
+        { "name": "MoJ admin & other", "share": 0.0956 }
+      ]
+    }
+  }
+}

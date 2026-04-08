@@ -1,0 +1,669 @@
+{
+  "metadata": {
+    "title": "Domestic Production vs Imports - Critical Industries",
+    "description": "Factual, source-backed data on UK domestic production vs import dependency across critical industries, with France and Germany comparisons.",
+    "lastUpdated": "2026-03",
+    "notes": "All values are from official sources. Estimates clearly marked. Import dependency = imports / (production + imports - exports). Self-sufficiency = domestic production / domestic consumption."
+  },
+  "industries": [
+    {
+      "id": "energy",
+      "name": "Energy",
+      "definition": "Primary energy supply: oil, natural gas, electricity generation. Includes domestic extraction, generation, and net trade.",
+      "includes": "Crude oil, petroleum products, natural gas, electricity (all sources)",
+      "excludes": "Refined fuel retail, energy services, energy equipment manufacturing"
+    },
+    {
+      "id": "food",
+      "name": "Food & Agriculture",
+      "definition": "Domestic food production as share of total food consumption. Covers all food categories including crops, livestock, dairy, and processed foods.",
+      "includes": "Cereals, meat, dairy, eggs, vegetables, fruit, processed foods",
+      "excludes": "Animal feed imports, non-food agricultural products (cotton, tobacco), beverages"
+    },
+    {
+      "id": "pharma",
+      "name": "Pharmaceuticals",
+      "definition": "Medicinal and pharmaceutical products trade. Covers finished dosage forms and active pharmaceutical ingredients.",
+      "includes": "Medicament mixtures in dosage, vaccines, APIs, biological products",
+      "excludes": "Medical devices, diagnostics, veterinary medicines"
+    },
+    {
+      "id": "steel",
+      "name": "Steel & Metals",
+      "definition": "Crude steel production and finished steel product trade. Primary metric is tonnage of crude steel.",
+      "includes": "Crude steel (oxygen converter + electric arc), finished steel products",
+      "excludes": "Non-ferrous metals (aluminium, copper), scrap metal trade, downstream fabrication"
+    },
+    {
+      "id": "automotive",
+      "name": "Automotive",
+      "definition": "Motor vehicle manufacturing, including passenger cars and commercial vehicles. Trade measured by value and units.",
+      "includes": "Passenger cars, commercial vehicles, automotive parts",
+      "excludes": "Motorcycles, bicycles, rail vehicles, aftermarket accessories"
+    },
+    {
+      "id": "semiconductors",
+      "name": "Semiconductors & Electronics",
+      "definition": "Semiconductor devices and integrated circuits. Covers chip design, fabrication, and trade.",
+      "includes": "Integrated circuits, discrete semiconductors, memory chips, processors",
+      "excludes": "Consumer electronics (phones, TVs), software, PCB assembly"
+    },
+    {
+      "id": "defence",
+      "name": "Defence & Aerospace",
+      "definition": "Military equipment and civil aerospace manufacturing and trade. Includes aircraft, weapons systems, and space systems.",
+      "includes": "Military aircraft, naval vessels, armoured vehicles, missiles, civil aircraft, aero engines, satellites",
+      "excludes": "Dual-use IT systems, private security services, veteran services"
+    },
+    {
+      "id": "construction",
+      "name": "Construction Materials",
+      "definition": "Key construction inputs: timber, cement, and aggregates. Measured by volume and import share of consumption.",
+      "includes": "Sawn timber, cement/clinker, sand, gravel, crushed stone, bricks",
+      "excludes": "Steel for construction (covered under Steel), glass, insulation, fixtures"
+    }
+  ],
+  "sources": [
+    {
+      "id": "desnz-dukes",
+      "name": "DESNZ Digest of UK Energy Statistics (DUKES)",
+      "provider": "Department for Energy Security & Net Zero",
+      "url": "https://www.gov.uk/government/collections/digest-of-uk-energy-statistics-dukes",
+      "covers": "UK energy production, consumption, imports, exports by fuel type",
+      "frequency": "Annual (July)",
+      "limitations": "12-18 month lag on final data; provisional estimates released quarterly"
+    },
+    {
+      "id": "defra-food",
+      "name": "DEFRA Food Statistics Pocketbook / UK Food Security Index",
+      "provider": "Department for Environment, Food & Rural Affairs",
+      "url": "https://www.gov.uk/government/statistics/food-statistics-pocketbook",
+      "covers": "UK food self-sufficiency ratios by product, food trade balances",
+      "frequency": "Annual",
+      "limitations": "Self-sufficiency calculated on production basis, not calorie basis; excludes feed imports"
+    },
+    {
+      "id": "hmrc-trade",
+      "name": "HMRC UK Trade Info",
+      "provider": "HM Revenue & Customs",
+      "url": "https://www.uktradeinfo.com/",
+      "covers": "Detailed bilateral trade by commodity (HS codes), value and volume",
+      "frequency": "Monthly",
+      "limitations": "Post-Brexit methodology changes; asymmetries with EU partner data"
+    },
+    {
+      "id": "ons-trade",
+      "name": "ONS UK Trade",
+      "provider": "Office for National Statistics",
+      "url": "https://www.ons.gov.uk/economy/nationalaccounts/balanceofpayments",
+      "covers": "Balance of payments, trade in goods by commodity",
+      "frequency": "Monthly/Quarterly",
+      "limitations": "Revisions common; services trade estimates have wider confidence intervals"
+    },
+    {
+      "id": "eurostat",
+      "name": "Eurostat",
+      "provider": "European Commission",
+      "url": "https://ec.europa.eu/eurostat",
+      "covers": "Energy dependency, trade, agriculture, industrial production across EU",
+      "frequency": "Varies (monthly to annual)",
+      "limitations": "UK data ends 2020 for EU membership series; post-Brexit treated as third country"
+    },
+    {
+      "id": "oecd",
+      "name": "OECD Statistics",
+      "provider": "Organisation for Economic Co-operation and Development",
+      "url": "https://stats.oecd.org/",
+      "covers": "Bilateral trade, industrial production, input-output tables",
+      "frequency": "Annual",
+      "limitations": "2-year lag on some datasets; aggregation may obscure detail"
+    },
+    {
+      "id": "world-steel",
+      "name": "World Steel Association",
+      "provider": "World Steel Association",
+      "url": "https://worldsteel.org/steel-topics/statistics/",
+      "covers": "Crude steel production by country, apparent steel use",
+      "frequency": "Monthly/Annual",
+      "limitations": "Crude steel only; does not cover downstream products"
+    },
+    {
+      "id": "smmt",
+      "name": "SMMT Motor Industry Facts",
+      "provider": "Society of Motor Manufacturers and Traders",
+      "url": "https://www.smmt.co.uk/industry-topics/uk-automotive/",
+      "covers": "UK vehicle production, registrations, trade values",
+      "frequency": "Monthly",
+      "limitations": "Value data includes parts trade; unit data covers complete vehicles only"
+    }
+  ],
+  "current": [
+    {
+      "industry": "energy",
+      "year": 2024,
+      "country": "UK",
+      "metrics": {
+        "importDependencyPct": 43.8,
+        "oilProductionBpd": 710000,
+        "oilConsumptionBpd": 1330000,
+        "gasProductionBcm": 32,
+        "gasConsumptionBcm": 62,
+        "electricityGenTwh": 290,
+        "electricityNetImportsTwh": 24,
+        "renewableSharePct": 50.4
+      },
+      "source": "desnz-dukes",
+      "confidence": "high",
+      "notes": "Oil and gas production declining. Norway supplies ~57% of gas imports."
+    },
+    {
+      "industry": "energy",
+      "year": 2023,
+      "country": "France",
+      "metrics": {
+        "importDependencyPct": 44.5,
+        "electricityGenTwh": 530,
+        "electricityNetExportsTwh": 50,
+        "nuclearSharePct": 65,
+        "renewableSharePct": 28,
+        "oilDependencyPct": 99,
+        "gasDependencyPct": 99
+      },
+      "source": "eurostat",
+      "confidence": "high",
+      "notes": "Electricity near self-sufficient due to nuclear fleet. Oil and gas almost entirely imported."
+    },
+    {
+      "industry": "energy",
+      "year": 2023,
+      "country": "Germany",
+      "metrics": {
+        "importDependencyPct": 63.7,
+        "oilDependencyPct": 98,
+        "gasDependencyPct": 95,
+        "coalDependencyPct": 100,
+        "renewableSharePct": 52
+      },
+      "source": "eurostat",
+      "confidence": "high",
+      "notes": "Ended domestic hard coal production 2018. Highest energy dependency of the three."
+    },
+    {
+      "industry": "food",
+      "year": 2024,
+      "country": "UK",
+      "metrics": {
+        "selfSufficiencyAllPct": 65,
+        "selfSufficiencyIndigenousPct": 77,
+        "importDependencyPct": 35,
+        "cerealsPct": 93,
+        "beefPct": 85,
+        "poultryPct": 82,
+        "eggsPct": 87,
+        "porkPct": 64,
+        "freshVegPct": 53,
+        "fruitPct": 16
+      },
+      "source": "defra-food",
+      "confidence": "high",
+      "notes": "65% is estimated for 2024. Fresh vegetables at record low since 1988."
+    },
+    {
+      "industry": "food",
+      "year": 2023,
+      "country": "France",
+      "metrics": {
+        "selfSufficiencyAllPct": 129,
+        "importDependencyPct": 0,
+        "tradeStatus": "net exporter",
+        "agriExportsBnEur": 73
+      },
+      "source": "eurostat",
+      "confidence": "high",
+      "notes": "France is the EU's largest agricultural producer. 129% on calorie basis."
+    },
+    {
+      "industry": "food",
+      "year": 2023,
+      "country": "Germany",
+      "metrics": {
+        "selfSufficiencyAllPct": 83,
+        "importDependencyPct": 17,
+        "potatoesPct": 147,
+        "sugarPct": 135,
+        "meatPct": 124,
+        "milkPct": 108,
+        "vegetablesPct": 36,
+        "fruitPct": 23
+      },
+      "source": "eurostat",
+      "confidence": "high",
+      "notes": "Self-sufficient in staples but heavily import-dependent for fresh produce."
+    },
+    {
+      "industry": "pharma",
+      "year": 2023,
+      "country": "UK",
+      "metrics": {
+        "exportsBnGbp": 15.4,
+        "importsBnGbp": 16.4,
+        "tradeBalanceBnGbp": -1.0,
+        "importDependencyPct": 52
+      },
+      "source": "hmrc-trade",
+      "confidence": "medium",
+      "notes": "Trade near-balanced but shifted from surplus to deficit since 2015. API dependency on China/India."
+    },
+    {
+      "industry": "pharma",
+      "year": 2024,
+      "country": "Germany",
+      "metrics": {
+        "exportsBnEur": 124.2,
+        "importsBnEur": 91.5,
+        "tradeBalanceBnEur": 32.7,
+        "importDependencyPct": 24,
+        "globalExportSharePct": 13.6
+      },
+      "source": "eurostat",
+      "confidence": "high",
+      "notes": "Europe's largest pharma exporter. Strong surplus despite API import dependency."
+    },
+    {
+      "industry": "pharma",
+      "year": 2024,
+      "country": "France",
+      "metrics": {
+        "importsBnEur": 42.7,
+        "exportsBnEur": 40.6,
+        "tradeBalanceBnEur": -2.1,
+        "importDependencyPct": 51
+      },
+      "source": "eurostat",
+      "confidence": "medium",
+      "notes": "Near-balanced trade. Significant pharma sector but growing import dependency."
+    },
+    {
+      "industry": "steel",
+      "year": 2024,
+      "country": "UK",
+      "metrics": {
+        "productionMt": 4.0,
+        "consumptionMt": 8.5,
+        "importsMt": 5.5,
+        "exportsMt": 1.0,
+        "importDependencyPct": 70,
+        "domesticSharePct": 30
+      },
+      "source": "world-steel",
+      "confidence": "high",
+      "notes": "Production at historic low. 70% import dependency up from 55% in 2022."
+    },
+    {
+      "industry": "steel",
+      "year": 2024,
+      "country": "Germany",
+      "metrics": {
+        "productionMt": 37.2,
+        "consumptionMt": 27.0,
+        "exportsMt": 18.0,
+        "importsMt": 12.0,
+        "importDependencyPct": 0,
+        "domesticSharePct": 100,
+        "tradeStatus": "net exporter"
+      },
+      "source": "world-steel",
+      "confidence": "high",
+      "notes": "Europe's largest producer. Net exporter. Consumption at mid-1990s low."
+    },
+    {
+      "industry": "steel",
+      "year": 2023,
+      "country": "France",
+      "metrics": {
+        "productionMt": 11.7,
+        "importDependencyPct": 35,
+        "domesticSharePct": 65
+      },
+      "source": "world-steel",
+      "confidence": "medium",
+      "notes": "Moderate producer. Lower electricity costs support domestic production."
+    },
+    {
+      "industry": "automotive",
+      "year": 2024,
+      "country": "UK",
+      "metrics": {
+        "productionUnits": 905233,
+        "exportsBnGbp": 47,
+        "importsBnGbp": 68,
+        "tradeBalanceBnGbp": -21,
+        "exportShareOfProductionPct": 80,
+        "importDependencyPct": 78
+      },
+      "source": "smmt",
+      "confidence": "high",
+      "notes": "UK produces mostly for export (80%). Domestic market heavily import-dependent."
+    },
+    {
+      "industry": "automotive",
+      "year": 2024,
+      "country": "Germany",
+      "metrics": {
+        "productionUnits": 4200000,
+        "exportUnits": 3400000,
+        "exportsBnEur": 135.0,
+        "netExportSurplusBnUsd": 103.2,
+        "exportShareOfProductionPct": 81
+      },
+      "source": "eurostat",
+      "confidence": "high",
+      "notes": "4.6x UK production. Dominant European auto exporter. Top destinations: US, UK, France."
+    },
+    {
+      "industry": "automotive",
+      "year": 2023,
+      "country": "France",
+      "metrics": {
+        "productionUnits": 1505076,
+        "exportSharePct": 68,
+        "importDependencyPct": 55
+      },
+      "source": "eurostat",
+      "confidence": "medium",
+      "notes": "1.7x UK production. Renault/Stellantis. Exports declined 8.1% in 2024."
+    },
+    {
+      "industry": "semiconductors",
+      "year": 2024,
+      "country": "UK",
+      "metrics": {
+        "marketSizeBnUsd": 13.1,
+        "domesticProductionBnUsd": 0.5,
+        "importDependencyPct": 96,
+        "domesticSharePct": 4
+      },
+      "source": "ons-trade",
+      "confidence": "medium",
+      "notes": "Minimal domestic fabrication. Almost entirely import-dependent. Govt pledged $1.2bn investment."
+    },
+    {
+      "industry": "semiconductors",
+      "year": 2024,
+      "country": "Germany",
+      "metrics": {
+        "importDependencyPct": 92,
+        "domesticSharePct": 8,
+        "revenueDeclineSince2019Pct": -33
+      },
+      "source": "eurostat",
+      "confidence": "medium",
+      "notes": "Revenue down 33% since 2019. EU Chips Act aims to address dependency."
+    },
+    {
+      "industry": "semiconductors",
+      "year": 2024,
+      "country": "France",
+      "metrics": {
+        "revenueBnEur": 0.317,
+        "importDependencyPct": 94,
+        "domesticSharePct": 6
+      },
+      "source": "eurostat",
+      "confidence": "medium",
+      "notes": "Small domestic market. STMicroelectronics only significant producer."
+    },
+    {
+      "industry": "defence",
+      "year": 2024,
+      "country": "UK",
+      "metrics": {
+        "sectorTurnoverBnGbp": 88.4,
+        "sectorGvaBnGbp": 38.2,
+        "defenceExportsBnGbp": 13.2,
+        "aeroExportsBnGbp": 25,
+        "tradeStatus": "net exporter",
+        "importDependencyPct": 15
+      },
+      "source": "hmrc-trade",
+      "confidence": "medium",
+      "notes": "Strong net exporter. Aerospace is 56% of defence exports. BAE Systems, Rolls-Royce, Leonardo UK."
+    },
+    {
+      "industry": "defence",
+      "year": 2024,
+      "country": "France",
+      "metrics": {
+        "defenceExportsBnEur": 18,
+        "aeroExportsBnEur": 26,
+        "tradeStatus": "net exporter",
+        "importDependencyPct": 10,
+        "rafaleBacklog": 299
+      },
+      "source": "eurostat",
+      "confidence": "medium",
+      "notes": "2nd best year for defence exports. Dassault Rafale backlog at record. Airbus major contributor."
+    },
+    {
+      "industry": "defence",
+      "year": 2024,
+      "country": "Germany",
+      "metrics": {
+        "defenceExportsBnEur": 12.8,
+        "marketSizeBnUsd": 56.3,
+        "tradeStatus": "net exporter",
+        "importDependencyPct": 20
+      },
+      "source": "eurostat",
+      "confidence": "medium",
+      "notes": "Record exports. Ukraine = 64% of 2024 defence exports. Rheinmetall major supplier."
+    },
+    {
+      "industry": "construction",
+      "year": 2023,
+      "country": "UK",
+      "metrics": {
+        "timberImportPct": 81,
+        "cementImportPct": 32,
+        "aggregatesImportPct": 13,
+        "overallImportDependencyPct": 42
+      },
+      "source": "ons-trade",
+      "confidence": "high",
+      "notes": "World's 3rd largest net timber importer. Cement at record import share. Aggregates domestic."
+    },
+    {
+      "industry": "construction",
+      "year": 2023,
+      "country": "Germany",
+      "metrics": {
+        "cementProductionMt": 33,
+        "timberHarvestMm3": 70.6,
+        "timberTradeStatus": "net exporter",
+        "cementTradeStatus": "net importer",
+        "overallImportDependencyPct": 20
+      },
+      "source": "eurostat",
+      "confidence": "medium",
+      "notes": "Large forest base. Timber net exporter. Cement net importer (France largest source)."
+    },
+    {
+      "industry": "construction",
+      "year": 2023,
+      "country": "France",
+      "metrics": {
+        "timberHarvestMm3": 39.9,
+        "woodTradeDeficitBnEur": -8.5,
+        "cementImportsBnUsd": 0.63,
+        "timberTradeStatus": "net importer",
+        "overallImportDependencyPct": 35
+      },
+      "source": "eurostat",
+      "confidence": "medium",
+      "notes": "Net timber importer despite domestic harvest. Significant wood trade deficit."
+    }
+  ],
+  "timeSeries": {
+    "ukEnergyDependency": {
+      "metric": "Import dependency ratio (%)",
+      "source": "desnz-dukes",
+      "confidence": "high",
+      "data": [
+        { "year": 2005, "value": 13.2 },
+        { "year": 2006, "value": 21.1 },
+        { "year": 2007, "value": 20.1 },
+        { "year": 2008, "value": 26.7 },
+        { "year": 2009, "value": 26.1 },
+        { "year": 2010, "value": 28.4 },
+        { "year": 2011, "value": 36.2 },
+        { "year": 2012, "value": 42.1 },
+        { "year": 2013, "value": 46.4 },
+        { "year": 2014, "value": 42.4 },
+        { "year": 2015, "value": 37.5 },
+        { "year": 2016, "value": 35.3 },
+        { "year": 2017, "value": 35.9 },
+        { "year": 2018, "value": 36.0 },
+        { "year": 2019, "value": 35.2 },
+        { "year": 2020, "value": 30.5 },
+        { "year": 2021, "value": 35.8 },
+        { "year": 2022, "value": 37.0 },
+        { "year": 2023, "value": 40.3 },
+        { "year": 2024, "value": 43.8 }
+      ]
+    },
+    "ukFoodSelfSufficiency": {
+      "metric": "Self-sufficiency ratio (%), all foods",
+      "source": "defra-food",
+      "confidence": "high",
+      "data": [
+        { "year": 2005, "value": 67 },
+        { "year": 2006, "value": 66 },
+        { "year": 2007, "value": 65 },
+        { "year": 2008, "value": 63 },
+        { "year": 2009, "value": 59 },
+        { "year": 2010, "value": 62 },
+        { "year": 2011, "value": 63 },
+        { "year": 2012, "value": 62 },
+        { "year": 2013, "value": 62 },
+        { "year": 2014, "value": 61 },
+        { "year": 2015, "value": 61 },
+        { "year": 2016, "value": 60 },
+        { "year": 2017, "value": 60 },
+        { "year": 2018, "value": 61 },
+        { "year": 2019, "value": 64 },
+        { "year": 2020, "value": 61 },
+        { "year": 2021, "value": 60 },
+        { "year": 2022, "value": 62 },
+        { "year": 2023, "value": 62 },
+        { "year": 2024, "value": 65 }
+      ]
+    },
+    "ukSteelImportDependency": {
+      "metric": "Import share of consumption (%)",
+      "source": "world-steel",
+      "confidence": "high",
+      "data": [
+        { "year": 2005, "value": 35 },
+        { "year": 2006, "value": 37 },
+        { "year": 2007, "value": 39 },
+        { "year": 2008, "value": 38 },
+        { "year": 2009, "value": 42 },
+        { "year": 2010, "value": 45 },
+        { "year": 2011, "value": 43 },
+        { "year": 2012, "value": 44 },
+        { "year": 2013, "value": 45 },
+        { "year": 2014, "value": 48 },
+        { "year": 2015, "value": 55 },
+        { "year": 2016, "value": 57 },
+        { "year": 2017, "value": 52 },
+        { "year": 2018, "value": 50 },
+        { "year": 2019, "value": 52 },
+        { "year": 2020, "value": 55 },
+        { "year": 2021, "value": 50 },
+        { "year": 2022, "value": 55 },
+        { "year": 2023, "value": 60 },
+        { "year": 2024, "value": 70 }
+      ]
+    },
+    "ukAutoProduction": {
+      "metric": "Vehicle production (units)",
+      "source": "smmt",
+      "confidence": "high",
+      "data": [
+        { "year": 2005, "value": 1596000 },
+        { "year": 2006, "value": 1442000 },
+        { "year": 2007, "value": 1535000 },
+        { "year": 2008, "value": 1446000 },
+        { "year": 2009, "value": 999000 },
+        { "year": 2010, "value": 1270000 },
+        { "year": 2011, "value": 1344000 },
+        { "year": 2012, "value": 1464000 },
+        { "year": 2013, "value": 1510000 },
+        { "year": 2014, "value": 1528000 },
+        { "year": 2015, "value": 1587000 },
+        { "year": 2016, "value": 1722000 },
+        { "year": 2017, "value": 1671000 },
+        { "year": 2018, "value": 1519000 },
+        { "year": 2019, "value": 1303000 },
+        { "year": 2020, "value": 920000 },
+        { "year": 2021, "value": 859000 },
+        { "year": 2022, "value": 775000 },
+        { "year": 2023, "value": 1025000 },
+        { "year": 2024, "value": 905000 }
+      ]
+    }
+  },
+  "comparison": {
+    "importDependency": {
+      "description": "Import dependency ratio by industry (%, latest available year)",
+      "data": [
+        { "industry": "Energy", "UK": 43.8, "France": 44.5, "Germany": 63.7 },
+        { "industry": "Food", "UK": 35, "France": 0, "Germany": 17 },
+        { "industry": "Pharma", "UK": 52, "France": 51, "Germany": 24 },
+        { "industry": "Steel", "UK": 70, "France": 35, "Germany": 0 },
+        { "industry": "Automotive", "UK": 78, "France": 55, "Germany": 15 },
+        { "industry": "Semiconductors", "UK": 96, "France": 94, "Germany": 92 },
+        { "industry": "Defence", "UK": 15, "France": 10, "Germany": 20 },
+        { "industry": "Construction", "UK": 42, "France": 35, "Germany": 20 }
+      ]
+    },
+    "domesticShare": {
+      "description": "Domestic production share of consumption (%, latest available year)",
+      "data": [
+        { "industry": "Energy", "UK": 56.2, "France": 55.5, "Germany": 36.3 },
+        { "industry": "Food", "UK": 65, "France": 129, "Germany": 83 },
+        { "industry": "Steel", "UK": 30, "France": 65, "Germany": 100 },
+        { "industry": "Automotive", "UK": 22, "France": 45, "Germany": 85 },
+        { "industry": "Semiconductors", "UK": 4, "France": 6, "Germany": 8 }
+      ]
+    }
+  },
+  "foodBreakdown": {
+    "description": "UK food self-sufficiency by product category (%, 2023)",
+    "source": "defra-food",
+    "data": [
+      { "category": "Cereals", "value": 93 },
+      { "category": "Eggs", "value": 87 },
+      { "category": "Beef", "value": 85 },
+      { "category": "Poultry", "value": 82 },
+      { "category": "Milk & Dairy", "value": 78 },
+      { "category": "Pork", "value": 64 },
+      { "category": "Fresh Vegetables", "value": 53 },
+      { "category": "Sugar", "value": 45 },
+      { "category": "Fruit", "value": 16 },
+      { "category": "Fish", "value": 42 }
+    ]
+  },
+  "constructionBreakdown": {
+    "description": "UK construction materials import dependency by material (%, 2023)",
+    "source": "ons-trade",
+    "data": [
+      { "material": "Timber", "importPct": 81 },
+      { "material": "Cement", "importPct": 32 },
+      { "material": "Bricks", "importPct": 18 },
+      { "material": "Aggregates", "importPct": 13 },
+      { "material": "Sand", "importPct": 2 },
+      { "material": "Limestone", "importPct": 1 }
+    ]
+  }
+}

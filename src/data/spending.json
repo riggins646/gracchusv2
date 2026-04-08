@@ -1,0 +1,189 @@
+{
+  "welfareTimeline": [
+    {
+      "year": "2000-01",
+      "total": 147,
+      "pctGdp": 11.8
+    },
+    {
+      "year": "2001-02",
+      "total": 154,
+      "pctGdp": 12.1
+    },
+    {
+      "year": "2002-03",
+      "total": 162,
+      "pctGdp": 12.4
+    },
+    {
+      "year": "2003-04",
+      "total": 171,
+      "pctGdp": 12.6
+    },
+    {
+      "year": "2004-05",
+      "total": 179,
+      "pctGdp": 12.7
+    },
+    {
+      "year": "2005-06",
+      "total": 187,
+      "pctGdp": 12.8
+    },
+    {
+      "year": "2006-07",
+      "total": 195,
+      "pctGdp": 12.9
+    },
+    {
+      "year": "2007-08",
+      "total": 205,
+      "pctGdp": 13.2
+    },
+    {
+      "year": "2008-09",
+      "total": 217,
+      "pctGdp": 14.1
+    },
+    {
+      "year": "2010-11",
+      "total": 218,
+      "pctGdp": 14.2
+    },
+    {
+      "year": "2012-13",
+      "total": 224,
+      "pctGdp": 13.5
+    },
+    {
+      "year": "2014-15",
+      "total": 228,
+      "pctGdp": 12.7
+    },
+    {
+      "year": "2016-17",
+      "total": 234,
+      "pctGdp": 11.7
+    },
+    {
+      "year": "2018-19",
+      "total": 241,
+      "pctGdp": 11.3
+    },
+    {
+      "year": "2020-21",
+      "total": 286,
+      "pctGdp": 14.7
+    },
+    {
+      "year": "2022-23",
+      "total": 335,
+      "pctGdp": 13.8
+    },
+    {
+      "year": "2024-25",
+      "total": 384,
+      "pctGdp": 14.4
+    },
+    {
+      "year": "2025-26",
+      "total": 334,
+      "pctGdp": 10.8
+    }
+  ],
+  "welfareBreakdown": [
+    {
+      "name": "State Pension",
+      "value": 146.1,
+      "color": "#3b82f6"
+    },
+    {
+      "name": "Disability Benefits",
+      "value": 76.9,
+      "color": "#ef4444"
+    },
+    {
+      "name": "Housing Benefit",
+      "value": 37.8,
+      "color": "#f59e0b"
+    },
+    {
+      "name": "Universal Credit",
+      "value": 45.3,
+      "color": "#ec4899"
+    },
+    {
+      "name": "Child Benefit",
+      "value": 12.5,
+      "color": "#10b981"
+    },
+    {
+      "name": "Pension Credit",
+      "value": 8.2,
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "Other Benefits",
+      "value": 7.2,
+      "color": "#6b7280"
+    }
+  ],
+  "departmental": [
+    {
+      "dept": "Work & Pensions",
+      "spending": 297.9,
+      "color": "#ef4444"
+    },
+    {
+      "dept": "Health & Social Care",
+      "spending": 202.0,
+      "color": "#3b82f6"
+    },
+    {
+      "dept": "Education",
+      "spending": 95.0,
+      "color": "#10b981"
+    },
+    {
+      "dept": "Defence",
+      "spending": 39.0,
+      "color": "#f59e0b"
+    },
+    {
+      "dept": "HM Treasury",
+      "spending": 36.5,
+      "color": "#8b5cf6"
+    },
+    {
+      "dept": "Transport",
+      "spending": 28.0,
+      "color": "#06b6d4"
+    },
+    {
+      "dept": "Housing",
+      "spending": 25.5,
+      "color": "#ec4899"
+    },
+    {
+      "dept": "Energy & Net Zero",
+      "spending": 22.0,
+      "color": "#f97316"
+    },
+    {
+      "dept": "Environment",
+      "spending": 19.5,
+      "color": "#84cc16"
+    },
+    {
+      "dept": "Science",
+      "spending": 18.0,
+      "color": "#a855f7"
+    }
+  ],
+  "sources": [
+    "DWP Benefit Expenditure Tables 2025",
+    "HM Treasury PESA 2025",
+    "OBR Public Finances Databank",
+    "House of Commons Library"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "countries": [
+    {
+      "country": "UK", "flag": "GB", "pop": "68.3m",
+      "gdp": "$3,644bn", "gdpPerCapita": "$53,370",
+      "spendPctGdp": 44.0, "debtPctGdp": 101.0,
+      "defencePctGdp": 2.33, "healthPerCapita": 5387,
+      "publicEmployPct": 16.5
+    },
+    {
+      "country": "France", "flag": "FR", "pop": "68.9m",
+      "gdp": "$3,162bn", "gdpPerCapita": "$45,890",
+      "spendPctGdp": 57.3, "debtPctGdp": 113.0,
+      "defencePctGdp": 2.06, "healthPerCapita": 6115,
+      "publicEmployPct": 21.2
+    },
+    {
+      "country": "Germany", "flag": "DE", "pop": "83.6m",
+      "gdp": "$4,305bn", "gdpPerCapita": "$51,460",
+      "spendPctGdp": 49.4, "debtPctGdp": 62.2,
+      "defencePctGdp": 2.12, "healthPerCapita": 8350,
+      "publicEmployPct": 12.9
+    }
+  ],
+  "spendByFunction": [
+    { "fn": "Social Protection", "UK": 14.8, "France": 24.1, "Germany": 19.4 },
+    { "fn": "Health", "UK": 10.8, "France": 8.6, "Germany": 8.2 },
+    { "fn": "Education", "UK": 4.5, "France": 5.3, "Germany": 4.3 },
+    { "fn": "Defence", "UK": 2.3, "France": 2.1, "Germany": 2.1 },
+    { "fn": "Public Order", "UK": 1.8, "France": 1.6, "Germany": 1.7 },
+    { "fn": "Economic Affairs", "UK": 4.8, "France": 6.2, "Germany": 4.9 },
+    { "fn": "General Services", "UK": 3.2, "France": 5.6, "Germany": 5.9 }
+  ],
+  "sources": [
+    "OECD Government at a Glance 2025",
+    "Eurostat COFOG data",
+    "IMF World Economic Outlook",
+    "WHO Health Expenditure Database"
+  ]
+}

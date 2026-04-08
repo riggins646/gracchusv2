@@ -1,0 +1,35 @@
+{
+  "metadata": {
+    "title": "UK Public Finances — Receipts, Spending & Borrowing Flow",
+    "description": "How government receipts flow into spending categories, debt interest, and borrowing.",
+    "sources": [
+      {
+        "name": "ONS Public Sector Finances",
+        "url": "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance",
+        "confidence": "high"
+      }
+    ],
+    "unit": "billions_gbp",
+    "period": "financial_year",
+    "lastUpdated": "2026-04-08",
+    "latestSource": "ONS Public Sector Finances (pipeline auto-refresh)",
+    "sourceConfidence": "high"
+  },
+  "annual": [],
+  "latestMonth": null,
+  "limitations": [
+    "Spending category breakdown uses OBR proportional shares applied to ONS total TME. Monthly category splits are not published.",
+    "Tax receipt breakdown uses ONS individual tax CDIDs. Residuals calculated as balancing items.",
+    "All figures in nominal terms."
+  ],
+  "_ingest": {
+    "fetchedAt": "2026-04-08T12:08:56.163Z",
+    "sourceTimestamp": "2026-04-08T12:08:58.806Z",
+    "sourceName": "ONS Public Sector Finances (time series CDIDs)",
+    "recordCount": 0,
+    "validationResult": "warn",
+    "validationNotes": [
+      "Custom validation failed"
+    ]
+  }
+}

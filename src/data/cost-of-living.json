@@ -1,0 +1,1014 @@
+{
+  "metadata": {
+    "title": "Cost of Living",
+    "lastUpdated": "2026-03",
+    "description": "UK cost of living indicators: inflation, wages, housing, energy, food and transport."
+  },
+  "headline": {
+    "cpiPct": 3.0,
+    "realWageGrowthPct": 0.5,
+    "avgRentGbp": 1374,
+    "energyCapGbp": 1641,
+    "foodInflationPct": 3.3,
+    "petrolPenceLitre": 152.9,
+    "dieselPenceLitre": 176.5
+  },
+  "cpiInflation": {
+    "source": "ONS Consumer Prices Index (CPI, % YoY)",
+    "data": [
+      {
+        "m": "Jan 2000",
+        "v": 2.1
+      },
+      {
+        "m": "Apr 2000",
+        "v": 1.9
+      },
+      {
+        "m": "Jul 2000",
+        "v": 2.2
+      },
+      {
+        "m": "Oct 2000",
+        "v": 2.4
+      },
+      {
+        "m": "Jan 2001",
+        "v": 1.8
+      },
+      {
+        "m": "Apr 2001",
+        "v": 1.5
+      },
+      {
+        "m": "Jul 2001",
+        "v": 2.4
+      },
+      {
+        "m": "Oct 2001",
+        "v": 2.1
+      },
+      {
+        "m": "Jan 2002",
+        "v": 1.6
+      },
+      {
+        "m": "Apr 2002",
+        "v": 1.4
+      },
+      {
+        "m": "Jul 2002",
+        "v": 1.3
+      },
+      {
+        "m": "Oct 2002",
+        "v": 1.4
+      },
+      {
+        "m": "Jan 2003",
+        "v": 1.3
+      },
+      {
+        "m": "Apr 2003",
+        "v": 1.1
+      },
+      {
+        "m": "Jul 2003",
+        "v": 1.4
+      },
+      {
+        "m": "Oct 2003",
+        "v": 1.3
+      },
+      {
+        "m": "Jan 2004",
+        "v": 1.1
+      },
+      {
+        "m": "Apr 2004",
+        "v": 1.6
+      },
+      {
+        "m": "Jul 2004",
+        "v": 1.3
+      },
+      {
+        "m": "Oct 2004",
+        "v": 1.2
+      },
+      {
+        "m": "Jan 2005",
+        "v": 1.6
+      },
+      {
+        "m": "Apr 2005",
+        "v": 1.9
+      },
+      {
+        "m": "Jul 2005",
+        "v": 2.4
+      },
+      {
+        "m": "Oct 2005",
+        "v": 2.4
+      },
+      {
+        "m": "Jan 2006",
+        "v": 1.9
+      },
+      {
+        "m": "Apr 2006",
+        "v": 2.5
+      },
+      {
+        "m": "Jul 2006",
+        "v": 2.4
+      },
+      {
+        "m": "Oct 2006",
+        "v": 2.7
+      },
+      {
+        "m": "Jan 2007",
+        "v": 2.7
+      },
+      {
+        "m": "Apr 2007",
+        "v": 2.8
+      },
+      {
+        "m": "Jul 2007",
+        "v": 1.9
+      },
+      {
+        "m": "Oct 2007",
+        "v": 2.1
+      },
+      {
+        "m": "Jan 2008",
+        "v": 2.2
+      },
+      {
+        "m": "Apr 2008",
+        "v": 3.0
+      },
+      {
+        "m": "Jul 2008",
+        "v": 4.4
+      },
+      {
+        "m": "Oct 2008",
+        "v": 3.5
+      },
+      {
+        "m": "Jan 2009",
+        "v": 3.0
+      },
+      {
+        "m": "Apr 2009",
+        "v": 2.3
+      },
+      {
+        "m": "Jul 2009",
+        "v": 1.8
+      },
+      {
+        "m": "Oct 2009",
+        "v": 1.5
+      },
+      {
+        "m": "Jan 2010",
+        "v": 3.3
+      },
+      {
+        "m": "Apr 2010",
+        "v": 3.7
+      },
+      {
+        "m": "Jul 2010",
+        "v": 3.1
+      },
+      {
+        "m": "Oct 2010",
+        "v": 2.8
+      },
+      {
+        "m": "Jan 2011",
+        "v": 4.0
+      },
+      {
+        "m": "Apr 2011",
+        "v": 4.5
+      },
+      {
+        "m": "Jul 2011",
+        "v": 4.4
+      },
+      {
+        "m": "Oct 2011",
+        "v": 4.8
+      },
+      {
+        "m": "Jan 2012",
+        "v": 3.6
+      },
+      {
+        "m": "Apr 2012",
+        "v": 3.5
+      },
+      {
+        "m": "Jul 2012",
+        "v": 2.6
+      },
+      {
+        "m": "Oct 2012",
+        "v": 2.2
+      },
+      {
+        "m": "Jan 2013",
+        "v": 1.9
+      },
+      {
+        "m": "Apr 2013",
+        "v": 2.4
+      },
+      {
+        "m": "Jul 2013",
+        "v": 2.8
+      },
+      {
+        "m": "Oct 2013",
+        "v": 2.1
+      },
+      {
+        "m": "Jan 2014",
+        "v": 1.7
+      },
+      {
+        "m": "Apr 2014",
+        "v": 1.8
+      },
+      {
+        "m": "Jul 2014",
+        "v": 1.6
+      },
+      {
+        "m": "Oct 2014",
+        "v": 1.0
+      },
+      {
+        "m": "Jan 2015",
+        "v": 0.3
+      },
+      {
+        "m": "Apr 2015",
+        "v": 0.1
+      },
+      {
+        "m": "Jul 2015",
+        "v": 0.0
+      },
+      {
+        "m": "Oct 2015",
+        "v": 0.1
+      },
+      {
+        "m": "Jan 2016",
+        "v": 0.3
+      },
+      {
+        "m": "Apr 2016",
+        "v": 0.3
+      },
+      {
+        "m": "Jul 2016",
+        "v": 0.6
+      },
+      {
+        "m": "Oct 2016",
+        "v": 1.0
+      },
+      {
+        "m": "Jan 2017",
+        "v": 1.8
+      },
+      {
+        "m": "Apr 2017",
+        "v": 2.3
+      },
+      {
+        "m": "Jul 2017",
+        "v": 2.6
+      },
+      {
+        "m": "Oct 2017",
+        "v": 3.1
+      },
+      {
+        "m": "Jan 2018",
+        "v": 3.4
+      },
+      {
+        "m": "Apr 2018",
+        "v": 2.4
+      },
+      {
+        "m": "Jul 2018",
+        "v": 2.6
+      },
+      {
+        "m": "Oct 2018",
+        "v": 2.4
+      },
+      {
+        "m": "Jan 2019",
+        "v": 1.9
+      },
+      {
+        "m": "Apr 2019",
+        "v": 2.3
+      },
+      {
+        "m": "Jul 2019",
+        "v": 2.0
+      },
+      {
+        "m": "Oct 2019",
+        "v": 1.5
+      },
+      {
+        "m": "Jan 2020",
+        "v": 1.8
+      },
+      {
+        "m": "Apr 2020",
+        "v": 0.8
+      },
+      {
+        "m": "Jul 2020",
+        "v": 1.0
+      },
+      {
+        "m": "Oct 2020",
+        "v": 0.7
+      },
+      {
+        "m": "Jan 2021",
+        "v": 0.7
+      },
+      {
+        "m": "Apr 2021",
+        "v": 1.5
+      },
+      {
+        "m": "Jul 2021",
+        "v": 2.0
+      },
+      {
+        "m": "Oct 2021",
+        "v": 4.2
+      },
+      {
+        "m": "Jan 2022",
+        "v": 5.5
+      },
+      {
+        "m": "Apr 2022",
+        "v": 9.0
+      },
+      {
+        "m": "Jul 2022",
+        "v": 10.1
+      },
+      {
+        "m": "Oct 2022",
+        "v": 11.1
+      },
+      {
+        "m": "Jan 2023",
+        "v": 10.1
+      },
+      {
+        "m": "Apr 2023",
+        "v": 8.7
+      },
+      {
+        "m": "Jul 2023",
+        "v": 6.8
+      },
+      {
+        "m": "Oct 2023",
+        "v": 4.6
+      },
+      {
+        "m": "Jan 2024",
+        "v": 4.0
+      },
+      {
+        "m": "Apr 2024",
+        "v": 2.3
+      },
+      {
+        "m": "Jul 2024",
+        "v": 2.2
+      },
+      {
+        "m": "Oct 2024",
+        "v": 2.3
+      },
+      {
+        "m": "Jan 2025",
+        "v": 3.0
+      },
+      {
+        "m": "Apr 2025",
+        "v": 3.5
+      },
+      {
+        "m": "Jul 2025",
+        "v": 2.6
+      },
+      {
+        "m": "Oct 2025",
+        "v": 2.5
+      },
+      {
+        "m": "Jan 2026",
+        "v": 3.0
+      },
+      {
+        "m": "Feb 2026",
+        "v": 2.8
+      }
+    ]
+  },
+  "realWageGrowth": {
+    "source": "ONS Average Weekly Earnings (regular pay, deflated by CPI)",
+    "data": [
+      {
+        "m": "Jan 2020",
+        "nominal": 3.5,
+        "real": 1.7
+      },
+      {
+        "m": "Jul 2020",
+        "nominal": -1.0,
+        "real": -2.0
+      },
+      {
+        "m": "Jan 2021",
+        "nominal": 4.8,
+        "real": 4.1
+      },
+      {
+        "m": "Jul 2021",
+        "nominal": 6.8,
+        "real": 4.8
+      },
+      {
+        "m": "Jan 2022",
+        "nominal": 4.3,
+        "real": -1.2
+      },
+      {
+        "m": "Jul 2022",
+        "nominal": 5.5,
+        "real": -4.6
+      },
+      {
+        "m": "Jan 2023",
+        "nominal": 6.5,
+        "real": -3.6
+      },
+      {
+        "m": "Jul 2023",
+        "nominal": 7.8,
+        "real": 1.0
+      },
+      {
+        "m": "Jan 2024",
+        "nominal": 5.8,
+        "real": 1.8
+      },
+      {
+        "m": "Jul 2024",
+        "nominal": 4.5,
+        "real": 2.3
+      },
+      {
+        "m": "Jan 2025",
+        "nominal": 5.9,
+        "real": 2.9
+      },
+      {
+        "m": "Jul 2025",
+        "nominal": 3.8,
+        "real": 1.2
+      },
+      {
+        "m": "Jan 2026",
+        "nominal": 3.5,
+        "real": 0.5
+      }
+    ]
+  },
+  "housing": {
+    "source": "ONS Index of Private Housing Rental Prices / Rightmove",
+    "avgRent": {
+      "data": [
+        {
+          "year": 2018,
+          "UK": 920,
+          "London": 1580
+        },
+        {
+          "year": 2019,
+          "UK": 950,
+          "London": 1610
+        },
+        {
+          "year": 2020,
+          "UK": 970,
+          "London": 1560
+        },
+        {
+          "year": 2021,
+          "UK": 1020,
+          "London": 1625
+        },
+        {
+          "year": 2022,
+          "UK": 1100,
+          "London": 1800
+        },
+        {
+          "year": 2023,
+          "UK": 1220,
+          "London": 2020
+        },
+        {
+          "year": 2024,
+          "UK": 1310,
+          "London": 2180
+        },
+        {
+          "year": 2025,
+          "UK": 1374,
+          "London": 2273
+        }
+      ]
+    },
+    "housePrice": {
+      "source": "ONS House Price Index (average price, \u00a3k)",
+      "data": [
+        {
+          "year": 2000,
+          "v": 95
+        },
+        {
+          "year": 2001,
+          "v": 108
+        },
+        {
+          "year": 2002,
+          "v": 125
+        },
+        {
+          "year": 2003,
+          "v": 143
+        },
+        {
+          "year": 2004,
+          "v": 155
+        },
+        {
+          "year": 2005,
+          "v": 164
+        },
+        {
+          "year": 2006,
+          "v": 174
+        },
+        {
+          "year": 2007,
+          "v": 183
+        },
+        {
+          "year": 2008,
+          "v": 180
+        },
+        {
+          "year": 2009,
+          "v": 172
+        },
+        {
+          "year": 2010,
+          "v": 179
+        },
+        {
+          "year": 2011,
+          "v": 183
+        },
+        {
+          "year": 2012,
+          "v": 187
+        },
+        {
+          "year": 2013,
+          "v": 192
+        },
+        {
+          "year": 2014,
+          "v": 199
+        },
+        {
+          "year": 2015,
+          "v": 195
+        },
+        {
+          "year": 2016,
+          "v": 213
+        },
+        {
+          "year": 2017,
+          "v": 227
+        },
+        {
+          "year": 2018,
+          "v": 231
+        },
+        {
+          "year": 2019,
+          "v": 232
+        },
+        {
+          "year": 2020,
+          "v": 252
+        },
+        {
+          "year": 2021,
+          "v": 275
+        },
+        {
+          "year": 2022,
+          "v": 290
+        },
+        {
+          "year": 2023,
+          "v": 285
+        },
+        {
+          "year": 2024,
+          "v": 268
+        },
+        {
+          "year": 2025,
+          "v": 272
+        }
+      ]
+    }
+  },
+  "energy": {
+    "source": "Ofgem Price Cap / DESNZ energy statistics",
+    "priceCap": {
+      "data": [
+        {
+          "q": "Q1 2022",
+          "v": 1277
+        },
+        {
+          "q": "Q2 2022",
+          "v": 1277
+        },
+        {
+          "q": "Q3 2022",
+          "v": 1971
+        },
+        {
+          "q": "Q4 2022",
+          "v": 2500
+        },
+        {
+          "q": "Q1 2023",
+          "v": 2500
+        },
+        {
+          "q": "Q2 2023",
+          "v": 2074
+        },
+        {
+          "q": "Q3 2023",
+          "v": 2074
+        },
+        {
+          "q": "Q4 2023",
+          "v": 1834
+        },
+        {
+          "q": "Q1 2024",
+          "v": 1928
+        },
+        {
+          "q": "Q2 2024",
+          "v": 1568
+        },
+        {
+          "q": "Q3 2024",
+          "v": 1568
+        },
+        {
+          "q": "Q4 2024",
+          "v": 1717
+        },
+        {
+          "q": "Q1 2025",
+          "v": 1738
+        },
+        {
+          "q": "Q2 2025",
+          "v": 1849
+        },
+        {
+          "q": "Q3 2025",
+          "v": 1568
+        },
+        {
+          "q": "Q4 2025",
+          "v": 1568
+        },
+        {
+          "q": "Q1 2026",
+          "v": 1641
+        }
+      ]
+    }
+  },
+  "food": {
+    "source": "ONS Food and Non-alcoholic Beverages CPI",
+    "inflation": {
+      "data": [
+        {
+          "m": "Jan 2021",
+          "v": 0.6
+        },
+        {
+          "m": "Jul 2021",
+          "v": 0.4
+        },
+        {
+          "m": "Jan 2022",
+          "v": 4.3
+        },
+        {
+          "m": "Jul 2022",
+          "v": 12.7
+        },
+        {
+          "m": "Jan 2023",
+          "v": 16.7
+        },
+        {
+          "m": "Apr 2023",
+          "v": 19.1
+        },
+        {
+          "m": "Jul 2023",
+          "v": 14.9
+        },
+        {
+          "m": "Oct 2023",
+          "v": 10.1
+        },
+        {
+          "m": "Jan 2024",
+          "v": 7.0
+        },
+        {
+          "m": "Apr 2024",
+          "v": 2.9
+        },
+        {
+          "m": "Jul 2024",
+          "v": 1.5
+        },
+        {
+          "m": "Oct 2024",
+          "v": 1.9
+        },
+        {
+          "m": "Jan 2025",
+          "v": 3.3
+        },
+        {
+          "m": "Jul 2025",
+          "v": 2.8
+        },
+        {
+          "m": "Jan 2026",
+          "v": 3.3
+        }
+      ]
+    },
+    "basketItems": {
+      "source": "ONS / Kantar Worldpanel (typical monthly household spend, \u00a3)",
+      "data": [
+        {
+          "item": "Bread & cereals",
+          "v2023": 52,
+          "v2025": 58
+        },
+        {
+          "item": "Meat",
+          "v2023": 68,
+          "v2025": 74
+        },
+        {
+          "item": "Dairy & eggs",
+          "v2023": 38,
+          "v2025": 42
+        },
+        {
+          "item": "Fruit & veg",
+          "v2023": 55,
+          "v2025": 60
+        },
+        {
+          "item": "Drinks",
+          "v2023": 32,
+          "v2025": 35
+        },
+        {
+          "item": "Other food",
+          "v2023": 45,
+          "v2025": 49
+        }
+      ]
+    }
+  },
+  "transport": {
+    "currentPrice": {
+      "petrolPence": 152.9,
+      "dieselPence": 176.5,
+      "lastUpdated": "2026-03-31",
+      "sourceName": "DESNZ Weekly Road Fuel Prices",
+      "sourceUrl": "https://www.gov.uk/government/statistics/weekly-road-fuel-prices",
+      "sourceConfidence": "high",
+      "updateFrequency": "weekly",
+      "methodologyNote": "National weighted average pump price from the CMA Road Fuel Prices Scheme, covering ~90% of UK fuel retail volume. Published weekly by the Department for Energy Security and Net Zero."
+    },
+    "petrol": {
+      "source": "DESNZ Weekly Road Fuel Prices",
+      "sourceUrl": "https://www.gov.uk/government/statistics/weekly-road-fuel-prices",
+      "sourceConfidence": "high",
+      "updateFrequency": "weekly",
+      "methodologyNote": "UK national weighted average unleaded petrol pump price (pence per litre), from the DESNZ weekly road fuel price series. Weekly data from CMA mandatory reporting covering major retailers (~90% of retail volume).",
+      "data": [
+        { "m": "Jan 2021", "v": 117.5, "freq": "monthly" },
+        { "m": "Apr 2021", "v": 125.5, "freq": "monthly" },
+        { "m": "Jul 2021", "v": 131.2, "freq": "monthly" },
+        { "m": "Oct 2021", "v": 140.8, "freq": "monthly" },
+        { "m": "Jan 2022", "v": 148.0, "freq": "monthly" },
+        { "m": "Mar 2022", "v": 163.5, "freq": "monthly" },
+        { "m": "Jun 2022", "v": 185.2, "freq": "monthly" },
+        { "m": "Jul 2022", "v": 191.5, "freq": "monthly" },
+        { "m": "Oct 2022", "v": 165.0, "freq": "monthly" },
+        { "m": "Jan 2023", "v": 152.0, "freq": "monthly" },
+        { "m": "Apr 2023", "v": 148.5, "freq": "monthly" },
+        { "m": "Jul 2023", "v": 146.0, "freq": "monthly" },
+        { "m": "Oct 2023", "v": 155.0, "freq": "monthly" },
+        { "m": "Jan 2024", "v": 142.5, "freq": "monthly" },
+        { "m": "Apr 2024", "v": 148.2, "freq": "monthly" },
+        { "m": "Jul 2024", "v": 145.8, "freq": "monthly" },
+        { "m": "Oct 2024", "v": 137.2, "freq": "monthly" },
+        { "m": "Jan 2025", "v": 136.5, "freq": "monthly" },
+        { "m": "Apr 2025", "v": 134.8, "freq": "monthly" },
+        { "m": "Jul 2025", "v": 134.0, "freq": "monthly" },
+        { "m": "Oct 2025", "v": 133.5, "freq": "monthly" },
+        { "m": "Jan 2026", "v": 136.5, "freq": "monthly" },
+        { "m": "03 Feb 2026", "v": 136.2, "freq": "weekly" },
+        { "m": "10 Feb 2026", "v": 136.8, "freq": "weekly" },
+        { "m": "17 Feb 2026", "v": 137.1, "freq": "weekly" },
+        { "m": "24 Feb 2026", "v": 137.5, "freq": "weekly" },
+        { "m": "03 Mar 2026", "v": 140.8, "freq": "weekly" },
+        { "m": "10 Mar 2026", "v": 144.2, "freq": "weekly" },
+        { "m": "17 Mar 2026", "v": 148.5, "freq": "weekly" },
+        { "m": "24 Mar 2026", "v": 150.6, "freq": "weekly" },
+        { "m": "31 Mar 2026", "v": 152.9, "freq": "weekly" }
+      ]
+    },
+    "diesel": {
+      "source": "DESNZ Weekly Road Fuel Prices",
+      "sourceUrl": "https://www.gov.uk/government/statistics/weekly-road-fuel-prices",
+      "sourceConfidence": "high",
+      "updateFrequency": "weekly",
+      "methodologyNote": "UK national weighted average diesel pump price (pence per litre), from the DESNZ weekly road fuel price series. Weekly data from CMA mandatory reporting.",
+      "data": [
+        { "m": "Jan 2021", "v": 120.0, "freq": "monthly" },
+        { "m": "Apr 2021", "v": 128.5, "freq": "monthly" },
+        { "m": "Jul 2021", "v": 133.8, "freq": "monthly" },
+        { "m": "Oct 2021", "v": 144.5, "freq": "monthly" },
+        { "m": "Jan 2022", "v": 152.0, "freq": "monthly" },
+        { "m": "Mar 2022", "v": 173.0, "freq": "monthly" },
+        { "m": "Jun 2022", "v": 194.5, "freq": "monthly" },
+        { "m": "Jul 2022", "v": 199.0, "freq": "monthly" },
+        { "m": "Oct 2022", "v": 183.0, "freq": "monthly" },
+        { "m": "Jan 2023", "v": 172.0, "freq": "monthly" },
+        { "m": "Apr 2023", "v": 158.0, "freq": "monthly" },
+        { "m": "Jul 2023", "v": 150.0, "freq": "monthly" },
+        { "m": "Oct 2023", "v": 159.0, "freq": "monthly" },
+        { "m": "Jan 2024", "v": 153.5, "freq": "monthly" },
+        { "m": "Apr 2024", "v": 155.0, "freq": "monthly" },
+        { "m": "Jul 2024", "v": 152.8, "freq": "monthly" },
+        { "m": "Oct 2024", "v": 146.5, "freq": "monthly" },
+        { "m": "Jan 2025", "v": 143.5, "freq": "monthly" },
+        { "m": "Apr 2025", "v": 141.0, "freq": "monthly" },
+        { "m": "Jul 2025", "v": 139.8, "freq": "monthly" },
+        { "m": "Oct 2025", "v": 139.2, "freq": "monthly" },
+        { "m": "Jan 2026", "v": 142.0, "freq": "monthly" },
+        { "m": "03 Feb 2026", "v": 142.5, "freq": "weekly" },
+        { "m": "10 Feb 2026", "v": 143.0, "freq": "weekly" },
+        { "m": "17 Feb 2026", "v": 143.8, "freq": "weekly" },
+        { "m": "24 Feb 2026", "v": 145.2, "freq": "weekly" },
+        { "m": "03 Mar 2026", "v": 152.5, "freq": "weekly" },
+        { "m": "10 Mar 2026", "v": 160.0, "freq": "weekly" },
+        { "m": "17 Mar 2026", "v": 168.5, "freq": "weekly" },
+        { "m": "24 Mar 2026", "v": 173.2, "freq": "weekly" },
+        { "m": "31 Mar 2026", "v": 176.5, "freq": "weekly" }
+      ]
+    },
+    "railFares": {
+      "note": "Regulated rail fares frozen for 2026 (first freeze since 2019)",
+      "data": [
+        {
+          "year": 2020,
+          "indexPct": 2.7
+        },
+        {
+          "year": 2021,
+          "indexPct": 1.6
+        },
+        {
+          "year": 2022,
+          "indexPct": 3.8
+        },
+        {
+          "year": 2023,
+          "indexPct": 5.9
+        },
+        {
+          "year": 2024,
+          "indexPct": 4.9
+        },
+        {
+          "year": 2025,
+          "indexPct": 4.6
+        },
+        {
+          "year": 2026,
+          "indexPct": 0.0
+        }
+      ]
+    }
+  },
+  "householdBasket": {
+    "source": "ONS Family Spending Survey / Kantar",
+    "description": "Estimated average monthly household costs (\u00a3)",
+    "data": [
+      {
+        "cat": "Housing & rent",
+        "ukAvg": 1050,
+        "london": 1680
+      },
+      {
+        "cat": "Food & groceries",
+        "ukAvg": 318,
+        "london": 365
+      },
+      {
+        "cat": "Energy",
+        "ukAvg": 137,
+        "london": 125
+      },
+      {
+        "cat": "Transport",
+        "ukAvg": 285,
+        "london": 220
+      },
+      {
+        "cat": "Childcare",
+        "ukAvg": 180,
+        "london": 310
+      },
+      {
+        "cat": "Council tax",
+        "ukAvg": 155,
+        "london": 145
+      },
+      {
+        "cat": "Other essentials",
+        "ukAvg": 240,
+        "london": 280
+      }
+    ]
+  }
+}

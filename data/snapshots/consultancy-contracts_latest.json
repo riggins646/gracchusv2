@@ -1,0 +1,462 @@
+{
+  "summary": {
+    "totalContracts": 220,
+    "totalValue": 35202532,
+    "uniqueSuppliers": 10,
+    "uniqueBuyers": 9,
+    "filterNote": "Filtered for consultancy/advisory contracts by keyword matching"
+  },
+  "topSuppliers": [
+    {
+      "name": "Steer Davies Gleave",
+      "totalValue": 17160000,
+      "contractCount": 20,
+      "topContracts": [
+        {
+          "title": "Strategic Energy Partnership and Heat Network - Commercial Advisor",
+          "value": 858000,
+          "buyer": "London Borough of Hounslow",
+          "date": "2026-04-08T00:00:00+01:00"
+        },
+        {
+          "title": "Strategic Energy Partnership and Heat Network - Commercial Advisor",
+          "value": 858000,
+          "buyer": "London Borough of Hounslow",
+          "date": "2026-04-08T00:00:00+01:00"
+        },
+        {
+          "title": "Strategic Energy Partnership and Heat Network - Commercial Advisor",
+          "value": 858000,
+          "buyer": "London Borough of Hounslow",
+          "date": "2026-04-08T00:00:00+01:00"
+        },
+        {
+          "title": "Strategic Energy Partnership and Heat Network - Commercial Advisor",
+          "value": 858000,
+          "buyer": "London Borough of Hounslow",
+          "date": "2026-04-08T00:00:00+01:00"
+        },
+        {
+          "title": "Strategic Energy Partnership and Heat Network - Commercial Advisor",
+          "value": 858000,
+          "buyer": "London Borough of Hounslow",
+          "date": "2026-04-08T00:00:00+01:00"
+        }
+      ]
+    },
+    {
+      "name": "TETRA TECH LIMITED",
+      "totalValue": 4800000,
+      "contractCount": 20,
+      "topContracts": [
+        {
+          "title": "TD2367 - Mobility Programme Traffic Signal Support",
+          "value": 240000,
+          "buyer": "DERBY CITY COUNCIL",
+          "date": "2026-03-17T00:00:00Z"
+        },
+        {
+          "title": "TD2367 - Mobility Programme Traffic Signal Support",
+          "value": 240000,
+          "buyer": "DERBY CITY COUNCIL",
+          "date": "2026-03-17T00:00:00Z"
+        },
+        {
+          "title": "TD2367 - Mobility Programme Traffic Signal Support",
+          "value": 240000,
+          "buyer": "DERBY CITY COUNCIL",
+          "date": "2026-03-17T00:00:00Z"
+        },
+        {
+          "title": "TD2367 - Mobility Programme Traffic Signal Support",
+          "value": 240000,
+          "buyer": "DERBY CITY COUNCIL",
+          "date": "2026-03-17T00:00:00Z"
+        },
+        {
+          "title": "TD2367 - Mobility Programme Traffic Signal Support",
+          "value": 240000,
+          "buyer": "DERBY CITY COUNCIL",
+          "date": "2026-03-17T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "name": "Align Property Partners Ltd",
+      "totalValue": 4403280,
+      "contractCount": 40,
+      "topContracts": [
+        {
+          "title": "14563 - 14567 - Lot 1 Professional Services - Demolition and Disconnection of Various Properties",
+          "value": 150979,
+          "buyer": "North Lincolnshire Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        },
+        {
+          "title": "14563 - 14567 - Lot 1 Professional Services - Demolition and Disconnection of Various Properties",
+          "value": 150979,
+          "buyer": "North Lincolnshire Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        },
+        {
+          "title": "14563 - 14567 - Lot 1 Professional Services - Demolition and Disconnection of Various Properties",
+          "value": 150979,
+          "buyer": "North Lincolnshire Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        },
+        {
+          "title": "14563 - 14567 - Lot 1 Professional Services - Demolition and Disconnection of Various Properties",
+          "value": 150979,
+          "buyer": "North Lincolnshire Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        },
+        {
+          "title": "14563 - 14567 - Lot 1 Professional Services - Demolition and Disconnection of Various Properties",
+          "value": 150979,
+          "buyer": "North Lincolnshire Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        }
+      ]
+    },
+    {
+      "name": "Lindum Group Limited",
+      "totalValue": 3073000,
+      "contractCount": 20,
+      "topContracts": [
+        {
+          "title": "Professional Services in Relation to Custody Upgrade Works at Trafalgar House",
+          "value": 153650,
+          "buyer": "West Yorkshire Combined Authority",
+          "date": "2025-12-03T00:00:00Z"
+        },
+        {
+          "title": "Professional Services in Relation to Custody Upgrade Works at Trafalgar House",
+          "value": 153650,
+          "buyer": "West Yorkshire Combined Authority",
+          "date": "2025-12-03T00:00:00Z"
+        },
+        {
+          "title": "Professional Services in Relation to Custody Upgrade Works at Trafalgar House",
+          "value": 153650,
+          "buyer": "West Yorkshire Combined Authority",
+          "date": "2025-12-03T00:00:00Z"
+        },
+        {
+          "title": "Professional Services in Relation to Custody Upgrade Works at Trafalgar House",
+          "value": 153650,
+          "buyer": "West Yorkshire Combined Authority",
+          "date": "2025-12-03T00:00:00Z"
+        },
+        {
+          "title": "Professional Services in Relation to Custody Upgrade Works at Trafalgar House",
+          "value": 153650,
+          "buyer": "West Yorkshire Combined Authority",
+          "date": "2025-12-03T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "name": "Fusion Project Management Ltd",
+      "totalValue": 3040000,
+      "contractCount": 20,
+      "topContracts": [
+        {
+          "title": "Quantity Surveyor Services for Winter Gardens, Great Yarmouth",
+          "value": 152000,
+          "buyer": "Suffolk Coastal District Council and Waveney District Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        },
+        {
+          "title": "Quantity Surveyor Services for Winter Gardens, Great Yarmouth",
+          "value": 152000,
+          "buyer": "Suffolk Coastal District Council and Waveney District Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        },
+        {
+          "title": "Quantity Surveyor Services for Winter Gardens, Great Yarmouth",
+          "value": 152000,
+          "buyer": "Suffolk Coastal District Council and Waveney District Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        },
+        {
+          "title": "Quantity Surveyor Services for Winter Gardens, Great Yarmouth",
+          "value": 152000,
+          "buyer": "Suffolk Coastal District Council and Waveney District Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        },
+        {
+          "title": "Quantity Surveyor Services for Winter Gardens, Great Yarmouth",
+          "value": 152000,
+          "buyer": "Suffolk Coastal District Council and Waveney District Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        }
+      ]
+    },
+    {
+      "name": "HP Architects Ltd",
+      "totalValue": 1054352,
+      "contractCount": 20,
+      "topContracts": [
+        {
+          "title": "Stoke Newington Library External Remedial Works Project - Architect Sub Consultancy Services",
+          "value": 52717.6,
+          "buyer": "London Borough of Hackney",
+          "date": "2026-04-08T00:00:00+01:00"
+        },
+        {
+          "title": "Stoke Newington Library External Remedial Works Project - Architect Sub Consultancy Services",
+          "value": 52717.6,
+          "buyer": "London Borough of Hackney",
+          "date": "2026-04-08T00:00:00+01:00"
+        },
+        {
+          "title": "Stoke Newington Library External Remedial Works Project - Architect Sub Consultancy Services",
+          "value": 52717.6,
+          "buyer": "London Borough of Hackney",
+          "date": "2026-04-08T00:00:00+01:00"
+        },
+        {
+          "title": "Stoke Newington Library External Remedial Works Project - Architect Sub Consultancy Services",
+          "value": 52717.6,
+          "buyer": "London Borough of Hackney",
+          "date": "2026-04-08T00:00:00+01:00"
+        },
+        {
+          "title": "Stoke Newington Library External Remedial Works Project - Architect Sub Consultancy Services",
+          "value": 52717.6,
+          "buyer": "London Borough of Hackney",
+          "date": "2026-04-08T00:00:00+01:00"
+        }
+      ]
+    },
+    {
+      "name": "Reed Specialist Recrutiment",
+      "totalValue": 900000,
+      "contractCount": 20,
+      "topContracts": [
+        {
+          "title": "Leadership Days Training 2026",
+          "value": 45000,
+          "buyer": "Lancashire Constabulary",
+          "date": "2026-03-31T00:00:00+01:00"
+        },
+        {
+          "title": "Leadership Days Training 2026",
+          "value": 45000,
+          "buyer": "Lancashire Constabulary",
+          "date": "2026-03-31T00:00:00+01:00"
+        },
+        {
+          "title": "Leadership Days Training 2026",
+          "value": 45000,
+          "buyer": "Lancashire Constabulary",
+          "date": "2026-03-31T00:00:00+01:00"
+        },
+        {
+          "title": "Leadership Days Training 2026",
+          "value": 45000,
+          "buyer": "Lancashire Constabulary",
+          "date": "2026-03-31T00:00:00+01:00"
+        },
+        {
+          "title": "Leadership Days Training 2026",
+          "value": 45000,
+          "buyer": "Lancashire Constabulary",
+          "date": "2026-03-31T00:00:00+01:00"
+        }
+      ]
+    },
+    {
+      "name": "Lepus Consulting",
+      "totalValue": 671900,
+      "contractCount": 20,
+      "topContracts": [
+        {
+          "title": "Green Infrastructure Study for North East Derbyshire District Council Area - AWARD",
+          "value": 33595,
+          "buyer": "North East Derbyshire District Council - e-Tendering System",
+          "date": "2026-03-16T00:00:00Z"
+        },
+        {
+          "title": "Green Infrastructure Study for North East Derbyshire District Council Area - AWARD",
+          "value": 33595,
+          "buyer": "North East Derbyshire District Council - e-Tendering System",
+          "date": "2026-03-16T00:00:00Z"
+        },
+        {
+          "title": "Green Infrastructure Study for North East Derbyshire District Council Area - AWARD",
+          "value": 33595,
+          "buyer": "North East Derbyshire District Council - e-Tendering System",
+          "date": "2026-03-16T00:00:00Z"
+        },
+        {
+          "title": "Green Infrastructure Study for North East Derbyshire District Council Area - AWARD",
+          "value": 33595,
+          "buyer": "North East Derbyshire District Council - e-Tendering System",
+          "date": "2026-03-16T00:00:00Z"
+        },
+        {
+          "title": "Green Infrastructure Study for North East Derbyshire District Council Area - AWARD",
+          "value": 33595,
+          "buyer": "North East Derbyshire District Council - e-Tendering System",
+          "date": "2026-03-16T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "name": "Mason Clark Associates",
+      "totalValue": 100000,
+      "contractCount": 20,
+      "topContracts": [
+        {
+          "title": "14507 - Lot 1 Professional Services - Building Control Structural Services",
+          "value": 5000,
+          "buyer": "North Lincolnshire Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        },
+        {
+          "title": "14507 - Lot 1 Professional Services - Building Control Structural Services",
+          "value": 5000,
+          "buyer": "North Lincolnshire Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        },
+        {
+          "title": "14507 - Lot 1 Professional Services - Building Control Structural Services",
+          "value": 5000,
+          "buyer": "North Lincolnshire Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        },
+        {
+          "title": "14507 - Lot 1 Professional Services - Building Control Structural Services",
+          "value": 5000,
+          "buyer": "North Lincolnshire Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        },
+        {
+          "title": "14507 - Lot 1 Professional Services - Building Control Structural Services",
+          "value": 5000,
+          "buyer": "North Lincolnshire Council",
+          "date": "2026-04-07T00:00:00+01:00"
+        }
+      ]
+    },
+    {
+      "name": "Knapman Roocroft",
+      "totalValue": 0,
+      "contractCount": 20,
+      "topContracts": [
+        {
+          "title": "Rating Consultancy Services",
+          "value": 0,
+          "buyer": "SYNCHRONICITY CARE LTD.",
+          "date": "2026-03-24T00:00:00Z"
+        },
+        {
+          "title": "Rating Consultancy Services",
+          "value": 0,
+          "buyer": "SYNCHRONICITY CARE LTD.",
+          "date": "2026-03-24T00:00:00Z"
+        },
+        {
+          "title": "Rating Consultancy Services",
+          "value": 0,
+          "buyer": "SYNCHRONICITY CARE LTD.",
+          "date": "2026-03-24T00:00:00Z"
+        },
+        {
+          "title": "Rating Consultancy Services",
+          "value": 0,
+          "buyer": "SYNCHRONICITY CARE LTD.",
+          "date": "2026-03-24T00:00:00Z"
+        },
+        {
+          "title": "Rating Consultancy Services",
+          "value": 0,
+          "buyer": "SYNCHRONICITY CARE LTD.",
+          "date": "2026-03-24T00:00:00Z"
+        }
+      ]
+    }
+  ],
+  "topBuyers": [
+    {
+      "name": "London Borough of Hounslow",
+      "totalValue": 17160000,
+      "contractCount": 20
+    },
+    {
+      "name": "DERBY CITY COUNCIL",
+      "totalValue": 4800000,
+      "contractCount": 20
+    },
+    {
+      "name": "North Lincolnshire Council",
+      "totalValue": 4503280,
+      "contractCount": 60
+    },
+    {
+      "name": "West Yorkshire Combined Authority",
+      "totalValue": 3073000,
+      "contractCount": 20
+    },
+    {
+      "name": "Suffolk Coastal District Council and Waveney District Council",
+      "totalValue": 3040000,
+      "contractCount": 20
+    },
+    {
+      "name": "London Borough of Hackney",
+      "totalValue": 1054352,
+      "contractCount": 20
+    },
+    {
+      "name": "Lancashire Constabulary",
+      "totalValue": 900000,
+      "contractCount": 20
+    },
+    {
+      "name": "North East Derbyshire District Council - e-Tendering System",
+      "totalValue": 671900,
+      "contractCount": 20
+    },
+    {
+      "name": "SYNCHRONICITY CARE LTD.",
+      "totalValue": 0,
+      "contractCount": 20
+    }
+  ],
+  "monthlyTrend": [
+    {
+      "month": "2025-12",
+      "totalValue": 3073000,
+      "count": 20
+    },
+    {
+      "month": "2026-03",
+      "totalValue": 6371900,
+      "count": 80
+    },
+    {
+      "month": "2026-04",
+      "totalValue": 25757632,
+      "count": 120
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2026-04-08T11:49:03.066Z",
+    "primarySource": {
+      "name": "Contracts Finder",
+      "url": "https://www.contractsfinder.service.gov.uk"
+    },
+    "standard": "Open Contracting Data Standard (OCDS)",
+    "licence": "Open Government Licence v3.0"
+  },
+  "_ingest": {
+    "fetchedAt": "2026-04-08T11:48:41.989Z",
+    "sourceTimestamp": "2026-04-08T11:49:03.002Z",
+    "sourceName": "Contracts Finder OCDS API (filtered by consultancy category)",
+    "recordCount": 2000,
+    "validationResult": "pass",
+    "validationNotes": []
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "metadata": {
+    "title": "Money Supply & Personal Finance",
+    "description": "M4 money supply, QE history, purchasing power index, and personal finance indicators",
+    "source": "Bank of England Statistical Interactive Database, ONS",
+    "lastUpdated": "2026-03"
+  },
+  "m4MoneySupply": {
+    "description": "UK M4 broad money supply, £bn. M4 = notes & coin + bank deposits + building society deposits + other instruments",
+    "source": "Bank of England Bankstats Table A2.1",
+    "data": [
+      { "m": "Jan 2008", "level": 1820, "yoyPct": 12.4 },
+      { "m": "Jul 2008", "level": 1910, "yoyPct": 11.8 },
+      { "m": "Jan 2009", "level": 1980, "yoyPct": 8.8 },
+      { "m": "Jul 2009", "level": 2050, "yoyPct": 7.3 },
+      { "m": "Jan 2010", "level": 2090, "yoyPct": 5.6 },
+      { "m": "Jul 2010", "level": 2100, "yoyPct": 2.4 },
+      { "m": "Jan 2011", "level": 2120, "yoyPct": 1.4 },
+      { "m": "Jul 2011", "level": 2130, "yoyPct": 1.4 },
+      { "m": "Jan 2012", "level": 2150, "yoyPct": 1.4 },
+      { "m": "Jul 2012", "level": 2120, "yoyPct": -0.5 },
+      { "m": "Jan 2013", "level": 2130, "yoyPct": -0.9 },
+      { "m": "Jul 2013", "level": 2150, "yoyPct": 1.4 },
+      { "m": "Jan 2014", "level": 2180, "yoyPct": 2.3 },
+      { "m": "Jul 2014", "level": 2210, "yoyPct": 2.8 },
+      { "m": "Jan 2015", "level": 2240, "yoyPct": 2.8 },
+      { "m": "Jul 2015", "level": 2280, "yoyPct": 3.2 },
+      { "m": "Jan 2016", "level": 2320, "yoyPct": 3.6 },
+      { "m": "Jul 2016", "level": 2380, "yoyPct": 4.4 },
+      { "m": "Jan 2017", "level": 2430, "yoyPct": 4.7 },
+      { "m": "Jul 2017", "level": 2470, "yoyPct": 3.8 },
+      { "m": "Jan 2018", "level": 2510, "yoyPct": 3.3 },
+      { "m": "Jul 2018", "level": 2540, "yoyPct": 2.8 },
+      { "m": "Jan 2019", "level": 2570, "yoyPct": 2.4 },
+      { "m": "Jul 2019", "level": 2600, "yoyPct": 2.4 },
+      { "m": "Jan 2020", "level": 2640, "yoyPct": 2.7 },
+      { "m": "Jul 2020", "level": 2870, "yoyPct": 10.4 },
+      { "m": "Jan 2021", "level": 2970, "yoyPct": 12.5 },
+      { "m": "Jul 2021", "level": 3040, "yoyPct": 5.9 },
+      { "m": "Jan 2022", "level": 3080, "yoyPct": 3.7 },
+      { "m": "Jul 2022", "level": 3090, "yoyPct": 1.6 },
+      { "m": "Jan 2023", "level": 3050, "yoyPct": -1.0 },
+      { "m": "Jul 2023", "level": 3010, "yoyPct": -2.6 },
+      { "m": "Jan 2024", "level": 3020, "yoyPct": -1.0 },
+      { "m": "Jul 2024", "level": 3060, "yoyPct": 1.7 },
+      { "m": "Jan 2025", "level": 3100, "yoyPct": 2.6 }
+    ]
+  },
+  "qeTimeline": {
+    "description": "Bank of England quantitative easing programme phases",
+    "source": "Bank of England Asset Purchase Facility quarterly reports",
+    "phases": [
+      { "name": "QE1", "start": "Mar 2009", "end": "Jan 2010", "purchased": 200, "cumulative": 200 },
+      { "name": "QE2", "start": "Oct 2011", "end": "May 2012", "purchased": 175, "cumulative": 375 },
+      { "name": "QE3", "start": "Jul 2012", "end": "Nov 2012", "purchased": 50, "cumulative": 425 },
+      { "name": "QE4 (pre-COVID)", "start": "Aug 2016", "end": "Jun 2017", "purchased": 70, "cumulative": 445 },
+      { "name": "COVID QE", "start": "Mar 2020", "end": "Dec 2021", "purchased": 450, "cumulative": 895 },
+      { "name": "QT begins", "start": "Feb 2022", "end": "ongoing", "purchased": -180, "cumulative": 715 }
+    ],
+    "peakHoldings": 895,
+    "currentHoldings": 715,
+    "peakPctGDP": 35.6
+  },
+  "purchasingPower": {
+    "description": "What £1 from 2000 buys today, indexed to 2000 = £1.00. Based on CPI.",
+    "source": "ONS Consumer Prices Index, rebased",
+    "data": [
+      { "year": 2000, "value": 1.00 },
+      { "year": 2001, "value": 0.98 },
+      { "year": 2002, "value": 0.97 },
+      { "year": 2003, "value": 0.95 },
+      { "year": 2004, "value": 0.94 },
+      { "year": 2005, "value": 0.92 },
+      { "year": 2006, "value": 0.90 },
+      { "year": 2007, "value": 0.88 },
+      { "year": 2008, "value": 0.85 },
+      { "year": 2009, "value": 0.83 },
+      { "year": 2010, "value": 0.80 },
+      { "year": 2011, "value": 0.77 },
+      { "year": 2012, "value": 0.74 },
+      { "year": 2013, "value": 0.73 },
+      { "year": 2014, "value": 0.72 },
+      { "year": 2015, "value": 0.71 },
+      { "year": 2016, "value": 0.70 },
+      { "year": 2017, "value": 0.69 },
+      { "year": 2018, "value": 0.67 },
+      { "year": 2019, "value": 0.66 },
+      { "year": 2020, "value": 0.65 },
+      { "year": 2021, "value": 0.64 },
+      { "year": 2022, "value": 0.59 },
+      { "year": 2023, "value": 0.55 },
+      { "year": 2024, "value": 0.54 },
+      { "year": 2025, "value": 0.52 }
+    ]
+  },
+  "personalFinance": {
+    "mortgages": {
+      "description": "Average UK mortgage rates and approvals",
+      "source": "Bank of England Money & Credit statistics",
+      "rateHistory": [
+        { "m": "Jan 2020", "fixed2yr": 1.82, "fixed5yr": 1.96, "svr": 4.42 },
+        { "m": "Jul 2020", "fixed2yr": 1.76, "fixed5yr": 1.89, "svr": 4.41 },
+        { "m": "Jan 2021", "fixed2yr": 1.57, "fixed5yr": 1.72, "svr": 4.40 },
+        { "m": "Jul 2021", "fixed2yr": 1.50, "fixed5yr": 1.67, "svr": 4.41 },
+        { "m": "Jan 2022", "fixed2yr": 1.73, "fixed5yr": 1.88, "svr": 4.41 },
+        { "m": "Jul 2022", "fixed2yr": 3.17, "fixed5yr": 3.12, "svr": 4.73 },
+        { "m": "Oct 2022", "fixed2yr": 5.89, "fixed5yr": 5.62, "svr": 5.86 },
+        { "m": "Jan 2023", "fixed2yr": 5.32, "fixed5yr": 4.89, "svr": 6.53 },
+        { "m": "Jul 2023", "fixed2yr": 6.26, "fixed5yr": 5.82, "svr": 7.68 },
+        { "m": "Oct 2023", "fixed2yr": 5.78, "fixed5yr": 5.34, "svr": 7.85 },
+        { "m": "Jan 2024", "fixed2yr": 5.12, "fixed5yr": 4.68, "svr": 7.81 },
+        { "m": "Apr 2024", "fixed2yr": 4.98, "fixed5yr": 4.56, "svr": 7.82 },
+        { "m": "Jul 2024", "fixed2yr": 4.82, "fixed5yr": 4.41, "svr": 7.72 },
+        { "m": "Oct 2024", "fixed2yr": 4.64, "fixed5yr": 4.28, "svr": 7.42 },
+        { "m": "Jan 2025", "fixed2yr": 4.52, "fixed5yr": 4.18, "svr": 7.20 },
+        { "m": "Mar 2025", "fixed2yr": 4.43, "fixed5yr": 4.08, "svr": 7.08 }
+      ],
+      "headline": {
+        "avgFixed2yr": 4.43,
+        "avgFixed5yr": 4.08,
+        "avgSVR": 7.08,
+        "monthlyApprovals": 65200,
+        "avgHousePrice": 296000,
+        "priceToEarnings": 8.2
+      }
+    },
+    "consumerCredit": {
+      "description": "UK consumer credit outstanding and monthly net lending",
+      "source": "Bank of England Money & Credit, Table A5.3",
+      "data": [
+        { "m": "Jan 2020", "outstanding": 219, "netMonthly": 1.2 },
+        { "m": "Jul 2020", "outstanding": 197, "netMonthly": -0.8 },
+        { "m": "Jan 2021", "outstanding": 189, "netMonthly": -0.5 },
+        { "m": "Jul 2021", "outstanding": 196, "netMonthly": 0.6 },
+        { "m": "Jan 2022", "outstanding": 205, "netMonthly": 1.5 },
+        { "m": "Jul 2022", "outstanding": 215, "netMonthly": 1.8 },
+        { "m": "Jan 2023", "outstanding": 224, "netMonthly": 1.6 },
+        { "m": "Jul 2023", "outstanding": 231, "netMonthly": 1.3 },
+        { "m": "Jan 2024", "outstanding": 238, "netMonthly": 1.4 },
+        { "m": "Jul 2024", "outstanding": 245, "netMonthly": 1.5 },
+        { "m": "Jan 2025", "outstanding": 251, "netMonthly": 1.3 }
+      ]
+    },
+    "savings": {
+      "description": "UK household savings indicators",
+      "source": "HMRC ISA Statistics, ONS Household savings ratio",
+      "householdSavingsRatio": [
+        { "year": "2018", "pct": 6.3 },
+        { "year": "2019", "pct": 6.8 },
+        { "year": "2020", "pct": 16.2 },
+        { "year": "2021", "pct": 10.8 },
+        { "year": "2022", "pct": 8.1 },
+        { "year": "2023", "pct": 9.4 },
+        { "year": "2024", "pct": 10.2 }
+      ],
+      "isaSubscriptions": {
+        "totalIsaHolders": 22.4,
+        "cashIsaAvgRate": 4.12,
+        "stocksSharesInflows": 28.6,
+        "totalIsaAssets": 764
+      }
+    }
+  },
+  "taxCalculator": {
+    "description": "UK income tax and NI rates for 2024-25, used for interactive tax calculator",
+    "bands": [
+      { "name": "Personal Allowance", "from": 0, "to": 12570, "incomeTaxRate": 0, "niRate": 0 },
+      { "name": "Basic Rate", "from": 12571, "to": 50270, "incomeTaxRate": 0.20, "niRate": 0.08 },
+      { "name": "Higher Rate", "from": 50271, "to": 125140, "incomeTaxRate": 0.40, "niRate": 0.02 },
+      { "name": "Additional Rate", "from": 125141, "to": 999999, "incomeTaxRate": 0.45, "niRate": 0.02 }
+    ],
+    "personalAllowanceTaperStart": 100000,
+    "personalAllowanceTaperRate": 0.50,
+    "studentLoanPlan2Threshold": 27295,
+    "studentLoanPlan2Rate": 0.09,
+    "employerNiRate": 0.138,
+    "employerNiThreshold": 9100,
+    "vatRate": 0.20,
+    "councilTaxBandD": 2171
+  }
+}

@@ -1,0 +1,1214 @@
+{
+  "years": {
+    "2025-26": {
+      "total": 1370,
+      "nodes": [
+        {
+          "id": "total",
+          "parent": "",
+          "name": "Total"
+        },
+        {
+          "id": "welfare",
+          "parent": "total",
+          "name": "Welfare",
+          "color": "#eab308"
+        },
+        {
+          "id": "welfare_pensioner_spending",
+          "parent": "welfare",
+          "name": "Pensioner Spending",
+          "value": 162.8
+        },
+        {
+          "id": "welfare_universal_credit",
+          "parent": "welfare",
+          "name": "Universal Credit",
+          "value": 79.5
+        },
+        {
+          "id": "welfare_disability_benefits",
+          "parent": "welfare",
+          "name": "Disability Benefits",
+          "value": 36.9
+        },
+        {
+          "id": "welfare_housing_benefit",
+          "parent": "welfare",
+          "name": "Housing Benefit",
+          "value": 12.1
+        },
+        {
+          "id": "welfare_child_benefit",
+          "parent": "welfare",
+          "name": "Child Benefit",
+          "value": 13.4
+        },
+        {
+          "id": "welfare_ni_social_security",
+          "parent": "welfare",
+          "name": "NI Social Security",
+          "value": 10.5
+        },
+        {
+          "id": "welfare_incapacity_benefits",
+          "parent": "welfare",
+          "name": "Incapacity Benefits",
+          "value": 7.3
+        },
+        {
+          "id": "welfare_carers_allowance",
+          "parent": "welfare",
+          "name": "Carer's Allowance",
+          "value": 4.6
+        },
+        {
+          "id": "welfare_statutory_maternity_pay",
+          "parent": "welfare",
+          "name": "Statutory Maternity Pay",
+          "value": 3.1
+        },
+        {
+          "id": "welfare_other",
+          "parent": "welfare",
+          "name": "Other",
+          "value": 2.8
+        },
+        {
+          "id": "health",
+          "parent": "total",
+          "name": "Health",
+          "color": "#3b82f6"
+        },
+        {
+          "id": "health_nhs_providers",
+          "parent": "health",
+          "name": "NHS Providers",
+          "value": 132.3
+        },
+        {
+          "id": "health_nhs_england",
+          "parent": "health",
+          "name": "NHS England",
+          "value": 69.0
+        },
+        {
+          "id": "health_local_authorities",
+          "parent": "health",
+          "name": "Local Authorities",
+          "value": 3.7
+        },
+        {
+          "id": "health_other_nhs_bodies",
+          "parent": "health",
+          "name": "Other NHS Bodies",
+          "value": 6.1
+        },
+        {
+          "id": "health_dhsc_administration",
+          "parent": "health",
+          "name": "DHSC Administration",
+          "value": 5.9
+        },
+        {
+          "id": "debt_interest",
+          "parent": "total",
+          "name": "Debt Interest",
+          "color": "#ef4444",
+          "value": 113.7
+        },
+        {
+          "id": "education",
+          "parent": "total",
+          "name": "Education",
+          "color": "#f59e0b"
+        },
+        {
+          "id": "education_schools_early_years",
+          "parent": "education",
+          "name": "Schools & Early Years",
+          "value": 63.6
+        },
+        {
+          "id": "education_academies",
+          "parent": "education",
+          "name": "Academies",
+          "value": 22.0
+        },
+        {
+          "id": "education_adult_social_care",
+          "parent": "education",
+          "name": "Adult Social Care",
+          "value": 7.6
+        },
+        {
+          "id": "education_higher_education",
+          "parent": "education",
+          "name": "Higher Education",
+          "value": 4.6
+        },
+        {
+          "id": "education_other_education",
+          "parent": "education",
+          "name": "Other Education",
+          "value": 4.2
+        },
+        {
+          "id": "local_councils",
+          "parent": "total",
+          "name": "Local Councils",
+          "color": "#8b5cf6"
+        },
+        {
+          "id": "local_councils_adult_social_care",
+          "parent": "local_councils",
+          "name": "Adult Social Care",
+          "value": 27.5
+        },
+        {
+          "id": "local_councils_childrens_services",
+          "parent": "local_councils",
+          "name": "Children's Services",
+          "value": 13.6
+        },
+        {
+          "id": "local_councils_housing_homelessness",
+          "parent": "local_councils",
+          "name": "Housing & Homelessness",
+          "value": 9.9
+        },
+        {
+          "id": "local_councils_environmental_services",
+          "parent": "local_councils",
+          "name": "Environmental Services",
+          "value": 7.4
+        },
+        {
+          "id": "local_councils_highways_transport",
+          "parent": "local_councils",
+          "name": "Highways & Transport",
+          "value": 6.7
+        },
+        {
+          "id": "local_councils_planning_development",
+          "parent": "local_councils",
+          "name": "Planning & Development",
+          "value": 4.3
+        },
+        {
+          "id": "local_councils_cultural_services",
+          "parent": "local_councils",
+          "name": "Cultural Services",
+          "value": 3.3
+        },
+        {
+          "id": "local_councils_public_health",
+          "parent": "local_councils",
+          "name": "Public Health",
+          "value": 2.9
+        },
+        {
+          "id": "local_councils_other_services",
+          "parent": "local_councils",
+          "name": "Other Services",
+          "value": 22.9
+        },
+        {
+          "id": "devolved_governments",
+          "parent": "total",
+          "name": "Devolved Governments",
+          "color": "#ec4899"
+        },
+        {
+          "id": "devolved_governments_scotland",
+          "parent": "devolved_governments",
+          "name": "Scotland",
+          "value": 46.5
+        },
+        {
+          "id": "devolved_governments_wales",
+          "parent": "devolved_governments",
+          "name": "Wales",
+          "value": 20.7
+        },
+        {
+          "id": "devolved_governments_northern_ireland",
+          "parent": "devolved_governments",
+          "name": "Northern Ireland",
+          "value": 16.1
+        },
+        {
+          "id": "devolved_governments_other",
+          "parent": "devolved_governments",
+          "name": "Other",
+          "value": 11.6
+        },
+        {
+          "id": "depreciation",
+          "parent": "total",
+          "name": "Depreciation",
+          "color": "#a3a3a3",
+          "value": 64.8
+        },
+        {
+          "id": "defence",
+          "parent": "total",
+          "name": "Defence",
+          "color": "#22c55e"
+        },
+        {
+          "id": "defence_capital_expenditure",
+          "parent": "defence",
+          "name": "Capital Expenditure",
+          "value": 13.4
+        },
+        {
+          "id": "defence_personnel",
+          "parent": "defence",
+          "name": "Personnel",
+          "value": 11.9
+        },
+        {
+          "id": "defence_nuclear_defence",
+          "parent": "defence",
+          "name": "Nuclear Defence",
+          "value": 7.9
+        },
+        {
+          "id": "defence_equipment_support",
+          "parent": "defence",
+          "name": "Equipment Support",
+          "value": 7.5
+        },
+        {
+          "id": "defence_other",
+          "parent": "defence",
+          "name": "Other",
+          "value": 6.2
+        },
+        {
+          "id": "defence_infrastructure",
+          "parent": "defence",
+          "name": "Infrastructure",
+          "value": 5.9
+        },
+        {
+          "id": "defence_operations",
+          "parent": "defence",
+          "name": "Operations",
+          "value": 4.9
+        },
+        {
+          "id": "defence_it_communications",
+          "parent": "defence",
+          "name": "IT & Communications",
+          "value": 4.0
+        },
+        {
+          "id": "transport",
+          "parent": "total",
+          "name": "Transport",
+          "color": "#14b8a6"
+        },
+        {
+          "id": "transport_rail",
+          "parent": "transport",
+          "name": "Rail",
+          "value": 12.6
+        },
+        {
+          "id": "transport_roads",
+          "parent": "transport",
+          "name": "Roads",
+          "value": 9.8
+        },
+        {
+          "id": "transport_local_transport",
+          "parent": "transport",
+          "name": "Local Transport",
+          "value": 4.2
+        },
+        {
+          "id": "transport_other_transport",
+          "parent": "transport",
+          "name": "Other Transport",
+          "value": 3.1
+        },
+        {
+          "id": "vat_refunds",
+          "parent": "total",
+          "name": "VAT Refunds",
+          "color": "#6b7280",
+          "value": 26.1
+        },
+        {
+          "id": "home_office",
+          "parent": "total",
+          "name": "Home Office",
+          "color": "#7c3aed"
+        },
+        {
+          "id": "home_office_police",
+          "parent": "home_office",
+          "name": "Police",
+          "value": 10.8
+        },
+        {
+          "id": "home_office_immigration_borders",
+          "parent": "home_office",
+          "name": "Immigration & Borders",
+          "value": 5.4
+        },
+        {
+          "id": "home_office_asylum_protection",
+          "parent": "home_office",
+          "name": "Asylum & Protection",
+          "value": 3.2
+        },
+        {
+          "id": "home_office_other",
+          "parent": "home_office",
+          "name": "Other",
+          "value": 1.8
+        },
+        {
+          "id": "funded_public_sector_pension_schemes",
+          "parent": "total",
+          "name": "Funded Public Sector Pension Schemes",
+          "color": "#d946ef",
+          "value": 22.3
+        },
+        {
+          "id": "science_innovation_technology",
+          "parent": "total",
+          "name": "Science, Innovation & Technology",
+          "color": "#06b6d4"
+        },
+        {
+          "id": "science_innovation_technology_research_councils",
+          "parent": "science_innovation_technology",
+          "name": "Research Councils",
+          "value": 7.2
+        },
+        {
+          "id": "science_innovation_technology_aria_innovation",
+          "parent": "science_innovation_technology",
+          "name": "ARIA & Innovation",
+          "value": 3.8
+        },
+        {
+          "id": "science_innovation_technology_digital_infrastructure",
+          "parent": "science_innovation_technology",
+          "name": "Digital Infrastructure",
+          "value": 2.6
+        },
+        {
+          "id": "science_innovation_technology_other",
+          "parent": "science_innovation_technology",
+          "name": "Other",
+          "value": 1.8
+        },
+        {
+          "id": "environmental_levies",
+          "parent": "total",
+          "name": "Environmental Levies",
+          "color": "#84cc16",
+          "value": 15.0
+        },
+        {
+          "id": "public_corporations",
+          "parent": "total",
+          "name": "Public Corporations",
+          "color": "#f43f5e",
+          "value": 14.5
+        },
+        {
+          "id": "justice",
+          "parent": "total",
+          "name": "Justice",
+          "color": "#a855f7"
+        },
+        {
+          "id": "justice_prisons_probation",
+          "parent": "justice",
+          "name": "Prisons & Probation",
+          "value": 7.2
+        },
+        {
+          "id": "justice_courts_tribunals",
+          "parent": "justice",
+          "name": "Courts & Tribunals",
+          "value": 3.1
+        },
+        {
+          "id": "justice_legal_aid",
+          "parent": "justice",
+          "name": "Legal Aid",
+          "value": 2.0
+        },
+        {
+          "id": "justice_other_justice",
+          "parent": "justice",
+          "name": "Other Justice",
+          "value": 2.7
+        },
+        {
+          "id": "housing",
+          "parent": "total",
+          "name": "Housing",
+          "color": "#0ea5e9"
+        },
+        {
+          "id": "housing_affordable_homes_programme",
+          "parent": "housing",
+          "name": "Affordable Homes Programme",
+          "value": 6.5
+        },
+        {
+          "id": "housing_infrastructure",
+          "parent": "housing",
+          "name": "Housing Infrastructure",
+          "value": 3.8
+        },
+        {
+          "id": "housing_other_housing",
+          "parent": "housing",
+          "name": "Other Housing",
+          "value": 3.3
+        },
+        {
+          "id": "foreign_office",
+          "parent": "total",
+          "name": "Foreign Office",
+          "color": "#1e293b"
+        },
+        {
+          "id": "foreign_office_overseas_development_aid",
+          "parent": "foreign_office",
+          "name": "Overseas Development Aid",
+          "value": 7.2
+        },
+        {
+          "id": "foreign_office_diplomatic_network",
+          "parent": "foreign_office",
+          "name": "Diplomatic Network",
+          "value": 2.5
+        },
+        {
+          "id": "foreign_office_other",
+          "parent": "foreign_office",
+          "name": "Other",
+          "value": 1.5
+        },
+        {
+          "id": "energy_security_net_zero",
+          "parent": "total",
+          "name": "Energy Security & Net Zero",
+          "color": "#10b981"
+        },
+        {
+          "id": "energy_security_net_zero_renewable_energy_subsidies",
+          "parent": "energy_security_net_zero",
+          "name": "Renewable Energy Subsidies",
+          "value": 5.8
+        },
+        {
+          "id": "energy_security_net_zero_nuclear",
+          "parent": "energy_security_net_zero",
+          "name": "Nuclear",
+          "value": 3.5
+        },
+        {
+          "id": "energy_security_net_zero_energy_efficiency",
+          "parent": "energy_security_net_zero",
+          "name": "Energy Efficiency",
+          "value": 2.1
+        },
+        {
+          "id": "energy_security_net_zero_other",
+          "parent": "energy_security_net_zero",
+          "name": "Other",
+          "value": 1.9
+        },
+        {
+          "id": "company_other_tax_credits",
+          "parent": "total",
+          "name": "Company & Other Tax Credits",
+          "color": "#78716c",
+          "value": 10.6
+        },
+        {
+          "id": "work_pensions",
+          "parent": "total",
+          "name": "Work & Pensions",
+          "color": "#0284c7"
+        },
+        {
+          "id": "work_pensions_jobcentre_plus",
+          "parent": "work_pensions",
+          "name": "Jobcentre Plus",
+          "value": 4.9
+        },
+        {
+          "id": "work_pensions_dwp_administration",
+          "parent": "work_pensions",
+          "name": "DWP Administration",
+          "value": 3.6
+        },
+        {
+          "id": "work_pensions_other",
+          "parent": "work_pensions",
+          "name": "Other",
+          "value": 2.6
+        },
+        {
+          "id": "other",
+          "parent": "total",
+          "name": "Other",
+          "color": "#6b7280"
+        },
+        {
+          "id": "other_cabinet_office",
+          "parent": "other",
+          "name": "Cabinet Office",
+          "value": 4.2
+        },
+        {
+          "id": "other_hmrc_administration",
+          "parent": "other",
+          "name": "HMRC Administration",
+          "value": 3.8
+        },
+        {
+          "id": "other_culture_media_sport",
+          "parent": "other",
+          "name": "Culture Media & Sport",
+          "value": 3.6
+        },
+        {
+          "id": "other_defra",
+          "parent": "other",
+          "name": "DEFRA",
+          "value": 3.2
+        },
+        {
+          "id": "other_intelligence_services",
+          "parent": "other",
+          "name": "Intelligence Services",
+          "value": 3.0
+        },
+        {
+          "id": "other_government",
+          "parent": "other",
+          "name": "Other Government",
+          "value": 8.2
+        }
+      ]
+    },
+    "2024-25": {
+      "total": 1232,
+      "nodes": [
+        {
+          "id": "total",
+          "parent": "",
+          "name": "Total"
+        },
+        {
+          "id": "welfare",
+          "parent": "total",
+          "name": "Welfare",
+          "color": "#eab308"
+        },
+        {
+          "id": "welfare_pensioner_spending",
+          "parent": "welfare",
+          "name": "Pensioner Spending",
+          "value": 152.1
+        },
+        {
+          "id": "welfare_universal_credit",
+          "parent": "welfare",
+          "name": "Universal Credit",
+          "value": 66.4
+        },
+        {
+          "id": "welfare_disability_benefits",
+          "parent": "welfare",
+          "name": "Disability Benefits",
+          "value": 33.7
+        },
+        {
+          "id": "welfare_housing_benefit",
+          "parent": "welfare",
+          "name": "Housing Benefit",
+          "value": 14.6
+        },
+        {
+          "id": "welfare_child_benefit",
+          "parent": "welfare",
+          "name": "Child Benefit",
+          "value": 13.3
+        },
+        {
+          "id": "welfare_incapacity_benefits",
+          "parent": "welfare",
+          "name": "Incapacity Benefits",
+          "value": 12.4
+        },
+        {
+          "id": "welfare_ni_social_security",
+          "parent": "welfare",
+          "name": "NI Social Security",
+          "value": 9.7
+        },
+        {
+          "id": "welfare_carers_allowance",
+          "parent": "welfare",
+          "name": "Carer's Allowance",
+          "value": 4.2
+        },
+        {
+          "id": "welfare_statutory_maternity_pay",
+          "parent": "welfare",
+          "name": "Statutory Maternity Pay",
+          "value": 2.8
+        },
+        {
+          "id": "welfare_other",
+          "parent": "welfare",
+          "name": "Other",
+          "value": 2.8
+        },
+        {
+          "id": "health",
+          "parent": "total",
+          "name": "Health",
+          "color": "#3b82f6"
+        },
+        {
+          "id": "health_nhs_providers",
+          "parent": "health",
+          "name": "NHS Providers",
+          "value": 124.6
+        },
+        {
+          "id": "health_nhs_england",
+          "parent": "health",
+          "name": "NHS England",
+          "value": 62.4
+        },
+        {
+          "id": "health_local_authorities",
+          "parent": "health",
+          "name": "Local Authorities",
+          "value": 3.5
+        },
+        {
+          "id": "health_other_nhs_bodies",
+          "parent": "health",
+          "name": "Other NHS Bodies",
+          "value": 5.7
+        },
+        {
+          "id": "health_dhsc_administration",
+          "parent": "health",
+          "name": "DHSC Administration",
+          "value": 5.4
+        },
+        {
+          "id": "debt_interest",
+          "parent": "total",
+          "name": "Debt Interest",
+          "color": "#ef4444",
+          "value": 89.0
+        },
+        {
+          "id": "education",
+          "parent": "total",
+          "name": "Education",
+          "color": "#f59e0b"
+        },
+        {
+          "id": "education_schools_early_years",
+          "parent": "education",
+          "name": "Schools & Early Years",
+          "value": 59.1
+        },
+        {
+          "id": "education_academies",
+          "parent": "education",
+          "name": "Academies",
+          "value": 20.4
+        },
+        {
+          "id": "education_adult_social_care",
+          "parent": "education",
+          "name": "Adult Social Care",
+          "value": 7.1
+        },
+        {
+          "id": "education_higher_education",
+          "parent": "education",
+          "name": "Higher Education",
+          "value": 4.3
+        },
+        {
+          "id": "education_other_education",
+          "parent": "education",
+          "name": "Other Education",
+          "value": 3.9
+        },
+        {
+          "id": "local_councils",
+          "parent": "total",
+          "name": "Local Councils",
+          "color": "#8b5cf6"
+        },
+        {
+          "id": "local_councils_adult_social_care",
+          "parent": "local_councils",
+          "name": "Adult Social Care",
+          "value": 25.2
+        },
+        {
+          "id": "local_councils_childrens_services",
+          "parent": "local_councils",
+          "name": "Children's Services",
+          "value": 12.4
+        },
+        {
+          "id": "local_councils_housing_homelessness",
+          "parent": "local_councils",
+          "name": "Housing & Homelessness",
+          "value": 8.5
+        },
+        {
+          "id": "local_councils_environmental_services",
+          "parent": "local_councils",
+          "name": "Environmental Services",
+          "value": 6.9
+        },
+        {
+          "id": "local_councils_highways_transport",
+          "parent": "local_councils",
+          "name": "Highways & Transport",
+          "value": 6.1
+        },
+        {
+          "id": "local_councils_planning_development",
+          "parent": "local_councils",
+          "name": "Planning & Development",
+          "value": 3.9
+        },
+        {
+          "id": "local_councils_cultural_services",
+          "parent": "local_councils",
+          "name": "Cultural Services",
+          "value": 3.0
+        },
+        {
+          "id": "local_councils_public_health",
+          "parent": "local_councils",
+          "name": "Public Health",
+          "value": 2.7
+        },
+        {
+          "id": "local_councils_other_services",
+          "parent": "local_councils",
+          "name": "Other Services",
+          "value": 21.0
+        },
+        {
+          "id": "devolved_governments",
+          "parent": "total",
+          "name": "Devolved Governments",
+          "color": "#ec4899"
+        },
+        {
+          "id": "devolved_governments_scotland",
+          "parent": "devolved_governments",
+          "name": "Scotland",
+          "value": 43.8
+        },
+        {
+          "id": "devolved_governments_wales",
+          "parent": "devolved_governments",
+          "name": "Wales",
+          "value": 19.5
+        },
+        {
+          "id": "devolved_governments_northern_ireland",
+          "parent": "devolved_governments",
+          "name": "Northern Ireland",
+          "value": 15.2
+        },
+        {
+          "id": "devolved_governments_other",
+          "parent": "devolved_governments",
+          "name": "Other",
+          "value": 10.4
+        },
+        {
+          "id": "depreciation",
+          "parent": "total",
+          "name": "Depreciation",
+          "color": "#a3a3a3",
+          "value": 57.6
+        },
+        {
+          "id": "defence",
+          "parent": "total",
+          "name": "Defence",
+          "color": "#22c55e"
+        },
+        {
+          "id": "defence_capital_expenditure",
+          "parent": "defence",
+          "name": "Capital Expenditure",
+          "value": 11.3
+        },
+        {
+          "id": "defence_personnel",
+          "parent": "defence",
+          "name": "Personnel",
+          "value": 11.3
+        },
+        {
+          "id": "defence_nuclear_defence",
+          "parent": "defence",
+          "name": "Nuclear Defence",
+          "value": 7.3
+        },
+        {
+          "id": "defence_equipment_support",
+          "parent": "defence",
+          "name": "Equipment Support",
+          "value": 6.9
+        },
+        {
+          "id": "defence_other",
+          "parent": "defence",
+          "name": "Other",
+          "value": 5.6
+        },
+        {
+          "id": "defence_infrastructure",
+          "parent": "defence",
+          "name": "Infrastructure",
+          "value": 5.2
+        },
+        {
+          "id": "defence_operations",
+          "parent": "defence",
+          "name": "Operations",
+          "value": 4.5
+        },
+        {
+          "id": "defence_it_communications",
+          "parent": "defence",
+          "name": "IT & Communications",
+          "value": 3.6
+        },
+        {
+          "id": "transport",
+          "parent": "total",
+          "name": "Transport",
+          "color": "#14b8a6"
+        },
+        {
+          "id": "transport_rail",
+          "parent": "transport",
+          "name": "Rail",
+          "value": 11.8
+        },
+        {
+          "id": "transport_roads",
+          "parent": "transport",
+          "name": "Roads",
+          "value": 8.4
+        },
+        {
+          "id": "transport_local_transport",
+          "parent": "transport",
+          "name": "Local Transport",
+          "value": 3.8
+        },
+        {
+          "id": "transport_other_transport",
+          "parent": "transport",
+          "name": "Other Transport",
+          "value": 2.8
+        },
+        {
+          "id": "vat_refunds",
+          "parent": "total",
+          "name": "VAT Refunds",
+          "color": "#6b7280",
+          "value": 23.2
+        },
+        {
+          "id": "home_office",
+          "parent": "total",
+          "name": "Home Office",
+          "color": "#7c3aed"
+        },
+        {
+          "id": "home_office_police",
+          "parent": "home_office",
+          "name": "Police",
+          "value": 10.2
+        },
+        {
+          "id": "home_office_immigration_borders",
+          "parent": "home_office",
+          "name": "Immigration & Borders",
+          "value": 4.9
+        },
+        {
+          "id": "home_office_asylum_protection",
+          "parent": "home_office",
+          "name": "Asylum & Protection",
+          "value": 4.1
+        },
+        {
+          "id": "home_office_other",
+          "parent": "home_office",
+          "name": "Other",
+          "value": 1.6
+        },
+        {
+          "id": "funded_public_sector_pension_schemes",
+          "parent": "total",
+          "name": "Funded Public Sector Pension Schemes",
+          "color": "#d946ef",
+          "value": 19.8
+        },
+        {
+          "id": "science_innovation_technology",
+          "parent": "total",
+          "name": "Science, Innovation & Technology",
+          "color": "#06b6d4"
+        },
+        {
+          "id": "science_innovation_technology_research_councils",
+          "parent": "science_innovation_technology",
+          "name": "Research Councils",
+          "value": 6.5
+        },
+        {
+          "id": "science_innovation_technology_aria_innovation",
+          "parent": "science_innovation_technology",
+          "name": "ARIA & Innovation",
+          "value": 3.2
+        },
+        {
+          "id": "science_innovation_technology_digital_infrastructure",
+          "parent": "science_innovation_technology",
+          "name": "Digital Infrastructure",
+          "value": 2.3
+        },
+        {
+          "id": "science_innovation_technology_other",
+          "parent": "science_innovation_technology",
+          "name": "Other",
+          "value": 1.5
+        },
+        {
+          "id": "environmental_levies",
+          "parent": "total",
+          "name": "Environmental Levies",
+          "color": "#84cc16",
+          "value": 13.2
+        },
+        {
+          "id": "public_corporations",
+          "parent": "total",
+          "name": "Public Corporations",
+          "color": "#f43f5e",
+          "value": 12.5
+        },
+        {
+          "id": "justice",
+          "parent": "total",
+          "name": "Justice",
+          "color": "#a855f7"
+        },
+        {
+          "id": "justice_prisons_probation",
+          "parent": "justice",
+          "name": "Prisons & Probation",
+          "value": 6.5
+        },
+        {
+          "id": "justice_courts_tribunals",
+          "parent": "justice",
+          "name": "Courts & Tribunals",
+          "value": 2.8
+        },
+        {
+          "id": "justice_legal_aid",
+          "parent": "justice",
+          "name": "Legal Aid",
+          "value": 1.8
+        },
+        {
+          "id": "justice_other_justice",
+          "parent": "justice",
+          "name": "Other Justice",
+          "value": 2.4
+        },
+        {
+          "id": "housing",
+          "parent": "total",
+          "name": "Housing",
+          "color": "#0ea5e9"
+        },
+        {
+          "id": "housing_affordable_homes_programme",
+          "parent": "housing",
+          "name": "Affordable Homes Programme",
+          "value": 5.5
+        },
+        {
+          "id": "housing_infrastructure",
+          "parent": "housing",
+          "name": "Housing Infrastructure",
+          "value": 3.2
+        },
+        {
+          "id": "housing_other_housing",
+          "parent": "housing",
+          "name": "Other Housing",
+          "value": 2.8
+        },
+        {
+          "id": "foreign_office",
+          "parent": "total",
+          "name": "Foreign Office",
+          "color": "#1e293b"
+        },
+        {
+          "id": "foreign_office_overseas_development_aid",
+          "parent": "foreign_office",
+          "name": "Overseas Development Aid",
+          "value": 6.8
+        },
+        {
+          "id": "foreign_office_diplomatic_network",
+          "parent": "foreign_office",
+          "name": "Diplomatic Network",
+          "value": 2.3
+        },
+        {
+          "id": "foreign_office_other",
+          "parent": "foreign_office",
+          "name": "Other",
+          "value": 1.4
+        },
+        {
+          "id": "energy_security_net_zero",
+          "parent": "total",
+          "name": "Energy Security & Net Zero",
+          "color": "#10b981"
+        },
+        {
+          "id": "energy_security_net_zero_renewable_energy_subsidies",
+          "parent": "energy_security_net_zero",
+          "name": "Renewable Energy Subsidies",
+          "value": 4.8
+        },
+        {
+          "id": "energy_security_net_zero_nuclear",
+          "parent": "energy_security_net_zero",
+          "name": "Nuclear",
+          "value": 3.0
+        },
+        {
+          "id": "energy_security_net_zero_energy_efficiency",
+          "parent": "energy_security_net_zero",
+          "name": "Energy Efficiency",
+          "value": 1.8
+        },
+        {
+          "id": "energy_security_net_zero_other",
+          "parent": "energy_security_net_zero",
+          "name": "Other",
+          "value": 1.7
+        },
+        {
+          "id": "company_other_tax_credits",
+          "parent": "total",
+          "name": "Company & Other Tax Credits",
+          "color": "#78716c",
+          "value": 9.8
+        },
+        {
+          "id": "work_pensions",
+          "parent": "total",
+          "name": "Work & Pensions",
+          "color": "#0284c7"
+        },
+        {
+          "id": "work_pensions_jobcentre_plus",
+          "parent": "work_pensions",
+          "name": "Jobcentre Plus",
+          "value": 4.5
+        },
+        {
+          "id": "work_pensions_dwp_administration",
+          "parent": "work_pensions",
+          "name": "DWP Administration",
+          "value": 3.3
+        },
+        {
+          "id": "work_pensions_other",
+          "parent": "work_pensions",
+          "name": "Other",
+          "value": 2.3
+        },
+        {
+          "id": "other",
+          "parent": "total",
+          "name": "Other",
+          "color": "#6b7280"
+        },
+        {
+          "id": "other_cabinet_office",
+          "parent": "other",
+          "name": "Cabinet Office",
+          "value": 3.8
+        },
+        {
+          "id": "other_hmrc_administration",
+          "parent": "other",
+          "name": "HMRC Administration",
+          "value": 3.5
+        },
+        {
+          "id": "other_culture_media_sport",
+          "parent": "other",
+          "name": "Culture Media & Sport",
+          "value": 3.2
+        },
+        {
+          "id": "other_defra",
+          "parent": "other",
+          "name": "DEFRA",
+          "value": 2.9
+        },
+        {
+          "id": "other_intelligence_services",
+          "parent": "other",
+          "name": "Intelligence Services",
+          "value": 2.8
+        },
+        {
+          "id": "other_government",
+          "parent": "other",
+          "name": "Other Government",
+          "value": 7.2
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "title": "Ongoing Project Daily Cost",
+  "subtitle": "Average implied daily cost of major ongoing UK infrastructure projects",
+  "methodology": "Average daily project cost = latest estimated total cost / total project duration in days. Start date uses construction start or formal approval date. End date uses latest official estimated completion date. This is an average implied daily cost over the full project lifetime, not literal daily cash expenditure. Actual spending varies significantly over the lifecycle of a project.",
+  "potholeUnitCost": 100,
+  "potholeUnitLabel": "pothole repairs",
+  "potholeUnitSource": "Average UK council pothole repair cost (Asphalt Industry Alliance / RAC Foundation)",
+  "projects": [
+    {
+      "projectId": "hs2",
+      "projectName": "HS2 (High Speed 2)",
+      "department": "Department for Transport",
+      "totalEstimatedCostM": 100000,
+      "startDate": "2020-09-01",
+      "completionDate": "2038-12-31",
+      "durationDays": 6697,
+      "averageDailyCostM": 14.93,
+      "potholeEquivalentPerDay": 149300,
+      "methodologyBasis": "Total estimated cost (£100bn, nominal prices, May 2025 Mark Wild estimate) divided by construction period Sept 2020 to late 2030s (estimated 2038). Phase 1 Old Oak Common ~2030, Euston extension timeline uncertain. Cost figure is preliminary; DfT noted a reliable baseline may not be established until 2026.",
+      "completionNote": "Late 2030s (Phase 1 to Old Oak Common ~2030)",
+      "sourceName": "HS2 Ltd Annual Report 2024-25 / New Civil Engineer / NAO",
+      "sourceUrl": "https://www.newcivilengineer.com/latest/hs2-completion-date-pushed-to-late-2030s-as-anticipated-final-cost-continues-to-rise-15-05-2025/",
+      "sourceConfidence": "medium",
+      "notes": "Northern legs scrapped. Cost has escalated from original £33bn estimate. Figure of £100bn is in nominal prices and remains subject to revision."
+    },
+    {
+      "projectId": "hinkley-point-c",
+      "projectName": "Hinkley Point C",
+      "department": "Dept for Energy Security & Net Zero",
+      "totalEstimatedCostM": 48700,
+      "startDate": "2017-03-28",
+      "completionDate": "2031-12-31",
+      "durationDays": 5392,
+      "averageDailyCostM": 9.03,
+      "potholeEquivalentPerDay": 90300,
+      "methodologyBasis": "Total estimated cost (£48.7bn in 2026 nominal prices, Feb 2026 EDF revised estimate) divided by construction period March 2017 (first concrete) to end of 2031 (Unit 1 power ~2030, Unit 2 later). Original approval estimate was £18bn in 2015 prices.",
+      "completionNote": "Unit 1 first power expected 2030; Unit 2 TBD",
+      "sourceName": "EDF Energy / New Civil Engineer",
+      "sourceUrl": "https://www.newcivilengineer.com/latest/hinkley-point-cs-cost-climbs-to-35bn-with-confirmation-unit-1-will-power-up-in-2030-20-02-2026/",
+      "sourceConfidence": "high",
+      "notes": "Cost has nearly tripled from original £18bn estimate. Funded primarily through EDF and CGN equity, with consumer-backed CfD mechanism."
+    },
+    {
+      "projectId": "lower-thames-crossing",
+      "projectName": "Lower Thames Crossing",
+      "department": "Department for Transport",
+      "totalEstimatedCostM": 10600,
+      "startDate": "2025-03-25",
+      "completionDate": "2031-12-31",
+      "durationDays": 2472,
+      "averageDailyCostM": 4.29,
+      "potholeEquivalentPerDay": 42900,
+      "methodologyBasis": "Total estimated cost (£10.6bn, Dec 2025 revised estimate) divided by project period from DCO approval (25 March 2025) through estimated completion (~2031, based on 6-year build programme). Has already consumed £1.2bn in pre-construction costs. Previous estimates were £9bn (Nov 2022).",
+      "completionNote": "~2031 (6-year build from DCO approval)",
+      "sourceName": "National Highways / New Civil Engineer",
+      "sourceUrl": "https://www.newcivilengineer.com/latest/lower-thames-crossing-receives-planning-permission-25-03-2025/",
+      "sourceConfidence": "high",
+      "notes": "DCO approved March 2025 after years of delays. Construction start date not yet confirmed; completion estimated at 6 years from approval."
+    }
+  ],
+  "excluded": [
+    {
+      "projectName": "Sizewell C",
+      "reason": "No official completion date published. FID reached July 2025 but timeline insufficient for defensible daily cost calculation."
+    },
+    {
+      "projectName": "Palace of Westminster Restoration & Renewal",
+      "reason": "Multiple delivery models with 4-5x cost range (£9bn-£18.7bn). No confirmed construction start date. Delivery model decision expected ~2030."
+    },
+    {
+      "projectName": "Heathrow Third Runway",
+      "reason": "Construction has not started. Planning permission not expected until 2029. Too speculative for daily cost calculation."
+    }
+  ]
+}

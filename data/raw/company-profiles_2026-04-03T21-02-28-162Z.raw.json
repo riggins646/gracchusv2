@@ -1,0 +1,3535 @@
+{
+  "results": {
+    "00102498": {
+      "profile": {
+        "accounts": {
+          "accounting_reference_date": {
+            "day": "31",
+            "month": "12"
+          },
+          "last_accounts": {
+            "made_up_to": "2024-12-31",
+            "period_end_on": "2024-12-31",
+            "period_start_on": "2024-01-01",
+            "type": "group"
+          },
+          "next_accounts": {
+            "due_on": "2026-06-30",
+            "overdue": false,
+            "period_end_on": "2025-12-31",
+            "period_start_on": "2025-01-01"
+          },
+          "next_due": "2026-06-30",
+          "next_made_up_to": "2025-12-31",
+          "overdue": false
+        },
+        "can_file": true,
+        "company_name": "BP P.L.C.",
+        "company_number": "00102498",
+        "company_status": "active",
+        "confirmation_statement": {
+          "last_made_up_to": "2025-05-05",
+          "next_due": "2026-05-19",
+          "next_made_up_to": "2026-05-05",
+          "overdue": false
+        },
+        "date_of_creation": "1909-04-14",
+        "etag": "0bbae7a81c1b1017777d012a6ee966223bd6e489",
+        "has_been_liquidated": false,
+        "has_charges": false,
+        "has_insolvency_history": false,
+        "jurisdiction": "england-wales",
+        "last_full_members_list_date": "2014-05-05",
+        "links": {
+          "self": "/company/00102498",
+          "filing_history": "/company/00102498/filing-history",
+          "officers": "/company/00102498/officers",
+          "exemptions": "/company/00102498/exemptions"
+        },
+        "previous_company_names": [
+          {
+            "ceased_on": "2001-05-01",
+            "effective_from": "1998-12-31",
+            "name": "BP AMOCO P.L.C."
+          },
+          {
+            "ceased_on": "1998-12-31",
+            "effective_from": "1909-04-14",
+            "name": "THE BRITISH PETROLEUM COMPANY P.L.C."
+          }
+        ],
+        "registered_office_address": {
+          "address_line_1": "1 St James's Square",
+          "address_line_2": "London",
+          "postal_code": "SW1Y 4PD"
+        },
+        "registered_office_is_in_dispute": false,
+        "sic_codes": [
+          "70100"
+        ],
+        "type": "plc",
+        "undeliverable_registered_office_address": false,
+        "has_super_secure_pscs": false
+      },
+      "officers": {
+        "active_count": 16,
+        "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+        "items": [
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2022-01-04",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/00102498/appointments/qQedOdNfpCcuoPGsXQ5nPwh6FFQ",
+              "officer": {
+                "appointments": "/officers/I9aDLYU71bUXWSCIgKgzNULtgpk/appointments"
+              }
+            },
+            "name": "FAZAL, Alia",
+            "officer_role": "secretary",
+            "person_number": "291038760001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2019-05-07",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/00102498/appointments/Efud1Eyc6aEF8pv--IyXd_6vKzw",
+              "officer": {
+                "appointments": "/officers/IND_i3_G7Gqq3ZzC3P0rXYbUcNU/appointments"
+              }
+            },
+            "name": "MATHEWS, Benedict John Spurway",
+            "officer_role": "secretary",
+            "person_number": "258420120001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2022-05-02",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/00102498/appointments/yjshawzuYY2-sho-1XdeU18U3SY",
+              "officer": {
+                "appointments": "/officers/wUnceEnjxhfwQh4oP9KWcJYSPyU/appointments"
+              }
+            },
+            "name": "THURSTON, Julian",
+            "officer_role": "secretary",
+            "person_number": "296043770001"
+          },
+          {
+            "etag": "14ad983a98a31451a342664c753a32d778442fd3",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2022-09-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 8,
+              "year": 1967
+            },
+            "links": {
+              "self": "/company/00102498/appointments/RIdX3cqKtu3QJ7phIhWGVIedDyM",
+              "officer": {
+                "appointments": "/officers/DN10sEuPtFVgnsdAC_ik2_ccfnY/appointments"
+              }
+            },
+            "name": "BLANC, Amanda Jayne",
+            "nationality": "British",
+            "officer_role": "director",
+            "person_number": "158020780002",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-05-19"
+            }
+          },
+          {
+            "etag": "940ef95da471c48d87edcf78d27c703425fc58d7",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2025-06-02",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United States",
+            "date_of_birth": {
+              "month": 10,
+              "year": 1956
+            },
+            "links": {
+              "self": "/company/00102498/appointments/Ngb0xacw7rGfklJmE2dr6pz1PmA",
+              "officer": {
+                "appointments": "/officers/k3yD6aOPW-gRch9qvcRNzXjA5d4/appointments"
+              }
+            },
+            "name": "HAGER, David Alan",
+            "nationality": "American",
+            "officer_role": "director",
+            "person_number": "336526710001",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-05-19"
+            }
+          },
+          {
+            "etag": "068d5fb542a7906a8946a61a2bab71636d69fb67",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2025-09-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 7,
+              "year": 1961
+            },
+            "links": {
+              "self": "/company/00102498/appointments/-9NbBZF5H9gpFTrRJW9-8QGi79c",
+              "officer": {
+                "appointments": "/officers/ntci-V-82xHQGmN3fF49Iprb7wY/appointments"
+              }
+            },
+            "name": "HENRY, Simon Peter",
+            "nationality": "British",
+            "officer_role": "director",
+            "person_number": "339948620001",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-05-19"
+            }
+          },
+          {
+            "etag": "4f6c1c082976d057d02b3bcb6fdb76d9a331466d",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2025-12-18",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 4,
+              "year": 1972
+            },
+            "links": {
+              "self": "/company/00102498/appointments/qdxZvjixK5amIo5-O8g0yk-k_sk",
+              "officer": {
+                "appointments": "/officers/Hlq-Ws0JYbJrwNky-6oIG99-bOc/appointments"
+              }
+            },
+            "name": "HOWLE, Carol-Lee",
+            "nationality": "British",
+            "officer_role": "director",
+            "person_number": "343745620001",
+            "identity_verification_details": {
+              "appointment_verification_end_on": "9999-12-31",
+              "appointment_verification_start_on": "2025-12-23"
+            }
+          },
+          {
+            "etag": "c5d11eb281bf96ddfd0d208b23d18677168912ae",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2025-09-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "Ireland",
+            "date_of_birth": {
+              "month": 8,
+              "year": 1962
+            },
+            "links": {
+              "self": "/company/00102498/appointments/U_6YjMdVlBjRY6Kv1bCufh7mDlU",
+              "officer": {
+                "appointments": "/officers/b7F7ALFiZ6oACV-7G-iqaiarceU/appointments"
+              }
+            },
+            "name": "MANIFOLD, Albert Jude",
+            "nationality": "Irish",
+            "officer_role": "director",
+            "person_number": "339844900001",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-05-19"
+            }
+          },
+          {
+            "etag": "745f301dda5908fc8a3389c79ce19bfa3c481c96",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2017-05-17",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United States",
+            "date_of_birth": {
+              "month": 6,
+              "year": 1957
+            },
+            "links": {
+              "self": "/company/00102498/appointments/AzruWVnBoS5rAwmpPPRtu1L_cb0",
+              "officer": {
+                "appointments": "/officers/ZuyPfLXj_j5v9PTba4-hAq8n9n8/appointments"
+              }
+            },
+            "name": "MEYER, Melody Boone",
+            "nationality": "American",
+            "officer_role": "director",
+            "person_number": "231874070002",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-05-19"
+            }
+          },
+          {
+            "etag": "d0d679f11cfb4ebc8e64e9214bdfc8aa9191deb8",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2020-09-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 2,
+              "year": 1969
+            },
+            "links": {
+              "self": "/company/00102498/appointments/6ZLvcb0e-uPsQiioh1tCJMYULIQ",
+              "officer": {
+                "appointments": "/officers/0Qjmrq5l-oOtvLax_fmzAxg6TJ4/appointments"
+              }
+            },
+            "name": "MORZARIA, Tushar",
+            "nationality": "British",
+            "officer_role": "director",
+            "person_number": "273827990001",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-05-19"
+            }
+          },
+          {
+            "etag": "9ac5f69e34be28deb30f2f171bc4ed2aa27b4c27",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2023-03-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "India",
+            "date_of_birth": {
+              "month": 2,
+              "year": 1965
+            },
+            "links": {
+              "self": "/company/00102498/appointments/QTlkxcpsb_tqi-8LREYfDmlS58s",
+              "officer": {
+                "appointments": "/officers/Sd12AzoP0cMb2GUx8r7It_BVvc0/appointments"
+              }
+            },
+            "name": "NAGARAJAN, Hina",
+            "nationality": "Indian",
+            "officer_role": "director",
+            "person_number": "306322740001",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-05-19"
+            }
+          },
+          {
+            "etag": "afdcec649a5f8fda8332d283fecb412269f7c4c5",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2023-03-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "India",
+            "date_of_birth": {
+              "month": 12,
+              "year": 1961
+            },
+            "links": {
+              "self": "/company/00102498/appointments/iyiPrVi-e0xnYT20equOPt5ljSE",
+              "officer": {
+                "appointments": "/officers/RuOZgTw-0LT6iT8PuFaGDUa5ub0/appointments"
+              }
+            },
+            "name": "PAI, Satish",
+            "nationality": "Indian",
+            "officer_role": "director",
+            "person_number": "306314060001",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-05-19"
+            }
+          },
+          {
+            "etag": "def7717752b4e3a8a04af0eb4f2f0848fd7a0322",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2021-01-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United States",
+            "date_of_birth": {
+              "month": 12,
+              "year": 1962
+            },
+            "links": {
+              "self": "/company/00102498/appointments/gwPG_1uFIwEry6TKIF-hsAXVG3A",
+              "officer": {
+                "appointments": "/officers/Q1iqIsTEcsk74_pRhttjOog7Lr0/appointments"
+              }
+            },
+            "name": "RICHARDSON, Karen Ann",
+            "nationality": "American",
+            "officer_role": "director",
+            "person_number": "278333640001",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-05-19"
+            }
+          },
+          {
+            "etag": "301407a1735084df85168d5ed8082da0b785e678",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2021-01-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "Germany",
+            "date_of_birth": {
+              "month": 10,
+              "year": 1959
+            },
+            "links": {
+              "self": "/company/00102498/appointments/9WddFSDi8r1PeipPrusXE9Q7b6s",
+              "officer": {
+                "appointments": "/officers/0UcyCZsEtvUwkX6lUneeUybuMuM/appointments"
+              }
+            },
+            "name": "TEYSSEN, Johannes Antonius",
+            "nationality": "German",
+            "officer_role": "director",
+            "person_number": "278323460001",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-05-19"
+            }
+          },
+          {
+            "etag": "6f05d785a472be5f682c99ce3319d17ffa07331c",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2024-02-02",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 3,
+              "year": 1968
+            },
+            "links": {
+              "self": "/company/00102498/appointments/mA2cBNnaBcMlCxEbj_h-MB_05yA",
+              "officer": {
+                "appointments": "/officers/8qe0nH8nGuSxg5MUMoFKONlHWc0/appointments"
+              }
+            },
+            "name": "THOMSON, Katherine Anne",
+            "nationality": "British",
+            "officer_role": "director",
+            "person_number": "173748820001",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-05-19"
+            }
+          },
+          {
+            "etag": "032833b741a0f617e3c3b9e129e559feaa9305f4",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2025-04-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 7,
+              "year": 1960
+            },
+            "links": {
+              "self": "/company/00102498/appointments/xvEvq_uXqgP6CU-GFhzSUHPi384",
+              "officer": {
+                "appointments": "/officers/63rvdpowqNP63R9VYwmyUBvbb0E/appointments"
+              }
+            },
+            "name": "TYLER, Ian Paul",
+            "nationality": "British",
+            "officer_role": "director",
+            "person_number": "334273120001",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-05-19"
+            }
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2012-02-02",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/00102498/appointments/ORmwkKgX6avAB1_R-lSqNmY7hew",
+              "officer": {
+                "appointments": "/officers/WTokWe8A5mFqRH7tEm7oWPO6-50/appointments"
+              }
+            },
+            "name": "ASHDOWN, Hannah",
+            "officer_role": "secretary",
+            "resigned_on": "2020-05-31",
+            "person_number": "167715330001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2018-09-01",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/00102498/appointments/njZt5N493ljJh3i1JUtfpc-o8j4",
+              "officer": {
+                "appointments": "/officers/gwBPnEJzH7kMMIwKDeFI9Q2EbQU/appointments"
+              }
+            },
+            "name": "BERTELSEN, Jens",
+            "officer_role": "secretary",
+            "resigned_on": "2019-05-06",
+            "person_number": "250087790001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2012-02-02",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/00102498/appointments/cOkuFc4rRC8dTkBiI_OJaTAp99M",
+              "officer": {
+                "appointments": "/officers/d6UOrAZkruQLkeKKua7X5G5AhGc/appointments"
+              }
+            },
+            "name": "BERTELSEN, Jens",
+            "officer_role": "secretary",
+            "resigned_on": "2017-07-31",
+            "person_number": "167677210001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2020-06-01",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/00102498/appointments/NNS0TuOU4NzqsGHCEL-0mexbAHc",
+              "officer": {
+                "appointments": "/officers/Oo16GI3lS3HEgrIR-kCpmLYbDWw/appointments"
+              }
+            },
+            "name": "BUCKSEY, Nicholas",
+            "officer_role": "secretary",
+            "resigned_on": "2021-05-28",
+            "person_number": "270643870001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2017-05-19",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/00102498/appointments/MJjMEpyTY8mG8mODZugZjZZvuHE",
+              "officer": {
+                "appointments": "/officers/jyHTxlGoWPk_x6YIxP12wE8i_AM/appointments"
+              }
+            },
+            "name": "CAREY, Emily",
+            "officer_role": "secretary",
+            "resigned_on": "2018-02-26",
+            "person_number": "234102590001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "Hornton Court",
+              "address_line_2": "Kensington High Street",
+              "locality": "London",
+              "postal_code": "W8 7RU"
+            },
+            "appointed_on": "1999-08-01",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/00102498/appointments/eRR-919wLa2RtsxY2gF6tWvuTWQ",
+              "officer": {
+                "appointments": "/officers/UPZy4Tyojq-rAm3Z5TPQGjmTdXo/appointments"
+              }
+            },
+            "name": "CLAYTON, Paula Jean",
+            "nationality": "British",
+            "officer_role": "secretary",
+            "resigned_on": "2001-07-01",
+            "person_number": "65490930001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2017-05-19",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/00102498/appointments/WGU8hmuMUIklTy1WbKiuc3fBvd4",
+              "officer": {
+                "appointments": "/officers/TkSYR5oIrcNFc0qTsvx1-twTpSE/appointments"
+              }
+            },
+            "name": "DILLON, Denise",
+            "officer_role": "secretary",
+            "resigned_on": "2020-09-30",
+            "person_number": "234099840001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "The Gables Woodhurst Lane",
+              "locality": "Oxted",
+              "postal_code": "RH8 9HD",
+              "region": "Surrey"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "links": {
+              "self": "/company/00102498/appointments/5BqlPp39VNKtLTIRpH-lN15MOLY",
+              "officer": {
+                "appointments": "/officers/o3jcccAOD3ycN8vWuyGe727HS-I/appointments"
+              }
+            },
+            "name": "GRAYSON, Richard Charles",
+            "nationality": "British",
+            "officer_role": "secretary",
+            "resigned_on": "1994-10-01",
+            "person_number": "590970001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "Flat 10",
+              "address_line_2": "36 Sloane Court West",
+              "locality": "London",
+              "postal_code": "SW3 4TB"
+            },
+            "appointed_on": "1994-10-01",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/00102498/appointments/3iBmS2lEILv3Q8PdhaX9YJV7pAA",
+              "officer": {
+                "appointments": "/officers/4cdfFc8yg5mjXMIYD24jG_iI9Ek/appointments"
+              }
+            },
+            "name": "HANRATTY, Judith Christine",
+            "nationality": "British",
+            "officer_role": "secretary",
+            "resigned_on": "2003-07-24",
+            "person_number": "28501040001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2003-07-24",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/00102498/appointments/4lfD6ulWRi6pQ6rkxp4eFlZ43OE",
+              "officer": {
+                "appointments": "/officers/bHaeax8Q9j2yzO4LHW0FURRAlfQ/appointments"
+              }
+            },
+            "name": "JACKSON, David John",
+            "nationality": "British",
+            "officer_role": "secretary",
+            "resigned_on": "2018-12-31",
+            "person_number": "6518080007"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2020-09-09",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/00102498/appointments/qMPxhxoYvXF_ve5XYQYYOiulCK8",
+              "officer": {
+                "appointments": "/officers/-wH852vI045GnAo-VMCmc-zz9Iw/appointments"
+              }
+            },
+            "name": "ODADA, John-Green",
+            "officer_role": "secretary",
+            "resigned_on": "2022-02-09",
+            "person_number": "274351260001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2001-11-01",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/00102498/appointments/Havh71OJ4A7CR3JnKqESUnRBmSE",
+              "officer": {
+                "appointments": "/officers/NNnsK_IOEU6wMr2pdm43l9zpaRQ/appointments"
+              }
+            },
+            "name": "PEARL, David John",
+            "nationality": "British",
+            "officer_role": "secretary",
+            "resigned_on": "2012-03-30",
+            "person_number": "108309330002"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "Dovehouse Place",
+              "locality": "Felsted",
+              "postal_code": "CM6 3DD",
+              "region": "Essex"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 9,
+              "year": 1939
+            },
+            "links": {
+              "self": "/company/00102498/appointments/7emoTNGzu0JLoGyQVdCo7xXqoCA",
+              "officer": {
+                "appointments": "/officers/_Vy0DGWWRUTq7DjQlOsZPowqSWA/appointments"
+              }
+            },
+            "name": "AHEARNE, Stephen James",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "1996-09-30",
+            "person_number": "57839150001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2003-02-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 7,
+              "year": 1954
+            },
+            "links": {
+              "self": "/company/00102498/appointments/Dt8M6q1rVPTJmSh9pBMy1Jdf4ts",
+              "officer": {
+                "appointments": "/officers/BGYwWExHS2N0nQc99HP_M4rqqXo/appointments"
+              }
+            },
+            "name": "ALLEN, David Christopher, Dr",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2008-03-31",
+            "person_number": "11638790003"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2016-10-31",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "Denmark",
+            "date_of_birth": {
+              "month": 7,
+              "year": 1958
+            },
+            "links": {
+              "self": "/company/00102498/appointments/S5d7PXjV2ZdYrKp0t-Sdjc_s8_s",
+              "officer": {
+                "appointments": "/officers/FQX2yZmjQyQsz4WoD6wFXKNgCyk/appointments"
+              }
+            },
+            "name": "ANDERSEN, Nils Smedegaard",
+            "nationality": "Danish",
+            "officer_role": "director",
+            "resigned_on": "2020-03-18",
+            "person_number": "200326000001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2010-02-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United States",
+            "date_of_birth": {
+              "month": 4,
+              "year": 1945
+            },
+            "links": {
+              "self": "/company/00102498/appointments/IYphgZ7DjJP16eHlRmh1nixOA9A",
+              "officer": {
+                "appointments": "/officers/ivsjVZ4jSh9fzGR7SmtT2b2YCFY/appointments"
+              }
+            },
+            "name": "ANDERSON, Paul Milton",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "2018-05-21",
+            "person_number": "113572470003"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "Lake House",
+              "address_line_2": "Northington",
+              "locality": "Alresford",
+              "postal_code": "SO24 9TG",
+              "region": "Hampshire"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 11,
+              "year": 1928
+            },
+            "links": {
+              "self": "/company/00102498/appointments/MBHW0x0Wm8ShMa8zhjbhKmc3jMQ",
+              "officer": {
+                "appointments": "/officers/YF9hdV0rYZnyLXQZBC7k7OPU5L0/appointments"
+              }
+            },
+            "name": "ASHBURTON, John Francis Harcourt",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "1995-06-30",
+            "person_number": "35676860001"
+          },
+          {
+            "etag": "6ee3ca1aae6a92e967bd78334b78953e93a76081",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2020-07-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 9,
+              "year": 1970
+            },
+            "links": {
+              "self": "/company/00102498/appointments/qayq-FDlnOjR_GJFqFfKOCupBRg",
+              "officer": {
+                "appointments": "/officers/Mob8aCqKVVdX-kRZNSEXa56WM8g/appointments"
+              }
+            },
+            "name": "AUCHINCLOSS, Murray Michael",
+            "nationality": "Canadian",
+            "officer_role": "director",
+            "resigned_on": "2025-12-18",
+            "person_number": "271522440002",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-05-19"
+            }
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "75 Briar Woods Trail",
+              "country": "Usa",
+              "locality": "Stamford",
+              "postal_code": "CT06903",
+              "region": "Connecticut"
+            },
+            "appointed_on": "1998-12-31",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 11,
+              "year": 1930
+            },
+            "links": {
+              "self": "/company/00102498/appointments/yIa2SaGNb0MeogWERjSrPOhb7r4",
+              "officer": {
+                "appointments": "/officers/zaJcaKIZstSce52uwozayjZ3l4A/appointments"
+              }
+            },
+            "name": "BLOCK, Ruth",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "2001-04-19",
+            "person_number": "62099790001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "St. James's Square",
+              "country": "England",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD",
+              "premises": "1"
+            },
+            "appointed_on": "2014-07-24",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United States",
+            "date_of_birth": {
+              "month": 6,
+              "year": 1948
+            },
+            "links": {
+              "self": "/company/00102498/appointments/xwygXuQjGdPu0hBtjVgMvxHGDD0",
+              "officer": {
+                "appointments": "/officers/RurvTvmC-ozCg7xl-2XMWgzw-P0/appointments"
+              }
+            },
+            "name": "BOECKMANN, Alan",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "2019-05-21",
+            "person_number": "189681910002"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2010-11-08",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United States",
+            "date_of_birth": {
+              "month": 12,
+              "year": 1944
+            },
+            "links": {
+              "self": "/company/00102498/appointments/MCjnJcP6t9WenQwriTJqrB3oauY",
+              "officer": {
+                "appointments": "/officers/Y7WmmHkHYpbhA4yQsBWumBVhaVc/appointments"
+              }
+            },
+            "name": "BOWMAN, Frank Lee (\"Skip\"), Admiral, Us Navy (Retired)",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "2019-05-21",
+            "person_number": "155537930001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "date_of_birth": {
+              "month": 2,
+              "year": 1948
+            },
+            "links": {
+              "self": "/company/00102498/appointments/ergoGKa61N23Bmrlfh-xF3tnw9o",
+              "officer": {
+                "appointments": "/officers/PuQN2fqXJk_h5Dv75KbGvKP2gjE/appointments"
+              }
+            },
+            "name": "BROWNE, Edmund John Phillip, Lord",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2007-05-01",
+            "person_number": "98546880001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "1998-12-31",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 10,
+              "year": 1936
+            },
+            "links": {
+              "self": "/company/00102498/appointments/3NSsSOwDToy6EeLtrgsQhjqWPe8",
+              "officer": {
+                "appointments": "/officers/kbMQC2P52ocCC2KUCZjHe-KXO6c/appointments"
+              }
+            },
+            "name": "BRYAN, John Henry",
+            "nationality": "Usa",
+            "officer_role": "director",
+            "resigned_on": "2007-04-12",
+            "person_number": "62181100003"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "15 Stanhope Gate",
+              "locality": "London",
+              "postal_code": "W1K 1LN"
+            },
+            "appointed_on": "1996-10-01",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 6,
+              "year": 1943
+            },
+            "links": {
+              "self": "/company/00102498/appointments/1P9cHxEnz5_A-Wg4XD37SqUBovw",
+              "officer": {
+                "appointments": "/officers/SSksV2yH6thJSEVmWGauxeiCKgQ/appointments"
+              }
+            },
+            "name": "BUCHANAN, John Gordon Sinclair, Sir",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2002-11-21",
+            "person_number": "82172810002"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2004-02-05",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "Switzerland",
+            "date_of_birth": {
+              "month": 2,
+              "year": 1947
+            },
+            "links": {
+              "self": "/company/00102498/appointments/0ukob6aAIo-WMWp1NcwjC05jiLI",
+              "officer": {
+                "appointments": "/officers/35Gtc8eYK8QLL6wDd96Jv9g7IFY/appointments"
+              }
+            },
+            "name": "BURGMANS, Antony",
+            "nationality": "Dutch",
+            "officer_role": "director",
+            "resigned_on": "2016-04-14",
+            "person_number": "63991750004"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2018-05-21",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 1,
+              "year": 1953
+            },
+            "links": {
+              "self": "/company/00102498/appointments/bqqsfmASzw80JjNdx1J9rZjLZus",
+              "officer": {
+                "appointments": "/officers/oL_dH28BfoAxaJ_Hyt6UPi72gVI/appointments"
+              }
+            },
+            "name": "CARNWATH, Alison Jane, Dame",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2021-01-14",
+            "person_number": "73581270001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "St. James's Square",
+              "country": "England",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD",
+              "premises": "1"
+            },
+            "appointed_on": "2007-06-06",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 11,
+              "year": 1956
+            },
+            "links": {
+              "self": "/company/00102498/appointments/uI6_50eEQ8X8rpghLz_S-dmk1Ak",
+              "officer": {
+                "appointments": "/officers/vZlF_JQ3MhTMph9ZnUQIrbXTc_o/appointments"
+              }
+            },
+            "name": "CARROLL, Cynthia Blum",
+            "nationality": "United States Of America",
+            "officer_role": "director",
+            "resigned_on": "2017-05-17",
+            "person_number": "118649760004"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "Euston Road",
+              "locality": "London",
+              "postal_code": "NW1 2BE",
+              "premises": "215"
+            },
+            "appointed_on": "2006-07-20",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 4,
+              "year": 1947
+            },
+            "links": {
+              "self": "/company/00102498/appointments/3XZDkswo37C0X6Bm4X0hRArvEEg",
+              "officer": {
+                "appointments": "/officers/hTRW43eDBFMDEB4fzoaJzjrOghM/appointments"
+              }
+            },
+            "name": "CASTELL, William Martin, Sir",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2012-04-12",
+            "person_number": "109795400001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "4 Eaton Terrace",
+              "locality": "London",
+              "postal_code": "SW1W 8EZ"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "date_of_birth": {
+              "month": 5,
+              "year": 1943
+            },
+            "links": {
+              "self": "/company/00102498/appointments/CEElE0YK3fjszFkfFP9ONIbYLfs",
+              "officer": {
+                "appointments": "/officers/rdRKb8t5DKvwRWU27YCSMxeUpng/appointments"
+              }
+            },
+            "name": "CHASE, Rodney Frank",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2003-04-23",
+            "person_number": "45250430001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2004-07-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 10,
+              "year": 1962
+            },
+            "links": {
+              "self": "/company/00102498/appointments/184ROUDMOF6Pboq4iniA0-R2drM",
+              "officer": {
+                "appointments": "/officers/capW3fjsXnUu-q5OS1eQh5U5-zw/appointments"
+              }
+            },
+            "name": "CONN, Iain Cameron",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2014-12-31",
+            "person_number": "81412420002"
+          },
+          {
+            "etag": "8e54b9fc06e262d8e145e644a1932a2cc5dad6ca",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2018-07-26",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United States",
+            "date_of_birth": {
+              "month": 10,
+              "year": 1952
+            },
+            "links": {
+              "self": "/company/00102498/appointments/osU_n1LrL0Z7s_vbH_lyLrThjPU",
+              "officer": {
+                "appointments": "/officers/jAc9Xii9fYAIPLnvSTmYAqaovYU/appointments"
+              }
+            },
+            "name": "DALEY, Pamela",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "2025-07-07",
+            "person_number": "248895750001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "St James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD",
+              "premises": "1"
+            },
+            "appointed_on": "2008-02-11",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "Usa",
+            "date_of_birth": {
+              "month": 4,
+              "year": 1942
+            },
+            "links": {
+              "self": "/company/00102498/appointments/ykVGPUub2nmn4vu69q5yzv8l9RQ",
+              "officer": {
+                "appointments": "/officers/LqtYz38-SokkfDG5i1xoK1sXw-E/appointments"
+              }
+            },
+            "name": "DAVID, George Alfred Lawrence",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "2015-04-16",
+            "person_number": "128257820002"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2010-04-02",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 3,
+              "year": 1951
+            },
+            "links": {
+              "self": "/company/00102498/appointments/rLLUXIRjxjecw5N9URwPbEEUVGo",
+              "officer": {
+                "appointments": "/officers/bg2GVYTrz26whbjtxWHUsrs8bns/appointments"
+              }
+            },
+            "name": "DAVIS, Ian Edward Lamert, Sir",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2020-12-30",
+            "person_number": "150287160002"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "1998-12-31",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 8,
+              "year": 1944
+            },
+            "links": {
+              "self": "/company/00102498/appointments/h-8lnvApe6c-_x8Tk15EepzZ7_A",
+              "officer": {
+                "appointments": "/officers/iXqtJyJKRwsZ85gzAtYo6tj2dSU/appointments"
+              }
+            },
+            "name": "DAVIS JR, Erroll Brown",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "2010-04-15",
+            "person_number": "62099440004"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2012-02-03",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 7,
+              "year": 1952
+            },
+            "links": {
+              "self": "/company/00102498/appointments/oIupGCZAoWEUiQ60S4pAgJEDl8Q",
+              "officer": {
+                "appointments": "/officers/ovFiYhnK_qolUeZ7owFc-yrLVo0/appointments"
+              }
+            },
+            "name": "DOWLING, Ann Patricia, Professor Dame",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2021-05-12",
+            "person_number": "57839170001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "St James's Square",
+              "country": "United Kingdom",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD",
+              "premises": "1"
+            },
+            "appointed_on": "2009-04-06",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 9,
+              "year": 1955
+            },
+            "links": {
+              "self": "/company/00102498/appointments/jMB1IJd8Kqg7mU6lgELvF9Fpjzw",
+              "officer": {
+                "appointments": "/officers/PQ0R2UWlUIiWZonk6T7XEtZGwxY/appointments"
+              }
+            },
+            "name": "DUDLEY, Robert Warren",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "2020-02-04",
+            "person_number": "138014110001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1436 Ridge Road",
+              "address_line_2": "Northbrook",
+              "country": "Usa",
+              "locality": "Illinois",
+              "postal_code": "IL 60062"
+            },
+            "appointed_on": "1998-12-31",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 8,
+              "year": 1936
+            },
+            "links": {
+              "self": "/company/00102498/appointments/HeiouIOfQ7YgXpWxkWStpXi3v7I",
+              "officer": {
+                "appointments": "/officers/VBBqUout5R_OQ9h1H0Zcw3NAYLQ/appointments"
+              }
+            },
+            "name": "FERRIS, Richard",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "2001-06-08",
+            "person_number": "62099160001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "8 Canada Square",
+              "locality": "London",
+              "postal_code": "E14 5HQ"
+            },
+            "appointed_on": "2005-01-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 7,
+              "year": 1955
+            },
+            "links": {
+              "self": "/company/00102498/appointments/FF_LPrOqJjrAbJYhGExZva8Lkws",
+              "officer": {
+                "appointments": "/officers/6dkswUGhuhA8yRnQix6ITXf0P0M/appointments"
+              }
+            },
+            "name": "FLINT, Douglas Jardine",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2011-04-14",
+            "person_number": "46258170002"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "Penthouse Court Montose Court",
+              "address_line_2": "Princes Gate",
+              "locality": "London",
+              "postal_code": "SW7 2QG"
+            },
+            "appointed_on": "2000-01-01",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 1,
+              "year": 1944
+            },
+            "links": {
+              "self": "/company/00102498/appointments/p2Zry_Ix1-4hJ4lNvWmPmlBUy18",
+              "officer": {
+                "appointments": "/officers/fl5_qfC_cegDDHsr8X6c4NJou_s/appointments"
+              }
+            },
+            "name": "FORD, William Douglas",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "2002-03-31",
+            "person_number": "67656710001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "25w451 Plamondon Road",
+              "country": "Usa",
+              "locality": "Wheaton",
+              "postal_code": "IL 60187",
+              "region": "Illinois"
+            },
+            "appointed_on": "1998-12-31",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 11,
+              "year": 1938
+            },
+            "links": {
+              "self": "/company/00102498/appointments/KzWvR-wjUifGKv5uykaSDFR6oQs",
+              "officer": {
+                "appointments": "/officers/-1-qH1hsnjOOkX66NdHfh-WtbYk/appointments"
+              }
+            },
+            "name": "FULLER, Harry Laurence",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "2000-03-31",
+            "person_number": "62099250001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "Lansdowne",
+              "address_line_2": "White Lane",
+              "locality": "Guildford",
+              "postal_code": "GU4 8PR",
+              "region": "Surrey"
+            },
+            "appointed_on": "1997-09-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 9,
+              "year": 1945
+            },
+            "links": {
+              "self": "/company/00102498/appointments/2PfUjGMfHJCqVMaIhZEZMzxr_7A",
+              "officer": {
+                "appointments": "/officers/E3htNNJkXUengcgKvbV8AedQOJU/appointments"
+              }
+            },
+            "name": "GIBSON SMITH, Christopher Shaw, Dr",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2001-04-19",
+            "person_number": "76355430001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2012-01-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 2,
+              "year": 1962
+            },
+            "links": {
+              "self": "/company/00102498/appointments/2-reuRGdHeHmH-EpQCEzoMckd-M",
+              "officer": {
+                "appointments": "/officers/oYv9eGVtXP5vcGc1jBKKY-4w68g/appointments"
+              }
+            },
+            "name": "GILVARY, Brian, Dr",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2020-06-30",
+            "person_number": "104747030001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "West End Farm House",
+              "address_line_2": "Medstead",
+              "locality": "Alton",
+              "postal_code": "GU34 5QA",
+              "region": "Hampshire"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "date_of_birth": {
+              "month": 3,
+              "year": 1929
+            },
+            "links": {
+              "self": "/company/00102498/appointments/VduVDhRsSyu4F0eoxvYFHHhlmfQ",
+              "officer": {
+                "appointments": "/officers/i4Uq46EXiivCUYt69bTWHp785t4/appointments"
+              }
+            },
+            "name": "GLOVER, James Malcolm, Sir",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "1998-12-31",
+            "person_number": "51399070001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2000-08-03",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 3,
+              "year": 1948
+            },
+            "links": {
+              "self": "/company/00102498/appointments/4ZCVaE4w3ST2KbFDbLlWhwo3FdQ",
+              "officer": {
+                "appointments": "/officers/HR0tZFR7tZXl8jh5ohwoz8YKsKI/appointments"
+              }
+            },
+            "name": "GROTE, Byron Elmer, Dr",
+            "nationality": "British And Us Citiz",
+            "officer_role": "director",
+            "resigned_on": "2013-04-11",
+            "person_number": "71799940006"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "Rothehof 11",
+              "country": "West Germany",
+              "locality": "D-3180 Wolfsburg",
+              "postal_code": "FOREIGN"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "date_of_birth": {
+              "month": 7,
+              "year": 1926
+            },
+            "links": {
+              "self": "/company/00102498/appointments/P50uQD_KGZei23fdMDK6z7swKro",
+              "officer": {
+                "appointments": "/officers/iWfcZoZf3Oql5FHxwfEAAPgDsuE/appointments"
+              }
+            },
+            "name": "HAHN, Carl Horst, Dr",
+            "nationality": "Austrian",
+            "officer_role": "director",
+            "resigned_on": "1996-09-30",
+            "person_number": "47175050001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2003-02-01",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 5,
+              "year": 1957
+            },
+            "links": {
+              "self": "/company/00102498/appointments/8R_qJVe8ri8IwqXHLYsu_WUE4iA",
+              "officer": {
+                "appointments": "/officers/0J1gBJ4lGjMXubd3dvZGoxuVdsY/appointments"
+              }
+            },
+            "name": "HAYWARD, Anthony Bryan, Dr",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2010-11-30",
+            "person_number": "55131830005"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "245 East 58th Street",
+              "address_line_2": "Apartment 17c Ny 10022",
+              "country": "Usa",
+              "locality": "New York"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "date_of_birth": {
+              "month": 9,
+              "year": 1943
+            },
+            "links": {
+              "self": "/company/00102498/appointments/HrP9wvoMzyx_E9yjEL1yRFUFmkQ",
+              "officer": {
+                "appointments": "/officers/j3DOapQSQ15gSHOsTV_RtmV-1hY/appointments"
+              }
+            },
+            "name": "HORN, Karen Nicholson, Dr",
+            "nationality": "United States",
+            "officer_role": "director",
+            "resigned_on": "1998-12-31",
+            "person_number": "28386460004"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 Sussex Street",
+              "locality": "London",
+              "postal_code": "SW1V 4RZ"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "date_of_birth": {
+              "month": 8,
+              "year": 1939
+            },
+            "links": {
+              "self": "/company/00102498/appointments/uG9CfSW9iW7BjB1AHqAaRbp7HlY",
+              "officer": {
+                "appointments": "/officers/lN5FU64UbohVJnxdwTK6t8QGONc/appointments"
+              }
+            },
+            "name": "HORTON, Robert Baynes, Sir",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "1992-06-25",
+            "person_number": "11690900001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2007-02-01",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 4,
+              "year": 1959
+            },
+            "links": {
+              "self": "/company/00102498/appointments/sNKcb3FnfNkeV4PrAOhCMJa0xe0",
+              "officer": {
+                "appointments": "/officers/o9OUjrqxmXBzL7E30kM5HBpAqv8/appointments"
+              }
+            },
+            "name": "INGLIS, Andrew George",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2010-10-31",
+            "person_number": "119063550001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2001-11-29",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 4,
+              "year": 1949
+            },
+            "links": {
+              "self": "/company/00102498/appointments/ysVXGUpVwx_guYE4iiCpI4ofn00",
+              "officer": {
+                "appointments": "/officers/E4bDNGD6nosutF7l057uxkDHdls/appointments"
+              }
+            },
+            "name": "JULIUS, Deanne Shirley, Dame",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2011-04-14",
+            "person_number": "48825320002"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "24 Foreway Drive",
+              "country": "Usa",
+              "locality": "St Louis",
+              "postal_code": "FOREIGN",
+              "region": "Missouri 63124"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "date_of_birth": {
+              "month": 1,
+              "year": 1936
+            },
+            "links": {
+              "self": "/company/00102498/appointments/ADm-3OCVx_QB4yVK-e_ULUD4f8M",
+              "officer": {
+                "appointments": "/officers/wD-VAbmOGTkQTYIFeZSJNMMGVc0/appointments"
+              }
+            },
+            "name": "KNIGHT, Charles Field",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "2005-04-14",
+            "person_number": "28386470001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2020-02-05",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 9,
+              "year": 1970
+            },
+            "links": {
+              "self": "/company/00102498/appointments/uM_HOvsTd19_TK6lO7sFVzH33Vo",
+              "officer": {
+                "appointments": "/officers/vQxf62dl4SMAtMd9rnWpFvVGxCY/appointments"
+              }
+            },
+            "name": "LOONEY, Bernard",
+            "nationality": "Irish",
+            "officer_role": "director",
+            "resigned_on": "2023-09-12",
+            "person_number": "307065530001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "2235 Pebble Creek Drive",
+              "country": "Usa",
+              "locality": "Lisle",
+              "postal_code": "IL 60532",
+              "region": "Illinois"
+            },
+            "appointed_on": "1998-12-31",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 11,
+              "year": 1943
+            },
+            "links": {
+              "self": "/company/00102498/appointments/kGthWYoN5QgVObakd9iCiwmS_bU",
+              "officer": {
+                "appointments": "/officers/7W65HGBtJUAotRJI72-wq7qsesw/appointments"
+              }
+            },
+            "name": "LOWRIE, William",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "1999-02-12",
+            "person_number": "62099830002"
+          },
+          {
+            "etag": "711a38c12d928c99bdafe09eb1019fb25b819aae",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2018-07-26",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "Norway",
+            "date_of_birth": {
+              "month": 10,
+              "year": 1962
+            },
+            "links": {
+              "self": "/company/00102498/appointments/g1TEgvv5ajvIoY3ImZN2MiEUmEY",
+              "officer": {
+                "appointments": "/officers/gz3WrSoJx2wPdacyWboLaIMOF1o/appointments"
+              }
+            },
+            "name": "LUND, Helge",
+            "nationality": "Norwegian",
+            "officer_role": "director",
+            "resigned_on": "2025-09-30",
+            "person_number": "248896030001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "Vleysmanlaan 10",
+              "country": "The Netherlands",
+              "locality": "Wassenaar",
+              "postal_code": "2242 PN"
+            },
+            "appointed_on": "1998-12-31",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 8,
+              "year": 1933
+            },
+            "links": {
+              "self": "/company/00102498/appointments/laHO46WGvU-ErIrH0MCMMf_ImFU",
+              "officer": {
+                "appointments": "/officers/bceLa3hOxLNhvbz6AdB0muyIBxo/appointments"
+              }
+            },
+            "name": "MALJERS, Floris Anton",
+            "nationality": "Dutch",
+            "officer_role": "director",
+            "resigned_on": "2004-04-15",
+            "person_number": "40355130001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St. James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2003-02-01",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 1,
+              "year": 1960
+            },
+            "links": {
+              "self": "/company/00102498/appointments/3oH8Dk2s1J49Bw2Nf9t21u-sSd4",
+              "officer": {
+                "appointments": "/officers/fQ2Ww1WPWJO5uq0fAk4itDU52rU/appointments"
+              }
+            },
+            "name": "MANZONI, John Alexander",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2007-08-31",
+            "person_number": "99933840002"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "St. James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "1998-12-31",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 4,
+              "year": 1938
+            },
+            "links": {
+              "self": "/company/00102498/appointments/vHgD3sTJpG7WMd4mRfkF7KWaJdQ",
+              "officer": {
+                "appointments": "/officers/jmymXDFvgkPHnZ2ni2iXC29S694/appointments"
+              }
+            },
+            "name": "MASSEY, Walter Eugene, Dr",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "2008-04-17",
+            "person_number": "62523390002"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "36 St Andrew Square",
+              "locality": "Edinburgh",
+              "postal_code": "EH2 2YB"
+            },
+            "appointed_on": "2004-07-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 3,
+              "year": 1943
+            },
+            "links": {
+              "self": "/company/00102498/appointments/J3-M1c2BHLEVxxVNW1vrniK-AnI",
+              "officer": {
+                "appointments": "/officers/y30_if32ZBswtBFCpzSxKFOzpbI/appointments"
+              }
+            },
+            "name": "MCKILLOP, Thomas Fulton Wilson, Sir",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2009-04-16",
+            "person_number": "61993170004"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "8b Harley Gardens",
+              "locality": "London",
+              "postal_code": "SW10 9SW"
+            },
+            "appointed_on": "1994-06-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 4,
+              "year": 1936
+            },
+            "links": {
+              "self": "/company/00102498/appointments/oiSCzZNTlmcrkaRjK1qg_hxKwes",
+              "officer": {
+                "appointments": "/officers/7oNFt1o2FDX9oDn8jJnOqnBoMEE/appointments"
+              }
+            },
+            "name": "MILES, Henry Michael Pearson",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2006-04-20",
+            "person_number": "21387730002"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2010-11-08",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 7,
+              "year": 1949
+            },
+            "links": {
+              "self": "/company/00102498/appointments/73KwlNcI20O8uBkhO53Pkw8wgcQ",
+              "officer": {
+                "appointments": "/officers/jsjTtF8NH713SMnKLT6hCSWUuNU/appointments"
+              }
+            },
+            "name": "NELSON, Brendan Robert",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2021-05-12",
+            "person_number": "150450410003"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2011-02-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "South Africa",
+            "date_of_birth": {
+              "month": 4,
+              "year": 1960
+            },
+            "links": {
+              "self": "/company/00102498/appointments/SsKto82R4xSyCiRKRbdLHqqva4g",
+              "officer": {
+                "appointments": "/officers/wHIuL3PQPkmNKOt8SWzVt4GZ51w/appointments"
+              }
+            },
+            "name": "NHLEKO, Freedom Phuthuma",
+            "nationality": "South African",
+            "officer_role": "director",
+            "resigned_on": "2016-04-14",
+            "person_number": "123651900001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "Penson Farm",
+              "address_line_2": "Diptford",
+              "locality": "Totnes",
+              "postal_code": "TQ9 7NN",
+              "region": "Devon"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 8,
+              "year": 1934
+            },
+            "links": {
+              "self": "/company/00102498/appointments/6EvbNdgpxxDb4MQADwfB6JaO4YY",
+              "officer": {
+                "appointments": "/officers/rzv-EZL7qh29zcbOLj77RdReklo/appointments"
+              }
+            },
+            "name": "NICHOLSON, Robin Buchanan, Sir",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2005-04-14",
+            "person_number": "27797540003"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "101 Portland Road",
+              "locality": "London",
+              "postal_code": "W11 4LN"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "date_of_birth": {
+              "month": 6,
+              "year": 1936
+            },
+            "links": {
+              "self": "/company/00102498/appointments/f3kcAEQRbxTLi_Yu359f2QScXEw",
+              "officer": {
+                "appointments": "/officers/elEcxpeTszwb4T6vSvCGcmEw3BA/appointments"
+              }
+            },
+            "name": "NORTON, Hugh Edward",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "1995-06-30",
+            "person_number": "210730008"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "Bay Lodge Mill Lane",
+              "address_line_2": "Danbury",
+              "locality": "Chelmsford",
+              "postal_code": "CM3 4HX",
+              "region": "Essex"
+            },
+            "appointed_on": "1998-01-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 1,
+              "year": 1947
+            },
+            "links": {
+              "self": "/company/00102498/appointments/yCBurqDeQhJ-NMZq0SVz-kuS6TE",
+              "officer": {
+                "appointments": "/officers/ybzb4bkuwFFUSVd6hsbmSzvvNzE/appointments"
+              }
+            },
+            "name": "OLVER, Richard Lake, Sir",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2004-07-01",
+            "person_number": "56165480001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "St James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD",
+              "premises": "1"
+            },
+            "appointed_on": "1997-05-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 7,
+              "year": 1943
+            },
+            "links": {
+              "self": "/company/00102498/appointments/b8L3QmKPz0kSS-KNIM5Ex50SVOE",
+              "officer": {
+                "appointments": "/officers/0DrD_tgdJ-bKSkwqwU3W6ocVueg/appointments"
+              }
+            },
+            "name": "PROSSER, Ian Maurice Gray, Sir",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2010-04-15",
+            "person_number": "59087360003"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2015-05-14",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United States",
+            "date_of_birth": {
+              "month": 10,
+              "year": 1956
+            },
+            "links": {
+              "self": "/company/00102498/appointments/T_oCPaHTXTwRCpnbLvZSI_clI8g",
+              "officer": {
+                "appointments": "/officers/EQUTz6JxaaAiTt3i8mSuOerhZIk/appointments"
+              }
+            },
+            "name": "REYNOLDS, Paula Rosput",
+            "nationality": "American",
+            "officer_role": "director",
+            "resigned_on": "2024-04-25",
+            "person_number": "197787590003"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "40 Netherhall Gardens",
+              "address_line_2": "Hampstead",
+              "locality": "London",
+              "postal_code": "NW3 5TP"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 10,
+              "year": 1940
+            },
+            "links": {
+              "self": "/company/00102498/appointments/ruOy0GtelekOxeZnTM4P-_CC6Q0",
+              "officer": {
+                "appointments": "/officers/TjVX_YmH1-q_z8jK9Zw3wohWNfU/appointments"
+              }
+            },
+            "name": "SANDERSON, Bryan Kaye, Mr.",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2000-09-30",
+            "person_number": "163789890001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2015-05-14",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 7,
+              "year": 1955
+            },
+            "links": {
+              "self": "/company/00102498/appointments/lwz9ArWGWG6PBgXxKYiXSPf84mo",
+              "officer": {
+                "appointments": "/officers/nkrrdybmcqaCGlTQ1FBQ8ZX9ZqE/appointments"
+              }
+            },
+            "name": "SAWERS, Robert John, Sir",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2024-04-25",
+            "person_number": "196096260001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "Gorse Bank",
+              "address_line_2": "Enton Green",
+              "locality": "Godalming",
+              "postal_code": "GU8 5AN",
+              "region": "Surrey"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "date_of_birth": {
+              "month": 4,
+              "year": 1942
+            },
+            "links": {
+              "self": "/company/00102498/appointments/hTtgQ4BBptRsZqRHDC09Tu9hjfk",
+              "officer": {
+                "appointments": "/officers/crA6kfP6VsYQWs7DhCEohPA2MNo/appointments"
+              }
+            },
+            "name": "SEAL, Karl Russell",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "1997-09-01",
+            "person_number": "28386490001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "11 Eldon Road",
+              "locality": "London",
+              "postal_code": "W8 5PU"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "date_of_birth": {
+              "month": 9,
+              "year": 1930
+            },
+            "links": {
+              "self": "/company/00102498/appointments/emxcpSgGPh10bCwHKKPiNJC8ELk",
+              "officer": {
+                "appointments": "/officers/lAgiWWhm3eKwGA04uoTgochSa-U/appointments"
+              }
+            },
+            "name": "SHEEHY, Patrick, Sir",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "1998-12-31",
+            "person_number": "5700460001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "address_line_2": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "2012-01-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 10,
+              "year": 1955
+            },
+            "links": {
+              "self": "/company/00102498/appointments/wUxzT2TCUc6_50KpvVadXTvp7aU",
+              "officer": {
+                "appointments": "/officers/W3HJC3gW-QCbOo5rqTBzWALpOLQ/appointments"
+              }
+            },
+            "name": "SHILSTON, Andrew Barkley",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2017-05-17",
+            "person_number": "165848450002"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "6 Saint Marys Grove",
+              "locality": "London",
+              "postal_code": "N1 2NT"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "date_of_birth": {
+              "month": 7,
+              "year": 1939
+            },
+            "links": {
+              "self": "/company/00102498/appointments/Js260o-WwMwop5nI276nF_SCGIY",
+              "officer": {
+                "appointments": "/officers/OK45cdzlAOzZlI7_SxAOHTv1EOg/appointments"
+              }
+            },
+            "name": "SIMON, David, Lord",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "1997-05-07",
+            "person_number": "89265080001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "Falkenstein 9",
+              "address_line_2": "22587 Hamburg",
+              "locality": "Germany"
+            },
+            "appointed_on": "1995-07-01",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 4,
+              "year": 1940
+            },
+            "links": {
+              "self": "/company/00102498/appointments/lWM8MyS95f0K0Q5RptAonukw9BU",
+              "officer": {
+                "appointments": "/officers/61SciP8OMYO6etkvmEeBSpGMUtg/appointments"
+              }
+            },
+            "name": "STOMBERG, Rolf Wilhelm Heinrich, Dr",
+            "nationality": "German",
+            "officer_role": "director",
+            "resigned_on": "1997-12-31",
+            "person_number": "28973950001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 St James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD"
+            },
+            "appointed_on": "1995-07-01",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 4,
+              "year": 1946
+            },
+            "links": {
+              "self": "/company/00102498/appointments/jjIrTeqHYL6L4wSOOAOyoeiBlr8",
+              "officer": {
+                "appointments": "/officers/kVkZOU1iiQNmUWFWKARxA5dszL4/appointments"
+              }
+            },
+            "name": "SUTHERLAND, Peter Denis",
+            "nationality": "Irish",
+            "officer_role": "director",
+            "resigned_on": "2009-12-31",
+            "person_number": "28386510002"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "68 Eglinton Road",
+              "address_line_2": "Donnybrook",
+              "country": "Eire",
+              "locality": "Dublin",
+              "region": "4"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "date_of_birth": {
+              "month": 4,
+              "year": 1946
+            },
+            "links": {
+              "self": "/company/00102498/appointments/Zk6lYGiRG2axOOu1bnZhn2UIyE4",
+              "officer": {
+                "appointments": "/officers/kVkZOU1iiQNmUWFWKARxA5dszL4/appointments"
+              }
+            },
+            "name": "SUTHERLAND, Peter Denis",
+            "nationality": "Irish",
+            "officer_role": "director",
+            "resigned_on": "1993-07-01",
+            "person_number": "28386510001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "St. James's Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4PD",
+              "premises": "1"
+            },
+            "appointed_on": "2009-09-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "Switzerland",
+            "date_of_birth": {
+              "month": 5,
+              "year": 1952
+            },
+            "links": {
+              "self": "/company/00102498/appointments/TuqjpZLfO13wmRDpWn95PQCdSv0",
+              "officer": {
+                "appointments": "/officers/3jJIJ9plJOHTfi7z4eeFEm12ARY/appointments"
+              }
+            },
+            "name": "SVANBERG, Carl-Henric",
+            "nationality": "Swedish",
+            "officer_role": "director",
+            "resigned_on": "2018-12-31",
+            "person_number": "141154250001"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "89 Ardwold Gate",
+              "country": "Canada",
+              "locality": "Toronto",
+              "postal_code": "M5R 2W1",
+              "region": "Ontario"
+            },
+            "appointed_on": "1998-12-31",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 11,
+              "year": 1937
+            },
+            "links": {
+              "self": "/company/00102498/appointments/7Gk_3788895FocoZpiEg4K4pWfE",
+              "officer": {
+                "appointments": "/officers/n7gzUF1ewETtrttb6CaoCQIibEc/appointments"
+              }
+            },
+            "name": "WILSON, Michael Holcombe",
+            "nationality": "Canadian",
+            "officer_role": "director",
+            "resigned_on": "2006-02-28",
+            "person_number": "62099370002"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "6 St Jamess Square",
+              "locality": "London",
+              "postal_code": "SW1Y 4LD"
+            },
+            "appointed_on": "1998-07-30",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 9,
+              "year": 1943
+            },
+            "links": {
+              "self": "/company/00102498/appointments/2pU-IS8uIhTGT81d_0TOY1umabs",
+              "officer": {
+                "appointments": "/officers/UZt2AHYOP_i6zMjeOBvagnwI7BI/appointments"
+              }
+            },
+            "name": "WILSON, Robert Peter, Sir",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2002-04-18",
+            "person_number": "9280330002"
+          },
+          {
+            "etag": "9c9d6850af5d457fc4130b82d8612f0a2a5df440",
+            "address": {
+              "address_line_1": "1 Well Lane",
+              "address_line_2": "East Sheen",
+              "locality": "London",
+              "postal_code": "SW14 7AJ"
+            },
+            "appointed_before": "1992-05-10",
+            "is_pre_1992_appointment": true,
+            "date_of_birth": {
+              "month": 6,
+              "year": 1931
+            },
+            "links": {
+              "self": "/company/00102498/appointments/2X-FB6_OaPxnutsF0m5qrs1F-l0",
+              "officer": {
+                "appointments": "/officers/IE4mv-_k57siltn1h7SC1udenGM/appointments"
+              }
+            },
+            "name": "WRIGHT, Patrick Richard Henry, Lord Wright Of Richmond",
+            "nationality": "British",
+            "officer_role": "director",
+            "resigned_on": "2001-04-30",
+            "person_number": "16225140001"
+          }
+        ],
+        "items_per_page": 100,
+        "kind": "officer-list",
+        "links": {
+          "self": "/company/00102498/officers"
+        },
+        "resigned_count": 79,
+        "inactive_count": 0,
+        "start_index": 0,
+        "total_results": 95
+      },
+      "psc": {
+        "items_per_page": 25,
+        "items": [],
+        "start_index": 0,
+        "total_results": 0,
+        "active_count": 0,
+        "ceased_count": 0,
+        "links": {
+          "self": "/company/00102498/persons-with-significant-control",
+          "exemptions": "/company/00102498/exemptions"
+        }
+      }
+    },
+    "OC303480": {
+      "profile": {
+        "accounts": {
+          "accounting_reference_date": {
+            "day": "31",
+            "month": "03"
+          },
+          "last_accounts": {
+            "made_up_to": "2025-03-31",
+            "period_end_on": "2025-03-31",
+            "period_start_on": "2024-04-01",
+            "type": "full"
+          },
+          "next_accounts": {
+            "due_on": "2026-12-31",
+            "overdue": false,
+            "period_end_on": "2026-03-31",
+            "period_start_on": "2025-04-01"
+          },
+          "next_due": "2026-12-31",
+          "next_made_up_to": "2026-03-31",
+          "overdue": false
+        },
+        "can_file": true,
+        "company_name": "ABSOLUTE RETURN PARTNERS LLP",
+        "company_number": "OC303480",
+        "company_status": "active",
+        "confirmation_statement": {
+          "last_made_up_to": "2025-11-17",
+          "next_due": "2026-12-01",
+          "next_made_up_to": "2026-11-17",
+          "overdue": false
+        },
+        "date_of_creation": "2002-11-29",
+        "etag": "6623cb5045fbacd8531b445d2f4258d58f3b765a",
+        "has_been_liquidated": false,
+        "has_charges": false,
+        "has_insolvency_history": false,
+        "jurisdiction": "england-wales",
+        "links": {
+          "persons_with_significant_control": "/company/OC303480/persons-with-significant-control",
+          "self": "/company/OC303480",
+          "charges": "/company/OC303480/charges",
+          "filing_history": "/company/OC303480/filing-history",
+          "officers": "/company/OC303480/officers"
+        },
+        "registered_office_address": {
+          "address_line_1": "3rd Floor 45 Albermarle Street",
+          "address_line_2": "Mayfair",
+          "country": "England",
+          "locality": "London",
+          "postal_code": "W1S 4JL"
+        },
+        "registered_office_is_in_dispute": false,
+        "type": "llp",
+        "undeliverable_registered_office_address": false,
+        "has_super_secure_pscs": false
+      },
+      "officers": {
+        "active_count": 8,
+        "etag": "b4bb98c884b3789e97200296acfb05fe8604449b",
+        "items": [
+          {
+            "etag": "b4bb98c884b3789e97200296acfb05fe8604449b",
+            "address": {
+              "address_line_1": "45 Albermarle Street",
+              "address_line_2": "Mayfair",
+              "country": "England",
+              "locality": "London",
+              "postal_code": "W1S 4JL",
+              "premises": "3rd Floor"
+            },
+            "appointed_on": "2002-11-29",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "Denmark",
+            "date_of_birth": {
+              "month": 7,
+              "year": 1959
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/bdl1lYqp8NCJI0VxCHdVPKSWiYA",
+              "officer": {
+                "appointments": "/officers/uifZAPi3OVWBpnFlOx60Iv-hdio/appointments"
+              }
+            },
+            "name": "JENSEN, Niels Clemen",
+            "officer_role": "llp-designated-member",
+            "person_number": "85907400012",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-12-01"
+            }
+          },
+          {
+            "etag": "da76d079b0ef794f68c4098bbb67580d8cf7fa5a",
+            "address": {
+              "address_line_1": "45 Albermarle Street",
+              "address_line_2": "Mayfair",
+              "country": "England",
+              "locality": "London",
+              "postal_code": "W1S 4JL",
+              "premises": "3rd Floor"
+            },
+            "appointed_on": "2018-06-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 9,
+              "year": 1981
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/B3xTrRCnzjuLwSaGay8oOrQUsBs",
+              "officer": {
+                "appointments": "/officers/fMhNZeX6iIU_oRIbVEPyPL-rpzI/appointments"
+              }
+            },
+            "name": "KIM, Peter Jun Pyo",
+            "officer_role": "llp-designated-member",
+            "person_number": "249732780001",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-12-01"
+            }
+          },
+          {
+            "etag": "d2a194ff4058f81e81edff9d959a465a7722f64f",
+            "address": {
+              "address_line_1": "45 Albermarle Street",
+              "address_line_2": "Mayfair",
+              "country": "England",
+              "locality": "London",
+              "postal_code": "W1S 4JL",
+              "premises": "3rd Floor"
+            },
+            "appointed_on": "2011-12-12",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 2,
+              "year": 1966
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/SvQ58ooz73kUt7FmatX5H1apTbo",
+              "officer": {
+                "appointments": "/officers/z47rhA6IpbOIhKF5zRasoENNkYU/appointments"
+              }
+            },
+            "name": "BARROW, Stephen William",
+            "officer_role": "llp-member",
+            "person_number": "168761570001",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-12-01"
+            }
+          },
+          {
+            "etag": "b0b373daa401126d5fceccbea7153dbe14edec95",
+            "address": {
+              "address_line_1": "45 Albermarle Street",
+              "address_line_2": "Mayfair",
+              "country": "England",
+              "locality": "London",
+              "postal_code": "W1S 4JL",
+              "premises": "3rd Floor"
+            },
+            "appointed_on": "2009-06-01",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "South Africa",
+            "date_of_birth": {
+              "month": 2,
+              "year": 1973
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/zA5Na3cLOPTahMXlGbHcYtdTDP4",
+              "officer": {
+                "appointments": "/officers/JfzY4qa3EUF_6iLITj1cOF-W2kg/appointments"
+              }
+            },
+            "name": "BARTEL, Steven Lindsay",
+            "officer_role": "llp-member",
+            "person_number": "142826080003",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-12-01"
+            }
+          },
+          {
+            "etag": "c6a01a7d25442c2972bc4dfc5ec80d83ad9ad873",
+            "address": {
+              "address_line_1": "45 Albermarle Street",
+              "address_line_2": "Mayfair",
+              "country": "England",
+              "locality": "London",
+              "postal_code": "W1S 4JL",
+              "premises": "3rd Floor"
+            },
+            "appointed_on": "2023-04-05",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "Denmark",
+            "date_of_birth": {
+              "month": 9,
+              "year": 1963
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/ZdoFvM8Rip5-hy4kCImZkfCqClM",
+              "officer": {
+                "appointments": "/officers/cMXGF_UK2dPJXolyeHco81Y5gas/appointments"
+              }
+            },
+            "name": "DURHUUS, Birger",
+            "officer_role": "llp-member",
+            "person_number": "307610660001",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-12-01"
+            }
+          },
+          {
+            "etag": "0356e56a37a316ff088ab036eb4e2957634b57c3",
+            "address": {
+              "address_line_1": "45 Albermarle Street",
+              "address_line_2": "Mayfair",
+              "country": "England",
+              "locality": "London",
+              "postal_code": "W1S 4JL",
+              "premises": "3rd Floor"
+            },
+            "appointed_on": "2013-11-11",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "Denmark",
+            "date_of_birth": {
+              "month": 3,
+              "year": 1935
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/abR9OMPIPWsmvDlD0Qy5BnGaOQk",
+              "officer": {
+                "appointments": "/officers/wdqjGkniqI5n2iy8LNC1hLss7ec/appointments"
+              }
+            },
+            "name": "JENSEN, Poul Clemen",
+            "officer_role": "llp-member",
+            "person_number": "183441180001",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-12-01"
+            }
+          },
+          {
+            "etag": "734e764a3f6ebf3fee78cab73e7e3ed1455c5480",
+            "address": {
+              "address_line_1": "45 Albermarle Street",
+              "address_line_2": "Mayfair",
+              "country": "England",
+              "locality": "London",
+              "postal_code": "W1S 4JL",
+              "premises": "3rd Floor"
+            },
+            "appointed_on": "2005-10-13",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "Puerto Rico",
+            "date_of_birth": {
+              "month": 10,
+              "year": 1949
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/04yGYT7wwrRB4EEV_DGuR270rXA",
+              "officer": {
+                "appointments": "/officers/AZRQpm9dHncT3JzWMmk39wSmUnE/appointments"
+              }
+            },
+            "name": "MAULDIN, John",
+            "officer_role": "llp-member",
+            "person_number": "141998110002",
+            "identity_verification_details": {
+              "appointment_verification_statement_due_on": "2026-12-01"
+            }
+          },
+          {
+            "etag": "776bc17b2afb028a08bb8b99796a8407a7c4ddc5",
+            "address": {
+              "address_line_1": "1205",
+              "country": "Switzerland",
+              "locality": "Geneva",
+              "premises": "Boulevard Des Philosophes 5"
+            },
+            "appointed_on": "2021-01-31",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/OC303480/appointments/7QnM9OdBPMrt5pVnyeQFkSHI4nI",
+              "officer": {
+                "appointments": "/officers/Tk0DXnQF8Pp28VxB2BWd55rdwMs/appointments"
+              }
+            },
+            "name": "THE EL CUSTODIANTE TRUST",
+            "officer_role": "corporate-llp-member",
+            "identification": {
+              "identification_type": "other-corporate-body-or-firm",
+              "legal_authority": "SWITZERLAND",
+              "legal_form": "TRUST"
+            },
+            "person_number": "280729000001"
+          },
+          {
+            "etag": "818b6b9f29ef891e1d71b34fc9d12dfd28b07268",
+            "address": {
+              "address_line_1": "Water Lane",
+              "locality": "Richmond",
+              "postal_code": "TW9 1TJ",
+              "premises": "16"
+            },
+            "appointed_on": "2005-10-13",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 12,
+              "year": 1975
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/zqvZ41Zsw1RWs8PMExJT1q6yfJU",
+              "officer": {
+                "appointments": "/officers/bOZsZt-47lGcQH4DVLaOfZSKNyQ/appointments"
+              }
+            },
+            "name": "REES, Nicholas Philip",
+            "officer_role": "llp-designated-member",
+            "resigned_on": "2018-04-09",
+            "person_number": "141812620002"
+          },
+          {
+            "etag": "818b6b9f29ef891e1d71b34fc9d12dfd28b07268",
+            "address": {
+              "address_line_1": "Bridgeman Road",
+              "locality": "London",
+              "postal_code": "N1 1BN",
+              "premises": "116"
+            },
+            "appointed_on": "2004-10-07",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 4,
+              "year": 1964
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/p3aYNR49H_kYrbuv0SDMDAaWbew",
+              "officer": {
+                "appointments": "/officers/sigZTfrt9LbpALLdQYG0Ox21l6Q/appointments"
+              }
+            },
+            "name": "VILHELMSEN, Jan Bendik",
+            "officer_role": "llp-designated-member",
+            "resigned_on": "2012-04-04",
+            "person_number": "141575830002"
+          },
+          {
+            "etag": "818b6b9f29ef891e1d71b34fc9d12dfd28b07268",
+            "address": {
+              "address_line_1": "Pine Copse",
+              "address_line_2": "Whitmoor Common, Worplesdon",
+              "locality": "Guildford",
+              "postal_code": "GU3 3RP",
+              "premises": "Pine Copse"
+            },
+            "appointed_on": "2002-11-29",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/OC303480/appointments/KBT3dLg637IHL3e-LiSEr6Pinos",
+              "officer": {
+                "appointments": "/officers/XRaEIeBsf4KEJ2jQ7_PBHPz-Euo/appointments"
+              }
+            },
+            "name": "ABSOLUTE RETURN MANAGEMENT LIMITED",
+            "officer_role": "corporate-llp-designated-member",
+            "resigned_on": "2015-09-09",
+            "identification": {
+              "identification_type": "eea",
+              "place_registered": "ENGLAND",
+              "registration_number": "04589450"
+            },
+            "person_number": "141279390001"
+          },
+          {
+            "etag": "818b6b9f29ef891e1d71b34fc9d12dfd28b07268",
+            "address": {
+              "address_line_1": "8 Highfield Way",
+              "country": " ",
+              "locality": "Rickmansworth",
+              "postal_code": "WD3 7PR",
+              "region": " "
+            },
+            "appointed_on": "2007-07-10",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "United Kingdom",
+            "date_of_birth": {
+              "month": 4,
+              "year": 1971
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/s7ErZJ1vBcXAR-ooVp_PcUuvezg",
+              "officer": {
+                "appointments": "/officers/SUd8iNZ3zdCnfcNHsY3fU_4kSQw/appointments"
+              }
+            },
+            "name": "BROOKS, Benjamin David",
+            "officer_role": "llp-member",
+            "resigned_on": "2009-05-01",
+            "person_number": "81216530001"
+          },
+          {
+            "etag": "818b6b9f29ef891e1d71b34fc9d12dfd28b07268",
+            "address": {
+              "address_line_1": "Ved Orehoj 2",
+              "country": "Denmark",
+              "locality": "2900 Hellerup",
+              "region": " "
+            },
+            "appointed_on": "2005-10-13",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "Norway",
+            "date_of_birth": {
+              "month": 8,
+              "year": 1943
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/1F3OFB9TTD5EPRyamSKeqB3eKws",
+              "officer": {
+                "appointments": "/officers/BRnXi7jiitZmrB7o0AwkQ040d4A/appointments"
+              }
+            },
+            "name": "FROSHAUG, Jan Oscar",
+            "officer_role": "llp-member",
+            "resigned_on": "2010-12-31",
+            "person_number": "141984350001"
+          },
+          {
+            "etag": "818b6b9f29ef891e1d71b34fc9d12dfd28b07268",
+            "address": {
+              "address_line_1": "20 Kingsway",
+              "address_line_2": "East Sheen",
+              "country": " ",
+              "locality": "London",
+              "postal_code": "SW14 7HS",
+              "region": " "
+            },
+            "appointed_on": "2004-01-01",
+            "is_pre_1992_appointment": false,
+            "date_of_birth": {
+              "month": 1,
+              "year": 1974
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/-Mw-CAaaPmHWhPER9iAgoazYvgk",
+              "officer": {
+                "appointments": "/officers/H8AuNg8-CNAs61xAEyzshUAwGow/appointments"
+              }
+            },
+            "name": "HANSEN, Mads Peter",
+            "officer_role": "llp-member",
+            "resigned_on": "2005-10-13",
+            "person_number": "141417740001"
+          },
+          {
+            "etag": "818b6b9f29ef891e1d71b34fc9d12dfd28b07268",
+            "address": {
+              "address_line_1": "Water Lane",
+              "locality": "Richmond",
+              "postal_code": "TW9 1TJ",
+              "premises": "16"
+            },
+            "appointed_on": "2016-10-05",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 12,
+              "year": 1973
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/YHFCrwKoTBSXMmXI4U6xzXm6CSg",
+              "officer": {
+                "appointments": "/officers/N2JHfQwVKE00qAioNVMmHUwDEt4/appointments"
+              }
+            },
+            "name": "MAJOR LEPINE, Alison",
+            "officer_role": "llp-member",
+            "resigned_on": "2021-11-15",
+            "person_number": "219942020001"
+          },
+          {
+            "etag": "818b6b9f29ef891e1d71b34fc9d12dfd28b07268",
+            "address": {
+              "address_line_1": "Water Lane",
+              "locality": "Richmond",
+              "postal_code": "TW9 1TJ",
+              "premises": "16"
+            },
+            "appointed_on": "2016-10-05",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 2,
+              "year": 1949
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/7-8DZOHrFx1vDQltynYIRfymaFM",
+              "officer": {
+                "appointments": "/officers/ePpPI24erfMn792bg_jyWvjO77k/appointments"
+              }
+            },
+            "name": "REES, Joanna Mary",
+            "officer_role": "llp-member",
+            "resigned_on": "2018-04-09",
+            "person_number": "220034730001"
+          },
+          {
+            "etag": "818b6b9f29ef891e1d71b34fc9d12dfd28b07268",
+            "address": {
+              "address_line_1": "Water Lane",
+              "locality": "Richmond",
+              "postal_code": "TW9 1TJ",
+              "premises": "16"
+            },
+            "appointed_on": "2010-06-29",
+            "is_pre_1992_appointment": false,
+            "country_of_residence": "England",
+            "date_of_birth": {
+              "month": 7,
+              "year": 1977
+            },
+            "links": {
+              "self": "/company/OC303480/appointments/sQH0D5v0ipBj-H2WUpeGwyxdAoc",
+              "officer": {
+                "appointments": "/officers/SIOUTytYZoakI5AorSYNeqYaJUU/appointments"
+              }
+            },
+            "name": "WARD, Patricia Louise",
+            "officer_role": "llp-member",
+            "resigned_on": "2016-11-30",
+            "person_number": "176209740001"
+          },
+          {
+            "etag": "818b6b9f29ef891e1d71b34fc9d12dfd28b07268",
+            "address": {
+              "address_line_1": "Reggenschwilerstrasse",
+              "country": "Switzerland",
+              "locality": "Morschuil",
+              "postal_code": "9402",
+              "premises": "24"
+            },
+            "appointed_on": "2010-12-31",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/OC303480/appointments/h-0-l7QsmsvYJKyJTx4r9GGYh_s",
+              "officer": {
+                "appointments": "/officers/eqkoeEthHcB1jRjK3Z_X4-KB2ks/appointments"
+              }
+            },
+            "name": "BUSINESS SOLUTION GROUP LIMITED",
+            "officer_role": "corporate-llp-member",
+            "resigned_on": "2013-11-11",
+            "identification": {
+              "identification_type": "eea",
+              "place_registered": "SWITZERLAND",
+              "registration_number": "CH7749"
+            },
+            "person_number": "165220660001"
+          },
+          {
+            "etag": "818b6b9f29ef891e1d71b34fc9d12dfd28b07268",
+            "address": {
+              "address_line_1": "Water Lane",
+              "country": "England",
+              "locality": "Richmond",
+              "postal_code": "TW9 1TJ",
+              "premises": "16",
+              "region": "Surrey"
+            },
+            "appointed_on": "2012-07-24",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/OC303480/appointments/_nFsdKJLAwdIYtHMMwsbzpE5hMg",
+              "officer": {
+                "appointments": "/officers/D769xZNgIxwXPsIiCPzKyi4nF9E/appointments"
+              }
+            },
+            "name": "KINNERTON ARP LIMITED",
+            "officer_role": "corporate-llp-member",
+            "resigned_on": "2021-10-01",
+            "identification": {
+              "identification_type": "uk-limited-company",
+              "registration_number": "08072295"
+            },
+            "person_number": "178660320002"
+          },
+          {
+            "etag": "818b6b9f29ef891e1d71b34fc9d12dfd28b07268",
+            "address": {
+              "address_line_1": "Craignuir Chambers",
+              "address_line_2": "PO BOX 71 Road Town",
+              "country": "British Virgin Islands",
+              "locality": "Tortola",
+              "region": " "
+            },
+            "appointed_on": "2006-12-05",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/OC303480/appointments/c6o8QuHtbNmFtqmaLe9xBDsxTbo",
+              "officer": {
+                "appointments": "/officers/eaMcw7vaQca9BRK71_G1mp6I_s8/appointments"
+              }
+            },
+            "name": "PLEXUS GLOBAL ASSET MANAGEMENT LIMITED",
+            "officer_role": "corporate-llp-member",
+            "resigned_on": "2008-12-05",
+            "person_number": "142348090001"
+          },
+          {
+            "etag": "818b6b9f29ef891e1d71b34fc9d12dfd28b07268",
+            "address": {
+              "address_line_1": "Dominion Centre",
+              "address_line_2": "43-59 Queens Road East",
+              "country": "Hong Kong",
+              "locality": "Wan Chai",
+              "premises": "2303-7",
+              "region": "Hong Kong"
+            },
+            "appointed_on": "2010-11-24",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/OC303480/appointments/L8pPcW_bY_4QjYa0cw0gnpBILHM",
+              "officer": {
+                "appointments": "/officers/Ytjq_-kJvLEbYPIXv2-gL-7HBU4/appointments"
+              }
+            },
+            "name": "PLEXUS INTERNATIONAL HOLDINGS LIMITED",
+            "officer_role": "corporate-llp-member",
+            "resigned_on": "2021-01-31",
+            "identification": {
+              "identification_type": "other-corporate-body-or-firm",
+              "legal_authority": "HONG KONG",
+              "legal_form": "COMPANY",
+              "place_registered": "HONG KONG"
+            },
+            "person_number": "156151280001"
+          },
+          {
+            "etag": "818b6b9f29ef891e1d71b34fc9d12dfd28b07268",
+            "address": {
+              "address_line_1": "PO BOX 30464 Smb 5th Flr Harbour Pl",
+              "address_line_2": "103 South Church Street George Town",
+              "country": "British West Indies",
+              "locality": "Grand Cayman",
+              "premises": "PO BOX 30464 Smb 5th Flr Harbour Pl",
+              "region": "Cayman Islands"
+            },
+            "appointed_on": "2005-11-19",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/OC303480/appointments/0YpLWNebTx6Q86TED-mEIagPnFs",
+              "officer": {
+                "appointments": "/officers/LpttDzxWOREPpAC4IXa_C4KIx5o/appointments"
+              }
+            },
+            "name": "V.A.P. LIMITED",
+            "officer_role": "corporate-llp-member",
+            "resigned_on": "2013-09-13",
+            "identification": {
+              "identification_type": "non-eea",
+              "legal_authority": "CAYMAN ISLANDS",
+              "legal_form": "COMPANY",
+              "place_registered": "CAYMAN ISLANDS"
+            },
+            "person_number": "141812700001"
+          }
+        ],
+        "items_per_page": 100,
+        "kind": "officer-list",
+        "links": {
+          "self": "/company/OC303480/officers"
+        },
+        "resigned_count": 14,
+        "inactive_count": 0,
+        "start_index": 0,
+        "total_results": 22
+      },
+      "psc": {
+        "items_per_page": 25,
+        "items": [
+          {
+            "etag": "3d9938476496ffed3c3f9da1cb2c38fbcf389815",
+            "notified_on": "2016-05-01",
+            "country_of_residence": "Denmark",
+            "date_of_birth": {
+              "month": 7,
+              "year": 1959
+            },
+            "name": "Mr Niels Clemen Jensen",
+            "name_elements": {
+              "title": "Mr",
+              "surname": "Jensen",
+              "forename": "Niels",
+              "middle_name": "Clemen"
+            },
+            "links": {
+              "self": "/company/OC303480/persons-with-significant-control/individual/ztYPyv_cSSQNM_Xd4s6vto74n0k"
+            },
+            "nationality": "Danish",
+            "identity_verification_details": {
+              "appointment_verification_statement_date": "2026-11-18",
+              "appointment_verification_statement_due_on": "2026-12-01"
+            },
+            "ceased": false,
+            "kind": "individual-person-with-significant-control",
+            "address": {
+              "address_line_1": "45 Albermarle Street",
+              "address_line_2": "Mayfair",
+              "country": "England",
+              "locality": "London",
+              "postal_code": "W1S 4JL",
+              "premises": "3rd Floor"
+            },
+            "natures_of_control": [
+              "significant-influence-or-control-limited-liability-partnership"
+            ]
+          }
+        ],
+        "start_index": 0,
+        "total_results": 1,
+        "active_count": 1,
+        "ceased_count": 0,
+        "links": {
+          "self": "/company/OC303480/persons-with-significant-control"
+        }
+      }
+    },
+    "OC328366": {
+      "profile": {
+        "accounts": {
+          "accounting_reference_date": {
+            "day": "31",
+            "month": "05"
+          },
+          "last_accounts": {
+            "made_up_to": "2015-05-31"
+          }
+        },
+        "annual_return": {
+          "last_made_up_to": "2015-05-16"
+        },
+        "can_file": false,
+        "company_name": "GLOBAL TRANSPORT CORPORATION LLP",
+        "company_number": "OC328366",
+        "company_status": "dissolved",
+        "status": "active",
+        "date_of_cessation": "2016-07-05",
+        "date_of_creation": "2007-05-16",
+        "etag": "522b6f082b94308e238ad12aa4adf1b60a43cc75",
+        "has_been_liquidated": false,
+        "has_charges": false,
+        "has_insolvency_history": false,
+        "jurisdiction": "england-wales",
+        "links": {
+          "self": "/company/OC328366",
+          "filing_history": "/company/OC328366/filing-history",
+          "officers": "/company/OC328366/officers"
+        },
+        "registered_office_address": {
+          "address_line_1": "Cornwall Buildings 45 Newhall Street",
+          "address_line_2": "Suite 211",
+          "locality": "Birmingham",
+          "postal_code": "B3 3QR"
+        },
+        "type": "llp",
+        "undeliverable_registered_office_address": false
+      },
+      "officers": {
+        "active_count": 0,
+        "etag": "4be0877dbcd34ca1a2c179fa23188ef66ccdf859",
+        "items": [
+          {
+            "etag": "4be0877dbcd34ca1a2c179fa23188ef66ccdf859",
+            "address": {
+              "address_line_1": "Ajeltake Road, Ajeltake Island",
+              "country": "Marshall Islands",
+              "locality": "Majuro",
+              "postal_code": "MH96960",
+              "premises": "Trust Company Complex"
+            },
+            "appointed_on": "2012-04-30",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/OC328366/appointments/RvZtoGRLA-1oVNtUn6Ln9uigipE",
+              "officer": {
+                "appointments": "/officers/nE9Gzvt-FfJ3w_nMWRCU-w78E2s/appointments"
+              }
+            },
+            "name": "CEO CORONA LTD",
+            "officer_role": "corporate-llp-designated-member",
+            "identification": {
+              "identification_type": "non-eea",
+              "legal_authority": "MARSHALL ISLANDS BUSINESS CORPORATIONS ACT",
+              "legal_form": "LIMITED",
+              "place_registered": "OFFICE OF THE REGISTRAR OF CORPORATIONS, MARSHALL",
+              "registration_number": "51965"
+            },
+            "person_number": "169324360001"
+          },
+          {
+            "etag": "ac80bb876e78c616c1f9111acd2c8e5394f950b2",
+            "address": {
+              "address_line_1": "Ajeltake Road, Ajeltake Island",
+              "country": "Marshall Islands",
+              "locality": "Majuro",
+              "postal_code": "MH96960",
+              "premises": "Trust Company Complex"
+            },
+            "appointed_on": "2012-04-30",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/OC328366/appointments/zZmmiiP8vC496Q2Jp0sHqboYltY",
+              "officer": {
+                "appointments": "/officers/ChlK_eh1jb3NecAE9IwtZkJcuZQ/appointments"
+              }
+            },
+            "name": "RMI PROXY & SECRETARY LTD",
+            "officer_role": "corporate-llp-designated-member",
+            "identification": {
+              "identification_type": "non-eea",
+              "legal_authority": "MARSHALL ISLANDS BUSINESS CORPORATIONS ACT",
+              "legal_form": "LIMITED",
+              "place_registered": "OFFICE OF THE REGISTRAR OF CORPORATIONS, MARSHALL",
+              "registration_number": "51964"
+            },
+            "person_number": "169323920001"
+          },
+          {
+            "etag": "66bb5eef3a79feb3a46c845dfb67281929a899fb",
+            "address": {
+              "address_line_1": "Ajeltake Road, Ajeltake Island",
+              "country": "Marshall Islands",
+              "locality": "Majuro",
+              "postal_code": "MH96960",
+              "premises": "Trust Company Complex"
+            },
+            "appointed_on": "2012-04-30",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/OC328366/appointments/ftSrwrXYVZrsR6jA4tPobh10wnE",
+              "officer": {
+                "appointments": "/officers/Xc04DzxVgfuMEBX022qYAGv4j4g/appointments"
+              }
+            },
+            "name": "A&P HENDERSON LTD",
+            "officer_role": "corporate-llp-designated-member",
+            "resigned_on": "2012-04-30",
+            "identification": {
+              "identification_type": "non-eea",
+              "legal_authority": "MARSHALL ISLANDS BUSINESS CORPORATIONS ACT",
+              "legal_form": "LIMITED",
+              "place_registered": "OFFICE OF THE REGISTRAR OF CORPORATIONS, MARSHALL",
+              "registration_number": "51962"
+            },
+            "person_number": "168771190001"
+          },
+          {
+            "etag": "dda6596e313a3c3b25d20d8281923d0e8731e609",
+            "address": {
+              "address_line_1": "Ajeltake Road, Ajeltake Island",
+              "country": "Marshall Islands",
+              "locality": "Majuro",
+              "postal_code": "MH96960",
+              "premises": "Trust Company Complex"
+            },
+            "appointed_on": "2012-04-30",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/OC328366/appointments/FWZ-N_rQHydgIMF9sX32qQT3X54",
+              "officer": {
+                "appointments": "/officers/ZJj1EUonxJpIfJOtwH1b2nzS6PQ/appointments"
+              }
+            },
+            "name": "CONSULT CYPRUS SERVICES LTD",
+            "officer_role": "corporate-llp-designated-member",
+            "resigned_on": "2012-04-30",
+            "identification": {
+              "identification_type": "non-eea",
+              "legal_authority": "MARSHALL ISLANDS BUSINESS CORPORATIONS ACT",
+              "legal_form": "LIMITED",
+              "place_registered": "OFFICE OF THE REGISTRAR OF CORPORATIONS, MARSHALL",
+              "registration_number": "51959"
+            },
+            "person_number": "168771050001"
+          },
+          {
+            "etag": "64408b289b6a4014acf8d8e82ac67f30f7d9465b",
+            "address": {
+              "address_line_1": "Development Bank Of The Samoa Building",
+              "address_line_2": "Beach Road",
+              "country": "American Samoa",
+              "locality": "Apia",
+              "premises": "Level 5"
+            },
+            "appointed_on": "2007-05-16",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/OC328366/appointments/0Z8BRqrawgG3jqM3kdkLtqxavTk",
+              "officer": {
+                "appointments": "/officers/OGwyuYnStHeRIzgYkmynJfAa5GQ/appointments"
+              }
+            },
+            "name": "MEMPHIS LIMITED",
+            "officer_role": "corporate-llp-designated-member",
+            "resigned_on": "2012-04-30",
+            "identification": {
+              "identification_type": "non-eea",
+              "legal_authority": "SAMOA",
+              "legal_form": "LIMITED",
+              "place_registered": "SAMOA",
+              "registration_number": "3784"
+            },
+            "person_number": "141508660001"
+          },
+          {
+            "etag": "674c9b04f15fb9b8f38e3c9e02ecd5d06f0150f5",
+            "address": {
+              "address_line_1": "Suites 205 Bank Lane",
+              "country": "Bahamas",
+              "locality": "Nassau",
+              "premises": "Saffrey Square"
+            },
+            "appointed_on": "2007-05-16",
+            "is_pre_1992_appointment": false,
+            "links": {
+              "self": "/company/OC328366/appointments/-2H2M8H-HNqWmBIa18GdqKqNwN4",
+              "officer": {
+                "appointments": "/officers/yw75VHNNZUo1graxxLIOxIhP6Es/appointments"
+              }
+            },
+            "name": "PRIORSWOOD CONSULTANTS LIMITED",
+            "officer_role": "corporate-llp-designated-member",
+            "resigned_on": "2012-04-30",
+            "identification": {
+              "identification_type": "non-eea",
+              "legal_authority": "BAHAMAS",
+              "legal_form": "LIMITED",
+              "place_registered": "BAHAMAS",
+              "registration_number": "77624B"
+            },
+            "person_number": "141508650001"
+          }
+        ],
+        "items_per_page": 100,
+        "kind": "officer-list",
+        "links": {
+          "self": "/company/OC328366/officers"
+        },
+        "resigned_count": 4,
+        "inactive_count": 2,
+        "start_index": 0,
+        "total_results": 6
+      },
+      "psc": {
+        "items_per_page": 25,
+        "items": [],
+        "start_index": 0,
+        "total_results": 0,
+        "active_count": 0,
+        "ceased_count": 0,
+        "links": {
+          "self": "/company/OC328366/persons-with-significant-control"
+        }
+      }
+    }
+  },
+  "errors": [
+    {
+      "companyNumber": "02711625",
+      "error": "Companies House 404: https://api.company-information.service.gov.uk/company/02711625 — resource not found"
+    },
+    {
+      "companyNumber": "03099799",
+      "error": "Companies House 404: https://api.company-information.service.gov.uk/company/03099799 — resource not found"
+    },
+    {
+      "companyNumber": "01550462",
+      "error": "Companies House 404: https://api.company-information.service.gov.uk/company/01550462 — resource not found"
+    },
+    {
+      "companyNumber": "01753700",
+      "error": "Companies House 404: https://api.company-information.service.gov.uk/company/01753700 — resource not found"
+    },
+    {
+      "companyNumber": "01397068",
+      "error": "Companies House 404: https://api.company-information.service.gov.uk/company/01397068 — resource not found"
+    },
+    {
+      "companyNumber": "02418033",
+      "error": "Companies House 404: https://api.company-information.service.gov.uk/company/02418033 — resource not found"
+    },
+    {
+      "companyNumber": "SC084268",
+      "error": "Companies House 404: https://api.company-information.service.gov.uk/company/SC084268 — resource not found"
+    },
+    {
+      "companyNumber": "02627460",
+      "error": "Companies House 404: https://api.company-information.service.gov.uk/company/02627460 — resource not found"
+    },
+    {
+      "companyNumber": "00198491",
+      "error": "Companies House 404: https://api.company-information.service.gov.uk/company/00198491 — resource not found"
+    }
+  ]
+}

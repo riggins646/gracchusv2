@@ -1,0 +1,260 @@
+{
+  "metadata": {
+    "title": "Structural Performance",
+    "description": "Long-term UK performance vs peers on key structural indicators",
+    "lastUpdated": "2025-03",
+    "defaultCountries": ["UK", "France", "Germany", "USA"]
+  },
+  "productivity": {
+    "title": "Productivity",
+    "subtitle": "GDP per hour worked (USD, current prices, PPP)",
+    "methodology": "GDP divided by total hours worked, converted to USD using purchasing power parities. ONS International Comparisons of Productivity, final estimates.",
+    "unit": "USD per hour worked",
+    "sources": [
+      {
+        "name": "ONS International Comparisons of Productivity (ICP), Final Estimates 2021",
+        "url": "https://www.ons.gov.uk/economy/economicoutputandproductivity/productivitymeasures/bulletins/internationalcomparisonsofproductivityfinalestimates/2021",
+        "confidence": "high"
+      },
+      {
+        "name": "OECD Compendium of Productivity Indicators 2025",
+        "url": "https://www.oecd.org/en/publications/oecd-compendium-of-productivity-indicators-2025_b024d9e1-en.html",
+        "confidence": "high"
+      },
+      {
+        "name": "Conference Board Total Economy Database",
+        "url": "https://www.conference-board.org/topics/total-economy-database",
+        "confidence": "high"
+      }
+    ],
+    "data": [
+      { "country": "UK", "year": 2005, "value": 42.5, "confidence": "medium" },
+      { "country": "UK", "year": 2010, "value": 46.2, "confidence": "medium" },
+      { "country": "UK", "year": 2015, "value": 49.8, "confidence": "high" },
+      { "country": "UK", "year": 2019, "value": 53.5, "confidence": "high" },
+      { "country": "UK", "year": 2020, "value": 54.1, "confidence": "high" },
+      { "country": "UK", "year": 2021, "value": 55.8, "confidence": "high" },
+      { "country": "UK", "year": 2022, "value": 56.5, "confidence": "high" },
+
+      { "country": "France", "year": 2005, "value": 53.8, "confidence": "medium" },
+      { "country": "France", "year": 2010, "value": 58.2, "confidence": "medium" },
+      { "country": "France", "year": 2015, "value": 62.5, "confidence": "high" },
+      { "country": "France", "year": 2019, "value": 67.1, "confidence": "high" },
+      { "country": "France", "year": 2020, "value": 66.1, "confidence": "high" },
+      { "country": "France", "year": 2021, "value": 68.2, "confidence": "high" },
+      { "country": "France", "year": 2022, "value": 69.0, "confidence": "high" },
+
+      { "country": "Germany", "year": 2005, "value": 50.5, "confidence": "medium" },
+      { "country": "Germany", "year": 2010, "value": 55.8, "confidence": "medium" },
+      { "country": "Germany", "year": 2015, "value": 60.2, "confidence": "high" },
+      { "country": "Germany", "year": 2019, "value": 65.8, "confidence": "high" },
+      { "country": "Germany", "year": 2020, "value": 66.4, "confidence": "high" },
+      { "country": "Germany", "year": 2021, "value": 67.5, "confidence": "high" },
+      { "country": "Germany", "year": 2022, "value": 68.5, "confidence": "high" },
+
+      { "country": "USA", "year": 2005, "value": 60.2, "confidence": "medium" },
+      { "country": "USA", "year": 2010, "value": 67.5, "confidence": "medium" },
+      { "country": "USA", "year": 2015, "value": 72.8, "confidence": "high" },
+      { "country": "USA", "year": 2019, "value": 80.5, "confidence": "high" },
+      { "country": "USA", "year": 2020, "value": 83.2, "confidence": "high" },
+      { "country": "USA", "year": 2021, "value": 85.8, "confidence": "high" },
+      { "country": "USA", "year": 2022, "value": 91.5, "confidence": "high" }
+    ],
+    "keyFinding": "The UK produces $56.50 per hour worked vs $91.50 in the US \u2014 a 38% productivity gap that has widened since 2010.",
+    "limitations": "Pre-2015 figures are interpolated from OECD index trends and Conference Board data. 2022 is the latest year with full comparable data across all four countries."
+  },
+  "realWages": {
+    "title": "Real Wages",
+    "subtitle": "Average annual wages (constant 2022 USD, PPP)",
+    "methodology": "Average annual wages of full-time employees in constant prices using 2022 USD PPP. OECD Employment Database.",
+    "unit": "USD (2022 PPP)",
+    "sources": [
+      {
+        "name": "OECD Average Annual Wages",
+        "url": "https://www.oecd.org/en/data/indicators/average-annual-wages.html",
+        "confidence": "high"
+      },
+      {
+        "name": "OECD Employment Outlook 2025",
+        "url": "https://www.oecd.org/en/publications/oecd-employment-outlook-2025_194a947b-en.html",
+        "confidence": "high"
+      },
+      {
+        "name": "ONS Average Weekly Earnings",
+        "url": "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours",
+        "confidence": "high"
+      }
+    ],
+    "data": [
+      { "country": "UK", "year": 2000, "value": 43200, "confidence": "medium" },
+      { "country": "UK", "year": 2005, "value": 46500, "confidence": "medium" },
+      { "country": "UK", "year": 2010, "value": 45800, "confidence": "high" },
+      { "country": "UK", "year": 2015, "value": 46100, "confidence": "high" },
+      { "country": "UK", "year": 2019, "value": 47800, "confidence": "high" },
+      { "country": "UK", "year": 2020, "value": 47200, "confidence": "high" },
+      { "country": "UK", "year": 2022, "value": 49200, "confidence": "high" },
+      { "country": "UK", "year": 2023, "value": 49400, "confidence": "high" },
+
+      { "country": "France", "year": 2000, "value": 42800, "confidence": "medium" },
+      { "country": "France", "year": 2005, "value": 44200, "confidence": "medium" },
+      { "country": "France", "year": 2010, "value": 45900, "confidence": "high" },
+      { "country": "France", "year": 2015, "value": 46200, "confidence": "high" },
+      { "country": "France", "year": 2019, "value": 47500, "confidence": "high" },
+      { "country": "France", "year": 2020, "value": 46800, "confidence": "high" },
+      { "country": "France", "year": 2022, "value": 48600, "confidence": "high" },
+      { "country": "France", "year": 2023, "value": 49100, "confidence": "high" },
+
+      { "country": "Germany", "year": 2000, "value": 47500, "confidence": "medium" },
+      { "country": "Germany", "year": 2005, "value": 47200, "confidence": "medium" },
+      { "country": "Germany", "year": 2010, "value": 48800, "confidence": "high" },
+      { "country": "Germany", "year": 2015, "value": 51200, "confidence": "high" },
+      { "country": "Germany", "year": 2019, "value": 53800, "confidence": "high" },
+      { "country": "Germany", "year": 2020, "value": 53200, "confidence": "high" },
+      { "country": "Germany", "year": 2022, "value": 53600, "confidence": "high" },
+      { "country": "Germany", "year": 2023, "value": 54100, "confidence": "high" },
+
+      { "country": "USA", "year": 2000, "value": 57500, "confidence": "high" },
+      { "country": "USA", "year": 2005, "value": 60200, "confidence": "high" },
+      { "country": "USA", "year": 2010, "value": 62500, "confidence": "high" },
+      { "country": "USA", "year": 2015, "value": 65800, "confidence": "high" },
+      { "country": "USA", "year": 2019, "value": 70200, "confidence": "high" },
+      { "country": "USA", "year": 2020, "value": 71400, "confidence": "high" },
+      { "country": "USA", "year": 2022, "value": 77600, "confidence": "high" },
+      { "country": "USA", "year": 2023, "value": 79400, "confidence": "high" }
+    ],
+    "keyFinding": "UK real wages grew just 14% over 23 years (2000\u20132023). US wages grew 38% over the same period. UK wages barely recovered their 2007 peak.",
+    "limitations": "OECD average wages use full-time equivalent earnings. UK figures show particularly weak growth 2008\u20132022 at 0.2% per annum. Pre-2010 values are estimated from nominal wages deflated by CPI."
+  },
+  "housingAffordability": {
+    "title": "Housing Affordability",
+    "subtitle": "House price-to-income ratio (OECD index, 2015=100)",
+    "methodology": "Nominal house price index divided by nominal disposable income per head. Indexed to 2015=100. A rising index means housing is becoming less affordable.",
+    "unit": "Index (2015=100)",
+    "sources": [
+      {
+        "name": "OECD Affordable Housing Database",
+        "url": "https://www.oecd.org/en/data/datasets/oecd-affordable-housing-database.html",
+        "confidence": "high"
+      },
+      {
+        "name": "OECD Housing Prices Indicator",
+        "url": "https://www.oecd.org/en/data/indicators/housing-prices.html",
+        "confidence": "high"
+      },
+      {
+        "name": "Dallas Fed International House Price Database",
+        "url": "https://www.dallasfed.org/research/international/houseprice",
+        "confidence": "high"
+      }
+    ],
+    "data": [
+      { "country": "UK", "year": 2000, "value": 72.5, "confidence": "high" },
+      { "country": "UK", "year": 2005, "value": 115.2, "confidence": "high" },
+      { "country": "UK", "year": 2007, "value": 130.0, "confidence": "high" },
+      { "country": "UK", "year": 2010, "value": 112.0, "confidence": "high" },
+      { "country": "UK", "year": 2015, "value": 100.0, "confidence": "high" },
+      { "country": "UK", "year": 2019, "value": 108.5, "confidence": "high" },
+      { "country": "UK", "year": 2020, "value": 108.2, "confidence": "high" },
+      { "country": "UK", "year": 2022, "value": 118.0, "confidence": "high" },
+      { "country": "UK", "year": 2023, "value": 113.7, "confidence": "high" },
+
+      { "country": "France", "year": 2000, "value": 68.5, "confidence": "high" },
+      { "country": "France", "year": 2005, "value": 102.5, "confidence": "high" },
+      { "country": "France", "year": 2007, "value": 115.8, "confidence": "high" },
+      { "country": "France", "year": 2010, "value": 108.5, "confidence": "high" },
+      { "country": "France", "year": 2015, "value": 100.0, "confidence": "high" },
+      { "country": "France", "year": 2019, "value": 105.2, "confidence": "high" },
+      { "country": "France", "year": 2020, "value": 108.5, "confidence": "high" },
+      { "country": "France", "year": 2022, "value": 112.8, "confidence": "high" },
+      { "country": "France", "year": 2023, "value": 104.5, "confidence": "high" },
+
+      { "country": "Germany", "year": 2000, "value": 108.0, "confidence": "high" },
+      { "country": "Germany", "year": 2005, "value": 96.5, "confidence": "high" },
+      { "country": "Germany", "year": 2007, "value": 92.0, "confidence": "high" },
+      { "country": "Germany", "year": 2010, "value": 88.0, "confidence": "high" },
+      { "country": "Germany", "year": 2015, "value": 100.0, "confidence": "high" },
+      { "country": "Germany", "year": 2019, "value": 118.5, "confidence": "high" },
+      { "country": "Germany", "year": 2020, "value": 124.2, "confidence": "high" },
+      { "country": "Germany", "year": 2022, "value": 128.5, "confidence": "high" },
+      { "country": "Germany", "year": 2023, "value": 93.1, "confidence": "high" },
+
+      { "country": "USA", "year": 2000, "value": 85.5, "confidence": "high" },
+      { "country": "USA", "year": 2005, "value": 108.2, "confidence": "high" },
+      { "country": "USA", "year": 2007, "value": 105.0, "confidence": "high" },
+      { "country": "USA", "year": 2010, "value": 82.5, "confidence": "high" },
+      { "country": "USA", "year": 2015, "value": 100.0, "confidence": "high" },
+      { "country": "USA", "year": 2019, "value": 112.8, "confidence": "high" },
+      { "country": "USA", "year": 2020, "value": 117.5, "confidence": "high" },
+      { "country": "USA", "year": 2022, "value": 135.2, "confidence": "high" },
+      { "country": "USA", "year": 2023, "value": 130.3, "confidence": "high" }
+    ],
+    "keyFinding": "UK housing was cheap in 2000 (index 72.5) and has become 57% less affordable since. Germany saw a sharp correction in 2023 after a post-2015 boom.",
+    "limitations": "OECD price-to-income uses disposable income per head, which differs from Demographia median-multiple methodology. Germany 2023 shows a sharp correction likely reflecting the interest rate shock. Index-based comparison means relative change matters more than absolute level."
+  },
+  "hospitalBeds": {
+    "title": "Hospital Beds",
+    "subtitle": "Hospital beds per 1,000 population (total, all types)",
+    "methodology": "Total hospital beds including curative, rehabilitative, long-term care and other beds, divided by population. OECD Health Statistics definition.",
+    "unit": "beds per 1,000 population",
+    "sources": [
+      {
+        "name": "OECD Health at a Glance 2025",
+        "url": "https://www.oecd.org/en/publications/2025/11/health-at-a-glance-2025_a894f72e/full-report/hospital-beds-and-occupancy_152d839e.html",
+        "confidence": "high"
+      },
+      {
+        "name": "World Bank Hospital Beds Data",
+        "url": "https://data.worldbank.org/indicator/SH.MED.BEDS.ZS",
+        "confidence": "high"
+      },
+      {
+        "name": "King's Fund NHS Hospital Beds Analysis",
+        "url": "https://www.kingsfund.org.uk/insight-and-analysis/data-and-charts/number-hospital-beds",
+        "confidence": "high"
+      }
+    ],
+    "data": [
+      { "country": "UK", "year": 2000, "value": 4.1, "confidence": "high" },
+      { "country": "UK", "year": 2005, "value": 3.4, "confidence": "medium" },
+      { "country": "UK", "year": 2010, "value": 2.98, "confidence": "high" },
+      { "country": "UK", "year": 2015, "value": 2.6, "confidence": "high" },
+      { "country": "UK", "year": 2019, "value": 2.5, "confidence": "high" },
+      { "country": "UK", "year": 2020, "value": 2.5, "confidence": "high" },
+      { "country": "UK", "year": 2022, "value": 2.44, "confidence": "high" },
+
+      { "country": "France", "year": 2000, "value": 8.0, "confidence": "medium" },
+      { "country": "France", "year": 2005, "value": 7.2, "confidence": "medium" },
+      { "country": "France", "year": 2010, "value": 6.64, "confidence": "high" },
+      { "country": "France", "year": 2015, "value": 6.1, "confidence": "high" },
+      { "country": "France", "year": 2019, "value": 5.8, "confidence": "high" },
+      { "country": "France", "year": 2020, "value": 5.7, "confidence": "high" },
+      { "country": "France", "year": 2022, "value": 5.48, "confidence": "high" },
+
+      { "country": "Germany", "year": 2000, "value": 9.1, "confidence": "high" },
+      { "country": "Germany", "year": 2005, "value": 8.5, "confidence": "medium" },
+      { "country": "Germany", "year": 2010, "value": 8.1, "confidence": "high" },
+      { "country": "Germany", "year": 2015, "value": 8.1, "confidence": "high" },
+      { "country": "Germany", "year": 2019, "value": 7.9, "confidence": "high" },
+      { "country": "Germany", "year": 2020, "value": 7.82, "confidence": "high" },
+      { "country": "Germany", "year": 2022, "value": 7.72, "confidence": "high" },
+
+      { "country": "USA", "year": 2000, "value": 3.5, "confidence": "high" },
+      { "country": "USA", "year": 2005, "value": 3.2, "confidence": "medium" },
+      { "country": "USA", "year": 2010, "value": 3.0, "confidence": "high" },
+      { "country": "USA", "year": 2015, "value": 2.8, "confidence": "high" },
+      { "country": "USA", "year": 2019, "value": 2.8, "confidence": "high" },
+      { "country": "USA", "year": 2020, "value": 2.8, "confidence": "high" },
+      { "country": "USA", "year": 2022, "value": 2.77, "confidence": "high" },
+
+      { "country": "Japan", "year": 2000, "value": 14.7, "confidence": "high" },
+      { "country": "Japan", "year": 2005, "value": 14.0, "confidence": "medium" },
+      { "country": "Japan", "year": 2010, "value": 13.4, "confidence": "high" },
+      { "country": "Japan", "year": 2015, "value": 13.2, "confidence": "high" },
+      { "country": "Japan", "year": 2019, "value": 12.84, "confidence": "high" },
+      { "country": "Japan", "year": 2020, "value": 12.63, "confidence": "high" },
+      { "country": "Japan", "year": 2022, "value": 12.59, "confidence": "high" }
+    ],
+    "keyFinding": "The UK has 2.44 beds per 1,000 \u2014 the fewest of any major peer. Germany has 3.2x more capacity. The UK cut 40% of beds since 2000.",
+    "limitations": "UK methodology changed in 2010/11 so pre- and post-2010 figures are not directly comparable. Japan includes long-term care beds which inflates its figure. USA figures vary depending on whether community or total hospital beds are counted."
+  }
+}

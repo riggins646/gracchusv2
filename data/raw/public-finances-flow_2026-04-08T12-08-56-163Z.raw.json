@@ -1,0 +1,50 @@
+{
+  "results": {},
+  "errors": [
+    {
+      "series": "currentReceipts",
+      "cdid": "anbv",
+      "error": "ONS time series anbv: 404 — \"No API is defined for GET /timeseries/anbv/data\""
+    },
+    {
+      "series": "totalExpenditure",
+      "cdid": "anlp",
+      "error": "ONS time series anlp: 404 — \"No API is defined for GET /timeseries/anlp/data\""
+    },
+    {
+      "series": "netBorrowing",
+      "cdid": "j5ii",
+      "error": "ONS time series j5ii: 404 — \"No API is defined for GET /timeseries/j5ii/data\""
+    },
+    {
+      "series": "debtInterest",
+      "cdid": "jw2z",
+      "error": "ONS time series jw2z: 404 — \"No API is defined for GET /timeseries/jw2z/data\""
+    },
+    {
+      "series": "debtPctGDP",
+      "cdid": "hf6x",
+      "error": "ONS time series hf6x: 404 — \"No API is defined for GET /timeseries/hf6x/data\""
+    },
+    {
+      "series": "incomeTax",
+      "cdid": "ms6k",
+      "error": "ONS time series ms6k: 404 — \"No API is defined for GET /timeseries/ms6k/data\""
+    },
+    {
+      "series": "nic",
+      "cdid": "aiih",
+      "error": "ONS time series aiih: 404 — \"No API is defined for GET /timeseries/aiih/data\""
+    },
+    {
+      "series": "vat",
+      "cdid": "eyob",
+      "error": "ONS time series eyob: 404 — \"No API is defined for GET /timeseries/eyob/data\""
+    },
+    {
+      "series": "corporationTax",
+      "cdid": "accd",
+      "error": "ONS time series accd: 404 — \"No API is defined for GET /timeseries/accd/data\""
+    }
+  ]
+}

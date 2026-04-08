@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Anton&amp;family=JetBrains+Mono:wght@700&amp;display=swap');
+    </style>
+  </defs>
+<rect width="100" height="100" fill="#0a0a0a" /><path d="M 90 10 L 90 25 L 25 25 L 25 75 L 75 75 L 75 60 L 50 60 L 50 45 L 90 45 L 90 90 L 10 90 L 10 10 Z" fill="#f4f4f0"/><path d="M 5 95 L 95 5" stroke="#ff3333" stroke-width="12" /></svg>

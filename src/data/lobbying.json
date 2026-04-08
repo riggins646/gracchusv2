@@ -1,0 +1,190 @@
+{
+  "metadata": {
+    "title": "UK Lobbying & Ministerial Transparency",
+    "description": "Data from the Office of the Registrar of Consultant Lobbyists (ORCL) statutory register, quarterly information returns, and GOV.UK ministerial transparency releases.",
+    "primarySources": [
+      {
+        "name": "Office of the Registrar of Consultant Lobbyists (ORCL)",
+        "url": "https://registrarofconsultantlobbyists.org.uk/",
+        "notes": "Statutory register under the Transparency of Lobbying Act 2014. Covers consultant (third-party) lobbyists only. Current register downloaded April 2026. Quarterly returns data from Q4 2025 (Oct-Dec)."
+      },
+      {
+        "name": "ORCL Quarterly Information Returns",
+        "url": "https://registrarofconsultantlobbyists.org.uk/category/quarterly-return-reports-2/",
+        "notes": "Quarterly client data published by ORCL. Latest: Q4 2025 (October-December 2025), published 1 February 2026."
+      },
+      {
+        "name": "GOV.UK Ministerial Transparency Releases",
+        "url": "https://www.gov.uk/government/collections/register-of-ministers-gifts-and-hospitality",
+        "notes": "27+ departments publish quarterly transparency data. Cabinet Office centralised register from July 2024 (monthly)."
+      },
+      {
+        "name": "Transparency International UK \u2014 Open Access",
+        "url": "https://openaccess.transparency.org.uk/",
+        "notes": "Harmonised 60,000+ ministerial meetings from 27 departments (2012 onwards)."
+      }
+    ],
+    "sourceConfidence": "high",
+    "lastUpdated": "2026-04",
+    "dataRange": "2015\u20132026 (ORCL register), Q4 2025 (client data), 2010\u20132025 (ministerial transparency)"
+  },
+  "summary": {
+    "totalRegistrants": 251,
+    "totalAllTime": 417,
+    "totalInactive": 66,
+    "totalClients": 1172,
+    "totalRelationships": 1221,
+    "companiesCount": 226,
+    "partnershipsCount": 21,
+    "individualsCount": 3,
+    "latestQuarter": "Q4 2025 (Oct-Dec)",
+    "clientsWithMultipleLobbyists": 48
+  },
+  "registerStats": {
+    "registrationSeries": [
+      {
+        "year": 2015,
+        "count": 61
+      },
+      {
+        "year": 2016,
+        "count": 73
+      },
+      {
+        "year": 2017,
+        "count": 84
+      },
+      {
+        "year": 2018,
+        "count": 94
+      },
+      {
+        "year": 2019,
+        "count": 103
+      },
+      {
+        "year": 2020,
+        "count": 116
+      },
+      {
+        "year": 2021,
+        "count": 140
+      },
+      {
+        "year": 2022,
+        "count": 164
+      },
+      {
+        "year": 2023,
+        "count": 182
+      },
+      {
+        "year": 2024,
+        "count": 211
+      },
+      {
+        "year": 2025,
+        "count": 246
+      },
+      {
+        "year": 2026,
+        "count": 251
+      }
+    ],
+    "registerLimitations": [
+      "Covers consultant lobbyists only \u2014 NOT in-house lobbyists",
+      "Records client names only \u2014 not the subject or official lobbied",
+      "No disclosure of lobbying expenditure or contract values",
+      "No disclosure of specific communications or meetings",
+      "Estimated to cover less than 1% of total UK lobbying activity"
+    ]
+  },
+  "ministerialMeetings": {
+    "totalMeetingsPublished": 60000,
+    "coveragePeriod": "2012\u20132025",
+    "departmentsPublishing": 27,
+    "meetingsByDepartment": [
+      {
+        "department": "Cabinet Office",
+        "approxMeetings": 8500
+      },
+      {
+        "department": "HM Treasury",
+        "approxMeetings": 6200
+      },
+      {
+        "department": "DHSC (Health)",
+        "approxMeetings": 5800
+      },
+      {
+        "department": "Home Office",
+        "approxMeetings": 4200
+      },
+      {
+        "department": "DESNZ (Energy)",
+        "approxMeetings": 3800
+      },
+      {
+        "department": "DBT (Business & Trade)",
+        "approxMeetings": 3500
+      },
+      {
+        "department": "FCDO (Foreign Affairs)",
+        "approxMeetings": 3200
+      },
+      {
+        "department": "DWP (Work & Pensions)",
+        "approxMeetings": 2800
+      },
+      {
+        "department": "MoD (Defence)",
+        "approxMeetings": 2500
+      },
+      {
+        "department": "DfT (Transport)",
+        "approxMeetings": 2200
+      }
+    ]
+  },
+  "ministerialGiftsAndHospitality": {
+    "giftThreshold": 140,
+    "publishingFrequency": "Monthly (from July 2024)"
+  },
+  "internationalComparison": [
+    {
+      "country": "United States",
+      "registrants": 12000,
+      "coversInHouse": true,
+      "disclosesSpending": true,
+      "disclosesSubject": true
+    },
+    {
+      "country": "Canada",
+      "registrants": 5000,
+      "coversInHouse": true,
+      "disclosesSpending": false,
+      "disclosesSubject": true
+    },
+    {
+      "country": "Ireland",
+      "registrants": 2200,
+      "coversInHouse": true,
+      "disclosesSpending": false,
+      "disclosesSubject": true
+    },
+    {
+      "country": "United Kingdom",
+      "registrants": 251,
+      "coversInHouse": false,
+      "disclosesSpending": false,
+      "disclosesSubject": false
+    }
+  ],
+  "contextSentences": {
+    "headline": "The UK lobbying register covers just 251 consultant lobbyists representing 1,172 clients \u2014 estimated to capture less than 1% of total lobbying activity.",
+    "growth": "35 new firms registered in 2025, the highest single-year growth since the register was established in 2015.",
+    "clients": "In Q4 2025 alone, registered lobbyists declared 1,221 client relationships \u2014 Policy Connect Ltd leads with 94 clients.",
+    "comparison": "The US lobbying register covers 12,000 entities and requires disclosure of spending and subjects. The UK register covers 251 and discloses neither.",
+    "meetings": "Over 60,000 ministerial meetings with external organisations have been published since 2012, across 27 government departments."
+  }
+}

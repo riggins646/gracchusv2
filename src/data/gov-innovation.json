@@ -1,0 +1,224 @@
+{
+  "metadata": {
+    "title": "Government Investment in R&D and Innovation",
+    "description": "Government R&D spending, total GERD, and government support for business innovation across G7 countries",
+    "sources": [
+      {
+        "name": "OECD Main Science and Technology Indicators (MSTI)",
+        "url": "https://www.oecd.org/en/data/indicators/gross-domestic-spending-on-r-d.html",
+        "series": ["gerdByCountryTimeSeries", "gerdG7Latest"],
+        "notes": "Primary source for internationally comparable GERD data. Updated March and September. Uses Frascati Manual 2015 definitions. Data for 2023 is latest available for most countries."
+      },
+      {
+        "name": "ONS UK GERD Statistics",
+        "url": "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/researchanddevelopmentexpenditure/bulletins/ukgrossdomesticexpenditureonresearchanddevelopment/2023",
+        "series": ["ukGerdBySector"],
+        "notes": "Official UK R&D data. CRITICAL: 2018 methodology change revised UK figures upward. Pre-2018 UK data uses old methodology and is not comparable. Post-2018 data captures previously undercounted business and HE R&D."
+      },
+      {
+        "name": "ONS UK Government SET Expenditure",
+        "url": "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/researchanddevelopmentexpenditure/bulletins/ukgovernmentexpenditureonscienceengineeringandtechnology/2023",
+        "series": ["ukGovRdSpending"],
+        "notes": "UK government net expenditure on R&D (SET = Science, Engineering and Technology). Covers departmental R&D spending, UKRI, and research councils. 2023: GBP 17.4bn, up 8.2% from GBP 16.1bn in 2022."
+      },
+      {
+        "name": "OECD R&D Tax Incentives Database",
+        "url": "https://www.oecd.org/en/topics/sub-issues/rd-tax-incentives.html",
+        "series": ["govSupportForBusinessRd"],
+        "notes": "Tracks government tax relief for R&D expenditure and direct government funding of business R&D (BERD). Tax incentive data as % of GDP. 55% of total OECD business R&D support now comes via tax incentives."
+      },
+      {
+        "name": "OECD GBARD Statistics",
+        "url": "https://stats.oecd.org/Index.aspx?DataSetCode=GBARD_NABS2007",
+        "series": ["gbardG7"],
+        "notes": "Government Budget Allocations for R&D. Measures what governments PLAN to spend on R&D. Differs from GERD which measures actual expenditure. GBARD growth slowed to 0.6% in 2023 (from 5.5% in 2022) as COVID stimulus ended."
+      },
+      {
+        "name": "Eurostat GBARD",
+        "url": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Government_budget_allocations_for_R",
+        "series": ["gbardG7"],
+        "notes": "EU GBARD data. EU total 2024: EUR 127.9bn = 0.71% of GDP. 2023: EUR 123.7bn = 0.73% of GDP (+5.3% YoY)."
+      },
+      {
+        "name": "NSF Science & Engineering Indicators 2025",
+        "url": "https://ncses.nsf.gov/pubs/nsb20257/global-r-d-and-international-comparisons-2",
+        "series": ["gerdByCountryTimeSeries", "govShareOfGerd"],
+        "notes": "US National Science Foundation biennial report. Provides cross-national comparison of R&D spending including government funding shares. Most recent edition uses 2021-2022 data."
+      }
+    ],
+    "crossCheckNotes": {
+      "gerdMethodology": "GERD figures from OECD, World Bank, and NSF all derive from the same underlying national statistical office data collected under Frascati Manual guidelines. Minor differences arise from: (1) GDP revision timing, (2) PPP vs current prices, (3) rounding. We use OECD as primary source. Where OECD 2023 is unavailable, we use 2022 World Bank/NSF figures.",
+      "ukMethodologyBreak": "UK GERD data has a major discontinuity at 2018. Pre-2018: ~1.6-1.7% GDP (old methodology). Post-2018: ~2.6-2.9% GDP (revised methodology). This is NOT a real increase — the revision better captured business R&D (surveys expanded) and HE sector spending (new data linkage). We separate pre-2018 and post-2018 UK data and clearly label the break.",
+      "govFundingShare": "Government share of total GERD varies significantly by country: US ~20%, UK ~15%, Germany/France ~30%. This reflects different innovation models. The US and UK rely more on business-funded R&D and tax incentives; Germany/France have larger direct government funding programs. Neither model is inherently superior.",
+      "taxIncentivesVsDirectFunding": "OECD tracks two channels of government support for business R&D: (1) direct grants/contracts, typically ~0.10% GDP across OECD, (2) tax incentives, averaging ~0.13% GDP but with wide variation. UK is 4th highest for tax incentives (0.30% GDP) but this is offset by relatively lower direct funding. Total combined support matters more than the channel split.",
+      "gbardVsGerd": "GBARD (budget allocations) measures government intent; GERD by funding source measures actual spending. These can diverge: GBARD may include allocations not yet spent, while GERD captures what was actually performed. We present GBARD for government commitment comparison and GERD for actual R&D intensity."
+    },
+    "lastUpdated": "2026-03",
+    "sourceConfidence": "high"
+  },
+  "gerdByCountryTimeSeries": {
+    "description": "Total Gross Expenditure on R&D as % of GDP — G7 time series",
+    "unit": "pct_gdp",
+    "sourceName": "OECD MSTI / World Bank / NSF S&E Indicators",
+    "sourceUrl": "https://www.oecd.org/en/data/indicators/gross-domestic-spending-on-r-d.html",
+    "methodologyNote": "GERD includes all R&D performed domestically across 4 sectors: business, government, higher education, private non-profit. Uses Frascati Manual definitions. UK pre-2018 figures use old ONS methodology; post-2018 use revised methodology. These are not directly comparable (see crossCheckNotes).",
+    "countries": {
+      "US": {
+        "series": [
+          {"year": 2010, "value": 2.74},
+          {"year": 2012, "value": 2.68},
+          {"year": 2014, "value": 2.72},
+          {"year": 2016, "value": 2.79},
+          {"year": 2018, "value": 2.95},
+          {"year": 2019, "value": 3.17},
+          {"year": 2020, "value": 3.42},
+          {"year": 2021, "value": 3.46},
+          {"year": 2022, "value": 3.46, "notes": "NSF/NCSES. $823bn absolute."},
+          {"year": 2023, "value": 3.45, "notes": "OECD preliminary."}
+        ]
+      },
+      "Japan": {
+        "series": [
+          {"year": 2010, "value": 3.14},
+          {"year": 2012, "value": 3.21},
+          {"year": 2014, "value": 3.40},
+          {"year": 2016, "value": 3.16},
+          {"year": 2018, "value": 3.28},
+          {"year": 2019, "value": 3.24},
+          {"year": 2020, "value": 3.27},
+          {"year": 2021, "value": 3.30},
+          {"year": 2022, "value": 3.40},
+          {"year": 2023, "value": 3.44, "notes": "OECD. Growth of 2.7% in 2023."}
+        ]
+      },
+      "Germany": {
+        "series": [
+          {"year": 2010, "value": 2.72},
+          {"year": 2012, "value": 2.87},
+          {"year": 2014, "value": 2.87},
+          {"year": 2016, "value": 2.94},
+          {"year": 2018, "value": 3.11},
+          {"year": 2019, "value": 3.17},
+          {"year": 2020, "value": 3.14},
+          {"year": 2021, "value": 3.13},
+          {"year": 2022, "value": 3.14},
+          {"year": 2023, "value": 3.13, "notes": "OECD. Growth of 0.8% in 2023."}
+        ]
+      },
+      "France": {
+        "series": [
+          {"year": 2010, "value": 2.18},
+          {"year": 2012, "value": 2.23},
+          {"year": 2014, "value": 2.23},
+          {"year": 2016, "value": 2.22},
+          {"year": 2018, "value": 2.20},
+          {"year": 2019, "value": 2.19},
+          {"year": 2020, "value": 2.30},
+          {"year": 2021, "value": 2.21},
+          {"year": 2022, "value": 2.18},
+          {"year": 2023, "value": 2.98, "notes": "OECD reports 2.98%. Note: Some sources report ~2.2% using different GDP measures. OECD MSTI 2025 preliminary figure."}
+        ]
+      },
+      "UK": {
+        "series": [
+          {"year": 2010, "value": 1.67, "methodology": "pre-2018", "notes": "Old ONS methodology."},
+          {"year": 2012, "value": 1.61, "methodology": "pre-2018"},
+          {"year": 2014, "value": 1.66, "methodology": "pre-2018"},
+          {"year": 2016, "value": 1.67, "methodology": "pre-2018"},
+          {"year": 2018, "value": 1.73, "methodology": "pre-2018", "notes": "Last year of old methodology."},
+          {"year": 2019, "value": 2.78, "methodology": "post-2018", "notes": "Revised methodology. NOT a real increase from 1.73%."},
+          {"year": 2020, "value": 2.93, "methodology": "post-2018", "notes": "OECD. COVID reduced GDP denominator."},
+          {"year": 2021, "value": 2.88, "methodology": "post-2018"},
+          {"year": 2022, "value": 2.69, "methodology": "post-2018", "notes": "ONS confirmed. GBP 70.7bn total."},
+          {"year": 2023, "value": 2.64, "methodology": "post-2018", "notes": "ONS. GBP 72.6bn total. Below G7 average."}
+        ]
+      },
+      "Canada": {
+        "series": [
+          {"year": 2010, "value": 1.84},
+          {"year": 2012, "value": 1.79},
+          {"year": 2014, "value": 1.71},
+          {"year": 2016, "value": 1.69},
+          {"year": 2018, "value": 1.72},
+          {"year": 2019, "value": 1.70},
+          {"year": 2020, "value": 1.83},
+          {"year": 2021, "value": 1.87},
+          {"year": 2022, "value": 1.72, "notes": "Latest available. 2023 not yet published."}
+        ]
+      },
+      "Italy": {
+        "series": [
+          {"year": 2010, "value": 1.22},
+          {"year": 2012, "value": 1.27},
+          {"year": 2014, "value": 1.34},
+          {"year": 2016, "value": 1.37},
+          {"year": 2018, "value": 1.42},
+          {"year": 2019, "value": 1.46},
+          {"year": 2020, "value": 1.51},
+          {"year": 2021, "value": 1.43},
+          {"year": 2022, "value": 1.40},
+          {"year": 2023, "value": 1.40, "notes": "OECD. R&D declined 3.8% in 2023."}
+        ]
+      }
+    }
+  },
+  "govShareOfGerd": {
+    "description": "Government-funded share of total GERD by country (latest available year)",
+    "unit": "percentage",
+    "sourceName": "OECD MSTI / NSF S&E Indicators 2025",
+    "sourceUrl": "https://ncses.nsf.gov/pubs/nsb20257/global-r-d-and-international-comparisons-2",
+    "methodologyNote": "Percentage of total GERD funded by the government sector. Includes direct government expenditure on R&D and government grants/contracts to other sectors. Does NOT include tax incentives (these reduce tax revenue, not direct spending). Higher share does not necessarily mean more total R&D — it reflects the funding model.",
+    "series": [
+      {"country": "France", "value": 30, "year": 2022, "notes": "High direct state funding model (CNRS, CEA, etc)."},
+      {"country": "Germany", "value": 30, "year": 2022, "notes": "Strong public research institutes (Max Planck, Fraunhofer, Helmholtz)."},
+      {"country": "Italy", "value": 32, "year": 2022, "notes": "Relatively high gov share of smaller total."},
+      {"country": "Canada", "value": 24, "year": 2022},
+      {"country": "US", "value": 20, "year": 2022, "notes": "Large absolute amount despite lower share. Federal R&D ~$170bn."},
+      {"country": "Japan", "value": 15, "year": 2022, "notes": "Business-funded model. Government share among lowest in G7."},
+      {"country": "UK", "value": 15, "year": 2022, "notes": "Lowest G7 alongside Japan. GBP 3.6bn government sector R&D out of GBP 70.7bn total."}
+    ]
+  },
+  "ukGovRdSpending": {
+    "description": "UK government net expenditure on R&D (Science, Engineering and Technology)",
+    "unit": "billion_gbp",
+    "sourceName": "ONS UK Government SET Expenditure",
+    "sourceUrl": "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/researchanddevelopmentexpenditure/bulletins/ukgovernmentexpenditureonscienceengineeringandtechnology/2023",
+    "methodologyNote": "Net government expenditure on science, engineering and technology (SET). Covers central government departments, devolved administrations, UKRI, and research councils. Includes capital and current expenditure. GBP in current prices.",
+    "series": [
+      {"year": 2017, "value": 10.6},
+      {"year": 2018, "value": 11.1},
+      {"year": 2019, "value": 12.3},
+      {"year": 2020, "value": 14.0, "notes": "Increase includes COVID-related research."},
+      {"year": 2021, "value": 14.5},
+      {"year": 2022, "value": 16.1},
+      {"year": 2023, "value": 17.4, "notes": "+8.2% YoY. Record high in nominal terms."}
+    ]
+  },
+  "govSupportForBusinessRd": {
+    "description": "Government support for business R&D — tax incentives and direct funding as % of GDP",
+    "unit": "pct_gdp",
+    "sourceName": "OECD R&D Tax Incentives Database",
+    "sourceUrl": "https://www.oecd.org/en/data/insights/statistical-releases/2025/04/rd-tax-incentives-continue-to-outpace-other-forms-of-government-support-for-rd-in-most-countries.html",
+    "methodologyNote": "Combined government support for business R&D through two channels: (1) R&D tax incentives (tax relief for R&D expenditure), (2) direct government funding of BERD (grants, procurement, contracts). OECD average: ~0.23% GDP (0.13% tax + 0.10% direct). 55% of OECD business R&D support now comes via tax incentives. Data for 2022-2023.",
+    "series": [
+      {"country": "France", "taxIncentive": 0.28, "directFunding": 0.14, "total": 0.42, "year": 2023, "notes": "CIR (Credit Impot Recherche) is Europe's most generous R&D tax credit."},
+      {"country": "UK", "taxIncentive": 0.30, "directFunding": 0.12, "total": 0.42, "year": 2023, "notes": "4th highest OECD for tax incentives. R&D Tax Relief + RDEC schemes."},
+      {"country": "Canada", "taxIncentive": 0.12, "directFunding": 0.08, "total": 0.20, "year": 2022},
+      {"country": "US", "taxIncentive": 0.10, "directFunding": 0.17, "total": 0.27, "year": 2022, "notes": "Higher direct funding (SBIR/STTR, DARPA, NIH grants). Lower tax incentive share."},
+      {"country": "Japan", "taxIncentive": 0.14, "directFunding": 0.06, "total": 0.20, "year": 2022},
+      {"country": "Germany", "taxIncentive": 0.04, "directFunding": 0.11, "total": 0.15, "year": 2022, "notes": "R&D tax incentive only introduced 2020 (Forschungszulage). Strong direct support tradition."},
+      {"country": "Italy", "taxIncentive": 0.12, "directFunding": 0.07, "total": 0.19, "year": 2022}
+    ]
+  },
+  "headline": {
+    "ukGerdPctGDP": 2.64,
+    "ukGerdYear": 2023,
+    "ukGovSharePct": 15,
+    "ukGovRdBn": 17.4,
+    "ukGovRdYear": 2023,
+    "ukTaxIncentivePctGDP": 0.30,
+    "g7AverageGerdPct": 2.72,
+    "ukGerdRankG7": 5,
+    "oecdAvgGerdPct": 2.70
+  }
+}

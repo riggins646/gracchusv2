@@ -1,0 +1,282 @@
+{
+  "metadata": {
+    "title": "UK Public Finances — Receipts, Spending & Borrowing Flow",
+    "description": "Annual flow data showing how government receipts are allocated across spending categories, debt interest, and the resulting borrowing requirement. Combines HMRC tax receipt breakdown, ONS total receipts, OBR spending categories, and public sector net borrowing.",
+    "sources": [
+      {
+        "name": "ONS Public Sector Finances",
+        "url": "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/bulletins/publicsectorfinances/february2026",
+        "series": ["totalReceipts", "totalExpenditure", "netBorrowing"],
+        "confidence": "high",
+        "notes": "ONS public sector current receipts and total managed expenditure. Monthly bulletin, typically released on 3rd-to-last working day of month."
+      },
+      {
+        "name": "HMRC Tax Receipts Monthly Bulletin",
+        "url": "https://www.gov.uk/government/statistics/hmrc-tax-and-nics-receipts-for-the-uk",
+        "series": ["incomeTax", "nationalInsurance", "vat", "corporationTax", "otherTax"],
+        "confidence": "high",
+        "notes": "HMRC-administered taxes only. ONS total receipts are broader (include council tax, business rates, interest/dividends)."
+      },
+      {
+        "name": "OBR Economic and Fiscal Outlook",
+        "url": "https://obr.uk/efo/economic-and-fiscal-outlook-march-2026/",
+        "series": ["spendingCategories"],
+        "confidence": "high",
+        "notes": "OBR provides the most granular spending breakdown by function. Categories follow COFOG (Classification of Functions of Government). Annual forecasts — monthly breakdown not available at category level."
+      },
+      {
+        "name": "HM Treasury Public Spending Statistics",
+        "url": "https://www.gov.uk/government/statistics/public-spending-statistics-release-february-2026",
+        "series": ["departmentalSpending"],
+        "confidence": "high",
+        "notes": "TME = DEL (Departmental Expenditure Limits) + AME (Annually Managed Expenditure). AME includes welfare, debt interest."
+      },
+      {
+        "name": "House of Commons Library — Tax Statistics (CBP-8513)",
+        "url": "https://commonslibrary.parliament.uk/research-briefings/cbp-8513/",
+        "series": ["crossCheck"],
+        "confidence": "high",
+        "notes": "Cross-reference for tax receipt figures. Updated March 2026."
+      }
+    ],
+    "methodologyNotes": {
+      "receiptsMeasure": "Total receipts use the ONS 'public sector current receipts' measure, which is broader than HMRC-only taxes. The difference (~£280bn in 2024-25) comprises council tax, business rates, interest/dividends, and other non-HMRC income. Tax breakdown uses HMRC figures for granularity, with 'Other Receipts' as the balancing item to match ONS total.",
+      "spendingCategories": "Spending categories use OBR/HMT functional classifications. These are available on a full-year basis. Monthly category splits are not officially published, so the flow chart uses full financial year data. Total managed expenditure (TME) is the standard measure.",
+      "debtInterest": "Debt interest uses the OBR net measure (central government net debt interest, net of APF). The gross measure can be 20-30% higher in some years. We display net as the headline with gross noted.",
+      "borrowing": "Public sector net borrowing = total expenditure minus total receipts. This is the fiscal deficit — the amount the government must borrow to cover the gap.",
+      "period": "Financial year runs April to March. Latest full year is 2024-25. Current partial year (2025-26) uses cumulative data to February 2026."
+    },
+    "unit": "billions_gbp",
+    "period": "financial_year",
+    "lastUpdated": "2026-03-20",
+    "latestSource": "ONS Public Sector Finances, February 2026",
+    "sourceConfidence": "high"
+  },
+  "annual": [
+    {
+      "year": "2019-20",
+      "receipts": {
+        "total": 827.4,
+        "incomeTax": 191.1,
+        "nationalInsurance": 141.7,
+        "vat": 133.6,
+        "corporationTax": 56.0,
+        "otherHMRC": 131.6,
+        "nonHMRC": 173.4
+      },
+      "spending": {
+        "total": 886.0,
+        "socialProtection": 275.0,
+        "health": 165.0,
+        "education": 86.0,
+        "defence": 42.0,
+        "debtInterest": 39.5,
+        "publicOrder": 35.0,
+        "transport": 30.0,
+        "other": 213.5
+      },
+      "netBorrowing": 58.6,
+      "debtInterestNet": 39.5,
+      "debtInterestGross": 46.0,
+      "debtPctGDP": 84.4,
+      "nominalGDP": 2175.0,
+      "notes": "Pre-COVID baseline year. Spending surge begins March 2020."
+    },
+    {
+      "year": "2020-21",
+      "receipts": {
+        "total": 793.9,
+        "incomeTax": 185.4,
+        "nationalInsurance": 136.7,
+        "vat": 113.0,
+        "corporationTax": 49.3,
+        "otherHMRC": 118.5,
+        "nonHMRC": 191.0
+      },
+      "spending": {
+        "total": 1094.5,
+        "socialProtection": 330.0,
+        "health": 208.0,
+        "education": 86.0,
+        "defence": 43.0,
+        "debtInterest": 28.5,
+        "publicOrder": 37.0,
+        "transport": 36.0,
+        "other": 326.0
+      },
+      "netBorrowing": 300.6,
+      "debtInterestNet": 28.5,
+      "debtInterestGross": 34.0,
+      "debtPctGDP": 97.2,
+      "nominalGDP": 2114.0,
+      "notes": "COVID pandemic — record borrowing. Furlough, business loans, NHS surge. VAT receipts fell sharply as economy locked down."
+    },
+    {
+      "year": "2021-22",
+      "receipts": {
+        "total": 867.6,
+        "incomeTax": 216.6,
+        "nationalInsurance": 153.0,
+        "vat": 142.7,
+        "corporationTax": 63.7,
+        "otherHMRC": 119.6,
+        "nonHMRC": 172.0
+      },
+      "spending": {
+        "total": 1021.8,
+        "socialProtection": 295.0,
+        "health": 190.0,
+        "education": 88.0,
+        "defence": 43.0,
+        "debtInterest": 64.0,
+        "publicOrder": 36.0,
+        "transport": 31.0,
+        "other": 274.8
+      },
+      "netBorrowing": 154.2,
+      "debtInterestNet": 64.0,
+      "debtInterestGross": 70.5,
+      "debtPctGDP": 96.2,
+      "nominalGDP": 2387.0,
+      "notes": "Recovery year. COVID schemes winding down. Debt interest rises sharply as inflation begins climbing."
+    },
+    {
+      "year": "2022-23",
+      "receipts": {
+        "total": 914.5,
+        "incomeTax": 248.9,
+        "nationalInsurance": 160.8,
+        "vat": 158.0,
+        "corporationTax": 85.0,
+        "otherHMRC": 96.2,
+        "nonHMRC": 165.6
+      },
+      "spending": {
+        "total": 1136.5,
+        "socialProtection": 308.0,
+        "health": 192.0,
+        "education": 90.0,
+        "defence": 44.0,
+        "debtInterest": 111.6,
+        "publicOrder": 37.0,
+        "transport": 33.0,
+        "other": 320.9
+      },
+      "netBorrowing": 222.0,
+      "debtInterestNet": 111.6,
+      "debtInterestGross": 121.8,
+      "debtPctGDP": 94.9,
+      "nominalGDP": 2587.0,
+      "notes": "Post-war record for debt interest (RPI-linked gilts + inflation spike). Mini-budget September 2022. Energy support schemes."
+    },
+    {
+      "year": "2023-24",
+      "receipts": {
+        "total": 1004.4,
+        "incomeTax": 275.3,
+        "nationalInsurance": 168.4,
+        "vat": 169.2,
+        "corporationTax": 85.6,
+        "otherHMRC": 129.2,
+        "nonHMRC": 176.7
+      },
+      "spending": {
+        "total": 1223.6,
+        "socialProtection": 325.0,
+        "health": 197.0,
+        "education": 92.0,
+        "defence": 45.0,
+        "debtInterest": 92.4,
+        "publicOrder": 38.0,
+        "transport": 35.0,
+        "other": 399.2
+      },
+      "netBorrowing": 219.2,
+      "debtInterestNet": 92.4,
+      "debtInterestGross": 109.5,
+      "debtPctGDP": 95.6,
+      "nominalGDP": 2720.0,
+      "notes": "Receipts exceed £1 trillion for first time. Debt interest falls from 2022-23 peak but remains historically very high."
+    },
+    {
+      "year": "2024-25",
+      "receipts": {
+        "total": 1139.0,
+        "incomeTax": 302.8,
+        "nationalInsurance": 172.5,
+        "vat": 170.6,
+        "corporationTax": 91.6,
+        "otherHMRC": 121.1,
+        "nonHMRC": 280.4
+      },
+      "spending": {
+        "total": 1292.0,
+        "socialProtection": 334.0,
+        "health": 202.0,
+        "education": 95.0,
+        "defence": 47.0,
+        "debtInterest": 84.8,
+        "publicOrder": 39.0,
+        "transport": 37.0,
+        "other": 453.2
+      },
+      "netBorrowing": 153.0,
+      "debtInterestNet": 84.8,
+      "debtInterestGross": 106.0,
+      "debtPctGDP": 93.1,
+      "nominalGDP": 2923.0,
+      "notes": "Latest full year (estimated outturn). OBR net debt interest £84.8bn. Commons Library gross measure £106bn. Borrowing falls to £153bn."
+    },
+    {
+      "year": "2025-26",
+      "isPartial": true,
+      "partialMonths": 11,
+      "partialLabel": "Apr 2025 – Feb 2026",
+      "receipts": {
+        "total": 1016.7,
+        "incomeTax": 285.0,
+        "nationalInsurance": 175.0,
+        "vat": 160.0,
+        "corporationTax": 84.4,
+        "otherHMRC": 112.3,
+        "nonHMRC": 200.0
+      },
+      "spending": {
+        "total": 1142.6,
+        "socialProtection": 310.0,
+        "health": 188.0,
+        "education": 87.0,
+        "defence": 44.0,
+        "debtInterest": 95.0,
+        "publicOrder": 36.0,
+        "transport": 34.0,
+        "other": 348.6
+      },
+      "netBorrowing": 125.9,
+      "debtInterestNet": 95.0,
+      "debtInterestGross": 113.0,
+      "debtPctGDP": 93.1,
+      "nominalGDP": null,
+      "notes": "Partial year: 11 months to February 2026. Total receipts £1,016.7bn (8.4% higher than same period prior year). Net borrowing £125.9bn (£11.9bn less than prior year same period). Debt interest elevated — £13bn in Feb alone."
+    }
+  ],
+  "latestMonth": {
+    "period": "February 2026",
+    "periodShort": "Feb 2026",
+    "releaseDate": "2026-03-20",
+    "receipts": 95.1,
+    "expenditure": 109.4,
+    "netBorrowing": 14.3,
+    "debtInterest": 13.0,
+    "notes": "Second-highest February borrowing on record. Receipts up 9.3% YoY. Debt interest £13bn (£5.5bn more than Feb 2025). NIC receipts up £2.6bn reflecting April 2025 rate changes.",
+    "sourceName": "ONS Public Sector Finances",
+    "sourceUrl": "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/bulletins/publicsectorfinances/february2026"
+  },
+  "limitations": [
+    "Spending category breakdown is available on a full financial year basis only (OBR/HMT functional classification). Monthly figures are available only as totals.",
+    "The 'Other' spending category is a residual and includes: housing, environment, recreation/culture, general public services, economic affairs (excl. transport), and accounting adjustments.",
+    "Non-HMRC receipts (council tax, business rates, interest/dividends, etc.) are presented as a single item because HMRC does not publish the granular breakdown.",
+    "2025-26 data is a partial year (11 months to Feb 2026) and will be revised when the full year outturn is published.",
+    "Debt interest figures use the OBR net measure as the headline. The gross measure (which includes RPI-linked gilt capital uplift) can be significantly higher — see crossCheckNotes in public-finances.json."
+  ]
+}

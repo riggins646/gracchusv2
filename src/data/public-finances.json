@@ -1,0 +1,257 @@
+{
+  "metadata": {
+    "title": "UK Public Finances Summary",
+    "description": "Annual public sector receipts, expenditure, debt interest, GDP, and population for derived metrics",
+    "sources": [
+      {
+        "name": "ONS Public Sector Finances",
+        "url": "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance",
+        "series": ["totalReceipts", "totalExpenditure", "nominalGDP"],
+        "notes": "ONS public sector current receipts is the broadest measure of government income. Includes HMRC taxes plus council tax, business rates, interest/dividends, etc. Total managed expenditure (TME) includes current and capital spending."
+      },
+      {
+        "name": "OBR Public Finances Databank",
+        "url": "https://obr.uk/data/",
+        "series": ["debtInterest", "debtInterestPctGDP"],
+        "notes": "OBR reports central government net debt interest. This includes index-linked gilt uplift which adds significant volatility (especially 2022-23). OBR figures are net of Asset Purchase Facility (Bank of England) transfers."
+      },
+      {
+        "name": "House of Commons Library",
+        "url": "https://commonslibrary.parliament.uk/research-briefings/sn06167/",
+        "series": ["debtInterest"],
+        "notes": "Commons Library uses OBR/ONS data with additional context. Their 2024-25 debt interest figure of \u00a3106bn uses a slightly different measure than the OBR net figure."
+      },
+      {
+        "name": "ONS Population Estimates",
+        "url": "https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates",
+        "series": ["population"],
+        "notes": "Mid-year population estimates."
+      }
+    ],
+    "crossCheckNotes": {
+      "debtInterest": "There are multiple debt interest measures. The OBR reports 'central government net debt interest (net of APF)' which is the headline figure. The ONS reports 'central government debt interest payable' on a monthly basis which can differ due to accruals treatment. The Commons Library reported 2024-25 net debt interest spending as \u00a3106bn (including broader adjustments), while the OBR net measure was \u00a384.8bn for the same period. The difference is largely due to the treatment of index-linked gilt capital uplift: the OBR net figure excludes some capital uplift elements that the gross measure includes. We display the OBR net series as primary (more comparable over time) but note the gross figure where available.",
+      "receipts": "HMRC receipts (\u00a3858.6bn in 2024-25) are a subset of ONS public sector current receipts (\u00a31,139bn in 2024-25). The ~\u00a3280bn difference comprises council tax, business rates, interest/dividends, and other non-HMRC income. Both are official and correct, they just measure different things.",
+      "expenditure": "Total managed expenditure (TME) is the standard measure. In 2024-25 TME was \u00a31,292bn. This includes both departmental spending and annually managed expenditure (welfare, debt interest, etc)."
+    },
+    "unit": "billions_gbp",
+    "period": "financial_year",
+    "lastUpdated": "2026-03",
+    "sourceConfidence": "high"
+  },
+  "series": [
+    {
+      "year": "2005-06",
+      "totalReceipts": 486.7,
+      "totalExpenditure": 523.2,
+      "debtInterestNet": 25.9,
+      "debtInterestGross": 30.2,
+      "nominalGDP": 1324.0,
+      "population": 60.4,
+      "debtInterestPctGDP": 2.0,
+      "notes": "Pre-financial crisis. Low debt interest as % GDP."
+    },
+    {
+      "year": "2006-07",
+      "totalReceipts": 514.7,
+      "totalExpenditure": 549.6,
+      "debtInterestNet": 27.0,
+      "debtInterestGross": 31.0,
+      "nominalGDP": 1399.0,
+      "population": 60.8,
+      "debtInterestPctGDP": 1.9
+    },
+    {
+      "year": "2007-08",
+      "totalReceipts": 534.1,
+      "totalExpenditure": 575.6,
+      "debtInterestNet": 28.2,
+      "debtInterestGross": 31.7,
+      "nominalGDP": 1467.0,
+      "population": 61.3,
+      "debtInterestPctGDP": 1.9,
+      "notes": "Financial crisis begins late 2007."
+    },
+    {
+      "year": "2008-09",
+      "totalReceipts": 513.4,
+      "totalExpenditure": 620.7,
+      "debtInterestNet": 27.2,
+      "debtInterestGross": 31.3,
+      "nominalGDP": 1455.0,
+      "population": 61.8,
+      "debtInterestPctGDP": 1.9,
+      "notes": "Receipts fall sharply. Spending surges (bank bailouts, stimulus)."
+    },
+    {
+      "year": "2009-10",
+      "totalReceipts": 496.1,
+      "totalExpenditure": 668.2,
+      "debtInterestNet": 30.1,
+      "debtInterestGross": 43.3,
+      "nominalGDP": 1481.0,
+      "population": 62.3,
+      "debtInterestPctGDP": 2.0,
+      "notes": "Peak deficit year. Deficit exceeds 10% GDP."
+    },
+    {
+      "year": "2010-11",
+      "totalReceipts": 530.6,
+      "totalExpenditure": 689.6,
+      "debtInterestNet": 43.3,
+      "debtInterestGross": 48.6,
+      "nominalGDP": 1547.0,
+      "population": 62.8,
+      "debtInterestPctGDP": 2.8,
+      "notes": "Austerity programme begins. Debt interest rises as borrowing accumulates."
+    },
+    {
+      "year": "2011-12",
+      "totalReceipts": 556.7,
+      "totalExpenditure": 694.7,
+      "debtInterestNet": 48.2,
+      "debtInterestGross": 51.7,
+      "nominalGDP": 1598.0,
+      "population": 63.3,
+      "debtInterestPctGDP": 3.0,
+      "notes": "VAT raised to 20% in January 2011."
+    },
+    {
+      "year": "2012-13",
+      "totalReceipts": 566.3,
+      "totalExpenditure": 714.2,
+      "debtInterestNet": 47.3,
+      "debtInterestGross": 51.1,
+      "nominalGDP": 1646.0,
+      "population": 63.7,
+      "debtInterestPctGDP": 2.9
+    },
+    {
+      "year": "2013-14",
+      "totalReceipts": 590.5,
+      "totalExpenditure": 720.7,
+      "debtInterestNet": 45.6,
+      "debtInterestGross": 49.1,
+      "nominalGDP": 1722.0,
+      "population": 64.1,
+      "debtInterestPctGDP": 2.6
+    },
+    {
+      "year": "2014-15",
+      "totalReceipts": 617.4,
+      "totalExpenditure": 740.1,
+      "debtInterestNet": 42.7,
+      "debtInterestGross": 46.3,
+      "nominalGDP": 1802.0,
+      "population": 64.6,
+      "debtInterestPctGDP": 2.4
+    },
+    {
+      "year": "2015-16",
+      "totalReceipts": 644.5,
+      "totalExpenditure": 756.8,
+      "debtInterestNet": 39.1,
+      "debtInterestGross": 45.6,
+      "nominalGDP": 1870.0,
+      "population": 65.1,
+      "debtInterestPctGDP": 2.1,
+      "notes": "Bank of England APF transfers reduce net debt interest."
+    },
+    {
+      "year": "2016-17",
+      "totalReceipts": 680.4,
+      "totalExpenditure": 772.0,
+      "debtInterestNet": 39.4,
+      "debtInterestGross": 48.7,
+      "nominalGDP": 1961.0,
+      "population": 65.6,
+      "debtInterestPctGDP": 2.0,
+      "notes": "Brexit referendum June 2016."
+    },
+    {
+      "year": "2017-18",
+      "totalReceipts": 711.9,
+      "totalExpenditure": 791.4,
+      "debtInterestNet": 40.1,
+      "debtInterestGross": 50.5,
+      "nominalGDP": 2035.0,
+      "population": 66.0,
+      "debtInterestPctGDP": 2.0
+    },
+    {
+      "year": "2018-19",
+      "totalReceipts": 741.0,
+      "totalExpenditure": 815.4,
+      "debtInterestNet": 41.4,
+      "debtInterestGross": 53.5,
+      "nominalGDP": 2108.0,
+      "population": 66.4,
+      "debtInterestPctGDP": 2.0
+    },
+    {
+      "year": "2019-20",
+      "totalReceipts": 757.5,
+      "totalExpenditure": 869.8,
+      "debtInterestNet": 42.0,
+      "debtInterestGross": 56.3,
+      "nominalGDP": 2151.0,
+      "population": 66.8,
+      "debtInterestPctGDP": 2.0,
+      "notes": "COVID-19 lockdown from March 2020."
+    },
+    {
+      "year": "2020-21",
+      "totalReceipts": 715.6,
+      "totalExpenditure": 1092.1,
+      "debtInterestNet": 38.2,
+      "debtInterestGross": 50.1,
+      "nominalGDP": 2074.0,
+      "population": 67.1,
+      "debtInterestPctGDP": 1.8,
+      "notes": "COVID peak spending. Receipts fall, expenditure surges (furlough, business support). Low interest rates keep debt servicing costs down."
+    },
+    {
+      "year": "2021-22",
+      "totalReceipts": 818.7,
+      "totalExpenditure": 1035.3,
+      "debtInterestNet": 60.3,
+      "debtInterestGross": 70.2,
+      "nominalGDP": 2283.0,
+      "population": 67.3,
+      "debtInterestPctGDP": 2.6,
+      "notes": "Recovery year. Debt interest begins rising as inflation increases."
+    },
+    {
+      "year": "2022-23",
+      "totalReceipts": 914.5,
+      "totalExpenditure": 1136.5,
+      "debtInterestNet": 111.6,
+      "debtInterestGross": 121.8,
+      "nominalGDP": 2587.0,
+      "population": 67.8,
+      "debtInterestPctGDP": 4.3,
+      "notes": "Post-war record for debt interest. Driven by RPI-linked gilt uplift as inflation peaks. Mini-budget September 2022 causes gilt market turmoil."
+    },
+    {
+      "year": "2023-24",
+      "totalReceipts": 1004.4,
+      "totalExpenditure": 1223.6,
+      "debtInterestNet": 92.4,
+      "debtInterestGross": 109.5,
+      "nominalGDP": 2720.0,
+      "population": 68.4,
+      "debtInterestPctGDP": 3.4,
+      "notes": "Debt interest falls from peak as RPI moderates but remains historically high."
+    },
+    {
+      "year": "2024-25",
+      "totalReceipts": 1139.0,
+      "totalExpenditure": 1292.0,
+      "debtInterestNet": 84.8,
+      "debtInterestGross": 106.0,
+      "nominalGDP": 2923.0,
+      "population": 69.3,
+      "debtInterestPctGDP": 2.9,
+      "notes": "OBR net measure \u00a384.8bn. Commons Library gross measure \u00a3106bn. Difference is treatment of index-linked gilt capital uplift and APF."
+    }
+  ]
+}

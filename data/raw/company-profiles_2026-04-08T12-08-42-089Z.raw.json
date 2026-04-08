@@ -1,0 +1,53 @@
+{
+  "results": {},
+  "errors": [
+    {
+      "companyNumber": "02711625",
+      "error": "COMPANIES_HOUSE_API_KEY not set. Register free at https://developer.company-information.service.gov.uk/"
+    },
+    {
+      "companyNumber": "03099799",
+      "error": "COMPANIES_HOUSE_API_KEY not set. Register free at https://developer.company-information.service.gov.uk/"
+    },
+    {
+      "companyNumber": "01550462",
+      "error": "COMPANIES_HOUSE_API_KEY not set. Register free at https://developer.company-information.service.gov.uk/"
+    },
+    {
+      "companyNumber": "01753700",
+      "error": "COMPANIES_HOUSE_API_KEY not set. Register free at https://developer.company-information.service.gov.uk/"
+    },
+    {
+      "companyNumber": "01397068",
+      "error": "COMPANIES_HOUSE_API_KEY not set. Register free at https://developer.company-information.service.gov.uk/"
+    },
+    {
+      "companyNumber": "02418033",
+      "error": "COMPANIES_HOUSE_API_KEY not set. Register free at https://developer.company-information.service.gov.uk/"
+    },
+    {
+      "companyNumber": "00102498",
+      "error": "COMPANIES_HOUSE_API_KEY not set. Register free at https://developer.company-information.service.gov.uk/"
+    },
+    {
+      "companyNumber": "OC303480",
+      "error": "COMPANIES_HOUSE_API_KEY not set. Register free at https://developer.company-information.service.gov.uk/"
+    },
+    {
+      "companyNumber": "OC328366",
+      "error": "COMPANIES_HOUSE_API_KEY not set. Register free at https://developer.company-information.service.gov.uk/"
+    },
+    {
+      "companyNumber": "SC084268",
+      "error": "COMPANIES_HOUSE_API_KEY not set. Register free at https://developer.company-information.service.gov.uk/"
+    },
+    {
+      "companyNumber": "02627460",
+      "error": "COMPANIES_HOUSE_API_KEY not set. Register free at https://developer.company-information.service.gov.uk/"
+    },
+    {
+      "companyNumber": "00198491",
+      "error": "COMPANIES_HOUSE_API_KEY not set. Register free at https://developer.company-information.service.gov.uk/"
+    }
+  ]
+}

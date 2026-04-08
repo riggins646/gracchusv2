@@ -1,0 +1,27 @@
+{
+  "companies": [],
+  "summary": {
+    "total": 0,
+    "active": 0,
+    "dissolved": 0
+  },
+  "metadata": {
+    "lastUpdated": "2026-04-08T12:08:48.121Z",
+    "primarySource": {
+      "name": "Companies House",
+      "url": "https://find-and-update.company-information.service.gov.uk"
+    },
+    "licence": "Crown Copyright, Open Government Licence v3.0"
+  },
+  "_ingest": {
+    "fetchedAt": "2026-04-08T12:08:42.089Z",
+    "sourceTimestamp": "2026-04-08T12:08:48.117Z",
+    "sourceName": "Companies House REST API",
+    "recordCount": 0,
+    "validationResult": "warn",
+    "validationNotes": [
+      "Custom validation failed",
+      "Out of range: summary.total = 0 (expected 1–10000)"
+    ]
+  }
+}

@@ -1,0 +1,176 @@
+# ═══════════════════════════════════════════════════════════════════════
+# SAVING BRITAIN — Daily Data Refresh Pipeline
+# ═══════════════════════════════════════════════════════════════════════
+#
+# Runs at 4:00 AM UTC daily.
+# Can also be triggered manually via workflow_dispatch.
+#
+# The job:
+#   1. Checks out the repo
+#   2. Runs the daily-refresh orchestrator
+#   3. If any data files changed, commits + pushes them
+#   4. Uploads the pipeline status report as an artifact
+#   5. Fires alerts on failure (via Slack webhook secret)
+#
+# Required secrets:
+#   SLACK_PIPELINE_WEBHOOK  — (optional) Slack incoming webhook URL
+#   PIPELINE_ALERT_EMAIL    — (optional) email address for alerts
+#
+# To run a single dataset manually:
+#   Use workflow_dispatch and set the dataset input.
+# ═══════════════════════════════════════════════════════════════════════
+
+name: Daily Data Refresh
+
+on:
+  schedule:
+    # Every day at 4:00 AM UTC
+    - cron: "0 4 * * *"
+
+  workflow_dispatch:
+    inputs:
+      dataset:
+        description: "Single dataset key to refresh (leave blank for all)"
+        required: false
+        type: string
+      force:
+        description: "Force refresh (ignore cadence + change detection)"
+        required: false
+        type: boolean
+        default: false
+      check-only:
+        description: "Only run change detection, do not ingest"
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write   # Needed to commit updated data files
+
+concurrency:
+  group: daily-data-refresh
+  cancel-in-progress: false   # Never cancel a running refresh
+
+jobs:
+  refresh:
+    name: Refresh datasets
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      SLACK_PIPELINE_WEBHOOK: ${{ secrets.SLACK_PIPELINE_WEBHOOK }}
+      PIPELINE_ALERT_EMAIL: ${{ secrets.PIPELINE_ALERT_EMAIL }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline
+
+      - name: Ensure data directories exist
+        run: |
+          mkdir -p data/snapshots data/history data/raw
+
+      - name: Run daily refresh
+        id: refresh
+        run: |
+          ARGS="--alert"
+          if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          if [ "${{ inputs.check-only }}" = "true" ]; then ARGS="$ARGS --check-only"; fi
+          if [ -n "${{ inputs.dataset }}" ]; then ARGS="$ARGS --dataset=${{ inputs.dataset }}"; fi
+
+          echo "Running: node src/lib/data-pipeline/daily-refresh.mjs $ARGS"
+          node src/lib/data-pipeline/daily-refresh.mjs $ARGS 2>&1 | tee refresh-output.log
+
+          # Capture exit code without failing the whole job
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Check for data file changes
+        id: changes
+        run: |
+          git add src/data/*.json data/snapshots/ data/history/ data/raw/ || true
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Data files changed — will commit."
+            git diff --cached --stat
+          fi
+
+      - name: Commit updated data
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "Gracchus Pipeline"
+          git config user.email "pipeline@gracchus.ai"
+
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
+          git commit -m "data: daily refresh $TIMESTAMP
+
+          Automated data pipeline run.
+          See data/snapshots/pipeline-status.json for details."
+
+          git push
+
+      - name: Upload pipeline status
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-status-${{ github.run_id }}
+          path: |
+            data/snapshots/pipeline-status.json
+            data/snapshots/ingest-log.jsonl
+            data/snapshots/daily-run-log.jsonl
+            refresh-output.log
+          retention-days: 30
+
+      - name: Upload raw snapshots (debug)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: raw-debug-${{ github.run_id }}
+          path: data/raw/
+          retention-days: 7
+
+      - name: Report status
+        if: always()
+        run: |
+          node src/lib/data-pipeline/daily-refresh.mjs --status
+
+      - name: Fail job if refresh had errors
+        if: steps.refresh.outputs.exit_code != '0'
+        run: |
+          echo "::error::Daily refresh completed with failures. Check pipeline-status.json artifact."
+          exit 1
+
+  # ── Weekly deep refresh (Sundays at 5am) ─────────────────────────
+  # Runs all datasets with --force to ensure nothing drifts.
+  weekly-force:
+    name: Weekly force refresh
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    if: github.event.schedule == '0 4 * * 0'   # Sunday only
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci --prefer-offline
+      - run: mkdir -p data/snapshots data/history data/raw
+      - run: node src/lib/data-pipeline/daily-refresh.mjs --force --alert
+      - name: Commit
+        run: |
+          git config user.name "Gracchus Pipeline"
+          git config user.email "pipeline@gracchus.ai"
+          git add src/data/*.json data/snapshots/ data/history/ data/raw/ || true
+          git diff --cached --quiet || git commit -m "data: weekly force refresh $(date -u +%Y-%m-%d)" && git push

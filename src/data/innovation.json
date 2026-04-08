@@ -1,0 +1,210 @@
+{
+  "metadata": {
+    "title": "UK Innovation, Venture Capital, and Technology Investment",
+    "description": "UK VC investment, unicorn companies, AI funding, and R&D expenditure with international comparisons",
+    "sources": [
+      {
+        "name": "BVCA (British Private Capital Association)",
+        "url": "https://www.bvca.co.uk/resource/venture-capital-update-vc-investment-in-british-startups-and-scaleups-reaches-9bn-in-2024.html",
+        "series": ["vcInvestmentUK"],
+        "notes": "Annual VC investment reports. BVCA tracks investment into UK-based startups and scaleups. Figures are VC-specific (excludes broader private equity)."
+      },
+      {
+        "name": "GlobalData / Crunchbase",
+        "url": "https://www.globaldata.com/media/business-fundamentals/uk-vc-funding-surges-16-3-to-16-6-billion-in-2024-despite-fewer-deals-reveals-globaldata/",
+        "series": ["vcInvestmentUK", "vcByCountry"],
+        "notes": "VC funding analysis aggregating deal-level data. USD figures. Cross-checked against BVCA GBP figures using prevailing exchange rates."
+      },
+      {
+        "name": "ONS UK GERD Statistics",
+        "url": "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/researchanddevelopmentexpenditure/bulletins/ukgrossdomesticexpenditureonresearchanddevelopment/2023",
+        "series": ["rdSpendUK"],
+        "notes": "Official UK R&D expenditure data. IMPORTANT: 2018 methodology change means pre-2018 figures are not directly comparable. Post-2018 figures include revised business and higher education sector R&D estimates."
+      },
+      {
+        "name": "OECD Main Science and Technology Indicators",
+        "url": "https://www.oecd.org/en/data/indicators/gross-domestic-spending-on-r-d.html",
+        "series": ["rdByCountry"],
+        "notes": "Standardised GERD as % of GDP across OECD members. Updated twice annually. Uses Frascati Manual definitions."
+      },
+      {
+        "name": "Stanford HAI AI Index Report 2025",
+        "url": "https://hai.stanford.edu/ai-index/2025-ai-index-report/economy",
+        "series": ["aiInvestment", "aiByCountry"],
+        "notes": "Annual AI Index tracking private AI investment globally. Uses Quid/PitchBook data for investment figures. Covers equity funding into AI-focused companies."
+      },
+      {
+        "name": "UK Government AI Sector Study 2024",
+        "url": "https://www.gov.uk/government/publications/artificial-intelligence-sector-study-2024/artificial-intelligence-sector-study-2024",
+        "series": ["aiInvestmentUK"],
+        "notes": "DSIT-commissioned study of UK AI sector. Covers equity investment into AI-dedicated companies registered in the UK."
+      },
+      {
+        "name": "Dealroom.co",
+        "url": "https://dealroom.co/",
+        "series": ["unicorns"],
+        "notes": "European tech ecosystem tracker. Counts cumulative unicorns (companies that have reached $1bn+ valuation). UK figure of 188 is cumulative to date, not active at any point."
+      },
+      {
+        "name": "CB Insights / Tracxn",
+        "url": "https://tracxn.com/d/unicorns/unicorns-in-united-kingdom",
+        "series": ["unicornsByCountry"],
+        "notes": "Tracxn counts currently active unicorns (97 as of Jan 2026). CB Insights uses similar methodology. Hurun uses stricter criteria (53). We use Tracxn/CB Insights figures for consistency."
+      }
+    ],
+    "crossCheckNotes": {
+      "vcInvestment": "BVCA reports UK VC at GBP 9bn for 2024. GlobalData reports USD 16.6bn. At average 2024 GBP/USD of ~1.27, GBP 9bn = USD 11.4bn. The gap suggests GlobalData includes some growth-stage PE deals that BVCA excludes. We use BVCA GBP figures for the UK time series (conservative) and GlobalData USD figures for international comparison (consistent methodology across countries).",
+      "unicornCounts": "Wide variation: Dealroom (188 cumulative), Tracxn (97 active), Hurun (53 strict criteria). Differences stem from: (1) cumulative vs currently active, (2) valuation methodology (last round vs secondary market), (3) inclusion of companies that have since IPO'd or been acquired. We use Tracxn/CB Insights for current counts and note cumulative where relevant.",
+      "aiInvestment": "Stanford HAI reports UK private AI investment at $4.5bn (2024). UK Gov AI Sector Study reports GBP 2.9bn. At ~1.27 GBP/USD, GBP 2.9bn = USD 3.7bn. Gap is because Stanford HAI uses broader definition including AI-adjacent companies. We use Stanford HAI for international comparison and UK Gov for domestic series.",
+      "rdSpend": "ONS 2023 GERD: 2.64% of GDP. OECD 2023 figure for UK also converges on ~2.6%. Pre-2018 ONS data showed UK at 1.6-1.7% but this is NOT a real increase — it reflects the 2018 methodology change that better captured business R&D and higher education spending. We only show post-2018 data to avoid misleading comparisons."
+    },
+    "lastUpdated": "2026-03",
+    "sourceConfidence": "high"
+  },
+  "vcInvestmentUK": {
+    "description": "UK venture capital investment per year",
+    "unit": "billion_gbp",
+    "sourceName": "BVCA Annual Reports / British Business Bank",
+    "sourceUrl": "https://www.bvca.co.uk/resource/venture-capital-update-vc-investment-in-british-startups-and-scaleups-reaches-9bn-in-2024.html",
+    "methodologyNote": "VC-specific investment into UK startups and scaleups. Excludes broader private equity. Pre-2020 figures from British Business Bank / OECD benchmarking. 2021 peak reflects post-COVID tech boom. 2022-2023 correction mirrors global VC downturn.",
+    "series": [
+      {"year": 2015, "value": 3.6, "notes": "British Business Bank estimate."},
+      {"year": 2016, "value": 3.8},
+      {"year": 2017, "value": 4.5},
+      {"year": 2018, "value": 5.9, "notes": "Pre-COVID growth phase."},
+      {"year": 2019, "value": 8.2, "notes": "Record at the time."},
+      {"year": 2020, "value": 6.7, "notes": "COVID impact. OECD reports EUR 2.7bn core VC."},
+      {"year": 2021, "value": 15.2, "notes": "Post-COVID boom. Record year. BVCA reports EUR 5.6bn core VC."},
+      {"year": 2022, "value": 14.8, "notes": "Near-peak sustained. BVCA total private capital reached GBP 30bn."},
+      {"year": 2023, "value": 8.0, "notes": "Global VC downturn. 46% decline from peak."},
+      {"year": 2024, "value": 9.0, "notes": "12.5% recovery. GlobalData reports USD 16.6bn (broader scope)."}
+    ]
+  },
+  "vcByCountry": {
+    "description": "Venture capital investment by G7 country (2024)",
+    "unit": "billion_usd",
+    "sourceName": "GlobalData / KPMG Venture Pulse Q4 2024",
+    "sourceUrl": "https://www.globaldata.com/media/business-fundamentals/uk-vc-funding-surges-16-3-to-16-6-billion-in-2024-despite-fewer-deals-reveals-globaldata/",
+    "methodologyNote": "USD figures from GlobalData and KPMG. Scope includes VC and growth equity into companies headquartered in each country. US figure from NVCA/PitchBook. Japan from JIC Research. Italy from ScaleUp Italy.",
+    "series": [
+      {"country": "US", "value": 92.0, "population": 334, "perCapita": 275.4},
+      {"country": "UK", "value": 16.6, "population": 67.7, "perCapita": 245.2},
+      {"country": "Japan", "value": 5.2, "population": 124, "perCapita": 41.9},
+      {"country": "Germany", "value": 4.1, "population": 84.5, "perCapita": 48.5},
+      {"country": "Canada", "value": 3.4, "population": 40.1, "perCapita": 84.8},
+      {"country": "France", "value": 2.0, "population": 68.1, "perCapita": 29.4},
+      {"country": "Italy", "value": 1.6, "population": 59, "perCapita": 27.1}
+    ]
+  },
+  "unicornsUK": {
+    "description": "Number of active UK-based unicorn companies ($1bn+ valuation)",
+    "unit": "count",
+    "sourceName": "Tracxn / CB Insights / Dealroom",
+    "sourceUrl": "https://tracxn.com/d/unicorns/unicorns-in-united-kingdom",
+    "methodologyNote": "Active unicorns: private companies valued at $1bn+. Excludes companies that have IPO'd or been acquired. Counts vary by source due to valuation methodology. Pre-2019 figures from Beauhurst/dealroom historical data. 2021 was a record year with 13 new unicorns created.",
+    "series": [
+      {"year": 2016, "value": 18, "notes": "Early ecosystem."},
+      {"year": 2017, "value": 25},
+      {"year": 2018, "value": 32},
+      {"year": 2019, "value": 42, "notes": "Strong growth pre-COVID."},
+      {"year": 2020, "value": 50, "notes": "Fintech boom."},
+      {"year": 2021, "value": 78, "notes": "Record: 13 new unicorns. UK reached 100th cumulative unicorn."},
+      {"year": 2022, "value": 87, "notes": "Some exits via IPO/acquisition offset new additions."},
+      {"year": 2023, "value": 91, "notes": "Slower new additions in downturn."},
+      {"year": 2024, "value": 97, "notes": "10 new unicorns incl. Quantinuum, Wayve, Flo Health."}
+    ]
+  },
+  "unicornsByCountry": {
+    "description": "Active unicorn companies by country (2024)",
+    "unit": "count",
+    "sourceName": "CB Insights / Tracxn / Statista",
+    "sourceUrl": "https://www.statista.com/statistics/1096928/number-of-global-unicorns-by-country/",
+    "methodologyNote": "Active unicorns as of late 2024. US figure from CB Insights. China figures vary (168-340) due to different inclusion criteria. We use mid-range estimates. India from Tracxn.",
+    "series": [
+      {"country": "US", "value": 680},
+      {"country": "China", "value": 185},
+      {"country": "UK", "value": 97},
+      {"country": "India", "value": 71},
+      {"country": "Germany", "value": 31},
+      {"country": "France", "value": 20},
+      {"country": "Canada", "value": 21}
+    ]
+  },
+  "aiInvestmentUK": {
+    "description": "Private AI investment in the UK per year",
+    "unit": "billion_gbp",
+    "sourceName": "UK Government AI Sector Study / DSIT",
+    "sourceUrl": "https://www.gov.uk/government/publications/artificial-intelligence-sector-study-2024/artificial-intelligence-sector-study-2024",
+    "methodologyNote": "Equity investment into AI-dedicated companies registered in the UK. DSIT definition: companies where AI is core to the product/service. Excludes companies that merely use AI as a tool. 2024 figure is record high driven by large generative AI rounds.",
+    "series": [
+      {"year": 2018, "value": 1.1},
+      {"year": 2019, "value": 1.4},
+      {"year": 2020, "value": 1.2, "notes": "COVID dip."},
+      {"year": 2021, "value": 2.0, "notes": "Post-COVID AI boom."},
+      {"year": 2022, "value": 2.4, "notes": "Peak before correction."},
+      {"year": 2023, "value": 1.5, "notes": "40% decline. Global VC downturn."},
+      {"year": 2024, "value": 2.9, "notes": "New record. Generative AI drives recovery. 5,800+ AI companies in UK."}
+    ]
+  },
+  "aiByCountry": {
+    "description": "Private AI investment by country (2024)",
+    "unit": "billion_usd",
+    "sourceName": "Stanford HAI AI Index Report 2025",
+    "sourceUrl": "https://hai.stanford.edu/ai-index/2025-ai-index-report/economy",
+    "methodologyNote": "Private equity funding into AI-focused companies. Stanford HAI uses Quid/PitchBook data. Broader scope than UK Gov AI Sector Study (includes AI-adjacent). US dominance reflects concentration of large generative AI rounds (OpenAI, Anthropic, xAI).",
+    "series": [
+      {"country": "US", "value": 109.1, "notes": "56% of global total. Generative AI dominates."},
+      {"country": "China", "value": 9.3},
+      {"country": "UK", "value": 4.5, "notes": "3rd globally. GBP 2.9bn domestic measure."},
+      {"country": "Germany", "value": 2.1},
+      {"country": "France", "value": 1.8},
+      {"country": "Canada", "value": 1.5},
+      {"country": "Japan", "value": 0.8},
+      {"country": "Italy", "value": 0.3}
+    ]
+  },
+  "rdSpendUK": {
+    "description": "UK Gross Expenditure on R&D (GERD) as percentage of GDP",
+    "unit": "pct_gdp",
+    "sourceName": "ONS UK GERD Statistics",
+    "sourceUrl": "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/researchanddevelopmentexpenditure/bulletins/ukgrossdomesticexpenditureonresearchanddevelopment/2023",
+    "methodologyNote": "GERD as % of GDP. CRITICAL: 2018 methodology change revised business and HE sector R&D upward. Pre-2018 figures (1.6-1.7%) reflect old methodology, NOT lower actual spending. We show post-2018 data only to avoid misleading comparisons. UK target is 2.4% by 2027.",
+    "series": [
+      {"year": 2018, "value": 1.73, "valueBn": 37.1, "notes": "New methodology baseline. Not directly comparable to earlier years."},
+      {"year": 2019, "value": 1.74, "valueBn": 38.5},
+      {"year": 2020, "value": 2.93, "valueBn": 59.3, "notes": "OECD estimate. COVID reduced GDP denominator."},
+      {"year": 2021, "value": 2.88, "valueBn": 66.2},
+      {"year": 2022, "value": 2.69, "valueBn": 70.7, "notes": "GDP recovery normalises ratio."},
+      {"year": 2023, "value": 2.64, "valueBn": 72.6, "notes": "Latest ONS figure. GBP 49.9bn business, 16.3bn HE, 3.6bn gov."}
+    ]
+  },
+  "rdByCountry": {
+    "description": "Gross R&D expenditure as % of GDP by G7 country (2023)",
+    "unit": "pct_gdp",
+    "sourceName": "OECD Main Science and Technology Indicators",
+    "sourceUrl": "https://www.oecd.org/en/data/indicators/gross-domestic-spending-on-r-d.html",
+    "methodologyNote": "GERD as % of GDP using Frascati Manual definitions. Includes business, government, higher education, and private non-profit sectors. OECD average 2023: 2.7%.",
+    "series": [
+      {"country": "US", "value": 3.46, "notes": "Highest G7. $823bn absolute."},
+      {"country": "Japan", "value": 3.44},
+      {"country": "Germany", "value": 3.13},
+      {"country": "France", "value": 2.98},
+      {"country": "UK", "value": 2.64, "notes": "Below G7 average of 2.95%."},
+      {"country": "Canada", "value": 1.72, "notes": "2022 figure, 2023 not yet available."},
+      {"country": "Italy", "value": 1.40}
+    ]
+  },
+  "headline": {
+    "vcLatestBn": 9.0,
+    "vcLatestYear": 2024,
+    "vcChangeYoY": 12.5,
+    "unicornsCount": 97,
+    "unicornsRankGlobal": 3,
+    "aiLatestBn": 2.9,
+    "aiLatestYear": 2024,
+    "rdPctGDP": 2.64,
+    "rdLatestYear": 2023,
+    "rdTargetPct": 2.4,
+    "renewablesNote": "UK is 3rd globally for unicorns, 3rd for private AI investment"
+  }
+}

@@ -1,0 +1,368 @@
+{
+  "metadata": {
+    "title": "MPs' Financial Interests, Gifts & Expenses",
+    "description": "Data from the Register of Members' Financial Interests (Parliament) and the Independent Parliamentary Standards Authority (IPSA). The Register tracks declared outside earnings, gifts, hospitality, shareholdings, and other interests. IPSA publishes all parliamentary expenses claims.",
+    "primarySources": [
+      {
+        "name": "Register of Members' Financial Interests",
+        "url": "https://www.parliament.uk/mps-lords-and-offices/standards-and-financial-interests/parliamentary-commissioner-for-standards/registers-of-interests/register-of-members-financial-interests/",
+        "notes": "Updated every 2 weeks. 10 categories of declarable interest. Thresholds: external employment >\u00a3100 per payment, gifts/hospitality >\u00a3300, donations >\u00a31,500. Published under Open Parliament Licence."
+      },
+      {
+        "name": "Independent Parliamentary Standards Authority (IPSA)",
+        "url": "https://www.theipsa.org.uk/mp-staffing-business-costs/annual-publications",
+        "notes": "Publishes all MP business costs and expenses every 2 months. Individual claims searchable. Annual publications since 2010-11."
+      }
+    ],
+    "sourceConfidence": "high",
+    "lastUpdated": "2026-03",
+    "dataRange": "2019\u20132025 (interests), 2019\u20132024 (expenses)",
+    "methodologyNote": "Interests data compiled from Parliamentary Commissioner for Standards publications and verified journalism citing the official register. Expenses data from IPSA annual publications. Historical top-earner data (2019-2024) is from the cumulative register. Current Parliament data covers July 2024 onward."
+  },
+  "summary": {
+    "totalMPs": 650,
+    "mpsWithOutsideIncome": 246,
+    "mpsWithGifts": 393,
+    "mpsWithDonations": 448,
+    "mpsWithProperty": 134,
+    "mpsWithShareholdings": 96,
+    "totalOutsideIncome": 9825245,
+    "totalGifts": 5141310,
+    "totalDonations": 33242629
+  },
+  "expenses": {
+    "description": "Total MP business costs by financial year, from IPSA annual publications",
+    "unit": "GBP_millions",
+    "sourceName": "IPSA Annual Business Costs Publications",
+    "sourceUrl": "https://www.theipsa.org.uk/mp-staffing-business-costs/annual-publications",
+    "sourceConfidence": "high",
+    "methodologyNote": "Covers staffing, office, accommodation, and travel costs. Staffing typically accounts for 76-80% of total. Individual claims data available from May 2010. Aggregate totals below from IPSA annual publications and House of Commons Library analysis.",
+    "annualTotals": [
+      {
+        "year": "2017-18",
+        "total": 185.2,
+        "notes": "IPSA confirmed."
+      },
+      {
+        "year": "2019-20",
+        "total": 117.6,
+        "staffing": 90.1,
+        "office": 13.0,
+        "accommodation": 8.9,
+        "travel": 5.6,
+        "notes": "IPSA confirmed. Category breakdown verified."
+      },
+      {
+        "year": "2020-21",
+        "total": 132.4,
+        "staffing": 105.8,
+        "office": 15.2,
+        "accommodation": 9.3,
+        "travel": 2.1,
+        "notes": "IPSA confirmed. Travel fell sharply due to COVID-19."
+      },
+      {
+        "year": "2021-22",
+        "total": 138.6,
+        "staffing": 111.2,
+        "office": 13.5,
+        "accommodation": 9.6,
+        "travel": 4.3,
+        "notes": "IPSA confirmed."
+      },
+      {
+        "year": "2022-23",
+        "total": 148.0,
+        "staffing": 118.0,
+        "office": 14.0,
+        "accommodation": 10.0,
+        "travel": 6.0,
+        "notes": "Estimated from IPSA 2023 publication using category ratios."
+      },
+      {
+        "year": "2023-24",
+        "total": 157.0,
+        "staffing": 126.0,
+        "office": 15.0,
+        "accommodation": 10.0,
+        "travel": 6.0,
+        "notes": "Estimated from IPSA Nov 2024 'Supporting Democracy' report."
+      }
+    ],
+    "categoryNotes": {
+      "staffing": "MP staff salaries and employer NICs. Consistently 76-80% of total costs.",
+      "office": "Constituency office rent, utilities, supplies.",
+      "accommodation": "London or constituency accommodation for MPs with constituencies outside London.",
+      "travel": "Rail, mileage, air travel between constituency and Westminster."
+    }
+  },
+  "byParty": [
+    {
+      "name": "Labour",
+      "count": 361,
+      "oi": 2029025,
+      "gi": 1550348,
+      "dn": 16410223
+    },
+    {
+      "name": "Conservative",
+      "count": 116,
+      "oi": 4469803,
+      "gi": 965044,
+      "dn": 4308709
+    },
+    {
+      "name": "Liberal Democrat",
+      "count": 72,
+      "oi": 495767,
+      "gi": 1379844,
+      "dn": 6082370
+    },
+    {
+      "name": "Labour (Co-op)",
+      "count": 42,
+      "oi": 124583,
+      "gi": 217192,
+      "dn": 2280582
+    },
+    {
+      "name": "Independent",
+      "count": 13,
+      "oi": 39896,
+      "gi": 566163,
+      "dn": 696494
+    },
+    {
+      "name": "Scottish National Party",
+      "count": 9,
+      "oi": 21665,
+      "gi": 54586,
+      "dn": 72000
+    },
+    {
+      "name": "Reform UK",
+      "count": 8,
+      "oi": 2564084,
+      "gi": 334225,
+      "dn": 1882553
+    },
+    {
+      "name": "Sinn F\u00e9in",
+      "count": 7,
+      "oi": 4672,
+      "gi": 18885,
+      "dn": 0
+    },
+    {
+      "name": "Green Party",
+      "count": 5,
+      "oi": 6966,
+      "gi": 20014,
+      "dn": 1177453
+    },
+    {
+      "name": "Democratic Unionist Party",
+      "count": 5,
+      "oi": 2805,
+      "gi": 11395,
+      "dn": 0
+    },
+    {
+      "name": "Plaid Cymru",
+      "count": 4,
+      "oi": 7875,
+      "gi": 3742,
+      "dn": 150610
+    },
+    {
+      "name": "Social Democratic & Labour Party",
+      "count": 2,
+      "oi": 0,
+      "gi": 4618,
+      "dn": 0
+    },
+    {
+      "name": "Traditional Unionist Voice",
+      "count": 1,
+      "oi": 0,
+      "gi": 400,
+      "dn": 2956
+    },
+    {
+      "name": "Alliance",
+      "count": 1,
+      "oi": 0,
+      "gi": 0,
+      "dn": 0
+    },
+    {
+      "name": "Speaker",
+      "count": 1,
+      "oi": 0,
+      "gi": 0,
+      "dn": 0
+    },
+    {
+      "name": "Restore Britain",
+      "count": 1,
+      "oi": 58104,
+      "gi": 4347,
+      "dn": 90000
+    },
+    {
+      "name": "Your Party",
+      "count": 1,
+      "oi": 0,
+      "gi": 10507,
+      "dn": 68679
+    },
+    {
+      "name": "Ulster Unionist Party",
+      "count": 1,
+      "oi": 0,
+      "gi": 0,
+      "dn": 20000
+    }
+  ],
+  "topEarners": {
+    "description": "MPs with highest declared external income, current Parliament (since July 2024)",
+    "sourceName": "Register of Members' Financial Interests / openDemocracy analysis",
+    "sourceUrl": "https://members.parliament.uk/members/commons/interests/publications",
+    "sourceConfidence": "high",
+    "methodologyNote": "Figures from declared registrable interests since the July 2024 General Election. Includes employment, broadcasting, consultancy, rental income, and speaking fees. Does not include ministerial salary.",
+    "currentParliament": [
+      {
+        "name": "Nigel Farage",
+        "party": "Reform UK",
+        "constituency": "Clacton",
+        "totalDeclared": 873000,
+        "primarySource": "Broadcasting (GB News), brand ambassador (Direct Bullion)",
+        "period": "Since July 2024",
+        "notes": "\u00a3415k from Direct Bullion for 12 hours' work (\u00a311,250/hr). 17 code of conduct breaches found by Parliamentary Commissioner."
+      },
+      {
+        "name": "Geoffrey Cox",
+        "party": "Conservative",
+        "constituency": "Torridge & Tavistock",
+        "totalDeclared": 686000,
+        "primarySource": "Barrister practice",
+        "period": "Since July 2024"
+      },
+      {
+        "name": "Jas Athwal",
+        "party": "Labour",
+        "constituency": "Ilford South",
+        "totalDeclared": 180000,
+        "primarySource": "Property rental income",
+        "period": "Since July 2024"
+      },
+      {
+        "name": "Bayo Alaba",
+        "party": "Labour",
+        "constituency": "East Surrey",
+        "totalDeclared": 168000,
+        "primarySource": "Portfolio of 14 rental properties",
+        "period": "Since July 2024"
+      },
+      {
+        "name": "Nick Timothy",
+        "party": "Conservative",
+        "constituency": "West Suffolk",
+        "totalDeclared": 145000,
+        "primarySource": "Writing and journalism (Telegraph)",
+        "period": "Since July 2024"
+      }
+    ],
+    "historicalTopEarners": [
+      {
+        "name": "Boris Johnson",
+        "party": "Conservative",
+        "totalDeclared": 6400000,
+        "primarySource": "Speaking fees, book deal, media",
+        "period": "Dec 2019 \u2013 Jul 2024",
+        "notes": "Cumulative total as MP for Uxbridge."
+      },
+      {
+        "name": "Theresa May",
+        "party": "Conservative",
+        "totalDeclared": 3500000,
+        "primarySource": "Speaking fees",
+        "period": "Dec 2019 \u2013 Jul 2024"
+      },
+      {
+        "name": "Geoffrey Cox",
+        "party": "Conservative",
+        "totalDeclared": 1400000,
+        "primarySource": "Barrister",
+        "period": "Oct 2021 \u2013 Nov 2022",
+        "notes": "Highest earner in single-year period."
+      },
+      {
+        "name": "Keir Starmer",
+        "party": "Labour",
+        "totalDeclared": 899600,
+        "primarySource": "Legal and other",
+        "period": "Dec 2019 \u2013 Jul 2024",
+        "notes": "Before becoming PM in July 2024."
+      }
+    ]
+  },
+  "aggregateStats": {
+    "description": "Aggregate statistics for current Parliament (since July 2024)",
+    "sourceName": "openDemocracy / Unlock Democracy analysis of Register",
+    "sourceUrl": "https://www.opendemocracy.net",
+    "sourceConfidence": "medium-high",
+    "methodologyNote": "Compiled from investigative journalism analysis of the full register. Cross-referenced with official Parliament publications.",
+    "mpsWithSecondJobs": 236,
+    "totalMPs": 650,
+    "pctWithSecondJobs": 36.3,
+    "combinedHoursWorked": 32000,
+    "period": "First 8 months since July 2024 election",
+    "giftsAndHospitality": {
+      "totalValue": 1288300,
+      "ukSourcesValue": 477539,
+      "overseasValue": 810761,
+      "mpsReceivingGifts": 318,
+      "mpsOnOverseasTrips": 144,
+      "medianGiftValue": 1208
+    },
+    "giftCategories": [
+      {
+        "category": "Overseas travel & accommodation",
+        "value": 810761,
+        "notes": "Paid by foreign governments, charities, and donors."
+      },
+      {
+        "category": "Sporting hospitality",
+        "value": 70000,
+        "notes": "Football clubs, FA Premier League, cricket."
+      },
+      {
+        "category": "Concert & event tickets",
+        "value": 14628,
+        "notes": "Includes 9 MPs receiving Taylor Swift Eras Tour tickets."
+      },
+      {
+        "category": "UK gifts & hospitality",
+        "value": 393111
+      }
+    ],
+    "genderBreakdown": {
+      "malePctTopEarners": 74,
+      "notes": "74% of highest-earning MPs are male. All top 15 earners in 2024 were male."
+    },
+    "concentrationStats": {
+      "description": "In 2021-22, the top 24 MPs (9% of those with outside income) earned 71% of all declared outside income.",
+      "year": "2021-22",
+      "topMPsCount": 24,
+      "pctOfTotalIncome": 71
+    }
+  },
+  "contextSentences": {
+    "headline": "236 of 650 MPs (36%) have declared external income since the July 2024 election, working a combined 32,000 hours in second jobs.",
+    "earnings": "The five highest-earning MPs declared a combined \u00a32.05m in outside income in less than a year \u2014 led by Nigel Farage (\u00a3873k) and Geoffrey Cox (\u00a3686k).",
+    "gifts": "318 MPs declared \u00a31.29m in gifts and hospitality, with overseas trips accounting for 63% of the total value.",
+    "expenses": "Total MP business costs reached an estimated \u00a3157m in 2023-24, up 33% in real terms since 2019-20.",
+    "concentration": "In 2021-22, the top 24 earners \u2014 just 9% of MPs with outside income \u2014 took home 71% of all declared earnings."
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "infrastructure": {
+    "title": "Infrastructure Costs",
+    "subtitle": "High-speed rail cost per kilometre",
+    "source": "European Court of Auditors 2018, World Bank, national transport agencies",
+    "sourceYear": "2024 prices where available",
+    "unit": "costPerKmUsdM",
+    "data": [
+      { "country": "China", "project": "Beijing-Shanghai HSR", "costPerKmUsdM": 21, "kmBuilt": 1318, "year": 2011, "confidence": "high" },
+      { "country": "Spain", "project": "Madrid-Barcelona AVE", "costPerKmUsdM": 32, "kmBuilt": 621, "year": 2008, "confidence": "high" },
+      { "country": "France", "project": "LGV Est Phase 2", "costPerKmUsdM": 32, "kmBuilt": 106, "year": 2016, "confidence": "high" },
+      { "country": "South Korea", "project": "KTX Gyeongbu Line", "costPerKmUsdM": 42, "kmBuilt": 412, "year": 2004, "confidence": "high" },
+      { "country": "Italy", "project": "Rome-Naples AV", "costPerKmUsdM": 52, "kmBuilt": 205, "year": 2009, "confidence": "high" },
+      { "country": "Japan", "project": "Hokuriku Shinkansen Ext.", "costPerKmUsdM": 55, "kmBuilt": 125, "year": 2015, "confidence": "high" },
+      { "country": "Turkey", "project": "Ankara-Istanbul HSR", "costPerKmUsdM": 21, "kmBuilt": 533, "year": 2014, "confidence": "medium" },
+      { "country": "Morocco", "project": "Al Boraq LGV", "costPerKmUsdM": 40, "kmBuilt": 186, "year": 2018, "confidence": "medium" },
+      { "country": "Taiwan", "project": "THSR", "costPerKmUsdM": 52, "kmBuilt": 345, "year": 2007, "confidence": "high" },
+      { "country": "Germany", "project": "VDE 8 (Erfurt-Leipzig/Halle)", "costPerKmUsdM": 60, "kmBuilt": 123, "year": 2017, "confidence": "high" },
+      { "country": "UK", "project": "HS2 Phase 1", "costPerKmUsdM": 348, "kmBuilt": 225, "year": 2033, "confidence": "high" },
+      { "country": "USA", "project": "California HSR (est.)", "costPerKmUsdM": 235, "kmBuilt": 800, "year": 2033, "confidence": "medium" }
+    ]
+  },
+  "electricity": {
+    "title": "Household Electricity Prices",
+    "subtitle": "Residential electricity price per kWh (USD PPP, tax-inclusive)",
+    "source": "IEA Energy Prices 2024, Eurostat nrg_pc_204",
+    "sourceYear": "H2 2024",
+    "unit": "pricePerKwhUsd",
+    "data": [
+      { "country": "Germany", "pricePerKwhUsd": 0.39, "currency": "EUR", "localPrice": 0.37, "confidence": "high" },
+      { "country": "Denmark", "pricePerKwhUsd": 0.36, "currency": "DKK", "localPrice": 2.47, "confidence": "high" },
+      { "country": "Ireland", "pricePerKwhUsd": 0.35, "currency": "EUR", "localPrice": 0.33, "confidence": "high" },
+      { "country": "UK", "pricePerKwhUsd": 0.31, "currency": "GBP", "localPrice": 0.245, "confidence": "high" },
+      { "country": "Italy", "pricePerKwhUsd": 0.29, "currency": "EUR", "localPrice": 0.27, "confidence": "high" },
+      { "country": "Japan", "pricePerKwhUsd": 0.27, "currency": "JPY", "localPrice": 40, "confidence": "high" },
+      { "country": "France", "pricePerKwhUsd": 0.25, "currency": "EUR", "localPrice": 0.24, "confidence": "high" },
+      { "country": "Australia", "pricePerKwhUsd": 0.23, "currency": "AUD", "localPrice": 0.34, "confidence": "high" },
+      { "country": "EU-27 Average", "pricePerKwhUsd": 0.27, "currency": "EUR", "localPrice": 0.25, "confidence": "high" },
+      { "country": "USA", "pricePerKwhUsd": 0.17, "currency": "USD", "localPrice": 0.17, "confidence": "high" },
+      { "country": "Canada", "pricePerKwhUsd": 0.14, "currency": "CAD", "localPrice": 0.19, "confidence": "high" },
+      { "country": "South Korea", "pricePerKwhUsd": 0.13, "currency": "KRW", "localPrice": 170, "confidence": "high" },
+      { "country": "Norway", "pricePerKwhUsd": 0.12, "currency": "NOK", "localPrice": 1.22, "confidence": "medium" },
+      { "country": "Switzerland", "pricePerKwhUsd": 0.22, "currency": "CHF", "localPrice": 0.20, "confidence": "medium" }
+    ]
+  },
+  "fuel": {
+    "title": "Fuel & Transport Costs",
+    "subtitle": "Petrol and diesel pump prices with tax breakdown",
+    "source": "EC Weekly Oil Bulletin, GlobalPetrolPrices.com, EIA",
+    "sourceUrl": "https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en",
+    "sourceYear": "March 2026",
+    "sourceConfidence": "high",
+    "updateFrequency": "weekly",
+    "methodologyNote": "European prices from EC Weekly Oil Bulletin (w/c 23 Mar 2026). Non-EU prices from GlobalPetrolPrices.com and EIA (late March 2026). All prices include VAT and duties. USD conversion at prevailing late-March 2026 rates (EUR/USD ~1.15, GBP/USD ~1.32).",
+    "unit": "pricePerLitreUsd",
+    "data": [
+      { "country": "UK", "petrolPerLitre": 2.02, "dieselPerLitre": 2.33, "fuelTaxPct": 53, "currency": "GBP", "localPetrol": 1.53, "localDiesel": 1.77, "confidence": "high" },
+      { "country": "France", "petrolPerLitre": 2.20, "dieselPerLitre": 2.10, "fuelTaxPct": 57, "currency": "EUR", "localPetrol": 1.91, "localDiesel": 1.83, "confidence": "high" },
+      { "country": "Germany", "petrolPerLitre": 2.47, "dieselPerLitre": 2.16, "fuelTaxPct": 55, "currency": "EUR", "localPetrol": 2.15, "localDiesel": 1.88, "confidence": "high" },
+      { "country": "Italy", "petrolPerLitre": 2.34, "dieselPerLitre": 2.19, "fuelTaxPct": 58, "currency": "EUR", "localPetrol": 2.03, "localDiesel": 1.90, "confidence": "high" },
+      { "country": "Netherlands", "petrolPerLitre": 2.70, "dieselPerLitre": 2.55, "fuelTaxPct": 61, "currency": "EUR", "localPetrol": 2.35, "localDiesel": 2.22, "confidence": "high" },
+      { "country": "Denmark", "petrolPerLitre": 2.54, "dieselPerLitre": 2.30, "fuelTaxPct": 54, "currency": "DKK", "localPetrol": 16.50, "localDiesel": 14.90, "confidence": "high" },
+      { "country": "Norway", "petrolPerLitre": 2.65, "dieselPerLitre": 2.50, "fuelTaxPct": 56, "currency": "NOK", "localPetrol": 24.50, "localDiesel": 23.10, "confidence": "high" },
+      { "country": "Sweden", "petrolPerLitre": 2.04, "dieselPerLitre": 2.58, "fuelTaxPct": 52, "currency": "SEK", "localPetrol": 17.75, "localDiesel": 22.45, "confidence": "high" },
+      { "country": "Spain", "petrolPerLitre": 2.10, "dieselPerLitre": 1.98, "fuelTaxPct": 48, "currency": "EUR", "localPetrol": 1.83, "localDiesel": 1.72, "confidence": "high" },
+      { "country": "USA", "petrolPerLitre": 1.08, "dieselPerLitre": 1.18, "fuelTaxPct": 18, "currency": "USD", "localPetrol": 1.08, "localDiesel": 1.18, "confidence": "high" },
+      { "country": "Canada", "petrolPerLitre": 1.42, "dieselPerLitre": 1.90, "fuelTaxPct": 33, "currency": "CAD", "localPetrol": 1.95, "localDiesel": 2.56, "confidence": "high" },
+      { "country": "Australia", "petrolPerLitre": 1.62, "dieselPerLitre": 1.75, "fuelTaxPct": 28, "currency": "AUD", "localPetrol": 2.42, "localDiesel": 2.53, "confidence": "high" },
+      { "country": "Japan", "petrolPerLitre": 1.13, "dieselPerLitre": 0.92, "fuelTaxPct": 45, "currency": "JPY", "localPetrol": 179, "localDiesel": 147, "confidence": "high" },
+      { "country": "South Korea", "petrolPerLitre": 1.55, "dieselPerLitre": 1.52, "fuelTaxPct": 48, "currency": "KRW", "localPetrol": 2000, "localDiesel": 1960, "confidence": "high" },
+      { "country": "India", "petrolPerLitre": 1.22, "dieselPerLitre": 1.12, "fuelTaxPct": 55, "currency": "INR", "localPetrol": 105, "localDiesel": 92, "confidence": "medium" },
+      { "country": "Turkey", "petrolPerLitre": 1.20, "dieselPerLitre": 1.35, "fuelTaxPct": 52, "currency": "TRY", "localPetrol": 45.80, "localDiesel": 51.50, "confidence": "medium" }
+    ]
+  },
+  "affordability": {
+    "title": "Affordability",
+    "subtitle": "Childcare, housing, and tuition costs compared",
+    "source": "OECD Family Database, OECD Education at a Glance, Numbeo, national statistics",
+    "sourceYear": "2024",
+    "childcare": [
+      { "country": "Switzerland", "annualCostUsd": 28000, "pctAvgWage": 67, "confidence": "high" },
+      { "country": "UK", "annualCostUsd": 18000, "pctAvgWage": 38, "confidence": "high" },
+      { "country": "Ireland", "annualCostUsd": 16000, "pctAvgWage": 31, "confidence": "high" },
+      { "country": "USA", "annualCostUsd": 15500, "pctAvgWage": 26, "confidence": "high" },
+      { "country": "Australia", "annualCostUsd": 13500, "pctAvgWage": 25, "confidence": "high" },
+      { "country": "Canada", "annualCostUsd": 12000, "pctAvgWage": 24, "confidence": "high" },
+      { "country": "Japan", "annualCostUsd": 10000, "pctAvgWage": 23, "confidence": "medium" },
+      { "country": "Netherlands", "annualCostUsd": 9500, "pctAvgWage": 16, "confidence": "high" },
+      { "country": "France", "annualCostUsd": 7000, "pctAvgWage": 14, "confidence": "high" },
+      { "country": "Denmark", "annualCostUsd": 6500, "pctAvgWage": 11, "confidence": "high" },
+      { "country": "Germany", "annualCostUsd": 5000, "pctAvgWage": 9, "confidence": "high" },
+      { "country": "Sweden", "annualCostUsd": 3000, "pctAvgWage": 5, "confidence": "high" }
+    ],
+    "housing": [
+      { "country": "Hong Kong", "medianMultiple": 16.7, "confidence": "high" },
+      { "country": "Australia", "medianMultiple": 9.7, "confidence": "high" },
+      { "country": "Canada", "medianMultiple": 9.3, "confidence": "high" },
+      { "country": "UK", "medianMultiple": 8.3, "confidence": "high" },
+      { "country": "New Zealand", "medianMultiple": 8.1, "confidence": "high" },
+      { "country": "Ireland", "medianMultiple": 7.0, "confidence": "high" },
+      { "country": "Singapore", "medianMultiple": 6.8, "confidence": "high" },
+      { "country": "South Korea", "medianMultiple": 6.5, "confidence": "medium" },
+      { "country": "USA", "medianMultiple": 5.8, "confidence": "high" },
+      { "country": "France", "medianMultiple": 5.5, "confidence": "high" },
+      { "country": "Japan", "medianMultiple": 5.3, "confidence": "high" },
+      { "country": "Germany", "medianMultiple": 5.1, "confidence": "high" }
+    ],
+    "tuition": [
+      { "country": "USA", "annualTuitionUsd": 10940, "publicOnly": true, "confidence": "high" },
+      { "country": "UK (England)", "annualTuitionUsd": 11800, "publicOnly": true, "confidence": "high" },
+      { "country": "Australia", "annualTuitionUsd": 7800, "publicOnly": true, "confidence": "high" },
+      { "country": "Canada", "annualTuitionUsd": 6500, "publicOnly": true, "confidence": "high" },
+      { "country": "South Korea", "annualTuitionUsd": 5600, "publicOnly": true, "confidence": "high" },
+      { "country": "Japan", "annualTuitionUsd": 5200, "publicOnly": true, "confidence": "high" },
+      { "country": "New Zealand", "annualTuitionUsd": 4600, "publicOnly": true, "confidence": "high" },
+      { "country": "Netherlands", "annualTuitionUsd": 2600, "publicOnly": true, "confidence": "high" },
+      { "country": "Ireland", "annualTuitionUsd": 2500, "publicOnly": true, "confidence": "high" },
+      { "country": "Italy", "annualTuitionUsd": 2000, "publicOnly": true, "confidence": "high" },
+      { "country": "France", "annualTuitionUsd": 200, "publicOnly": true, "confidence": "high" },
+      { "country": "Germany", "annualTuitionUsd": 0, "publicOnly": true, "confidence": "high" },
+      { "country": "Norway", "annualTuitionUsd": 0, "publicOnly": true, "confidence": "high" },
+      { "country": "Sweden", "annualTuitionUsd": 0, "publicOnly": true, "confidence": "high" },
+      { "country": "Denmark", "annualTuitionUsd": 0, "publicOnly": true, "confidence": "high" }
+    ]
+  },
+  "tax": {
+    "title": "Tax & Fee Outliers",
+    "subtitle": "Consumer-facing taxes and fees that hit the UK hardest",
+    "source": "OECD Revenue Statistics, HM Treasury, national tax authorities",
+    "sourceYear": "2024/25",
+    "data": [
+      {
+        "item": "Council Tax (Band D avg)",
+        "uk": "£2,171/yr",
+        "ukValue": 2171,
+        "comparison": "France taxe foncière avg \u20AC900; Germany Grundsteuer avg \u20AC400",
+        "context": "UK council tax not revalued since 1991 bands",
+        "confidence": "high"
+      },
+      {
+        "item": "TV Licence",
+        "uk": "£169.50/yr",
+        "ukValue": 169.50,
+        "comparison": "Germany \u20AC220/yr; France abolished 2022; USA/Canada none",
+        "context": "Criminal offence for non-payment in UK",
+        "confidence": "high"
+      },
+      {
+        "item": "Stamp Duty (on £350k home)",
+        "uk": "£7,500",
+        "ukValue": 7500,
+        "comparison": "Germany 3.5-6.5% varies by state; France ~7%; USA avg 0.5-2%",
+        "context": "UK SDLT from 5% above £250k; increases to 10% above £925k",
+        "confidence": "high"
+      },
+      {
+        "item": "Insurance Premium Tax",
+        "uk": "12% standard",
+        "ukValue": 12,
+        "comparison": "France 9%; Germany 19% (but broader base); EU avg ~9%",
+        "context": "Applies to most general insurance policies in UK",
+        "confidence": "high"
+      },
+      {
+        "item": "Air Passenger Duty",
+        "uk": "£7-£607 per flight",
+        "ukValue": 7,
+        "comparison": "Germany \u20AC15-\u20AC71; France \u20AC2.63-\u20AC63; USA $5.60 flat",
+        "context": "UK rates among highest globally, especially long-haul",
+        "confidence": "high"
+      },
+      {
+        "item": "Vehicle Excise Duty (standard car)",
+        "uk": "£190/yr",
+        "ukValue": 190,
+        "comparison": "France \u20AC0 ongoing (one-time reg); Germany \u20AC90-\u20AC200; USA varies by state",
+        "context": "UK VED reformed 2025 to include EVs for first time",
+        "confidence": "high"
+      },
+      {
+        "item": "Water Bills (avg household)",
+        "uk": "£473/yr",
+        "ukValue": 473,
+        "comparison": "France avg \u20AC400/yr; Germany avg \u20AC260/yr; Scotland (public) lower",
+        "context": "England/Wales water privatised 1989; unique among peers",
+        "confidence": "high"
+      },
+      {
+        "item": "Prescription Charges (England)",
+        "uk": "£9.90 per item",
+        "ukValue": 9.90,
+        "comparison": "Scotland/Wales/NI: free; France: \u20AC0.50; Germany: \u20AC5-10",
+        "context": "England only part of UK that charges; prepay cert available",
+        "confidence": "high"
+      }
+    ]
+  }
+}

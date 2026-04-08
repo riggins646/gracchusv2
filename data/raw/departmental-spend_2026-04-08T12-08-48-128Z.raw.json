@@ -1,0 +1,70 @@
+{
+  "deptResults": {},
+  "errors": [
+    {
+      "department": "Cabinet Office",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "Department for Education",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "Defra",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "Department for Transport",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "DHSC",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "HM Treasury",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "Home Office",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "Ministry of Defence",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "Ministry of Justice",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "DESNZ",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "DSIT",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "DWP",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "FCDO",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "DLUHC",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "DBT",
+      "error": "fetchJSON is not defined"
+    },
+    {
+      "department": "DCMS",
+      "error": "fetchJSON is not defined"
+    }
+  ],
+  "totalRecords": 0
+}

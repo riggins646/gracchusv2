@@ -1,0 +1,33 @@
+{
+  "summary": {
+    "totalSpend": 0,
+    "totalPayments": 0,
+    "departmentCount": 0,
+    "uniqueSuppliers": 0,
+    "averagePayment": 0
+  },
+  "departments": [],
+  "topSuppliers": [],
+  "monthlyTrend": [],
+  "metadata": {
+    "lastUpdated": "2026-04-08T12:08:56.160Z",
+    "primarySource": {
+      "name": "GOV.UK Transparency — Spending over £25,000",
+      "url": "https://www.gov.uk/search/transparency-and-freedom-of-information-releases?content_store_document_type=transparency"
+    },
+    "licence": "Open Government Licence v3.0",
+    "note": "Covers central government departments. CSV schemas vary by department; some fields may be null."
+  },
+  "_ingest": {
+    "fetchedAt": "2026-04-08T12:08:48.128Z",
+    "sourceTimestamp": "2026-04-08T12:08:56.158Z",
+    "sourceName": "GOV.UK Transparency — Spending over £25,000",
+    "recordCount": 0,
+    "validationResult": "warn",
+    "validationNotes": [
+      "Custom validation failed",
+      "Out of range: summary.totalSpend = 0 (expected 1000000–100000000000)",
+      "Out of range: summary.totalPayments = 0 (expected 10–500000)"
+    ]
+  }
+}
