@@ -17,7 +17,7 @@ import {
   Globe, Briefcase, PoundSterling, MapPin, ShieldAlert,
   Factory, ChevronDown, ChevronRight, ChevronLeft,
   RefreshCw, Activity, Trophy, Share2, Download, Copy, X,
-  Scale, Hash, Home, Eye, Gift, Filter, Sparkles
+  Scale, Hash, Home, Eye, Gift, Filter, Sparkles, Menu
 } from "lucide-react";
 
 import projectsData from "../data/projects.json";
@@ -3489,6 +3489,7 @@ function ProjectDetail({ project, onClose, onNavigate }) {
 export default function App() {
   const [view, setView] = useState("overview");
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [statusFilter, setStatusFilter] = useState("All");
@@ -3718,6 +3719,12 @@ export default function App() {
     if (view === "suppliers.scrutiny") setView("suppliers");
     if (view === "compare.affordability") setView("overview");
     if (view === "compare.tax") setView("overview");
+  }, [view]);
+
+  // Scroll to top and close mobile nav whenever the view changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+    setMobileNavOpen(false);
   }, [view]);
 
   const categories = ["All", ...new Set(projects.map((p) => p.category))];
@@ -4352,9 +4359,9 @@ export default function App() {
               <span>Source: Public Records</span>
             </div>
           </div>
-          {/* Nav strip */}
+          {/* Nav strip — desktop */}
           <nav className={
-            "flex items-center gap-1 " +
+            "hidden md:flex items-center gap-1 " +
             "border-t border-gray-800/40 " +
             "-mx-6 px-6 overflow-x-auto"
           }>
@@ -4389,12 +4396,70 @@ export default function App() {
               );
             })}
           </nav>
-          {/* Sub-nav strip */}
+          {/* Mobile hamburger button */}
+          <div className="md:hidden border-t border-gray-800/40 -mx-6 px-6 py-2 flex items-center justify-between">
+            <button
+              onClick={() => setMobileNavOpen(!mobileNavOpen)}
+              className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+              aria-label="Toggle navigation"
+            >
+              {mobileNavOpen ? <X size={18} /> : <Menu size={18} />}
+              <span className="text-xs uppercase tracking-[0.12em] font-medium">
+                {activeParent ? activeParent.label : "Menu"}
+              </span>
+            </button>
+          </div>
+          {/* Mobile nav drawer */}
+          {mobileNavOpen && (
+            <div className="md:hidden border-t border-gray-800/40 -mx-6 px-6 py-3 bg-gray-950/95 backdrop-blur-sm">
+              {navItems.map((n) => {
+                const isActive =
+                  view === n.id ||
+                  (n.children && n.children.some((c) => c.id === view));
+                return (
+                  <div key={n.id}>
+                    <button
+                      onClick={() => {
+                        setView(n.id);
+                        if (!n.children) setMobileNavOpen(false);
+                      }}
+                      className={
+                        "w-full text-left px-3 py-2 text-xs uppercase tracking-[0.12em] font-medium transition-colors " +
+                        (isActive ? "text-white bg-gray-800/50" : "text-gray-500 hover:text-gray-300")
+                      }
+                    >
+                      {n.label}
+                    </button>
+                    {isActive && n.children && (
+                      <div className="pl-6 pb-1">
+                        {n.children.map((c) => (
+                          <button
+                            key={c.id}
+                            onClick={() => {
+                              setView(c.id);
+                              setMobileNavOpen(false);
+                            }}
+                            className={
+                              "w-full text-left px-3 py-1.5 text-[11px] uppercase tracking-[0.1em] font-medium transition-colors " +
+                              (view === c.id ? "text-white" : "text-gray-600 hover:text-gray-400")
+                            }
+                          >
+                            {c.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          {/* Sub-nav strip — desktop only */}
           {activeChildren &&
             activeChildren.length > 1 && (
             <div className={
-              "border-t border-gray-800/30 " +
-              "flex gap-0.5 py-1.5"
+              "hidden md:flex border-t border-gray-800/30 " +
+              "gap-0.5 py-1.5"
             }>
               {activeChildren.map((c) => (
                 <button
