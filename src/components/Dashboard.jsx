@@ -5777,32 +5777,16 @@ export default function App() {
 
                 {/* Approval Duration Trend - right column */}
                 {planningData.approvalTimeline && (
-                  <div className={
-                    "border border-gray-800/60 " +
-                    "bg-gray-950/30 p-5"
-                  }>
-                    <div className={
-                      "text-[10px] uppercase " +
-                      "tracking-[0.2em] " +
-                      "text-gray-500 font-mono mb-1"
-                    }>
-                      Trend
-                    </div>
-                    <div className={
-                      "text-sm font-bold text-white " +
-                      "mb-1"
-                    }>
-                      Average DCO Approval Duration
-                    </div>
-                    <div className={
-                      "text-[10px] text-gray-600 " +
-                      "font-mono mb-4"
-                    }>
-                      Months from application to
-                      Secretary of State decision,
-                      by year of decision.
-                      Source: PINS.
-                    </div>
+                  <ChartCard
+                    label="Trend"
+                    title="Average DCO Approval Duration"
+                    subtitle="Months from application to Secretary of State decision, by year of decision. Source: PINS."
+                    onShare={handleChartShare}
+                    shareHeadline={"2.4\u00D7 slower to approve"}
+                    shareSubline="Planning approvals now take years, not months"
+                    accentColor="#f59e0b"
+                    explainData={planningData.approvalTimeline.map(d => `${d.year}: ${d.avgMonths} months, ${d.decisions} decisions`).join("; ")}
+                  >
                     <ResponsiveContainer
                       width="100%" height={220}
                     >
@@ -5921,24 +5905,7 @@ export default function App() {
                           : ""}
                       </span>
                     </div>
-                    <button
-                      onClick={() =>
-                        setShowTrendShare("approval")
-                      }
-                      className={
-                        "mt-3 flex items-center " +
-                        "gap-1.5 text-[10px] " +
-                        "font-mono uppercase " +
-                        "tracking-[0.12em] " +
-                        "text-gray-600 " +
-                        "hover:text-amber-400 " +
-                        "transition-colors"
-                      }
-                    >
-                      <Share2 size={10} />
-                      Share this chart
-                    </button>
-                  </div>
+                  </ChartCard>
                 )}
               </div>
 
@@ -6518,32 +6485,16 @@ export default function App() {
 
                 {/* Delay Trend Chart - right column */}
                 {delaysData.delayTimeline && (
-                  <div className={
-                    "border border-gray-800/60 " +
-                    "bg-gray-950/30 p-5"
-                  }>
-                    <div className={
-                      "text-[10px] uppercase " +
-                      "tracking-[0.2em] " +
-                      "text-gray-500 font-mono mb-1"
-                    }>
-                      Trend
-                    </div>
-                    <div className={
-                      "text-sm font-bold text-white " +
-                      "mb-1"
-                    }>
-                      Delivery Delays {"&"} Cost Growth
-                      Over Time
-                    </div>
-                    <div className={
-                      "text-[10px] text-gray-600 " +
-                      "font-mono mb-4"
-                    }>
-                      Average schedule slippage and cost
-                      growth across IPA-tracked major
-                      projects. Source: IPA / NAO.
-                    </div>
+                  <ChartCard
+                    label="Trend"
+                    title={"Delivery Delays & Cost Growth Over Time"}
+                    subtitle="Average schedule slippage and cost growth across IPA-tracked major projects. Source: IPA / NAO."
+                    onShare={handleChartShare}
+                    shareHeadline="Every project late. Every project over budget."
+                    shareSubline="Delivery delays and cost growth keep getting worse"
+                    accentColor="#ef4444"
+                    explainData={delaysData.delayTimeline.map(d => `${d.year}: ${d.avgDelayYears}yr delay, +${d.avgCostGrowthPct}% cost growth`).join("; ")}
+                  >
                     <ResponsiveContainer
                       width="100%" height={220}
                     >
@@ -6697,24 +6648,7 @@ export default function App() {
                         biennial sampling
                       </span>
                     </div>
-                    <button
-                      onClick={() =>
-                        setShowTrendShare("delay")
-                      }
-                      className={
-                        "mt-3 flex items-center " +
-                        "gap-1.5 text-[10px] " +
-                        "font-mono uppercase " +
-                        "tracking-[0.12em] " +
-                        "text-gray-600 " +
-                        "hover:text-red-400 " +
-                        "transition-colors"
-                      }
-                    >
-                      <Share2 size={10} />
-                      Share this chart
-                    </button>
-                  </div>
+                  </ChartCard>
                 )}
               </div>
 
