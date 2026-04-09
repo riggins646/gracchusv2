@@ -438,8 +438,9 @@ function ChartCard({
               aria-label="AI fix suggestions"
             >
               <Sparkles size={11} />
-              <span className="hidden sm:inline">{aiFix === "loading" ? "Thinking\u2026" : "What\u2019s the fix?"}</span>
-              <span className="sm:hidden">{aiFix === "loading" ? "Thinking\u2026" : "Fix?"}</span>
+              <span className="hidden md:inline">{aiFix === "loading" ? "Thinking\u2026" : "What\u2019s the fix?"}</span>
+              <span className="hidden sm:inline md:hidden">{aiFix === "loading" ? "Thinking\u2026" : "The fix?"}</span>
+              <span className="sm:hidden">{aiFix === "loading" ? "\u2026" : "Fix?"}</span>
             </button>
           {info && (
             <div
@@ -517,67 +518,88 @@ function ChartCard({
           )}
         </div>
       </div>
-      {/* AI Explanation panel */}
+      {/* AI Explanation panel — Layer 2: factual analysis */}
       {aiExplain && aiExplain !== "loading" && (
         <div className={
-          "mb-3 px-3 py-2.5 rounded border " +
+          "mb-3 rounded border " +
           (aiExplain.error
-            ? "border-red-500/30 bg-red-500/5"
-            : "border-purple-500/20 bg-purple-500/5")
+            ? "border-red-500/30 bg-red-500/5 px-3 py-2.5"
+            : "border-purple-500/20 bg-purple-500/5 px-4 py-3")
         }>
-          <div className="flex items-start gap-2">
-            <Sparkles size={12} className={aiExplain.error ? "text-red-400 mt-0.5 shrink-0" : "text-purple-400 mt-0.5 shrink-0"} />
-            <p className={"text-[12px] leading-relaxed " + (aiExplain.error ? "text-red-400" : "text-gray-300")}>
-              {aiExplain.error || aiExplain.text}
-            </p>
-          </div>
+          {aiExplain.error ? (
+            <div className="flex items-start gap-2">
+              <Sparkles size={12} className="text-red-400 mt-0.5 shrink-0" />
+              <p className="text-[12px] leading-relaxed text-red-400">{aiExplain.error}</p>
+            </div>
+          ) : (
+            <div>
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <Sparkles size={10} className="text-purple-400 shrink-0" />
+                <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-purple-400/70">Analysis</span>
+              </div>
+              <p className="text-[12.5px] leading-[1.7] text-gray-300 font-normal">
+                {aiExplain.text}
+              </p>
+            </div>
+          )}
         </div>
       )}
       {aiExplain === "loading" && (
         <div className="mb-3 px-3 py-2.5 rounded border border-purple-500/20 bg-purple-500/5">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 border-2 border-purple-400 border-t-transparent rounded-full animate-spin" />
-            <span className="text-[11px] text-purple-400/70 font-mono">Analysing data…</span>
+            <span className="text-[11px] text-purple-400/70 font-mono">Analysing…</span>
           </div>
         </div>
       )}
-      {/* AI Fix panel */}
+      {/* AI Fix panel — Layer 3: possible solutions */}
       {aiFix && aiFix !== "loading" && (
         <div className={
-          "mb-3 px-3 py-2.5 rounded border " +
+          "mb-3 rounded border " +
           (aiFix.error
-            ? "border-red-500/30 bg-red-500/5"
-            : "border-amber-500/20 bg-amber-500/5")
+            ? "border-red-500/30 bg-red-500/5 px-3 py-2.5"
+            : "border-amber-500/20 bg-amber-950/20 px-4 py-3")
         }>
-          <div className="flex items-start gap-2">
-            <Sparkles size={12} className={aiFix.error ? "text-red-400 mt-0.5 shrink-0" : "text-amber-400 mt-0.5 shrink-0"} />
-            <div className="flex-1 min-w-0">
-              <div className={"text-[12px] leading-relaxed whitespace-pre-line " + (aiFix.error ? "text-red-400" : "text-gray-300")}>
-                {aiFix.error || aiFix.text}
-              </div>
-              {!aiFix.error && (
-                <div className="text-[9px] text-gray-600 mt-2 pt-1.5 border-t border-gray-800/50 font-mono uppercase tracking-wide">
-                  AI-generated ideas for discussion, not policy recommendations
-                </div>
-              )}
+          {aiFix.error ? (
+            <div className="flex items-start gap-2">
+              <Sparkles size={12} className="text-red-400 mt-0.5 shrink-0" />
+              <p className="text-[12px] leading-relaxed text-red-400">{aiFix.error}</p>
             </div>
-          </div>
+          ) : (
+            <div>
+              <div className="flex items-center gap-1.5 mb-2">
+                <Sparkles size={10} className="text-amber-400 shrink-0" />
+                <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-amber-400/70">Gracchus AI</span>
+              </div>
+              <div
+                className="text-[12.5px] leading-[1.7] text-gray-300 ai-fix-content"
+                dangerouslySetInnerHTML={{ __html: (aiFix.text || "")
+                  .replace(/\*\*(.+?)\*\*/g, '<strong class="text-amber-300/90 font-semibold text-[11px] uppercase tracking-wide block mt-2.5 mb-1 first:mt-0">$1</strong>')
+                  .replace(/^- /gm, '<span class="text-amber-500/60 mr-1">\u25B8</span>')
+                  .replace(/\n/g, '<br/>')
+                }}
+              />
+              <div className="text-[9px] text-gray-600 mt-3 pt-2 border-t border-gray-800/40 italic">
+                AI-generated ideas for discussion and engagement, not policy recommendations.
+              </div>
+            </div>
+          )}
         </div>
       )}
       {aiFix === "loading" && (
-        <div className="mb-3 px-3 py-2.5 rounded border border-amber-500/20 bg-amber-500/5">
+        <div className="mb-3 px-3 py-2.5 rounded border border-amber-500/20 bg-amber-950/20">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
-            <span className="text-[11px] text-amber-400/70 font-mono">Thinking about solutions…</span>
+            <span className="text-[11px] text-amber-400/70 font-mono">Exploring solutions…</span>
           </div>
         </div>
       )}
       {editorial && (
         <div className={
-          "text-[12px] text-gray-500 " +
-          "leading-relaxed mb-3 " +
-          "border-l-2 border-gray-800 " +
-          "pl-2.5"
+          "text-[13px] text-gray-400 " +
+          "leading-snug mb-3 " +
+          "border-l-2 border-gray-700/60 " +
+          "pl-3 italic"
         }>
           {editorial}
         </div>
