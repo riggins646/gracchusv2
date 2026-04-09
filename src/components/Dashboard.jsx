@@ -5139,6 +5139,9 @@ export default function App() {
                 label="Relative Cost"
                 title="Biggest Overruns by Percentage"
                 explainData={overrunPctChart.map(d => `${d.name}: ${d.pct}% over budget`).join("; ")}
+                onShare={handleChartShare}
+                shareHeadline="Billions over budget"
+                shareSubline="The UK's worst project overruns — exposed"
               >
                 <div className="flex gap-0">
                   {/* Project names column */}
@@ -7390,6 +7393,8 @@ export default function App() {
               title={"Donations by Party" + (govFilter ? " — " + govFilter : "")}
               subtitle="Total value received by each party"
               onShare={handleChartShare}
+              shareHeadline="Follow the money"
+              shareSubline="Political donations by party, per seat won"
               accentColor="#0087DC"
             >
               <ResponsiveContainer width="100%" height={Math.max(280, dd.byParty.length * 32)}>
@@ -8066,7 +8071,13 @@ export default function App() {
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2 space-y-6">
-                  <ChartCard title="Financial Interests Breakdown" subtitle="All declared interests for this MP">
+                  <ChartCard 
+                    title="Financial Interests Breakdown" 
+                    subtitle="All declared interests for this MP"
+                    onShare={handleChartShare}
+                    shareHeadline="Your MP's side hustle"
+                    shareSubline="Declared financial interests of sitting MPs"
+                  >
                     <ResponsiveContainer width="100%" height={200}>
                       <BarChart data={[
                         { name: "Outside Income", value: mp.oi || 0, fill: "#ef4444" },
@@ -8670,7 +8681,13 @@ export default function App() {
             {/* ===== TAB: MINISTERIAL MEETINGS ===== */}
             {_lobTab === "meetings" && (
               <div className="space-y-6">
-                <ChartCard title="Ministerial Meetings by Department" subtitle="Approximate published meetings since 2012">
+                <ChartCard 
+                  title="Ministerial Meetings by Department" 
+                  subtitle="Approximate published meetings since 2012"
+                  onShare={handleChartShare}
+                  shareHeadline="Who gets the minister's ear?"
+                  shareSubline="Ministerial meetings with outside organisations"
+                >
                   <ResponsiveContainer width="100%" height={340}>
                     <BarChart data={deptData} layout="vertical" margin={{ top: 5, right: 30, left: 140, bottom: 0 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
@@ -8697,7 +8714,13 @@ export default function App() {
             {/* ===== TAB: INTERNATIONAL COMPARISON ===== */}
             {_lobTab === "comparison" && (
               <div className="space-y-6">
-                <ChartCard title="Lobbying Transparency by Country" subtitle="How the UK compares to peer democracies">
+                <ChartCard 
+                  title="Lobbying Transparency by Country" 
+                  subtitle="How the UK compares to peer democracies"
+                  onShare={handleChartShare}
+                  shareHeadline="Britain's lobbying black hole"
+                  shareSubline="UK transparency ranked against peer nations"
+                >
                   <ResponsiveContainer width="100%" height={260}>
                     <BarChart data={intlData} margin={{ top: 5, right: 20, left: 20, bottom: 5 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
@@ -8909,7 +8932,11 @@ export default function App() {
             </ChartCard>
 
             {/* ODA Composition 2024 — horizontal stacked bar */}
-            <ChartCard title={"ODA Composition \u2014 2024"} subtitle={"How the \u00a314.1bn breaks down by type"}>
+            <ChartCard title={"ODA Composition \u2014 2024"} subtitle={"How the \u00a314.1bn breaks down by type"}
+              onShare={handleChartShare}
+              shareHeadline="Where your foreign aid actually goes"
+              shareSubline="Bilateral vs multilateral ODA breakdown"
+            >
               <div className="px-4 py-6 space-y-4">
                 {/* Stacked bar */}
                 <div className="flex h-10 rounded overflow-hidden">
@@ -9075,7 +9102,11 @@ export default function App() {
 
             {/* Regional Allocation */}
             {regions.length > 0 && (
-              <ChartCard title={"Regional Allocation of Bilateral ODA \u2014 2024"} subtitle="Share of bilateral aid by world region">
+              <ChartCard title={"Regional Allocation of Bilateral ODA \u2014 2024"} subtitle="Share of bilateral aid by world region"
+                onShare={handleChartShare}
+                shareHeadline="Who gets British aid money?"
+                shareSubline="Regional allocation of UK bilateral aid"
+              >
                 <div className="px-4 py-6 space-y-3">
                   {regions.map((r, i) => (
                     <div key={i} className="flex items-center gap-3">
@@ -11372,7 +11403,11 @@ export default function App() {
                     </ResponsiveContainer>
                   </ChartCard>
 
-                  <ChartCard title="Welfare Breakdown (2025-26)">
+                  <ChartCard title="Welfare Breakdown (2025-26)"
+                    onShare={handleChartShare}
+                    shareHeadline="£300bn+ on welfare"
+                    shareSubline="Where Britain's welfare bill actually goes"
+                  >
                     <ChartMeta metric="Welfare Breakdown" geo="UK" unit="£bn" data={welfareBreakdown} dateKey="year" source="DWP" freq="annual" />
                     <ResponsiveContainer width="100%" height={300}>
                       <BarChart data={welfareBreakdown} layout="vertical" margin={{ left: 10, right: 20 }}>
@@ -11980,6 +12015,9 @@ export default function App() {
                   label="Trend"
                   title="Receipts vs Spending"
                   explainData={flowData.filter(d => !d.isPartial).map(d => `${d.year}: Receipts £${d.receipts.total}bn, Spending £${d.spending.total}bn, Gap £${(d.spending.total - d.receipts.total).toFixed(0)}bn`).join("; ")}
+                  onShare={handleChartShare}
+                  shareHeadline="Spending more than we earn"
+                  shareSubline="Government receipts vs total managed expenditure"
                 >
                   <ResponsiveContainer width="100%" height={320}>
                     <AreaChart data={flowData.filter(d => !d.isPartial).map(d => ({
@@ -12411,6 +12449,9 @@ export default function App() {
               <ChartCard
                 label="Tax Receipts"
                 title="HMRC Receipts by Category"
+                onShare={handleChartShare}
+                shareHeadline="Where your tax money comes from"
+                shareSubline="HMRC receipts broken down by tax type"
               >
                 <ResponsiveContainer
                   width="100%" height={260}
@@ -12506,6 +12547,9 @@ export default function App() {
               <ChartCard
                 label="Debt Servicing"
                 title="Central Government Debt Interest"
+                onShare={handleChartShare}
+                shareHeadline="£100bn+ just on interest"
+                shareSubline="The staggering cost of servicing Britain's debt"
               >
                 <ResponsiveContainer
                   width="100%" height={260}
@@ -12592,6 +12636,9 @@ export default function App() {
               <ChartCard
                 label="Balance"
                 title="Receipts vs Expenditure"
+                onShare={handleChartShare}
+                shareHeadline="Britain can't balance the books"
+                shareSubline="Receipts vs expenditure — the deficit laid bare"
               >
                 <ResponsiveContainer
                   width="100%" height={260}
@@ -12654,6 +12701,9 @@ export default function App() {
               <ChartCard
                 label="Burden"
                 title="Tax Burden Over Time"
+                onShare={handleChartShare}
+                shareHeadline="Tax burden at a 70-year high"
+                shareSubline="Receipts per capita and tax as % of GDP"
               >
                 <ResponsiveContainer
                   width="100%" height={260}
@@ -12749,7 +12799,7 @@ export default function App() {
 
             <ChartPair>
               {/* ── Gilt Yields ── */}
-              <ChartCard label="Bond Market" title="UK Gilt Yields by Maturity" explainData={giltYieldsData.monthly.slice(-6).map(d => `${d.m}: 2yr=${d["2yr"]}%, 10yr=${d["10yr"]}%, 30yr=${d["30yr"]}%`).join("; ")}>
+              <ChartCard label="Bond Market" title="UK Gilt Yields by Maturity" explainData={giltYieldsData.monthly.slice(-6).map(d => `${d.m}: 2yr=${d["2yr"]}%, 10yr=${d["10yr"]}%, 30yr=${d["30yr"]}%`).join("; ")} onShare={handleChartShare} shareHeadline="Bond markets are screaming" shareSubline="UK gilt yields across the maturity curve">
                 <ResponsiveContainer width="100%" height={280}>
                   <LineChart data={giltYieldsData.monthly}>
                     <XAxis dataKey="m" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} interval={3} />
@@ -12772,7 +12822,7 @@ export default function App() {
               </ChartCard>
 
               {/* ── Tax Burden as % GDP ── */}
-              <ChartCard label="Tax Burden" title="Tax Receipts as % of GDP — Heading for Post-War High" explainData={giltYieldsData.taxBurden.data.map(d => `${d.year}: ${d.pct}%${d.type === "forecast" ? " (forecast)" : ""}`).join("; ") + ` | OECD avg: ${giltYieldsData.taxBurden.oecdAvg2024}%`}>
+              <ChartCard label="Tax Burden" title="Tax Receipts as % of GDP — Heading for Post-War High" explainData={giltYieldsData.taxBurden.data.map(d => `${d.year}: ${d.pct}%${d.type === "forecast" ? " (forecast)" : ""}`).join("; ") + ` | OECD avg: ${giltYieldsData.taxBurden.oecdAvg2024}%`} onShare={handleChartShare} shareHeadline="Highest tax burden since WWII" shareSubline="UK tax receipts heading for post-war record">
                 <ResponsiveContainer width="100%" height={260}>
                   <ComposedChart data={giltYieldsData.taxBurden.data}>
                     <XAxis dataKey="year" tick={{ fontSize: 9, fill: "#555" }} axisLine={false} tickLine={false} interval={2} tickFormatter={(v) => v.replace(/(\d{4})-\d{2}/, "$1")} />
@@ -12799,7 +12849,7 @@ export default function App() {
 
             <ChartPair>
               {/* ── Monthly Borrowing ── */}
-              <ChartCard label="Borrowing" title="Monthly Public Sector Net Borrowing" explainData={giltYieldsData.monthlyBorrowing.months.map((m, i) => `${m}: 2024-25 £${giltYieldsData.monthlyBorrowing.years["2024-25"][i]}bn, 2023-24 £${giltYieldsData.monthlyBorrowing.years["2023-24"][i]}bn`).join("; ")}>
+              <ChartCard label="Borrowing" title="Monthly Public Sector Net Borrowing" explainData={giltYieldsData.monthlyBorrowing.months.map((m, i) => `${m}: 2024-25 £${giltYieldsData.monthlyBorrowing.years["2024-25"][i]}bn, 2023-24 £${giltYieldsData.monthlyBorrowing.years["2023-24"][i]}bn`).join("; ")} onShare={handleChartShare} shareHeadline="Borrowing billions every month" shareSubline="Public sector net borrowing — month by month">
                 <ResponsiveContainer width="100%" height={260}>
                   <BarChart data={giltYieldsData.monthlyBorrowing.months.map((m, i) => ({
                     month: m,
@@ -12818,7 +12868,7 @@ export default function App() {
               </ChartCard>
 
               {/* ── Income Tax Concentration ── */}
-              <ChartCard label="Who Pays" title="Income Tax Concentration — Who Really Pays" explainData={giltYieldsData.incomeTaxConcentration.groups.map(g => `${g.group}: ${g.pctOfTax}% of tax, ${g.pctOfIncome}% of income (${g.threshold})`).join("; ")}>
+              <ChartCard label="Who Pays" title="Income Tax Concentration — Who Really Pays" explainData={giltYieldsData.incomeTaxConcentration.groups.map(g => `${g.group}: ${g.pctOfTax}% of tax, ${g.pctOfIncome}% of income (${g.threshold})`).join("; ")} onShare={handleChartShare} shareHeadline="Top 1% pay 29% of all income tax" shareSubline="Who really pays Britain's tax bill">
                 <div className="space-y-2 mt-2">
                   {giltYieldsData.incomeTaxConcentration.groups.map((g) => (
                     <div key={g.group} className="flex items-center gap-3">
@@ -12841,7 +12891,7 @@ export default function App() {
 
             <ChartPair>
               {/* ── Debt Maturity Profile ── */}
-              <ChartCard label="Debt Structure" title="Government Debt Maturity Profile" explainData={giltYieldsData.debtMaturity.buckets.map(b => `${b.range}: conventional £${b.conventional}bn, index-linked £${b.indexLinked}bn`).join("; ") + ` | Total conventional £${giltYieldsData.debtMaturity.totalConventional}bn, index-linked £${giltYieldsData.debtMaturity.totalIndexLinked}bn (${giltYieldsData.debtMaturity.indexLinkedPct}%), avg maturity ${giltYieldsData.debtMaturity.avgMaturity}yrs`}>
+              <ChartCard label="Debt Structure" title="Government Debt Maturity Profile" explainData={giltYieldsData.debtMaturity.buckets.map(b => `${b.range}: conventional £${b.conventional}bn, index-linked £${b.indexLinked}bn`).join("; ") + ` | Total conventional £${giltYieldsData.debtMaturity.totalConventional}bn, index-linked £${giltYieldsData.debtMaturity.totalIndexLinked}bn (${giltYieldsData.debtMaturity.indexLinkedPct}%), avg maturity ${giltYieldsData.debtMaturity.avgMaturity}yrs`} onShare={handleChartShare} shareHeadline="£2 trillion in gilts — and counting" shareSubline="When Britain's debts come due">
                 <ResponsiveContainer width="100%" height={260}>
                   <BarChart data={giltYieldsData.debtMaturity.buckets}>
                     <XAxis dataKey="range" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} />
@@ -13229,7 +13279,7 @@ export default function App() {
 
             {/* GDP per capita comparison */}
             <ChartCard
-              title={"GDP per Capita (PPP, current intl $) \u2014 UK vs France vs Germany"}>
+              title={"GDP per Capita (PPP, current intl $) \u2014 UK vs France vs Germany"} onShare={handleChartShare} shareHeadline="Britain is getting poorer" shareSubline="GDP per capita — how the UK compares">
               <ChartMeta
                 metric="GDP per Capita"
                 geo="UK / France / Germany"
@@ -13681,7 +13731,7 @@ export default function App() {
             <Divider />
 
             {/* ── M4 Money Supply ── */}
-            <ChartCard label="Money Supply" title="M4 Broad Money Supply" explainData={moneySupplyData.m4MoneySupply.data.slice(-6).map(d => `${d.m}: £${(d.level / 1000).toFixed(2)}tn (YoY ${d.yoyPct}%)`).join("; ")}>
+            <ChartCard label="Money Supply" title="M4 Broad Money Supply" explainData={moneySupplyData.m4MoneySupply.data.slice(-6).map(d => `${d.m}: £${(d.level / 1000).toFixed(2)}tn (YoY ${d.yoyPct}%)`).join("; ")} onShare={handleChartShare} shareHeadline="The money printer went brrr" shareSubline="M4 broad money supply — how much cash is in the system">
               <ResponsiveContainer width="100%" height={260}>
                 <ComposedChart data={moneySupplyData.m4MoneySupply.data}>
                   <XAxis dataKey="m" tick={{ fontSize: 9, fill: "#555" }} axisLine={false} tickLine={false} interval={4} />
@@ -15302,7 +15352,7 @@ export default function App() {
             <Divider />
 
             {/* ── Purchasing Power of £1 ── */}
-            <ChartCard label="Your Money" title="Purchasing Power of £1 Since 2000" explainData={moneySupplyData.purchasingPower.data.filter((d, i) => i % 4 === 0 || i === moneySupplyData.purchasingPower.data.length - 1).map(d => `${d.year}: £${d.value.toFixed(2)}`).join("; ")}>
+            <ChartCard label="Your Money" title="Purchasing Power of £1 Since 2000" explainData={moneySupplyData.purchasingPower.data.filter((d, i) => i % 4 === 0 || i === moneySupplyData.purchasingPower.data.length - 1).map(d => `${d.year}: £${d.value.toFixed(2)}`).join("; ")} onShare={handleChartShare} shareHeadline="Your pound buys 40% less than in 2000" shareSubline="The collapsing purchasing power of sterling">
               <ResponsiveContainer width="100%" height={260}>
                 <AreaChart data={moneySupplyData.purchasingPower.data}>
                   <XAxis dataKey="year" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} />
@@ -15355,7 +15405,7 @@ export default function App() {
             </ChartCard>
 
             {/* ── Consumer Credit ── */}
-            <ChartCard label="Household Debt" title="Consumer Credit Outstanding" explainData={moneySupplyData.personalFinance.consumerCredit.data.slice(-6).map(d => `${d.m}: outstanding £${d.outstanding}bn, net monthly £${d.netMonthly}bn`).join("; ")}>
+            <ChartCard label="Household Debt" title="Consumer Credit Outstanding" explainData={moneySupplyData.personalFinance.consumerCredit.data.slice(-6).map(d => `${d.m}: outstanding £${d.outstanding}bn, net monthly £${d.netMonthly}bn`).join("; ")} onShare={handleChartShare} shareHeadline="Britain is drowning in debt" shareSubline="Consumer credit outstanding — the borrowing binge">
               <ResponsiveContainer width="100%" height={220}>
                 <ComposedChart data={moneySupplyData.personalFinance.consumerCredit.data}>
                   <XAxis dataKey="m" tick={{ fontSize: 9, fill: "#555" }} axisLine={false} tickLine={false} interval={2} />
@@ -15369,7 +15419,7 @@ export default function App() {
             </ChartCard>
 
             {/* ── Savings ── */}
-            <ChartCard label="Savings" title="Household Savings Ratio" explainData={moneySupplyData.personalFinance.savings.householdSavingsRatio.map(d => `${d.year}: ${d.pct}%`).join("; ") + ` | ISA holders: ${moneySupplyData.personalFinance.savings.isaSubscriptions.totalIsaHolders}m, cash ISA rate: ${moneySupplyData.personalFinance.savings.isaSubscriptions.cashIsaAvgRate}%`}>
+            <ChartCard label="Savings" title="Household Savings Ratio" explainData={moneySupplyData.personalFinance.savings.householdSavingsRatio.map(d => `${d.year}: ${d.pct}%`).join("; ") + ` | ISA holders: ${moneySupplyData.personalFinance.savings.isaSubscriptions.totalIsaHolders}m, cash ISA rate: ${moneySupplyData.personalFinance.savings.isaSubscriptions.cashIsaAvgRate}%`} onShare={handleChartShare} shareHeadline="Nobody can save anymore" shareSubline="Household savings ratio — squeezed to the limit">
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={moneySupplyData.personalFinance.savings.householdSavingsRatio}>
                   <XAxis dataKey="year" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} />
@@ -15588,6 +15638,7 @@ export default function App() {
               <ChartCard
                 title="UK Energy Self-Sufficiency (%)"
                 label="Domestic vs Imported"
+                onShare={handleChartShare} shareHeadline={"Britain can\u2019t power itself"} shareSubline="UK energy self-sufficiency in freefall"
               >
               <ResponsiveContainer width="100%" height={260}>
                 <ComposedChart data={balSlice}>
@@ -15681,7 +15732,7 @@ export default function App() {
 
             {/* ---- Energy Balance ---- */}
             <ChartCard
-              title="Primary Energy Balance (Mtoe)"
+              title="Primary Energy Balance (Mtoe)" onShare={handleChartShare} shareHeadline="Energy gap keeps growing" shareSubline="UK primary energy production vs consumption"
               label="Production vs Imports"
             >
               <ResponsiveContainer width="100%" height={260}>
@@ -15780,7 +15831,7 @@ export default function App() {
 
             {/* ---- Oil & Gas Production ---- */}
               <ChartCard
-                title="Oil & Gas Production"
+                title="Oil & Gas Production" onShare={handleChartShare} shareHeadline="North Sea is running dry" shareSubline="UK oil and gas production in terminal decline"
                 label="North Sea Decline"
               >
               <ResponsiveContainer width="100%" height={260}>
@@ -15867,6 +15918,7 @@ export default function App() {
                 "Electricity Generation Mix (%)"
               }
               label="The Grid Transformation"
+              onShare={handleChartShare} shareHeadline="The grid is going green — slowly" shareSubline="How Britain generates its electricity"
             >
               <ResponsiveContainer width="100%" height={260}>
                 <AreaChart data={elecSlice}>
@@ -16201,6 +16253,9 @@ export default function App() {
                   "(£bn)"
                 }
                 label="Startup Funding"
+                onShare={handleChartShare}
+                shareHeadline="VC money is drying up"
+                shareSubline="UK venture capital investment — boom to bust"
               >
               <ResponsiveContainer
                 width="100%" height={260}
@@ -16295,6 +16350,9 @@ export default function App() {
             <ChartCard
               title="UK Active Unicorns"
               label="$1bn+ Companies"
+              onShare={handleChartShare}
+              shareHeadline="Britain's billion-pound startups"
+              shareSubline="Active UK unicorns — how many made it?"
             >
               <ResponsiveContainer
                 width="100%" height={260}
@@ -16349,6 +16407,9 @@ export default function App() {
             <ChartCard
               title="R&D Expenditure (% of GDP)"
               label="GERD"
+              onShare={handleChartShare}
+              shareHeadline="Britain doesn't invest in its future"
+              shareSubline="R&D spending as % of GDP — lagging behind"
             >
               <ResponsiveContainer
                 width="100%" height={260}
@@ -16586,6 +16647,9 @@ export default function App() {
               <ChartCard
                 title="Total R&D Intensity (% GDP)"
                 label="G7 Comparison"
+                onShare={handleChartShare}
+                shareHeadline="R&D intensity stuck in the slow lane"
+                shareSubline="Total R&D investment as share of GDP"
               >
                 {(() => {
                   const countries = ["US", "Japan",
@@ -16748,6 +16812,9 @@ export default function App() {
                 "Total R&D (%)"
               }
               label="Who Pays for R&D?"
+              onShare={handleChartShare}
+              shareHeadline="Government retreating from R&D"
+              shareSubline="Taxpayer-funded share of research keeps shrinking"
             >
               {(() => {
                 const data = govInnovationData
@@ -16846,6 +16913,9 @@ export default function App() {
                   "R&D (% GDP)"
                 }
                 label="Tax Incentives + Direct Funding"
+                onShare={handleChartShare}
+                shareHeadline="Business R&D support — rhetoric vs reality"
+                shareSubline="How much government actually backs business innovation"
               >
               {(() => {
                 const data = govInnovationData
@@ -16973,6 +17043,9 @@ export default function App() {
                 "(£bn)"
               }
               label="Public Investment Trend"
+              onShare={handleChartShare}
+              shareHeadline="Where does government R&D money go?"
+              shareSubline="UK government research expenditure by department"
             >
               <ResponsiveContainer
                 width="100%" height={220}
@@ -17162,7 +17235,12 @@ export default function App() {
               })()}
             </div>
 
-            <ChartCard title="HSR Cost per Kilometre ($M USD)">
+            <ChartCard
+              title="HSR Cost per Kilometre ($M USD)"
+              onShare={handleChartShare}
+              shareHeadline="HS2 is the most expensive railway on Earth"
+              shareSubline="High-speed rail cost per km — global comparison"
+            >
               <ResponsiveContainer width="100%" height={420}>
                 <BarChart
                   data={
@@ -17560,6 +17638,9 @@ export default function App() {
 
             <ChartCard
               title="Electricity Price Per kWh (USD PPP)"
+              onShare={handleChartShare}
+              shareHeadline="British electricity among the priciest in the world"
+              shareSubline="Electricity prices — UK vs the rest"
             >
               <ResponsiveContainer width="100%" height={420}>
                 <BarChart
@@ -17733,7 +17814,12 @@ export default function App() {
                 {" "}{compareData.fuel.source}.
               </p>
 
-              <ChartCard title="Petrol Price Per Litre (USD)">
+              <ChartCard
+                title="Petrol Price Per Litre (USD)"
+                onShare={handleChartShare}
+                shareHeadline="Fleeced at the pump"
+                shareSubline="UK petrol prices vs the world"
+              >
                 <ResponsiveContainer width="100%" height={420}>
                   <BarChart
                     data={
@@ -18113,6 +18199,9 @@ export default function App() {
 
               <ChartCard
                 title="Real Average Annual Wages (2022 USD PPP)"
+                onShare={handleChartShare}
+                shareHeadline="Wages haven't grown in 15 years"
+                shareSubline="Real average wages — Britain's lost decade(s)"
               >
                 <ResponsiveContainer width="100%" height={360}>
                   <LineChart
@@ -18373,6 +18462,9 @@ export default function App() {
 
               <ChartCard
                 title="Price-to-Income Ratio (2015=100)"
+                onShare={handleChartShare}
+                shareHeadline="Houses cost 9x the average salary"
+                shareSubline="Price-to-income ratio — housing unaffordability laid bare"
               >
                 <ResponsiveContainer width="100%" height={360}>
                   <LineChart
@@ -18542,6 +18634,9 @@ export default function App() {
 
               <ChartCard
                 title="Hospital Beds Per 1,000 Population"
+                onShare={handleChartShare}
+                shareHeadline="Britain has fewer hospital beds than Kazakhstan"
+                shareSubline="Hospital beds per 1,000 people — international comparison"
               >
                 <ResponsiveContainer width="100%" height={380}>
                   <LineChart
@@ -18995,6 +19090,9 @@ export default function App() {
                   "Defence Spending (% GDP)"
                 }
                 label="G7 Over Time"
+                onShare={handleChartShare}
+                shareHeadline="Defence spending gutted since the Cold War"
+                shareSubline="UK military spending as % of GDP"
               >
                 <ResponsiveContainer
                   width="100%" height={260}
@@ -19127,6 +19225,9 @@ export default function App() {
                 hl.ukLatestYear + ")"
               }
               label="Latest Comparison"
+              onShare={handleChartShare}
+              shareHeadline="Who's actually paying for NATO?"
+              shareSubline="Defence spending by country — the free-rider problem"
             >
               <ResponsiveContainer
                 width="100%" height={260}
@@ -20251,6 +20352,9 @@ export default function App() {
                 <ChartCard
                   label="Absolute Cost"
                   title="Biggest Overruns by Project"
+                  onShare={handleChartShare}
+                  shareHeadline="These projects cost billions more than planned"
+                  shareSubline="The UK's worst infrastructure cost overruns"
                 >
                   <ResponsiveContainer width="100%" height={340}>
                     <BarChart
