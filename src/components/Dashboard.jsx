@@ -12568,6 +12568,7 @@ export default function App() {
             </div>
 
             {/* Charts */}
+            <ChartPair>
               {/* Tax breakdown stacked area */}
               <ChartCard
                 label="Tax Receipts"
@@ -12663,14 +12664,6 @@ export default function App() {
                 </ResponsiveContainer>
               </ChartCard>
 
-            <div id="debt-section" className="border-t border-gray-800/40 mt-10 pt-10">
-              <SectionHeader
-                label="Debt & Interest"
-                title="What We Owe"
-                accent="text-red-500"
-              />
-            </div>
-
               {/* Debt interest over time */}
               <ChartCard
                 label="Debt Servicing"
@@ -12746,8 +12739,17 @@ export default function App() {
                   </ComposedChart>
                 </ResponsiveContainer>
               </ChartCard>
-            <Divider />
+            </ChartPair>
 
+            <div id="debt-section" className="border-t border-gray-800/40 mt-10 pt-10">
+              <SectionHeader
+                label="Debt & Interest"
+                title="What We Owe"
+                accent="text-red-500"
+              />
+            </div>
+
+            <ChartPair>
             {/* Receipts vs Expenditure */}
               <ChartCard
                 label="Balance"
@@ -12811,7 +12813,6 @@ export default function App() {
                 </ResponsiveContainer>
               </ChartCard>
 
-              {/* Per capita / % GDP */}
               <ChartCard
                 label="Burden"
                 title="Tax Burden Over Time"
@@ -12887,6 +12888,7 @@ export default function App() {
                   </ComposedChart>
                 </ResponsiveContainer>
               </ChartCard>
+            </ChartPair>
 
               {/* ── Credit Ratings ── */}
               <div className="border border-gray-800/40 p-5">
@@ -12907,6 +12909,7 @@ export default function App() {
                 </div>
               </div>
 
+            <ChartPair>
               {/* ── Gilt Yields ── */}
               <ChartCard label="Bond Market" title="UK Gilt Yields by Maturity" explainData={giltYieldsData.monthly.slice(-6).map(d => `${d.m}: 2yr=${d["2yr"]}%, 10yr=${d["10yr"]}%, 30yr=${d["30yr"]}%`).join("; ")}>
                 <ResponsiveContainer width="100%" height={280}>
@@ -12954,7 +12957,9 @@ export default function App() {
                   <span className="flex items-center gap-1.5"><span className="w-3 h-0.5 inline-block border-t border-dashed border-cyan-400" /> OECD avg ({giltYieldsData.taxBurden.oecdAvg2024}%)</span>
                 </div>
               </ChartCard>
+            </ChartPair>
 
+            <ChartPair>
               {/* ── Monthly Borrowing ── */}
               <ChartCard label="Borrowing" title="Monthly Public Sector Net Borrowing" explainData={giltYieldsData.monthlyBorrowing.months.map((m, i) => `${m}: 2024-25 £${giltYieldsData.monthlyBorrowing.years["2024-25"][i]}bn, 2023-24 £${giltYieldsData.monthlyBorrowing.years["2023-24"][i]}bn`).join("; ")}>
                 <ResponsiveContainer width="100%" height={260}>
@@ -12994,7 +12999,9 @@ export default function App() {
                   </div>
                 </div>
               </ChartCard>
+            </ChartPair>
 
+            <ChartPair>
               {/* ── Debt Maturity Profile ── */}
               <ChartCard label="Debt Structure" title="Government Debt Maturity Profile" explainData={giltYieldsData.debtMaturity.buckets.map(b => `${b.range}: conventional £${b.conventional}bn, index-linked £${b.indexLinked}bn`).join("; ") + ` | Total conventional £${giltYieldsData.debtMaturity.totalConventional}bn, index-linked £${giltYieldsData.debtMaturity.totalIndexLinked}bn (${giltYieldsData.debtMaturity.indexLinkedPct}%), avg maturity ${giltYieldsData.debtMaturity.avgMaturity}yrs`}>
                 <ResponsiveContainer width="100%" height={260}>
@@ -13115,6 +13122,7 @@ export default function App() {
                   );
                 })()}
               </div>
+            </ChartPair>
 
             <Divider />
 
