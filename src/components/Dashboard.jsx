@@ -5545,7 +5545,7 @@ export default function App() {
           return (
             <div className="space-y-4">
               <PageHeader
-                eyebrow="Waste & Projects \u203A Planning Failures"
+                eyebrow={"Waste & Projects \u203A Planning Failures"}
                 title="Planning & Approvals"
                 dataAsOf="Mar 2025"
                 description={
@@ -6324,7 +6324,7 @@ export default function App() {
           return (
             <div className="space-y-4">
               <PageHeader
-                eyebrow="Waste & Projects \u203A Delivery Delays"
+                eyebrow={"Waste & Projects \u203A Delivery Delays"}
                 title="Delays & Delivery"
                 dataAsOf="Mar 2025"
                 description={
@@ -8666,7 +8666,7 @@ export default function App() {
             </div>
 
             {/* ODA as % of GNI chart */}
-            <ChartCard title="ODA as % of GNI" subtitle="UN target: 0.70% \u2014 met 2013-2020, cut to 0.50% in 2021" shareHeadline={headlineGNI} shareSubline={"UK foreign aid as % of GNI \u2014 down from 0.70%, set to fall to 0.30% by 2027"} onShare={handleChartShare} accentColor="#ef4444" explainData={gniSeries.map(d => `${d.year}: ${d.value.toFixed(2)}%`).join("; ") + " | UN target: 0.70%"}>
+            <ChartCard title="ODA as % of GNI" subtitle={"UN target: 0.70% \u2014 met 2013\u20132020, cut to 0.50% in 2021"} shareHeadline={headlineGNI} shareSubline={"UK foreign aid as % of GNI \u2014 down from 0.70%, set to fall to 0.30% by 2027"} onShare={handleChartShare} accentColor="#ef4444" explainData={gniSeries.map(d => `${d.year}: ${d.value.toFixed(2)}%`).join("; ") + " | UN target: 0.70%"}>
               <ResponsiveContainer width="100%" height={280}>
                 <ComposedChart data={gniSeries} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
@@ -8710,7 +8710,7 @@ export default function App() {
             </ChartCard>
 
             {/* ODA Composition 2024 — horizontal stacked bar */}
-            <ChartCard title="ODA Composition \u2014 2024" subtitle="How the \u00a314.1bn breaks down by type">
+            <ChartCard title={"ODA Composition \u2014 2024"} subtitle={"How the \u00a314.1bn breaks down by type"}>
               <div className="px-4 py-6 space-y-4">
                 {/* Stacked bar */}
                 <div className="flex h-10 rounded overflow-hidden">
@@ -8751,7 +8751,7 @@ export default function App() {
             </ChartCard>
 
             {/* Spending by Department 2024 */}
-            <ChartCard title="Spending by Department \u2014 2024" subtitle="Which government departments spend ODA" shareHeadline="FCDO 67%" shareSubline="FCDO accounted for two-thirds of all UK foreign aid spending in 2024" onShare={handleChartShare} accentColor="#059669" explainData={departments.slice(0, 6).map(d => `${d.dept}: £${d.value}m`).join("; ")}>
+            <ChartCard title={"Spending by Department \u2014 2024"} subtitle="Which government departments spend ODA" shareHeadline="FCDO 67%" shareSubline="FCDO accounted for two-thirds of all UK foreign aid spending in 2024" onShare={handleChartShare} accentColor="#059669" explainData={departments.slice(0, 6).map(d => `${d.dept}: £${d.value}m`).join("; ")}>
               <ResponsiveContainer width="100%" height={Math.max(340, departments.length * 36)}>
                 <BarChart data={departments} layout="vertical" margin={{ top: 5, right: 30, left: 5, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
@@ -8876,7 +8876,7 @@ export default function App() {
 
             {/* Regional Allocation */}
             {regions.length > 0 && (
-              <ChartCard title="Regional Allocation of Bilateral ODA \u2014 2024" subtitle="Share of bilateral aid by world region">
+              <ChartCard title={"Regional Allocation of Bilateral ODA \u2014 2024"} subtitle="Share of bilateral aid by world region">
                 <div className="px-4 py-6 space-y-3">
                   {regions.map((r, i) => (
                     <div key={i} className="flex items-center gap-3">
@@ -9688,7 +9688,7 @@ export default function App() {
               "gap-4"
             }>
               <PageHeader
-                eyebrow="Waste & Projects \u203A Suppliers & Contracts"
+                eyebrow={"Waste & Projects \u203A Suppliers & Contracts"}
                 title="Who Got Paid?"
                 dataAsOf="Feb 2025"
                 description={
@@ -10787,7 +10787,7 @@ export default function App() {
         {view === "suppliers.consultants" && (
           <div className="space-y-6">
             <PageHeader
-              eyebrow="Waste & Projects \u203A Consultancy Spend"
+              eyebrow={"Waste & Projects \u203A Consultancy Spend"}
               title={"Consultants & Advisers"}
               dataAsOf="Jan 2025"
               description={
@@ -11137,7 +11137,7 @@ export default function App() {
           <div className="space-y-6">
             <div className="py-6 mb-4">
               <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
-                Tax & Spending \u203A Civil Service
+                {"Tax & Spending \u203A Civil Service"}
               </div>
               <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
                 The Government Machine
@@ -12213,7 +12213,7 @@ export default function App() {
                 "tracking-[0.2em] font-medium " +
                 "text-gray-600 mb-2"
               }>
-                Tax & Spending \u203A Tax & Public Finances
+                {"Tax & Spending \u203A Tax & Public Finances"}
               </div>
               <h2 className={
                 "text-2xl md:text-3xl " +
@@ -13184,7 +13184,7 @@ export default function App() {
 
             {/* GDP per capita comparison */}
             <ChartCard
-              title="GDP per Capita (PPP, current intl $) \u2014 UK vs France vs Germany">
+              title={"GDP per Capita (PPP, current intl $) \u2014 UK vs France vs Germany"}>
               <ChartMeta
                 metric="GDP per Capita"
                 geo="UK / France / Germany"
@@ -13689,7 +13689,7 @@ export default function App() {
             </div>
 
             <div className="text-gray-600 text-xs px-1">
-              Sources: ONS National Accounts; S&amp;P Global /
+              Sources: ONS National Accounts; S&P Global /
               CIPS PMI; ONS Labour Force Survey; OECD
               Productivity Statistics; World Bank; ONS Gross
               Fixed Capital Formation; Bank of England
@@ -14549,7 +14549,7 @@ export default function App() {
               </h2>
               <p className="text-gray-500 text-sm mt-2">
                 UK import dependency across critical industries, with France
-                &amp; Germany comparisons. Source-backed, factual data.
+                & Germany comparisons. Source-backed, factual data.
               </p>
             </div>
 
@@ -16041,7 +16041,7 @@ export default function App() {
                 "text-[10px] uppercase tracking-[0.2em] " +
                 "font-medium text-gray-600 mb-2"
               }>
-                Technology &amp; Investment
+                Technology & Investment
               </div>
               <h2 className={
                 "text-2xl md:text-3xl font-black " +
@@ -16051,7 +16051,7 @@ export default function App() {
               </h2>
               <p className="text-gray-500 text-sm mt-2">
                 UK venture capital, unicorns, AI funding,
-                and R&amp;D investment.
+                and R&D investment.
               </p>
             </div>
 
@@ -16134,7 +16134,7 @@ export default function App() {
                   "text-[10px] uppercase " +
                   "tracking-[0.15em] text-gray-500 mb-1"
                 }>
-                  R&amp;D Spend
+                  R&D Spend
                 </div>
                 <div className={
                   "text-2xl font-black text-white"
@@ -16415,7 +16415,7 @@ export default function App() {
                     "text-xs text-gray-500 mt-0.5"
                   }>
                     VC per capita, AI investment, and
-                    R&amp;D spend across G7 nations
+                    R&D spend across G7 nations
                   </div>
                 </div>
                 <ChevronRight
@@ -16439,11 +16439,11 @@ export default function App() {
                 "text-xl font-black uppercase " +
                 "tracking-tight"
               }>
-                Government R&amp;D
+                Government R&D
               </h3>
               <p className="text-gray-500 text-sm mt-1">
                 How much does the UK government invest in
-                R&amp;D compared to peer nations?
+                R&D compared to peer nations?
               </p>
             </div>
 
@@ -16458,7 +16458,7 @@ export default function App() {
                   "text-[10px] uppercase " +
                   "tracking-[0.15em] text-gray-500 mb-1"
                 }>
-                  Gov R&amp;D Spend
+                  Gov R&D Spend
                 </div>
                 <div className={
                   "text-2xl font-black text-white"
@@ -16478,7 +16478,7 @@ export default function App() {
                   "text-[10px] uppercase " +
                   "tracking-[0.15em] text-gray-500 mb-1"
                 }>
-                  Gov Share of R&amp;D
+                  Gov Share of R&D
                 </div>
                 <div className={
                   "text-2xl font-black text-red-400"
@@ -16498,7 +16498,7 @@ export default function App() {
                   "text-[10px] uppercase " +
                   "tracking-[0.15em] text-gray-500 mb-1"
                 }>
-                  R&amp;D Tax Incentive
+                  R&D Tax Incentive
                 </div>
                 <div className={
                   "text-2xl font-black text-green-400"
@@ -16689,7 +16689,7 @@ export default function App() {
                       (~1.7%) use old ONS methodology;
                       post-2018 (~2.7%) use revised
                       methodology. The jump is NOT a
-                      real increase in R&amp;D spending.
+                      real increase in R&D spending.
                     </div>
                   </div>
                 );
@@ -16787,8 +16787,8 @@ export default function App() {
                 "mt-2 italic"
               }>
                 Note: Lower government share does not
-                mean less total R&amp;D. The UK and
-                Japan rely more on business-funded R&amp;D
+                mean less total R&D. The UK and
+                Japan rely more on business-funded R&D
                 and tax incentives.
               </div>
             </ChartCard>
@@ -16996,10 +16996,10 @@ export default function App() {
               2024 / DSIT; Stanford HAI AI Index 2025;
               ONS UK GERD Statistics; OECD Main Science
               and Technology Indicators; ONS Government
-              SET Expenditure; OECD R&amp;D Tax
+              SET Expenditure; OECD R&D Tax
               Incentives Database; OECD GBARD Statistics;
-              NSF S&amp;E Indicators 2025. VC figures
-              are VC-specific (excl. broader PE). R&amp;D
+              NSF S&E Indicators 2025. VC figures
+              are VC-specific (excl. broader PE). R&D
               uses post-2018 ONS methodology. Government
               support combines tax incentives and direct
               funding.
@@ -17018,7 +17018,7 @@ export default function App() {
                 "text-[10px] uppercase tracking-[0.2em] " +
                 "font-medium text-gray-600 mb-2"
               }>
-                Cost of Living \u203A Infrastructure
+                {"Cost of Living \u203A Infrastructure"}
               </div>
               <h2 className={
                 "text-2xl md:text-3xl font-black " +
@@ -17764,7 +17764,7 @@ export default function App() {
                 "text-[10px] uppercase tracking-[0.2em] " +
                 "font-medium text-gray-600 mb-2"
               }>
-                Economy \u203A Structural Performance
+                {"Economy \u203A Structural Performance"}
               </div>
               <h2 className={
                 "text-2xl md:text-3xl font-black " +
@@ -18724,7 +18724,7 @@ export default function App() {
                 "text-[10px] uppercase tracking-[0.2em] " +
                 "font-medium text-gray-500"
               }>
-                Sources &amp; Methodology
+                Sources & Methodology
               </div>
               {[
                 structuralData.productivity,
@@ -19740,7 +19740,7 @@ export default function App() {
           return (
             <div>
               <PageHeader
-                eyebrow="Waste & Projects \u203A Department Rankings"
+                eyebrow={"Waste & Projects \u203A Department Rankings"}
                 title="Department Rankings"
                 dataAsOf="Mar 2025"
                 description={
@@ -20405,7 +20405,7 @@ export default function App() {
           return (
             <div>
               <PageHeader
-                eyebrow="Waste & Projects \u203A Consultancy Spend"
+                eyebrow={"Waste & Projects \u203A Consultancy Spend"}
                 title="Consultancy Dependency Rankings"
                 description={
                   "Ranked by consultant dependency " +
