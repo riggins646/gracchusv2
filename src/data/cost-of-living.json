@@ -10,8 +10,8 @@
     "avgRentGbp": 1374,
     "energyCapGbp": 1641,
     "foodInflationPct": 3.3,
-    "petrolPenceLitre": 152.9,
-    "dieselPenceLitre": 176.5
+    "petrolPenceLitre": 154.7,
+    "dieselPenceLitre": 186.8
   },
   "cpiInflation": {
     "source": "ONS Consumer Prices Index (CPI, % YoY)",
@@ -438,7 +438,7 @@
       },
       {
         "m": "Feb 2026",
-        "v": 2.8
+        "v": 3.0
       }
     ]
   },
@@ -806,6 +806,10 @@
         {
           "m": "Jan 2026",
           "v": 3.3
+        },
+        {
+          "m": "Feb 2026",
+          "v": 3.3
         }
       ]
     },
@@ -847,9 +851,9 @@
   },
   "transport": {
     "currentPrice": {
-      "petrolPence": 158.2,
-      "dieselPence": 191.1,
-      "lastUpdated": "2026-04-09",
+      "petrolPence": 154.7,
+      "dieselPence": 186.8,
+      "lastUpdated": "2026-04-07",
       "sourceName": "DESNZ Weekly Road Fuel Prices",
       "sourceUrl": "https://www.gov.uk/government/statistics/weekly-road-fuel-prices",
       "sourceConfidence": "high",
@@ -894,8 +898,7 @@
         { "m": "17 Mar 2026", "v": 148.5, "freq": "weekly" },
         { "m": "24 Mar 2026", "v": 150.6, "freq": "weekly" },
         { "m": "31 Mar 2026", "v": 152.9, "freq": "weekly" },
-        { "m": "07 Apr 2026", "v": 155.8, "freq": "weekly" },
-        { "m": "09 Apr 2026", "v": 158.2, "freq": "daily" }
+        { "m": "07 Apr 2026", "v": 154.7, "freq": "weekly" }
       ]
     },
     "diesel": {
@@ -936,8 +939,7 @@
         { "m": "17 Mar 2026", "v": 168.5, "freq": "weekly" },
         { "m": "24 Mar 2026", "v": 173.2, "freq": "weekly" },
         { "m": "31 Mar 2026", "v": 176.5, "freq": "weekly" },
-        { "m": "07 Apr 2026", "v": 185.3, "freq": "weekly" },
-        { "m": "09 Apr 2026", "v": 191.1, "freq": "daily" }
+        { "m": "07 Apr 2026", "v": 186.8, "freq": "weekly" }
       ]
     },
     "railFares": {

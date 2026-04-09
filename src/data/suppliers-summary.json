@@ -5,8 +5,13 @@
     "totalValue": 9148500000,
     "annualGovSpend": 6700000000,
     "sector": "Defence",
-    "departments": ["Ministry of Defence"],
-    "projects": ["Type 26 Frigates", "Tempest / GCAP"],
+    "departments": [
+      "Ministry of Defence"
+    ],
+    "projects": [
+      "Type 26 Frigates",
+      "Tempest / GCAP"
+    ],
     "notes": "Largest single MOD supplier. 16.3% of MOD spend in 2024/25. 86% non-competitive contracts.",
     "strategicSupplier": true
   },
@@ -16,8 +21,12 @@
     "totalValue": 9000000000,
     "annualGovSpend": 2000000000,
     "sector": "Defence",
-    "departments": ["Ministry of Defence"],
-    "projects": ["Dreadnought Submarines"],
+    "departments": [
+      "Ministry of Defence"
+    ],
+    "projects": [
+      "Dreadnought Submarines"
+    ],
     "notes": "Unity programme for nuclear submarine reactors. Landmark 9bn contract awarded Jan 2025.",
     "strategicSupplier": true
   },
@@ -27,8 +36,14 @@
     "totalValue": 7200000000,
     "annualGovSpend": 3100000000,
     "sector": "Construction",
-    "departments": ["HS2 Ltd", "National Highways"],
-    "projects": ["HS2 (High Speed 2)", "Lower Thames Crossing"],
+    "departments": [
+      "HS2 Ltd",
+      "National Highways"
+    ],
+    "projects": [
+      "HS2 (High Speed 2)",
+      "Lower Thames Crossing"
+    ],
     "notes": "HS2 N1/N2 JV with Vinci (5bn). Lower Thames Crossing roads north (1.2bn).",
     "strategicSupplier": true
   },
@@ -38,7 +53,9 @@
     "totalValue": 6700000000,
     "annualGovSpend": 900000000,
     "sector": "Defence",
-    "departments": ["Ministry of Defence"],
+    "departments": [
+      "Ministry of Defence"
+    ],
     "projects": [],
     "notes": "LCST logistics contract since 2015. MOD spent 3.65bn with Leidos since 2016.",
     "strategicSupplier": true
@@ -49,8 +66,12 @@
     "totalValue": 5500000000,
     "annualGovSpend": 800000000,
     "sector": "Defence",
-    "departments": ["Ministry of Defence"],
-    "projects": ["Ajax Armoured Vehicle"],
+    "departments": [
+      "Ministry of Defence"
+    ],
+    "projects": [
+      "Ajax Armoured Vehicle"
+    ],
     "notes": "Troubled Ajax programme. 165 of 589 vehicles delivered. Full capability expected 2029-30.",
     "strategicSupplier": false
   },
@@ -60,7 +81,12 @@
     "totalValue": 4325000000,
     "annualGovSpend": 2200000000,
     "sector": "Outsourcing",
-    "departments": ["Home Office", "Ministry of Defence", "Dept for Work and Pensions", "Transport for London"],
+    "departments": [
+      "Home Office",
+      "Ministry of Defence",
+      "Dept for Work and Pensions",
+      "Transport for London"
+    ],
     "projects": [],
     "notes": "Asylum accommodation (1.9bn), Royal Navy maritime services (1.03bn), London Cycle Hire.",
     "strategicSupplier": true
@@ -71,8 +97,12 @@
     "totalValue": 3000000000,
     "annualGovSpend": 1200000000,
     "sector": "Defence",
-    "departments": ["Ministry of Defence"],
-    "projects": ["Type 26 Frigates"],
+    "departments": [
+      "Ministry of Defence"
+    ],
+    "projects": [
+      "Type 26 Frigates"
+    ],
     "notes": "2.9bn maritime sensor support contract in procurement. Minehunting command centres.",
     "strategicSupplier": true
   },
@@ -82,8 +112,14 @@
     "totalValue": 2953000000,
     "annualGovSpend": 2400000000,
     "sector": "Construction",
-    "departments": ["HS2 Ltd", "Scottish Government", "Ministry of Justice"],
-    "projects": ["HS2 (High Speed 2)"],
+    "departments": [
+      "HS2 Ltd",
+      "Scottish Government",
+      "Ministry of Justice"
+    ],
+    "projects": [
+      "HS2 (High Speed 2)"
+    ],
     "notes": "HS2 C2/C3 JV (2.27bn). HMP Glasgow super prison (684m). DfE 15bn framework.",
     "strategicSupplier": false
   },
@@ -93,8 +129,12 @@
     "totalValue": 1060000000,
     "annualGovSpend": 2100000000,
     "sector": "Defence",
-    "departments": ["Ministry of Defence"],
-    "projects": ["Dreadnought Submarines"],
+    "departments": [
+      "Ministry of Defence"
+    ],
+    "projects": [
+      "Dreadnought Submarines"
+    ],
     "notes": "63% of global revenue from MOD. British Army Strategic Support Partner (1bn).",
     "strategicSupplier": true
   },
@@ -104,7 +144,9 @@
     "totalValue": 1772000000,
     "annualGovSpend": 1000000000,
     "sector": "Defence",
-    "departments": ["Ministry of Defence"],
+    "departments": [
+      "Ministry of Defence"
+    ],
     "projects": [],
     "notes": "T3E services (1.5bn). Typhoon support (205m). DragonFire laser weapons (67m).",
     "strategicSupplier": true
@@ -115,7 +157,12 @@
     "totalValue": 955000000,
     "annualGovSpend": 1290000000,
     "sector": "Outsourcing",
-    "departments": ["Ministry of Justice", "Department for Transport", "HM Revenue & Customs", "Dept for Work and Pensions"],
+    "departments": [
+      "Ministry of Justice",
+      "Department for Transport",
+      "HM Revenue & Customs",
+      "Dept for Work and Pensions"
+    ],
     "projects": [],
     "notes": "HMP Millsike green prison (329m). DfT IFM (297m). HMRC FM (130m). DWP security.",
     "strategicSupplier": true
@@ -126,7 +173,9 @@
     "totalValue": 1000000000,
     "annualGovSpend": 1200000000,
     "sector": "Defence",
-    "departments": ["Ministry of Defence"],
+    "departments": [
+      "Ministry of Defence"
+    ],
     "projects": [],
     "notes": "New Medium Helicopter AW149 (1bn for 23 aircraft). Awarded March 2026.",
     "strategicSupplier": true
@@ -137,7 +186,9 @@
     "totalValue": 1200000000,
     "annualGovSpend": 120000000,
     "sector": "IT",
-    "departments": ["NHS Business Services Authority"],
+    "departments": [
+      "NHS Business Services Authority"
+    ],
     "projects": [],
     "notes": "NHS workforce solution replacing ESR. 15-year contract for 1.9M staff payroll.",
     "strategicSupplier": false
@@ -148,8 +199,12 @@
     "totalValue": 1290000000,
     "annualGovSpend": 450000000,
     "sector": "IT",
-    "departments": ["Home Office"],
-    "projects": ["Emergency Services Network"],
+    "departments": [
+      "Home Office"
+    ],
+    "projects": [
+      "Emergency Services Network"
+    ],
     "notes": "Public Emergency Services Network replacing Airwave. Signed 2023.",
     "strategicSupplier": true
   },
@@ -159,7 +214,9 @@
     "totalValue": 1000000000,
     "annualGovSpend": 300000000,
     "sector": "Outsourcing",
-    "departments": ["Home Office"],
+    "departments": [
+      "Home Office"
+    ],
     "projects": [],
     "notes": "Asylum accommodation across Scotland, NI, NE England, Yorkshire.",
     "strategicSupplier": false
@@ -170,7 +227,10 @@
     "totalValue": 1259000000,
     "annualGovSpend": 600000000,
     "sector": "Outsourcing",
-    "departments": ["Cabinet Office", "Ministry of Defence"],
+    "departments": [
+      "Cabinet Office",
+      "Ministry of Defence"
+    ],
     "projects": [],
     "notes": "Synergy BPS for 4 depts (959m). Civil Service Pension Scheme (239m).",
     "strategicSupplier": true
@@ -181,7 +241,9 @@
     "totalValue": 800000000,
     "annualGovSpend": 200000000,
     "sector": "Outsourcing",
-    "departments": ["Dept for Work and Pensions"],
+    "departments": [
+      "Dept for Work and Pensions"
+    ],
     "projects": [],
     "notes": "Functional Assessment Services replacing Atos. 3.5M+ disability evaluations.",
     "strategicSupplier": false
@@ -192,7 +254,11 @@
     "totalValue": 894000000,
     "annualGovSpend": 300000000,
     "sector": "IT",
-    "departments": ["Home Office", "HM Revenue & Customs", "Dept for Work and Pensions"],
+    "departments": [
+      "Home Office",
+      "HM Revenue & Customs",
+      "Dept for Work and Pensions"
+    ],
     "projects": [],
     "notes": "Three 3-year cloud contracts awarded same day (Dec 2023). Home Office 450m, HMRC 350m, DWP 94m.",
     "strategicSupplier": false
@@ -203,7 +269,9 @@
     "totalValue": 574000000,
     "annualGovSpend": 400000000,
     "sector": "IT",
-    "departments": ["HM Revenue & Customs"],
+    "departments": [
+      "HM Revenue & Customs"
+    ],
     "projects": [],
     "notes": "HMRC main contract (574m). Part of 3.8bn HMRC IT spend over 5 years.",
     "strategicSupplier": true
@@ -214,7 +282,10 @@
     "totalValue": 710000000,
     "annualGovSpend": 150000000,
     "sector": "IT",
-    "departments": ["Cabinet Office", "Home Office"],
+    "departments": [
+      "Cabinet Office",
+      "Home Office"
+    ],
     "projects": [],
     "notes": "Synergy ERP with IBM (710m). Home Office cloud (54m). 10-year cross-departmental deal.",
     "strategicSupplier": false
@@ -225,20 +296,26 @@
     "totalValue": 731000000,
     "annualGovSpend": 500000000,
     "sector": "IT",
-    "departments": ["HM Revenue & Customs", "Post Office Ltd"],
+    "departments": [
+      "HM Revenue & Customs",
+      "Post Office Ltd"
+    ],
     "projects": [],
     "notes": "Self-imposed ban on new govt customers since Jan 2024 (Post Office Horizon scandal). HMRC 220m, Post Office 511m.",
     "strategicSupplier": false
   },
   {
     "name": "Palantir",
-    "contractCount": 1,
-    "totalValue": 330000000,
+    "contractCount": 2,
+    "totalValue": 378000000,
     "annualGovSpend": 50000000,
     "sector": "IT",
-    "departments": ["NHS England"],
+    "departments": [
+      "NHS England",
+      "Ministry of Defence"
+    ],
     "projects": [],
-    "notes": "Controversial NHS Federated Data Platform. 7-year contract awarded Nov 2023.",
+    "notes": "NHS Federated Data Platform (7yr, \u00a3330M, Nov 2023). MOD Defence Data Analytics Enterprise Agreement (3yr, \u00a348M, Apr 2026).",
     "strategicSupplier": false
   },
   {
@@ -247,7 +324,10 @@
     "totalValue": 446000000,
     "annualGovSpend": 100000000,
     "sector": "IT",
-    "departments": ["Metropolitan Police Service", "Ministry of Defence"],
+    "departments": [
+      "Metropolitan Police Service",
+      "Ministry of Defence"
+    ],
     "projects": [],
     "notes": "Met Police digital transformation (370m). MOD SECRET domain (76m).",
     "strategicSupplier": false
@@ -258,7 +338,13 @@
     "totalValue": 787000000,
     "annualGovSpend": 344000000,
     "sector": "Consulting",
-    "departments": ["Dept for Energy Security & Net Zero", "Dept of Health and Social Care", "HM Revenue & Customs", "Home Office", "Government Digital Service"],
+    "departments": [
+      "Dept for Energy Security & Net Zero",
+      "Dept of Health and Social Care",
+      "HM Revenue & Customs",
+      "Home Office",
+      "Government Digital Service"
+    ],
     "projects": [],
     "notes": "Largest govt consulting supplier. DESNZ (339m). Test & Trace (298m). HMRC customs (100m). One Login (28m).",
     "strategicSupplier": true
@@ -269,7 +355,9 @@
     "totalValue": 223000000,
     "annualGovSpend": 228000000,
     "sector": "Consulting",
-    "departments": ["Cabinet Office"],
+    "departments": [
+      "Cabinet Office"
+    ],
     "projects": [],
     "notes": "Cabinet Office L&D (223m). Follows previous 237m contract. Brexit support (30m share).",
     "strategicSupplier": true
@@ -280,7 +368,10 @@
     "totalValue": 0,
     "annualGovSpend": 102000000,
     "sector": "Consulting",
-    "departments": ["FCDO", "Cabinet Office"],
+    "departments": [
+      "FCDO",
+      "Cabinet Office"
+    ],
     "projects": [],
     "notes": "Largest Big Four government consulting share. Primary client was DfID. Brexit support.",
     "strategicSupplier": true
@@ -291,7 +382,10 @@
     "totalValue": 0,
     "annualGovSpend": 69000000,
     "sector": "Consulting",
-    "departments": ["Department of Health", "Highways England"],
+    "departments": [
+      "Department of Health",
+      "Highways England"
+    ],
     "projects": [],
     "notes": "Dept of Health accounts for 78% of EY government business.",
     "strategicSupplier": true
@@ -302,7 +396,9 @@
     "totalValue": 271000000,
     "annualGovSpend": 240000000,
     "sector": "IT",
-    "departments": ["HM Revenue & Customs"],
+    "departments": [
+      "HM Revenue & Customs"
+    ],
     "projects": [],
     "notes": "HMRC customs and borders. DALAS framework. Test & Trace (30m). Brexit support (30m share).",
     "strategicSupplier": true
@@ -313,7 +409,11 @@
     "totalValue": 250000000,
     "annualGovSpend": 350000000,
     "sector": "IT",
-    "departments": ["HM Revenue & Customs", "Cabinet Office", "Home Office"],
+    "departments": [
+      "HM Revenue & Customs",
+      "Cabinet Office",
+      "Home Office"
+    ],
     "projects": [],
     "notes": "HMRC enterprise integration (250m). Cabinet Office digital (95m). Rapid UK growth.",
     "strategicSupplier": true
@@ -324,7 +424,9 @@
     "totalValue": 250000000,
     "annualGovSpend": 80000000,
     "sector": "IT",
-    "departments": ["HM Treasury"],
+    "departments": [
+      "HM Treasury"
+    ],
     "projects": [],
     "notes": "HM Treasury core IT deal extended to 8 years (250m total).",
     "strategicSupplier": false
@@ -335,7 +437,9 @@
     "totalValue": 58000000,
     "annualGovSpend": 300000000,
     "sector": "IT",
-    "departments": ["Ministry of Justice"],
+    "departments": [
+      "Ministry of Justice"
+    ],
     "projects": [],
     "notes": "MOJ platform and legacy (58m). Under corporate restructuring. Replaced by Maximus for disability assessments.",
     "strategicSupplier": false
@@ -346,7 +450,9 @@
     "totalValue": 656000000,
     "annualGovSpend": 250000000,
     "sector": "Outsourcing",
-    "departments": ["Ministry of Justice"],
+    "departments": [
+      "Ministry of Justice"
+    ],
     "projects": [],
     "notes": "Prison management: HMP Forest Bank (392m), HMP Lowdham Grange (264m).",
     "strategicSupplier": false
@@ -357,7 +463,9 @@
     "totalValue": 300000000,
     "annualGovSpend": 400000000,
     "sector": "Outsourcing",
-    "departments": ["Ministry of Justice"],
+    "departments": [
+      "Ministry of Justice"
+    ],
     "projects": [],
     "notes": "HMP Five Wells (300m). Immigration detention. Acquired by Allied Universal.",
     "strategicSupplier": false
@@ -368,7 +476,9 @@
     "totalValue": 118000000,
     "annualGovSpend": 650000000,
     "sector": "Defence",
-    "departments": ["Ministry of Defence"],
+    "departments": [
+      "Ministry of Defence"
+    ],
     "projects": [],
     "notes": "Land Ceptor missiles (118m). Portfolio Management Agreement worth 6.5bn over 10 years.",
     "strategicSupplier": true
@@ -379,7 +489,9 @@
     "totalValue": 430000000,
     "annualGovSpend": 200000000,
     "sector": "Outsourcing",
-    "departments": ["Ministry of Justice"],
+    "departments": [
+      "Ministry of Justice"
+    ],
     "projects": [],
     "notes": "Prison FM across 61 sites in North England (430m extension).",
     "strategicSupplier": false
@@ -390,8 +502,12 @@
     "totalValue": 400000000,
     "annualGovSpend": 500000000,
     "sector": "Construction",
-    "departments": ["HS2 Ltd"],
-    "projects": ["HS2 (High Speed 2)"],
+    "departments": [
+      "HS2 Ltd"
+    ],
+    "projects": [
+      "HS2 (High Speed 2)"
+    ],
     "notes": "HS2 rail systems tunnel and M&E (400m+).",
     "strategicSupplier": false
   },
@@ -401,8 +517,12 @@
     "totalValue": 450000000,
     "annualGovSpend": 400000000,
     "sector": "Construction",
-    "departments": ["National Highways"],
-    "projects": ["Lower Thames Crossing"],
+    "departments": [
+      "National Highways"
+    ],
+    "projects": [
+      "Lower Thames Crossing"
+    ],
     "notes": "Lower Thames Crossing roads in Kent (450m).",
     "strategicSupplier": false
   },
@@ -412,7 +532,10 @@
     "totalValue": 33000000,
     "annualGovSpend": 30000000,
     "sector": "Consulting",
-    "departments": ["Cabinet Office", "Department of Health"],
+    "departments": [
+      "Cabinet Office",
+      "Department of Health"
+    ],
     "projects": [],
     "notes": "Brexit support (30m share). Test & Trace (563k). CDDO strategy (3m). Low volume, high impact.",
     "strategicSupplier": false

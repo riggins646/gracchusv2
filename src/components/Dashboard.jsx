@@ -695,17 +695,33 @@ function ChartCard({
             {/* Body */}
             <div className="flex-1 overflow-y-auto px-6 py-6">
               {aiData === "loading" && (
-                <div className="flex items-center gap-3 py-8">
-                  <div className={
-                    "w-4 h-4 border-2 border-t-transparent rounded-full animate-spin " +
-                    (isExplain ? "border-purple-400" : "border-amber-400")
-                  } />
-                  <span className={
-                    "text-[13px] font-mono " +
-                    (isExplain ? "text-purple-400/70" : "text-amber-400/70")
-                  }>
-                    {isExplain ? "Analysing\u2026" : "Exploring solutions\u2026"}
-                  </span>
+                <div className="flex-1 flex items-center justify-center min-h-[200px]">
+                  <div className="gracchus-loading-text flex flex-col items-center gap-5 text-center px-6">
+                    {/* Spinner */}
+                    <div className="relative">
+                      <div className={
+                        "w-10 h-10 rounded-full border-[2.5px] border-t-transparent gracchus-spinner " +
+                        (isExplain ? "border-purple-400/60" : "border-amber-400/60")
+                      } />
+                      <div className={
+                        "absolute inset-0 w-10 h-10 rounded-full gracchus-glow " +
+                        (isExplain ? "bg-purple-500/10" : "bg-amber-500/10")
+                      } />
+                    </div>
+                    {/* Microcopy */}
+                    <p className={
+                      "text-[18px] leading-relaxed font-light tracking-wide gracchus-shimmer-text " +
+                      (isExplain ? "purple" : "")
+                    }>
+                      {isExplain ? "Finding the story behind the chart" : "Trying to fix what Whitehall couldn\u2019t"}
+                    </p>
+                    {/* Pulsing ellipsis */}
+                    <div className="flex gap-1 -mt-3">
+                      <span className={"gracchus-loading-dot text-[18px] " + (isExplain ? "text-purple-400" : "text-amber-400")}>{"."}</span>
+                      <span className={"gracchus-loading-dot text-[18px] " + (isExplain ? "text-purple-400" : "text-amber-400")}>{"."}</span>
+                      <span className={"gracchus-loading-dot text-[18px] " + (isExplain ? "text-purple-400" : "text-amber-400")}>{"."}</span>
+                    </div>
+                  </div>
                 </div>
               )}
               {aiData && aiData !== "loading" && aiData.error && (

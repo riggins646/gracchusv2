@@ -8,7 +8,11 @@
     "awardDate": "2025-01",
     "value": 9000000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Rolls-Royce Submarines"}],
+    "suppliers": [
+      {
+        "name": "Rolls-Royce Submarines"
+      }
+    ],
     "category": "defence",
     "competitive": false,
     "source": "https://www.gov.uk/government/news/landmark-9-billion-contract-for-british-business-to-boost-jobs-growth-and-nuclear-deterrent"
@@ -22,7 +26,11 @@
     "awardDate": "2015-06",
     "value": 6700000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Leidos"}],
+    "suppliers": [
+      {
+        "name": "Leidos"
+      }
+    ],
     "category": "defence",
     "competitive": true,
     "source": "https://des.mod.uk"
@@ -36,7 +44,11 @@
     "awardDate": "2014-09",
     "value": 5500000000,
     "currency": "GBP",
-    "suppliers": [{"name": "General Dynamics"}],
+    "suppliers": [
+      {
+        "name": "General Dynamics"
+      }
+    ],
     "category": "defence",
     "competitive": false,
     "source": "https://commonslibrary.parliament.uk/research-briefings/cbp-9764/"
@@ -50,7 +62,11 @@
     "awardDate": "2024-06",
     "value": 4200000000,
     "currency": "GBP",
-    "suppliers": [{"name": "BAE Systems"}],
+    "suppliers": [
+      {
+        "name": "BAE Systems"
+      }
+    ],
     "category": "defence",
     "competitive": false,
     "source": "https://www.baesystems.com/en-uk/article/bae-systems-awarded-4-2bn-contract-to-build-five-more-type-26-frigates-in-glasgow"
@@ -64,7 +80,11 @@
     "awardDate": "2025-06",
     "value": 2900000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Thales"}],
+    "suppliers": [
+      {
+        "name": "Thales"
+      }
+    ],
     "category": "defence",
     "competitive": false,
     "source": "https://ukdefencejournal.org.uk/mod-plans-huge-2-9bn-sensor-support-contract-with-thales-uk/"
@@ -78,7 +98,11 @@
     "awardDate": "2024-09",
     "value": 2400000000,
     "currency": "GBP",
-    "suppliers": [{"name": "BAE Systems"}],
+    "suppliers": [
+      {
+        "name": "BAE Systems"
+      }
+    ],
     "category": "defence",
     "competitive": false,
     "source": "https://www.baesystems.com/en-uk/article/bae-systems-awarded-gbp-2-4-billion-munitions-contract-to-equip-uk-armed-forces"
@@ -92,7 +116,11 @@
     "awardDate": "2023-03",
     "value": 2000000000,
     "currency": "GBP",
-    "suppliers": [{"name": "BAE Systems"}],
+    "suppliers": [
+      {
+        "name": "BAE Systems"
+      }
+    ],
     "category": "defence",
     "competitive": false,
     "source": "https://www.baesystems.com"
@@ -106,7 +134,11 @@
     "awardDate": "2025-01",
     "value": 1500000000,
     "currency": "GBP",
-    "suppliers": [{"name": "QinetiQ"}],
+    "suppliers": [
+      {
+        "name": "QinetiQ"
+      }
+    ],
     "category": "defence",
     "competitive": false,
     "source": "https://des.mod.uk/1-5-billion-contract-with-qinetiq-for-test-and-evaluation-services-secures-1200-uk-jobs/"
@@ -120,7 +152,11 @@
     "awardDate": "2026-03",
     "value": 1000000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Leonardo"}],
+    "suppliers": [
+      {
+        "name": "Leonardo"
+      }
+    ],
     "category": "defence",
     "competitive": false,
     "source": "https://www.leonardo.com/en/press-release-detail/-/detail/02-03-2025-leonardo-uk-mod-announces-1gbp-billion-contract-award-for-23-new-medium-helicopters"
@@ -134,7 +170,11 @@
     "awardDate": "2025-01",
     "value": 1000000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Babcock International"}],
+    "suppliers": [
+      {
+        "name": "Babcock International"
+      }
+    ],
     "category": "defence",
     "competitive": false,
     "source": "https://www.babcockinternational.com/news/babcock-awarded-five-year-british-army-strategic-support-partner-contract/"
@@ -148,7 +188,11 @@
     "awardDate": "2024-06",
     "value": 453500000,
     "currency": "GBP",
-    "suppliers": [{"name": "BAE Systems"}],
+    "suppliers": [
+      {
+        "name": "BAE Systems"
+      }
+    ],
     "category": "defence",
     "competitive": false,
     "source": "https://defence-industry.eu/uk-awards-453-5-million-contract-to-bae-systems-for-full-production-of-advanced-ecrs-mk2-radar/"
@@ -162,7 +206,11 @@
     "awardDate": "2025-01",
     "value": 205000000,
     "currency": "GBP",
-    "suppliers": [{"name": "QinetiQ"}],
+    "suppliers": [
+      {
+        "name": "QinetiQ"
+      }
+    ],
     "category": "defence",
     "competitive": false,
     "source": "https://www.airforce-technology.com/news/qinetiq-uk-raf-typhoon/"
@@ -176,7 +224,11 @@
     "awardDate": "2025-08",
     "value": 118000000,
     "currency": "GBP",
-    "suppliers": [{"name": "MBDA"}],
+    "suppliers": [
+      {
+        "name": "MBDA"
+      }
+    ],
     "category": "defence",
     "competitive": true,
     "source": "https://des.mod.uk/des-secures-118m-contract-to-deliver-six-new-land-ceptor-missile-systems-strengthening-uk-air-defence/"
@@ -190,7 +242,11 @@
     "awardDate": "2025-12",
     "value": 100000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Thales"}],
+    "suppliers": [
+      {
+        "name": "Thales"
+      }
+    ],
     "category": "defence",
     "competitive": true,
     "source": "https://www.navalnews.com/naval-news/2025/12/uk-contracts-thales-to-deliver-portable-ai-enhanced-remote-command-centres-for-royal-navy-autonomous-mcm/"
@@ -204,7 +260,11 @@
     "awardDate": "2026-02",
     "value": 95000000,
     "currency": "GBP",
-    "suppliers": [{"name": "BAE Systems"}],
+    "suppliers": [
+      {
+        "name": "BAE Systems"
+      }
+    ],
     "category": "defence",
     "competitive": true,
     "source": "https://ukdefencejournal.org.uk/bae-wins-radar-deal-to-offset-wind-farm-impact/"
@@ -218,7 +278,11 @@
     "awardDate": "2026-01",
     "value": 67000000,
     "currency": "GBP",
-    "suppliers": [{"name": "QinetiQ"}],
+    "suppliers": [
+      {
+        "name": "QinetiQ"
+      }
+    ],
     "category": "defence",
     "competitive": false,
     "source": "https://ukdefencejournal.org.uk/qinetiq-secures-67m-role-in-royal-navy-laser-weapon-effort/"
@@ -232,7 +296,11 @@
     "awardDate": "2025-10",
     "value": 1200000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Infosys"}],
+    "suppliers": [
+      {
+        "name": "Infosys"
+      }
+    ],
     "category": "it",
     "competitive": true,
     "source": "https://www.computerweekly.com/news/366632687/Infosys-multiplies-UK-public-sector-revenue-by-160-with-1-2bn-NHS-deal"
@@ -246,7 +314,11 @@
     "awardDate": "2023-06",
     "value": 1290000000,
     "currency": "GBP",
-    "suppliers": [{"name": "BT"}],
+    "suppliers": [
+      {
+        "name": "BT"
+      }
+    ],
     "category": "it",
     "competitive": true,
     "source": "https://www.thefastmode.com/technology-solutions/38424-bt-group-signs-1-29b-contract-to-power-public-emergency-services-network"
@@ -260,7 +332,11 @@
     "awardDate": "2023-12",
     "value": 450000000,
     "currency": "GBP",
-    "suppliers": [{"name": "AWS"}],
+    "suppliers": [
+      {
+        "name": "AWS"
+      }
+    ],
     "category": "it",
     "competitive": false,
     "source": "https://www.computerweekly.com/news/366566172/AWS-secures-894m-in-cloud-spend-across-three-contracts-with-UK-government-on-same-day"
@@ -274,7 +350,11 @@
     "awardDate": "2023-12",
     "value": 350000000,
     "currency": "GBP",
-    "suppliers": [{"name": "AWS"}],
+    "suppliers": [
+      {
+        "name": "AWS"
+      }
+    ],
     "category": "it",
     "competitive": false,
     "source": "https://www.computerweekly.com/news/366566172/AWS-secures-894m-in-cloud-spend-across-three-contracts-with-UK-government-on-same-day"
@@ -288,7 +368,14 @@
     "awardDate": "2024-09",
     "value": 710000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Oracle"}, {"name": "IBM"}],
+    "suppliers": [
+      {
+        "name": "Oracle"
+      },
+      {
+        "name": "IBM"
+      }
+    ],
     "category": "it",
     "competitive": true,
     "source": "https://www.computerweekly.com/news/366614395/Oracle-and-IBM-clinch-10-year-cross-departmental-cloud-deal-with-UK-government"
@@ -302,7 +389,11 @@
     "awardDate": "2024-07",
     "value": 574000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Capgemini"}],
+    "suppliers": [
+      {
+        "name": "Capgemini"
+      }
+    ],
     "category": "it",
     "competitive": false,
     "source": "https://www.computerweekly.com/news/252471700/HMRC-extends-contract-with-Capgemini-but-embeds-flexibility"
@@ -316,7 +407,11 @@
     "awardDate": "2023-11",
     "value": 330000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Palantir"}],
+    "suppliers": [
+      {
+        "name": "Palantir"
+      }
+    ],
     "category": "it",
     "competitive": true,
     "source": "https://www.digitalhealth.net/2023/11/nhs-england-awards-330m-federated-data-platform-contract-to-palantir/"
@@ -330,7 +425,11 @@
     "awardDate": "2025-03",
     "value": 370000000,
     "currency": "GBP",
-    "suppliers": [{"name": "DXC Technology"}],
+    "suppliers": [
+      {
+        "name": "DXC Technology"
+      }
+    ],
     "category": "it",
     "competitive": true,
     "source": "https://www.prnewswire.co.uk/news-releases/dxc-selected-by-metropolitan-police-service-to-lead-digital-transformation-programme-302608898.html"
@@ -344,7 +443,11 @@
     "awardDate": "2024-06",
     "value": 220300000,
     "currency": "GBP",
-    "suppliers": [{"name": "Fujitsu"}],
+    "suppliers": [
+      {
+        "name": "Fujitsu"
+      }
+    ],
     "category": "it",
     "competitive": false,
     "source": "https://www.theregister.com/2025/01/09/hmrc_aspire_supplier_deals/"
@@ -358,7 +461,11 @@
     "awardDate": "2020-01",
     "value": 250000000,
     "currency": "GBP",
-    "suppliers": [{"name": "NTT Data"}],
+    "suppliers": [
+      {
+        "name": "NTT Data"
+      }
+    ],
     "category": "it",
     "competitive": false,
     "source": "https://publictechnology.net/articles/news/treasury-250m-it-deal-ntt-data"
@@ -372,7 +479,11 @@
     "awardDate": "2025-02",
     "value": 250000000,
     "currency": "GBP",
-    "suppliers": [{"name": "CGI"}],
+    "suppliers": [
+      {
+        "name": "CGI"
+      }
+    ],
     "category": "it",
     "competitive": true,
     "source": "https://www.govconexec.com/2024/03/cgi-contract-to-advance-uk-cabinet-digital-transformation-efforts/"
@@ -386,7 +497,11 @@
     "awardDate": "2023-12",
     "value": 94000000,
     "currency": "GBP",
-    "suppliers": [{"name": "AWS"}],
+    "suppliers": [
+      {
+        "name": "AWS"
+      }
+    ],
     "category": "it",
     "competitive": false,
     "source": "https://www.computerweekly.com/news/366566172/AWS-secures-894m-in-cloud-spend-across-three-contracts-with-UK-government-on-same-day"
@@ -400,7 +515,11 @@
     "awardDate": "2025-01",
     "value": 76000000,
     "currency": "GBP",
-    "suppliers": [{"name": "DXC Technology"}],
+    "suppliers": [
+      {
+        "name": "DXC Technology"
+      }
+    ],
     "category": "it",
     "competitive": true,
     "source": "https://www.datacenterdynamics.com"
@@ -414,7 +533,11 @@
     "awardDate": "2025-01",
     "value": 58000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Atos"}],
+    "suppliers": [
+      {
+        "name": "Atos"
+      }
+    ],
     "category": "it",
     "competitive": true,
     "source": "https://www.datacenterdynamics.com/en/news/atos-awarded-58m-it-services-contract-by-uks-ministry-of-justice/"
@@ -428,7 +551,11 @@
     "awardDate": "2024-01",
     "value": 510700000,
     "currency": "GBP",
-    "suppliers": [{"name": "Fujitsu"}],
+    "suppliers": [
+      {
+        "name": "Fujitsu"
+      }
+    ],
     "category": "it",
     "competitive": false,
     "source": "https://www.theregister.com/2025/07/17/fujitsu_govt_contracts/"
@@ -442,7 +569,11 @@
     "awardDate": "2019-01",
     "value": 1900000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Serco"}],
+    "suppliers": [
+      {
+        "name": "Serco"
+      }
+    ],
     "category": "outsourcing",
     "competitive": true,
     "source": "https://www.nao.org.uk/wp-content/uploads/2025/05/home-offices-asylum-accommodation-contracts.pdf"
@@ -456,7 +587,11 @@
     "awardDate": "2025-03",
     "value": 1030000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Serco"}],
+    "suppliers": [
+      {
+        "name": "Serco"
+      }
+    ],
     "category": "outsourcing",
     "competitive": true,
     "source": "https://www.serco.com/media-and-news/2025/serco-awarded-maritime-services-contracts-valued-at-over-ps1bn-to-support-royal-navy"
@@ -470,7 +605,11 @@
     "awardDate": "2019-01",
     "value": 1000000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Mears Group"}],
+    "suppliers": [
+      {
+        "name": "Mears Group"
+      }
+    ],
     "category": "outsourcing",
     "competitive": true,
     "source": "https://www.nao.org.uk/wp-content/uploads/2025/05/home-offices-asylum-accommodation-contracts.pdf"
@@ -484,7 +623,11 @@
     "awardDate": "2026-01",
     "value": 959000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Capita"}],
+    "suppliers": [
+      {
+        "name": "Capita"
+      }
+    ],
     "category": "outsourcing",
     "competitive": true,
     "source": "https://www.capita.com/news-and-insights/news/2026/capita-selected-deliver-synergy-business-process-services-contract"
@@ -498,7 +641,11 @@
     "awardDate": "2019-01",
     "value": 1100000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Clearsprings Ready Homes"}],
+    "suppliers": [
+      {
+        "name": "Clearsprings Ready Homes"
+      }
+    ],
     "category": "outsourcing",
     "competitive": true,
     "source": "https://www.nao.org.uk/wp-content/uploads/2025/05/home-offices-asylum-accommodation-contracts.pdf"
@@ -512,7 +659,11 @@
     "awardDate": "2023-05",
     "value": 800000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Maximus"}],
+    "suppliers": [
+      {
+        "name": "Maximus"
+      }
+    ],
     "category": "outsourcing",
     "competitive": true,
     "source": "https://www.maximusuk.co.uk/news/maximus-selected-to-deliver-functional-assessment-services-contract"
@@ -526,7 +677,11 @@
     "awardDate": "2025-01",
     "value": 713000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Wates Group"}],
+    "suppliers": [
+      {
+        "name": "Wates Group"
+      }
+    ],
     "category": "construction",
     "competitive": true,
     "source": "https://www.gov.uk/government/news/prison-building-boom-to-make-streets-safer"
@@ -540,7 +695,11 @@
     "awardDate": "2025-02",
     "value": 684000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Kier"}],
+    "suppliers": [
+      {
+        "name": "Kier"
+      }
+    ],
     "category": "construction",
     "competitive": true,
     "source": "https://www.constructionenquirer.com/2025/02/05/kier-seals-hmp-glasgow-super-prison-job-at-684m/"
@@ -554,7 +713,11 @@
     "awardDate": "2023-06",
     "value": 430000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Amey"}],
+    "suppliers": [
+      {
+        "name": "Amey"
+      }
+    ],
     "category": "outsourcing",
     "competitive": true,
     "source": "https://www.amey.co.uk/media/press-releases/2023/august/amey-is-awarded-contract-extension-for-ministry-of-justice-fm-prison-services/"
@@ -568,7 +731,11 @@
     "awardDate": "2025-05",
     "value": 392000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Sodexo"}],
+    "suppliers": [
+      {
+        "name": "Sodexo"
+      }
+    ],
     "category": "outsourcing",
     "competitive": true,
     "source": "https://uk.sodexo.com/newsroom/2025/sodexo-awarded-new-hmp-forest-bank-contract"
@@ -582,7 +749,11 @@
     "awardDate": "2024-06",
     "value": 329000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Mitie"}],
+    "suppliers": [
+      {
+        "name": "Mitie"
+      }
+    ],
     "category": "outsourcing",
     "competitive": true,
     "source": "https://www.gov.uk/government/news/contract-awarded-for-uks-first-all-electric-green-prison"
@@ -596,7 +767,11 @@
     "awardDate": "2020-10",
     "value": 300000000,
     "currency": "GBP",
-    "suppliers": [{"name": "G4S"}],
+    "suppliers": [
+      {
+        "name": "G4S"
+      }
+    ],
     "category": "outsourcing",
     "competitive": true,
     "source": "https://www.g4s.com/investors/regulatory-announcements/2020/10/06/g4s-wins-10-year-uk-contract-to-run-the-new-hm-prison-five-wells"
@@ -610,7 +785,11 @@
     "awardDate": "2024-06",
     "value": 297000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Mitie"}],
+    "suppliers": [
+      {
+        "name": "Mitie"
+      }
+    ],
     "category": "outsourcing",
     "competitive": true,
     "source": "https://www.mitie.com/insights-news/news/mitie-secures-new-contract-with-department-for-transport/"
@@ -624,7 +803,11 @@
     "awardDate": "2022-06",
     "value": 264000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Sodexo"}],
+    "suppliers": [
+      {
+        "name": "Sodexo"
+      }
+    ],
     "category": "outsourcing",
     "competitive": true,
     "source": "https://www.sodexo.com/en/news/newsroom/2022/hmp-lowdham"
@@ -638,7 +821,11 @@
     "awardDate": "2025-06",
     "value": 220000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Serco"}],
+    "suppliers": [
+      {
+        "name": "Serco"
+      }
+    ],
     "category": "outsourcing",
     "competitive": true,
     "source": "https://www.serco.com/uk/media-and-news/2025/serco-awarded-new-ps220m-contract-to-continue-to-run-london-cycle-hire-scheme"
@@ -652,7 +839,11 @@
     "awardDate": "2024-06",
     "value": 175000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Serco"}],
+    "suppliers": [
+      {
+        "name": "Serco"
+      }
+    ],
     "category": "outsourcing",
     "competitive": false,
     "source": "https://www.serco.com/uk/media-and-news/2024/serco-awarded-two-year-extension-to-dwp-restart-scheme-contract"
@@ -666,7 +857,11 @@
     "awardDate": "2024-08",
     "value": 223000000,
     "currency": "GBP",
-    "suppliers": [{"name": "KPMG"}],
+    "suppliers": [
+      {
+        "name": "KPMG"
+      }
+    ],
     "category": "consulting",
     "competitive": true,
     "source": "https://www.cityam.com/kpmg-wins-223m-uk-government-contract-despite-drive-to-cut-spend-on-consultants/"
@@ -680,7 +875,11 @@
     "awardDate": "2024-01",
     "value": 339000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Deloitte"}],
+    "suppliers": [
+      {
+        "name": "Deloitte"
+      }
+    ],
     "category": "consulting",
     "competitive": true,
     "source": "https://www.consultancy.uk/news/38211/government-consulting-bill-still-1-billion-above-pre-pandemic-levels"
@@ -694,7 +893,11 @@
     "awardDate": "2020-06",
     "value": 298000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Deloitte"}],
+    "suppliers": [
+      {
+        "name": "Deloitte"
+      }
+    ],
     "category": "consulting",
     "competitive": false,
     "source": "https://www.consultancy.uk/news/28374/test-and-trace-spends-1-million-per-day-on-deloitte-consultants"
@@ -708,7 +911,26 @@
     "awardDate": "2020-09",
     "value": 180000000,
     "currency": "GBP",
-    "suppliers": [{"name": "McKinsey"}, {"name": "Bain"}, {"name": "KPMG"}, {"name": "Accenture"}, {"name": "Deloitte"}, {"name": "PwC"}],
+    "suppliers": [
+      {
+        "name": "McKinsey"
+      },
+      {
+        "name": "Bain"
+      },
+      {
+        "name": "KPMG"
+      },
+      {
+        "name": "Accenture"
+      },
+      {
+        "name": "Deloitte"
+      },
+      {
+        "name": "PwC"
+      }
+    ],
     "category": "consulting",
     "competitive": false,
     "source": "https://bylinetimes.com/2020/10/26/outsourcing-brexit-180-million-in-cabinet-office-contracts-for-corporate-giants/"
@@ -722,7 +944,11 @@
     "awardDate": "2021-01",
     "value": 100000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Deloitte"}],
+    "suppliers": [
+      {
+        "name": "Deloitte"
+      }
+    ],
     "category": "consulting",
     "competitive": true,
     "source": "https://www.consultancy.uk/news/35002/deloitte-wins-post-brexit-customs-contract-from-hmrc"
@@ -736,7 +962,11 @@
     "awardDate": "2023-07",
     "value": 28000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Deloitte"}],
+    "suppliers": [
+      {
+        "name": "Deloitte"
+      }
+    ],
     "category": "consulting",
     "competitive": true,
     "source": "https://www.biometricupdate.com/202308/deloitte-nets-16m-from-uk-government-in-latest-one-login-contract-win"
@@ -750,7 +980,11 @@
     "awardDate": "2023-09",
     "value": 22000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Deloitte"}],
+    "suppliers": [
+      {
+        "name": "Deloitte"
+      }
+    ],
     "category": "consulting",
     "competitive": true,
     "source": "https://www.ukauthority.com/articles/home-office-signs-deloitte-for-borders-and-immigration/"
@@ -764,7 +998,14 @@
     "awardDate": "2024-05",
     "value": 9000000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Laing O'Rourke"}, {"name": "Morgan Sindall"}],
+    "suppliers": [
+      {
+        "name": "Laing O'Rourke"
+      },
+      {
+        "name": "Morgan Sindall"
+      }
+    ],
     "category": "construction",
     "competitive": true,
     "source": "https://www.constructionnews.co.uk/contractors/laing-orourke/laing-orourke-and-morgan-sindall-among-names-on-9bn-national-grid-mega-deal-02-05-2024/"
@@ -778,7 +1019,14 @@
     "awardDate": "2020-04",
     "value": 5000000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Balfour Beatty"}, {"name": "Vinci"}],
+    "suppliers": [
+      {
+        "name": "Balfour Beatty"
+      },
+      {
+        "name": "Vinci"
+      }
+    ],
     "category": "construction",
     "competitive": true,
     "source": "https://www.balfourbeatty.com/media-centre/latest/balfour-beatty-joint-venture-to-be-awarded-hs2-contracts-valued-at-c-25-billion/"
@@ -792,7 +1040,14 @@
     "awardDate": "2024-11",
     "value": 3000000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Ferrovial"}, {"name": "BAM Nuttall"}],
+    "suppliers": [
+      {
+        "name": "Ferrovial"
+      },
+      {
+        "name": "BAM Nuttall"
+      }
+    ],
     "category": "construction",
     "competitive": true,
     "source": "https://www.bam.com/en/press/press-releases/2024/12/bam-to-deliver-140-miles-of-high-speed-rail-infrastructure-for-hs2"
@@ -806,7 +1061,11 @@
     "awardDate": "2024-01",
     "value": 3000000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Multiple UK suppliers"}],
+    "suppliers": [
+      {
+        "name": "Multiple UK suppliers"
+      }
+    ],
     "category": "construction",
     "competitive": true,
     "source": "https://www.newcivilengineer.com/latest/sizewell-c-has-awarded-almost-1bn-in-local-contracts-at-two-year-mark-of-construction-16-01-2026/"
@@ -820,7 +1079,20 @@
     "awardDate": "2020-04",
     "value": 2269000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Eiffage"}, {"name": "Kier"}, {"name": "Ferrovial"}, {"name": "BAM Nuttall"}],
+    "suppliers": [
+      {
+        "name": "Eiffage"
+      },
+      {
+        "name": "Kier"
+      },
+      {
+        "name": "Ferrovial"
+      },
+      {
+        "name": "BAM Nuttall"
+      }
+    ],
     "category": "construction",
     "competitive": true,
     "source": "https://www.bamnuttall.co.uk/news/HS2-award/"
@@ -834,7 +1106,14 @@
     "awardDate": "2023-12",
     "value": 1340000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Bouygues"}, {"name": "Murphy"}],
+    "suppliers": [
+      {
+        "name": "Bouygues"
+      },
+      {
+        "name": "Murphy"
+      }
+    ],
     "category": "construction",
     "competitive": true,
     "source": "https://www.neccontract.com/news/national-highways-lets-six-nec-contracts-worth-3-b-for-lower-thames-crossing"
@@ -848,7 +1127,11 @@
     "awardDate": "2021-06",
     "value": 1250000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Webuild"}],
+    "suppliers": [
+      {
+        "name": "Webuild"
+      }
+    ],
     "category": "construction",
     "competitive": true,
     "source": "https://www.webuildgroup.com/en/media/press-releases/webuild-and-consortium-partners-win-1-25-bln-1-5-bln-a303-trunk-road-contract-near-stonehenge"
@@ -862,7 +1145,11 @@
     "awardDate": "2024-06",
     "value": 1200000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Balfour Beatty"}],
+    "suppliers": [
+      {
+        "name": "Balfour Beatty"
+      }
+    ],
     "category": "construction",
     "competitive": true,
     "source": "https://www.balfourbeatty.com/media-centre/latest/balfour-beatty-awarded-12-billion-lower-thames-crossing-contract/"
@@ -876,7 +1163,17 @@
     "awardDate": "2019-12",
     "value": 1000000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Balfour Beatty"}, {"name": "Vinci"}, {"name": "SYSTRA"}],
+    "suppliers": [
+      {
+        "name": "Balfour Beatty"
+      },
+      {
+        "name": "Vinci"
+      },
+      {
+        "name": "SYSTRA"
+      }
+    ],
     "category": "construction",
     "competitive": true,
     "source": "https://www.vinci.com/en/newsroom/press-releases/balfour-beatty-vinci-systra-joint-venture-awarded-hs2-construction/"
@@ -890,7 +1187,11 @@
     "awardDate": "2023-07",
     "value": 450000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Skanska"}],
+    "suppliers": [
+      {
+        "name": "Skanska"
+      }
+    ],
     "category": "construction",
     "competitive": true,
     "source": "https://www.neccontract.com/news/national-highways-lets-six-nec-contracts-worth-3-b-for-lower-thames-crossing"
@@ -904,9 +1205,27 @@
     "awardDate": "2025-01",
     "value": 400000000,
     "currency": "GBP",
-    "suppliers": [{"name": "Costain"}],
+    "suppliers": [
+      {
+        "name": "Costain"
+      }
+    ],
     "category": "construction",
     "competitive": true,
     "source": "https://www.costain.com/media/press-releases/2024/costain-wins-major-hs2-rail-systems-tunnel-and-lineside-me-contract/"
+  },
+  {
+    "id": "MOD-PALANTIR-EA-2026",
+    "title": "Palantir Enterprise Agreement (Defence Data Analytics)",
+    "description": "Follow-on enterprise agreement for continued licencing and support of data analytics capabilities supporting critical strategic, tactical and live operational decision making across defence classifications, interoperable with NATO and allied nations.",
+    "buyer": "Ministry of Defence",
+    "status": "awarded",
+    "awardDate": "2026-04",
+    "value": 48000000,
+    "currency": "GBP",
+    "supplier": "Palantir Technologies UK Limited",
+    "duration": "3 years (Apr 2026 \u2013 Mar 2029)",
+    "source": "Find a Tender Service",
+    "sourceUrl": "https://www.find-tender.service.gov.uk/Notice/006088-2026"
   }
 ]
