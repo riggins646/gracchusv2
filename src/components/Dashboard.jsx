@@ -386,6 +386,17 @@ function ChartCard({
     }
   };
 
+  const renderInlineBold = (str) => {
+    const parts = str.split(/(\*\*.+?\*\*)/g);
+    return parts.map((part, i) => {
+      const boldMatch = part.match(/^\*\*(.+?)\*\*$/);
+      if (boldMatch) {
+        return <strong key={i} className="text-white font-semibold">{boldMatch[1]}</strong>;
+      }
+      return part;
+    });
+  };
+
   const renderFixContent = (text) => {
     const sections = [];
     const lines = text.split("\n");
@@ -416,7 +427,7 @@ function ChartCard({
         )}
         {sec.body.length > 0 && (
           <p className="text-[15px] leading-[1.7] text-gray-300 mb-2">
-            {sec.body.join(" ")}
+            {renderInlineBold(sec.body.join(" "))}
           </p>
         )}
         {sec.bullets.length > 0 && (
@@ -424,7 +435,7 @@ function ChartCard({
             {sec.bullets.map((b, j) => (
               <div key={j} className="flex gap-3 items-start rounded-lg bg-gray-800/30 border border-gray-800/50 px-3.5 py-3">
                 <span className="text-amber-500/70 text-[14px] leading-none mt-0.5 shrink-0">{"\u25B8"}</span>
-                <span className="text-[15px] leading-[1.65] text-gray-300">{b}</span>
+                <span className="text-[15px] leading-[1.65] text-gray-300">{renderInlineBold(b)}</span>
               </div>
             ))}
           </div>
