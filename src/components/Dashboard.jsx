@@ -9,7 +9,7 @@ import {
   ScatterChart, Scatter, ZAxis, CartesianGrid, AreaChart, Area,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
   LineChart, Line, ComposedChart,
-  Treemap
+  Treemap, ReferenceLine
 } from "recharts";
 import {
   Search, TrendingUp, TrendingDown, AlertTriangle, Clock, Building2,
@@ -55,6 +55,7 @@ import deptSpendingData from "../data/departmental-spending.json";
 import spendingTreeData from "../data/spending-tree.json";
 import giltYieldsData from "../data/gilt-yields.json";
 import moneySupplyData from "../data/money-supply.json";
+import mpPayVsCountryData from "../data/mp-pay-vs-country.json";
 import { encodeShareId, buildContextLine, shareFmtAmt, renderCardToCanvas, renderTrendCard, renderChartShareCard } from "../lib/share-utils";
 import { sortRows, searchRows, processTableData, fmtMillions, fmtCompact, fmtCurrency, fmtPct, getUniqueValues, SORT_PRESETS } from "../lib/table-utils";
 
@@ -3921,6 +3922,7 @@ export default function App() {
   const [energyRange, setEnergyRange] = useState("10y");
   const [innovRange, setInnovRange] = useState("5y");
   const [defenceRange, setDefenceRange] = useState("5y");
+  const [mpPayRange, setMpPayRange] = useState("max");
   const [taxCalcSalary, setTaxCalcSalary] = useState(35000);
   const [flowTaxSalary, setFlowTaxSalary] = useState(55000);
 
@@ -4497,6 +4499,7 @@ export default function App() {
       icon: Scale,
       children: [
         { id: "transparency.donations", label: "Political Donations" },
+        { id: "transparency.mppay", label: "MPs' Pay vs the Country" },
         { id: "transparency.mp", label: "MPs' Income & Expenses" },
         { id: "transparency.lobbying", label: "Lobbying" },
         { id: "transparency.aid", label: "Foreign Aid" }
@@ -7722,6 +7725,229 @@ export default function App() {
             <div className="text-gray-600 text-xs px-1 mt-4">
               Source: Electoral Commission — Open Government Licence v3.0.{" "}
               {dd.metadata.note}
+            </div>
+          </div>
+          );
+        })()}
+
+        {/* ===== ACCOUNTABILITY: MPs' PAY vs THE COUNTRY ===== */}
+        {view === "transparency.mppay" && (() => {
+          const mpPayTimeline = mpPayVsCountryData.timeline;
+          const mpCosts = mpPayVsCountryData.mpCosts;
+          const hl = mpPayVsCountryData.headline;
+
+          /* Build indexed series (2000 = 100) */
+          const base = mpPayTimeline[0];
+          const indexedFull = mpPayTimeline.map(d => ({
+            year: d.year,
+            mp: +((d.mp_salary / base.mp_salary) * 100).toFixed(1),
+            median: +((d.uk_median / base.uk_median) * 100).toFixed(1),
+            private: +((d.private_median / base.private_median) * 100).toFixed(1)
+          }));
+
+          const filtered = filterByRange(mpPayTimeline, "year", mpPayRange);
+          const filteredBase = filtered[0] || base;
+          const indexed = filtered.map(d => ({
+            year: d.year,
+            mp: +((d.mp_salary / filteredBase.mp_salary) * 100).toFixed(1),
+            median: +((d.uk_median / filteredBase.uk_median) * 100).toFixed(1),
+            private: +((d.private_median / filteredBase.private_median) * 100).toFixed(1)
+          }));
+
+          const filteredCosts = filterByRange(mpCosts, "year", mpPayRange);
+          const latestCost = mpCosts[mpCosts.length - 1];
+          const latest = mpPayTimeline[mpPayTimeline.length - 1];
+          const gapFormatted = "\u00A3" + latest.pay_gap.toLocaleString();
+          const salaryFormatted = "\u00A3" + latest.mp_salary.toLocaleString();
+          const medianFormatted = "\u00A3" + latest.uk_median.toLocaleString();
+
+          return (
+          <div className="space-y-6">
+            {/* HEADER */}
+            <div className="py-6 mb-4">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+                {"Accountability \u203A MPs\u2019 Pay"}
+              </div>
+              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+                {"MPs\u2019 Pay vs the Country"}
+              </h2>
+              <p className="text-gray-500 text-sm mt-2 max-w-2xl">
+                {"How MP pay has changed relative to the people they represent. All data from IPSA, ONS ASHE, and UK Parliament official records. Base year indexed to 100."}
+              </p>
+            </div>
+
+            {/* TIME FILTER */}
+            <TimeRangeControl range={mpPayRange} setRange={setMpPayRange} />
+
+            {/* STAT CARDS */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <StatCard icon={PoundSterling} label={"MP Salary " + latest.year} value={salaryFormatted} accent="text-red-400" sub={"+" + hl.mp_growth_since_2000_pct + "% since 2000"} />
+              <StatCard icon={Users} label={"UK Median " + latest.year} value={medianFormatted} accent="text-blue-400" sub={"+" + hl.median_growth_since_2000_pct + "% since 2000"} />
+              <StatCard icon={TrendingUp} label="Pay Gap" value={gapFormatted} accent="text-amber-400" sub={"MP earns " + latest.mp_multiple.toFixed(1) + "\u00D7 median"} />
+              <StatCard icon={Scale} label={"Total MP Cost " + latestCost.year} value={"\u00A3" + Math.round(latestCost.total / 1000) + "k"} accent="text-purple-400" sub="Salary + staff + office + travel" />
+            </div>
+
+            {/* === HERO CHART: INDEXED PAY GROWTH === */}
+            <ChartCard
+              title="Who got the bigger pay rise?"
+              subtitle={"Pay growth indexed to " + (filtered[0] || base).year + " = 100. A higher number means faster growth since " + (filtered[0] || base).year + "."}
+              info={"Indexed comparison of MP basic salary, UK median full-time earnings, and private sector median full-time earnings. Sources: IPSA, ONS ASHE Table 1 & Table 13."}
+              editorial={"Since 2000, UK median earnings have actually outpaced MP salary growth in percentage terms \u2014 but MPs started from a base 2.5\u00D7 higher. The absolute gap has widened by over \u00A325,000 in the same period. In 2015, IPSA awarded a controversial 10% pay rise that drove a visible spike in the index."}
+              shareHeadline={"Who got the bigger pay rise?"}
+              shareSubline={"MPs vs the Country \u2014 since 2000"}
+              accentColor="#ef4444"
+              onShare={handleChartShare}
+              explainData={indexed.slice(-8).map(d => d.year + ": MP=" + d.mp + ", Median=" + d.median + ", Private=" + d.private).join("; ")}
+            >
+              <ResponsiveContainer width="100%" height={320}>
+                <AreaChart data={indexed} margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="mpPayGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#ef4444" stopOpacity={0.25} />
+                      <stop offset="100%" stopColor="#ef4444" stopOpacity={0} />
+                    </linearGradient>
+                    <linearGradient id="medianPayGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.15} />
+                      <stop offset="100%" stopColor="#3b82f6" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                  <XAxis dataKey="year" tick={{ fill: "#64748b", fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: "#64748b", fontSize: 11 }} axisLine={false} tickLine={false} domain={["dataMin - 2", "auto"]} />
+                  <Tooltip
+                    contentStyle={{ backgroundColor: "#0f172a", border: "1px solid #1e293b", borderRadius: 8, fontSize: 12 }}
+                    labelStyle={{ color: "#94a3b8" }}
+                    formatter={(v, name) => [v.toFixed(1), name === "mp" ? "MP Salary" : name === "median" ? "UK Median" : "Private Sector"]}
+                  />
+                  <ReferenceLine y={100} stroke="#475569" strokeDasharray="6 4" label={{ value: "Base = 100", fill: "#475569", fontSize: 10, position: "insideTopRight" }} />
+                  <Area type="monotone" dataKey="median" name="median" stroke="#3b82f6" fill="url(#medianPayGrad)" strokeWidth={2} dot={false} />
+                  <Area type="monotone" dataKey="private" name="private" stroke="#22d3ee" fill="none" strokeWidth={1.5} strokeDasharray="4 3" dot={false} />
+                  <Area type="monotone" dataKey="mp" name="mp" stroke="#ef4444" fill="url(#mpPayGrad)" strokeWidth={2.5} dot={false} />
+                </AreaChart>
+              </ResponsiveContainer>
+              <div className="flex items-center justify-center gap-6 mt-3 text-[11px] text-gray-500">
+                <span className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-red-500 inline-block rounded" /> MP Salary</span>
+                <span className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-blue-500 inline-block rounded" /> UK Median</span>
+                <span className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-cyan-400 inline-block rounded opacity-60" style={{ borderTop: "1px dashed" }} /> Private Sector</span>
+              </div>
+            </ChartCard>
+
+            {/* === CHART PAIR: PAY GAP + MP COST === */}
+            <ChartPair>
+              {/* SECONDARY CHART: ABSOLUTE PAY GAP */}
+              <ChartCard
+                title={"The Pay Gap in Pounds"}
+                subtitle="Absolute difference between MP salary and UK median earnings"
+                info="Shows how far apart MP and median pay are in real pounds. Even when percentage growth is similar, the absolute gap keeps widening because MPs start from a higher base."
+                editorial={"The pay gap has grown from \u00A329,523 in 2000 to " + gapFormatted + " in " + latest.year + ". That\u2019s an extra \u00A3" + (latest.pay_gap - base.pay_gap).toLocaleString() + " of distance between MPs and the people they serve."}
+                shareHeadline={"The gap keeps growing"}
+                shareSubline={gapFormatted + " between MPs and the median worker"}
+                accentColor="#f59e0b"
+                onShare={handleChartShare}
+                explainData={filtered.slice(-8).map(d => d.year + ": MP \u00A3" + d.mp_salary.toLocaleString() + " vs Median \u00A3" + d.uk_median.toLocaleString() + " = gap \u00A3" + d.pay_gap.toLocaleString()).join("; ")}
+              >
+                <ResponsiveContainer width="100%" height={280}>
+                  <BarChart data={filtered} margin={{ top: 10, right: 10, left: 10, bottom: 0 }} barGap={1}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                    <XAxis dataKey="year" tick={{ fill: "#64748b", fontSize: 10 }} axisLine={false} tickLine={false} interval={filtered.length > 15 ? 2 : 0} />
+                    <YAxis tick={{ fill: "#64748b", fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={v => "\u00A3" + (v / 1000).toFixed(0) + "k"} />
+                    <Tooltip
+                      contentStyle={{ backgroundColor: "#0f172a", border: "1px solid #1e293b", borderRadius: 8, fontSize: 12 }}
+                      labelStyle={{ color: "#94a3b8" }}
+                      formatter={(v) => ["\u00A3" + v.toLocaleString()]}
+                    />
+                    <Bar dataKey="uk_median" name="UK Median" fill="#3b82f6" radius={[2, 2, 0, 0]} />
+                    <Bar dataKey="mp_salary" name="MP Salary" fill="#ef4444" radius={[2, 2, 0, 0]} opacity={0.85} />
+                  </BarChart>
+                </ResponsiveContainer>
+                <div className="flex items-center justify-center gap-6 mt-3 text-[11px] text-gray-500">
+                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-blue-500 inline-block rounded-sm" /> UK Median</span>
+                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-red-500 inline-block rounded-sm" /> MP Salary</span>
+                </div>
+              </ChartCard>
+
+              {/* THIRD CHART: TOTAL COST OF AN MP */}
+              <ChartCard
+                title={"The Real Cost of an MP"}
+                subtitle="Total taxpayer-funded cost breakdown per MP per year"
+                info="Includes base salary, staffing budget, office costs, accommodation, and travel allowances. Source: IPSA annual budget allocations (non-London). Actual spend varies by MP."
+                editorial={"The total taxpayer cost per MP has risen from \u00A3" + Math.round(mpCosts[0].total / 1000) + "k in " + mpCosts[0].year + " to \u00A3" + Math.round(latestCost.total / 1000) + "k in " + latestCost.year + ". Staffing is by far the largest component, making up over 60% of total costs."}
+                shareHeadline={"\u00A3" + Math.round(latestCost.total / 1000) + "k per MP"}
+                shareSubline="The full taxpayer-funded cost per Member of Parliament"
+                accentColor="#a855f7"
+                onShare={handleChartShare}
+                explainData={filteredCosts.slice(-6).map(d => d.year + ": salary \u00A3" + d.salary.toLocaleString() + ", staffing \u00A3" + d.staffing.toLocaleString() + ", office \u00A3" + d.office.toLocaleString() + ", accomm \u00A3" + d.accommodation.toLocaleString() + ", travel \u00A3" + d.travel.toLocaleString() + ", total \u00A3" + d.total.toLocaleString()).join("; ")}
+              >
+                <ResponsiveContainer width="100%" height={280}>
+                  <BarChart data={filteredCosts} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                    <XAxis dataKey="year" tick={{ fill: "#64748b", fontSize: 10 }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fill: "#64748b", fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={v => "\u00A3" + (v / 1000).toFixed(0) + "k"} />
+                    <Tooltip
+                      contentStyle={{ backgroundColor: "#0f172a", border: "1px solid #1e293b", borderRadius: 8, fontSize: 12 }}
+                      labelStyle={{ color: "#94a3b8" }}
+                      formatter={(v) => ["\u00A3" + v.toLocaleString()]}
+                    />
+                    <Bar dataKey="salary" name="Base Salary" stackId="cost" fill="#ef4444" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="staffing" name="Staffing Budget" stackId="cost" fill="#a855f7" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="office" name="Office Costs" stackId="cost" fill="#f59e0b" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="accommodation" name="Accommodation" stackId="cost" fill="#22d3ee" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="travel" name="Travel" stackId="cost" fill="#10b981" radius={[0, 0, 0, 0]} />
+                    <Bar dataKey="other" name="Other" stackId="cost" fill="#64748b" radius={[2, 2, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+                <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mt-3 text-[11px] text-gray-500">
+                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-red-500 inline-block rounded-sm" /> Salary</span>
+                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-purple-500 inline-block rounded-sm" /> Staffing</span>
+                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-amber-500 inline-block rounded-sm" /> Office</span>
+                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-cyan-400 inline-block rounded-sm" /> Accommodation</span>
+                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-emerald-500 inline-block rounded-sm" /> Travel</span>
+                  <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-gray-500 inline-block rounded-sm" /> Other</span>
+                </div>
+              </ChartCard>
+            </ChartPair>
+
+            {/* === MULTIPLIER TREND === */}
+            <div className="border-t border-gray-800/40 mt-10 pt-10">
+              <SectionHeader label={"Accountability \u203A Pay Ratio"} title="How Many Times More?" accent="text-red-400" />
+              <p className="text-gray-500 text-sm mb-6 -mt-4 max-w-2xl">
+                {"The ratio of MP salary to UK median earnings. An MP earned " + base.mp_multiple.toFixed(1) + "\u00D7 the median wage in 2000 and earns " + latest.mp_multiple.toFixed(1) + "\u00D7 today."}
+              </p>
+              <ChartCard
+                title="MP-to-Median Pay Multiplier"
+                subtitle="How many median salaries one MP salary equals"
+                info="Calculated as MP basic salary divided by UK median full-time annual gross earnings. Source: IPSA / ONS ASHE."
+                shareHeadline={latest.mp_multiple.toFixed(1) + "\u00D7"}
+                shareSubline="What an MP earns vs the median worker"
+                accentColor="#ef4444"
+                onShare={handleChartShare}
+                explainData={filtered.slice(-8).map(d => d.year + ": " + d.mp_multiple.toFixed(2) + "\u00D7").join("; ")}
+              >
+                <ResponsiveContainer width="100%" height={240}>
+                  <AreaChart data={filtered} margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="multGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#ef4444" stopOpacity={0.2} />
+                        <stop offset="100%" stopColor="#ef4444" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                    <XAxis dataKey="year" tick={{ fill: "#64748b", fontSize: 11 }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fill: "#64748b", fontSize: 11 }} axisLine={false} tickLine={false} domain={[2, 3]} tickFormatter={v => v.toFixed(1) + "\u00D7"} />
+                    <Tooltip
+                      contentStyle={{ backgroundColor: "#0f172a", border: "1px solid #1e293b", borderRadius: 8, fontSize: 12 }}
+                      labelStyle={{ color: "#94a3b8" }}
+                      formatter={(v) => [v.toFixed(2) + "\u00D7", "MP \u00F7 Median"]}
+                    />
+                    <Area type="monotone" dataKey="mp_multiple" stroke="#ef4444" fill="url(#multGrad)" strokeWidth={2} dot={false} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </ChartCard>
+            </div>
+
+            {/* SOURCE NOTE */}
+            <div className="text-[10px] text-gray-600 leading-relaxed mt-8 border-t border-gray-800/30 pt-4">
+              {"Sources: IPSA (Independent Parliamentary Standards Authority), ONS Annual Survey of Hours and Earnings (ASHE) Table 1 & Table 13, House of Commons Library Research Briefings, UK Parliament official records. MP salary = basic parliamentary salary from 1 April each year. Median earnings = gross annual earnings for full-time employees. Private sector from ASHE Table 13 public/private breakdown. MP costs = IPSA non-London budget allocations."}
             </div>
           </div>
           );

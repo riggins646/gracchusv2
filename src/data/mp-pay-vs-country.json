@@ -1,0 +1,381 @@
+{
+  "metadata": {
+    "title": "MPs' Pay vs the Country",
+    "compiled": "2026-04-09",
+    "sources": [
+      "IPSA (Independent Parliamentary Standards Authority)",
+      "ONS Annual Survey of Hours and Earnings (ASHE) Table 1 & Table 13",
+      "House of Commons Library Research Briefings",
+      "UK Parliament official records"
+    ],
+    "notes": {
+      "mp_salary": "Basic parliamentary salary from 1 April each year. Pre-2010: SSRB recommendations. Post-2010: IPSA determinations.",
+      "median_earnings": "Median gross annual earnings for full-time employees, UK. ONS ASHE Table 1. Where exact year unavailable, linearly interpolated between nearest ONS anchor points.",
+      "private_sector": "Median gross annual earnings for full-time private sector employees. ONS ASHE Table 13. Derived from all-employee median using ONS public/private ratios.",
+      "mp_costs": "IPSA budget allocations per MP from 2010-11 onwards. Pre-2010 data limited. Uses non-London allocations for consistency."
+    }
+  },
+  "timeline": [
+    {
+      "year": 2000,
+      "mp_salary": 48371,
+      "uk_median": 18848,
+      "private_median": 18280,
+      "pay_gap": 29523,
+      "mp_multiple": 2.57
+    },
+    {
+      "year": 2001,
+      "mp_salary": 49822,
+      "uk_median": 19450,
+      "private_median": 18860,
+      "pay_gap": 30372,
+      "mp_multiple": 2.56
+    },
+    {
+      "year": 2002,
+      "mp_salary": 55118,
+      "uk_median": 20170,
+      "private_median": 19560,
+      "pay_gap": 34948,
+      "mp_multiple": 2.73
+    },
+    {
+      "year": 2003,
+      "mp_salary": 56358,
+      "uk_median": 20870,
+      "private_median": 20250,
+      "pay_gap": 35488,
+      "mp_multiple": 2.70
+    },
+    {
+      "year": 2004,
+      "mp_salary": 57485,
+      "uk_median": 21610,
+      "private_median": 20980,
+      "pay_gap": 35875,
+      "mp_multiple": 2.66
+    },
+    {
+      "year": 2005,
+      "mp_salary": 59095,
+      "uk_median": 22422,
+      "private_median": 21770,
+      "pay_gap": 36673,
+      "mp_multiple": 2.64
+    },
+    {
+      "year": 2006,
+      "mp_salary": 60277,
+      "uk_median": 23114,
+      "private_median": 22430,
+      "pay_gap": 37163,
+      "mp_multiple": 2.61
+    },
+    {
+      "year": 2007,
+      "mp_salary": 61820,
+      "uk_median": 23806,
+      "private_median": 23090,
+      "pay_gap": 38014,
+      "mp_multiple": 2.60
+    },
+    {
+      "year": 2008,
+      "mp_salary": 63291,
+      "uk_median": 24498,
+      "private_median": 23760,
+      "pay_gap": 38793,
+      "mp_multiple": 2.58
+    },
+    {
+      "year": 2009,
+      "mp_salary": 64766,
+      "uk_median": 25123,
+      "private_median": 24360,
+      "pay_gap": 39643,
+      "mp_multiple": 2.58
+    },
+    {
+      "year": 2010,
+      "mp_salary": 65738,
+      "uk_median": 25879,
+      "private_median": 25100,
+      "pay_gap": 39859,
+      "mp_multiple": 2.54
+    },
+    {
+      "year": 2011,
+      "mp_salary": 65738,
+      "uk_median": 26095,
+      "private_median": 25320,
+      "pay_gap": 39643,
+      "mp_multiple": 2.52
+    },
+    {
+      "year": 2012,
+      "mp_salary": 65738,
+      "uk_median": 26462,
+      "private_median": 25670,
+      "pay_gap": 39276,
+      "mp_multiple": 2.48
+    },
+    {
+      "year": 2013,
+      "mp_salary": 66396,
+      "uk_median": 26884,
+      "private_median": 26060,
+      "pay_gap": 39512,
+      "mp_multiple": 2.47
+    },
+    {
+      "year": 2014,
+      "mp_salary": 67060,
+      "uk_median": 27195,
+      "private_median": 26380,
+      "pay_gap": 39865,
+      "mp_multiple": 2.47
+    },
+    {
+      "year": 2015,
+      "mp_salary": 74000,
+      "uk_median": 27615,
+      "private_median": 26790,
+      "pay_gap": 46385,
+      "mp_multiple": 2.68
+    },
+    {
+      "year": 2016,
+      "mp_salary": 74962,
+      "uk_median": 28195,
+      "private_median": 27350,
+      "pay_gap": 46767,
+      "mp_multiple": 2.66
+    },
+    {
+      "year": 2017,
+      "mp_salary": 76011,
+      "uk_median": 28758,
+      "private_median": 27910,
+      "pay_gap": 47253,
+      "mp_multiple": 2.64
+    },
+    {
+      "year": 2018,
+      "mp_salary": 77379,
+      "uk_median": 29559,
+      "private_median": 28690,
+      "pay_gap": 47820,
+      "mp_multiple": 2.62
+    },
+    {
+      "year": 2019,
+      "mp_salary": 79468,
+      "uk_median": 30378,
+      "private_median": 29470,
+      "pay_gap": 49090,
+      "mp_multiple": 2.62
+    },
+    {
+      "year": 2020,
+      "mp_salary": 81932,
+      "uk_median": 31487,
+      "private_median": 30540,
+      "pay_gap": 50445,
+      "mp_multiple": 2.60
+    },
+    {
+      "year": 2021,
+      "mp_salary": 81932,
+      "uk_median": 31285,
+      "private_median": 30340,
+      "pay_gap": 50647,
+      "mp_multiple": 2.62
+    },
+    {
+      "year": 2022,
+      "mp_salary": 84144,
+      "uk_median": 33000,
+      "private_median": 32010,
+      "pay_gap": 51144,
+      "mp_multiple": 2.55
+    },
+    {
+      "year": 2023,
+      "mp_salary": 86584,
+      "uk_median": 34963,
+      "private_median": 33920,
+      "pay_gap": 51621,
+      "mp_multiple": 2.48
+    },
+    {
+      "year": 2024,
+      "mp_salary": 91346,
+      "uk_median": 37430,
+      "private_median": 37100,
+      "pay_gap": 53916,
+      "mp_multiple": 2.44
+    },
+    {
+      "year": 2025,
+      "mp_salary": 93904,
+      "uk_median": 39039,
+      "private_median": 38720,
+      "pay_gap": 54865,
+      "mp_multiple": 2.41
+    }
+  ],
+  "mpCosts": [
+    {
+      "year": 2012,
+      "salary": 65738,
+      "staffing": 115000,
+      "office": 22000,
+      "accommodation": 20600,
+      "travel": 8200,
+      "other": 3500,
+      "total": 235038
+    },
+    {
+      "year": 2013,
+      "salary": 66396,
+      "staffing": 118000,
+      "office": 22500,
+      "accommodation": 20600,
+      "travel": 8400,
+      "other": 3600,
+      "total": 239496
+    },
+    {
+      "year": 2014,
+      "salary": 67060,
+      "staffing": 120900,
+      "office": 23000,
+      "accommodation": 20600,
+      "travel": 8600,
+      "other": 3700,
+      "total": 243860
+    },
+    {
+      "year": 2015,
+      "salary": 74000,
+      "staffing": 137200,
+      "office": 23450,
+      "accommodation": 22110,
+      "travel": 9200,
+      "other": 3800,
+      "total": 269760
+    },
+    {
+      "year": 2016,
+      "salary": 74962,
+      "staffing": 141400,
+      "office": 24850,
+      "accommodation": 22920,
+      "travel": 9400,
+      "other": 3900,
+      "total": 277432
+    },
+    {
+      "year": 2017,
+      "salary": 76011,
+      "staffing": 146600,
+      "office": 25550,
+      "accommodation": 23450,
+      "travel": 9600,
+      "other": 4000,
+      "total": 285211
+    },
+    {
+      "year": 2018,
+      "salary": 77379,
+      "staffing": 150900,
+      "office": 26100,
+      "accommodation": 23920,
+      "travel": 9800,
+      "other": 4100,
+      "total": 292199
+    },
+    {
+      "year": 2019,
+      "salary": 79468,
+      "staffing": 161550,
+      "office": 26850,
+      "accommodation": 24460,
+      "travel": 10100,
+      "other": 4200,
+      "total": 306628
+    },
+    {
+      "year": 2020,
+      "salary": 81932,
+      "staffing": 170000,
+      "office": 27550,
+      "accommodation": 25000,
+      "travel": 6800,
+      "other": 4300,
+      "total": 315582
+    },
+    {
+      "year": 2021,
+      "salary": 81932,
+      "staffing": 175000,
+      "office": 28200,
+      "accommodation": 25580,
+      "travel": 5600,
+      "other": 4400,
+      "total": 320712
+    },
+    {
+      "year": 2022,
+      "salary": 84144,
+      "staffing": 198920,
+      "office": 29040,
+      "accommodation": 26100,
+      "travel": 9200,
+      "other": 4500,
+      "total": 351904
+    },
+    {
+      "year": 2023,
+      "salary": 86584,
+      "staffing": 236170,
+      "office": 29400,
+      "accommodation": 27010,
+      "travel": 10200,
+      "other": 4700,
+      "total": 394064
+    },
+    {
+      "year": 2024,
+      "salary": 91346,
+      "staffing": 250820,
+      "office": 31150,
+      "accommodation": 28160,
+      "travel": 10800,
+      "other": 4900,
+      "total": 417176
+    },
+    {
+      "year": 2025,
+      "salary": 93904,
+      "staffing": 268550,
+      "office": 32200,
+      "accommodation": 29200,
+      "travel": 11200,
+      "other": 5100,
+      "total": 440154
+    }
+  ],
+  "headline": {
+    "mp_salary_2025": 93904,
+    "uk_median_2025": 39039,
+    "pay_gap_2025": 54865,
+    "mp_growth_since_2000_pct": 94.2,
+    "median_growth_since_2000_pct": 107.2,
+    "private_growth_since_2000_pct": 111.9,
+    "mp_multiple_2025": 2.41,
+    "mp_multiple_2000": 2.57,
+    "total_mp_cost_2025": 440154
+  }
+}
