@@ -599,8 +599,8 @@ function ChartCard({
             onClick={closeDrawer}
             className="absolute inset-0 transition-opacity duration-300"
             style={{
-              backgroundColor: drawerVisible ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0)",
-              backdropFilter: drawerVisible ? "blur(2px)" : "none"
+              backgroundColor: drawerVisible ? "rgba(0,0,0,0.6)" : "rgba(0,0,0,0)",
+              backdropFilter: drawerVisible ? "blur(4px)" : "none"
             }}
           />
           {/* Panel */}
@@ -608,8 +608,8 @@ function ChartCard({
             className={
               "absolute top-0 right-0 h-full " +
               "w-full sm:w-[75vw] md:w-[480px] lg:w-[500px] " +
-              "bg-[#0a0a0f] border-l border-gray-800/60 " +
-              "shadow-2xl shadow-black/50 " +
+              "bg-[#0d0d14] border-l-2 border-gray-700/50 " +
+              "shadow-[-8px_0_30px_rgba(0,0,0,0.7)] " +
               "flex flex-col " +
               "transition-transform duration-300 ease-out"
             }

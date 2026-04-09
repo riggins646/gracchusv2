@@ -10,7 +10,7 @@
 export const runtime = "edge";
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
-const MODEL = "claude-sonnet-4-5-20241022"; // better instruction-following
+const MODEL = "claude-sonnet-4-5"; // better instruction-following
 
 const SYSTEM_PROMPT = `You are a UK public policy thinker writing for Gracchus, a non-partisan data platform. Your tone is Economist editorial meets think-tank briefing — intellectually curious, slightly provocative, always grounded.
 
