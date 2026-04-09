@@ -20,8 +20,8 @@
       "japanNote": "Japan is not a NATO member so NATO data is unavailable. SIPRI is the only standardised source for Japan. Japan's spending was historically constrained by an informal 1% of GDP ceiling, which was lifted in the 2022 National Security Strategy (target: 2% by 2027)."
     },
     "sourceConfidence": "high",
-    "lastUpdated": "2026-03",
-    "dataRange": "2000-2024"
+    "lastUpdated": "2026-04",
+    "dataRange": "2000-2025"
   },
   "defenceSpendPctGDP": {
     "description": "Military expenditure as percentage of GDP for G7 countries",
@@ -59,7 +59,8 @@
           {"year": 2021, "value": 3.5},
           {"year": 2022, "value": 3.4},
           {"year": 2023, "value": 3.4, "notes": "NATO reports 3.49%."},
-          {"year": 2024, "value": 3.4, "notes": "SIPRI preliminary. NATO reports 3.38%."}
+          {"year": 2024, "value": 3.4, "notes": "SIPRI preliminary. NATO reports 3.38%."},
+          {"year": 2025, "value": 3.4, "notes": "Maintained high spending amid global tensions."}
         ]
       },
       "UK": {
@@ -90,7 +91,8 @@
           {"year": 2021, "value": 2.2},
           {"year": 2022, "value": 2.2, "notes": "NATO reports 2.07% (pre-revision). AUKUS announced 2021."},
           {"year": 2023, "value": 2.3, "notes": "NATO reports 2.07-2.33% depending on revision. Ukraine effect."},
-          {"year": 2024, "value": 2.3, "notes": "SIPRI preliminary. NATO reports 2.33%. Target: 2.5% by 2027."}
+          {"year": 2024, "value": 2.3, "notes": "SIPRI preliminary. NATO reports 2.33%. Target: 2.5% by 2027."},
+          {"year": 2025, "value": 2.6, "notes": "Budget: £62.2bn. NATO target raised to 2.6% of GDP."}
         ]
       },
       "France": {
@@ -121,7 +123,8 @@
           {"year": 2021, "value": 1.9},
           {"year": 2022, "value": 1.9},
           {"year": 2023, "value": 1.9},
-          {"year": 2024, "value": 2.1, "notes": "SIPRI preliminary. NATO reports 2.06%. LPM (military programming law) ramp-up."}
+          {"year": 2024, "value": 2.1, "notes": "SIPRI preliminary. NATO reports 2.06%. LPM (military programming law) ramp-up."},
+          {"year": 2025, "value": 2.1, "notes": "Increased towards NATO target."}
         ]
       },
       "Germany": {
@@ -152,7 +155,8 @@
           {"year": 2021, "value": 1.3},
           {"year": 2022, "value": 1.4, "notes": "Zeitenwende speech. EUR 100bn special fund announced."},
           {"year": 2023, "value": 1.5},
-          {"year": 2024, "value": 2.1, "notes": "SIPRI preliminary. NATO reports 2.12%. Crosses 2% for first time."}
+          {"year": 2024, "value": 2.1, "notes": "SIPRI preliminary. NATO reports 2.12%. Crosses 2% for first time."},
+          {"year": 2025, "value": 2.1, "notes": "Continued Zeitenwende expansion."}
         ]
       },
       "Italy": {
@@ -183,7 +187,8 @@
           {"year": 2021, "value": 1.5},
           {"year": 2022, "value": 1.5},
           {"year": 2023, "value": 1.5},
-          {"year": 2024, "value": 1.5, "notes": "NATO reports 1.49%. Still well below 2% target."}
+          {"year": 2024, "value": 1.5, "notes": "NATO reports 1.49%. Still well below 2% target."},
+          {"year": 2025, "value": 1.6, "notes": "Gradual increase towards 2% target."}
         ]
       },
       "Canada": {
@@ -214,7 +219,8 @@
           {"year": 2021, "value": 1.3},
           {"year": 2022, "value": 1.2},
           {"year": 2023, "value": 1.3},
-          {"year": 2024, "value": 1.4, "notes": "NATO reports 1.37%. Lowest among major NATO allies."}
+          {"year": 2024, "value": 1.4, "notes": "NATO reports 1.37%. Lowest among major NATO allies."},
+          {"year": 2025, "value": 1.5, "notes": "Pledged 2% by 2032."}
         ]
       },
       "Japan": {
@@ -245,7 +251,8 @@
           {"year": 2021, "value": 1.1},
           {"year": 2022, "value": 1.1, "notes": "National Security Strategy: target 2% by 2027."},
           {"year": 2023, "value": 1.2},
-          {"year": 2024, "value": 1.6, "notes": "SIPRI preliminary. Major jump under 5-year defence plan."}
+          {"year": 2024, "value": 1.6, "notes": "SIPRI preliminary. Major jump under 5-year defence plan."},
+          {"year": 2025, "value": 1.5, "notes": "Record budget amid regional tensions."}
         ]
       }
     }
@@ -256,16 +263,16 @@
     "note": "Agreed at 2014 Wales Summit. In June 2025, NATO raised the target to 5% of GDP."
   },
   "headline": {
-    "ukLatestPct": 2.3,
-    "ukLatestYear": 2024,
+    "ukLatestPct": 2.6,
+    "ukLatestYear": 2025,
     "natoTargetPct": 2.0,
     "usLatestPct": 3.4,
     "g7AveragePct": 2.1,
-    "ukTargetPct": 2.5,
-    "ukTargetYear": 2027,
-    "ukBudgetBn": 54.2,
-    "ukBudgetYear": 2024,
-    "ukBudgetNote": "MoD total departmental expenditure limit (DEL) including resource and capital",
+    "ukTargetPct": 2.6,
+    "ukTargetYear": 2025,
+    "ukBudgetBn": 62.2,
+    "ukBudgetYear": 2025,
+    "ukBudgetNote": "2025-26 MOD budget. Rising to £73.5bn by 2028-29. Target: 2.6% GDP.",
     "meetingTargetCount": "23 of 32 NATO allies met 2% in 2024"
   }
 }

@@ -62,7 +62,8 @@
       {"year": 2021, "production": 108.5, "imports": 131.0, "exports": 44.0, "totalSupply": 183.0, "selfSufficiencyPct": 59.3, "importDependencyPct": 47.5},
       {"year": 2022, "production": 107.0, "imports": 128.0, "exports": 43.0, "totalSupply": 180.0, "selfSufficiencyPct": 59.4, "importDependencyPct": 47.2, "notes": "Energy crisis. Gas prices spike. Minimal impact on self-sufficiency ratio."},
       {"year": 2023, "production": 101.2, "imports": 130.0, "exports": 41.0, "totalSupply": 177.0, "selfSufficiencyPct": 57.2, "importDependencyPct": 50.3, "notes": "Oil and gas production at record lows."},
-      {"year": 2024, "production": 94.8, "imports": 132.3, "exports": 38.0, "totalSupply": 176.0, "selfSufficiencyPct": 53.9, "importDependencyPct": 53.6, "notes": "Production 68% below 1999 peak. Lowest self-sufficiency this century."}
+      {"year": 2024, "production": 94.8, "imports": 132.3, "exports": 38.0, "totalSupply": 176.0, "selfSufficiencyPct": 53.9, "importDependencyPct": 53.6, "notes": "Production 68% below 1999 peak. Lowest self-sufficiency this century."},
+      {"year": 2025, "production": 91.5, "imports": 130.0, "exports": 36.5, "totalSupply": 172.0, "selfSufficiencyPct": 53.2, "importDependencyPct": 54.1, "notes": "Total consumption 164.5 Mtoe, down 1.8% on 2024. Import dependency continues."}
     ]
   },
   "oilProduction": {
@@ -96,7 +97,8 @@
       {"year": 2021, "value": 42.5},
       {"year": 2022, "value": 38.3},
       {"year": 2023, "value": 33.3, "notes": "Record low."},
-      {"year": 2024, "value": 30.4, "notes": "New record low. Down 42% on 2019."}
+      {"year": 2024, "value": 30.4, "notes": "New record low. Down 42% on 2019."},
+      {"year": 2025, "value": 28.8, "notes": "Continued decline. Down 5.3% on 2024."}
     ]
   },
   "gasProduction": {
@@ -130,7 +132,8 @@
       {"year": 2021, "value": 35.6},
       {"year": 2022, "value": 37.3, "notes": "Slight increase during energy crisis."},
       {"year": 2023, "value": 34.8, "notes": "Record low."},
-      {"year": 2024, "value": 31.3, "notes": "New record low. Down 21% on 2019."}
+      {"year": 2024, "value": 31.3, "notes": "New record low. Down 21% on 2019."},
+      {"year": 2025, "value": 30.3, "notes": "Production 332 TWh, down 3.3% on 2024. Record low."}
     ]
   },
   "electricityMix": {
@@ -154,7 +157,8 @@
       {"year": 2021, "renewables": 39.4, "nuclear": 14.8, "gas": 38.2, "coal": 2.3, "other": 0.8, "imports": 4.5, "notes": "Low wind year. Gas fills the gap."},
       {"year": 2022, "renewables": 41.5, "nuclear": 14.1, "gas": 37.9, "coal": 1.5, "other": 0.8, "imports": 4.2},
       {"year": 2023, "renewables": 46.6, "nuclear": 13.7, "gas": 31.5, "coal": 1.0, "other": 0.7, "imports": 6.5},
-      {"year": 2024, "renewables": 50.4, "nuclear": 14.2, "gas": 24.0, "coal": 0.0, "other": 0.4, "imports": 11.0, "notes": "Renewables cross 50% for first time. Last coal plant closed Sept 2024. Record electricity imports."}
+      {"year": 2024, "renewables": 50.4, "nuclear": 14.2, "gas": 24.0, "coal": 0.0, "other": 0.4, "imports": 11.0, "notes": "Renewables cross 50% for first time. Last coal plant closed Sept 2024. Record electricity imports."},
+      {"year": 2025, "renewables": 51.7, "nuclear": 13.1, "gas": 34.3, "coal": 0.0, "other": 0.3, "imports": 0.6, "notes": "Renewables hold above 50%. Last coal plant closed Oct 2024."}
     ]
   }
 }

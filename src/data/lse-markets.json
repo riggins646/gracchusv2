@@ -34,7 +34,8 @@
       { "year": 2021, "total": 1990, "mainMarket": 1134, "aim": 856, "confidence": "high", "source": "LSEG Historical Statistics" },
       { "year": 2022, "total": 1922, "mainMarket": 1106, "aim": 816, "confidence": "high", "source": "LSEG / FCA" },
       { "year": 2023, "total": 1810, "mainMarket": 1057, "aim": 753, "confidence": "high", "source": "LSEG / FCA" },
-      { "year": 2024, "total": 1775, "mainMarket": 1030, "aim": 745, "confidence": "high", "source": "LSEG / Statista" }
+      { "year": 2024, "total": 1775, "mainMarket": 1030, "aim": 745, "confidence": "high", "source": "LSEG / Statista" },
+      { "year": 2025, "total": 1740, "mainMarket": 1010, "aim": 730, "confidence": "medium", "source": "LSEG estimate" }
     ]
   },
   "ipos": {
@@ -69,7 +70,8 @@
       { "year": 2021, "count": 126, "proceedsM": 16800, "confidence": "high", "source": "LSEG / EY" },
       { "year": 2022, "count": 45, "proceedsM": 1600, "confidence": "high", "source": "EY" },
       { "year": 2023, "count": 23, "proceedsM": 954, "confidence": "high", "source": "EY" },
-      { "year": 2024, "count": 18, "proceedsM": 778, "confidence": "high", "source": "EY" }
+      { "year": 2024, "count": 18, "proceedsM": 778, "confidence": "high", "source": "EY" },
+      { "year": 2025, "count": 23, "proceedsM": 950, "confidence": "high", "source": "EY IPO Eye Q4 2025" }
     ]
   },
   "peerExchanges": {
@@ -82,11 +84,20 @@
       { "exchange": "Nasdaq", "country": "USA", "listed": 4075, "note": "Global Select + Global + Capital markets", "confidence": "high" },
       { "exchange": "Japan Exchange Group", "country": "Japan", "listed": 3940, "note": "Prime, Standard, Growth segments", "confidence": "high" },
       { "exchange": "Euronext", "country": "Pan-European", "listed": 1920, "note": "Amsterdam, Paris, Brussels, Lisbon, Dublin, Milan, Oslo", "confidence": "high" },
-      { "exchange": "LSE Group", "country": "UK", "listed": 1775, "note": "Main Market + AIM", "confidence": "high" },
+      { "exchange": "LSE Group", "country": "UK", "listed": 1740, "note": "Main Market + AIM (2025 estimate)", "confidence": "medium" },
       { "exchange": "Hong Kong Exchange", "country": "Hong Kong", "listed": 2610, "note": "Main Board + GEM", "confidence": "high" },
       { "exchange": "Deutsche B\u00f6rse", "country": "Germany", "listed": 1580, "note": "Xetra regulated + Open Market", "confidence": "medium" },
       { "exchange": "Shanghai SE", "country": "China", "listed": 2310, "note": "Main Board + STAR Market", "confidence": "high" },
       { "exchange": "Shenzhen SE", "country": "China", "listed": 2830, "note": "Main Board + SME + ChiNext", "confidence": "high" }
+    ]
+  },
+  "ftseIndices": {
+    "title": "FTSE Index Levels",
+    "source": "London Stock Exchange",
+    "lastUpdated": "2025",
+    "data": [
+      { "index": "FTSE 100", "level": 10609, "confidence": "high" },
+      { "index": "FTSE 250", "level": 22207, "confidence": "high" }
     ]
   }
 }

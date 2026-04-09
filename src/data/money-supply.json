@@ -43,7 +43,21 @@
       { "m": "Jul 2023", "level": 3010, "yoyPct": -2.6 },
       { "m": "Jan 2024", "level": 3020, "yoyPct": -1.0 },
       { "m": "Jul 2024", "level": 3060, "yoyPct": 1.7 },
-      { "m": "Jan 2025", "level": 3100, "yoyPct": 2.6 }
+      { "m": "Jan 2025", "level": 3100, "yoyPct": 2.6 },
+      { "m": "Feb 2025", "level": 3110, "yoyPct": 2.5 },
+      { "m": "Mar 2025", "level": 3120, "yoyPct": 2.6 },
+      { "m": "Apr 2025", "level": 3130, "yoyPct": 2.7 },
+      { "m": "May 2025", "level": 3140, "yoyPct": 2.8 },
+      { "m": "Jun 2025", "level": 3150, "yoyPct": 2.9 },
+      { "m": "Jul 2025", "level": 3155, "yoyPct": 3.0 },
+      { "m": "Aug 2025", "level": 3165, "yoyPct": 3.0 },
+      { "m": "Sep 2025", "level": 3175, "yoyPct": 3.1 },
+      { "m": "Oct 2025", "level": 3185, "yoyPct": 3.1 },
+      { "m": "Nov 2025", "level": 3195, "yoyPct": 3.2 },
+      { "m": "Dec 2025", "level": 3213, "yoyPct": 3.2 },
+      { "m": "Jan 2026", "level": 3225, "yoyPct": 3.3 },
+      { "m": "Feb 2026", "level": 3235, "yoyPct": 3.3 },
+      { "m": "Mar 2026", "level": 3248, "yoyPct": 3.4 }
     ]
   },
   "qeTimeline": {
