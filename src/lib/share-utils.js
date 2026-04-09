@@ -994,7 +994,7 @@ export function renderChartShareCard(data) {
   if (hLine2) {
     ctx.fillText(hLine2, px, y + 100);
   }
-  y += hLine2 ? 116 : 62;
+  y += hLine2 ? 142 : 88;
 
   // Subline
   if (data.subline) {
