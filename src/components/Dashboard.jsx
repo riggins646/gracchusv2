@@ -334,7 +334,7 @@ function ChartCard({
         body: JSON.stringify({
           title: title || "",
           label: label || "",
-          data: typeof explainData === "string" ? explainData : JSON.stringify(explainData || {}),
+          data: explainData ? (typeof explainData === "string" ? explainData : JSON.stringify(explainData)) : (title || ""),
           editorial: editorial || ""
         })
       });
@@ -382,8 +382,7 @@ function ChartCard({
           "flex items-center gap-1.5 " +
           "shrink-0 ml-2 mt-0.5"
         }>
-          {explainData && (
-            <button
+          <button
               onClick={handleExplain}
               className={
                 "flex items-center gap-1 px-2 py-1 rounded " +
@@ -398,7 +397,6 @@ function ChartCard({
               <Sparkles size={11} />
               <span>{aiExplain === "loading" ? "Thinking…" : "Explain"}</span>
             </button>
-          )}
           {info && (
             <div
               className="relative"
