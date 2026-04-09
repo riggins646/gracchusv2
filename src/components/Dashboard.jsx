@@ -9409,8 +9409,7 @@ export default function App() {
                       "text-gray-700 " +
                       "font-mono mb-3"
                     }>
-                      UK Infrastructure
-                      Tracker
+                      GRACCHUS
                     </div>
                     <div className={
                       "text-xl " +
@@ -9546,7 +9545,7 @@ export default function App() {
                       "flex justify-between"
                     }>
                       <span>
-                        Source-backed data
+                        {"Source-backed estimates \u00B7 Published UK data"}
                       </span>
                       <span className={
                         "text-gray-600 " +
@@ -9798,8 +9797,7 @@ export default function App() {
                         "text-gray-700 " +
                         "font-mono mb-3"
                       }>
-                        UK Infrastructure
-                        Tracker
+                        GRACCHUS
                       </div>
                       <div className={
                         "text-2xl " +
@@ -9823,7 +9821,7 @@ export default function App() {
                         "flex justify-between"
                       }>
                         <span>
-                          Source-backed data
+                          {"Source-backed estimates \u00B7 Published UK data"}
                         </span>
                         <span className={
                           "text-gray-600 " +
