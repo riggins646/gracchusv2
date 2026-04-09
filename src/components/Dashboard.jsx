@@ -318,8 +318,10 @@ function ChartCard({
   onShare, shareData, explainData
 }) {
   const [showInfo, setShowInfo] = useState(false);
-  const [aiExplain, setAiExplain] = useState(null); // null | "loading" | { text } | { error }
-  const [aiFix, setAiFix] = useState(null); // null | "loading" | { text } | { error }
+  const [drawer, setDrawer] = useState(null); // null | "explain" | "fix"
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [aiExplain, setAiExplain] = useState(null);
+  const [aiFix, setAiFix] = useState(null);
   const infoRef = useRef(null);
 
   const buildPayload = () => ({
@@ -327,15 +329,31 @@ function ChartCard({
     label: label || "",
     data: explainData
       ? (typeof explainData === "string" ? explainData : JSON.stringify(explainData))
-      : [title, subtitle, shareHeadline, shareSubline].filter(Boolean).join(" — "),
+      : [title, subtitle, shareHeadline, shareSubline].filter(Boolean).join(" \u2014 "),
     editorial: editorial || subtitle || ""
   });
 
+  const openDrawer = (mode) => {
+    setDrawer(mode);
+    requestAnimationFrame(() => setDrawerVisible(true));
+  };
+
+  const closeDrawer = () => {
+    setDrawerVisible(false);
+    setTimeout(() => setDrawer(null), 300);
+  };
+
+  useEffect(() => {
+    if (!drawer) return;
+    const onKey = (e) => { if (e.key === "Escape") closeDrawer(); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [drawer]);
+
   const handleExplain = async () => {
-    if (aiExplain && aiExplain !== "loading") {
-      setAiExplain(null); // toggle off
-      return;
-    }
+    if (drawer === "explain") { closeDrawer(); return; }
+    openDrawer("explain");
+    if (aiExplain) return;
     setAiExplain("loading");
     try {
       const res = await fetch("/api/explain", {
@@ -344,21 +362,16 @@ function ChartCard({
         body: JSON.stringify(buildPayload())
       });
       const body = await res.json();
-      if (body.error) {
-        setAiExplain({ error: body.error });
-      } else {
-        setAiExplain({ text: body.explanation });
-      }
+      setAiExplain(body.error ? { error: body.error } : { text: body.explanation });
     } catch (e) {
       setAiExplain({ error: "Could not reach AI service" });
     }
   };
 
   const handleFix = async () => {
-    if (aiFix && aiFix !== "loading") {
-      setAiFix(null); // toggle off
-      return;
-    }
+    if (drawer === "fix") { closeDrawer(); return; }
+    openDrawer("fix");
+    if (aiFix) return;
     setAiFix("loading");
     try {
       const res = await fetch("/api/fix", {
@@ -367,15 +380,63 @@ function ChartCard({
         body: JSON.stringify(buildPayload())
       });
       const body = await res.json();
-      if (body.error) {
-        setAiFix({ error: body.error });
-      } else {
-        setAiFix({ text: body.fix });
-      }
+      setAiFix(body.error ? { error: body.error } : { text: body.fix });
     } catch (e) {
       setAiFix({ error: "Could not reach AI service" });
     }
   };
+
+  const renderFixContent = (text) => {
+    const sections = [];
+    const lines = text.split("\n");
+    let currentSection = null;
+    lines.forEach((line) => {
+      const headerMatch = line.match(/^\*\*(.+?)\*\*$/);
+      if (headerMatch) {
+        currentSection = { title: headerMatch[1], bullets: [], body: [] };
+        sections.push(currentSection);
+      } else if (currentSection) {
+        const bulletMatch = line.match(/^[-\u2022\u25B8]\s*(.+)/);
+        if (bulletMatch) {
+          currentSection.bullets.push(bulletMatch[1]);
+        } else if (line.trim()) {
+          currentSection.body.push(line.trim());
+        }
+      } else if (line.trim()) {
+        sections.push({ title: null, bullets: [], body: [line.trim()] });
+      }
+    });
+
+    return sections.map((sec, i) => (
+      <div key={i} className={i > 0 ? "mt-6" : ""}>
+        {sec.title && (
+          <h4 className="text-[11px] font-semibold uppercase tracking-[0.15em] text-amber-400/80 mb-2">
+            {sec.title}
+          </h4>
+        )}
+        {sec.body.length > 0 && (
+          <p className="text-[15px] leading-[1.7] text-gray-300 mb-2">
+            {sec.body.join(" ")}
+          </p>
+        )}
+        {sec.bullets.length > 0 && (
+          <div className="space-y-2.5 mt-2">
+            {sec.bullets.map((b, j) => (
+              <div key={j} className="flex gap-3 items-start rounded-lg bg-gray-800/30 border border-gray-800/50 px-3.5 py-3">
+                <span className="text-amber-500/70 text-[14px] leading-none mt-0.5 shrink-0">{"\u25B8"}</span>
+                <span className="text-[15px] leading-[1.65] text-gray-300">{b}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    ));
+  };
+
+  const isExplain = drawer === "explain";
+  const isFix = drawer === "fix";
+  const accent = isExplain ? "purple" : "amber";
+  const aiData = isExplain ? aiExplain : aiFix;
 
   return (
     <div className={
@@ -411,37 +472,37 @@ function ChartCard({
           "shrink-0 ml-2 mt-0.5"
         }>
           <button
-              onClick={handleExplain}
-              className={
-                "flex items-center gap-1 px-2 py-1 rounded " +
-                "text-[10px] font-mono uppercase tracking-wide " +
-                "border transition-all " +
-                (aiExplain && aiExplain !== "loading" && !aiExplain.error
-                  ? "border-purple-500/50 text-purple-400 bg-purple-500/10"
-                  : "border-gray-700 text-gray-500 hover:text-purple-400 hover:border-purple-500/40")
-              }
-              aria-label="AI explanation"
-            >
-              <Sparkles size={11} />
-              <span>{aiExplain === "loading" ? "Thinking\u2026" : "Explain"}</span>
-            </button>
-            <button
-              onClick={handleFix}
-              className={
-                "flex items-center gap-1 px-2 py-1 rounded " +
-                "text-[10px] font-mono uppercase tracking-wide " +
-                "border transition-all " +
-                (aiFix && aiFix !== "loading" && !aiFix.error
-                  ? "border-amber-500/50 text-amber-400 bg-amber-500/10"
-                  : "border-gray-700 text-gray-500 hover:text-amber-400 hover:border-amber-500/40")
-              }
-              aria-label="AI fix suggestions"
-            >
-              <Sparkles size={11} />
-              <span className="hidden md:inline">{aiFix === "loading" ? "Thinking\u2026" : "What\u2019s the fix?"}</span>
-              <span className="hidden sm:inline md:hidden">{aiFix === "loading" ? "Thinking\u2026" : "The fix?"}</span>
-              <span className="sm:hidden">{aiFix === "loading" ? "\u2026" : "Fix?"}</span>
-            </button>
+            onClick={handleExplain}
+            className={
+              "flex items-center gap-1 px-2 py-1 rounded " +
+              "text-[10px] font-mono uppercase tracking-wide " +
+              "border transition-all " +
+              (drawer === "explain"
+                ? "border-purple-500/50 text-purple-400 bg-purple-500/10"
+                : "border-gray-700 text-gray-500 hover:text-purple-400 hover:border-purple-500/40")
+            }
+            aria-label="AI explanation"
+          >
+            <Sparkles size={11} />
+            <span>Explain</span>
+          </button>
+          <button
+            onClick={handleFix}
+            className={
+              "flex items-center gap-1 px-2 py-1 rounded " +
+              "text-[10px] font-mono uppercase tracking-wide " +
+              "border transition-all " +
+              (drawer === "fix"
+                ? "border-amber-500/50 text-amber-400 bg-amber-500/10"
+                : "border-gray-700 text-gray-500 hover:text-amber-400 hover:border-amber-500/40")
+            }
+            aria-label="AI fix suggestions"
+          >
+            <Sparkles size={11} />
+            <span className="hidden md:inline">What{"\u2019"}s the fix?</span>
+            <span className="hidden sm:inline md:hidden">The fix?</span>
+            <span className="sm:hidden">Fix?</span>
+          </button>
           {info && (
             <div
               className="relative"
@@ -518,82 +579,6 @@ function ChartCard({
           )}
         </div>
       </div>
-      {/* AI Explanation panel — Layer 2: factual analysis */}
-      {aiExplain && aiExplain !== "loading" && (
-        <div className={
-          "mb-3 rounded border " +
-          (aiExplain.error
-            ? "border-red-500/30 bg-red-500/5 px-3 py-2.5"
-            : "border-purple-500/20 bg-purple-500/5 px-4 py-3")
-        }>
-          {aiExplain.error ? (
-            <div className="flex items-start gap-2">
-              <Sparkles size={12} className="text-red-400 mt-0.5 shrink-0" />
-              <p className="text-[12px] leading-relaxed text-red-400">{aiExplain.error}</p>
-            </div>
-          ) : (
-            <div>
-              <div className="flex items-center gap-1.5 mb-1.5">
-                <Sparkles size={10} className="text-purple-400 shrink-0" />
-                <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-purple-400/70">Analysis</span>
-              </div>
-              <p className="text-[12.5px] leading-[1.7] text-gray-300 font-normal">
-                {aiExplain.text}
-              </p>
-            </div>
-          )}
-        </div>
-      )}
-      {aiExplain === "loading" && (
-        <div className="mb-3 px-3 py-2.5 rounded border border-purple-500/20 bg-purple-500/5">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 border-2 border-purple-400 border-t-transparent rounded-full animate-spin" />
-            <span className="text-[11px] text-purple-400/70 font-mono">Analysing…</span>
-          </div>
-        </div>
-      )}
-      {/* AI Fix panel — Layer 3: possible solutions */}
-      {aiFix && aiFix !== "loading" && (
-        <div className={
-          "mb-3 rounded border " +
-          (aiFix.error
-            ? "border-red-500/30 bg-red-500/5 px-3 py-2.5"
-            : "border-amber-500/20 bg-amber-950/20 px-4 py-3")
-        }>
-          {aiFix.error ? (
-            <div className="flex items-start gap-2">
-              <Sparkles size={12} className="text-red-400 mt-0.5 shrink-0" />
-              <p className="text-[12px] leading-relaxed text-red-400">{aiFix.error}</p>
-            </div>
-          ) : (
-            <div>
-              <div className="flex items-center gap-1.5 mb-2">
-                <Sparkles size={10} className="text-amber-400 shrink-0" />
-                <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-amber-400/70">Gracchus AI</span>
-              </div>
-              <div
-                className="text-[12.5px] leading-[1.7] text-gray-300 ai-fix-content"
-                dangerouslySetInnerHTML={{ __html: (aiFix.text || "")
-                  .replace(/\*\*(.+?)\*\*/g, '<strong class="text-amber-300/90 font-semibold text-[11px] uppercase tracking-wide block mt-2.5 mb-1 first:mt-0">$1</strong>')
-                  .replace(/^- /gm, '<span class="text-amber-500/60 mr-1">\u25B8</span>')
-                  .replace(/\n/g, '<br/>')
-                }}
-              />
-              <div className="text-[9px] text-gray-600 mt-3 pt-2 border-t border-gray-800/40 italic">
-                AI-generated ideas for discussion and engagement, not policy recommendations.
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-      {aiFix === "loading" && (
-        <div className="mb-3 px-3 py-2.5 rounded border border-amber-500/20 bg-amber-950/20">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
-            <span className="text-[11px] text-amber-400/70 font-mono">Exploring solutions…</span>
-          </div>
-        </div>
-      )}
       {editorial && (
         <div className={
           "text-[13px] text-gray-400 " +
@@ -605,6 +590,145 @@ function ChartCard({
         </div>
       )}
       {children}
+
+      {/* Slide-over drawer */}
+      {drawer && (
+        <div className="fixed inset-0 z-[9999]" style={{ pointerEvents: "auto" }}>
+          {/* Backdrop */}
+          <div
+            onClick={closeDrawer}
+            className="absolute inset-0 transition-opacity duration-300"
+            style={{
+              backgroundColor: drawerVisible ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0)",
+              backdropFilter: drawerVisible ? "blur(2px)" : "none"
+            }}
+          />
+          {/* Panel */}
+          <div
+            className={
+              "absolute top-0 right-0 h-full " +
+              "w-full sm:w-[75vw] md:w-[480px] lg:w-[500px] " +
+              "bg-[#0a0a0f] border-l border-gray-800/60 " +
+              "shadow-2xl shadow-black/50 " +
+              "flex flex-col " +
+              "transition-transform duration-300 ease-out"
+            }
+            style={{
+              transform: drawerVisible ? "translateX(0)" : "translateX(100%)"
+            }}
+          >
+            {/* Header */}
+            <div className={
+              "shrink-0 px-6 pt-5 pb-4 " +
+              "border-b border-gray-800/60"
+            }>
+              <div className="flex items-start justify-between">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles size={14} className={isExplain ? "text-purple-400" : "text-amber-400"} />
+                    <span className={
+                      "text-[10px] font-mono uppercase tracking-[0.2em] " +
+                      (isExplain ? "text-purple-400/70" : "text-amber-400/70")
+                    }>
+                      {isExplain ? "Analysis" : "Gracchus AI"}
+                    </span>
+                  </div>
+                  <h3 className="text-[17px] font-bold text-white leading-snug">
+                    {title || "Chart Insight"}
+                  </h3>
+                  {label && (
+                    <div className="text-[11px] text-gray-500 mt-1 uppercase tracking-wide">
+                      {label}
+                    </div>
+                  )}
+                </div>
+                <button
+                  onClick={closeDrawer}
+                  className={
+                    "w-8 h-8 rounded-lg flex items-center justify-center " +
+                    "text-gray-500 hover:text-white " +
+                    "hover:bg-gray-800 transition-all ml-3 mt-0.5"
+                  }
+                  aria-label="Close panel"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+              {/* Tab switcher */}
+              <div className="flex gap-1 mt-4">
+                <button
+                  onClick={() => { if (drawer !== "explain") handleExplain(); }}
+                  className={
+                    "px-3 py-1.5 rounded text-[11px] font-medium transition-all " +
+                    (isExplain
+                      ? "bg-purple-500/15 text-purple-300 border border-purple-500/30"
+                      : "text-gray-500 hover:text-gray-300 border border-transparent")
+                  }
+                >
+                  Explain
+                </button>
+                <button
+                  onClick={() => { if (drawer !== "fix") handleFix(); }}
+                  className={
+                    "px-3 py-1.5 rounded text-[11px] font-medium transition-all " +
+                    (isFix
+                      ? "bg-amber-500/15 text-amber-300 border border-amber-500/30"
+                      : "text-gray-500 hover:text-gray-300 border border-transparent")
+                  }
+                >
+                  What{"\u2019"}s the fix?
+                </button>
+              </div>
+            </div>
+
+            {/* Body */}
+            <div className="flex-1 overflow-y-auto px-6 py-6">
+              {aiData === "loading" && (
+                <div className="flex items-center gap-3 py-8">
+                  <div className={
+                    "w-4 h-4 border-2 border-t-transparent rounded-full animate-spin " +
+                    (isExplain ? "border-purple-400" : "border-amber-400")
+                  } />
+                  <span className={
+                    "text-[13px] font-mono " +
+                    (isExplain ? "text-purple-400/70" : "text-amber-400/70")
+                  }>
+                    {isExplain ? "Analysing\u2026" : "Exploring solutions\u2026"}
+                  </span>
+                </div>
+              )}
+              {aiData && aiData !== "loading" && aiData.error && (
+                <div className="rounded-lg border border-red-500/30 bg-red-500/5 px-4 py-3">
+                  <p className="text-[14px] text-red-400">{aiData.error}</p>
+                </div>
+              )}
+              {aiData && aiData !== "loading" && aiData.text && isExplain && (
+                <div>
+                  <p className="text-[15px] leading-[1.75] text-gray-300">
+                    {aiData.text}
+                  </p>
+                </div>
+              )}
+              {aiData && aiData !== "loading" && aiData.text && isFix && (
+                <div>
+                  {renderFixContent(aiData.text)}
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            {isFix && aiData && aiData !== "loading" && aiData.text && (
+              <div className={
+                "shrink-0 px-6 py-3 border-t border-gray-800/40"
+              }>
+                <p className="text-[11px] text-gray-600 italic">
+                  AI-generated ideas for discussion and engagement, not policy recommendations.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
