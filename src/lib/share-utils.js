@@ -994,17 +994,17 @@ export function renderChartShareCard(data) {
   if (hLine2) {
     ctx.fillText(hLine2, px, y + 100);
   }
-  y += hLine2 ? 126 : 72;
+  y += hLine2 ? 116 : 62;
 
   // Subline
   if (data.subline) {
     ctx.fillStyle = accent;
-    ctx.font = "900 24px " + SANS;
+    ctx.font = "900 28px " + SANS;
     ctx.letterSpacing = "-0.5px";
     ctx.fillText(
       data.subline.toUpperCase(), px, y
     );
-    y += 34;
+    y += 38;
   } else {
     y += 12;
   }
