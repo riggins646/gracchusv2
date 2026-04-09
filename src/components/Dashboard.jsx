@@ -312,14 +312,24 @@ function ChartPair({ children }) {
 }
 
 function ChartCard({
-  title, label, children,
+  title, label, children, subtitle,
   info, editorial, shareHeadline,
   shareSubline, accentColor,
   onShare, shareData, explainData
 }) {
   const [showInfo, setShowInfo] = useState(false);
   const [aiExplain, setAiExplain] = useState(null); // null | "loading" | { text } | { error }
+  const [aiFix, setAiFix] = useState(null); // null | "loading" | { text } | { error }
   const infoRef = useRef(null);
+
+  const buildPayload = () => ({
+    title: title || "",
+    label: label || "",
+    data: explainData
+      ? (typeof explainData === "string" ? explainData : JSON.stringify(explainData))
+      : [title, subtitle, shareHeadline, shareSubline].filter(Boolean).join(" — "),
+    editorial: editorial || subtitle || ""
+  });
 
   const handleExplain = async () => {
     if (aiExplain && aiExplain !== "loading") {
@@ -331,12 +341,7 @@ function ChartCard({
       const res = await fetch("/api/explain", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: title || "",
-          label: label || "",
-          data: explainData ? (typeof explainData === "string" ? explainData : JSON.stringify(explainData)) : (title || ""),
-          editorial: editorial || ""
-        })
+        body: JSON.stringify(buildPayload())
       });
       const body = await res.json();
       if (body.error) {
@@ -346,6 +351,29 @@ function ChartCard({
       }
     } catch (e) {
       setAiExplain({ error: "Could not reach AI service" });
+    }
+  };
+
+  const handleFix = async () => {
+    if (aiFix && aiFix !== "loading") {
+      setAiFix(null); // toggle off
+      return;
+    }
+    setAiFix("loading");
+    try {
+      const res = await fetch("/api/fix", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(buildPayload())
+      });
+      const body = await res.json();
+      if (body.error) {
+        setAiFix({ error: body.error });
+      } else {
+        setAiFix({ text: body.fix });
+      }
+    } catch (e) {
+      setAiFix({ error: "Could not reach AI service" });
     }
   };
 
@@ -395,7 +423,23 @@ function ChartCard({
               aria-label="AI explanation"
             >
               <Sparkles size={11} />
-              <span>{aiExplain === "loading" ? "Thinking…" : "Explain"}</span>
+              <span>{aiExplain === "loading" ? "Thinking\u2026" : "Explain"}</span>
+            </button>
+            <button
+              onClick={handleFix}
+              className={
+                "flex items-center gap-1 px-2 py-1 rounded " +
+                "text-[10px] font-mono uppercase tracking-wide " +
+                "border transition-all " +
+                (aiFix && aiFix !== "loading" && !aiFix.error
+                  ? "border-amber-500/50 text-amber-400 bg-amber-500/10"
+                  : "border-gray-700 text-gray-500 hover:text-amber-400 hover:border-amber-500/40")
+              }
+              aria-label="AI fix suggestions"
+            >
+              <Sparkles size={11} />
+              <span className="hidden sm:inline">{aiFix === "loading" ? "Thinking\u2026" : "What\u2019s the fix?"}</span>
+              <span className="sm:hidden">{aiFix === "loading" ? "Thinking\u2026" : "Fix?"}</span>
             </button>
           {info && (
             <div
@@ -494,6 +538,37 @@ function ChartCard({
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 border-2 border-purple-400 border-t-transparent rounded-full animate-spin" />
             <span className="text-[11px] text-purple-400/70 font-mono">Analysing data…</span>
+          </div>
+        </div>
+      )}
+      {/* AI Fix panel */}
+      {aiFix && aiFix !== "loading" && (
+        <div className={
+          "mb-3 px-3 py-2.5 rounded border " +
+          (aiFix.error
+            ? "border-red-500/30 bg-red-500/5"
+            : "border-amber-500/20 bg-amber-500/5")
+        }>
+          <div className="flex items-start gap-2">
+            <Sparkles size={12} className={aiFix.error ? "text-red-400 mt-0.5 shrink-0" : "text-amber-400 mt-0.5 shrink-0"} />
+            <div className="flex-1 min-w-0">
+              <div className={"text-[12px] leading-relaxed whitespace-pre-line " + (aiFix.error ? "text-red-400" : "text-gray-300")}>
+                {aiFix.error || aiFix.text}
+              </div>
+              {!aiFix.error && (
+                <div className="text-[9px] text-gray-600 mt-2 pt-1.5 border-t border-gray-800/50 font-mono uppercase tracking-wide">
+                  AI-generated ideas for discussion, not policy recommendations
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+      {aiFix === "loading" && (
+        <div className="mb-3 px-3 py-2.5 rounded border border-amber-500/20 bg-amber-500/5">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 border-2 border-amber-400 border-t-transparent rounded-full animate-spin" />
+            <span className="text-[11px] text-amber-400/70 font-mono">Thinking about solutions…</span>
           </div>
         </div>
       )}
