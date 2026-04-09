@@ -324,6 +324,7 @@ function ChartCard({
   const [aiExplain, setAiExplain] = useState(null);
   const [aiFix, setAiFix] = useState(null);
   const infoRef = useRef(null);
+  const chartRef = useRef(null);
 
   const buildPayload = () => ({
     title: title || "",
@@ -565,16 +566,58 @@ function ChartCard({
           )}
           {shareHeadline && (
             <button
-              onClick={() => {
-                if (onShare) {
-                  onShare({
-                    title,
-                    headline: shareHeadline,
-                    subline: shareSubline || "",
-                    accent: accentColor || "#ef4444",
-                    sparkline: shareData || []
-                  });
+              onClick={async () => {
+                if (!onShare) return;
+                let chartCanvas = null;
+                try {
+                  const svgEl = chartRef.current?.querySelector("svg");
+                  if (svgEl) {
+                    const clone = svgEl.cloneNode(true);
+                    const w = svgEl.clientWidth || svgEl.getBoundingClientRect().width;
+                    const h = svgEl.clientHeight || svgEl.getBoundingClientRect().height;
+                    clone.setAttribute("width", w);
+                    clone.setAttribute("height", h);
+                    clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                    // Inline computed styles on text elements so fonts render in isolated SVG
+                    const origTexts = svgEl.querySelectorAll("text, tspan");
+                    const cloneTexts = clone.querySelectorAll("text, tspan");
+                    origTexts.forEach((orig, i) => {
+                      if (cloneTexts[i]) {
+                        const cs = window.getComputedStyle(orig);
+                        cloneTexts[i].style.fontFamily = cs.fontFamily;
+                        cloneTexts[i].style.fontSize = cs.fontSize;
+                        cloneTexts[i].style.fontWeight = cs.fontWeight;
+                        cloneTexts[i].style.fill = cs.fill || orig.getAttribute("fill") || "#666";
+                      }
+                    });
+                    const svgStr = new XMLSerializer().serializeToString(clone);
+                    const svgDataUrl = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgStr);
+                    const img = await new Promise((resolve, reject) => {
+                      const i = new Image();
+                      i.onload = () => resolve(i);
+                      i.onerror = reject;
+                      i.src = svgDataUrl;
+                    });
+                    const c = document.createElement("canvas");
+                    const scale = 2;
+                    c.width = w * scale;
+                    c.height = h * scale;
+                    const cx = c.getContext("2d");
+                    cx.scale(scale, scale);
+                    cx.drawImage(img, 0, 0, w, h);
+                    chartCanvas = c;
+                  }
+                } catch (e) {
+                  console.warn("Chart capture failed:", e);
                 }
+                onShare({
+                  title,
+                  headline: shareHeadline,
+                  subline: shareSubline || "",
+                  accent: accentColor || "#ef4444",
+                  sparkline: shareData || [],
+                  chartCanvas
+                });
               }}
               className={
                 "flex items-center gap-1 px-2 py-1 rounded " +
@@ -601,7 +644,7 @@ function ChartCard({
           {editorial}
         </div>
       )}
-      {children}
+      <div ref={chartRef}>{children}</div>
 
       {/* Slide-over drawer */}
       {drawer && (

@@ -1019,8 +1019,31 @@ export function renderChartShareCard(data) {
   }
 
   // ---- Large area chart ----
+  // If a captured chart canvas was passed, draw it directly
+  if (data.chartCanvas) {
+    var chartX = px;
+    var chartY = y + 14;
+    var chartW = W - px * 2;
+    var chartH = H - chartY - 64;
+    if (chartH < 80) chartH = 80;
+    // Maintain aspect ratio of captured chart
+    var srcW = data.chartCanvas.width;
+    var srcH = data.chartCanvas.height;
+    var srcAspect = srcW / srcH;
+    var dstAspect = chartW / chartH;
+    var drawW = chartW;
+    var drawH = chartH;
+    if (srcAspect > dstAspect) {
+      drawH = chartW / srcAspect;
+    } else {
+      drawW = chartH * srcAspect;
+    }
+    var drawX = chartX + (chartW - drawW) / 2;
+    var drawY = chartY + (chartH - drawH) / 2;
+    ctx.drawImage(data.chartCanvas, drawX, drawY, drawW, drawH);
+  }
   var spark = data.sparkline;
-  if (spark && spark.length > 1) {
+  if (!data.chartCanvas && spark && spark.length > 1) {
     var chartX = px;
     var chartY = y + 14;
     var chartW = W - px * 2;
