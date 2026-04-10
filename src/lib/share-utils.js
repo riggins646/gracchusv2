@@ -1246,47 +1246,46 @@ export function renderCancelledProjectCard(data) {
   ctx.fillStyle = "#050505";
   ctx.fillRect(0, 0, W, H);
 
-  // Subtle noise texture effect via faint gradient
+  // Subtle warmth — barely visible radial
   var noiseG = ctx.createRadialGradient(
-    W * 0.7, H * 0.2, 0,
-    W * 0.5, H * 0.5, W * 0.8
+    W * 0.65, H * 0.25, 0,
+    W * 0.5, H * 0.5, W * 0.9
   );
-  noiseG.addColorStop(0, "rgba(255,50,50,0.015)");
+  noiseG.addColorStop(0, "rgba(255,50,50,0.012)");
   noiseG.addColorStop(1, "rgba(0,0,0,0)");
   ctx.fillStyle = noiseG;
   ctx.fillRect(0, 0, W, H);
 
-  // ---- RED TOP BAR — 6px full width ----
+  // ---- RED TOP BAR — full width ----
   ctx.fillStyle = "#FF4D4D";
-  ctx.fillRect(0, 0, W, 6);
+  ctx.fillRect(0, 0, W, 5);
 
   var px = 80;
-  var y = 50;
 
   // ============================================
-  // TOP ROW: CANCELLED PROJECT + GRACCHUS.AI
+  // ZONE 1: HEADER META (y 44–68)
+  // Label + brand. Small, quiet, creates context.
   // ============================================
   ctx.fillStyle = "#FF4D4D";
-  ctx.font = "700 24px " + MONO;
-  ctx.letterSpacing = "8px";
+  ctx.font = "700 15px " + MONO;
+  ctx.letterSpacing = "6px";
   ctx.textAlign = "left";
-  ctx.fillText("CANCELLED PROJECT", px, y);
+  ctx.fillText("CANCELLED PROJECT", px, 44);
 
-  // Gracchus wordmark top-right
-  drawIcon(ctx, W - px - 28, y - 20, 28);
-  ctx.fillStyle = "#555555";
-  ctx.font = "700 16px " + MONO;
-  ctx.letterSpacing = "5px";
+  // Brand — quiet, top-right
+  ctx.fillStyle = "#3a3a3a";
+  ctx.font = "600 12px " + MONO;
+  ctx.letterSpacing = "4px";
   ctx.textAlign = "right";
-  ctx.fillText("GRACCHUS.AI", W - px - 38, y);
+  ctx.fillText("GRACCHUS.AI", W - px, 44);
   ctx.textAlign = "left";
 
   // ============================================
-  // PROJECT TITLE — prominent white
+  // ZONE 2: PROJECT IDENTITY (y 90–170)
+  // Title is a focal point. Generous space above.
   // ============================================
-  y += 44;
   ctx.fillStyle = "#ffffff";
-  ctx.font = "800 52px " + SANS;
+  ctx.font = "800 48px " + SANS;
   ctx.letterSpacing = "-1.5px";
   var nameStr = data.name || "";
   var nameWords = nameStr.split(" ");
@@ -1308,66 +1307,54 @@ export function renderCancelledProjectCard(data) {
       nameLine1 = test;
     }
   });
-  ctx.fillText(nameLine1, px, y);
+
+  var titleY = 100;
+  ctx.fillText(nameLine1, px, titleY);
   if (nameLine2) {
-    ctx.fillText(nameLine2, px, y + 58);
-    y += 58;
+    ctx.fillText(nameLine2, px, titleY + 54);
+    titleY += 54;
   }
 
-  // Department
-  y += 16;
-  ctx.fillStyle = "#666666";
-  ctx.font = "500 20px " + MONO;
+  // Department — spaced below title
+  ctx.fillStyle = "#555555";
+  ctx.font = "500 16px " + MONO;
+  ctx.letterSpacing = "4px";
+  ctx.fillText(
+    (data.department || "").toUpperCase(),
+    px, titleY + 34
+  );
+
+  // ============================================
+  // ZONE 3: HERO NUMBER (y 220–380)
+  // The centrepiece. Sits in the middle third.
+  // Generous whitespace above and below.
+  // ============================================
+  var heroY = 240;
+
+  // Context label above the number
+  ctx.fillStyle = "#555555";
+  ctx.font = "500 18px " + MONO;
   ctx.letterSpacing = "5px";
   ctx.fillText(
-    (data.department || "").toUpperCase(), px, y
+    "MONEY SPENT BEFORE CANCELLATION",
+    px, heroY
   );
 
-  // ============================================
-  // HERO NUMBER — the centrepiece
-  // ============================================
-  y += 40;
-
-  // Left red accent bar next to the number
-  var accentBarH = 100;
-  ctx.fillStyle = "#FF4D4D";
-  ctx.fillRect(px, y - 4, 5, accentBarH);
-  // Glow behind accent
-  var glow = ctx.createLinearGradient(
-    px, y, px + 120, y
-  );
-  glow.addColorStop(0, "rgba(255,77,77,0.06)");
-  glow.addColorStop(1, "rgba(255,77,77,0)");
-  ctx.fillStyle = glow;
-  ctx.fillRect(px, y - 4, 120, accentBarH);
-
+  // The number — dominant, red, massive
   var wastedM = data.wasted || 0;
   var amtStr = wastedM >= 1000
     ? "\u00a3" + (wastedM / 1000).toFixed(0) + "bn"
     : "\u00a3" + wastedM.toLocaleString() + "m";
-
-  // The big number
   ctx.fillStyle = "#FF4D4D";
-  ctx.font = "900 120px " + SANS;
+  ctx.font = "900 130px " + SANS;
   ctx.letterSpacing = "-6px";
-  ctx.fillText(amtStr, px + 22, y + 80);
+  ctx.fillText(amtStr, px - 6, heroY + 112);
 
   // ============================================
-  // CONTEXT LINE — right of or below number
+  // ZONE 4: SUPPORTING CONTEXT (y 390–450)
+  // Equivalence metric. Clearly subordinate.
   // ============================================
-  y += accentBarH + 12;
-
-  ctx.fillStyle = "#888888";
-  ctx.font = "500 28px " + SANS;
-  ctx.letterSpacing = "0px";
-  ctx.fillText(
-    "Money spent before cancellation", px, y
-  );
-
-  // ============================================
-  // EQUIVALENCE — pothole metric
-  // ============================================
-  y += 42;
+  var supportY = heroY + 148;
 
   var potholeUnit = 100;
   var potholesEquiv = Math.round(
@@ -1375,33 +1362,36 @@ export function renderCancelledProjectCard(data) {
   );
   var pStr = potholesEquiv.toLocaleString();
 
+  // Thin divider to separate zones
+  ctx.fillStyle = "rgba(255,255,255,0.06)";
+  ctx.fillRect(px, supportY - 16, W - px * 2, 1);
+
   ctx.fillStyle = "#ffffff";
-  ctx.font = "900 36px " + SANS;
-  ctx.letterSpacing = "-1px";
-  ctx.fillText(pStr, px, y);
+  ctx.font = "800 30px " + SANS;
+  ctx.letterSpacing = "-0.5px";
+  ctx.fillText(pStr, px, supportY + 14);
   var pW = ctx.measureText(pStr).width;
-  ctx.fillStyle = "#666666";
-  ctx.font = "400 28px " + SANS;
+  ctx.fillStyle = "#555555";
+  ctx.font = "400 24px " + SANS;
   ctx.letterSpacing = "0px";
   ctx.fillText(
     "pothole repairs equivalent",
-    px + pW + 16, y
+    px + pW + 14, supportY + 14
   );
 
   // ============================================
-  // EDITORIAL HOOK — the viral line
+  // ZONE 5: EDITORIAL HOOK (y 490–560)
+  // The punchline. Sits low with breathing room.
+  // Feels like a closing editorial statement.
   // ============================================
-  y += 52;
-  // Thin divider
-  ctx.fillStyle = "rgba(255,255,255,0.08)";
-  ctx.fillRect(px, y, W - px * 2, 1);
-  y += 32;
+  var hookY = supportY + 72;
 
   var hook = getEditorialHook(data);
-  ctx.fillStyle = "#cccccc";
-  ctx.font = "600 32px " + SANS;
-  ctx.letterSpacing = "-0.5px";
-  // Word-wrap the hook if needed
+  ctx.fillStyle = "#999999";
+  ctx.font = "500 28px " + SANS;
+  ctx.letterSpacing = "-0.3px";
+
+  // Word-wrap
   var hookWords = hook.split(" ");
   var hookLine1 = "";
   var hookLine2 = "";
@@ -1421,28 +1411,28 @@ export function renderCancelledProjectCard(data) {
       hookLine1 = test;
     }
   });
-  ctx.fillText(hookLine1, px, y);
+  ctx.fillText(hookLine1, px, hookY);
   if (hookLine2) {
-    ctx.fillText(hookLine2, px, y + 38);
+    ctx.fillText(hookLine2, px, hookY + 34);
   }
 
   // ============================================
-  // FOOTER — source + brand
+  // ZONE 6: FOOTER (y 640–660)
+  // Minimal. Does not compete with content.
   // ============================================
-  var fy = H - 30;
-  ctx.fillStyle = "#444444";
-  ctx.font = "400 14px " + MONO;
+  ctx.fillStyle = "#333333";
+  ctx.font = "400 12px " + MONO;
   ctx.letterSpacing = "1px";
   ctx.textAlign = "left";
   ctx.fillText(
     "Source: NAO / IPA \u00B7 Published UK data",
-    px, fy
+    px, H - 24
   );
-  ctx.fillStyle = "#555555";
-  ctx.font = "700 14px " + MONO;
+  ctx.fillStyle = "#333333";
+  ctx.font = "600 12px " + MONO;
   ctx.letterSpacing = "3px";
   ctx.textAlign = "right";
-  ctx.fillText("GRACCHUS.AI", W - px, fy);
+  ctx.fillText("GRACCHUS.AI", W - px, H - 24);
   ctx.textAlign = "left";
 
   return canvas.toDataURL("image/png");
