@@ -88,3 +88,55 @@ body {
 .gracchus-glow {
   animation: gracchus-glow 2s ease-in-out infinite;
 }
+
+/* ================================================
+   MOBILE RESPONSIVE UTILITIES
+   Only affects screens below 768px (md breakpoint).
+   Desktop remains completely untouched.
+   ================================================ */
+
+/* --- Mobile table improvements --- */
+@media (max-width: 767px) {
+  /* Smoother horizontal scroll for tables */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  /* Better touch targets on mobile */
+  select, button {
+    min-height: 40px;
+  }
+
+  /* Prevent text overflow in tight containers */
+  .truncate-mobile {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+/* --- Chart responsive helpers --- */
+@media (max-width: 480px) {
+  /* Tighten chart card padding on small phones */
+  .recharts-wrapper {
+    font-size: 9px;
+  }
+  .recharts-cartesian-axis-tick-value {
+    font-size: 8px !important;
+  }
+  .recharts-legend-item-text {
+    font-size: 9px !important;
+  }
+  .recharts-tooltip-wrapper {
+    font-size: 10px !important;
+  }
+}
+
+/* --- Mobile share modal --- */
+@media (max-width: 639px) {
+  .share-modal-mobile {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}

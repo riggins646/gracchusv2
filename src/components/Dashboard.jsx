@@ -249,7 +249,7 @@ function resolveAccent(accent) {
 function StatCard({ icon: Icon, label, value, sub, accent }) {
   return (
     <div className={
-      "border-l-2 border-gray-800 pl-5 py-3 " +
+      "border-l-2 border-gray-800 pl-3 sm:pl-5 py-2 sm:py-3 " +
       "hover:border-gray-600 transition-colors"
     }>
       <div className="flex items-center gap-2 mb-1">
@@ -265,7 +265,7 @@ function StatCard({ icon: Icon, label, value, sub, accent }) {
         </span>
       </div>
       <div className={
-        "text-2xl font-bold tracking-tight " +
+        "text-xl sm:text-2xl font-bold tracking-tight " +
         resolveAccent(accent)
       }>
         {value}
@@ -292,7 +292,7 @@ function SectionHeader({ label, title, accent }) {
         </div>
       )}
       <h2 className={
-        "text-2xl md:text-3xl font-black " +
+        "text-xl sm:text-2xl md:text-3xl font-black " +
         "uppercase tracking-tight"
       }>
         {title}
@@ -305,7 +305,7 @@ function ChartPair({ children }) {
   return (
     <div className={
       "grid grid-cols-1 md:grid-cols-2 " +
-      "gap-4"
+      "gap-3 sm:gap-4"
     }>
       {children}
     </div>
@@ -454,7 +454,7 @@ function ChartCard({
   return (
     <div className={
       "py-1 border border-gray-800/40 " +
-      "bg-gray-950/20 px-4 pb-4 pt-3"
+      "bg-gray-950/20 px-2 sm:px-4 pb-3 sm:pb-4 pt-2 sm:pt-3"
     }>
       <div className={
         "flex items-start justify-between " +
@@ -481,8 +481,8 @@ function ChartCard({
           )}
         </div>
         <div className={
-          "flex items-center gap-1.5 " +
-          "shrink-0 ml-2 mt-0.5"
+          "flex items-center gap-1 sm:gap-1.5 " +
+          "shrink-0 ml-1 sm:ml-2 mt-0.5 flex-wrap"
         }>
           <button
             onClick={handleExplain}
@@ -817,7 +817,7 @@ function CustomTooltip({ active, payload, renderFn }) {
 }
 
 function Divider() {
-  return <div className="border-t border-gray-800/60 my-10" />;
+  return <div className="border-t border-gray-800/60 my-6 sm:my-10" />;
 }
 
 // ============================================================================
@@ -935,7 +935,7 @@ function FilterBar({
       }>
         {search && (
           <div className={
-            "relative flex-1 min-w-[200px] max-w-xs"
+            "relative flex-1 min-w-0 sm:min-w-[200px] max-w-full sm:max-w-xs"
           }>
             <Search
               size={13}
@@ -975,7 +975,8 @@ function FilterBar({
               "bg-black border border-gray-800 " +
               "text-gray-400 text-xs px-2 " +
               "py-2 font-mono focus:outline-none " +
-              "focus:border-gray-600"
+              "focus:border-gray-600 " +
+              "min-w-0 max-w-full"
             }
           >
             {f.options.map((o) => (
@@ -1195,7 +1196,7 @@ function DataTableShell({
   return (
     <div className={
       "border-t border-gray-800/60 " +
-      "overflow-x-auto"
+      "overflow-x-auto relative"
     }>
       {csvExport && count > 0 && (
         <div className="flex justify-end px-3 py-2">
@@ -2787,7 +2788,7 @@ function HomeSpendGenerator() {
           } />
           <div
             className={
-              "relative w-[92vw] sm:w-full " +
+              "relative w-full " +
               "max-w-[560px] " +
               "bg-[#0a0a0a] border " +
               "border-gray-800/60 " +
@@ -3289,8 +3290,7 @@ function DailyCostGenerator() {
           } />
           <div
             className={
-              "relative w-[92vw] " +
-              "sm:w-full " +
+              "relative w-full " +
               "max-w-[480px] " +
               "bg-[#0a0a0a] border " +
               "border-gray-800/60 " +
@@ -4689,7 +4689,7 @@ export default function App() {
             })}
           </nav>
           {/* Mobile hamburger button */}
-          <div className="md:hidden border-t border-gray-800/40 -mx-6 px-6 py-2 flex items-center justify-between">
+          <div className="md:hidden border-t border-gray-800/40 -mx-6 px-6 py-3 flex items-center justify-between">
             <button
               onClick={() => setMobileNavOpen(!mobileNavOpen)}
               className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
@@ -4703,7 +4703,7 @@ export default function App() {
           </div>
           {/* Mobile nav drawer */}
           {mobileNavOpen && (
-            <div className="md:hidden border-t border-gray-800/40 -mx-6 px-6 py-3 bg-gray-950/95 backdrop-blur-sm">
+            <div className="md:hidden border-t border-gray-800/40 -mx-6 px-6 py-3 bg-gray-950/95 backdrop-blur-sm max-h-[70vh] overflow-y-auto">
               {navItems.map((n) => {
                 const isActive =
                   view === n.id ||
@@ -4716,7 +4716,7 @@ export default function App() {
                         if (!n.children) setMobileNavOpen(false);
                       }}
                       className={
-                        "w-full text-left px-3 py-2 text-xs uppercase tracking-[0.12em] font-medium transition-colors " +
+                        "w-full text-left px-3 py-3 text-xs uppercase tracking-[0.12em] font-medium transition-colors " +
                         (isActive ? "text-white bg-gray-800/50" : "text-gray-500 hover:text-gray-300")
                       }
                     >
@@ -4778,7 +4778,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="max-w-[1400px] mx-auto px-3 sm:px-6 py-6 sm:py-8">
+      <main className="max-w-[1400px] mx-auto px-2 sm:px-6 py-4 sm:py-8">
 
         {/* ============ OVERVIEW ============ */}
         {view === "overview" && (
@@ -4820,9 +4820,9 @@ export default function App() {
                     Over Budget.
                   </div>
                   <div className={
-                    "text-gray-500 text-[17px] mt-4 " +
+                    "text-gray-500 text-[14px] sm:text-[17px] mt-3 sm:mt-4 " +
                     "leading-relaxed border-l-2 " +
-                    "border-gray-800 pl-4"
+                    "border-gray-800 pl-3 sm:pl-4"
                   }>
                     <span>
                       Across {projects.length} major UK
@@ -4845,7 +4845,7 @@ export default function App() {
 
                 {/* RIGHT — Editorial story rail: Red Flags */}
                 <div className={
-                  "w-full lg:w-[400px] xl:w-[440px] shrink-0"
+                  "w-full lg:w-[400px] xl:w-[440px] shrink-0 mt-4 lg:mt-0"
                 }>
                   <div className={
                     "border border-gray-800/60 bg-gray-950/40"
@@ -4927,7 +4927,7 @@ export default function App() {
                               {story.tag}
                             </div>
                             <div className={
-                              "text-[15px] font-bold text-gray-300 " +
+                              "text-[13px] sm:text-[15px] font-bold text-gray-300 " +
                               "leading-snug " +
                               "group-hover:text-white transition-colors"
                             }>
@@ -5177,7 +5177,7 @@ export default function App() {
               }
             />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               <ChartCard
                 label="Relative Cost"
                 title="Biggest Overruns by Percentage"
@@ -5669,7 +5669,7 @@ export default function App() {
               </div>
 
               {/* Summary + Chart grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 <div className="space-y-4">
                   {/* Summary strip */}
                   <div className={
@@ -6416,7 +6416,7 @@ export default function App() {
               </div>
 
               {/* Summary + Chart grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   {/* Summary strip */}
                   <div className={
@@ -7333,7 +7333,7 @@ export default function App() {
             )}
 
             {/* Charts grid — side by side */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             {/* Stacked Area Chart — Donations by Party per Year */}
             <ChartCard
               title={"Donations by Party" + (govFilter ? " \u2014 " + govFilter : " \u2014 All Time")}
@@ -8285,7 +8285,7 @@ export default function App() {
             )}
 
             {/* Charts section */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               <ChartCard title="Outside Income by Party" subtitle="Total declared external earnings" shareHeadline={fmtMoney(summary.totalOutsideIncome)} shareSubline="Total outside income declared by current MPs" onShare={handleChartShare} accentColor="#ef4444" explainData={byParty.filter(p => p.oi > 0).slice(0, 6).map(p => `${p.name}: £${p.oi.toLocaleString()}`).join("; ")}>
                 <ResponsiveContainer width="100%" height={260}>
                   <BarChart data={byParty.filter(p => p.oi > 0).slice(0, 8)} layout="vertical" margin={{ top: 5, right: 30, left: 100, bottom: 0 }}>
@@ -9339,7 +9339,7 @@ export default function App() {
             className={
               "fixed inset-0 z-50 " +
               "flex items-center " +
-              "justify-center px-4"
+              "justify-center px-3 sm:px-4"
             }
             onClick={() =>
               setChartShare(null)
@@ -9350,9 +9350,8 @@ export default function App() {
             } />
             <div
               className={
-                "relative w-[92vw] " +
-                "sm:w-full " +
-                "max-w-[560px] " +
+                "relative w-full " +
+                "max-w-lg " +
                 "bg-[#0a0a0a] border " +
                 "border-gray-800/60 " +
                 "overflow-hidden"
@@ -9369,7 +9368,7 @@ export default function App() {
                 }}
               />
               <div className={
-                "px-6 pt-5 pb-4 flex " +
+                "px-4 sm:px-6 pt-5 pb-4 flex " +
                 "items-center " +
                 "justify-between " +
                 "border-b " +
@@ -9396,7 +9395,7 @@ export default function App() {
                 </button>
               </div>
               <div className={
-                "px-6 py-6 space-y-4"
+                "px-4 sm:px-6 py-4 sm:py-6 space-y-3 sm:space-y-4"
               }>
                 {/* Render actual canvas image as preview so modal matches PNG exactly */}
                 <img
@@ -9587,9 +9586,8 @@ export default function App() {
               } />
               <div
                 className={
-                  "relative w-[92vw] " +
-                  "sm:w-full " +
-                  "max-w-[560px] " +
+                  "relative w-full " +
+                  "max-w-lg " +
                   "bg-[#0a0a0a] border " +
                   "border-gray-800/60 " +
                   "overflow-hidden"
@@ -9602,7 +9600,7 @@ export default function App() {
                   "h-0.5 bg-" + accent + "-500"
                 } />
                 <div className={
-                  "px-6 pt-5 pb-4 flex " +
+                  "px-4 sm:px-6 pt-4 sm:pt-5 pb-3 sm:pb-4 flex " +
                   "items-center justify-between " +
                   "border-b border-gray-800/40"
                 }>
@@ -9627,7 +9625,7 @@ export default function App() {
                   </button>
                 </div>
                 <div className={
-                  "px-6 py-6 space-y-4"
+                  "px-4 sm:px-6 py-4 sm:py-6 space-y-3 sm:space-y-4"
                 }>
                   <div className={
                     "bg-[#030303] border " +
@@ -10190,7 +10188,7 @@ export default function App() {
               </div>
 
               {/* Crony contracts chart + list grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 {/* Treemap visualization */}
                 <div className={
                   "border border-gray-800/60 " +
@@ -15609,7 +15607,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
 
             {/* ---- Self-Sufficiency Chart ---- */}
               <ChartCard
@@ -19061,7 +19059,7 @@ export default function App() {
             <Divider />
 
             {/* ---- Charts side by side ---- */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               <ChartCard
                 title={
                   "Defence Spending (% GDP)"
