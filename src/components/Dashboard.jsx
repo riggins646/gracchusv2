@@ -3791,6 +3791,7 @@ export default function App() {
 
   const [projQuickView, setProjQuickView] = useState(null);
   const [cancelledIdx, setCancelledIdx] = useState(0);
+  const cancelledCardRef = useRef(null);
   // Auto-cycle cancelled projects every 6 seconds when on projects view
   useEffect(() => {
     if (view !== "projects") return;
@@ -5255,10 +5256,11 @@ export default function App() {
                 const potholesEquiv = Math.round((wasted * 1e6) / potholeUnit);
                 return (
                   <div className="border border-gray-800/60 bg-gray-950/50 flex flex-col">
+                    <div ref={cancelledCardRef}>
                     {/* Header */}
                     <div className="px-5 py-3 border-b border-gray-800/40 flex items-center justify-between">
                       <div className="text-[12px] uppercase tracking-[0.25em] text-red-500/80 font-mono">Cancelled Project</div>
-                      <div className="text-[11px] font-mono text-gray-700 tracking-wide">{(cancelledIdx % cancelledProjects.length) + 1}/{cancelledProjects.length}</div>
+                      <div data-share-hide className="text-[11px] font-mono text-gray-700 tracking-wide">{(cancelledIdx % cancelledProjects.length) + 1}/{cancelledProjects.length}</div>
                     </div>
 
                     {/* Body */}
@@ -5305,6 +5307,7 @@ export default function App() {
                       </div>
                     </div>
 
+                    </div>{/* end cancelledCardRef */}
                     {/* Controls */}
                     <div className="flex border-t border-gray-800/40">
                       <button onClick={() => setCancelledIdx(i => i > 0 ? i - 1 : cancelledProjects.length - 1)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-[11px] font-mono uppercase tracking-wider text-gray-500 hover:text-white hover:bg-white/[0.02] transition-colors border-r border-gray-800/40">
@@ -5313,20 +5316,85 @@ export default function App() {
                       <button onClick={() => setCancelledIdx(i => (i + 1) % cancelledProjects.length)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-[11px] font-mono uppercase tracking-wider text-gray-500 hover:text-white hover:bg-white/[0.02] transition-colors border-r border-gray-800/40">
                         Next <ChevronRight size={12} />
                       </button>
-                      <button onClick={() => {
-                        handleChartShare({
-                          _cancelledProject: true,
-                          name: cp.name,
-                          department: cp.department,
-                          category: cp.category,
-                          wasted: wasted,
-                          overrun: overrun > 0 ? overrun : 0,
-                          originalBudget: cp.originalBudget,
-                          title: cp.name + " \u2014 Cancelled",
-                          headline: wasted >= 1000 ? "\u00a3" + (wasted / 1000).toFixed(0) + "bn wasted" : "\u00a3" + wasted.toLocaleString() + "m wasted",
-                          subline: cp.name,
-                          accent: "#ef4444"
-                        });
+                      <button onClick={async () => {
+                        // Capture the actual DOM card as a PNG
+                        const el = cancelledCardRef.current;
+                        if (!el) return;
+                        try {
+                          const rect = el.getBoundingClientRect();
+                          const w = rect.width;
+                          const h = rect.height;
+                          const scale = 2;
+                          // Clone and inline all computed styles
+                          const clone = el.cloneNode(true);
+                          // Remove the counter (x/20) from share image
+                          const counter = clone.querySelector("[data-share-hide]");
+                          if (counter) counter.remove();
+                          // Walk all elements and inline computed styles
+                          const inlineStyles = (orig, copy) => {
+                            const cs = window.getComputedStyle(orig);
+                            const important = [
+                              "color","background-color","background","font-family","font-size",
+                              "font-weight","letter-spacing","text-transform","line-height",
+                              "padding","margin","border","border-top","border-bottom",
+                              "border-left","border-right","display","flex-direction",
+                              "align-items","justify-content","gap","grid-template-columns",
+                              "width","height","min-width","max-width","flex","flex-shrink",
+                              "text-align","white-space","overflow","opacity","tracking"
+                            ];
+                            important.forEach(p => {
+                              try { copy.style[p] = cs.getPropertyValue(p); } catch(e) {}
+                            });
+                            const origChildren = orig.children;
+                            const copyChildren = copy.children;
+                            for (let i = 0; i < origChildren.length; i++) {
+                              if (copyChildren[i]) inlineStyles(origChildren[i], copyChildren[i]);
+                            }
+                          };
+                          inlineStyles(el, clone);
+                          clone.style.width = w + "px";
+                          clone.style.height = h + "px";
+                          clone.style.backgroundColor = "#030712";
+                          const html = new XMLSerializer().serializeToString(clone);
+                          const svgStr = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '">' +
+                            '<foreignObject width="100%" height="100%">' +
+                            '<div xmlns="http://www.w3.org/1999/xhtml">' + html + '</div>' +
+                            '</foreignObject></svg>';
+                          const svgUrl = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svgStr);
+                          const img = await new Promise((resolve, reject) => {
+                            const i = new Image();
+                            i.onload = () => resolve(i);
+                            i.onerror = reject;
+                            i.src = svgUrl;
+                          });
+                          const c = document.createElement("canvas");
+                          c.width = w * scale;
+                          c.height = h * scale;
+                          const cx = c.getContext("2d");
+                          cx.scale(scale, scale);
+                          cx.drawImage(img, 0, 0, w, h);
+                          handleChartShare({
+                            _capturedImage: c.toDataURL("image/png"),
+                            title: cp.name + " \u2014 Cancelled",
+                            accent: "#ef4444"
+                          });
+                        } catch (e) {
+                          console.warn("Card capture failed:", e);
+                          // Fallback to canvas renderer
+                          handleChartShare({
+                            _cancelledProject: true,
+                            name: cp.name,
+                            department: cp.department,
+                            category: cp.category,
+                            wasted: wasted,
+                            overrun: overrun > 0 ? overrun : 0,
+                            originalBudget: cp.originalBudget,
+                            title: cp.name + " \u2014 Cancelled",
+                            headline: wasted >= 1000 ? "\u00a3" + (wasted / 1000).toFixed(0) + "bn wasted" : "\u00a3" + wasted.toLocaleString() + "m wasted",
+                            subline: cp.name,
+                            accent: "#ef4444"
+                          });
+                        }
                       }} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-[11px] font-mono uppercase tracking-wider text-gray-500 hover:text-white hover:bg-white/[0.02] transition-colors">
                         <Share2 size={11} /> Share
                       </button>
@@ -9413,15 +9481,17 @@ export default function App() {
               }>
                 {/* Render actual canvas image as preview so modal matches PNG exactly */}
                 <img
-                  src={chartShare._cancelledProject ? renderCancelledProjectCard(chartShare) : renderChartShareCard(chartShare)}
+                  src={chartShare._capturedImage ? chartShare._capturedImage : chartShare._cancelledProject ? renderCancelledProjectCard(chartShare) : renderChartShareCard(chartShare)}
                   alt="Share preview"
                   className="w-full border border-gray-800/40"
                 />
                 <button
                   onClick={() => {
-                    const dataUrl = chartShare._cancelledProject
-                      ? renderCancelledProjectCard(chartShare)
-                      : renderChartShareCard(chartShare);
+                    const dataUrl = chartShare._capturedImage
+                      ? chartShare._capturedImage
+                      : chartShare._cancelledProject
+                        ? renderCancelledProjectCard(chartShare)
+                        : renderChartShareCard(chartShare);
                     const link =
                       document.createElement(
                         "a"
