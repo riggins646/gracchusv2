@@ -1196,3 +1196,202 @@ function formatSparkVal(v) {
   }
   return String(v);
 }
+
+// ========================================
+// CANCELLED PROJECT CARD RENDERER
+// ========================================
+// Hard-hitting editorial card for cancelled
+// government projects. Mirrors the on-page
+// cancelled project ticker design.
+export function renderCancelledProjectCard(data) {
+  var W = 1200;
+  var H = 630;
+  var canvas = makeCanvas(W, H);
+  var ctx = canvas.getContext("2d");
+
+  // Dark background
+  ctx.fillStyle = "#050507";
+  ctx.fillRect(0, 0, W, H);
+  // Subtle red vignette
+  var vig = ctx.createRadialGradient(
+    W * 0.5, H * 0.35, H * 0.1,
+    W * 0.5, H * 0.5, W * 0.85
+  );
+  vig.addColorStop(0, "rgba(30,0,0,0.15)");
+  vig.addColorStop(1, "rgba(0,0,0,0.5)");
+  ctx.fillStyle = vig;
+  ctx.fillRect(0, 0, W, H);
+
+  // Red top stripe
+  ctx.fillStyle = "#ef4444";
+  ctx.fillRect(0, 0, W, 5);
+
+  var px = 72;
+  var y = 56;
+
+  // "CANCELLED PROJECT" badge
+  ctx.fillStyle = "#ef4444";
+  ctx.font = "700 13px " + MONO;
+  ctx.letterSpacing = "5px";
+  ctx.textAlign = "left";
+  ctx.fillText("CANCELLED PROJECT", px, y);
+
+  // Gracchus brand top-right
+  drawIcon(ctx, W - px - 18, y - 14, 18);
+  ctx.fillStyle = "#4b5563";
+  ctx.font = "600 11px " + MONO;
+  ctx.letterSpacing = "3px";
+  ctx.textAlign = "right";
+  ctx.fillText("GRACCHUS", W - px - 26, y);
+  ctx.textAlign = "left";
+
+  // Divider
+  y += 20;
+  ctx.fillStyle = "rgba(255,255,255,0.06)";
+  ctx.fillRect(px, y, W - px * 2, 1);
+  y += 32;
+
+  // Project name — bold, prominent
+  ctx.fillStyle = "#e5e7eb";
+  ctx.font = "800 34px " + SANS;
+  ctx.letterSpacing = "-0.5px";
+  var nameStr = data.name || "";
+  var nameWords = nameStr.split(" ");
+  var nameLine1 = "";
+  var nameLine2 = "";
+  var nameMaxW = W - px * 2;
+  var onNL2 = false;
+  nameWords.forEach(function(w) {
+    var test = onNL2
+      ? nameLine2 + (nameLine2 ? " " : "") + w
+      : nameLine1 + (nameLine1 ? " " : "") + w;
+    if (!onNL2 &&
+      ctx.measureText(test).width > nameMaxW) {
+      onNL2 = true;
+      nameLine2 = w;
+    } else if (onNL2) {
+      nameLine2 += " " + w;
+    } else {
+      nameLine1 = test;
+    }
+  });
+  ctx.fillText(nameLine1, px, y + 4);
+  if (nameLine2) {
+    ctx.fillText(nameLine2, px, y + 42);
+    y += 38;
+  }
+  y += 16;
+
+  // Department
+  ctx.fillStyle = "#4b5563";
+  ctx.font = "500 13px " + MONO;
+  ctx.letterSpacing = "3px";
+  ctx.fillText(
+    (data.department || "").toUpperCase(),
+    px, y
+  );
+
+  // Money spent section
+  y += 28;
+  ctx.fillStyle = "rgba(255,255,255,0.06)";
+  ctx.fillRect(px, y, W - px * 2, 1);
+  y += 24;
+
+  ctx.fillStyle = "#4b5563";
+  ctx.font = "600 11px " + MONO;
+  ctx.letterSpacing = "4px";
+  ctx.fillText(
+    "MONEY SPENT BEFORE CANCELLATION", px, y
+  );
+  y += 14;
+
+  // Amount — massive red
+  var wastedM = data.wasted || 0;
+  var amtStr = wastedM >= 1000
+    ? "\u00a3" + (wastedM / 1000).toFixed(0) + "bn"
+    : "\u00a3" + wastedM.toLocaleString() + "m";
+  ctx.fillStyle = "#ef4444";
+  ctx.font = "900 82px " + SANS;
+  ctx.letterSpacing = "-4px";
+  ctx.fillText(amtStr, px, y + 68);
+
+  // Over budget callout (if applicable)
+  var overrun = data.overrun || 0;
+  if (overrun > 0) {
+    var overStr = overrun >= 1000
+      ? "+" + "\u00a3" +
+        (overrun / 1000).toFixed(1) + "bn OVER BUDGET"
+      : "+" + "\u00a3" +
+        overrun.toLocaleString() + "m OVER BUDGET";
+    ctx.fillStyle = "#f59e0b";
+    ctx.font = "800 22px " + SANS;
+    ctx.letterSpacing = "0px";
+    ctx.fillText(overStr, px, y + 98);
+    y += 110;
+  } else {
+    y += 80;
+  }
+
+  // Pothole equivalence
+  y += 8;
+  ctx.fillStyle = "rgba(255,255,255,0.06)";
+  ctx.fillRect(px, y, W - px * 2, 1);
+  y += 28;
+
+  var potholeUnit = 100;
+  var potholesEquiv = Math.round(
+    (wastedM * 1e6) / potholeUnit
+  );
+  var pStr = potholesEquiv.toLocaleString();
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "900 32px " + SANS;
+  ctx.letterSpacing = "-1px";
+  ctx.fillText(pStr, px, y + 6);
+  var pW = ctx.measureText(pStr).width;
+  ctx.fillStyle = "#4b5563";
+  ctx.font = "400 16px " + SANS;
+  ctx.letterSpacing = "0px";
+  ctx.fillText(
+    "pothole repairs equivalent",
+    px + pW + 12, y + 6
+  );
+
+  // Bottom stats row
+  y += 30;
+  ctx.fillStyle = "rgba(255,255,255,0.06)";
+  ctx.fillRect(px, y, W - px * 2, 1);
+  y += 24;
+
+  // Original budget
+  ctx.fillStyle = "#4b5563";
+  ctx.font = "600 10px " + MONO;
+  ctx.letterSpacing = "3px";
+  ctx.fillText("ORIGINAL BUDGET", px, y);
+  y += 20;
+  var origBudget = data.originalBudget || 0;
+  var origStr = origBudget >= 1000
+    ? "\u00a3" +
+      (origBudget / 1000).toFixed(0) + "bn"
+    : "\u00a3" +
+      origBudget.toLocaleString() + "m";
+  ctx.fillStyle = "#d1d5db";
+  ctx.font = "700 22px " + SANS;
+  ctx.letterSpacing = "0px";
+  ctx.fillText(origStr, px, y);
+
+  // Category (right column)
+  var rightX = W / 2 + 20;
+  ctx.fillStyle = "#4b5563";
+  ctx.font = "600 10px " + MONO;
+  ctx.letterSpacing = "3px";
+  ctx.fillText("CATEGORY", rightX, y - 20);
+  ctx.fillStyle = "#d1d5db";
+  ctx.font = "700 22px " + SANS;
+  ctx.letterSpacing = "0px";
+  ctx.fillText(data.category || "", rightX, y);
+
+  // Footer
+  drawFooter(ctx, W, H, px);
+
+  return canvas.toDataURL("image/png");
+}

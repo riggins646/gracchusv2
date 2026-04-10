@@ -56,7 +56,7 @@ import spendingTreeData from "../data/spending-tree.json";
 import giltYieldsData from "../data/gilt-yields.json";
 import moneySupplyData from "../data/money-supply.json";
 import mpPayVsCountryData from "../data/mp-pay-vs-country.json";
-import { encodeShareId, buildContextLine, shareFmtAmt, renderCardToCanvas, renderTrendCard, renderChartShareCard } from "../lib/share-utils";
+import { encodeShareId, buildContextLine, shareFmtAmt, renderCardToCanvas, renderTrendCard, renderChartShareCard, renderCancelledProjectCard } from "../lib/share-utils";
 import { sortRows, searchRows, processTableData, fmtMillions, fmtCompact, fmtCurrency, fmtPct, getUniqueValues, SORT_PRESETS } from "../lib/table-utils";
 
 const projects = projectsData;
@@ -5314,13 +5314,18 @@ export default function App() {
                         Next <ChevronRight size={12} />
                       </button>
                       <button onClick={() => {
-                        const headline = wasted >= 1000 ? "\u00a3" + (wasted / 1000).toFixed(0) + "bn wasted" : "\u00a3" + wasted.toLocaleString() + "m wasted";
                         handleChartShare({
-                          title: cp.name + " — Cancelled",
-                          headline: headline,
-                          subline: cp.name + " was cancelled after " + (wasted >= 1000 ? "\u00a3" + (wasted / 1000).toFixed(0) + "bn" : "\u00a3" + wasted + "m") + " of public money spent",
-                          accent: "#ef4444",
-                          sparkline: []
+                          _cancelledProject: true,
+                          name: cp.name,
+                          department: cp.department,
+                          category: cp.category,
+                          wasted: wasted,
+                          overrun: overrun > 0 ? overrun : 0,
+                          originalBudget: cp.originalBudget,
+                          title: cp.name + " \u2014 Cancelled",
+                          headline: wasted >= 1000 ? "\u00a3" + (wasted / 1000).toFixed(0) + "bn wasted" : "\u00a3" + wasted.toLocaleString() + "m wasted",
+                          subline: cp.name,
+                          accent: "#ef4444"
                         });
                       }} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-[11px] font-mono uppercase tracking-wider text-gray-500 hover:text-white hover:bg-white/[0.02] transition-colors">
                         <Share2 size={11} /> Share
@@ -9408,16 +9413,15 @@ export default function App() {
               }>
                 {/* Render actual canvas image as preview so modal matches PNG exactly */}
                 <img
-                  src={renderChartShareCard(chartShare)}
+                  src={chartShare._cancelledProject ? renderCancelledProjectCard(chartShare) : renderChartShareCard(chartShare)}
                   alt="Share preview"
                   className="w-full border border-gray-800/40"
                 />
                 <button
                   onClick={() => {
-                    const dataUrl =
-                      renderChartShareCard(
-                        chartShare
-                      );
+                    const dataUrl = chartShare._cancelledProject
+                      ? renderCancelledProjectCard(chartShare)
+                      : renderChartShareCard(chartShare);
                     const link =
                       document.createElement(
                         "a"
