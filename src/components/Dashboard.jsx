@@ -5313,8 +5313,17 @@ export default function App() {
                       <button onClick={() => setCancelledIdx(i => (i + 1) % cancelledProjects.length)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-[11px] font-mono uppercase tracking-wider text-gray-500 hover:text-white hover:bg-white/[0.02] transition-colors border-r border-gray-800/40">
                         Next <ChevronRight size={12} />
                       </button>
-                      <button onClick={() => setCancelledIdx(Math.floor(Math.random() * cancelledProjects.length))} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-[11px] font-mono uppercase tracking-wider text-gray-500 hover:text-white hover:bg-white/[0.02] transition-colors">
-                        <RefreshCw size={11} /> Shuffle
+                      <button onClick={() => {
+                        const headline = wasted >= 1000 ? "\u00a3" + (wasted / 1000).toFixed(0) + "bn wasted" : "\u00a3" + wasted.toLocaleString() + "m wasted";
+                        handleChartShare({
+                          title: cp.name + " — Cancelled",
+                          headline: headline,
+                          subline: cp.name + " was cancelled after " + (wasted >= 1000 ? "\u00a3" + (wasted / 1000).toFixed(0) + "bn" : "\u00a3" + wasted + "m") + " of public money spent",
+                          accent: "#ef4444",
+                          sparkline: []
+                        });
+                      }} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-[11px] font-mono uppercase tracking-wider text-gray-500 hover:text-white hover:bg-white/[0.02] transition-colors">
+                        <Share2 size={11} /> Share
                       </button>
                     </div>
                   </div>
