@@ -1327,26 +1327,6 @@
     "lastUpdated": "2026-03-27"
   },
   {
-    "id": 64,
-    "name": "Swansea Bay Tidal Lagoon",
-    "department": "Department for Energy",
-    "category": "Energy",
-    "subcategory": "Renewables",
-    "originalBudget": 1300,
-    "latestBudget": 0,
-    "originalDate": "2022",
-    "latestDate": "Cancelled 2018",
-    "status": "Cancelled",
-    "contractors": [
-      "Tidal Lagoon Power plc"
-    ],
-    "description": "Proposed world-first tidal lagoon power plant, 320MW. Government rejected CfD funding in 2018 citing poor cost reduction potential. 40m spent on development before cancellation.",
-    "sources": [
-      "https://en.wikipedia.org/wiki/Tidal_Lagoon_Swansea_Bay"
-    ],
-    "lastUpdated": "2026-03-27"
-  },
-  {
     "id": 65,
     "name": "Midland Main Line Electrification",
     "department": "Department for Transport",
