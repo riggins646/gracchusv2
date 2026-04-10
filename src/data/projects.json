@@ -8,7 +8,7 @@
     "originalBudget": 33000,
     "latestBudget": 100000,
     "originalDate": "2033",
-    "latestDate": "2035+",
+    "latestDate": "Late 2030s",
     "status": "In Progress",
     "contractors": [
       "Balfour Beatty",
@@ -17,11 +17,13 @@
       "Eiffage",
       "Kier"
     ],
-    "description": "UK flagship high-speed rail. Northern legs scrapped. Cost escalation from 33bn to over 100bn.",
+    "description": "UK flagship high-speed rail. Northern legs scrapped. Cost widely estimated to exceed £100bn. March 2026 parliamentary report: £43.6bn spent to Feb 2026 (£46.2bn inc. scrapped Phase 2). Earthworks 70% complete. Speed reduction under consideration (186mph vs 224mph). Revised cost estimate expected summer 2026.",
     "sources": [
+      "https://www.gov.uk/government/speeches/hs2-6-monthly-report-to-parliament-march-2026",
+      "https://www.newcivilengineer.com/latest/hs2-46-2bn-already-spent-but-new-total-estimate-not-yet-detailed-25-03-2026/",
       "https://committees.parliament.uk/committee/127/public-accounts-committee/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-04-10"
   },
   {
     "id": 2,
@@ -73,20 +75,21 @@
     "category": "Energy",
     "subcategory": "Nuclear",
     "originalBudget": 18000,
-    "latestBudget": 46000,
+    "latestBudget": 48000,
     "originalDate": "2025",
-    "latestDate": "2031+",
+    "latestDate": "2030 (Unit 1)",
     "status": "In Progress",
     "contractors": [
       "EDF Energy",
       "China General Nuclear"
     ],
-    "description": "Nuclear power station in Somerset. Budget escalated from £18bn to £46bn (2024 estimate). First power now expected no earlier than 2031. EDF confirmed further cost overruns in January 2024.",
+    "description": "Nuclear power station in Somerset. Budget escalated from £18bn to £48bn (nominal 2026 prices; £35bn in 2015 prices per EDF Feb 2026 update). Unit 1 first power now expected 2030, delayed from 2029 due to electromechanical work issues. EDF took €2.5bn impairment charge.",
     "sources": [
       "https://www.nao.org.uk/reports/hinkley-point-c/",
+      "https://www.newcivilengineer.com/latest/hinkley-point-cs-cost-climbs-to-35bn-with-confirmation-unit-1-will-power-up-in-2030-20-02-2026/",
       "https://committees.parliament.uk/committee/127/public-accounts-committee/"
     ],
-    "lastUpdated": "2026-01"
+    "lastUpdated": "2026-04-10"
   },
   {
     "id": 5,

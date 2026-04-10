@@ -307,16 +307,16 @@
   {
     "name": "Palantir",
     "contractCount": 2,
-    "totalValue": 378000000,
-    "annualGovSpend": 50000000,
+    "totalValue": 570600000,
+    "annualGovSpend": 130000000,
     "sector": "IT",
     "departments": [
       "NHS England",
       "Ministry of Defence"
     ],
     "projects": [],
-    "notes": "NHS Federated Data Platform (7yr, \u00a3330M, Nov 2023). MOD Defence Data Analytics Enterprise Agreement (3yr, \u00a348M, Apr 2026).",
-    "strategicSupplier": false
+    "notes": "NHS Federated Data Platform (7yr, £330M, Nov 2023). MOD Defence Data Analytics Enterprise Agreement (3yr, £240.6M, awarded Dec 2025, direct award). Total gov contracts: £570.6M.",
+    "strategicSupplier": true
   },
   {
     "name": "DXC Technology",

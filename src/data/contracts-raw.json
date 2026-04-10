@@ -1217,15 +1217,21 @@
   {
     "id": "MOD-PALANTIR-EA-2026",
     "title": "Palantir Enterprise Agreement (Defence Data Analytics)",
-    "description": "Follow-on enterprise agreement for continued licencing and support of data analytics capabilities supporting critical strategic, tactical and live operational decision making across defence classifications, interoperable with NATO and allied nations.",
+    "description": "3-year enterprise agreement for continued licencing and support of data analytics capabilities across defence. Direct award (defence & security exemption). Over 3x the value of previous £75.2m agreement (2022). Includes £1.5bn Palantir UK investment commitment.",
     "buyer": "Ministry of Defence",
     "status": "awarded",
-    "awardDate": "2026-04",
-    "value": 48000000,
+    "awardDate": "2025-12-30",
+    "value": 240600000,
     "currency": "GBP",
     "supplier": "Palantir Technologies UK Limited",
-    "duration": "3 years (Apr 2026 \u2013 Mar 2029)",
+    "duration": "3 years (Apr 2026 – Mar 2029)",
     "source": "Find a Tender Service",
-    "sourceUrl": "https://www.find-tender.service.gov.uk/Notice/006088-2026"
+    "sourceUrl": "https://www.publictechnology.net/2026/01/29/defence-and-security/mod-signs-240m-palantir-deal-as-ministers-insist-uk-defence-data-remains-sovereign/",
+    "suppliers": [
+      {
+        "name": "Palantir Technologies UK Limited"
+      }
+    ],
+    "competitive": false
   }
 ]
