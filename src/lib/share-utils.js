@@ -1198,59 +1198,96 @@ function formatSparkVal(v) {
 }
 
 // ========================================
-// CANCELLED PROJECT CARD RENDERER
+// CANCELLED PROJECT — SOCIAL CARD
 // ========================================
-// High-impact card for cancelled projects.
-// Sized to fill 1200×630 with big, legible
-// text that looks identical to the on-page
-// cancelled project ticker.
+// Premium social-first shareable card.
+// Bloomberg × FT × viral finance aesthetic.
+// 1200×675 landscape (optimal for X/LinkedIn).
+// True black background, no navy.
+// Designed to stop the scroll.
+
+// Generate an editorial hook line based on project data
+function getEditorialHook(data) {
+  var wastedM = data.wasted || 0;
+  var name = data.name || "This project";
+  var amtStr = wastedM >= 1000
+    ? "\u00a3" + (wastedM / 1000).toFixed(0) + "bn"
+    : "\u00a3" + wastedM.toLocaleString() + "m";
+  var potholes = Math.round((wastedM * 1e6) / 100);
+  var nurses = Math.round((wastedM * 1e6) / 35000);
+  var overrun = data.overrun || 0;
+  // Pick the most impactful hook
+  if (wastedM >= 10000) {
+    return amtStr + " of public money. Gone.";
+  }
+  if (overrun > 0 && overrun >= wastedM * 0.3) {
+    var overStr = overrun >= 1000
+      ? "\u00a3" + (overrun / 1000).toFixed(0) + "bn"
+      : "\u00a3" + overrun + "m";
+    return overStr + " over budget before they pulled the plug.";
+  }
+  if (nurses >= 100000) {
+    return "That\u2019s " + nurses.toLocaleString() +
+      " nurses for a year.";
+  }
+  if (potholes >= 10000000) {
+    return "Enough to fix every pothole in Britain. Multiple times.";
+  }
+  return amtStr + " spent. Project cancelled. Nobody fired.";
+}
+
 export function renderCancelledProjectCard(data) {
   var W = 1200;
-  var H = 630;
+  var H = 675;
   var canvas = makeCanvas(W, H);
   var ctx = canvas.getContext("2d");
 
-  // Dark background matching the page
-  ctx.fillStyle = "#030712";
+  // ---- TRUE BLACK BACKGROUND ----
+  ctx.fillStyle = "#050505";
   ctx.fillRect(0, 0, W, H);
 
-  // Faint inner border (like the page card)
-  ctx.strokeStyle = "rgba(255,255,255,0.06)";
-  ctx.lineWidth = 1;
-  ctx.strokeRect(40, 40, W - 80, H - 80);
+  // Subtle noise texture effect via faint gradient
+  var noiseG = ctx.createRadialGradient(
+    W * 0.7, H * 0.2, 0,
+    W * 0.5, H * 0.5, W * 0.8
+  );
+  noiseG.addColorStop(0, "rgba(255,50,50,0.015)");
+  noiseG.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = noiseG;
+  ctx.fillRect(0, 0, W, H);
 
-  // Red top stripe
-  ctx.fillStyle = "#ef4444";
-  ctx.fillRect(40, 40, W - 80, 6);
+  // ---- RED TOP BAR — 6px full width ----
+  ctx.fillStyle = "#FF4D4D";
+  ctx.fillRect(0, 0, W, 6);
 
-  var px = 72;
-  var y = 82;
+  var px = 80;
+  var y = 50;
 
-  // ---- Header row: "CANCELLED PROJECT" + GRACCHUS ----
-  ctx.fillStyle = "rgba(239,68,68,0.85)";
-  ctx.font = "700 18px " + MONO;
-  ctx.letterSpacing = "6px";
+  // ============================================
+  // TOP ROW: CANCELLED PROJECT + GRACCHUS.AI
+  // ============================================
+  ctx.fillStyle = "#FF4D4D";
+  ctx.font = "700 24px " + MONO;
+  ctx.letterSpacing = "8px";
   ctx.textAlign = "left";
   ctx.fillText("CANCELLED PROJECT", px, y);
 
-  drawIcon(ctx, W - px - 24, y - 18, 24);
-  ctx.fillStyle = "#6b7280";
-  ctx.font = "600 14px " + MONO;
-  ctx.letterSpacing = "4px";
+  // Gracchus wordmark top-right
+  drawIcon(ctx, W - px - 28, y - 20, 28);
+  ctx.fillStyle = "#555555";
+  ctx.font = "700 16px " + MONO;
+  ctx.letterSpacing = "5px";
   ctx.textAlign = "right";
-  ctx.fillText("GRACCHUS", W - px - 34, y);
+  ctx.fillText("GRACCHUS.AI", W - px - 38, y);
   ctx.textAlign = "left";
 
-  // Divider under header
-  y += 22;
-  ctx.fillStyle = "rgba(255,255,255,0.07)";
-  ctx.fillRect(px, y, W - px * 2, 1);
-  y += 36;
-
-  // ---- Project name — big, white, bold ----
-  ctx.fillStyle = "#f3f4f6";
-  ctx.font = "800 42px " + SANS;
-  ctx.letterSpacing = "-1px";
+  // ============================================
+  // PROJECT TITLE — prominent white
+  // ============================================
+  y += 44;
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "800 52px " + SANS;
+  ctx.letterSpacing = "-1.5px";
   var nameStr = data.name || "";
   var nameWords = nameStr.split(" ");
   var nameLine1 = "";
@@ -1273,119 +1310,140 @@ export function renderCancelledProjectCard(data) {
   });
   ctx.fillText(nameLine1, px, y);
   if (nameLine2) {
-    ctx.fillText(nameLine2, px, y + 48);
-    y += 48;
+    ctx.fillText(nameLine2, px, y + 58);
+    y += 58;
   }
-  y += 14;
 
   // Department
-  ctx.fillStyle = "#6b7280";
-  ctx.font = "500 16px " + MONO;
-  ctx.letterSpacing = "4px";
+  y += 16;
+  ctx.fillStyle = "#666666";
+  ctx.font = "500 20px " + MONO;
+  ctx.letterSpacing = "5px";
   ctx.fillText(
     (data.department || "").toUpperCase(), px, y
   );
 
-  // ---- Money spent section ----
-  y += 32;
-  ctx.fillStyle = "rgba(255,255,255,0.07)";
-  ctx.fillRect(px, y, W - px * 2, 1);
-  y += 30;
+  // ============================================
+  // HERO NUMBER — the centrepiece
+  // ============================================
+  y += 40;
 
-  ctx.fillStyle = "#6b7280";
-  ctx.font = "600 15px " + MONO;
-  ctx.letterSpacing = "5px";
-  ctx.fillText(
-    "MONEY SPENT BEFORE CANCELLATION", px, y
+  // Left red accent bar next to the number
+  var accentBarH = 100;
+  ctx.fillStyle = "#FF4D4D";
+  ctx.fillRect(px, y - 4, 5, accentBarH);
+  // Glow behind accent
+  var glow = ctx.createLinearGradient(
+    px, y, px + 120, y
   );
-  y += 16;
+  glow.addColorStop(0, "rgba(255,77,77,0.06)");
+  glow.addColorStop(1, "rgba(255,77,77,0)");
+  ctx.fillStyle = glow;
+  ctx.fillRect(px, y - 4, 120, accentBarH);
 
-  // ---- Amount — massive red, the centrepiece ----
   var wastedM = data.wasted || 0;
   var amtStr = wastedM >= 1000
     ? "\u00a3" + (wastedM / 1000).toFixed(0) + "bn"
     : "\u00a3" + wastedM.toLocaleString() + "m";
-  ctx.fillStyle = "#ef4444";
-  ctx.font = "900 108px " + SANS;
-  ctx.letterSpacing = "-5px";
-  ctx.fillText(amtStr, px - 4, y + 88);
 
-  // Over budget callout
-  var overrun = data.overrun || 0;
-  if (overrun > 0) {
-    var overStr = overrun >= 1000
-      ? "+" + "\u00a3" +
-        (overrun / 1000).toFixed(1) + "bn over budget"
-      : "+" + "\u00a3" +
-        overrun.toLocaleString() + "m over budget";
-    ctx.fillStyle = "#fbbf24";
-    ctx.font = "800 28px " + SANS;
-    ctx.letterSpacing = "-0.5px";
-    ctx.fillText(overStr, px, y + 122);
-    y += 136;
-  } else {
-    y += 102;
-  }
+  // The big number
+  ctx.fillStyle = "#FF4D4D";
+  ctx.font = "900 120px " + SANS;
+  ctx.letterSpacing = "-6px";
+  ctx.fillText(amtStr, px + 22, y + 80);
 
-  // ---- Pothole equivalence ----
-  y += 4;
-  ctx.fillStyle = "rgba(255,255,255,0.07)";
-  ctx.fillRect(px, y, W - px * 2, 1);
-  y += 34;
+  // ============================================
+  // CONTEXT LINE — right of or below number
+  // ============================================
+  y += accentBarH + 12;
+
+  ctx.fillStyle = "#888888";
+  ctx.font = "500 28px " + SANS;
+  ctx.letterSpacing = "0px";
+  ctx.fillText(
+    "Money spent before cancellation", px, y
+  );
+
+  // ============================================
+  // EQUIVALENCE — pothole metric
+  // ============================================
+  y += 42;
 
   var potholeUnit = 100;
   var potholesEquiv = Math.round(
     (wastedM * 1e6) / potholeUnit
   );
   var pStr = potholesEquiv.toLocaleString();
+
   ctx.fillStyle = "#ffffff";
-  ctx.font = "900 40px " + SANS;
+  ctx.font = "900 36px " + SANS;
   ctx.letterSpacing = "-1px";
   ctx.fillText(pStr, px, y);
   var pW = ctx.measureText(pStr).width;
-  ctx.fillStyle = "#6b7280";
-  ctx.font = "400 22px " + SANS;
+  ctx.fillStyle = "#666666";
+  ctx.font = "400 28px " + SANS;
   ctx.letterSpacing = "0px";
   ctx.fillText(
     "pothole repairs equivalent",
     px + pW + 16, y
   );
 
-  // ---- Bottom stats: Original Budget + Category ----
-  y += 24;
-  ctx.fillStyle = "rgba(255,255,255,0.07)";
+  // ============================================
+  // EDITORIAL HOOK — the viral line
+  // ============================================
+  y += 52;
+  // Thin divider
+  ctx.fillStyle = "rgba(255,255,255,0.08)";
   ctx.fillRect(px, y, W - px * 2, 1);
-  y += 28;
+  y += 32;
 
-  // Original budget column
-  ctx.fillStyle = "#6b7280";
-  ctx.font = "600 13px " + MONO;
-  ctx.letterSpacing = "4px";
-  ctx.fillText("ORIGINAL BUDGET", px, y);
-  var origBudget = data.originalBudget || 0;
-  var origStr = origBudget >= 1000
-    ? "\u00a3" +
-      (origBudget / 1000).toFixed(0) + "bn"
-    : "\u00a3" +
-      origBudget.toLocaleString() + "m";
-  ctx.fillStyle = "#d1d5db";
-  ctx.font = "700 28px " + SANS;
-  ctx.letterSpacing = "0px";
-  ctx.fillText(origStr, px, y + 32);
+  var hook = getEditorialHook(data);
+  ctx.fillStyle = "#cccccc";
+  ctx.font = "600 32px " + SANS;
+  ctx.letterSpacing = "-0.5px";
+  // Word-wrap the hook if needed
+  var hookWords = hook.split(" ");
+  var hookLine1 = "";
+  var hookLine2 = "";
+  var hookMaxW = W - px * 2;
+  var onHL2 = false;
+  hookWords.forEach(function(w) {
+    var test = onHL2
+      ? hookLine2 + (hookLine2 ? " " : "") + w
+      : hookLine1 + (hookLine1 ? " " : "") + w;
+    if (!onHL2 &&
+      ctx.measureText(test).width > hookMaxW) {
+      onHL2 = true;
+      hookLine2 = w;
+    } else if (onHL2) {
+      hookLine2 += " " + w;
+    } else {
+      hookLine1 = test;
+    }
+  });
+  ctx.fillText(hookLine1, px, y);
+  if (hookLine2) {
+    ctx.fillText(hookLine2, px, y + 38);
+  }
 
-  // Category column
-  var rightX = W / 2 + 40;
-  ctx.fillStyle = "#6b7280";
-  ctx.font = "600 13px " + MONO;
-  ctx.letterSpacing = "4px";
-  ctx.fillText("CATEGORY", rightX, y);
-  ctx.fillStyle = "#d1d5db";
-  ctx.font = "700 28px " + SANS;
-  ctx.letterSpacing = "0px";
-  ctx.fillText(data.category || "", rightX, y + 32);
-
-  // Footer
-  drawFooter(ctx, W, H, px);
+  // ============================================
+  // FOOTER — source + brand
+  // ============================================
+  var fy = H - 30;
+  ctx.fillStyle = "#444444";
+  ctx.font = "400 14px " + MONO;
+  ctx.letterSpacing = "1px";
+  ctx.textAlign = "left";
+  ctx.fillText(
+    "Source: NAO / IPA \u00B7 Published UK data",
+    px, fy
+  );
+  ctx.fillStyle = "#555555";
+  ctx.font = "700 14px " + MONO;
+  ctx.letterSpacing = "3px";
+  ctx.textAlign = "right";
+  ctx.fillText("GRACCHUS.AI", W - px, fy);
+  ctx.textAlign = "left";
 
   return canvas.toDataURL("image/png");
 }
