@@ -126,7 +126,7 @@
   {
     "name": "Babcock International",
     "contractCount": 2,
-    "totalValue": 1060000000,
+    "totalValue": 1660000000,
     "annualGovSpend": 2100000000,
     "sector": "Defence",
     "departments": [
@@ -135,7 +135,7 @@
     "projects": [
       "Dreadnought Submarines"
     ],
-    "notes": "63% of global revenue from MOD. British Army Strategic Support Partner (1bn).",
+    "notes": "63% of global revenue from MOD. British Army SPTC extension (£1.6bn, Mar 2025).",
     "strategicSupplier": true
   },
   {

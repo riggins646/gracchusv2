@@ -163,12 +163,12 @@
   },
   {
     "id": "DEF-010",
-    "title": "Babcock British Army Strategic Support Partner",
-    "description": "Support for Challenger 2 tanks, 105mm artillery, Trojan armoured vehicles across 20+ sites",
+    "title": "Babcock British Army Strategic Support Partner (SPTC Extension)",
+    "description": "5-year extension of Service Provision and Transformation Contract. Support for Challenger 2 tanks, 105mm artillery, Trojan armoured vehicles across 20+ sites. Sustains 1,600 jobs and ~6,000 supply chain businesses.",
     "buyer": "Ministry of Defence",
     "status": "active",
-    "awardDate": "2025-01",
-    "value": 1000000000,
+    "awardDate": "2025-03",
+    "value": 1600000000,
     "currency": "GBP",
     "suppliers": [
       {
@@ -177,7 +177,7 @@
     ],
     "category": "defence",
     "competitive": false,
-    "source": "https://www.babcockinternational.com/news/babcock-awarded-five-year-british-army-strategic-support-partner-contract/"
+    "source": "https://www.gov.uk/government/news/major-16-billion-equipment-contract-to-support-british-defence-jobs-and-boost-army-readiness"
   },
   {
     "id": "DEF-011",
