@@ -20,6 +20,9 @@ import {
   Scale, Hash, Home, Eye, Gift, Filter, Sparkles, Menu
 } from "lucide-react";
 
+// Module-level session token — shared between Dashboard (writes) and ChartCard (reads)
+let _sessionToken = null;
+
 import projectsData from "../data/projects.json";
 import civilServiceData from "../data/civil-service.json";
 import spendingData from "../data/spending.json";
@@ -366,7 +369,7 @@ function ChartCard({
     try {
       const fetchStart = Date.now();
       const headers = { "Content-Type": "application/json" };
-      if (sessionTokenRef?.current) headers["X-Session-Token"] = sessionTokenRef.current;
+      if (_sessionToken) headers["X-Session-Token"] = _sessionToken;
       const res = await fetch("/api/explain", {
         method: "POST",
         headers,
@@ -395,7 +398,7 @@ function ChartCard({
     try {
       const fetchStart = Date.now();
       const headers = { "Content-Type": "application/json" };
-      if (sessionTokenRef?.current) headers["X-Session-Token"] = sessionTokenRef.current;
+      if (_sessionToken) headers["X-Session-Token"] = _sessionToken;
       const res = await fetch("/api/fix", {
         method: "POST",
         headers,
@@ -3871,17 +3874,17 @@ export default function App() {
     useState(null);
 
   // ── Session token for AI endpoints (bot protection) ──
-  const sessionTokenRef = useRef(null);
+  // Writes to module-level _sessionToken so ChartCard can read it
   useEffect(() => {
     fetch("/api/token")
       .then(r => r.ok ? r.json() : null)
-      .then(d => { if (d?.token) sessionTokenRef.current = d.token; })
+      .then(d => { if (d?.token) _sessionToken = d.token; })
       .catch(() => {});
     // Refresh token every 8 minutes (tokens expire after 10)
     const interval = setInterval(() => {
       fetch("/api/token")
         .then(r => r.ok ? r.json() : null)
-        .then(d => { if (d?.token) sessionTokenRef.current = d.token; })
+        .then(d => { if (d?.token) _sessionToken = d.token; })
         .catch(() => {});
     }, 8 * 60 * 1000);
     return () => clearInterval(interval);

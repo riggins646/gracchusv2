@@ -1233,5 +1233,36 @@
       }
     ],
     "competitive": false
+  },
+  {
+    "id": "DEF-017",
+    "title": "Boats In-Service Support Programme (BISS26)",
+    "description": "9 contracts for maintenance and support of ~3,000 boats used by UK Armed Forces and MOD Police. Covers patrol boats, landing craft, rigid inflatable boats and specialist craft. Runs April 2026 to March 2033.",
+    "buyer": "Ministry of Defence",
+    "status": "active",
+    "awardDate": "2026-04",
+    "value": 283500000,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "Babcock International"
+      },
+      {
+        "name": "Serco"
+      },
+      {
+        "name": "Golden Arrow Marine"
+      },
+      {
+        "name": "UK Docks"
+      },
+      {
+        "name": "Griffon Marine"
+      }
+    ],
+    "category": "defence",
+    "competitive": true,
+    "duration": "7 years (Apr 2026 – Mar 2033)",
+    "source": "https://ukdefencejournal.org.uk/high-value-contracts-awarded-to-support-3000-mod-boats/"
   }
 ]
