@@ -1361,12 +1361,12 @@ export function renderCancelledProjectCard(data) {
     ctx.fillText(overAmtStr, W - px, y + 66);
     ctx.textAlign = "left";
   }
-  y += 90;
+  y += 96;
 
   // === BOTTOM STATS ROW ===
   ctx.fillStyle = "rgba(55,65,81,0.3)";
   ctx.fillRect(px, y, W - px * 2, 1);
-  y += 28;
+  y += 30;
 
   var colW = (W - px * 2) / 3;
 
@@ -1399,7 +1399,8 @@ export function renderCancelledProjectCard(data) {
     data.category || "", col2x, y + 38
   );
 
-  // Col 3: Pothole equivalent
+  // Col 3: Pothole equivalent — label clarifies
+  // the number is an equivalence, not literal repairs
   var col3x = px + colW * 2;
   var potholeUnit = 100;
   var potholesEquiv = Math.round(
@@ -1408,12 +1409,12 @@ export function renderCancelledProjectCard(data) {
   ctx.fillStyle = "#6b7280";
   ctx.font = "600 13px " + MONO;
   ctx.letterSpacing = "2px";
-  ctx.fillText("POTHOLE REPAIRS", col3x, y);
+  ctx.fillText("COULD HAVE FIXED", col3x, y);
   ctx.fillStyle = "#d1d5db";
   ctx.font = "700 32px " + SANS;
   ctx.letterSpacing = "0px";
   ctx.fillText(
-    potholesEquiv.toLocaleString(),
+    potholesEquiv.toLocaleString() + " potholes",
     col3x, y + 38
   );
 
