@@ -11285,15 +11285,15 @@ export default function App() {
             shareData={departmentHeadcounts.map(d => d.headcount)}
             onShare={handleChartShare}
             explainData={departmentHeadcounts.slice(0, 8).map(d => `${d.dept}: ${d.headcount.toLocaleString()}`).join("; ")}>
-                <ResponsiveContainer width="100%" height={260}>
-                  <BarChart data={departmentHeadcounts} layout="vertical" margin={{ left: 10, right: 20 }}>
+                <ResponsiveContainer width="100%" height={340}>
+                  <BarChart data={departmentHeadcounts} layout="vertical" margin={{ left: 0, right: 20, top: 5, bottom: 5 }}>
                     <XAxis
                       type="number"
                       tick={{ fill: "#6b7280", fontSize: 11 }}
                       tickFormatter={(v) => (v / 1000).toFixed(0) + "k"}
                     />
                     <YAxis
-                      type="category" dataKey="dept" width={100}
+                      type="category" dataKey="dept" width={120}
                       tick={{ fill: "#9ca3af", fontSize: 11 }}
                     />
                     <Tooltip
