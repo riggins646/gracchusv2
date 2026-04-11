@@ -3791,6 +3791,8 @@ export default function App() {
 
   const [projQuickView, setProjQuickView] = useState(null);
   const [cancelledIdx, setCancelledIdx] = useState(0);
+  const cancelledCardRef = useRef(null);
+  const [cancelledCapturing, setCancelledCapturing] = useState(false);
   // Auto-cycle cancelled projects every 6 seconds when on projects view
   useEffect(() => {
     if (view !== "projects") return;
@@ -5255,10 +5257,12 @@ export default function App() {
                 const potholesEquiv = Math.round((wasted * 1e6) / potholeUnit);
                 return (
                   <div className="border border-gray-800/60 bg-gray-950/50 flex flex-col">
+                    {/* Capturable card area — used by html2canvas for share export */}
+                    <div ref={cancelledCardRef} className="flex flex-col flex-1" style={{ backgroundColor: '#0a0a0b' }}>
                     {/* Header */}
                     <div className="px-5 py-3 border-b border-gray-800/40 flex items-center justify-between">
                       <div className="text-[12px] uppercase tracking-[0.25em] text-red-500/80 font-mono">Cancelled Project</div>
-                      <div className="text-[11px] font-mono text-gray-700 tracking-wide">{(cancelledIdx % cancelledProjects.length) + 1}/{cancelledProjects.length}</div>
+                      <div className="text-[11px] font-mono text-gray-600 tracking-wide">GRACCHUS.AI</div>
                     </div>
 
                     {/* Body */}
@@ -5304,6 +5308,7 @@ export default function App() {
                         Project cancelled. Spend figure is total cost at cancellation per NAO/IPA reports.
                       </div>
                     </div>
+                    </div>{/* end capturable card area */}
 
                     {/* Controls */}
                     <div className="flex border-t border-gray-800/40">
@@ -5313,20 +5318,60 @@ export default function App() {
                       <button onClick={() => setCancelledIdx(i => (i + 1) % cancelledProjects.length)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-[11px] font-mono uppercase tracking-wider text-gray-500 hover:text-white hover:bg-white/[0.02] transition-colors border-r border-gray-800/40">
                         Next <ChevronRight size={12} />
                       </button>
-                      <button onClick={() => {
-                        handleChartShare({
-                          _cancelledProject: true,
-                          name: cp.name,
-                          department: cp.department,
-                          category: cp.category,
-                          wasted: wasted,
-                          overrun: overrun > 0 ? overrun : 0,
-                          originalBudget: cp.originalBudget,
-                          title: cp.name + " \u2014 Cancelled",
-                          accent: "#FF4D4D"
-                        });
+                      <button onClick={async () => {
+                        if (cancelledCapturing) return;
+                        setCancelledCapturing(true);
+                        try {
+                          // Dynamically load html2canvas from CDN if not already loaded
+                          if (!window.html2canvas) {
+                            await new Promise((resolve, reject) => {
+                              const s = document.createElement('script');
+                              s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                              s.onload = resolve;
+                              s.onerror = reject;
+                              document.head.appendChild(s);
+                            });
+                          }
+                          const node = cancelledCardRef.current;
+                          if (!node) throw new Error('Card ref not found');
+                          // Capture at 3x for high-res share image
+                          const canvas = await window.html2canvas(node, {
+                            backgroundColor: '#0a0a0b',
+                            scale: 3,
+                            useCORS: true,
+                            logging: false,
+                          });
+                          const dataUrl = canvas.toDataURL('image/png');
+                          handleChartShare({
+                            _cancelledProject: true,
+                            _capturedImage: dataUrl,
+                            name: cp.name,
+                            department: cp.department,
+                            category: cp.category,
+                            wasted: wasted,
+                            overrun: overrun > 0 ? overrun : 0,
+                            originalBudget: cp.originalBudget,
+                            title: cp.name + " \u2014 Cancelled",
+                            accent: "#FF4D4D"
+                          });
+                        } catch (err) {
+                          console.error('DOM capture failed, falling back to canvas:', err);
+                          handleChartShare({
+                            _cancelledProject: true,
+                            name: cp.name,
+                            department: cp.department,
+                            category: cp.category,
+                            wasted: wasted,
+                            overrun: overrun > 0 ? overrun : 0,
+                            originalBudget: cp.originalBudget,
+                            title: cp.name + " \u2014 Cancelled",
+                            accent: "#FF4D4D"
+                          });
+                        } finally {
+                          setCancelledCapturing(false);
+                        }
                       }} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-[11px] font-mono uppercase tracking-wider text-gray-500 hover:text-white hover:bg-white/[0.02] transition-colors">
-                        <Share2 size={11} /> Share
+                        <Share2 size={11} /> {cancelledCapturing ? "Capturing…" : "Share"}
                       </button>
                     </div>
                   </div>
@@ -9409,17 +9454,19 @@ export default function App() {
               <div className={
                 "px-4 sm:px-6 py-4 sm:py-6 space-y-3 sm:space-y-4"
               }>
-                {/* Render actual canvas image as preview so modal matches PNG exactly */}
+                {/* Render preview — use DOM-captured image when available, fallback to canvas */}
                 <img
-                  src={chartShare._cancelledProject ? renderCancelledProjectCard(chartShare) : renderChartShareCard(chartShare)}
+                  src={chartShare._capturedImage ? chartShare._capturedImage : (chartShare._cancelledProject ? renderCancelledProjectCard(chartShare) : renderChartShareCard(chartShare))}
                   alt="Share preview"
                   className="w-full border border-gray-800/40"
                 />
                 <button
                   onClick={() => {
-                    const dataUrl = chartShare._cancelledProject
-                      ? renderCancelledProjectCard(chartShare)
-                      : renderChartShareCard(chartShare);
+                    const dataUrl = chartShare._capturedImage
+                      ? chartShare._capturedImage
+                      : (chartShare._cancelledProject
+                        ? renderCancelledProjectCard(chartShare)
+                        : renderChartShareCard(chartShare));
                     const link =
                       document.createElement(
                         "a"
