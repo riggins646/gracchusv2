@@ -1246,7 +1246,7 @@ function getEditorialHook(data) {
 // 1200×630 (same as chart cards).
 export function renderCancelledProjectCard(data) {
   var W = 1200;
-  var H = 630;
+  var H = 580;
   var canvas = makeCanvas(W, H);
   var ctx = canvas.getContext("2d");
 
