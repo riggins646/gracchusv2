@@ -1,7 +1,7 @@
 export const metadata = {
   title: "About — Gracchus",
   description:
-    "Non-partisan, source-backed audit of UK government spending. Who we are and how to get in touch.",
+    "Non-partisan, source-backed audit of UK government performance. Who we are and how to get in touch.",
 };
 
 export default function AboutPage() {
@@ -32,9 +32,9 @@ export default function AboutPage() {
         <div className="space-y-6 text-[15px] leading-relaxed text-gray-400">
           <p>
             Gracchus is a non-partisan, source-backed audit of UK government
-            spending. We track public projects, procurement, political
-            donations, departmental budgets and economic indicators — all in
-            one place, all verifiable.
+            performance. We track public spending, project delivery,
+            procurement, political donations, departmental budgets, cost of
+            living and economic indicators — all in one place, all verifiable.
           </p>
 
           <p>
@@ -47,8 +47,8 @@ export default function AboutPage() {
 
           <p>
             The goal is simple: make it easy for anyone — journalists,
-            researchers, taxpayers — to see where the money goes and whether
-            it is being spent well.
+            researchers, taxpayers — to see how their government is performing
+            and whether public money is being spent well.
           </p>
         </div>
 
@@ -62,17 +62,35 @@ export default function AboutPage() {
           >
             Contact
           </div>
-          <a
-            href="mailto:contact@gracchus.ai"
-            className={
-              "text-[15px] text-gray-300 " +
-              "hover:text-white transition-colors " +
-              "underline underline-offset-4 " +
-              "decoration-gray-700 hover:decoration-gray-400"
-            }
-          >
-            contact@gracchus.ai
-          </a>
+          <div className="flex flex-col gap-3">
+            <a
+              href="mailto:contact@gracchus.ai"
+              className={
+                "text-[15px] text-gray-300 " +
+                "hover:text-white transition-colors " +
+                "underline underline-offset-4 " +
+                "decoration-gray-700 hover:decoration-gray-400"
+              }
+            >
+              contact@gracchus.ai
+            </a>
+            <a
+              href="https://x.com/GracchusHQ"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={
+                "flex items-center gap-2 text-[15px] text-gray-300 " +
+                "hover:text-white transition-colors " +
+                "underline underline-offset-4 " +
+                "decoration-gray-700 hover:decoration-gray-400"
+              }
+            >
+              <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+              @GracchusHQ
+            </a>
+          </div>
         </div>
 
         {/* Tiny footer */}

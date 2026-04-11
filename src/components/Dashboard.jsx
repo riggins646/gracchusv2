@@ -9415,7 +9415,7 @@ export default function App() {
                 GRACCHUS
               </span>
               <span className="text-[10px] text-gray-700 font-mono">
-                &middot; Tracking UK government spending
+                &middot; UK government performance tracker
               </span>
             </div>
             <div className="flex items-center gap-5">
