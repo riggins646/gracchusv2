@@ -1,3 +1,6 @@
-# Staging site — do not index
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /api/
+Disallow: /data/
+
+Sitemap: https://gracchus.ai/sitemap.xml

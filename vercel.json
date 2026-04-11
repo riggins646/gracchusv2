@@ -5,6 +5,10 @@
       "schedule": "0 4 * * *"
     },
     {
+      "path": "/api/generate-ai",
+      "schedule": "15 4 * * *"
+    },
+    {
       "path": "/api/ingest-spending",
       "schedule": "0 6 1 * *"
     }

@@ -1,69 +1,128 @@
 /**
  * POST /api/fix
- * Receives chart context and returns AI-generated ideas for possible solutions,
- * improvements, or policy levers. Non-partisan and exploratory in tone.
  *
- * Body: { title: string, label?: string, data: string, editorial?: string }
- * Returns: { fix: string } or { error: string }
+ * Cache-first AI endpoint — identical architecture to /api/explain
+ * but returns policy fix suggestions instead of chart explanations.
+ *
+ * See /api/explain/route.js for full documentation of the pattern.
  */
 
-export const runtime = "edge";
+import { list } from "@vercel/blob";
+import { put } from "@vercel/blob";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
+import {
+  blobPath,
+  resolveChartId,
+  buildUserMessage,
+  FIX_SYSTEM_PROMPT,
+} from "@/lib/ai-registry";
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
-const MODEL = "claude-sonnet-4-5"; // better instruction-following
+const MODEL = "claude-sonnet-4-5";
 
-const SYSTEM_PROMPT = `You are a UK public policy thinker writing for Gracchus, a non-partisan data platform. Your tone is Economist editorial meets think-tank briefing — intellectually curious, slightly provocative, always grounded.
+const RATE_PER_MIN = 3;
+const RATE_PER_HOUR = 15;
+const MAX_INPUT_LENGTH = 2000;
 
-You will receive a chart title and possibly some data points. Your job: explore what could actually fix or improve this situation, drawing on your deep knowledge of UK public policy.
+async function readBlob(path) {
+  try {
+    const { blobs } = await list({ prefix: path, limit: 1 });
+    if (blobs.length === 0) return null;
+    const res = await fetch(blobs[0].url);
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
 
-ABSOLUTE RULES — VIOLATION OF THESE IS A FAILURE:
-1. NEVER ask the user for data, figures, or context. NEVER say "I need", "could you share", "please provide", or "without seeing". You are the expert — USE YOUR OWN KNOWLEDGE.
-2. NEVER mention "Layer 1", "Layer 2", "Layer 3", or any internal system terminology.
-3. NEVER refuse to answer. Even if you only receive a chart title with no data, you MUST write a complete, substantive response using your knowledge of UK policy.
-
-Structure your response with these exact bold markdown headers:
-
-**Why this keeps happening**
-1-2 sentences on structural root causes. Be specific — name the systems, incentives, or institutional failures.
-
-**What could actually work**
-3-5 bullet points (use "- " prefix). Each must be a specific, concrete intervention referencing real mechanisms (planning law, fiscal levers, institutional reform, international examples).
-
-**The hard truth**
-1-2 sentences on why fixes are difficult. Name real trade-offs and obstacles honestly.
-
-Style rules:
-- If a "Context" editorial line is provided, do NOT repeat or paraphrase it
-- Be exploratory and discussion-provoking — ideas to debate, not prescriptions
-- Stay non-partisan but don't be bland — have a point of view grounded in evidence
-- Be specific to the UK — reference real institutions (Treasury, BoE, OBR, DLUHC, NHS, Ofgem, etc.)
-- Use British English and £ for currency
-- Keep total response between 100-150 words
-- Plain language, no jargon`;
+async function writeBlob(path, data) {
+  try {
+    await put(path, JSON.stringify(data), {
+      access: "public",
+      contentType: "application/json",
+      addRandomSuffix: false,
+    });
+  } catch (e) {
+    console.error("[fix] Blob write failed:", e.message);
+  }
+}
 
 export async function POST(request) {
-  if (!ANTHROPIC_API_KEY) {
-    return Response.json(
-      { error: "AI features not configured. Add ANTHROPIC_API_KEY to .env.local" },
-      { status: 503 }
-    );
-  }
-
   try {
-    const { title, label, data, editorial } = await request.json();
+    const body = await request.json();
+
+    // ── 1. Validate input ─────────────────────────────────────────
+    const title = typeof body?.title === "string" ? body.title : "";
+    const label = typeof body?.label === "string" ? body.label : "";
+    const data  = typeof body?.data  === "string" ? body.data  : "";
+    const editorial = typeof body?.editorial === "string" ? body.editorial : "";
+    const clientChartId = typeof body?.chartId === "string" ? body.chartId : "";
 
     if (!data && !title) {
-      return Response.json({ error: "No chart data provided" }, { status: 400 });
+      return Response.json({ error: "Bad request" }, { status: 400 });
     }
 
-    const userMessage = [
-      `Chart: ${title || "Untitled"}`,
-      label ? `Section: ${label}` : "",
-      editorial ? `Context: ${editorial}` : "",
-      data ? `Data: ${data}` : "",
-    ]
-      .filter(Boolean)
-      .join("\n");
+    // ── 2. Check blob cache ───────────────────────────────────────
+    const chartId = clientChartId || resolveChartId({ title, chartId: clientChartId });
+
+    if (chartId) {
+      const cached = await readBlob(blobPath(chartId, "fix"));
+      if (cached?.text) {
+        return Response.json(
+          { fix: cached.text, generatedAt: cached.generatedAt },
+          { headers: { "X-Cache": "HIT", "Cache-Control": "public, s-maxage=3600" } }
+        );
+      }
+    }
+
+    // ── 3. Live fallback — rate limit ─────────────────────────────
+
+    if (process.env.AI_LIVE_ENABLED === "false") {
+      return Response.json(
+        { error: "AI features are temporarily paused" },
+        { status: 503 }
+      );
+    }
+
+    const ip = getClientIp(request);
+
+    const rlMin = rateLimit(`fix:min:${ip}`, RATE_PER_MIN, 60_000);
+    if (!rlMin.allowed) {
+      return new Response(JSON.stringify({ error: "Too many requests" }), {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+          "Retry-After": String(Math.ceil((rlMin.resetAt - Date.now()) / 1000)),
+        },
+      });
+    }
+
+    const rlHour = rateLimit(`fix:hr:${ip}`, RATE_PER_HOUR, 3_600_000);
+    if (!rlHour.allowed) {
+      return new Response(JSON.stringify({ error: "Hourly limit reached" }), {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+          "Retry-After": String(Math.ceil((rlHour.resetAt - Date.now()) / 1000)),
+        },
+      });
+    }
+
+    const totalLength = title.length + label.length + data.length + editorial.length;
+    if (totalLength > MAX_INPUT_LENGTH) {
+      return Response.json({ error: "Bad request" }, { status: 400 });
+    }
+
+    if (!ANTHROPIC_API_KEY) {
+      return Response.json({ error: "Service unavailable" }, { status: 503 });
+    }
+
+    // ── 4. Call Claude ────────────────────────────────────────────
+    const userMessage = buildUserMessage({ title, label, data, editorial });
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 20_000);
 
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -75,27 +134,50 @@ export async function POST(request) {
       body: JSON.stringify({
         model: MODEL,
         max_tokens: 400,
-        system: SYSTEM_PROMPT,
+        system: FIX_SYSTEM_PROMPT,
         messages: [{ role: "user", content: userMessage }],
       }),
+      signal: controller.signal,
     });
 
+    clearTimeout(timeout);
+
     if (!res.ok) {
-      const err = await res.text();
-      console.error("Anthropic API error:", res.status, err);
-      return Response.json(
-        { error: "AI service temporarily unavailable" },
-        { status: 502 }
-      );
+      console.error("[fix] Anthropic error:", res.status);
+      return Response.json({ error: "AI service temporarily unavailable" }, { status: 502 });
     }
 
-    const body = await res.json();
-    const fix =
-      body.content?.[0]?.text || "Unable to generate suggestions.";
+    const result = await res.json();
+    const fix = result.content?.[0]?.text || "Unable to generate suggestions.";
 
-    return Response.json({ fix });
+    // ── 5. Save to blob ───────────────────────────────────────────
+    if (chartId) {
+      const record = {
+        chartId,
+        mode: "fix",
+        title,
+        label: label || null,
+        text: fix,
+        model: MODEL,
+        promptVersion: "2026-04-11",
+        generatedAt: new Date().toISOString(),
+        dataVersion: new Date().toISOString().slice(0, 10),
+        status: "ok",
+        source: "live-fallback",
+      };
+      writeBlob(blobPath(chartId, "fix"), record);
+    }
+
+    return Response.json(
+      { fix },
+      { headers: { "X-Cache": "MISS" } }
+    );
   } catch (e) {
-    console.error("Fix API error:", e);
+    if (e.name === "AbortError") {
+      console.error("[fix] Request timed out");
+      return Response.json({ error: "Request timed out" }, { status: 504 });
+    }
+    console.error("[fix] Error:", e);
     return Response.json({ error: "Something went wrong" }, { status: 500 });
   }
 }

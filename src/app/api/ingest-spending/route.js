@@ -33,6 +33,10 @@ const BLOB_PATH = "gracchus/pesa-check.json";
 // ── Auth ──────────────────────────────────────────────────────────────
 function isAuthorised(request) {
   if (process.env.NODE_ENV !== "production") return true;
+  if (!process.env.CRON_SECRET) {
+    console.error("[ingest-spending] CRON_SECRET not set — blocking request");
+    return false;
+  }
   const authHeader = request.headers.get("authorization");
   if (authHeader === `Bearer ${process.env.CRON_SECRET}`) return true;
   return false;

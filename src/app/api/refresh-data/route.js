@@ -25,6 +25,13 @@ function isAuthorised(request) {
   // In development / local testing, skip auth
   if (process.env.NODE_ENV !== "production") return true;
 
+  // Guard: if CRON_SECRET is not configured, block all requests
+  // rather than silently allowing unauthenticated access
+  if (!process.env.CRON_SECRET) {
+    console.error("[refresh-data] CRON_SECRET not set — blocking request");
+    return false;
+  }
+
   // Vercel Cron sends this header automatically when CRON_SECRET is set
   const authHeader = request.headers.get("authorization");
   if (authHeader === `Bearer ${process.env.CRON_SECRET}`) return true;

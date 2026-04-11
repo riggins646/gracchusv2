@@ -2,6 +2,9 @@
 const nextConfig = {
   output: "standalone",
 
+  // Explicitly disable source maps in production builds
+  productionBrowserSourceMaps: false,
+
   // ── Security Headers ──────────────────────────────────────────────
   async headers() {
     return [
@@ -12,27 +15,22 @@ const nextConfig = {
           // Prevent clickjacking — only allow your own site to frame content
           {
             key: "X-Frame-Options",
-            value: "SAMEORIGIN",
+            value: "DENY",
           },
-          // Stop browsers from MIME-sniffing (prevents content-type confusion attacks)
+          // Stop browsers from MIME-sniffing
           {
             key: "X-Content-Type-Options",
             value: "nosniff",
-          },
-          // Enable browser XSS filter as a fallback
-          {
-            key: "X-XSS-Protection",
-            value: "1; mode=block",
           },
           // Control what information is sent in the Referer header
           {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
           },
-          // Enforce HTTPS for 1 year (enable once you've confirmed HTTPS works)
+          // Enforce HTTPS for 2 years
           {
             key: "Strict-Transport-Security",
-            value: "max-age=31536000; includeSubDomains",
+            value: "max-age=63072000; includeSubDomains; preload",
           },
           // Restrict what the browser is allowed to do
           {
@@ -49,16 +47,21 @@ const nextConfig = {
               "img-src 'self' data: blob:",
               "font-src 'self'",
               "connect-src 'self'",
-              "frame-ancestors 'self'",
+              "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'",
               "object-src 'none'",
             ].join("; "),
           },
+          // Cross-origin isolation headers
+          {
+            key: "Cross-Origin-Opener-Policy",
+            value: "same-origin",
+          },
         ],
       },
       {
-        // API routes — add CORS restrictions
+        // API routes — restrict CORS to your own domain
         source: "/api/:path*",
         headers: [
           {
@@ -67,11 +70,21 @@ const nextConfig = {
           },
           {
             key: "Access-Control-Allow-Methods",
-            value: "GET",
+            value: "GET, POST",
           },
           {
             key: "Access-Control-Allow-Headers",
             value: "Content-Type",
+          },
+        ],
+      },
+      {
+        // Static data files — cache aggressively, prevent hotlinking
+        source: "/data/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, s-maxage=3600, stale-while-revalidate=86400",
           },
         ],
       },
