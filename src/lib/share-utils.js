@@ -1267,7 +1267,7 @@ export function renderCancelledProjectCard(data) {
   ctx.font = "600 13px " + MONO;
   ctx.letterSpacing = "4px";
   ctx.fillText("GRACCHUS", px + 30, y);
-  y += 32;
+  y += 36;
 
   // === EDITORIAL HEADLINE ===
   var hookLine = getEditorialHook(data);
@@ -1309,19 +1309,19 @@ export function renderCancelledProjectCard(data) {
   ctx.letterSpacing = "0.5px";
   subText = truncText(ctx, subText, W - px * 2);
   ctx.fillText(subText, px, y);
-  y += 20;
+  y += 22;
 
   // Department
   ctx.fillStyle = "#6b7280";
-  ctx.font = "500 16px " + SANS;
+  ctx.font = "500 17px " + SANS;
   ctx.letterSpacing = "0px";
   ctx.fillText(data.department || "", px, y + 14);
-  y += 40;
+  y += 46;
 
   // === DATA BLOCK ===
   ctx.fillStyle = "rgba(55,65,81,0.3)";
   ctx.fillRect(px, y, W - px * 2, 1);
-  y += 32;
+  y += 36;
 
   // Main amount
   var wastedM = data.wasted || 0;
@@ -1334,13 +1334,13 @@ export function renderCancelledProjectCard(data) {
   ctx.font = "600 14px " + MONO;
   ctx.letterSpacing = "3px";
   ctx.fillText("TOTAL SPEND", px, y);
-  y += 10;
+  y += 12;
 
   // Big amount
   ctx.fillStyle = "#ef4444";
-  ctx.font = "900 82px " + SANS;
+  ctx.font = "900 86px " + SANS;
   ctx.letterSpacing = "-3px";
-  ctx.fillText(amtStr, px, y + 64);
+  ctx.fillText(amtStr, px, y + 66);
 
   // Over budget on the right
   var overrun = data.overrun || 0;
@@ -1354,19 +1354,19 @@ export function renderCancelledProjectCard(data) {
     ctx.fillStyle = "#6b7280";
     ctx.font = "600 14px " + MONO;
     ctx.letterSpacing = "3px";
-    ctx.fillText("OVER BUDGET", W - px, y + 22);
+    ctx.fillText("OVER BUDGET", W - px, y + 24);
     ctx.fillStyle = "#fbbf24";
-    ctx.font = "900 48px " + SANS;
+    ctx.font = "900 50px " + SANS;
     ctx.letterSpacing = "-1px";
-    ctx.fillText(overAmtStr, W - px, y + 64);
+    ctx.fillText(overAmtStr, W - px, y + 66);
     ctx.textAlign = "left";
   }
-  y += 82;
+  y += 90;
 
   // === BOTTOM STATS ROW ===
   ctx.fillStyle = "rgba(55,65,81,0.3)";
   ctx.fillRect(px, y, W - px * 2, 1);
-  y += 26;
+  y += 28;
 
   var colW = (W - px * 2) / 3;
 
@@ -1382,9 +1382,9 @@ export function renderCancelledProjectCard(data) {
     : "\u00a3" +
       origBudget.toLocaleString() + "m";
   ctx.fillStyle = "#d1d5db";
-  ctx.font = "700 30px " + SANS;
+  ctx.font = "700 32px " + SANS;
   ctx.letterSpacing = "0px";
-  ctx.fillText(origStr, px, y + 36);
+  ctx.fillText(origStr, px, y + 38);
 
   // Col 2: Category
   var col2x = px + colW;
@@ -1393,10 +1393,10 @@ export function renderCancelledProjectCard(data) {
   ctx.letterSpacing = "2px";
   ctx.fillText("CATEGORY", col2x, y);
   ctx.fillStyle = "#d1d5db";
-  ctx.font = "700 30px " + SANS;
+  ctx.font = "700 32px " + SANS;
   ctx.letterSpacing = "0px";
   ctx.fillText(
-    data.category || "", col2x, y + 36
+    data.category || "", col2x, y + 38
   );
 
   // Col 3: Pothole equivalent
@@ -1410,11 +1410,11 @@ export function renderCancelledProjectCard(data) {
   ctx.letterSpacing = "2px";
   ctx.fillText("POTHOLE REPAIRS", col3x, y);
   ctx.fillStyle = "#d1d5db";
-  ctx.font = "700 30px " + SANS;
+  ctx.font = "700 32px " + SANS;
   ctx.letterSpacing = "0px";
   ctx.fillText(
     potholesEquiv.toLocaleString(),
-    col3x, y + 36
+    col3x, y + 38
   );
 
   // Standard footer
