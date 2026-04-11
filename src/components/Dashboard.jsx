@@ -316,7 +316,8 @@ function ChartCard({
   title, label, children, subtitle,
   info, editorial, shareHeadline,
   shareSubline, accentColor,
-  onShare, shareData, explainData
+  onShare, shareData, explainData,
+  chartId
 }) {
   const [showInfo, setShowInfo] = useState(false);
   const [drawer, setDrawer] = useState(null); // null | "explain" | "fix"
@@ -332,7 +333,8 @@ function ChartCard({
     data: explainData
       ? (typeof explainData === "string" ? explainData : JSON.stringify(explainData))
       : [title, subtitle, shareHeadline, shareSubline].filter(Boolean).join(" \u2014 "),
-    editorial: editorial || subtitle || ""
+    editorial: editorial || subtitle || "",
+    chartId: chartId || "",
   });
 
   const openDrawer = (mode) => {
@@ -352,19 +354,34 @@ function ChartCard({
     return () => document.removeEventListener("keydown", onKey);
   }, [drawer]);
 
+  // Premium loading: even for cached responses, show the loading state
+  // briefly (300–700ms) so it always feels like AI is working.
+  const premiumDelay = () => new Promise(r => setTimeout(r, 300 + Math.random() * 400));
+
   const handleExplain = async () => {
     if (drawer === "explain") { closeDrawer(); return; }
     openDrawer("explain");
     if (aiExplain) return;
     setAiExplain("loading");
     try {
+      const fetchStart = Date.now();
+      const headers = { "Content-Type": "application/json" };
+      if (sessionTokenRef?.current) headers["X-Session-Token"] = sessionTokenRef.current;
       const res = await fetch("/api/explain", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify(buildPayload())
       });
+      if (res.status === 429) {
+        setAiExplain({ error: "Too many requests — please wait a minute and try again" });
+        return;
+      }
       const body = await res.json();
-      setAiExplain(body.error ? { error: body.error } : { text: body.explanation });
+      const result = body.error ? { error: body.error } : { text: body.explanation };
+      // If response was instant (cache hit), wait so it still feels premium
+      const elapsed = Date.now() - fetchStart;
+      if (elapsed < 300) await premiumDelay();
+      setAiExplain(result);
     } catch (e) {
       setAiExplain({ error: "Could not reach AI service" });
     }
@@ -376,13 +393,23 @@ function ChartCard({
     if (aiFix) return;
     setAiFix("loading");
     try {
+      const fetchStart = Date.now();
+      const headers = { "Content-Type": "application/json" };
+      if (sessionTokenRef?.current) headers["X-Session-Token"] = sessionTokenRef.current;
       const res = await fetch("/api/fix", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify(buildPayload())
       });
+      if (res.status === 429) {
+        setAiFix({ error: "Too many requests — please wait a minute and try again" });
+        return;
+      }
       const body = await res.json();
-      setAiFix(body.error ? { error: body.error } : { text: body.fix });
+      const result = body.error ? { error: body.error } : { text: body.fix };
+      const elapsed = Date.now() - fetchStart;
+      if (elapsed < 300) await premiumDelay();
+      setAiFix(result);
     } catch (e) {
       setAiFix({ error: "Could not reach AI service" });
     }
@@ -3843,6 +3870,23 @@ export default function App() {
   const [cronyHover, setCronyHover] =
     useState(null);
 
+  // ── Session token for AI endpoints (bot protection) ──
+  const sessionTokenRef = useRef(null);
+  useEffect(() => {
+    fetch("/api/token")
+      .then(r => r.ok ? r.json() : null)
+      .then(d => { if (d?.token) sessionTokenRef.current = d.token; })
+      .catch(() => {});
+    // Refresh token every 8 minutes (tokens expire after 10)
+    const interval = setInterval(() => {
+      fetch("/api/token")
+        .then(r => r.ok ? r.json() : null)
+        .then(d => { if (d?.token) sessionTokenRef.current = d.token; })
+        .catch(() => {});
+    }, 8 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   // ── Refresh metadata (fetched from /api/metadata) ──
   const [refreshMeta, setRefreshMeta] = useState({
     lastUpdatedDate: new Date().toISOString().slice(0, 10),
@@ -4639,6 +4683,17 @@ export default function App() {
               }>
                 GRACCHUS
               </span>
+              <a
+                href="https://x.com/GracchusHQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-1 text-gray-600 hover:text-white transition-colors"
+                title="Follow @GracchusHQ on X"
+              >
+                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
             </div>
             <div className={
               "flex items-center gap-4 md:gap-6 " +
@@ -5179,6 +5234,7 @@ export default function App() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               <ChartCard
+                chartId="project-overruns"
                 label="Relative Cost"
                 title="Biggest Overruns by Percentage"
                 explainData={overrunPctChart.map(d => `${d.name}: ${d.pct}% over budget`).join("; ")}
@@ -5789,6 +5845,7 @@ export default function App() {
                 {/* Approval Duration Trend - right column */}
                 {planningData.approvalTimeline && (
                   <ChartCard
+                    chartId="planning-approvals"
                     label="Trend"
                     title="Average DCO Approval Duration"
                     subtitle="Months from application to Secretary of State decision, by year of decision. Source: PINS."
@@ -6497,6 +6554,7 @@ export default function App() {
                 {/* Delay Trend Chart - right column */}
                 {delaysData.delayTimeline && (
                   <ChartCard
+                    chartId="project-delays"
                     label="Trend"
                     title={"Delivery Delays & Cost Growth Over Time"}
                     subtitle="Average schedule slippage and cost growth across IPA-tracked major projects. Source: IPA / NAO."
@@ -7769,6 +7827,7 @@ export default function App() {
             <ChartPair>
               {/* SECONDARY CHART: ABSOLUTE PAY GAP */}
               <ChartCard
+                chartId="mp-pay-vs-median"
                 title={"The Pay Gap in Pounds"}
                 subtitle="Absolute difference between MP salary and UK median earnings"
                 info="Shows how far apart MP and median pay are in real pounds. Even when percentage growth is similar, the absolute gap keeps widening because MPs start from a higher base."
@@ -7801,6 +7860,7 @@ export default function App() {
 
               {/* THIRD CHART: TOTAL COST OF AN MP */}
               <ChartCard
+                chartId="mp-business-costs"
                 title={"The Real Cost of an MP"}
                 subtitle="Total taxpayer-funded cost breakdown per MP per year"
                 info="Includes base salary, staffing budget, office costs, accommodation, and travel allowances. Source: IPSA annual budget allocations (non-London). Actual spend varies by MP."
@@ -7847,6 +7907,7 @@ export default function App() {
                 {"MP salary vs UK median earnings in absolute pounds. The shaded red area is the gap. The gold line tracks how many times more an MP earns \u2014 " + base.mp_multiple.toFixed(1) + "\u00D7 in 2000, " + latest.mp_multiple.toFixed(1) + "\u00D7 today."}
               </p>
               <ChartCard
+                chartId="mp-pay-ratio"
                 title="Two Salaries, One Country"
                 subtitle={"MP salary and UK median earnings side by side \u2014 with the pay multiplier overlaid"}
                 info={"Left axis: absolute salaries in \u00A3. Shaded area = the gap. Right axis (gold dashed): how many median salaries one MP salary equals. Sources: IPSA, ONS ASHE."}
@@ -8297,7 +8358,7 @@ export default function App() {
 
             {/* Charts section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-              <ChartCard title="Outside Income by Party" subtitle="Total declared external earnings" shareHeadline={fmtMoney(summary.totalOutsideIncome)} shareSubline="Total outside income declared by current MPs" onShare={handleChartShare} accentColor="#ef4444" explainData={byParty.filter(p => p.oi > 0).slice(0, 6).map(p => `${p.name}: £${p.oi.toLocaleString()}`).join("; ")}>
+              <ChartCard chartId="outside-income-by-party" title="Outside Income by Party" subtitle="Total declared external earnings" shareHeadline={fmtMoney(summary.totalOutsideIncome)} shareSubline="Total outside income declared by current MPs" onShare={handleChartShare} accentColor="#ef4444" explainData={byParty.filter(p => p.oi > 0).slice(0, 6).map(p => `${p.name}: £${p.oi.toLocaleString()}`).join("; ")}>
                 <ResponsiveContainer width="100%" height={260}>
                   <BarChart data={byParty.filter(p => p.oi > 0).slice(0, 8)} layout="vertical" margin={{ top: 5, right: 30, left: 100, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
@@ -8314,7 +8375,7 @@ export default function App() {
                 />
               </ChartCard>
 
-              <ChartCard title="MP Business Costs Over Time" subtitle="IPSA annual publications — staffing dominates" shareHeadline="£157m" shareSubline="Total expenses 2023-24" onShare={handleChartShare} explainData={expenseData.map(d => `${d.year}: staffing £${d.staffing}m, office £${d.office}m, accommodation £${d.accommodation}m, travel £${d.travel}m`).join("; ")}>
+              <ChartCard chartId="mp-expense-trends" title="MP Business Costs Over Time" subtitle="IPSA annual publications — staffing dominates" shareHeadline="£157m" shareSubline="Total expenses 2023-24" onShare={handleChartShare} explainData={expenseData.map(d => `${d.year}: staffing £${d.staffing}m, office £${d.office}m, accommodation £${d.accommodation}m, travel £${d.travel}m`).join("; ")}>
                 <ResponsiveContainer width="100%" height={260}>
                   <BarChart data={expenseData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
@@ -8876,7 +8937,7 @@ export default function App() {
             </div>
 
             {/* ODA as % of GNI chart */}
-            <ChartCard title="ODA as % of GNI" subtitle={"UN target: 0.70% \u2014 met 2013\u20132020, cut to 0.50% in 2021"} shareHeadline={headlineGNI} shareSubline={"UK foreign aid as % of GNI \u2014 down from 0.70%, set to fall to 0.30% by 2027"} onShare={handleChartShare} accentColor="#ef4444" explainData={gniSeries.map(d => `${d.year}: ${d.value.toFixed(2)}%`).join("; ") + " | UN target: 0.70%"}>
+            <ChartCard chartId="oda-gni-ratio" title="ODA as % of GNI" subtitle={"UN target: 0.70% \u2014 met 2013\u20132020, cut to 0.50% in 2021"} shareHeadline={headlineGNI} shareSubline={"UK foreign aid as % of GNI \u2014 down from 0.70%, set to fall to 0.30% by 2027"} onShare={handleChartShare} accentColor="#ef4444" explainData={gniSeries.map(d => `${d.year}: ${d.value.toFixed(2)}%`).join("; ") + " | UN target: 0.70%"}>
               <ResponsiveContainer width="100%" height={280}>
                 <ComposedChart data={gniSeries} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
@@ -8898,7 +8959,7 @@ export default function App() {
             </ChartCard>
 
             {/* Total ODA with bilateral/multilateral split */}
-            <ChartCard title="Total UK ODA Spending" subtitle="Bilateral vs multilateral split (billions GBP)" shareHeadline={"\u00a3" + headlineTotal + "bn"} shareSubline="UK Official Development Assistance" onShare={handleChartShare} accentColor="#10b981" explainData={odaSeries.map(d => `${d.year}: bilateral £${d.bilateral.toFixed(1)}bn, multilateral £${d.multilateral.toFixed(1)}bn`).join("; ")}>
+            <ChartCard chartId="oda-total-spending" title="Total UK ODA Spending" subtitle="Bilateral vs multilateral split (billions GBP)" shareHeadline={"\u00a3" + headlineTotal + "bn"} shareSubline="UK Official Development Assistance" onShare={handleChartShare} accentColor="#10b981" explainData={odaSeries.map(d => `${d.year}: bilateral £${d.bilateral.toFixed(1)}bn, multilateral £${d.multilateral.toFixed(1)}bn`).join("; ")}>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={odaSeries} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
@@ -8965,7 +9026,7 @@ export default function App() {
             </ChartCard>
 
             {/* Spending by Department 2024 */}
-            <ChartCard title={"Spending by Department \u2014 2024"} subtitle="Which government departments spend ODA" shareHeadline="FCDO 67%" shareSubline="FCDO accounted for two-thirds of all UK foreign aid spending in 2024" onShare={handleChartShare} accentColor="#059669" explainData={departments.slice(0, 6).map(d => `${d.dept}: £${d.value}m`).join("; ")}>
+            <ChartCard chartId="oda-by-department" title={"Spending by Department \u2014 2024"} subtitle="Which government departments spend ODA" shareHeadline="FCDO 67%" shareSubline="FCDO accounted for two-thirds of all UK foreign aid spending in 2024" onShare={handleChartShare} accentColor="#059669" explainData={departments.slice(0, 6).map(d => `${d.dept}: £${d.value}m`).join("; ")}>
               <ResponsiveContainer width="100%" height={Math.max(340, departments.length * 36)}>
                 <BarChart data={departments} layout="vertical" margin={{ top: 5, right: 30, left: 5, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
@@ -9344,6 +9405,37 @@ export default function App() {
           </div>
           );
         })()}
+
+        {/* ── Site Footer ── */}
+        <footer className="border-t border-gray-800/40 mt-16 py-8 px-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 max-w-7xl mx-auto">
+            <div className="flex items-center gap-2.5">
+              <img src="/gracchus-icon.svg" alt="Gracchus" className="w-4 h-4" />
+              <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-500">
+                GRACCHUS
+              </span>
+              <span className="text-[10px] text-gray-700 font-mono">
+                &middot; Tracking UK government spending
+              </span>
+            </div>
+            <div className="flex items-center gap-5">
+              <a
+                href="https://x.com/GracchusHQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.15em] text-gray-600 hover:text-white transition-colors"
+              >
+                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+                @GracchusHQ
+              </a>
+              <span className="text-[9px] text-gray-800 font-mono">
+                Source-backed estimates &middot; Published UK data
+              </span>
+            </div>
+          </div>
+        </footer>
 
         {chartShare && (
           <div
@@ -11228,6 +11320,7 @@ export default function App() {
 
               <ChartPair>
               <ChartCard
+            chartId="civil-service-headcount"
             title="Civil Service Headcount Over Time"
             info="Full-time equivalent (FTE) and headcount of UK civil servants. Source: ONS Civil Service Statistics."
             editorial="The civil service has grown by over 100,000 since 2016, reversing years of austerity-era cuts. Headcount is now at its highest since the early 2000s."
@@ -11276,6 +11369,7 @@ export default function App() {
               </ChartCard>
 
               <ChartCard
+            chartId="civil-service-by-department"
             title="Headcount by Department (Top 15)"
             info="Staff count by government department. HMRC and DWP together employ more than the rest of Whitehall combined."
             editorial="HMRC and DWP dwarf all other departments. Most of the civil service works in tax collection and benefits administration, not policy-making."
@@ -11997,6 +12091,7 @@ export default function App() {
               {/* Historical trend (left half) */}
               <div className="flex-1 min-w-0">
                 <ChartCard
+                  chartId="public-finances-flow"
                   label="Trend"
                   title="Receipts vs Spending"
                   explainData={flowData.filter(d => !d.isPartial).map(d => `${d.year}: Receipts £${d.receipts.total}bn, Spending £${d.spending.total}bn, Gap £${(d.spending.total - d.receipts.total).toFixed(0)}bn`).join("; ")}
@@ -12784,7 +12879,7 @@ export default function App() {
 
             <ChartPair>
               {/* ── Gilt Yields ── */}
-              <ChartCard label="Bond Market" title="UK Gilt Yields by Maturity" explainData={giltYieldsData.monthly.slice(-6).map(d => `${d.m}: 2yr=${d["2yr"]}%, 10yr=${d["10yr"]}%, 30yr=${d["30yr"]}%`).join("; ")} onShare={handleChartShare} shareHeadline="Bond markets are screaming" shareSubline="UK gilt yields across the maturity curve">
+              <ChartCard chartId="gilt-yields" label="Bond Market" title="UK Gilt Yields by Maturity" explainData={giltYieldsData.monthly.slice(-6).map(d => `${d.m}: 2yr=${d["2yr"]}%, 10yr=${d["10yr"]}%, 30yr=${d["30yr"]}%`).join("; ")} onShare={handleChartShare} shareHeadline="Bond markets are screaming" shareSubline="UK gilt yields across the maturity curve">
                 <ResponsiveContainer width="100%" height={280}>
                   <LineChart data={giltYieldsData.monthly}>
                     <XAxis dataKey="m" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} interval={3} />
@@ -12807,7 +12902,7 @@ export default function App() {
               </ChartCard>
 
               {/* ── Tax Burden as % GDP ── */}
-              <ChartCard label="Tax Burden" title="Tax Receipts as % of GDP — Heading for Post-War High" explainData={giltYieldsData.taxBurden.data.map(d => `${d.year}: ${d.pct}%${d.type === "forecast" ? " (forecast)" : ""}`).join("; ") + ` | OECD avg: ${giltYieldsData.taxBurden.oecdAvg2024}%`} onShare={handleChartShare} shareHeadline="Highest tax burden since WWII" shareSubline="UK tax receipts heading for post-war record">
+              <ChartCard chartId="tax-burden" label="Tax Burden" title="Tax Receipts as % of GDP — Heading for Post-War High" explainData={giltYieldsData.taxBurden.data.map(d => `${d.year}: ${d.pct}%${d.type === "forecast" ? " (forecast)" : ""}`).join("; ") + ` | OECD avg: ${giltYieldsData.taxBurden.oecdAvg2024}%`} onShare={handleChartShare} shareHeadline="Highest tax burden since WWII" shareSubline="UK tax receipts heading for post-war record">
                 <ResponsiveContainer width="100%" height={260}>
                   <ComposedChart data={giltYieldsData.taxBurden.data}>
                     <XAxis dataKey="year" tick={{ fontSize: 9, fill: "#555" }} axisLine={false} tickLine={false} interval={2} tickFormatter={(v) => v.replace(/(\d{4})-\d{2}/, "$1")} />
@@ -12834,7 +12929,7 @@ export default function App() {
 
             <ChartPair>
               {/* ── Monthly Borrowing ── */}
-              <ChartCard label="Borrowing" title="Monthly Public Sector Net Borrowing" explainData={giltYieldsData.monthlyBorrowing.months.map((m, i) => `${m}: 2024-25 £${giltYieldsData.monthlyBorrowing.years["2024-25"][i]}bn, 2023-24 £${giltYieldsData.monthlyBorrowing.years["2023-24"][i]}bn`).join("; ")} onShare={handleChartShare} shareHeadline="Borrowing billions every month" shareSubline="Public sector net borrowing — month by month">
+              <ChartCard chartId="monthly-borrowing" label="Borrowing" title="Monthly Public Sector Net Borrowing" explainData={giltYieldsData.monthlyBorrowing.months.map((m, i) => `${m}: 2024-25 £${giltYieldsData.monthlyBorrowing.years["2024-25"][i]}bn, 2023-24 £${giltYieldsData.monthlyBorrowing.years["2023-24"][i]}bn`).join("; ")} onShare={handleChartShare} shareHeadline="Borrowing billions every month" shareSubline="Public sector net borrowing — month by month">
                 <ResponsiveContainer width="100%" height={260}>
                   <BarChart data={giltYieldsData.monthlyBorrowing.months.map((m, i) => ({
                     month: m,
@@ -12853,7 +12948,7 @@ export default function App() {
               </ChartCard>
 
               {/* ── Income Tax Concentration ── */}
-              <ChartCard label="Who Pays" title="Income Tax Concentration — Who Really Pays" explainData={giltYieldsData.incomeTaxConcentration.groups.map(g => `${g.group}: ${g.pctOfTax}% of tax, ${g.pctOfIncome}% of income (${g.threshold})`).join("; ")} onShare={handleChartShare} shareHeadline="Top 1% pay 29% of all income tax" shareSubline="Who really pays Britain's tax bill">
+              <ChartCard chartId="income-tax-concentration" label="Who Pays" title="Income Tax Concentration — Who Really Pays" explainData={giltYieldsData.incomeTaxConcentration.groups.map(g => `${g.group}: ${g.pctOfTax}% of tax, ${g.pctOfIncome}% of income (${g.threshold})`).join("; ")} onShare={handleChartShare} shareHeadline="Top 1% pay 29% of all income tax" shareSubline="Who really pays Britain's tax bill">
                 <div className="space-y-2 mt-2">
                   {giltYieldsData.incomeTaxConcentration.groups.map((g) => (
                     <div key={g.group} className="flex items-center gap-3">
@@ -12876,7 +12971,7 @@ export default function App() {
 
             <ChartPair>
               {/* ── Debt Maturity Profile ── */}
-              <ChartCard label="Debt Structure" title="Government Debt Maturity Profile" explainData={giltYieldsData.debtMaturity.buckets.map(b => `${b.range}: conventional £${b.conventional}bn, index-linked £${b.indexLinked}bn`).join("; ") + ` | Total conventional £${giltYieldsData.debtMaturity.totalConventional}bn, index-linked £${giltYieldsData.debtMaturity.totalIndexLinked}bn (${giltYieldsData.debtMaturity.indexLinkedPct}%), avg maturity ${giltYieldsData.debtMaturity.avgMaturity}yrs`} onShare={handleChartShare} shareHeadline="£2 trillion in gilts — and counting" shareSubline="When Britain's debts come due">
+              <ChartCard chartId="debt-maturity" label="Debt Structure" title="Government Debt Maturity Profile" explainData={giltYieldsData.debtMaturity.buckets.map(b => `${b.range}: conventional £${b.conventional}bn, index-linked £${b.indexLinked}bn`).join("; ") + ` | Total conventional £${giltYieldsData.debtMaturity.totalConventional}bn, index-linked £${giltYieldsData.debtMaturity.totalIndexLinked}bn (${giltYieldsData.debtMaturity.indexLinkedPct}%), avg maturity ${giltYieldsData.debtMaturity.avgMaturity}yrs`} onShare={handleChartShare} shareHeadline="£2 trillion in gilts — and counting" shareSubline="When Britain's debts come due">
                 <ResponsiveContainer width="100%" height={260}>
                   <BarChart data={giltYieldsData.debtMaturity.buckets}>
                     <XAxis dataKey="range" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} />
@@ -13197,6 +13292,7 @@ export default function App() {
 
             {/* GDP quarterly growth */}
             <ChartCard
+            chartId="gdp-growth"
             title="GDP Quarterly Growth (%, Q-on-Q)"
             info="Quarter-on-quarter real GDP growth. Negative values indicate economic contraction. Source: ONS."
             editorial="Growth has been anaemic since 2008. The UK has had the weakest recovery of any major economy after the financial crisis."
@@ -13716,7 +13812,7 @@ export default function App() {
             <Divider />
 
             {/* ── M4 Money Supply ── */}
-            <ChartCard label="Money Supply" title="M4 Broad Money Supply" explainData={moneySupplyData.m4MoneySupply.data.slice(-6).map(d => `${d.m}: £${(d.level / 1000).toFixed(2)}tn (YoY ${d.yoyPct}%)`).join("; ")} onShare={handleChartShare} shareHeadline="The money printer went brrr" shareSubline="M4 broad money supply — how much cash is in the system">
+            <ChartCard chartId="m4-money-supply" label="Money Supply" title="M4 Broad Money Supply" explainData={moneySupplyData.m4MoneySupply.data.slice(-6).map(d => `${d.m}: £${(d.level / 1000).toFixed(2)}tn (YoY ${d.yoyPct}%)`).join("; ")} onShare={handleChartShare} shareHeadline="The money printer went brrr" shareSubline="M4 broad money supply — how much cash is in the system">
               <ResponsiveContainer width="100%" height={260}>
                 <ComposedChart data={moneySupplyData.m4MoneySupply.data}>
                   <XAxis dataKey="m" tick={{ fontSize: 9, fill: "#555" }} axisLine={false} tickLine={false} interval={4} />
@@ -15337,7 +15433,7 @@ export default function App() {
             <Divider />
 
             {/* ── Purchasing Power of £1 ── */}
-            <ChartCard label="Your Money" title="Purchasing Power of £1 Since 2000" explainData={moneySupplyData.purchasingPower.data.filter((d, i) => i % 4 === 0 || i === moneySupplyData.purchasingPower.data.length - 1).map(d => `${d.year}: £${d.value.toFixed(2)}`).join("; ")} onShare={handleChartShare} shareHeadline="Your pound buys 40% less than in 2000" shareSubline="The collapsing purchasing power of sterling">
+            <ChartCard chartId="purchasing-power" label="Your Money" title="Purchasing Power of £1 Since 2000" explainData={moneySupplyData.purchasingPower.data.filter((d, i) => i % 4 === 0 || i === moneySupplyData.purchasingPower.data.length - 1).map(d => `${d.year}: £${d.value.toFixed(2)}`).join("; ")} onShare={handleChartShare} shareHeadline="Your pound buys 40% less than in 2000" shareSubline="The collapsing purchasing power of sterling">
               <ResponsiveContainer width="100%" height={260}>
                 <AreaChart data={moneySupplyData.purchasingPower.data}>
                   <XAxis dataKey="year" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} />
@@ -15357,7 +15453,7 @@ export default function App() {
             </ChartCard>
 
             {/* ── Mortgage Rates ── */}
-            <ChartCard label="Mortgages" title="Average UK Mortgage Rates" explainData={`Current rates: 2yr fixed ${moneySupplyData.personalFinance.mortgages.headline.avgFixed2yr}%, 5yr fixed ${moneySupplyData.personalFinance.mortgages.headline.avgFixed5yr}%, avg house price £${(moneySupplyData.personalFinance.mortgages.headline.avgHousePrice / 1000).toFixed(0)}k, price:earnings ratio ${moneySupplyData.personalFinance.mortgages.headline.priceToEarnings}x | ` + moneySupplyData.personalFinance.mortgages.rateHistory.slice(-6).map(d => `${d.m}: 2yr=${d.fixed2yr}%, 5yr=${d.fixed5yr}%, SVR=${d.svr}%`).join("; ")}>
+            <ChartCard chartId="mortgage-rates" label="Mortgages" title="Average UK Mortgage Rates" explainData={`Current rates: 2yr fixed ${moneySupplyData.personalFinance.mortgages.headline.avgFixed2yr}%, 5yr fixed ${moneySupplyData.personalFinance.mortgages.headline.avgFixed5yr}%, avg house price £${(moneySupplyData.personalFinance.mortgages.headline.avgHousePrice / 1000).toFixed(0)}k, price:earnings ratio ${moneySupplyData.personalFinance.mortgages.headline.priceToEarnings}x | ` + moneySupplyData.personalFinance.mortgages.rateHistory.slice(-6).map(d => `${d.m}: 2yr=${d.fixed2yr}%, 5yr=${d.fixed5yr}%, SVR=${d.svr}%`).join("; ")}>
               <ResponsiveContainer width="100%" height={260}>
                 <LineChart data={moneySupplyData.personalFinance.mortgages.rateHistory}>
                   <XAxis dataKey="m" tick={{ fontSize: 9, fill: "#555" }} axisLine={false} tickLine={false} interval={2} />
@@ -15390,7 +15486,7 @@ export default function App() {
             </ChartCard>
 
             {/* ── Consumer Credit ── */}
-            <ChartCard label="Household Debt" title="Consumer Credit Outstanding" explainData={moneySupplyData.personalFinance.consumerCredit.data.slice(-6).map(d => `${d.m}: outstanding £${d.outstanding}bn, net monthly £${d.netMonthly}bn`).join("; ")} onShare={handleChartShare} shareHeadline="Britain is drowning in debt" shareSubline="Consumer credit outstanding — the borrowing binge">
+            <ChartCard chartId="consumer-credit" label="Household Debt" title="Consumer Credit Outstanding" explainData={moneySupplyData.personalFinance.consumerCredit.data.slice(-6).map(d => `${d.m}: outstanding £${d.outstanding}bn, net monthly £${d.netMonthly}bn`).join("; ")} onShare={handleChartShare} shareHeadline="Britain is drowning in debt" shareSubline="Consumer credit outstanding — the borrowing binge">
               <ResponsiveContainer width="100%" height={220}>
                 <ComposedChart data={moneySupplyData.personalFinance.consumerCredit.data}>
                   <XAxis dataKey="m" tick={{ fontSize: 9, fill: "#555" }} axisLine={false} tickLine={false} interval={2} />
@@ -15404,7 +15500,7 @@ export default function App() {
             </ChartCard>
 
             {/* ── Savings ── */}
-            <ChartCard label="Savings" title="Household Savings Ratio" explainData={moneySupplyData.personalFinance.savings.householdSavingsRatio.map(d => `${d.year}: ${d.pct}%`).join("; ") + ` | ISA holders: ${moneySupplyData.personalFinance.savings.isaSubscriptions.totalIsaHolders}m, cash ISA rate: ${moneySupplyData.personalFinance.savings.isaSubscriptions.cashIsaAvgRate}%`} onShare={handleChartShare} shareHeadline="Nobody can save anymore" shareSubline="Household savings ratio — squeezed to the limit">
+            <ChartCard chartId="savings-ratio" label="Savings" title="Household Savings Ratio" explainData={moneySupplyData.personalFinance.savings.householdSavingsRatio.map(d => `${d.year}: ${d.pct}%`).join("; ") + ` | ISA holders: ${moneySupplyData.personalFinance.savings.isaSubscriptions.totalIsaHolders}m, cash ISA rate: ${moneySupplyData.personalFinance.savings.isaSubscriptions.cashIsaAvgRate}%`} onShare={handleChartShare} shareHeadline="Nobody can save anymore" shareSubline="Household savings ratio — squeezed to the limit">
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={moneySupplyData.personalFinance.savings.householdSavingsRatio}>
                   <XAxis dataKey="year" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} />
