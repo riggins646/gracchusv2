@@ -3791,8 +3791,6 @@ export default function App() {
 
   const [projQuickView, setProjQuickView] = useState(null);
   const [cancelledIdx, setCancelledIdx] = useState(0);
-  const cancelledCardRef = useRef(null);
-  const [cancelledCapturing, setCancelledCapturing] = useState(false);
   // Auto-cycle cancelled projects every 6 seconds when on projects view
   useEffect(() => {
     if (view !== "projects") return;
@@ -5257,12 +5255,10 @@ export default function App() {
                 const potholesEquiv = Math.round((wasted * 1e6) / potholeUnit);
                 return (
                   <div className="border border-gray-800/60 bg-gray-950/50 flex flex-col">
-                    {/* Capturable card area — used by html2canvas for share export */}
-                    <div ref={cancelledCardRef} className="flex flex-col flex-1" style={{ backgroundColor: '#0a0a0b' }}>
                     {/* Header */}
                     <div className="px-5 py-3 border-b border-gray-800/40 flex items-center justify-between">
                       <div className="text-[12px] uppercase tracking-[0.25em] text-red-500/80 font-mono">Cancelled Project</div>
-                      <div className="text-[11px] font-mono text-gray-600 tracking-wide">GRACCHUS.AI</div>
+                      <div className="text-[11px] font-mono text-gray-700 tracking-wide">{(cancelledIdx % cancelledProjects.length) + 1}/{cancelledProjects.length}</div>
                     </div>
 
                     {/* Body */}
@@ -5308,8 +5304,6 @@ export default function App() {
                         Project cancelled. Spend figure is total cost at cancellation per NAO/IPA reports.
                       </div>
                     </div>
-                    </div>{/* end capturable card area */}
-
                     {/* Controls */}
                     <div className="flex border-t border-gray-800/40">
                       <button onClick={() => setCancelledIdx(i => i > 0 ? i - 1 : cancelledProjects.length - 1)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-[11px] font-mono uppercase tracking-wider text-gray-500 hover:text-white hover:bg-white/[0.02] transition-colors border-r border-gray-800/40">
@@ -5318,123 +5312,20 @@ export default function App() {
                       <button onClick={() => setCancelledIdx(i => (i + 1) % cancelledProjects.length)} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-[11px] font-mono uppercase tracking-wider text-gray-500 hover:text-white hover:bg-white/[0.02] transition-colors border-r border-gray-800/40">
                         Next <ChevronRight size={12} />
                       </button>
-                      <button onClick={async () => {
-                        if (cancelledCapturing) return;
-                        setCancelledCapturing(true);
-                        try {
-                          // Dynamically load html2canvas from CDN if not already loaded
-                          if (!window.html2canvas) {
-                            await new Promise((resolve, reject) => {
-                              const s = document.createElement('script');
-                              s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
-                              s.onload = resolve;
-                              s.onerror = reject;
-                              document.head.appendChild(s);
-                            });
-                          }
-                          const node = cancelledCardRef.current;
-                          if (!node) throw new Error('Card ref not found');
-
-                          // Clone the card into a hidden offscreen container at fixed 1200px width.
-                          // The live card sits in a narrow sidebar (~350px), so capturing in-place
-                          // produces a tiny, compressed image. By re-flowing the clone at 1200px
-                          // the browser renders full-size fonts, spacing, and proportions — then
-                          // html2canvas captures that large, properly-laid-out version.
-                          const offscreen = document.createElement('div');
-                          offscreen.style.cssText = 'position:fixed;left:-9999px;top:0;width:1200px;z-index:-1;pointer-events:none;';
-                          document.body.appendChild(offscreen);
-
-                          // Deep-clone the card node and apply export-specific overrides
-                          const clone = node.cloneNode(true);
-                          clone.style.width = '1200px';
-                          clone.style.minHeight = 'auto';
-                          clone.style.backgroundColor = '#0a0a0b';
-                          clone.style.border = '1px solid rgba(31,41,55,0.6)';
-
-                          // Scale up all text for the export so it's sharp and legible
-                          // The live card uses text-[10px]..text-3xl in a narrow column;
-                          // at 1200px width we need proportionally larger text.
-                          const scaleText = (el) => {
-                            const computed = window.getComputedStyle(el);
-                            const fs = parseFloat(computed.fontSize);
-                            if (fs > 0) {
-                              // Scale factor: 1200 / ~380 (typical sidebar width) ≈ 3.15
-                              // Use 2.8x to keep it clean without being oversized
-                              el.style.fontSize = (fs * 2.8) + 'px';
-                              const lh = parseFloat(computed.lineHeight);
-                              if (!isNaN(lh) && lh > 0) {
-                                el.style.lineHeight = (lh * 2.8) + 'px';
-                              }
-                            }
-                            // Scale padding and margins
-                            ['paddingTop','paddingRight','paddingBottom','paddingLeft',
-                             'marginTop','marginRight','marginBottom','marginLeft',
-                             'gap','rowGap','columnGap'].forEach(prop => {
-                              const val = parseFloat(computed[prop]);
-                              if (val > 0) el.style[prop] = (val * 2.8) + 'px';
-                            });
-                            // Scale border widths for dividers
-                            ['borderTopWidth','borderBottomWidth'].forEach(prop => {
-                              const val = parseFloat(computed[prop]);
-                              if (val > 0) el.style[prop] = Math.max(val * 2, 2) + 'px';
-                            });
-                          };
-                          // Apply scaling to all elements in the clone
-                          clone.querySelectorAll('*').forEach(scaleText);
-                          scaleText(clone);
-
-                          // Scale padding on the clone container itself
-                          clone.style.padding = '0';
-
-                          offscreen.appendChild(clone);
-
-                          // Allow one frame for browser to lay out the clone
-                          await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-
-                          // Capture the offscreen clone at 2x for retina-quality PNG
-                          const canvas = await window.html2canvas(clone, {
-                            backgroundColor: '#0a0a0b',
-                            scale: 2,
-                            useCORS: true,
-                            logging: false,
-                            width: 1200,
-                            height: clone.scrollHeight,
-                          });
-
-                          // Clean up offscreen container
-                          document.body.removeChild(offscreen);
-
-                          const dataUrl = canvas.toDataURL('image/png');
-                          handleChartShare({
-                            _cancelledProject: true,
-                            _capturedImage: dataUrl,
-                            name: cp.name,
-                            department: cp.department,
-                            category: cp.category,
-                            wasted: wasted,
-                            overrun: overrun > 0 ? overrun : 0,
-                            originalBudget: cp.originalBudget,
-                            title: cp.name + " \u2014 Cancelled",
-                            accent: "#FF4D4D"
-                          });
-                        } catch (err) {
-                          console.error('DOM capture failed, falling back to canvas:', err);
-                          handleChartShare({
-                            _cancelledProject: true,
-                            name: cp.name,
-                            department: cp.department,
-                            category: cp.category,
-                            wasted: wasted,
-                            overrun: overrun > 0 ? overrun : 0,
-                            originalBudget: cp.originalBudget,
-                            title: cp.name + " \u2014 Cancelled",
-                            accent: "#FF4D4D"
-                          });
-                        } finally {
-                          setCancelledCapturing(false);
-                        }
+                      <button onClick={() => {
+                        handleChartShare({
+                          _cancelledProject: true,
+                          name: cp.name,
+                          department: cp.department,
+                          category: cp.category,
+                          wasted: wasted,
+                          overrun: overrun > 0 ? overrun : 0,
+                          originalBudget: cp.originalBudget,
+                          title: cp.name + " \u2014 Cancelled",
+                          accent: "#FF4D4D"
+                        });
                       }} className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 text-[11px] font-mono uppercase tracking-wider text-gray-500 hover:text-white hover:bg-white/[0.02] transition-colors">
-                        <Share2 size={11} /> {cancelledCapturing ? "Capturing…" : "Share"}
+                        <Share2 size={11} /> Share
                       </button>
                     </div>
                   </div>
@@ -9517,19 +9408,17 @@ export default function App() {
               <div className={
                 "px-4 sm:px-6 py-4 sm:py-6 space-y-3 sm:space-y-4"
               }>
-                {/* Render preview — use DOM-captured image when available, fallback to canvas */}
+                {/* Render canvas image as preview so modal matches PNG exactly */}
                 <img
-                  src={chartShare._capturedImage ? chartShare._capturedImage : (chartShare._cancelledProject ? renderCancelledProjectCard(chartShare) : renderChartShareCard(chartShare))}
+                  src={chartShare._cancelledProject ? renderCancelledProjectCard(chartShare) : renderChartShareCard(chartShare)}
                   alt="Share preview"
                   className="w-full border border-gray-800/40"
                 />
                 <button
                   onClick={() => {
-                    const dataUrl = chartShare._capturedImage
-                      ? chartShare._capturedImage
-                      : (chartShare._cancelledProject
-                        ? renderCancelledProjectCard(chartShare)
-                        : renderChartShareCard(chartShare));
+                    const dataUrl = chartShare._cancelledProject
+                      ? renderCancelledProjectCard(chartShare)
+                      : renderChartShareCard(chartShare);
                     const link =
                       document.createElement(
                         "a"
