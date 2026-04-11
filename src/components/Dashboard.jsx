@@ -5334,13 +5334,76 @@ export default function App() {
                           }
                           const node = cancelledCardRef.current;
                           if (!node) throw new Error('Card ref not found');
-                          // Capture at 3x for high-res share image
-                          const canvas = await window.html2canvas(node, {
+
+                          // Clone the card into a hidden offscreen container at fixed 1200px width.
+                          // The live card sits in a narrow sidebar (~350px), so capturing in-place
+                          // produces a tiny, compressed image. By re-flowing the clone at 1200px
+                          // the browser renders full-size fonts, spacing, and proportions — then
+                          // html2canvas captures that large, properly-laid-out version.
+                          const offscreen = document.createElement('div');
+                          offscreen.style.cssText = 'position:fixed;left:-9999px;top:0;width:1200px;z-index:-1;pointer-events:none;';
+                          document.body.appendChild(offscreen);
+
+                          // Deep-clone the card node and apply export-specific overrides
+                          const clone = node.cloneNode(true);
+                          clone.style.width = '1200px';
+                          clone.style.minHeight = 'auto';
+                          clone.style.backgroundColor = '#0a0a0b';
+                          clone.style.border = '1px solid rgba(31,41,55,0.6)';
+
+                          // Scale up all text for the export so it's sharp and legible
+                          // The live card uses text-[10px]..text-3xl in a narrow column;
+                          // at 1200px width we need proportionally larger text.
+                          const scaleText = (el) => {
+                            const computed = window.getComputedStyle(el);
+                            const fs = parseFloat(computed.fontSize);
+                            if (fs > 0) {
+                              // Scale factor: 1200 / ~380 (typical sidebar width) ≈ 3.15
+                              // Use 2.8x to keep it clean without being oversized
+                              el.style.fontSize = (fs * 2.8) + 'px';
+                              const lh = parseFloat(computed.lineHeight);
+                              if (!isNaN(lh) && lh > 0) {
+                                el.style.lineHeight = (lh * 2.8) + 'px';
+                              }
+                            }
+                            // Scale padding and margins
+                            ['paddingTop','paddingRight','paddingBottom','paddingLeft',
+                             'marginTop','marginRight','marginBottom','marginLeft',
+                             'gap','rowGap','columnGap'].forEach(prop => {
+                              const val = parseFloat(computed[prop]);
+                              if (val > 0) el.style[prop] = (val * 2.8) + 'px';
+                            });
+                            // Scale border widths for dividers
+                            ['borderTopWidth','borderBottomWidth'].forEach(prop => {
+                              const val = parseFloat(computed[prop]);
+                              if (val > 0) el.style[prop] = Math.max(val * 2, 2) + 'px';
+                            });
+                          };
+                          // Apply scaling to all elements in the clone
+                          clone.querySelectorAll('*').forEach(scaleText);
+                          scaleText(clone);
+
+                          // Scale padding on the clone container itself
+                          clone.style.padding = '0';
+
+                          offscreen.appendChild(clone);
+
+                          // Allow one frame for browser to lay out the clone
+                          await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+                          // Capture the offscreen clone at 2x for retina-quality PNG
+                          const canvas = await window.html2canvas(clone, {
                             backgroundColor: '#0a0a0b',
-                            scale: 3,
+                            scale: 2,
                             useCORS: true,
                             logging: false,
+                            width: 1200,
+                            height: clone.scrollHeight,
                           });
+
+                          // Clean up offscreen container
+                          document.body.removeChild(offscreen);
+
                           const dataUrl = canvas.toDataURL('image/png');
                           handleChartShare({
                             _cancelledProject: true,
