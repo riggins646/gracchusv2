@@ -1,4 +1,4 @@
-import { put, list } from "@vercel/blob";
+import { put, list, head } from "@vercel/blob";
 import { NextResponse } from "next/server";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
@@ -17,7 +17,10 @@ async function getSubscribers() {
   try {
     const { blobs } = await list({ prefix: BLOB_PATH });
     if (blobs.length === 0) return [];
-    const res = await fetch(blobs[0].url);
+    // Use the download URL with token for private blobs
+    const url = blobs[0].downloadUrl || blobs[0].url;
+    const res = await fetch(url);
+    if (!res.ok) return [];
     return await res.json();
   } catch {
     return [];
@@ -26,7 +29,7 @@ async function getSubscribers() {
 
 async function saveSubscribers(subscribers) {
   await put(BLOB_PATH, JSON.stringify(subscribers, null, 2), {
-    access: "public",
+    access: "private",
     addRandomSuffix: false,
   });
 }
