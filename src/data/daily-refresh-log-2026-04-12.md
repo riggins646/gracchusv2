@@ -1,43 +1,68 @@
-# Daily Data Refresh Log — 2026-04-12 (Projects & Contracts)
+# Daily Refresh Log — 2026-04-12 (Research & Structural)
 
-## Summary: 1 new defence contract added (BISS26, £283.5m). No new project milestones, planning decisions, or FCDO programmes.
+## Summary
+**No updates applied.** All data files are current with the latest available source data.
 
----
+## File-by-File Assessment
 
-### 1. Major Projects (projects.json, daily-cost-projects.json, delays-delivery.json)
-- **HS2**: Already up to date (lastUpdated 2026-04-10). £43.6bn spent to Feb 2026. Revised cost baseline expected summer 2026 (Mark Wild to report before parliamentary recess). No new NAO report on HS2.
-- **Hinkley C**: Already up to date (lastUpdated 2026-04-10). £48bn nominal / £35bn in 2015 prices. Unit 1 first power 2030. Some reports note costs approaching £49bn but these are from the same Feb 2026 EDF update using different inflation adjustments — not a new data point.
-- **NAO reports**: DSIT Research Infrastructure report (Mar 2026) covers research facilities, not major infra projects in tracker. Electricity transmission network report planned for Autumn 2026.
-- **IPA/NISTA**: No new annual report found.
-- **Action**: None
+### 1. Civil Service (civil-service.json)
+- **Status:** Current ✓
+- **File has:** 2025 data — 549,660 headcount / 516,150 FTE
+- **Latest available:** Civil Service Statistics 2025 (published June 2025, as at 31 March 2025) — 549,660 headcount / 516,150 FTE
+- **Next release:** July 2026 (Civil Service Statistics 2026)
+- **Action:** None required
 
-### 2. Defence Contracts (contracts-raw.json, suppliers-summary.json)
-- **NEW: BISS26 Boats In-Service Support (DEF-017)**: 9 contracts worth £283.5m total for maintenance of ~3,000 MOD/MOD Police boats. Awarded to Babcock, Serco, Golden Arrow Marine, UK Docks, Griffon Marine. Runs April 2026 – March 2033. Added to contracts-raw.json.
-- **Babcock suppliers-summary.json**: Updated contractCount (2→3), totalValue (+£283.5m), added BISS26 to projects and notes.
-- **Action**: Added DEF-017, updated Babcock supplier profile
+### 2. Energy (energy.json)
+- **Status:** Current ✓
+- **File lastUpdated:** 2026-04, annual data through 2025
+- **Latest available:** Energy Trends March 2026 (published 2 April 2026) — quarterly publication with Q4 2025 data
+- **Assessment:** File already has 2025 annual data. The March 2026 Energy Trends contains quarterly breakdowns but no new annual data points beyond what's in the file.
+- **Action:** None required
 
-### 3. Planning Decisions (planning-approvals.json)
-- **No new NSIP decisions found**. Planning Inspectorate reforms ongoing (fast-track consent route, data centres now NSIP-eligible since Jan 2026). No specific new DCO decisions to add.
-- **Action**: None
+### 3. Innovation (innovation.json)
+- **Status:** Current ✓
+- **File lastUpdated:** 2026-03, VC data through 2024 (£9.0bn)
+- **Latest available:** BVCA "Venture Capital in the UK 2025" report (published May 2025) — £9bn in 2024, 12.5% rise from 2023
+- **Assessment:** File already has the 2024 VC investment figure matching the BVCA report. No 2025 annual VC data available yet.
+- **Action:** None required
 
-### 4. FCDO Programmes (fcdo-programmes.json)
-- **No new major programme (>£50m) announced**. FCDO multi-year ODA allocations 2026-2029 published but these are allocation changes, not new programmes. Conferences planned (Future of Development Cooperation May 2026, Illicit Finance June 2026).
-- **Action**: None
+### 4. Gov-Innovation (gov-innovation.json)
+- **Status:** Current ✓
+- **File lastUpdated:** 2026-03
+- **Latest available:** OECD MSTI March 2026 edition released — contains revised/provisional indicators, not new year data beyond what's in the file
+- **Next major update:** OECD MSTI September 2026 (confirmed final data + more disaggregated indicators)
+- **Action:** None required
 
----
+### 5. Transport (transport-compare.json)
+- **Status:** Current ✓
+- **Latest available:** Transport & Environment European Rail Ranking published December 2024 — already reflected in file data
+- **Assessment:** No new 2025/2026 T&E rail ranking report found. The existing data uses the December 2024 ranking.
+- **Action:** None required
 
-## Files modified
-| File | Change | Validated |
-|---|---|---|
-| contracts-raw.json | Added DEF-017 (BISS26 £283.5m) | JSON valid |
-| suppliers-summary.json | Babcock contractCount, totalValue, projects, notes | JSON valid |
+### 6. Structural Performance (structural-performance.json)
+- **Status:** Current ✓
+- **File lastUpdated:** 2025-03
+- **Latest available:** ONS ICP final estimates for 2022 remain the latest published international productivity comparison. OECD Compendium of Productivity Indicators 2025 available but no new post-2022 ONS ICP release found.
+- **Action:** None required
 
-## Next expected updates
-| Dataset | Source | Expected |
-|---|---|---|
-| HS2 revised cost estimate | DfT / HS2 Ltd | Summer 2026 |
-| Hinkley C progress | EDF half-year results | Jul 2026 |
-| NAO electricity transmission report | NAO | Autumn 2026 |
-| IPA/NISTA annual report | Cabinet Office | TBC |
-| NSIP decisions | Planning Inspectorate | Ongoing |
-| FCDO programme data | DevTracker | Ongoing |
+### 7. MP Interests (mp-interests.json)
+- **Status:** Current ✓
+- **File lastUpdated:** 2026-03
+- **Latest available:** Register of Members' Financial Interests published 23 March 2026
+- **Assessment:** File is aligned with the latest published register. The register updates fortnightly when the House is sitting — next update expected late April 2026 after Easter recess.
+- **Action:** None required
+
+### 8. Compare Data (compare-data.json)
+- **Status:** Current ✓
+- **Fuel prices sourceYear:** March 2026
+- **Latest available:** EC Weekly Oil Bulletin 2 April 2026 — EU average petrol €1.871/L, diesel €2.076/L. Significant price rises since late February (petrol +14%, diesel +30%) linked to geopolitical events.
+- **Assessment:** File has March 2026 country-by-country data in USD PPP. April 2026 EC data is only ~2 weeks newer and in EUR only. A meaningful update would require full country-by-country conversion. Prices are moving fast due to geopolitical events — worth a dedicated update if sustained.
+- **Watch:** Fuel prices are volatile. If next week's bulletin shows continued elevated prices, consider a full refresh of compare-data fuel section.
+- **Action:** None required today
+
+## Upcoming Data Releases to Watch
+- **July 2026:** Civil Service Statistics 2026 (new annual headcount)
+- **June 2026:** Energy Trends June 2026 quarterly (Q1 2026 data)
+- **September 2026:** OECD MSTI September 2026 (confirmed R&D data)
+- **Late April 2026:** Register of Members' Financial Interests (post-Easter recess update)
+- **Late 2026:** T&E may publish updated European Rail Ranking
