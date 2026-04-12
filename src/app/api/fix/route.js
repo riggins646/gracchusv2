@@ -10,6 +10,7 @@
 import { list } from "@vercel/blob";
 import { put } from "@vercel/blob";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
+import { verifyToken } from "@/lib/session-token";
 import {
   blobPath,
   resolveChartId,
@@ -50,6 +51,18 @@ async function writeBlob(path, data) {
 
 export async function POST(request) {
   try {
+    // ── Session token verification (bot protection) ─────────────
+    const token = request.headers.get("x-session-token");
+    if (!token || !(await verifyToken(token))) {
+      return Response.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // ── Origin check (CSRF protection) ──────────────────────────
+    const origin = request.headers.get("origin");
+    if (origin && !origin.endsWith("gracchus.ai")) {
+      return Response.json({ error: "Forbidden" }, { status: 403 });
+    }
+
     const body = await request.json();
 
     // ── 1. Validate input ─────────────────────────────────────────

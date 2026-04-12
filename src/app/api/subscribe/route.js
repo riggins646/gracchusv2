@@ -1,5 +1,6 @@
 import { put, list } from "@vercel/blob";
 import { NextResponse } from "next/server";
+import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
 /* ───────────────────────────────────────────────
    POST /api/subscribe
@@ -7,9 +8,7 @@ import { NextResponse } from "next/server";
    single JSON file (subscribers.json).
    No external services needed.
 
-   GET /api/subscribe
-   Returns current subscriber list (for you to
-   export / review). Protected by session token.
+   Rate limited: 5 requests per hour per IP.
    ─────────────────────────────────────────────── */
 
 const BLOB_PATH = "subscribers.json";
@@ -34,22 +33,41 @@ async function saveSubscribers(subscribers) {
 
 export async function POST(req) {
   try {
+    // ── Origin check (CSRF protection) ──────────────────────────
+    const origin = req.headers.get("origin");
+    if (origin && !origin.endsWith("gracchus.ai")) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    }
+
+    // ── Rate limiting: 5 per hour per IP ────────────────────────
+    const ip = getClientIp(req);
+    const rl = rateLimit(`subscribe:${ip}`, 5, 3_600_000);
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: "Too many requests. Try again later." },
+        { status: 429 }
+      );
+    }
+
     const { email } = await req.json();
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: "Invalid email" }, { status: 400 });
     }
 
+    // Sanitise: only store the email, nothing else from the payload
+    const cleanEmail = email.trim().toLowerCase().slice(0, 254);
+
     const subscribers = await getSubscribers();
 
     // Check for duplicate
-    if (subscribers.some((s) => s.email.toLowerCase() === email.toLowerCase())) {
+    if (subscribers.some((s) => s.email === cleanEmail)) {
       return NextResponse.json({ ok: true, message: "Already subscribed" });
     }
 
     // Add new subscriber
     subscribers.push({
-      email,
+      email: cleanEmail,
       subscribedAt: new Date().toISOString(),
     });
 
@@ -65,15 +83,5 @@ export async function POST(req) {
   }
 }
 
-export async function GET() {
-  try {
-    const subscribers = await getSubscribers();
-    return NextResponse.json({
-      count: subscribers.length,
-      subscribers,
-    });
-  } catch (err) {
-    console.error("List subscribers error:", err);
-    return NextResponse.json({ error: "Failed to load" }, { status: 500 });
-  }
-}
+// GET endpoint removed — subscriber list should not be publicly accessible.
+// To view subscribers, check the subscribers.json blob in the Vercel dashboard.

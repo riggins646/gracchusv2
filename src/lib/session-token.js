@@ -11,10 +11,15 @@
  * automated abuse significantly harder without affecting real users at all.
  */
 
-const SECRET =
-  typeof process !== "undefined"
-    ? process.env.CRON_SECRET || process.env.ANTHROPIC_API_KEY || "gracchus-fallback-secret"
-    : "gracchus-fallback-secret";
+// CRON_SECRET is the primary signing key. Falls back to ANTHROPIC_API_KEY
+// in development. No hardcoded fallback — if neither is set, tokens will
+// fail to verify, which is the correct secure default.
+const SECRET = (typeof process !== "undefined"
+  ? process.env.CRON_SECRET || process.env.ANTHROPIC_API_KEY
+  : null) || (() => {
+    console.error("[session-token] WARNING: No CRON_SECRET or ANTHROPIC_API_KEY — tokens are insecure");
+    return "dev-only-" + Math.random().toString(36).slice(2);
+  })();
 
 const TOKEN_TTL = 10 * 60 * 1000; // 10 minutes
 
