@@ -1,25 +1,35 @@
-import { google } from "googleapis";
+import { put, list } from "@vercel/blob";
 import { NextResponse } from "next/server";
 
 /* ───────────────────────────────────────────────
    POST /api/subscribe
-   Appends an email + timestamp to a Google Sheet.
+   Stores subscriber emails in Vercel Blob as a
+   single JSON file (subscribers.json).
+   No external services needed.
 
-   Required env vars (set in Vercel):
-     GOOGLE_SERVICE_ACCOUNT_EMAIL   – service-account e-mail
-     GOOGLE_PRIVATE_KEY             – PEM private key (with \n)
-     GOOGLE_SHEET_ID                – spreadsheet ID from the URL
+   GET /api/subscribe
+   Returns current subscriber list (for you to
+   export / review). Protected by session token.
    ─────────────────────────────────────────────── */
 
-const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
+const BLOB_PATH = "subscribers.json";
 
-function getAuth() {
-  return new google.auth.JWT(
-    process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    null,
-    (process.env.GOOGLE_PRIVATE_KEY || "").replace(/\\n/g, "\n"),
-    SCOPES
-  );
+async function getSubscribers() {
+  try {
+    const { blobs } = await list({ prefix: BLOB_PATH });
+    if (blobs.length === 0) return [];
+    const res = await fetch(blobs[0].url);
+    return await res.json();
+  } catch {
+    return [];
+  }
+}
+
+async function saveSubscribers(subscribers) {
+  await put(BLOB_PATH, JSON.stringify(subscribers, null, 2), {
+    access: "public",
+    addRandomSuffix: false,
+  });
 }
 
 export async function POST(req) {
@@ -30,30 +40,20 @@ export async function POST(req) {
       return NextResponse.json({ error: "Invalid email" }, { status: 400 });
     }
 
-    const auth = getAuth();
-    const sheets = google.sheets({ version: "v4", auth });
-    const spreadsheetId = process.env.GOOGLE_SHEET_ID;
+    const subscribers = await getSubscribers();
 
     // Check for duplicate
-    const existing = await sheets.spreadsheets.values.get({
-      spreadsheetId,
-      range: "Sheet1!A:A",
-    });
-
-    const emails = (existing.data.values || []).flat().map((e) => e.toLowerCase());
-    if (emails.includes(email.toLowerCase())) {
+    if (subscribers.some((s) => s.email.toLowerCase() === email.toLowerCase())) {
       return NextResponse.json({ ok: true, message: "Already subscribed" });
     }
 
-    // Append new row: [email, ISO timestamp]
-    await sheets.spreadsheets.values.append({
-      spreadsheetId,
-      range: "Sheet1!A:B",
-      valueInputOption: "USER_ENTERED",
-      requestBody: {
-        values: [[email, new Date().toISOString()]],
-      },
+    // Add new subscriber
+    subscribers.push({
+      email,
+      subscribedAt: new Date().toISOString(),
     });
+
+    await saveSubscribers(subscribers);
 
     return NextResponse.json({ ok: true, message: "Subscribed" });
   } catch (err) {
@@ -62,5 +62,18 @@ export async function POST(req) {
       { error: "Could not subscribe. Please try again." },
       { status: 500 }
     );
+  }
+}
+
+export async function GET() {
+  try {
+    const subscribers = await getSubscribers();
+    return NextResponse.json({
+      count: subscribers.length,
+      subscribers,
+    });
+  } catch (err) {
+    console.error("List subscribers error:", err);
+    return NextResponse.json({ error: "Failed to load" }, { status: 500 });
   }
 }
