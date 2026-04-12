@@ -35,7 +35,12 @@ export async function POST(req) {
   try {
     // ── Origin check (CSRF protection) ──────────────────────────
     const origin = req.headers.get("origin");
-    if (origin && !origin.endsWith("gracchus.ai")) {
+    if (
+      origin &&
+      !origin.endsWith("gracchus.ai") &&
+      !origin.endsWith(".vercel.app") &&
+      !origin.startsWith("http://localhost")
+    ) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
@@ -75,7 +80,14 @@ export async function POST(req) {
 
     return NextResponse.json({ ok: true, message: "Subscribed" });
   } catch (err) {
-    console.error("Subscribe error:", err);
+    console.error("Subscribe error:", err?.message || err);
+    // If Vercel Blob is not configured, give a clear message
+    if (err?.message?.includes("BLOB") || err?.message?.includes("token") || err?.message?.includes("unauthorized")) {
+      return NextResponse.json(
+        { error: "Newsletter storage not configured. Please contact us." },
+        { status: 500 }
+      );
+    }
     return NextResponse.json(
       { error: "Could not subscribe. Please try again." },
       { status: 500 }
