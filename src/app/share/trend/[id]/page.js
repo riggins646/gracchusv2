@@ -1,9 +1,9 @@
-import { redirect } from "next/navigation";
+import TrendShareClient from "./TrendShareClient";
 
 /**
  * Server component for /share/trend/[id].
  * Generates OG tags for social previews, then
- * redirects to the main app.
+ * renders a landing page with explainer content.
  */
 
 function decodeId(id) {
@@ -79,11 +79,9 @@ export async function generateMetadata({ params }) {
 export default async function TrendSharePage({ params }) {
   const { id } = await params;
   const data = decodeId(id);
-  const view = data && TREND_META[data.t]
-    ? TREND_META[data.t].view
-    : "projects";
+  const trendType = data && TREND_META[data.t]
+    ? data.t
+    : null;
 
-  // Social crawlers get the OG tags above;
-  // human visitors get redirected to the relevant page
-  redirect("/?view=" + view);
+  return <TrendShareClient trendType={trendType} />;
 }
