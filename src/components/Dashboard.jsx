@@ -341,11 +341,11 @@ function WasteSpotlight({ projects, onExplore, fmt }) {
             </span>.
           </div>
         </div>
-        <div className="border-t border-gray-800/60 flex">
+        <div className="border-t border-gray-800/60 grid grid-cols-2 sm:grid-cols-4">
           <button
             onClick={() => setSpotlightIdx((i) => (i - 1 + spotlightProjects.length) % spotlightProjects.length)}
             className={
-              "flex-1 px-4 py-3 text-[11px] uppercase " +
+              "px-3 py-3 text-[11px] uppercase " +
               "tracking-[0.15em] font-mono text-gray-600 " +
               "hover:text-white hover:bg-white/[0.03] " +
               "transition-colors border-r border-gray-800/60"
@@ -356,10 +356,10 @@ function WasteSpotlight({ projects, onExplore, fmt }) {
           <button
             onClick={() => setSpotlightIdx((i) => (i + 1) % spotlightProjects.length)}
             className={
-              "flex-1 px-4 py-3 text-[11px] uppercase " +
+              "px-3 py-3 text-[11px] uppercase " +
               "tracking-[0.15em] font-mono text-gray-600 " +
               "hover:text-white hover:bg-white/[0.03] " +
-              "transition-colors border-r border-gray-800/60"
+              "transition-colors sm:border-r border-gray-800/60"
             }
           >
             Next {">"}
@@ -384,10 +384,10 @@ function WasteSpotlight({ projects, onExplore, fmt }) {
               );
             }}
             className={
-              "flex-1 px-4 py-3 text-[11px] uppercase " +
+              "px-3 py-3 text-[11px] uppercase " +
               "tracking-[0.15em] font-mono text-gray-600 " +
               "hover:text-white hover:bg-white/[0.03] " +
-              "transition-colors border-r border-gray-800/60 " +
+              "transition-colors border-t sm:border-t-0 border-r border-gray-800/60 " +
               "flex items-center justify-center gap-1.5"
             }
           >
@@ -399,13 +399,13 @@ function WasteSpotlight({ projects, onExplore, fmt }) {
           <button
             onClick={onExplore}
             className={
-              "flex-1 px-4 py-3 text-[11px] uppercase " +
+              "px-3 py-3 text-[11px] uppercase " +
               "tracking-[0.15em] font-mono text-red-500 " +
               "hover:text-red-400 hover:bg-white/[0.03] " +
-              "transition-colors"
+              "transition-colors border-t sm:border-t-0 border-gray-800/60"
             }
           >
-            See All Projects {"\u2192"}
+            See All {"\u2192"}
           </button>
         </div>
       </div>
@@ -5235,7 +5235,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="max-w-[1400px] mx-auto px-2 sm:px-6 py-4 sm:py-8">
+      <main className="max-w-[1400px] mx-auto px-3 sm:px-6 py-4 sm:py-8">
 
         {/* ============ OVERVIEW ============ */}
         {view === "overview" && (
@@ -5694,7 +5694,7 @@ export default function App() {
                         setSubscribeStatus("Network error — try again");
                       }
                     }}
-                    className="flex gap-2 max-w-md mx-auto"
+                    className="flex flex-col sm:flex-row gap-2 max-w-sm sm:max-w-md mx-auto"
                   >
                     <input
                       name="email"
