@@ -1,4 +1,4 @@
-import { put, list, head } from "@vercel/blob";
+import { put, list } from "@vercel/blob";
 import { NextResponse } from "next/server";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 
@@ -6,36 +6,56 @@ import { rateLimit, getClientIp } from "@/lib/rate-limit";
    POST /api/subscribe
    Stores subscriber emails in Vercel Blob as a
    single JSON file (subscribers.json).
-   No external services needed.
 
    Rate limited: 5 requests per hour per IP.
+
+   Requires BLOB_READ_WRITE_TOKEN env var
+   (set automatically when a Blob store is
+   connected to the Vercel project).
    ─────────────────────────────────────────────── */
 
 const BLOB_PATH = "subscribers.json";
 
+function getToken() {
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  if (!token) {
+    throw new Error(
+      "BLOB_READ_WRITE_TOKEN is not set. Connect a Blob store to this project in the Vercel dashboard."
+    );
+  }
+  return token;
+}
+
 async function getSubscribers() {
   try {
-    const { blobs } = await list({ prefix: BLOB_PATH });
+    const token = getToken();
+    const { blobs } = await list({ prefix: BLOB_PATH, token });
     if (blobs.length === 0) return [];
-    // Use the download URL with token for private blobs
     const url = blobs[0].downloadUrl || blobs[0].url;
     const res = await fetch(url);
     if (!res.ok) return [];
     return await res.json();
-  } catch {
+  } catch (err) {
+    // If token is missing, re-throw so caller gets a clear message
+    if (err.message?.includes("BLOB_READ_WRITE_TOKEN")) throw err;
     return [];
   }
 }
 
 async function saveSubscribers(subscribers) {
+  const token = getToken();
   await put(BLOB_PATH, JSON.stringify(subscribers, null, 2), {
-    access: "private",
+    access: "public",
     addRandomSuffix: false,
+    token,
   });
 }
 
 export async function POST(req) {
   try {
+    // ── Check Blob token is available ───────────────────────────
+    getToken();
+
     // ── Origin check (CSRF protection) ──────────────────────────
     const origin = req.headers.get("origin");
     if (
@@ -84,15 +104,18 @@ export async function POST(req) {
     return NextResponse.json({ ok: true, message: "Subscribed" });
   } catch (err) {
     console.error("Subscribe error:", err?.message || err);
-    // If Vercel Blob is not configured, give a clear message
-    if (err?.message?.includes("BLOB") || err?.message?.includes("token") || err?.message?.includes("unauthorized")) {
+
+    // Missing Blob token — clear message for admin
+    if (err?.message?.includes("BLOB_READ_WRITE_TOKEN")) {
       return NextResponse.json(
         { error: "Newsletter storage not configured. Please contact us." },
         { status: 500 }
       );
     }
+
+    // Surface the actual error for diagnosis
     return NextResponse.json(
-      { error: "Could not subscribe. Please try again." },
+      { error: "Could not subscribe: " + (err?.message || "unknown error") },
       { status: 500 }
     );
   }
