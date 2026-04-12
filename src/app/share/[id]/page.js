@@ -50,12 +50,13 @@ export async function generateMetadata({ params }) {
   const amt = fmtAmt(data.a);
   const title = amt + " wasted \u2014 "
     + (data.n || "UK Government");
-  const desc = data.n
+  const desc = (data.n
     ? amt + " of taxpayer money wasted on "
       + data.n + ". See what it could have "
       + "paid for instead."
     : amt + " of taxpayer money wasted. "
-      + "See what it could have paid for.";
+      + "See what it could have paid for.")
+    + " | via @GracchusHQ";
 
   const ogImageUrl = "/api/og?id="
     + encodeURIComponent(id);

@@ -35,11 +35,12 @@ export async function generateMetadata({ params }) {
   }
 
   const title = data.h;
-  const desc = data.s
+  const desc = (data.s
     ? data.s
     : data.t
       ? data.t
-      : "Explore UK government spending data.";
+      : "Explore UK government spending data.")
+    + " | via @GracchusHQ";
 
   const ogImageUrl = "/api/og-chart?id="
     + encodeURIComponent(id);

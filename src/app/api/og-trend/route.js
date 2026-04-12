@@ -3,11 +3,11 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 /**
- * OG image generator for chart share cards.
- * URL: /api/og-chart?id=<base64url-encoded-payload>
+ * OG image generator for trend share cards.
+ * URL: /api/og-trend?id=<base64url-encoded-payload>
  *
- * Payload: { type: "chart", h: headline, s: subline, t: title, a: accentColor }
- * Renders a 1200x630 card matching the Gracchus dark editorial style.
+ * Payload: { type: "trend", t: "approval" | "delays" }
+ * Renders a 1200x630 card with the trend headline.
  */
 
 function decodeId(id) {
@@ -22,11 +22,20 @@ function decodeId(id) {
   }
 }
 
-function truncate(str, maxLen) {
-  if (!str) return "";
-  if (str.length <= maxLen) return str;
-  return str.slice(0, maxLen - 1) + "\u2026";
-}
+const TREND_DATA = {
+  approval: {
+    headline: "Planning approval now takes 3x longer",
+    subline: "Average time to approve major projects has tripled since 2010",
+    accent: "#f59e0b",
+    label: "Planning Approvals"
+  },
+  delays: {
+    headline: "Projects delivered later and further over budget",
+    subline: "Average delays and cost overruns have worsened every decade",
+    accent: "#ef4444",
+    label: "Delivery Delays"
+  }
+};
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -39,18 +48,13 @@ export async function GET(request) {
   }
 
   const data = decodeId(id);
-  if (!data || !data.h) {
+  if (!data || !data.t) {
     return new Response("Invalid id", {
       status: 400
     });
   }
 
-  const headline = truncate(data.h, 80);
-  const subline = truncate(
-    data.s || "", 100
-  ).toUpperCase();
-  const title = truncate(data.t || "", 60);
-  const accent = data.a || "#ef4444";
+  const trend = TREND_DATA[data.t] || TREND_DATA.delays;
 
   return new ImageResponse(
     (
@@ -71,23 +75,23 @@ export async function GET(request) {
           style={{
             width: "100%",
             height: "5px",
-            backgroundColor: accent,
+            backgroundColor: trend.accent,
             flexShrink: 0
           }}
         />
 
-        {/* Background texture — large faded number */}
+        {/* Background texture */}
         <div
           style={{
             position: "absolute",
-            right: "-40px",
-            bottom: "-30px",
-            fontSize: "320px",
+            right: "-30px",
+            bottom: "20px",
+            fontSize: "280px",
             fontWeight: 900,
-            color: accent,
-            opacity: 0.04,
+            color: trend.accent,
+            opacity: 0.03,
             lineHeight: 1,
-            letterSpacing: "-12px"
+            letterSpacing: "-8px"
           }}
         >
           UK
@@ -98,18 +102,18 @@ export async function GET(request) {
           style={{
             display: "flex",
             flexDirection: "column",
-            padding: "44px 72px 0 72px",
+            padding: "48px 72px 0 72px",
             flex: 1
           }}
         >
-          {/* Eyebrow with icon */}
+          {/* Eyebrow */}
           <div
             style={{
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
               gap: "10px",
-              marginBottom: "28px"
+              marginBottom: "32px"
             }}
           >
             <svg
@@ -145,35 +149,32 @@ export async function GET(request) {
             </div>
           </div>
 
-          {/* Chart title (context) */}
-          {title && (
-            <div
-              style={{
-                fontSize: "15px",
-                fontWeight: 500,
-                color: "#6b7280",
-                letterSpacing: "2px",
-                textTransform: "uppercase",
-                marginBottom: "14px"
-              }}
-            >
-              {title}
-            </div>
-          )}
+          {/* Label */}
+          <div
+            style={{
+              fontSize: "15px",
+              fontWeight: 500,
+              color: "#6b7280",
+              letterSpacing: "2px",
+              textTransform: "uppercase",
+              marginBottom: "16px"
+            }}
+          >
+            UK Infrastructure {"\u00B7"} {trend.label}
+          </div>
 
-          {/* Headline — the main stat */}
+          {/* Headline */}
           <div
             style={{
               display: "flex",
               flexDirection: "row",
-              marginBottom: "16px"
+              marginBottom: "20px"
             }}
           >
-            {/* Accent bar */}
             <div
               style={{
                 width: "4px",
-                backgroundColor: accent,
+                backgroundColor: trend.accent,
                 marginRight: "20px",
                 borderRadius: "2px",
                 flexShrink: 0
@@ -181,7 +182,7 @@ export async function GET(request) {
             />
             <div
               style={{
-                fontSize: headline.length > 40 ? "44px" : "56px",
+                fontSize: "56px",
                 fontWeight: 900,
                 color: "#ffffff",
                 letterSpacing: "-2px",
@@ -189,28 +190,25 @@ export async function GET(request) {
                 maxWidth: "950px"
               }}
             >
-              {headline}
+              {trend.headline}
             </div>
           </div>
 
           {/* Subline */}
-          {subline && (
-            <div
-              style={{
-                fontSize: "22px",
-                fontWeight: 700,
-                color: "#9ca3af",
-                letterSpacing: "0.5px",
-                lineHeight: 1.3,
-                marginBottom: "16px",
-                paddingLeft: "24px"
-              }}
-            >
-              {subline}
-            </div>
-          )}
+          <div
+            style={{
+              fontSize: "22px",
+              fontWeight: 500,
+              color: "#9ca3af",
+              lineHeight: 1.3,
+              marginBottom: "24px",
+              paddingLeft: "24px"
+            }}
+          >
+            {trend.subline}
+          </div>
 
-          {/* Decorative chart area */}
+          {/* Decorative trend line */}
           <div
             style={{
               flex: 1,
@@ -226,14 +224,20 @@ export async function GET(request) {
               viewBox="0 0 1056 100"
             >
               <path
-                d="M 0 85 Q 80 80 160 70 T 320 55 T 480 35 T 640 30 T 800 15 T 1056 8"
+                d={data.t === "approval"
+                  ? "M 0 90 Q 150 85 300 70 T 600 40 T 900 15 T 1056 5"
+                  : "M 0 80 Q 100 75 200 65 T 400 50 T 600 30 T 800 12 T 1056 5"
+                }
                 fill="none"
-                stroke={accent}
+                stroke={trend.accent}
                 strokeWidth="2.5"
               />
               <path
-                d="M 0 85 Q 80 80 160 70 T 320 55 T 480 35 T 640 30 T 800 15 T 1056 8 L 1056 100 L 0 100 Z"
-                fill={accent}
+                d={data.t === "approval"
+                  ? "M 0 90 Q 150 85 300 70 T 600 40 T 900 15 T 1056 5 L 1056 100 L 0 100 Z"
+                  : "M 0 80 Q 100 75 200 65 T 400 50 T 600 30 T 800 12 T 1056 5 L 1056 100 L 0 100 Z"
+                }
+                fill={trend.accent}
                 opacity="0.25"
               />
             </svg>

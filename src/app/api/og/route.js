@@ -3,12 +3,11 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 /**
- * OG image generator for share cards.
+ * OG image generator for waste/equivalence share cards.
  * URL: /api/og?id=<base64url-encoded-payload>
  *
  * Decodes the share ID (same format as /share/[id])
- * and renders a 1200x630 editorial card image using
- * Satori (via next/og ImageResponse).
+ * and renders a 1200x630 editorial card image.
  */
 
 // ---- Equivalent spend items (subset for server) ----
@@ -148,9 +147,9 @@ function fmtEquivNum(n) {
 
 function fmtAmt(m) {
   if (m >= 1000) {
-    return "£" + (m / 1000).toFixed(1) + "bn";
+    return "\u00A3" + (m / 1000).toFixed(1) + "bn";
   }
-  return "£" + m.toLocaleString("en-GB") + "m";
+  return "\u00A3" + m.toLocaleString("en-GB") + "m";
 }
 
 function buildContext(data) {
@@ -221,27 +220,44 @@ export async function GET(request) {
           display: "flex",
           flexDirection: "column",
           backgroundColor: "#030303",
-          padding: "0",
           fontFamily: "sans-serif",
-          position: "relative"
+          position: "relative",
+          overflow: "hidden"
         }}
       >
         {/* Top red stripe */}
         <div
           style={{
             width: "100%",
-            height: "4px",
+            height: "5px",
             backgroundColor: "#ef4444",
             flexShrink: 0
           }}
         />
+
+        {/* Background texture — faded WASTED watermark */}
+        <div
+          style={{
+            position: "absolute",
+            right: "-20px",
+            bottom: "40px",
+            fontSize: "200px",
+            fontWeight: 900,
+            color: "#ef4444",
+            opacity: 0.03,
+            lineHeight: 1,
+            letterSpacing: "-6px"
+          }}
+        >
+          WASTED
+        </div>
 
         {/* Content area */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
-            padding: "48px 72px 0 72px",
+            padding: "44px 72px 0 72px",
             flex: 1
           }}
         >
@@ -252,7 +268,7 @@ export async function GET(request) {
               flexDirection: "row",
               alignItems: "center",
               gap: "10px",
-              marginBottom: "20px"
+              marginBottom: "24px"
             }}
           >
             <svg
@@ -285,20 +301,20 @@ export async function GET(request) {
             </div>
           </div>
 
-          {/* Amount + WASTED block with accent */}
+          {/* Amount + WASTED block with accent bar */}
           <div
             style={{
               display: "flex",
               flexDirection: "row",
-              marginBottom: "12px"
+              marginBottom: "14px"
             }}
           >
             {/* Red accent line */}
             <div
               style={{
-                width: "3px",
+                width: "4px",
                 backgroundColor: "#ef4444",
-                marginRight: "18px",
+                marginRight: "20px",
                 borderRadius: "2px",
                 flexShrink: 0
               }}
@@ -309,10 +325,9 @@ export async function GET(request) {
                 flexDirection: "column"
               }}
             >
-              {/* Amount */}
               <div
                 style={{
-                  fontSize: "88px",
+                  fontSize: "92px",
                   fontWeight: 900,
                   color: "#ffffff",
                   letterSpacing: "-4px",
@@ -321,10 +336,9 @@ export async function GET(request) {
               >
                 {amtStr}
               </div>
-              {/* WASTED. */}
               <div
                 style={{
-                  fontSize: "50px",
+                  fontSize: "52px",
                   fontWeight: 900,
                   color: "#ef4444",
                   letterSpacing: "-1px",
@@ -340,10 +354,10 @@ export async function GET(request) {
           {/* Project name */}
           <div
             style={{
-              fontSize: "20px",
+              fontSize: "22px",
               fontWeight: 700,
               color: "#d1d5db",
-              marginBottom: ctxLine ? "2px" : "24px"
+              marginBottom: ctxLine ? "4px" : "20px"
             }}
           >
             {projectName}
@@ -353,12 +367,12 @@ export async function GET(request) {
           {ctxLine && (
             <div
               style={{
-                fontSize: "12px",
+                fontSize: "13px",
                 fontWeight: 500,
                 color: "#4b5563",
                 letterSpacing: "1.5px",
                 textTransform: "uppercase",
-                marginBottom: "24px"
+                marginBottom: "20px"
               }}
             >
               {ctxLine}
@@ -373,7 +387,7 @@ export async function GET(request) {
               color: "#4b5563",
               letterSpacing: "3px",
               textTransform: "uppercase",
-              marginBottom: "20px"
+              marginBottom: "16px"
             }}
           >
             EQUIVALENT TO:
@@ -384,7 +398,7 @@ export async function GET(request) {
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: "10px"
+              gap: "8px"
             }}
           >
             {resolved.map((r, idx) => (
@@ -399,7 +413,7 @@ export async function GET(request) {
               >
                 <span
                   style={{
-                    fontSize: "34px",
+                    fontSize: "36px",
                     fontWeight: 900,
                     color: "#ffffff",
                     letterSpacing: "-1px",
@@ -410,7 +424,7 @@ export async function GET(request) {
                 </span>
                 <span
                   style={{
-                    fontSize: "17px",
+                    fontSize: "18px",
                     fontWeight: 400,
                     color: "#6b7280",
                     lineHeight: 1
@@ -430,29 +444,46 @@ export async function GET(request) {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            padding: "0 72px 28px 72px"
+            padding: "0 72px 24px 72px"
           }}
         >
           <div
             style={{
-              fontSize: "11px",
-              fontWeight: 400,
-              color: "#374151"
+              fontSize: "13px",
+              fontWeight: 500,
+              color: "#4b5563"
             }}
           >
-            Source-backed estimates
-            {" \u00B7 "}Published UK data
+            See the full audit at gracchus.ai
           </div>
           <div
             style={{
-              fontSize: "11px",
-              fontWeight: 700,
-              color: "#6b7280",
-              letterSpacing: "1px",
-              textTransform: "uppercase"
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "16px"
             }}
           >
-            GRACCHUS.AI
+            <div
+              style={{
+                fontSize: "11px",
+                fontWeight: 400,
+                color: "#374151"
+              }}
+            >
+              Source-backed {"\u00B7"} Published UK data
+            </div>
+            <div
+              style={{
+                fontSize: "12px",
+                fontWeight: 700,
+                color: "#6b7280",
+                letterSpacing: "1.5px",
+                textTransform: "uppercase"
+              }}
+            >
+              GRACCHUS.AI
+            </div>
           </div>
         </div>
       </div>
