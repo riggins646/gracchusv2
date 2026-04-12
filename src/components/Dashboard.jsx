@@ -2804,6 +2804,8 @@ function HomeSpendGenerator() {
   const [shareUrl, setShareUrl] = useState("");
   const [shareCopied, setShareCopied] =
     useState(false);
+  const [shareImgCopied, setShareImgCopied] =
+    useState(false);
 
   // Generate initial results client-side only
   useEffect(() => {
@@ -3331,6 +3333,47 @@ function HomeSpendGenerator() {
                 <Download size={12} />
                 Download as PNG
                 (1200{"×"}630)
+              </button>
+              <button
+                onClick={async () => {
+                  try {
+                    if (!results) return;
+                    const payload = {
+                      n: source.name, a: absAmt,
+                      d: source.dept, t: source.type,
+                      i: results.map((r) => r.item.id)
+                    };
+                    const resolved = results.map((r) => ({
+                      item: r.item, count: r.count
+                    }));
+                    const dataUrl = renderCardToCanvas(payload, resolved);
+                    const res = await fetch(dataUrl);
+                    const blob = await res.blob();
+                    await navigator.clipboard.write([
+                      new ClipboardItem({ "image/png": blob })
+                    ]);
+                    setShareImgCopied(true);
+                    setTimeout(() => setShareImgCopied(false), 2000);
+                  } catch {
+                    handleShareDownload();
+                  }
+                }}
+                className={
+                  "w-full text-xs " +
+                  "font-mono uppercase " +
+                  "tracking-[0.12em] " +
+                  "px-5 py-2.5 " +
+                  "border border-gray-700 " +
+                  (shareImgCopied
+                    ? "text-emerald-400 border-emerald-800/50"
+                    : "text-gray-400 hover:text-white hover:border-gray-500 hover:bg-white/[0.02]") +
+                  " transition-all " +
+                  "flex items-center " +
+                  "justify-center gap-2"
+                }
+              >
+                <Copy size={12} />
+                {shareImgCopied ? "Copied to Clipboard!" : "Copy as Image"}
               </button>
               <button
                 onClick={() => {
@@ -4259,6 +4302,8 @@ export default function App() {
     useState(null);
   const [trendShareCopied, setTrendShareCopied] =
     useState(false);
+  const [trendImgCopied, setTrendImgCopied] =
+    useState(false);
   const [cronyExpanded, setCronyExpanded] =
     useState(null);
   const [cronyHover, setCronyHover] =
@@ -4375,11 +4420,13 @@ export default function App() {
 
   const [chartShare, setChartShare] = useState(null);
   const [chartShareCopied, setChartShareCopied] = useState(false);
+  const [chartImgCopied, setChartImgCopied] = useState(false);
 
   const handleChartShare = useCallback(
     (data) => {
       setChartShare(data);
       setChartShareCopied(false);
+      setChartImgCopied(false);
     }, []
   );
 
@@ -10066,6 +10113,48 @@ export default function App() {
                   Download as PNG
                 </button>
                 <button
+                  onClick={async () => {
+                    try {
+                      const dataUrl = chartShare._cancelledProject
+                        ? renderCancelledProjectCard(chartShare)
+                        : renderChartShareCard(chartShare);
+                      const res = await fetch(dataUrl);
+                      const blob = await res.blob();
+                      await navigator.clipboard.write([
+                        new ClipboardItem({ "image/png": blob })
+                      ]);
+                      setChartImgCopied(true);
+                      setTimeout(() => setChartImgCopied(false), 2000);
+                    } catch {
+                      // Fallback: some browsers don't support clipboard.write for images
+                      const dataUrl = chartShare._cancelledProject
+                        ? renderCancelledProjectCard(chartShare)
+                        : renderChartShareCard(chartShare);
+                      const link = document.createElement("a");
+                      link.download = "gracchus-chart.png";
+                      link.href = dataUrl;
+                      link.click();
+                    }
+                  }}
+                  className={
+                    "w-full flex " +
+                    "items-center " +
+                    "justify-center gap-2 " +
+                    "py-3 text-[11px] " +
+                    "font-mono uppercase " +
+                    "tracking-[0.12em] " +
+                    "bg-white/[0.04] " +
+                    "border border-gray-800 " +
+                    (chartImgCopied
+                      ? "text-emerald-400 border-emerald-800/50"
+                      : "text-gray-300 hover:bg-white/[0.08] hover:text-white") +
+                    " transition-all"
+                  }
+                >
+                  <Copy size={12} />
+                  {chartImgCopied ? "Copied to Clipboard!" : "Copy as Image"}
+                </button>
+                <button
                   onClick={() => {
                     const payload = {
                       type: "chart",
@@ -10365,6 +10454,42 @@ export default function App() {
                   >
                     <Download size={12} />
                     Download as PNG
+                  </button>
+                  <button
+                    onClick={async () => {
+                      try {
+                        const dataUrl = renderTrendCard(tType, timeline);
+                        const res = await fetch(dataUrl);
+                        const blob = await res.blob();
+                        await navigator.clipboard.write([
+                          new ClipboardItem({ "image/png": blob })
+                        ]);
+                        setTrendImgCopied(true);
+                        setTimeout(() => setTrendImgCopied(false), 2000);
+                      } catch {
+                        const dataUrl = renderTrendCard(tType, timeline);
+                        const link = document.createElement("a");
+                        link.download = "gracchus-trend.png";
+                        link.href = dataUrl;
+                        link.click();
+                      }
+                    }}
+                    className={
+                      "w-full flex items-center " +
+                      "justify-center gap-2 " +
+                      "py-3 text-[11px] " +
+                      "font-mono uppercase " +
+                      "tracking-[0.12em] " +
+                      "bg-white/[0.04] " +
+                      "border border-gray-800 " +
+                      (trendImgCopied
+                        ? "text-emerald-400 border-emerald-800/50"
+                        : "text-gray-300 hover:bg-white/[0.08] hover:text-white") +
+                      " transition-all"
+                    }
+                  >
+                    <Copy size={12} />
+                    {trendImgCopied ? "Copied to Clipboard!" : "Copy as Image"}
                   </button>
                   <button
                     onClick={() => {
