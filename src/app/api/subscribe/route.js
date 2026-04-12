@@ -45,7 +45,7 @@ async function getSubscribers() {
 async function saveSubscribers(subscribers) {
   const token = getToken();
   await put(BLOB_PATH, JSON.stringify(subscribers, null, 2), {
-    access: "public",
+    access: "private",
     addRandomSuffix: false,
     token,
   });
