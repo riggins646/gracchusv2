@@ -249,6 +249,253 @@ function resolveAccent(accent) {
   return ACCENT_MAP[accent] || "text-white";
 }
 
+/* =========================================================
+   WASTE SPOTLIGHT — rotating cancelled/overrun project
+   ========================================================= */
+function WasteSpotlight({ projects, onExplore, fmt }) {
+  const spotlightProjects = useMemo(() => {
+    return [...projects]
+      .filter((p) => p.status === "Cancelled" || (p.latestBudget - p.originalBudget) > 500)
+      .sort((a, b) => b.latestBudget - a.latestBudget)
+      .slice(0, 10);
+  }, [projects]);
+
+  const [spotlightIdx, setSpotlightIdx] = useState(0);
+  const current = spotlightProjects[spotlightIdx] || spotlightProjects[0];
+
+  if (!current) return null;
+
+  const overrun = current.latestBudget - current.originalBudget;
+  const potholesEquiv = Math.round(overrun * 1e6 / 50);
+  const nursesEquiv = Math.round(overrun * 1e6 / 35000);
+
+  return (
+    <div className="border-t border-gray-800/50 py-10">
+      <div className={
+        "text-[13px] uppercase tracking-[0.3em] " +
+        "font-medium text-gray-600 mb-1"
+      }>
+        Waste Spotlight
+      </div>
+      <div className="text-[16px] text-gray-500 mb-6 leading-relaxed">
+        Cancelled and over-budget projects — the money that disappeared
+      </div>
+
+      <div className="border border-gray-800/60 bg-gray-950/40">
+        <div className={
+          "px-5 py-3 border-b border-gray-800/60 " +
+          "flex items-center justify-between"
+        }>
+          <div className={
+            "text-[12px] uppercase tracking-[0.25em] " +
+            "font-mono font-bold " +
+            (current.status === "Cancelled" ? "text-red-500" : "text-amber-500")
+          }>
+            {current.status === "Cancelled" ? "Cancelled Project" : "Major Overrun"}
+          </div>
+          <div className={
+            "text-[11px] uppercase tracking-[0.15em] " +
+            "font-mono text-gray-700"
+          }>
+            {spotlightIdx + 1}/{spotlightProjects.length}
+          </div>
+        </div>
+        <div className="px-5 py-6">
+          <div className="text-xl sm:text-2xl font-black text-white tracking-tight mb-1">
+            {current.name}
+          </div>
+          <div className={
+            "text-[11px] uppercase tracking-[0.15em] " +
+            "text-gray-600 font-mono mb-4"
+          }>
+            {current.department}
+          </div>
+          <div className="flex flex-wrap gap-6 mb-4">
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.15em] text-gray-700 font-mono mb-1">
+                Money Spent
+              </div>
+              <div className="text-3xl font-black text-red-500">
+                {fmt(current.latestBudget)}
+              </div>
+            </div>
+            {overrun > 0 && (
+              <div>
+                <div className="text-[10px] uppercase tracking-[0.15em] text-gray-700 font-mono mb-1">
+                  Over Budget
+                </div>
+                <div className="text-3xl font-black text-amber-500">
+                  +{fmt(overrun)}
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="text-[14px] text-gray-500 leading-relaxed mb-4 border-l-2 border-gray-800 pl-3">
+            That is equivalent to{" "}
+            <span className="text-gray-300 font-semibold">
+              {nursesEquiv.toLocaleString("en-GB")} nurses
+            </span>{" "}
+            for a year or{" "}
+            <span className="text-gray-300 font-semibold">
+              {potholesEquiv.toLocaleString("en-GB")} pothole repairs
+            </span>.
+          </div>
+        </div>
+        <div className="border-t border-gray-800/60 flex">
+          <button
+            onClick={() => setSpotlightIdx((i) => (i - 1 + spotlightProjects.length) % spotlightProjects.length)}
+            className={
+              "flex-1 px-4 py-3 text-[11px] uppercase " +
+              "tracking-[0.15em] font-mono text-gray-600 " +
+              "hover:text-white hover:bg-white/[0.03] " +
+              "transition-colors border-r border-gray-800/60"
+            }
+          >
+            {"<"} Prev
+          </button>
+          <button
+            onClick={() => setSpotlightIdx((i) => (i + 1) % spotlightProjects.length)}
+            className={
+              "flex-1 px-4 py-3 text-[11px] uppercase " +
+              "tracking-[0.15em] font-mono text-gray-600 " +
+              "hover:text-white hover:bg-white/[0.03] " +
+              "transition-colors border-r border-gray-800/60"
+            }
+          >
+            Next {">"}
+          </button>
+          <button
+            onClick={onExplore}
+            className={
+              "flex-1 px-4 py-3 text-[11px] uppercase " +
+              "tracking-[0.15em] font-mono text-red-500 " +
+              "hover:text-red-400 hover:bg-white/[0.03] " +
+              "transition-colors"
+            }
+          >
+            See All Projects {"\u2192"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   LIVE BORROWING COUNTER — ticks in real time
+   ========================================================= */
+function BorrowingCounter({ annualBorrowingBn }) {
+  const [elapsed, setElapsed] = useState(0);
+  const startRef = useRef(Date.now());
+  const dailyBorrowingGbp = (annualBorrowingBn * 1e9) / 365;
+  const perMs = dailyBorrowingGbp / 86_400_000;
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setElapsed(Date.now() - startRef.current);
+    }, 50);
+    return () => clearInterval(id);
+  }, []);
+
+  const borrowed = Math.floor(elapsed * perMs);
+  const debtInterestPerMs = ((annualBorrowingBn * 0.55) * 1e9) / 365 / 86_400_000;
+  const interestPaid = Math.floor(elapsed * debtInterestPerMs);
+
+  return (
+    <div className={
+      "border-t border-b border-gray-800/50 " +
+      "py-5 my-2"
+    }>
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12">
+        <div className="text-center">
+          <div className={
+            "text-[10px] uppercase tracking-[0.25em] " +
+            "text-gray-600 font-mono mb-1.5"
+          }>
+            Borrowed Since You Opened This Page
+          </div>
+          <div className={
+            "text-3xl sm:text-4xl font-black text-red-500 " +
+            "tabular-nums tracking-tight"
+          }>
+            £{borrowed.toLocaleString("en-GB")}
+          </div>
+        </div>
+        <div className="hidden sm:block w-px h-10 bg-gray-800/60" />
+        <div className="text-center">
+          <div className={
+            "text-[10px] uppercase tracking-[0.25em] " +
+            "text-gray-600 font-mono mb-1.5"
+          }>
+            Interest Paid On Debt
+          </div>
+          <div className={
+            "text-3xl sm:text-4xl font-black text-amber-500 " +
+            "tabular-nums tracking-tight"
+          }>
+            £{interestPaid.toLocaleString("en-GB")}
+          </div>
+        </div>
+        <div className="hidden sm:block w-px h-10 bg-gray-800/60" />
+        <div className="text-center">
+          <div className={
+            "text-[10px] uppercase tracking-[0.25em] " +
+            "text-gray-600 font-mono mb-1.5"
+          }>
+            Borrowing Per Day
+          </div>
+          <div className={
+            "text-xl sm:text-2xl font-black text-gray-300 " +
+            "tabular-nums tracking-tight"
+          }>
+            £{Math.round(dailyBorrowingGbp / 1e6).toLocaleString("en-GB")}m
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   LIVE TICKER STRIP — key indicators, colour-coded
+   ========================================================= */
+function LiveTickerStrip({ data }) {
+  const statusColor = {
+    good: "text-emerald-400",
+    bad: "text-red-400",
+    neutral: "text-gray-300"
+  };
+  return (
+    <div className={
+      "border-b border-gray-800/50 py-4 mb-2 " +
+      "overflow-x-auto scrollbar-hide"
+    }>
+      <div className={
+        "flex items-center justify-between " +
+        "gap-6 min-w-max px-1"
+      }>
+        {data.map((item, i) => (
+          <div key={i} className="text-center flex-1 min-w-[100px]">
+            <div className={
+              "text-[9px] uppercase tracking-[0.2em] " +
+              "text-gray-700 font-mono mb-1"
+            }>
+              {item.label}
+            </div>
+            <div className={
+              "text-[15px] sm:text-[17px] font-black " +
+              "tabular-nums " +
+              (statusColor[item.status] || "text-gray-300")
+            }>
+              {item.value}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function StatCard({ icon: Icon, label, value, sub, accent }) {
   return (
     <div className={
@@ -4690,12 +4937,20 @@ export default function App() {
                 href="https://x.com/GracchusHQ"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-1 text-gray-600 hover:text-white transition-colors"
+                className={
+                  "ml-2 inline-flex items-center gap-1.5 " +
+                  "text-gray-600 hover:text-white transition-colors " +
+                  "border border-gray-800 hover:border-gray-600 " +
+                  "rounded-full px-2.5 py-1"
+                }
                 title="Follow @GracchusHQ on X"
               >
-                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="currentColor">
+                <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
+                <span className="text-[9px] uppercase tracking-[0.1em] font-medium hidden sm:inline">
+                  Follow
+                </span>
               </a>
             </div>
             <div className={
@@ -5007,6 +5262,51 @@ export default function App() {
               </div>
             </div>
 
+            {/* ========= LIVE BORROWING COUNTER ========= */}
+            <BorrowingCounter
+              annualBorrowingBn={
+                publicFinancesFlowData.annual.find(
+                  (y) => y.year === "2024-25"
+                )?.netBorrowing || 153
+              }
+            />
+
+            {/* ========= LIVE TICKER STRIP ========= */}
+            <LiveTickerStrip
+              data={[
+                {
+                  label: "CPI Inflation",
+                  value: costOfLivingData.headline.cpiPct + "%",
+                  status: parseFloat(costOfLivingData.headline.cpiPct) > 2 ? "bad" : "good"
+                },
+                {
+                  label: "Real Wages",
+                  value: (costOfLivingData.headline.realWageGrowthPct > 0 ? "+" : "") + costOfLivingData.headline.realWageGrowthPct + "%",
+                  status: costOfLivingData.headline.realWageGrowthPct >= 0 ? "good" : "bad"
+                },
+                {
+                  label: "NHS Waiting",
+                  value: econOutputData.headline.nhsWaiting || "7.31M",
+                  status: "bad"
+                },
+                {
+                  label: "Unemployment",
+                  value: econOutputData.headline.unemploymentPct + "%",
+                  status: parseFloat(econOutputData.headline.unemploymentPct) > 4.5 ? "bad" : "neutral"
+                },
+                {
+                  label: "Debt Interest",
+                  value: "£" + (publicFinancesData.series ? publicFinancesData.series.slice(-1)[0].debtInterestNet : "87") + "bn/yr",
+                  status: "bad"
+                },
+                {
+                  label: "Petrol",
+                  value: costOfLivingData.headline.petrolPenceLitre + "p/L",
+                  status: parseFloat(costOfLivingData.headline.petrolPenceLitre) > 145 ? "bad" : "neutral"
+                }
+              ]}
+            />
+
             {/* ========= ISSUE AREAS — PRIMARY ENTRY POINTS ========= */}
             <div className={
               "border-t border-gray-800/50 pt-10 pb-6"
@@ -5197,6 +5497,90 @@ export default function App() {
                     </div>
                   </button>
                 ))}
+              </div>
+            </div>
+
+            {/* ========= WASTE SPOTLIGHT ========= */}
+            <WasteSpotlight
+              projects={projects}
+              onExplore={() => setView("projects")}
+              fmt={fmt}
+            />
+
+            {/* ========= EMAIL CAPTURE & SOCIAL CTA ========= */}
+            <div className="border-t border-gray-800/50 py-10">
+              <div className="max-w-xl mx-auto text-center">
+                <div className={
+                  "text-[12px] uppercase tracking-[0.3em] " +
+                  "text-red-500 font-mono mb-3"
+                }>
+                  Stay Informed
+                </div>
+                <div className="text-2xl font-black text-white mb-2 tracking-tight">
+                  The Gracchus Weekly Briefing
+                </div>
+                <div className="text-[14px] text-gray-500 mb-6 leading-relaxed">
+                  The most important UK data, every Monday morning.
+                  Red Flags, waste alerts, and the numbers that matter.
+                </div>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const email = e.target.elements.email?.value;
+                    if (email) {
+                      window.open(
+                        "mailto:gracchus.briefing@gmail.com?subject=Subscribe&body=Please add " +
+                          encodeURIComponent(email) +
+                          " to the Gracchus Weekly Briefing",
+                        "_blank"
+                      );
+                      e.target.reset();
+                    }
+                  }}
+                  className="flex gap-2 max-w-md mx-auto"
+                >
+                  <input
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="your@email.com"
+                    className={
+                      "flex-1 bg-gray-950 border border-gray-800 " +
+                      "px-4 py-2.5 text-[14px] text-gray-300 " +
+                      "placeholder:text-gray-700 " +
+                      "focus:border-red-500/50 focus:outline-none " +
+                      "transition-colors"
+                    }
+                  />
+                  <button
+                    type="submit"
+                    className={
+                      "px-5 py-2.5 bg-red-600 hover:bg-red-500 " +
+                      "text-white text-[12px] font-bold uppercase " +
+                      "tracking-[0.15em] transition-colors shrink-0"
+                    }
+                  >
+                    Subscribe
+                  </button>
+                </form>
+                <div className="mt-6 flex items-center justify-center gap-4">
+                  <a
+                    href="https://x.com/GracchusHQ"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={
+                      "inline-flex items-center gap-2 " +
+                      "text-[11px] uppercase tracking-[0.15em] " +
+                      "text-gray-600 font-mono " +
+                      "hover:text-white transition-colors " +
+                      "border border-gray-800 px-4 py-2 " +
+                      "hover:border-gray-600"
+                    }
+                  >
+                    <X size={12} />
+                    Follow on X
+                  </a>
+                </div>
               </div>
             </div>
 
