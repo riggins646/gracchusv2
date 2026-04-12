@@ -365,6 +365,38 @@ function WasteSpotlight({ projects, onExplore, fmt }) {
             Next {">"}
           </button>
           <button
+            onClick={() => {
+              const text =
+                (current.status === "Cancelled" ? "CANCELLED: " : "OVER BUDGET: ") +
+                current.name + " (" + current.department + ")" +
+                "\n" + fmt(current.latestBudget) + " spent" +
+                (overrun > 0 ? " — +" + fmt(overrun) + " over budget" : "") +
+                "\n\nThat's " + nursesEquiv.toLocaleString("en-GB") + " nurses or " +
+                potholesEquiv.toLocaleString("en-GB") + " pothole repairs" +
+                "\n\nvia @GracchusHQ";
+              window.open(
+                "https://x.com/intent/post?text=" +
+                encodeURIComponent(text) +
+                "&url=" +
+                encodeURIComponent(window.location.origin),
+                "_blank",
+                "noopener,noreferrer"
+              );
+            }}
+            className={
+              "flex-1 px-4 py-3 text-[11px] uppercase " +
+              "tracking-[0.15em] font-mono text-gray-600 " +
+              "hover:text-white hover:bg-white/[0.03] " +
+              "transition-colors border-r border-gray-800/60 " +
+              "flex items-center justify-center gap-1.5"
+            }
+          >
+            <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+            Post
+          </button>
+          <button
             onClick={onExplore}
             className={
               "flex-1 px-4 py-3 text-[11px] uppercase " +
@@ -451,6 +483,40 @@ function BorrowingCounter({ annualBorrowingBn }) {
             £{Math.round(dailyBorrowingGbp / 1e6).toLocaleString("en-GB")}m
           </div>
         </div>
+      </div>
+      <div className="flex justify-center mt-4">
+        <button
+          onClick={() => {
+            const text =
+              "The UK borrows £" +
+              Math.round(dailyBorrowingGbp / 1e6).toLocaleString("en-GB") +
+              "m EVERY DAY." +
+              "\n\n55% of that goes straight to debt interest." +
+              "\n\nSee it tick up in real time \u2193" +
+              "\n\nvia @GracchusHQ";
+            window.open(
+              "https://x.com/intent/post?text=" +
+              encodeURIComponent(text) +
+              "&url=" +
+              encodeURIComponent(window.location.origin),
+              "_blank",
+              "noopener,noreferrer"
+            );
+          }}
+          className={
+            "inline-flex items-center gap-1.5 " +
+            "text-[10px] font-mono uppercase tracking-[0.15em] " +
+            "text-gray-600 hover:text-white " +
+            "border border-gray-800 hover:border-gray-600 " +
+            "rounded-full px-3 py-1.5 " +
+            "transition-all"
+          }
+        >
+          <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+          Post This
+        </button>
       </div>
     </div>
   );
@@ -3266,6 +3332,45 @@ function HomeSpendGenerator() {
                 Download as PNG
                 (1200{"×"}630)
               </button>
+              <button
+                onClick={() => {
+                  const text =
+                    fmtAmt(absAmt) + " WASTED on " + source.name +
+                    " (" + source.dept + ")" +
+                    (results ? "\n\nEquivalent to: " +
+                      results.map((r) => fmtEquivNum(r.count) + " " + r.item.unitLabel).join(", ")
+                    : "") +
+                    "\n\nvia @GracchusHQ";
+                  window.open(
+                    "https://x.com/intent/post?text=" +
+                    encodeURIComponent(text) +
+                    "&url=" +
+                    encodeURIComponent(shareUrl),
+                    "_blank",
+                    "noopener,noreferrer"
+                  );
+                }}
+                className={
+                  "w-full text-xs " +
+                  "font-mono uppercase " +
+                  "tracking-[0.12em] " +
+                  "px-5 py-2.5 " +
+                  "bg-white/[0.06] " +
+                  "border border-gray-700 " +
+                  "text-gray-300 " +
+                  "hover:bg-white/[0.12] " +
+                  "hover:text-white " +
+                  "hover:border-gray-500 " +
+                  "transition-all " +
+                  "flex items-center " +
+                  "justify-center gap-2"
+                }
+              >
+                <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+                Post to X
+              </button>
             </div>
           </div>
         </div>
@@ -3719,6 +3824,44 @@ function DailyCostGenerator() {
                     : "Copy"}
                 </button>
               </div>
+              <button
+                onClick={() => {
+                  const text =
+                    fmtDailyCost(proj.averageDailyCostM) + "/day on " +
+                    proj.projectName +
+                    " = " + fmtPotholes(proj.potholeEquivalentPerDay) +
+                    " pothole repairs every day" +
+                    "\n\nvia @GracchusHQ";
+                  window.open(
+                    "https://x.com/intent/post?text=" +
+                    encodeURIComponent(text) +
+                    "&url=" +
+                    encodeURIComponent(shareUrl),
+                    "_blank",
+                    "noopener,noreferrer"
+                  );
+                }}
+                className={
+                  "w-full text-xs " +
+                  "font-mono uppercase " +
+                  "tracking-[0.12em] " +
+                  "px-5 py-2.5 " +
+                  "bg-white/[0.06] " +
+                  "border border-gray-700 " +
+                  "text-gray-300 " +
+                  "hover:bg-white/[0.12] " +
+                  "hover:text-white " +
+                  "hover:border-gray-500 " +
+                  "transition-all " +
+                  "flex items-center " +
+                  "justify-center gap-2"
+                }
+              >
+                <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+                Post to X
+              </button>
             </div>
           </div>
         </div>
@@ -4065,6 +4208,7 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [sourceProject, setSourceProject] =
     useState(null);
+  const [subscribeStatus, setSubscribeStatus] = useState(null);
 
   const [projQuickView, setProjQuickView] = useState(null);
   const [cancelledIdx, setCancelledIdx] = useState(0);
@@ -5523,46 +5667,67 @@ export default function App() {
                   The most important UK data, every Monday morning.
                   Red Flags, waste alerts, and the numbers that matter.
                 </div>
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    const email = e.target.elements.email?.value;
-                    if (email) {
-                      window.open(
-                        "mailto:gracchus.briefing@gmail.com?subject=Subscribe&body=Please add " +
-                          encodeURIComponent(email) +
-                          " to the Gracchus Weekly Briefing",
-                        "_blank"
-                      );
-                      e.target.reset();
-                    }
-                  }}
-                  className="flex gap-2 max-w-md mx-auto"
-                >
-                  <input
-                    name="email"
-                    type="email"
-                    required
-                    placeholder="your@email.com"
-                    className={
-                      "flex-1 bg-gray-950 border border-gray-800 " +
-                      "px-4 py-2.5 text-[14px] text-gray-300 " +
-                      "placeholder:text-gray-700 " +
-                      "focus:border-red-500/50 focus:outline-none " +
-                      "transition-colors"
-                    }
-                  />
-                  <button
-                    type="submit"
-                    className={
-                      "px-5 py-2.5 bg-red-600 hover:bg-red-500 " +
-                      "text-white text-[12px] font-bold uppercase " +
-                      "tracking-[0.15em] transition-colors shrink-0"
-                    }
+                {subscribeStatus === "done" ? (
+                  <div className="text-emerald-400 text-[14px] font-mono py-3">
+                    You're in. First briefing lands Monday.
+                  </div>
+                ) : (
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const email = e.target.elements.email?.value;
+                      if (!email) return;
+                      setSubscribeStatus("loading");
+                      try {
+                        const res = await fetch("/api/subscribe", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ email }),
+                        });
+                        const data = await res.json();
+                        if (res.ok) {
+                          setSubscribeStatus("done");
+                        } else {
+                          setSubscribeStatus(data.error || "Something went wrong");
+                        }
+                      } catch {
+                        setSubscribeStatus("Network error — try again");
+                      }
+                    }}
+                    className="flex gap-2 max-w-md mx-auto"
                   >
-                    Subscribe
-                  </button>
-                </form>
+                    <input
+                      name="email"
+                      type="email"
+                      required
+                      placeholder="your@email.com"
+                      className={
+                        "flex-1 bg-gray-950 border border-gray-800 " +
+                        "px-4 py-2.5 text-[14px] text-gray-300 " +
+                        "placeholder:text-gray-700 " +
+                        "focus:border-red-500/50 focus:outline-none " +
+                        "transition-colors"
+                      }
+                    />
+                    <button
+                      type="submit"
+                      disabled={subscribeStatus === "loading"}
+                      className={
+                        "px-5 py-2.5 bg-red-600 hover:bg-red-500 " +
+                        "text-white text-[12px] font-bold uppercase " +
+                        "tracking-[0.15em] transition-colors shrink-0 " +
+                        "disabled:opacity-50 disabled:cursor-not-allowed"
+                      }
+                    >
+                      {subscribeStatus === "loading" ? "..." : "Subscribe"}
+                    </button>
+                  </form>
+                )}
+                {subscribeStatus && subscribeStatus !== "done" && subscribeStatus !== "loading" && (
+                  <div className="text-red-400 text-[12px] font-mono mt-2">
+                    {subscribeStatus}
+                  </div>
+                )}
                 <div className="mt-6 flex items-center justify-center gap-4">
                   <a
                     href="https://x.com/GracchusHQ"
@@ -9910,6 +10075,52 @@ export default function App() {
                     };
                     const id =
                       encodeShareId(payload);
+                    const shareUrl =
+                      window.location.origin +
+                      "/share/chart/" + id;
+                    const text =
+                      (chartShare.headline || chartShare.title || "UK data") +
+                      (chartShare.subline ? " — " + chartShare.subline : "") +
+                      "\n\nvia @GracchusHQ";
+                    window.open(
+                      "https://x.com/intent/post?text=" +
+                      encodeURIComponent(text) +
+                      "&url=" +
+                      encodeURIComponent(shareUrl),
+                      "_blank",
+                      "noopener,noreferrer"
+                    );
+                  }}
+                  className={
+                    "w-full flex " +
+                    "items-center " +
+                    "justify-center gap-2 " +
+                    "py-3 text-[11px] " +
+                    "font-mono uppercase " +
+                    "tracking-[0.12em] " +
+                    "bg-white/[0.06] " +
+                    "border border-gray-800 " +
+                    "text-gray-300 " +
+                    "hover:bg-white/[0.12] " +
+                    "hover:text-white " +
+                    "transition-all"
+                  }
+                >
+                  <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                  Post to X
+                </button>
+                <button
+                  onClick={() => {
+                    const payload = {
+                      type: "chart",
+                      h: chartShare.headline,
+                      s: chartShare.subline,
+                      t: chartShare.title
+                    };
+                    const id =
+                      encodeShareId(payload);
                     const url =
                       window.location.origin +
                       "/share/chart/" + id;
@@ -10154,6 +10365,46 @@ export default function App() {
                   >
                     <Download size={12} />
                     Download as PNG
+                  </button>
+                  <button
+                    onClick={() => {
+                      const payload = {
+                        type: "trend",
+                        t: tType
+                      };
+                      const id = encodeShareId(payload);
+                      const shareUrl = window.location.origin +
+                        "/share/trend/" + id;
+                      const text = headline +
+                        (subline ? " — " + subline : "") +
+                        "\n\nvia @GracchusHQ";
+                      window.open(
+                        "https://x.com/intent/post?text=" +
+                        encodeURIComponent(text) +
+                        "&url=" +
+                        encodeURIComponent(shareUrl),
+                        "_blank",
+                        "noopener,noreferrer"
+                      );
+                    }}
+                    className={
+                      "w-full flex items-center " +
+                      "justify-center gap-2 " +
+                      "py-3 text-[11px] " +
+                      "font-mono uppercase " +
+                      "tracking-[0.12em] " +
+                      "bg-white/[0.06] " +
+                      "border border-gray-800 " +
+                      "text-gray-300 " +
+                      "hover:bg-white/[0.12] " +
+                      "hover:text-white " +
+                      "transition-all"
+                    }
+                  >
+                    <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                    Post to X
                   </button>
                   <button
                     onClick={handleCopyTrendUrl}
