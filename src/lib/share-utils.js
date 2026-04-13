@@ -1428,8 +1428,9 @@ export function renderCancelledProjectCard(data) {
 // ========================================
 // SEWAGE FINES vs DIVIDENDS — SOCIAL CARD
 // ========================================
-// Visual comparison card showing the absurd
-// ratio between fines and dividends.
+// Typography-led card. One giant number.
+// One devastating line. Nothing else.
+// Designed to stop the scroll on X/LinkedIn.
 // 1200×630, same design system.
 export function renderSewageFinesCard() {
   var W = 1200;
@@ -1443,7 +1444,7 @@ export function renderSewageFinesCard() {
   ctx.fillRect(0, 0, W, 4);
 
   var px = 72;
-  var y = 48;
+  var y = 52;
 
   // Icon + eyebrow
   drawIcon(ctx, px, y - 14, 18);
@@ -1451,114 +1452,40 @@ export function renderSewageFinesCard() {
   ctx.font = "600 12px " + MONO;
   ctx.letterSpacing = "4px";
   ctx.fillText("GRACCHUS", px + 28, y);
-  y += 36;
+  y += 58;
 
-  // Section label
-  ctx.fillStyle = "#6b7280";
-  ctx.font = "500 13px " + SANS;
-  ctx.letterSpacing = "2px";
-  ctx.fillText("ACCOUNTABILITY \u203A SEWAGE", px, y);
-  y += 38;
+  // Giant hero number — the 0.2% that says it all
+  ctx.fillStyle = "#ef4444";
+  ctx.font = "900 160px " + SANS;
+  ctx.letterSpacing = "-8px";
+  ctx.fillText("0.2%", px - 4, y + 130);
+  y += 160;
 
-  // Headline
+  // The line that makes it hit
   ctx.fillStyle = "#ffffff";
-  ctx.font = "900 56px " + SANS;
-  ctx.letterSpacing = "-2px";
-  ctx.fillText("Fines vs Dividends", px, y);
-  y += 24;
-
-  // Subline
-  ctx.fillStyle = "#ef4444";
-  ctx.font = "800 22px " + SANS;
+  ctx.font = "700 32px " + SANS;
   ctx.letterSpacing = "-0.5px";
-  ctx.fillText("WATER COMPANIES SINCE PRIVATISATION (1991)", px, y + 24);
-  y += 68;
+  ctx.fillText("That\u2019s how much water companies pay in fines", px, y);
+  y += 44;
+  ctx.fillText("compared to what they pay shareholders.", px, y);
+  y += 56;
 
-  // ---- Visual comparison ----
-  var barY = y;
-  var barAreaW = W - px * 2;
-  var barH = 72;
-
-  // £168M bar — proportional (168/78000 ≈ 0.2%)
-  // But we need it visible, so give it minimum ~3% of width
-  var finesFrac = 0.035;
-  var finesW = Math.max(barAreaW * finesFrac, 60);
-  var divW = barAreaW - finesW - 30;
-
-  // Fines bar
-  ctx.fillStyle = "rgba(239, 68, 68, 0.25)";
-  ctx.strokeStyle = "rgba(239, 68, 68, 0.5)";
-  ctx.lineWidth = 2;
-  roundRect(ctx, px, barY, finesW, barH, 8);
-  ctx.fill();
-  ctx.stroke();
-
+  // The numbers — stacked, clean
   ctx.fillStyle = "#ef4444";
-  ctx.font = "900 28px " + SANS;
-  ctx.letterSpacing = "-1px";
-  ctx.textAlign = "center";
-  ctx.fillText("\u00a3168M", px + finesW / 2, barY + barH / 2 + 10);
-
-  // Label
-  ctx.fillStyle = "#6b7280";
-  ctx.font = "500 12px " + SANS;
-  ctx.letterSpacing = "1px";
-  ctx.fillText("FINES (2024)", px + finesW / 2, barY + barH + 20);
-  ctx.textAlign = "left";
-
-  // "vs" text
-  ctx.fillStyle = "#4b5563";
-  ctx.font = "700 20px " + SANS;
+  ctx.font = "900 24px " + MONO;
   ctx.letterSpacing = "0px";
-  var vsX = px + finesW + 15;
-  ctx.textAlign = "center";
-  ctx.fillText("vs", vsX, barY + barH / 2 + 8);
-  ctx.textAlign = "left";
-
-  // Dividends bar
-  var divX = px + finesW + 30;
-  ctx.fillStyle = "rgba(16, 185, 129, 0.12)";
-  ctx.strokeStyle = "rgba(16, 185, 129, 0.35)";
-  ctx.lineWidth = 2;
-  roundRect(ctx, divX, barY, divW, barH, 8);
-  ctx.fill();
-  ctx.stroke();
+  ctx.fillText("\u00a3168M", px, y);
+  ctx.fillStyle = "#6b7280";
+  ctx.font = "400 20px " + SANS;
+  ctx.fillText("  fines levied in 2024", px + ctx.measureText("\u00a3168M").width + 4, y);
+  y += 40;
 
   ctx.fillStyle = "#10b981";
-  ctx.font = "900 36px " + SANS;
-  ctx.letterSpacing = "-1px";
-  ctx.textAlign = "center";
-  ctx.fillText("\u00a378B", divX + divW / 2, barY + barH / 2 + 13);
-
-  // Label
+  ctx.font = "900 24px " + MONO;
+  ctx.fillText("\u00a378B", px, y);
   ctx.fillStyle = "#6b7280";
-  ctx.font = "500 12px " + SANS;
-  ctx.letterSpacing = "1px";
-  ctx.fillText("DIVIDENDS SINCE 1991", divX + divW / 2, barY + barH + 20);
-  ctx.textAlign = "left";
-
-  y = barY + barH + 56;
-
-  // ---- The punchline ----
-  ctx.fillStyle = "#ffffff";
-  ctx.font = "900 48px " + SANS;
-  ctx.letterSpacing = "-2px";
-  ctx.fillText("Fines =", px, y);
-  var finesEqW = ctx.measureText("Fines = ").width;
-  ctx.fillStyle = "#ef4444";
-  ctx.fillText("0.2%", px + finesEqW, y);
-  var pctW = ctx.measureText("0.2% ").width;
-  ctx.fillStyle = "#9ca3af";
-  ctx.font = "500 28px " + SANS;
-  ctx.letterSpacing = "0px";
-  ctx.fillText("of dividends paid", px + finesEqW + pctW + 6, y - 2);
-  y += 38;
-
-  // Context line
-  ctx.fillStyle = "#6b7280";
-  ctx.font = "500 18px " + SANS;
-  ctx.letterSpacing = "0px";
-  ctx.fillText("A 0.2% cost of doing business \u2014 not a deterrent", px, y);
+  ctx.font = "400 20px " + SANS;
+  ctx.fillText("   dividends extracted since privatisation", px + ctx.measureText("\u00a378B").width + 4, y);
 
   drawFooter(ctx, W, H, px);
   return canvas.toDataURL("image/png");
