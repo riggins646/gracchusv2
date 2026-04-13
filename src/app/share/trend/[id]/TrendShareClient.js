@@ -164,7 +164,8 @@ export default function TrendShareClient({
               }}
             />
             <div className={
-              "px-8 md:px-10 pt-8 pb-7"
+              "px-5 sm:px-8 md:px-10 " +
+              "pt-6 sm:pt-8 pb-6 sm:pb-7"
             }>
               <div className={
                 "text-[10px] uppercase " +
@@ -204,15 +205,20 @@ export default function TrendShareClient({
 
               {/* Key stats */}
               <div className={
-                "grid grid-cols-3 gap-4 " +
+                "grid grid-cols-1 " +
+                "sm:grid-cols-3 gap-4 " +
                 "py-4 border-t " +
                 "border-gray-800/40"
               }>
                 {trend.stats.map((s, i) => (
-                  <div key={i}>
+                  <div key={i} className={
+                    "flex sm:block items-baseline " +
+                    "sm:items-start gap-2"
+                  }>
                     <div
                       className={
-                        "text-2xl md:text-3xl " +
+                        "text-xl sm:text-2xl " +
+                        "md:text-3xl " +
                         "font-black tracking-tight"
                       }
                       style={{
@@ -301,19 +307,23 @@ export default function TrendShareClient({
         "px-4 pb-16"
       }>
         <div className={
-          "flex gap-3 flex-wrap justify-center"
+          "flex gap-3 flex-wrap " +
+          "justify-center w-full " +
+          "max-w-[640px]"
         }>
           <button
             onClick={handleCopy}
             className={
               "text-xs font-mono uppercase " +
-              "tracking-[0.12em] px-5 py-2.5 " +
+              "tracking-[0.12em] px-5 py-3 " +
+              "min-h-[44px] " +
               "border border-gray-700 " +
               "text-gray-400 " +
               "hover:text-white " +
               "hover:border-gray-500 " +
               "hover:bg-white/[0.02] " +
-              "transition-all"
+              "transition-all " +
+              "flex-1 sm:flex-initial"
             }
           >
             {copied
@@ -324,13 +334,15 @@ export default function TrendShareClient({
             onClick={handlePostX}
             className={
               "text-xs font-mono uppercase " +
-              "tracking-[0.12em] px-5 py-2.5 " +
+              "tracking-[0.12em] px-5 py-3 " +
+              "min-h-[44px] " +
               "border border-gray-700 " +
               "text-gray-400 " +
               "hover:text-white " +
               "hover:border-gray-500 " +
               "hover:bg-white/[0.02] " +
-              "transition-all"
+              "transition-all " +
+              "flex-1 sm:flex-initial"
             }
           >
             Post to X
@@ -341,9 +353,12 @@ export default function TrendShareClient({
             }
             className={
               "text-xs font-mono uppercase " +
-              "tracking-[0.12em] px-5 py-2.5 " +
+              "tracking-[0.12em] px-5 py-3 " +
+              "min-h-[44px] inline-flex " +
+              "items-center justify-center " +
               "border hover:bg-white/[0.06] " +
-              "transition-all"
+              "transition-all " +
+              "w-full sm:w-auto"
             }
             style={{
               borderColor: trend.accent,

@@ -304,19 +304,22 @@ export default function ChartShareClient({ id }) {
       }>
         <div className={
           "flex gap-3 flex-wrap " +
-          "justify-center"
+          "justify-center w-full " +
+          "max-w-[640px]"
         }>
           <button
             onClick={handleCopy}
             className={
               "text-xs font-mono uppercase " +
-              "tracking-[0.12em] px-5 py-2.5 " +
+              "tracking-[0.12em] px-5 py-3 " +
+              "min-h-[44px] " +
               "border border-gray-700 " +
               "text-gray-400 " +
               "hover:text-white " +
               "hover:border-gray-500 " +
               "hover:bg-white/[0.02] " +
-              "transition-all"
+              "transition-all " +
+              "flex-1 sm:flex-initial"
             }
           >
             {copied
@@ -327,13 +330,15 @@ export default function ChartShareClient({ id }) {
             onClick={handlePostX}
             className={
               "text-xs font-mono uppercase " +
-              "tracking-[0.12em] px-5 py-2.5 " +
+              "tracking-[0.12em] px-5 py-3 " +
+              "min-h-[44px] " +
               "border border-gray-700 " +
               "text-gray-400 " +
               "hover:text-white " +
               "hover:border-gray-500 " +
               "hover:bg-white/[0.02] " +
-              "transition-all"
+              "transition-all " +
+              "flex-1 sm:flex-initial"
             }
           >
             Post to X
@@ -342,9 +347,12 @@ export default function ChartShareClient({ id }) {
             href="/"
             className={
               "text-xs font-mono uppercase " +
-              "tracking-[0.12em] px-5 py-2.5 " +
+              "tracking-[0.12em] px-5 py-3 " +
+              "min-h-[44px] inline-flex " +
+              "items-center justify-center " +
               "border hover:bg-white/[0.06] " +
-              "transition-all"
+              "transition-all " +
+              "w-full sm:w-auto"
             }
             style={{
               borderColor: accent,

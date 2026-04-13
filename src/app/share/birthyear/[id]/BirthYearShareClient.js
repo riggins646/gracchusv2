@@ -314,18 +314,24 @@ export default function BirthYearShareClient({ year }) {
 
       {/* Actions */}
       <div className="flex flex-col items-center px-4 pb-16">
-        <div className="flex gap-3 flex-wrap justify-center">
+        <div className={
+          "flex gap-3 flex-wrap " +
+          "justify-center w-full " +
+          "max-w-[640px]"
+        }>
           <button
             onClick={handleCopy}
             className={
               "text-xs font-mono uppercase " +
-              "tracking-[0.12em] px-5 py-2.5 " +
+              "tracking-[0.12em] px-5 py-3 " +
+              "min-h-[44px] " +
               "border border-gray-700 " +
               "text-gray-400 " +
               "hover:text-white " +
               "hover:border-gray-500 " +
               "hover:bg-white/[0.02] " +
-              "transition-all"
+              "transition-all " +
+              "flex-1 sm:flex-initial"
             }
           >
             {copied ? "\u2713 Copied" : "Copy Link"}
@@ -334,20 +340,30 @@ export default function BirthYearShareClient({ year }) {
             onClick={handlePostX}
             className={
               "text-xs font-mono uppercase " +
-              "tracking-[0.12em] px-5 py-2.5 " +
+              "tracking-[0.12em] px-5 py-3 " +
+              "min-h-[44px] " +
               "border border-gray-700 " +
               "text-gray-400 " +
               "hover:text-white " +
               "hover:border-gray-500 " +
               "hover:bg-white/[0.02] " +
-              "transition-all"
+              "transition-all " +
+              "flex-1 sm:flex-initial"
             }
           >
             Post to X
           </button>
           <a
             href="/"
-            className="text-xs font-mono uppercase tracking-[0.12em] px-5 py-2.5 border hover:bg-white/[0.06] transition-all"
+            className={
+              "text-xs font-mono uppercase " +
+              "tracking-[0.12em] px-5 py-3 " +
+              "min-h-[44px] inline-flex " +
+              "items-center justify-center " +
+              "border hover:bg-white/[0.06] " +
+              "transition-all " +
+              "w-full sm:w-auto"
+            }
             style={{
               borderColor: "#ef4444",
               color: "#ef4444"

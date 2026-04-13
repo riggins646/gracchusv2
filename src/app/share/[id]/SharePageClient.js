@@ -98,14 +98,17 @@ function ShareCard({ data, resolved }) {
             "w-[3px] h-full bg-red-500"
           } />
           <div className={
-            "text-5xl md:text-[72px] " +
+            "text-3xl sm:text-5xl " +
+            "md:text-[72px] " +
             "font-black text-white " +
-            "tracking-tighter leading-none"
+            "tracking-tighter leading-none " +
+            "break-words"
           }>
             {fmtAmt(data.a)}
           </div>
           <div className={
-            "text-3xl md:text-[42px] " +
+            "text-2xl sm:text-3xl " +
+            "md:text-[42px] " +
             "font-black text-red-500 " +
             "tracking-tight " +
             "leading-tight mt-0.5"
@@ -366,19 +369,24 @@ export default function SharePageClient({ id }) {
         "px-4 pb-16"
       }>
         <div className={
-          "flex gap-3 flex-wrap justify-center"
+          "flex gap-3 flex-wrap " +
+          "justify-center w-full " +
+          "max-w-[640px]"
         }>
           <button
             onClick={handleCopyLink}
             className={
               "text-xs font-mono uppercase " +
-              "tracking-[0.12em] px-5 py-2.5 " +
+              "tracking-[0.12em] px-5 py-3 " +
+              "min-h-[44px] " +
               "border border-gray-700 " +
               "text-gray-400 " +
               "hover:text-white " +
               "hover:border-gray-500 " +
               "hover:bg-white/[0.02] " +
-              "transition-all"
+              "transition-all " +
+              "flex-1 sm:flex-initial " +
+              "min-w-[120px]"
             }
           >
             {copied
@@ -389,13 +397,16 @@ export default function SharePageClient({ id }) {
             onClick={handleDownload}
             className={
               "text-xs font-mono uppercase " +
-              "tracking-[0.12em] px-5 py-2.5 " +
+              "tracking-[0.12em] px-5 py-3 " +
+              "min-h-[44px] " +
               "border border-gray-700 " +
               "text-gray-400 " +
               "hover:text-white " +
               "hover:border-gray-500 " +
               "hover:bg-white/[0.02] " +
-              "transition-all"
+              "transition-all " +
+              "flex-1 sm:flex-initial " +
+              "min-w-[120px]"
             }
           >
             Download PNG
@@ -404,13 +415,16 @@ export default function SharePageClient({ id }) {
             onClick={handlePostX}
             className={
               "text-xs font-mono uppercase " +
-              "tracking-[0.12em] px-5 py-2.5 " +
+              "tracking-[0.12em] px-5 py-3 " +
+              "min-h-[44px] " +
               "border border-gray-700 " +
               "text-gray-400 " +
               "hover:text-white " +
               "hover:border-gray-500 " +
               "hover:bg-white/[0.02] " +
-              "transition-all"
+              "transition-all " +
+              "flex-1 sm:flex-initial " +
+              "min-w-[120px]"
             }
           >
             Post to X
@@ -419,13 +433,16 @@ export default function SharePageClient({ id }) {
             href="/"
             className={
               "text-xs font-mono uppercase " +
-              "tracking-[0.12em] px-5 py-2.5 " +
+              "tracking-[0.12em] px-5 py-3 " +
+              "min-h-[44px] inline-flex " +
+              "items-center justify-center " +
               "border border-red-900/60 " +
               "text-red-400 " +
               "hover:text-red-300 " +
               "hover:border-red-700 " +
               "hover:bg-red-500/[0.04] " +
-              "transition-all"
+              "transition-all " +
+              "w-full sm:w-auto"
             }
           >
             Explore the full dashboard

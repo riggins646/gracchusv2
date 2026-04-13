@@ -14,22 +14,21 @@ function formatMoney(value) {
 }
 
 function getScoreColor(score) {
-  if (score > 75) return '#ef4444'; // red
-  if (score > 50) return '#f59e0b'; // amber
-  return '#22c55e'; // green
+  if (score > 75) return '#ef4444';
+  if (score > 50) return '#f59e0b';
+  return '#22c55e';
 }
 
 function getScoreColorBg(score) {
-  if (score > 75) return 'rgba(239, 68, 68, 0.1)'; // red
-  if (score > 50) return 'rgba(245, 158, 11, 0.1)'; // amber
-  return 'rgba(34, 197, 94, 0.1)'; // green
+  if (score > 75) return 'rgba(239, 68, 68, 0.1)';
+  if (score > 50) return 'rgba(245, 158, 11, 0.1)';
+  return 'rgba(34, 197, 94, 0.1)';
 }
 
 export function MPShareClient({ data, id }) {
   const [copied, setCopied] = useState(false);
   const { n: mpName, p: party, c: constituency, oi: outsideIncome, gi: gifts, dn: donations, sc: score } = data;
 
-  // Additional fields with fallback to 0
   const properties = data.pr || 0;
   const shareholdings = data.sh || 0;
   const familyLobbying = data.fl || 0;
@@ -52,181 +51,50 @@ export function MPShareClient({ data, id }) {
   const scoreColorBg = getScoreColorBg(score);
 
   return (
-    <div
-      style={{
-        backgroundColor: '#030303',
-        color: '#ffffff',
-        minHeight: '100vh',
-        fontFamily: 'system-ui, -apple-system, sans-serif',
-      }}
-    >
+    <div className="bg-[#030303] text-white min-h-screen font-sans">
       {/* Red accent bar */}
-      <div
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '4px',
-          backgroundColor: '#ef4444',
-          zIndex: 100,
-        }}
-      />
+      <div className="fixed top-0 left-0 right-0 h-1 bg-red-500 z-[100]" />
 
       {/* Main container */}
-      <div
-        style={{
-          maxWidth: '900px',
-          margin: '0 auto',
-          padding: '60px 40px 40px',
-        }}
-      >
+      <div className="max-w-[900px] mx-auto px-4 sm:px-6 md:px-10 pt-12 sm:pt-16 pb-10">
+
         {/* Hero Card */}
-        <div
-          style={{
-            backgroundColor: '#1a1a1a',
-            border: '1px solid #374151',
-            borderRadius: '12px',
-            padding: '40px',
-            marginBottom: '40px',
-          }}
-        >
-          {/* Header with GRACCHUS */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginBottom: '30px',
-            }}
-          >
-            <div
-              style={{
-                fontSize: '20px',
-                fontWeight: 'bold',
-                fontFamily: 'monospace',
-                color: '#9ca3af',
-                letterSpacing: '2px',
-              }}
-            >
+        <div className="bg-[#1a1a1a] border border-gray-700 rounded-xl p-5 sm:p-8 md:p-10 mb-8 sm:mb-10">
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-6 sm:mb-8">
+            <div className="text-lg sm:text-xl font-bold font-mono text-gray-400 tracking-wider">
               GRACCHUS
             </div>
-            <div
-              style={{
-                fontSize: '13px',
-                fontWeight: '600',
-                color: '#f59e0b',
-                backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                padding: '6px 12px',
-                borderRadius: '4px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-              }}
-            >
+            <div className="text-[13px] font-semibold text-amber-500 bg-amber-500/10 px-3 py-1.5 rounded uppercase tracking-wide self-start">
               MP Scorecard
             </div>
           </div>
 
           {/* MP Info */}
-          <div style={{ marginBottom: '30px' }}>
-            <h1
-              style={{
-                fontSize: '44px',
-                fontWeight: 'bold',
-                margin: '0 0 12px 0',
-                lineHeight: '1.2',
-              }}
-            >
+          <div className="mb-6 sm:mb-8">
+            <h1 className="text-3xl sm:text-4xl md:text-[44px] font-bold leading-tight mb-2 sm:mb-3">
               {mpName}
             </h1>
-            <p
-              style={{
-                fontSize: '18px',
-                color: '#9ca3af',
-                margin: 0,
-              }}
-            >
+            <p className="text-base sm:text-lg text-gray-400">
               {party} • {constituency}
             </p>
           </div>
 
-          {/* Interests Index - Prominent */}
-          <div
-            style={{
-              backgroundColor: scoreColorBg,
-              border: `1px solid ${scoreColor}`,
-              borderRadius: '8px',
-              padding: '24px',
-              marginBottom: '30px',
-            }}
-          >
-            <div
-              style={{
-                fontSize: '13px',
-                color: '#9ca3af',
-                marginBottom: '8px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-              }}
-            >
+          {/* Interests Index */}
+          <div className="rounded-lg p-5 sm:p-6 mb-6 sm:mb-8" style={{ backgroundColor: scoreColorBg, border: `1px solid ${scoreColor}` }}>
+            <div className="text-[13px] text-gray-400 mb-2 uppercase tracking-wide">
               Interests Index Score
             </div>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'baseline',
-                gap: '12px',
-                marginBottom: '16px',
-              }}
-            >
-              <div
-                style={{
-                  fontSize: '48px',
-                  fontWeight: 'bold',
-                  color: scoreColor,
-                }}
-              >
+            <div className="flex items-baseline gap-3 mb-4">
+              <div className="text-4xl sm:text-5xl font-bold" style={{ color: scoreColor }}>
                 {score}
               </div>
-              <div
-                style={{
-                  fontSize: '18px',
-                  color: '#9ca3af',
-                }}
-              >
-                / 100
-              </div>
+              <div className="text-lg text-gray-400">/ 100</div>
             </div>
-
-            {/* Percentile bar */}
-            <div
-              style={{
-                width: '100%',
-                height: '8px',
-                backgroundColor: '#374151',
-                borderRadius: '4px',
-                overflow: 'hidden',
-              }}
-            >
-              <div
-                style={{
-                  width: `${score}%`,
-                  height: '100%',
-                  backgroundColor: scoreColor,
-                  transition: 'width 0.3s ease',
-                }}
-              />
+            <div className="w-full h-2 bg-gray-700 rounded overflow-hidden">
+              <div className="h-full rounded transition-all duration-300" style={{ width: `${score}%`, backgroundColor: scoreColor }} />
             </div>
-
-            {/* Score interpretation */}
-            <p
-              style={{
-                fontSize: '13px',
-                color: '#9ca3af',
-                marginTop: '12px',
-                margin: '12px 0 0 0',
-              }}
-            >
+            <p className="text-[13px] text-gray-400 mt-3">
               {score > 75
                 ? 'High financial interests relative to peers'
                 : score > 50
@@ -237,323 +105,63 @@ export function MPShareClient({ data, id }) {
         </div>
 
         {/* Stats Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '20px',
-            marginBottom: '40px',
-          }}
-        >
-          {/* Outside Income */}
-          <div
-            style={{
-              backgroundColor: '#1a1a1a',
-              border: '1px solid #374151',
-              borderRadius: '8px',
-              padding: '24px',
-            }}
-          >
-            <div
-              style={{
-                fontSize: '13px',
-                color: '#9ca3af',
-                marginBottom: '12px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-              }}
-            >
-              Outside Income
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-8 sm:mb-10">
+          {[
+            { label: 'Outside Income', value: formatMoney(outsideIncome) },
+            { label: 'Gifts & Hospitality', value: formatMoney(gifts) },
+            { label: 'Donations', value: formatMoney(donations) },
+            { label: 'Properties', value: formatMoney(properties) },
+            { label: 'Shareholdings', value: formatMoney(shareholdings) },
+            { label: 'Family Lobbying Links', value: familyLobbying },
+          ].map((stat) => (
+            <div key={stat.label} className="bg-[#1a1a1a] border border-gray-700 rounded-lg p-5 sm:p-6">
+              <div className="text-[13px] text-gray-400 mb-3 uppercase tracking-wide">
+                {stat.label}
+              </div>
+              <div className="text-2xl sm:text-3xl font-bold text-white">
+                {stat.value}
+              </div>
             </div>
-            <div
-              style={{
-                fontSize: '32px',
-                fontWeight: 'bold',
-                color: '#ffffff',
-              }}
-            >
-              {formatMoney(outsideIncome)}
-            </div>
-          </div>
-
-          {/* Gifts & Hospitality */}
-          <div
-            style={{
-              backgroundColor: '#1a1a1a',
-              border: '1px solid #374151',
-              borderRadius: '8px',
-              padding: '24px',
-            }}
-          >
-            <div
-              style={{
-                fontSize: '13px',
-                color: '#9ca3af',
-                marginBottom: '12px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-              }}
-            >
-              Gifts & Hospitality
-            </div>
-            <div
-              style={{
-                fontSize: '32px',
-                fontWeight: 'bold',
-                color: '#ffffff',
-              }}
-            >
-              {formatMoney(gifts)}
-            </div>
-          </div>
-
-          {/* Donations */}
-          <div
-            style={{
-              backgroundColor: '#1a1a1a',
-              border: '1px solid #374151',
-              borderRadius: '8px',
-              padding: '24px',
-            }}
-          >
-            <div
-              style={{
-                fontSize: '13px',
-                color: '#9ca3af',
-                marginBottom: '12px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-              }}
-            >
-              Donations
-            </div>
-            <div
-              style={{
-                fontSize: '32px',
-                fontWeight: 'bold',
-                color: '#ffffff',
-              }}
-            >
-              {formatMoney(donations)}
-            </div>
-          </div>
-
-          {/* Properties */}
-          <div
-            style={{
-              backgroundColor: '#1a1a1a',
-              border: '1px solid #374151',
-              borderRadius: '8px',
-              padding: '24px',
-            }}
-          >
-            <div
-              style={{
-                fontSize: '13px',
-                color: '#9ca3af',
-                marginBottom: '12px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-              }}
-            >
-              Properties
-            </div>
-            <div
-              style={{
-                fontSize: '32px',
-                fontWeight: 'bold',
-                color: '#ffffff',
-              }}
-            >
-              {formatMoney(properties)}
-            </div>
-          </div>
-
-          {/* Shareholdings */}
-          <div
-            style={{
-              backgroundColor: '#1a1a1a',
-              border: '1px solid #374151',
-              borderRadius: '8px',
-              padding: '24px',
-            }}
-          >
-            <div
-              style={{
-                fontSize: '13px',
-                color: '#9ca3af',
-                marginBottom: '12px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-              }}
-            >
-              Shareholdings
-            </div>
-            <div
-              style={{
-                fontSize: '32px',
-                fontWeight: 'bold',
-                color: '#ffffff',
-              }}
-            >
-              {formatMoney(shareholdings)}
-            </div>
-          </div>
-
-          {/* Family Lobbying Links */}
-          <div
-            style={{
-              backgroundColor: '#1a1a1a',
-              border: '1px solid #374151',
-              borderRadius: '8px',
-              padding: '24px',
-            }}
-          >
-            <div
-              style={{
-                fontSize: '13px',
-                color: '#9ca3af',
-                marginBottom: '12px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-              }}
-            >
-              Family Lobbying Links
-            </div>
-            <div
-              style={{
-                fontSize: '32px',
-                fontWeight: 'bold',
-                color: '#ffffff',
-              }}
-            >
-              {familyLobbying}
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* Why This Matters */}
-        <div
-          style={{
-            backgroundColor: '#1a1a1a',
-            border: '1px solid #374151',
-            borderRadius: '8px',
-            padding: '32px',
-            marginBottom: '40px',
-          }}
-        >
-          <h2
-            style={{
-              fontSize: '24px',
-              fontWeight: 'bold',
-              margin: '0 0 16px 0',
-            }}
-          >
-            Why This Matters
-          </h2>
-          <p
-            style={{
-              fontSize: '16px',
-              color: '#d1d5db',
-              lineHeight: '1.6',
-              margin: 0,
-            }}
-          >
-            Financial transparency is fundamental to democratic accountability. The Interests Index synthesizes publicly available data on outside income, gifts, donations, property holdings, shareholdings, and family lobbying links to provide a comprehensive view of potential financial interests that may influence an MP's parliamentary activities. Higher scores indicate greater financial complexity and potential conflicts of interest.
+        <div className="bg-[#1a1a1a] border border-gray-700 rounded-lg p-5 sm:p-8 mb-8 sm:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold mb-4">Why This Matters</h2>
+          <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
+            Financial transparency is fundamental to democratic accountability. The Interests Index synthesizes publicly available data on outside income, gifts, donations, property holdings, shareholdings, and family lobbying links to provide a comprehensive view of potential financial interests that may influence an MP{"'"}s parliamentary activities. Higher scores indicate greater financial complexity and potential conflicts of interest.
           </p>
         </div>
 
         {/* Actions */}
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '12px',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <div style={{ display: 'flex', gap: '12px', flex: 1, minWidth: '300px' }}>
-            {/* Copy Link Button */}
+        <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+          <div className="flex gap-3 flex-1">
             <button
               onClick={handleCopyLink}
-              style={{
-                flex: 1,
-                padding: '12px 20px',
-                backgroundColor: '#374151',
-                color: '#ffffff',
-                border: 'none',
-                borderRadius: '6px',
-                fontSize: '14px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'background-color 0.2s',
-              }}
-              onMouseEnter={(e) => (e.target.style.backgroundColor = '#4b5563')}
-              onMouseLeave={(e) => (e.target.style.backgroundColor = '#374151')}
+              className="flex-1 min-h-[44px] px-5 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-md text-sm font-semibold transition-colors"
             >
               {copied ? '✓ Copied' : 'Copy Link'}
             </button>
-
-            {/* Post to X Button */}
             <button
               onClick={handlePostToX}
-              style={{
-                flex: 1,
-                padding: '12px 20px',
-                backgroundColor: '#374151',
-                color: '#ffffff',
-                border: 'none',
-                borderRadius: '6px',
-                fontSize: '14px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'background-color 0.2s',
-              }}
-              onMouseEnter={(e) => (e.target.style.backgroundColor = '#4b5563')}
-              onMouseLeave={(e) => (e.target.style.backgroundColor = '#374151')}
+              className="flex-1 min-h-[44px] px-5 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-md text-sm font-semibold transition-colors"
             >
               Post to X
             </button>
           </div>
-
-          {/* See All Link */}
           <Link
             href="/?view=transparency.scorecards"
-            style={{
-              padding: '12px 20px',
-              backgroundColor: '#f59e0b',
-              color: '#030303',
-              border: 'none',
-              borderRadius: '6px',
-              fontSize: '14px',
-              fontWeight: '600',
-              cursor: 'pointer',
-              textDecoration: 'none',
-              display: 'inline-block',
-              transition: 'background-color 0.2s',
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f5a81f')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#f59e0b')}
+            className="min-h-[44px] px-5 py-3 bg-amber-500 hover:bg-amber-400 text-[#030303] rounded-md text-sm font-semibold transition-colors text-center inline-flex items-center justify-center"
           >
             See all MP scorecards →
           </Link>
         </div>
 
         {/* Footer */}
-        <div
-          style={{
-            marginTop: '60px',
-            paddingTop: '40px',
-            borderTop: '1px solid #374151',
-            textAlign: 'center',
-            color: '#9ca3af',
-            fontSize: '14px',
-          }}
-        >
-          <p style={{ margin: 0 }}>Data sourced from UK Parliament Register of Members' Financial Interests</p>
-          <p style={{ margin: '8px 0 0 0' }}>
-            Gracchus UK • <a href="https://gracchus.ai" style={{ color: '#f59e0b', textDecoration: 'none' }}>gracchus.ai</a>
+        <div className="mt-12 sm:mt-16 pt-8 sm:pt-10 border-t border-gray-700 text-center text-gray-400 text-sm">
+          <p>Data sourced from UK Parliament Register of Members{"'"} Financial Interests</p>
+          <p className="mt-2">
+            Gracchus UK • <a href="https://gracchus.ai" className="text-amber-500 hover:text-amber-400 no-underline">gracchus.ai</a>
           </p>
         </div>
       </div>

@@ -5533,7 +5533,8 @@ export default function App() {
                   </div>
                 </div>
                 <div className={
-                  "flex gap-2 shrink-0"
+                  "flex gap-2 shrink-0 " +
+                  "w-full sm:w-auto"
                 }>
                   <button
                     onClick={() =>
@@ -5543,12 +5544,14 @@ export default function App() {
                       "text-[10px] font-mono " +
                       "uppercase " +
                       "tracking-[0.1em] " +
-                      "px-3 py-1.5 border " +
+                      "px-4 py-2.5 border " +
                       "border-gray-800 " +
                       "text-gray-600 " +
                       "hover:text-amber-400 " +
                       "hover:border-amber-500/30 " +
-                      "transition-all"
+                      "transition-all " +
+                      "min-h-[44px] flex-1 " +
+                      "sm:flex-initial"
                     }
                   >
                     Your Lifetime
@@ -5563,12 +5566,14 @@ export default function App() {
                       "text-[10px] font-mono " +
                       "uppercase " +
                       "tracking-[0.1em] " +
-                      "px-3 py-1.5 border " +
+                      "px-4 py-2.5 border " +
                       "border-gray-800 " +
                       "text-gray-600 " +
                       "hover:text-amber-400 " +
                       "hover:border-amber-500/30 " +
-                      "transition-all"
+                      "transition-all " +
+                      "min-h-[44px] flex-1 " +
+                      "sm:flex-initial"
                     }
                   >
                     MP Scorecards
@@ -6397,14 +6402,15 @@ export default function App() {
                       className={
                         "bg-black/60 border " +
                         "border-gray-800 " +
-                        "px-4 py-2.5 " +
+                        "px-4 py-3 " +
                         "text-[13px] " +
                         "text-gray-300 " +
                         "placeholder:text-gray-700 " +
                         "focus:border-amber-500/50 " +
                         "focus:outline-none " +
                         "transition-colors " +
-                        "w-full sm:w-56"
+                        "w-full sm:w-56 " +
+                        "min-h-[44px]"
                       }
                     />
                     <button
@@ -6414,7 +6420,7 @@ export default function App() {
                         "loading"
                       }
                       className={
-                        "px-5 py-2.5 " +
+                        "px-5 py-3 " +
                         "bg-amber-600 " +
                         "hover:bg-amber-500 " +
                         "text-white text-[11px] " +
@@ -6422,7 +6428,8 @@ export default function App() {
                         "tracking-[0.15em] " +
                         "transition-colors " +
                         "shrink-0 " +
-                        "disabled:opacity-50"
+                        "disabled:opacity-50 " +
+                        "min-h-[44px]"
                       }
                     >
                       {subscribeStatus ===
@@ -8722,13 +8729,13 @@ export default function App() {
               {/* Controls */}
               <div className={
                 "flex flex-col sm:flex-row " +
-                "gap-3 items-start " +
+                "gap-3 items-stretch " +
                 "sm:items-center"
               }>
                 {/* Search */}
                 <div className={
-                  "relative flex-1 " +
-                  "max-w-xs w-full"
+                  "relative w-full " +
+                  "sm:flex-1 sm:max-w-xs"
                 }>
                   <Search
                     size={14}
@@ -8764,7 +8771,7 @@ export default function App() {
 
                 {/* Party filter */}
                 <div className={
-                  "flex gap-1 flex-wrap"
+                  "flex gap-1.5 flex-wrap"
                 }>
                   {parties.map((p) => (
                     <button
@@ -8777,7 +8784,8 @@ export default function App() {
                         "text-[10px] font-mono " +
                         "uppercase " +
                         "tracking-[0.1em] " +
-                        "px-3 py-1.5 border " +
+                        "px-3 py-2.5 border " +
+                        "min-h-[44px] " +
                         "transition-all " +
                         (scParty === p
                           ? "border-amber-500/50 " +
@@ -8810,9 +8818,10 @@ export default function App() {
                     "bg-black/40 border " +
                     "border-gray-800 " +
                     "text-xs text-gray-400 " +
-                    "px-3 py-2 " +
+                    "px-3 py-2.5 " +
                     "focus:outline-none " +
-                    "font-mono"
+                    "font-mono w-full " +
+                    "sm:w-auto min-h-[44px]"
                   }
                 >
                   <option value="score">
@@ -9159,8 +9168,9 @@ export default function App() {
                     }
                     className={
                       "text-[11px] font-mono " +
-                      "px-3 py-1.5 border " +
+                      "px-4 py-2.5 border " +
                       "border-gray-800 " +
+                      "min-h-[44px] " +
                       (scPage === 0
                         ? "text-gray-800 " +
                           "cursor-not-allowed"
@@ -9193,8 +9203,9 @@ export default function App() {
                     }
                     className={
                       "text-[11px] font-mono " +
-                      "px-3 py-1.5 border " +
+                      "px-4 py-2.5 border " +
                       "border-gray-800 " +
+                      "min-h-[44px] " +
                       (scPage >= totalPages - 1
                         ? "text-gray-800 " +
                           "cursor-not-allowed"
@@ -24367,7 +24378,8 @@ export default function App() {
         >
           <div
             className={
-              "max-w-xl mx-auto px-4 pb-4 " +
+              "max-w-xl mx-auto px-3 sm:px-4 " +
+              "pb-3 sm:pb-4 " +
               "pointer-events-auto"
             }
           >
@@ -24376,8 +24388,10 @@ export default function App() {
                 "bg-[#0a0a0a] border " +
                 "border-gray-800/60 " +
                 "backdrop-blur-sm " +
-                "px-5 py-3.5 flex items-center " +
-                "gap-4 shadow-2xl shadow-black/50"
+                "px-4 sm:px-5 py-3 " +
+                "flex items-center " +
+                "gap-3 sm:gap-4 " +
+                "shadow-2xl shadow-black/50"
               }
               style={{
                 animation:
@@ -24397,12 +24411,15 @@ export default function App() {
                 </div>
                 <div
                   className={
-                    "text-[13px] text-gray-400 " +
+                    "text-[12px] sm:text-[13px] " +
+                    "text-gray-400 " +
                     "leading-snug"
                   }
                 >
-                  Get weekly data drops on UK
-                  {" "}spending &amp; accountability
+                  Weekly UK spending data
+                  <span className="hidden sm:inline">
+                    {" "}&amp; accountability
+                  </span>
                 </div>
               </div>
               <button
@@ -24421,13 +24438,15 @@ export default function App() {
                 className={
                   "text-[10px] font-mono " +
                   "uppercase tracking-[0.12em] " +
-                  "px-4 py-2 border " +
+                  "px-3 sm:px-4 py-2.5 border " +
                   "border-amber-500/50 " +
                   "text-amber-500 " +
                   "hover:bg-amber-500/10 " +
                   "hover:border-amber-500 " +
                   "transition-all " +
-                  "whitespace-nowrap flex-shrink-0"
+                  "whitespace-nowrap flex-shrink-0 " +
+                  "min-h-[44px] flex " +
+                  "items-center"
                 }
               >
                 Subscribe
@@ -24440,7 +24459,10 @@ export default function App() {
                   "text-gray-700 " +
                   "hover:text-gray-400 " +
                   "transition-colors " +
-                  "flex-shrink-0"
+                  "flex-shrink-0 p-2 " +
+                  "-mr-2 min-h-[44px] " +
+                  "min-w-[44px] flex " +
+                  "items-center justify-center"
                 }
               >
                 <X size={14} />
