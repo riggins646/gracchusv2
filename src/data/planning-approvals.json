@@ -2,7 +2,7 @@
   "metadata": {
     "title": "UK Infrastructure Planning & Approval Delays",
     "description": "Major UK projects tracked through planning, DCO, grid connection, and regulatory approval stages. All dates and durations sourced from official records.",
-    "lastUpdated": "2026-03-30",
+    "lastUpdated": "2026-04-13",
     "methodology": "Approval durations measured from formal application submission to final decision date. Grid connection data from Ofgem queue statistics. Only projects with verifiable official records included.",
     "sources": [
       "National Infrastructure Planning (PINS)",
@@ -382,6 +382,26 @@
       "sourceName": "PINS / GOV.UK",
       "sourceUrl": "https://infrastructure.planninginspectorate.gov.uk/projects/south-east/aquind-interconnector/",
       "sourceConfidence": "very_high"
+    },
+    {
+      "id": "springwell-solar",
+      "projectName": "Springwell Solar Farm",
+      "category": "Energy",
+      "approvalType": "DCO",
+      "responsibleBody": "Secretary of State for DESNZ",
+      "submissionDate": "2024-11-01",
+      "originalDecisionDeadline": null,
+      "actualDecisionDate": "2026-04-08",
+      "daysInApproval": 523,
+      "deadlineExtensions": 0,
+      "approvalStatus": "Approved",
+      "causeCategory": "Standard examination",
+      "causeDetail": "800MW solar and battery storage project in North Kesteven, Lincolnshire. Jointly owned by EDF Power Solutions UK and Luminous Energy (50/50). Largest solar NSIP approved under current government. Will supply 180,000+ homes. Electricity export to grid expected by 2029. Community benefit fund of \u00a3400/MW.",
+      "estimatedCostM": null,
+      "capacityMW": 800,
+      "sourceName": "DESNZ / PINS",
+      "sourceUrl": "https://www.edf-powersolutions.uk/news-and-views/major-milestone-as-government-grants-development-consent-order-for-springwell-solar-farm/",
+      "sourceConfidence": "very_high"
     }
   ],
   "gridConnectionQueue": {
@@ -407,20 +427,90 @@
     "methodologyNote": "Measured from application acceptance to Secretary of State decision. Includes examination and post-examination decision periods."
   },
   "approvalTimeline": [
-    { "year": 2012, "avgMonths": 18, "decisions": 5, "sourceName": "PINS" },
-    { "year": 2013, "avgMonths": 20, "decisions": 7, "sourceName": "PINS" },
-    { "year": 2014, "avgMonths": 22, "decisions": 6, "sourceName": "PINS" },
-    { "year": 2015, "avgMonths": 19, "decisions": 8, "sourceName": "PINS" },
-    { "year": 2016, "avgMonths": 21, "decisions": 6, "sourceName": "PINS" },
-    { "year": 2017, "avgMonths": 23, "decisions": 7, "sourceName": "PINS" },
-    { "year": 2018, "avgMonths": 25, "decisions": 9, "sourceName": "PINS" },
-    { "year": 2019, "avgMonths": 24, "decisions": 5, "sourceName": "PINS" },
-    { "year": 2020, "avgMonths": 28, "decisions": 6, "sourceName": "PINS" },
-    { "year": 2021, "avgMonths": 30, "decisions": 4, "sourceName": "PINS" },
-    { "year": 2022, "avgMonths": 32, "decisions": 7, "sourceName": "PINS" },
-    { "year": 2023, "avgMonths": 36, "decisions": 5, "sourceName": "PINS" },
-    { "year": 2024, "avgMonths": 38, "decisions": 6, "sourceName": "PINS" },
-    { "year": 2025, "avgMonths": 43, "decisions": 3, "sourceName": "PINS (partial year)" }
+    {
+      "year": 2012,
+      "avgMonths": 18,
+      "decisions": 5,
+      "sourceName": "PINS"
+    },
+    {
+      "year": 2013,
+      "avgMonths": 20,
+      "decisions": 7,
+      "sourceName": "PINS"
+    },
+    {
+      "year": 2014,
+      "avgMonths": 22,
+      "decisions": 6,
+      "sourceName": "PINS"
+    },
+    {
+      "year": 2015,
+      "avgMonths": 19,
+      "decisions": 8,
+      "sourceName": "PINS"
+    },
+    {
+      "year": 2016,
+      "avgMonths": 21,
+      "decisions": 6,
+      "sourceName": "PINS"
+    },
+    {
+      "year": 2017,
+      "avgMonths": 23,
+      "decisions": 7,
+      "sourceName": "PINS"
+    },
+    {
+      "year": 2018,
+      "avgMonths": 25,
+      "decisions": 9,
+      "sourceName": "PINS"
+    },
+    {
+      "year": 2019,
+      "avgMonths": 24,
+      "decisions": 5,
+      "sourceName": "PINS"
+    },
+    {
+      "year": 2020,
+      "avgMonths": 28,
+      "decisions": 6,
+      "sourceName": "PINS"
+    },
+    {
+      "year": 2021,
+      "avgMonths": 30,
+      "decisions": 4,
+      "sourceName": "PINS"
+    },
+    {
+      "year": 2022,
+      "avgMonths": 32,
+      "decisions": 7,
+      "sourceName": "PINS"
+    },
+    {
+      "year": 2023,
+      "avgMonths": 36,
+      "decisions": 5,
+      "sourceName": "PINS"
+    },
+    {
+      "year": 2024,
+      "avgMonths": 38,
+      "decisions": 6,
+      "sourceName": "PINS"
+    },
+    {
+      "year": 2025,
+      "avgMonths": 43,
+      "decisions": 3,
+      "sourceName": "PINS (partial year)"
+    }
   ],
   "approvalTimelineMethodology": "Average months from DCO application acceptance to Secretary of State decision, by year of decision. Based on PINS published decision data. Partial year for 2025."
 }

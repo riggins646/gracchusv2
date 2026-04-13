@@ -136,7 +136,7 @@
       "Dreadnought Submarines",
       "BISS26 Boats In-Service Support"
     ],
-    "notes": "63% of global revenue from MOD. British Army SPTC extension (£1.6bn, Mar 2025). BISS26 boats support (£283.5m shared, Apr 2026).",
+    "notes": "63% of global revenue from MOD. British Army SPTC extension (\u00a31.6bn, Mar 2025). BISS26 boats support (\u00a3283.5m shared, Apr 2026).",
     "strategicSupplier": true
   },
   {
@@ -316,7 +316,7 @@
       "Ministry of Defence"
     ],
     "projects": [],
-    "notes": "NHS Federated Data Platform (7yr, £330M, Nov 2023). MOD Defence Data Analytics Enterprise Agreement (3yr, £240.6M, awarded Dec 2025, direct award). Total gov contracts: £570.6M.",
+    "notes": "NHS Federated Data Platform (7yr, \u00a3330M, Nov 2023). MOD Defence Data Analytics Enterprise Agreement (3yr, \u00a3240.6M, awarded Dec 2025, direct award). Total gov contracts: \u00a3570.6M.",
     "strategicSupplier": true
   },
   {
@@ -393,15 +393,16 @@
   },
   {
     "name": "Accenture",
-    "contractCount": 1,
+    "contractCount": 2,
     "totalValue": 271000000,
     "annualGovSpend": 240000000,
     "sector": "IT",
     "departments": [
-      "HM Revenue & Customs"
+      "HM Revenue & Customs",
+      "Ministry of Defence"
     ],
     "projects": [],
-    "notes": "HMRC customs and borders. DALAS framework. Test & Trace (30m). Brexit support (30m share).",
+    "notes": "HMRC customs and borders. DALAS framework. Test & Trace (30m). Brexit support (30m share). DLIS digital logistics for MOD (\u00a3113m, Feb 2026, joint with PA Consulting).",
     "strategicSupplier": true
   },
   {
@@ -539,6 +540,19 @@
     ],
     "projects": [],
     "notes": "Brexit support (30m share). Test & Trace (563k). CDDO strategy (3m). Low volume, high impact.",
+    "strategicSupplier": false
+  },
+  {
+    "name": "PA Consulting",
+    "contractCount": 1,
+    "totalValue": 113000000,
+    "annualGovSpend": null,
+    "sector": "Consulting",
+    "departments": [
+      "Ministry of Defence"
+    ],
+    "projects": [],
+    "notes": "DLIS digital logistics for MOD (\u00a3113m, Feb 2026, joint with Accenture as Digital Allies consortium). Part of BMfS programme.",
     "strategicSupplier": false
   }
 ]
