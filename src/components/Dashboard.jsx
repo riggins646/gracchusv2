@@ -645,6 +645,257 @@ function SectionHeader({ label, title, accent }) {
   );
 }
 
+// ═══════════════════════════════════════════════════════════════
+// Beautiful News-inspired chart components
+// ═══════════════════════════════════════════════════════════════
+
+function CirclePackChart({ data, valueKey = "value", nameKey = "name", colorKey = "color", formatValue = (v) => v }) {
+  const containerRef = useRef(null);
+  const [dims, setDims] = useState({ w: 400, h: 320 });
+  const [hovered, setHovered] = useState(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const obs = new ResizeObserver(entries => {
+      const w = entries[0].contentRect.width;
+      setDims({ w, h: Math.min(w * 0.82, 440) });
+    });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const circles = useMemo(() => {
+    if (!data || !data.length || dims.w < 10) return [];
+    const sorted = [...data].sort((a, b) => b[valueKey] - a[valueKey]);
+    const maxVal = sorted[0][valueKey];
+    const maxR = Math.min(dims.w, dims.h) * 0.33;
+    const items = sorted.map(d => ({
+      ...d,
+      r: Math.max(8, Math.sqrt(d[valueKey] / maxVal) * maxR),
+      x: dims.w / 2,
+      y: dims.h / 2,
+    }));
+    // Spiral placement
+    for (let i = 1; i < items.length; i++) {
+      let angle = i * 2.4; // golden angle
+      let radius = 0;
+      let placed = false;
+      let attempts = 0;
+      while (!placed && attempts < 2000) {
+        const x = dims.w / 2 + radius * Math.cos(angle);
+        const y = dims.h / 2 + radius * Math.sin(angle);
+        let ok = true;
+        for (let j = 0; j < i; j++) {
+          const dx = x - items[j].x;
+          const dy = y - items[j].y;
+          if (Math.sqrt(dx * dx + dy * dy) < items[i].r + items[j].r + 3) {
+            ok = false;
+            break;
+          }
+        }
+        if (ok && x - items[i].r > -10 && x + items[i].r < dims.w + 10 && y - items[i].r > -10 && y + items[i].r < dims.h + 10) {
+          items[i].x = x;
+          items[i].y = y;
+          placed = true;
+        }
+        angle += 0.25;
+        radius += 0.6;
+        attempts++;
+      }
+    }
+    return items;
+  }, [data, valueKey, dims]);
+
+  return (
+    <div ref={containerRef} className="w-full" style={{ minHeight: 200 }}>
+      <svg width={dims.w} height={dims.h} className="overflow-visible">
+        <defs>
+          {circles.map((c, i) => (
+            <radialGradient key={i} id={`cp-g-${i}`} cx="35%" cy="35%">
+              <stop offset="0%" stopColor={c[colorKey] || "#ef4444"} stopOpacity={0.9} />
+              <stop offset="100%" stopColor={c[colorKey] || "#ef4444"} stopOpacity={0.35} />
+            </radialGradient>
+          ))}
+        </defs>
+        {circles.map((c, i) => {
+          const isHov = hovered === i;
+          return (
+            <g key={i} onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)} onTouchStart={() => setHovered(i)} style={{ cursor: "pointer" }}>
+              <circle cx={c.x} cy={c.y} r={c.r} fill={`url(#cp-g-${i})`}
+                stroke={isHov ? "#fff" : (c[colorKey] || "#ef4444")} strokeWidth={isHov ? 2 : 0.5} strokeOpacity={isHov ? 1 : 0.25}
+                style={{ transition: "stroke-width 0.2s, stroke-opacity 0.2s" }} />
+              {c.r > (dims.w < 400 ? 22 : 28) && (
+                <>
+                  <text x={c.x} y={c.y - (c.r > 50 ? 8 : 1)} textAnchor="middle" fill="#fff"
+                    fontSize={c.r > 70 ? 13 : c.r > 45 ? 11 : 9} fontWeight={700} style={{ pointerEvents: "none" }}>
+                    {c[nameKey]}
+                  </text>
+                  <text x={c.x} y={c.y + (c.r > 50 ? 12 : 10)} textAnchor="middle" fill="rgba(255,255,255,0.7)"
+                    fontSize={c.r > 70 ? 18 : c.r > 45 ? 14 : 10} fontWeight={600} style={{ pointerEvents: "none" }}>
+                    {formatValue(c[valueKey])}
+                  </text>
+                </>
+              )}
+            </g>
+          );
+        })}
+        {hovered !== null && circles[hovered] && circles[hovered].r <= (dims.w < 400 ? 22 : 28) && (
+          <g style={{ pointerEvents: "none" }}>
+            <rect x={circles[hovered].x - 70} y={circles[hovered].y - circles[hovered].r - 36}
+              width={140} height={30} rx={6} fill="rgba(0,0,0,0.9)" />
+            <text x={circles[hovered].x} y={circles[hovered].y - circles[hovered].r - 17}
+              textAnchor="middle" fill="#fff" fontSize={11} fontWeight={600}>
+              {circles[hovered][nameKey]}: {formatValue(circles[hovered][valueKey])}
+            </text>
+          </g>
+        )}
+      </svg>
+    </div>
+  );
+}
+
+function NestedCirclesChart({ data, budgetKey = "budget", actualKey = "latest", nameKey = "name", formatValue = (v) => v }) {
+  const containerRef = useRef(null);
+  const [w, setW] = useState(600);
+  const [hovered, setHovered] = useState(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const obs = new ResizeObserver(entries => setW(entries[0].contentRect.width));
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const maxVal = Math.max(...data.map(d => d[actualKey]));
+  const cols = w < 500 ? 3 : Math.min(data.length, 6);
+  const cellW = w / cols;
+  const maxR = cellW * 0.4;
+  const scale = (v) => Math.sqrt(v / maxVal) * maxR;
+  const rows = Math.ceil(data.length / cols);
+
+  return (
+    <div ref={containerRef} className="w-full">
+      <div className="flex gap-2 sm:gap-3 justify-center mb-3 text-[10px] sm:text-xs text-gray-500">
+        <span className="flex items-center gap-1">
+          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-teal-500/60 inline-block" />
+          Original budget
+        </span>
+        <span className="flex items-center gap-1">
+          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full border-2 border-red-500/50 bg-red-500/10 inline-block" />
+          Actual cost
+        </span>
+      </div>
+      <svg width={w} height={rows * (maxR * 2 + 60)} className="overflow-visible">
+        {data.map((d, i) => {
+          const col = i % cols;
+          const row = Math.floor(i / cols);
+          const cx = cellW * col + cellW / 2;
+          const cy = row * (maxR * 2 + 60) + maxR + 8;
+          const rOuter = scale(d[actualKey]);
+          const rInner = scale(d[budgetKey]);
+          const isHov = hovered === i;
+          const overrunPct = Math.round(((d[actualKey] - d[budgetKey]) / d[budgetKey]) * 100);
+          return (
+            <g key={i} onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)} onTouchStart={() => setHovered(i)} style={{ cursor: "pointer" }}>
+              <circle cx={cx} cy={cy} r={rOuter} fill="rgba(239,68,68,0.10)"
+                stroke={isHov ? "#ef4444" : "rgba(239,68,68,0.35)"} strokeWidth={isHov ? 2.5 : 1.5} strokeDasharray={isHov ? "none" : "4,3"} />
+              <circle cx={cx} cy={cy} r={rInner} fill="rgba(20,184,166,0.45)" stroke="rgba(20,184,166,0.7)" strokeWidth={1} />
+              <text x={cx} y={cy + rOuter + 16} textAnchor="middle" fill="#9ca3af" fontSize={w < 500 ? 9 : 10} fontWeight={500}>
+                {d[nameKey].length > 18 ? d[nameKey].slice(0, 16) + "\u2026" : d[nameKey]}
+              </text>
+              <text x={cx} y={cy + rOuter + 30} textAnchor="middle" fill="#ef4444" fontSize={w < 500 ? 10 : 12} fontWeight={700}>
+                +{overrunPct}%
+              </text>
+              {isHov && (
+                <g>
+                  <rect x={cx - 72} y={cy - rOuter - 48} width={144} height={40} rx={6} fill="rgba(0,0,0,0.92)" stroke="#ef4444" strokeWidth={0.5} />
+                  <text x={cx} y={cy - rOuter - 32} textAnchor="middle" fill="#14b8a6" fontSize={11} fontWeight={600}>
+                    Budget: {formatValue(d[budgetKey])}
+                  </text>
+                  <text x={cx} y={cy - rOuter - 17} textAnchor="middle" fill="#ef4444" fontSize={11} fontWeight={600}>
+                    Actual: {formatValue(d[actualKey])}
+                  </text>
+                </g>
+              )}
+            </g>
+          );
+        })}
+      </svg>
+    </div>
+  );
+}
+
+function SlopeChartViz({ data, leftKey = "promised", rightKey = "current", nameKey = "name", sizeKey = "cost", leftLabel = "PROMISED", rightLabel = "REALITY" }) {
+  const containerRef = useRef(null);
+  const [w, setW] = useState(600);
+  const [hovered, setHovered] = useState(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const obs = new ResizeObserver(entries => setW(entries[0].contentRect.width));
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const isMobile = w < 500;
+  const leftX = isMobile ? w * 0.32 : w * 0.26;
+  const rightX = isMobile ? w * 0.82 : w * 0.78;
+  const topY = 45;
+  const bottomY = Math.min(420, data.length * 38 + 50);
+  const allYears = data.flatMap(d => [d[leftKey], d[rightKey]]);
+  const minYear = Math.min(...allYears);
+  const maxYear = Math.max(...allYears);
+  const yScale = (year) => topY + ((year - minYear) / (maxYear - minYear)) * (bottomY - topY);
+  const maxCost = Math.max(...data.map(d => d[sizeKey] || 1));
+
+  return (
+    <div ref={containerRef} className="w-full">
+      <svg width={w} height={bottomY + 20} className="overflow-visible">
+        {/* Headers */}
+        <text x={leftX} y={22} textAnchor="middle" fill="#14b8a6" fontSize={isMobile ? 11 : 13} fontWeight={700}>{leftLabel}</text>
+        <text x={rightX} y={22} textAnchor="middle" fill="#ef4444" fontSize={isMobile ? 11 : 13} fontWeight={700}>{rightLabel}</text>
+        {/* Grid */}
+        {Array.from({ length: 6 }, (_, i) => {
+          const year = minYear + Math.round(((maxYear - minYear) / 5) * i);
+          return (
+            <g key={i}>
+              <line x1={leftX - 20} y1={yScale(year)} x2={rightX + 20} y2={yScale(year)} stroke="rgba(255,255,255,0.05)" />
+              <text x={rightX + (isMobile ? 25 : 30)} y={yScale(year) + 4} fill="#4b5563" fontSize={9}>{year}</text>
+            </g>
+          );
+        })}
+        {/* Lines */}
+        {data.map((d, i) => {
+          const y1 = yScale(d[leftKey]);
+          const y2 = yScale(d[rightKey]);
+          const isHov = hovered === i;
+          const opacity = isHov ? 1 : hovered === null ? 0.65 : 0.12;
+          const sw = isHov ? 3 : Math.max(1.5, Math.sqrt((d[sizeKey] || 1) / maxCost) * 3.5);
+          const late = d[rightKey] - d[leftKey];
+          return (
+            <g key={i} onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)} onTouchStart={() => setHovered(i)} style={{ cursor: "pointer" }}>
+              <line x1={leftX} y1={y1} x2={rightX} y2={y2} stroke="#ef4444" strokeWidth={sw} strokeOpacity={opacity} strokeLinecap="round" style={{ transition: "all 0.2s" }} />
+              <circle cx={leftX} cy={y1} r={isHov ? 5 : 3} fill="#14b8a6" fillOpacity={opacity} />
+              <circle cx={rightX} cy={y2} r={isHov ? 5 : 3} fill="#ef4444" fillOpacity={opacity} />
+              <text x={leftX - 8} y={y1 + 4} textAnchor="end" fill={isHov ? "#e5e7eb" : "#9ca3af"} fontSize={isHov ? (isMobile ? 10 : 12) : (isMobile ? 8 : 10)} fontWeight={isHov ? 700 : 400} fillOpacity={opacity} style={{ transition: "all 0.2s" }}>
+                {isMobile ? (d[nameKey].length > 14 ? d[nameKey].slice(0, 12) + "\u2026" : d[nameKey]) : d[nameKey]}
+              </text>
+              {(isHov || hovered === null) && (
+                <text x={rightX + 8} y={y2 + 4} fill={isHov ? "#ef4444" : "#6b7280"} fontSize={isHov ? (isMobile ? 10 : 12) : (isMobile ? 8 : 10)} fontWeight={isHov ? 700 : 400} fillOpacity={opacity}>
+                  +{late}yr{isHov && d[sizeKey] ? ` (\u00A3${d[sizeKey]}bn)` : ""}
+                </text>
+              )}
+            </g>
+          );
+        })}
+      </svg>
+    </div>
+  );
+}
+
 function ChartPair({ children }) {
   return (
     <div className={
@@ -4566,6 +4817,7 @@ export default function App() {
 
   // Political Donations view state
   const [donGovFilter, setDonGovFilter] = useState(null);
+  const [donHovParty, setDonHovParty] = useState(null);
   const [donPartyFilter, setDonPartyFilter] = useState("All");
   const [donDonorTypeFilter, setDonDonorTypeFilter] = useState("All");
   const [donMinValue, setDonMinValue] = useState("");
@@ -4661,6 +4913,7 @@ export default function App() {
   const [govSpendDrill, setGovSpendDrill] = useState(null);
   const [econRange, setEconRange] = useState(DEFAULT_RANGE);
   const [colRange, setColRange] = useState(DEFAULT_RANGE);
+  const [colHovMetric, setColHovMetric] = useState(null);
   const [prodRange, setProdRange] = useState(DEFAULT_RANGE);
   const [taxDebtRange, setTaxDebtRange] = useState("5y");
   const [flowYear, setFlowYear] = useState("2025-26");
@@ -6606,62 +6859,19 @@ export default function App() {
                 shareHeadline="Billions over budget"
                 shareSubline="The UK's worst project overruns — exposed"
               >
-                <div className="flex gap-0">
-                  {/* Project names column */}
-                  <div className="flex flex-col justify-center shrink-0 pr-2" style={{ paddingTop: 5, paddingBottom: 28 }}>
-                    {overrunPctChart.map((d, i) => (
-                      <div
-                        key={i}
-                        className="flex items-center justify-end group relative"
-                        style={{ height: 26 }}
-                        title={d.name}
-                      >
-                        <span className="text-[11px] text-gray-400 font-mono text-right leading-tight max-w-[180px] truncate">
-                          {d.shortName}
-                        </span>
-                        {/* Full name tooltip on hover */}
-                        {d.name !== d.shortName && (
-                          <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-50 hidden group-hover:block bg-gray-900 border border-gray-700 rounded px-2.5 py-1.5 shadow-xl whitespace-nowrap">
-                            <span className="text-[11px] text-white font-mono">{d.name}</span>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                  {/* Chart bars */}
-                  <div className="flex-1 min-w-0">
-                    <ResponsiveContainer width="100%" height={260}>
-                      <BarChart
-                        data={overrunPctChart}
-                        layout="vertical"
-                        margin={{ left: 0, right: 10, top: 5, bottom: 0 }}
-                      >
-                        <XAxis
-                          type="number"
-                          tick={{ fill: "#4b5563", fontSize: 10 }}
-                          tickFormatter={(v) => v + "%"}
-                          axisLine={{ stroke: "#1f2937" }}
-                          tickLine={false}
-                        />
-                        <YAxis type="category" dataKey="name" hide />
-                        <Tooltip
-                          content={({ active, payload }) => (
-                            <CustomTooltip active={active} payload={payload} renderFn={ttPct} />
-                          )}
-                        />
-                        <Bar dataKey="pct" radius={[0, 3, 3, 0]} barSize={18}>
-                          {overrunPctChart.map((d, i) => (
-                            <Cell
-                              key={i}
-                              fill={i === 0 ? "#ef4444" : d.color}
-                              fillOpacity={i === 0 ? 0.9 : 0.25}
-                            />
-                          ))}
-                        </Bar>
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
+                <p className="text-gray-500 text-[10px] sm:text-xs mb-2 text-center">Inner circle = original budget · Outer circle = actual cost</p>
+                <NestedCirclesChart
+                  data={overrunPctChart.slice(0, 6).map(d => ({
+                    name: d.shortName,
+                    budget: d.budget,
+                    latest: d.latest,
+                    pct: d.pct,
+                  }))}
+                  budgetKey="budget"
+                  actualKey="latest"
+                  nameKey="name"
+                  formatValue={(v) => "\u00a3" + (v >= 1000 ? (v / 1000).toFixed(1) + "bn" : v.toFixed(0) + "m")}
+                />
               </ChartCard>
 
               {/* Right panel — Cancelled Projects ticker */}
@@ -7915,174 +8125,40 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Delay Trend Chart - right column */}
-                {delaysData.delayTimeline && (
-                  <ChartCard
-                    chartId="project-delays"
-                    label="Trend"
-                    title={"Delivery Delays & Cost Growth Over Time"}
-                    subtitle="Average schedule slippage and cost growth across IPA-tracked major projects. Source: IPA / NAO."
-                    onShare={handleChartShare}
-                    shareHeadline="Every project late. Every project over budget."
-                    shareSubline="Delivery delays and cost growth keep getting worse"
-                    accentColor="#ef4444"
-                    explainData={delaysData.delayTimeline.map(d => `${d.year}: ${d.avgDelayYears}yr delay, +${d.avgCostGrowthPct}% cost growth`).join("; ")}
-                  >
-                    <ResponsiveContainer
-                      width="100%" height={220}
-                    >
-                      <ComposedChart
-                        data={delaysData.delayTimeline}
-                        margin={{
-                          top: 5, right: 10,
-                          bottom: 5, left: 0
-                        }}
-                      >
-                        <CartesianGrid
-                          strokeDasharray="3 3"
-                          stroke="#1f2937"
-                          vertical={false}
-                        />
-                        <XAxis
-                          dataKey="year"
-                          tick={{
-                            fill: "#6b7280",
-                            fontSize: 10,
-                            fontFamily: "monospace"
-                          }}
-                          axisLine={{
-                            stroke: "#374151"
-                          }}
-                          tickLine={false}
-                        />
-                        <YAxis
-                          yAxisId="left"
-                          tick={{
-                            fill: "#6b7280",
-                            fontSize: 10,
-                            fontFamily: "monospace"
-                          }}
-                          axisLine={false}
-                          tickLine={false}
-                          label={{
-                            value: "years",
-                            angle: -90,
-                            position: "insideLeft",
-                            style: {
-                              fill: "#4b5563",
-                              fontSize: 9,
-                              fontFamily: "monospace"
-                            }
-                          }}
-                        />
-                        <YAxis
-                          yAxisId="right"
-                          orientation="right"
-                          tick={{
-                            fill: "#6b7280",
-                            fontSize: 10,
-                            fontFamily: "monospace"
-                          }}
-                          axisLine={false}
-                          tickLine={false}
-                          label={{
-                            value: "cost growth %",
-                            angle: 90,
-                            position: "insideRight",
-                            style: {
-                              fill: "#4b5563",
-                              fontSize: 9,
-                              fontFamily: "monospace"
-                            }
-                          }}
-                        />
-                        <Tooltip
-                          contentStyle={{
-                            background: "#111",
-                            border: "1px solid #333",
-                            borderRadius: 0,
-                            fontSize: 11,
-                            fontFamily: "monospace"
-                          }}
-                          labelStyle={{
-                            color: "#9ca3af"
-                          }}
-                          formatter={(val, name) => {
-                            if (name ===
-                              "avgDelayYears")
-                              return [
-                                val + " years",
-                                "Avg Delay"
-                              ];
-                            if (name ===
-                              "avgCostGrowthPct")
-                              return [
-                                "+" + val + "%",
-                                "Avg Cost Growth"
-                              ];
-                            return [val, name];
-                          }}
-                        />
-                        <Area
-                          yAxisId="left"
-                          type="monotone"
-                          dataKey="avgDelayYears"
-                          fill="#ef4444"
-                          fillOpacity={0.08}
-                          stroke="#ef4444"
-                          strokeWidth={2}
-                          dot={{
-                            fill: "#ef4444",
-                            r: 3,
-                            strokeWidth: 0
-                          }}
-                          activeDot={{
-                            r: 5,
-                            fill: "#ef4444"
-                          }}
-                        />
-                        <Line
-                          yAxisId="right"
-                          type="monotone"
-                          dataKey="avgCostGrowthPct"
-                          stroke="#f59e0b"
-                          strokeWidth={2}
-                          strokeDasharray="5 3"
-                          dot={{
-                            fill: "#f59e0b",
-                            r: 3,
-                            strokeWidth: 0
-                          }}
-                          activeDot={{
-                            r: 5,
-                            fill: "#f59e0b"
-                          }}
-                        />
-                      </ComposedChart>
-                    </ResponsiveContainer>
-                    <div className={
-                      "flex justify-between " +
-                      "text-[9px] text-gray-700 " +
-                      "font-mono mt-2"
-                    }>
-                      <span>
-                        {"\u25CF"}{" "}
-                        <span className="text-red-400">
-                          Avg delay (years)
-                        </span>
-                        {" "}{"\u2502"}{" "}
-                        <span className="text-amber-400">
-                          - - Avg cost growth %
-                        </span>
-                      </span>
-                      <span>
-                        {delaysData.delayTimeline
-                          .length} data points,
-                        biennial sampling
-                      </span>
-                    </div>
-                  </ChartCard>
-                )}
+                {/* Slope Chart — Promised vs Reality */}
+                <ChartCard
+                  chartId="project-delays"
+                  label="Every Project Slipped"
+                  title="Promised Completion vs Reality"
+                  subtitle="Line thickness = project cost. Hover to isolate."
+                  onShare={handleChartShare}
+                  shareHeadline="Every project late. Every project over budget."
+                  shareSubline="Promised completion vs reality — not a single one on time"
+                  accentColor="#ef4444"
+                  explainData={delayProjects.filter(p => p.originalCompletionDate && p.latestCompletionDate).slice(0, 10).map(d => `${d.projectName}: promised ${d.originalCompletionDate.slice(0,4)}, now ${d.latestCompletionDate.slice(0,4)}`).join("; ")}
+                >
+                  <SlopeChartViz
+                    data={delayProjects
+                      .filter(p => p.originalCompletionDate && p.latestCompletionDate && p.delayYears > 0)
+                      .sort((a, b) => b.delayYears - a.delayYears)
+                      .slice(0, 12)
+                      .map(p => ({
+                        name: p.projectName.length > 22 ? p.projectName.slice(0, 20) + "\u2026" : p.projectName,
+                        promised: parseInt(p.originalCompletionDate.slice(0, 4)),
+                        current: parseInt(p.latestCompletionDate.slice(0, 4)),
+                        cost: Math.round((p.latestBudgetM || 1) / 1000),
+                      }))}
+                    leftKey="promised"
+                    rightKey="current"
+                    nameKey="name"
+                    sizeKey="cost"
+                    leftLabel="PROMISED"
+                    rightLabel="REALITY"
+                  />
+                  <div className="text-[9px] text-gray-700 font-mono mt-2 text-center">
+                    Source: NAO / IPA Annual Reports · Line width = project budget
+                  </div>
+                </ChartCard>
               </div>
 
               <QuickViewBar
@@ -9512,18 +9588,35 @@ export default function App() {
               onShare={handleChartShare}
               accentColor="#ef4444"
             >
+              {/* Party legend with hover isolation */}
+              <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-3">
+                {Object.entries(PARTY_COLOURS).map(([party, colour]) => (
+                  <span key={party}
+                    onMouseEnter={() => setDonHovParty(party)}
+                    onMouseLeave={() => setDonHovParty(null)}
+                    onTouchStart={() => setDonHovParty(donHovParty === party ? null : party)}
+                    className="flex items-center gap-1.5 cursor-pointer transition-opacity min-h-[32px] sm:min-h-0 px-1"
+                    style={{ opacity: donHovParty && donHovParty !== party ? 0.25 : 1 }}>
+                    <span className="w-2.5 h-2.5 rounded-full inline-block shrink-0" style={{ background: colour }} />
+                    <span className="text-[10px] sm:text-xs text-gray-400">{party}</span>
+                  </span>
+                ))}
+              </div>
               <ResponsiveContainer width="100%" height={320}>
-                <AreaChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
-                  <XAxis dataKey="year" stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 10 }} />
-                  <YAxis stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 10 }} tickFormatter={v => "\u00A3" + (v / 1e6).toFixed(0) + "m"} />
+                <AreaChart data={chartData} stackOffset="wiggle" margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
+                  <XAxis dataKey="year" stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 10 }} tickLine={false} />
                   <Tooltip
                     contentStyle={{ backgroundColor: "#111827", border: "1px solid #374151", borderRadius: 8, fontSize: 12 }}
                     labelStyle={{ color: "#f3f4f6", fontWeight: 600 }}
-                    formatter={(v, name) => ["\u00A3" + (v / 1e6).toFixed(1) + "m", name]}
+                    formatter={(v, name) => ["\u00A3" + (Math.abs(v) / 1e6).toFixed(1) + "m", name]}
                   />
                   {Object.entries(PARTY_COLOURS).map(([party, colour]) => (
-                    <Area key={party} type="monotone" dataKey={party} stackId="1" fill={colour} stroke={colour} fillOpacity={0.7} />
+                    <Area key={party} type="monotone" dataKey={party} stackId="1" fill={colour} stroke={colour}
+                      fillOpacity={donHovParty === null ? 0.7 : donHovParty === party ? 0.9 : 0.06}
+                      strokeOpacity={donHovParty === null ? 0.9 : donHovParty === party ? 1 : 0.08}
+                      strokeWidth={donHovParty === party ? 2 : 1}
+                      style={{ transition: "fill-opacity 0.3s, stroke-opacity 0.3s" }}
+                    />
                   ))}
                 </AreaChart>
               </ResponsiveContainer>
@@ -11127,26 +11220,14 @@ export default function App() {
 
             {/* Spending by Department 2024 */}
             <ChartCard chartId="oda-by-department" title={"Spending by Department \u2014 2024"} subtitle="Which government departments spend ODA" shareHeadline="FCDO 67%" shareSubline="FCDO accounted for two-thirds of all UK foreign aid spending in 2024" onShare={handleChartShare} accentColor="#059669" explainData={departments.slice(0, 6).map(d => `${d.dept}: £${d.value}m`).join("; ")}>
-              <ResponsiveContainer width="100%" height={Math.max(340, departments.length * 36)}>
-                <BarChart data={departments} layout="vertical" margin={{ top: 5, right: 30, left: 5, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
-                  <XAxis type="number" stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 11 }} tickFormatter={v => "\u00a3" + (v / 1e3).toFixed(1) + "bn"} />
-                  <YAxis type="category" dataKey="dept" stroke="#6b7280" tick={{ fill: "#d1d5db", fontSize: 10 }} width={70} />
-                  <Tooltip
-                    contentStyle={{ backgroundColor: "#111827", border: "1px solid #374151", borderRadius: 8 }}
-                    formatter={(v, name, props) => {
-                      const d = props.payload;
-                      return ["\u00a3" + v.toLocaleString() + "m" + (d.fullName ? " \u2014 " + d.fullName : ""), "ODA"];
-                    }}
-                    labelFormatter={l => l}
-                  />
-                  <Bar dataKey="value" radius={[0, 4, 4, 0]}>
-                    {departments.map((d, i) => (
-                      <Cell key={i} fill={d.colour || "#6b7280"} fillOpacity={0.8} />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
+              <p className="text-gray-500 text-[10px] sm:text-xs mb-2 text-center">Circle area = relative spend — hover or tap for details</p>
+              <CirclePackChart
+                data={departments.map(d => ({ ...d, name: d.dept, color: d.colour || "#6b7280" }))}
+                valueKey="value"
+                nameKey="name"
+                colorKey="color"
+                formatValue={(v) => "\u00a3" + (v / 1e3).toFixed(1) + "bn"}
+              />
               <ChartMeta
                 note={foreignAidData.contextSentences.department}
                 source={foreignAidData.byDepartment2024.sourceName}
@@ -14864,75 +14945,40 @@ export default function App() {
                 shareHeadline="£100bn+ just on interest"
                 shareSubline="The staggering cost of servicing Britain's debt"
               >
-                <ResponsiveContainer
-                  width="100%" height={260}
-                >
-                  <ComposedChart data={debtChart}>
-                    <XAxis
-                      dataKey="year"
-                      tick={{
-                        fontSize: 10,
-                        fill: "#555"
-                      }}
-                      axisLine={false}
-                      tickLine={false}
-                    />
-                    <YAxis
-                      yAxisId="left"
-                      tick={{
-                        fontSize: 10,
-                        fill: "#555"
-                      }}
-                      axisLine={false}
-                      tickLine={false}
-                      tickFormatter={
-                        (v) => "£" + v + "bn"
-                      }
-                    />
-                    <YAxis
-                      yAxisId="right"
-                      orientation="right"
-                      tick={{
-                        fontSize: 10,
-                        fill: "#555"
-                      }}
-                      axisLine={false}
-                      tickLine={false}
-                      tickFormatter={
-                        (v) => v + "%"
-                      }
-                    />
-                    <Tooltip
-                      contentStyle={{
-                        background: "#111",
-                        border: "1px solid #333",
-                        fontSize: 11
-                      }}
-                    />
-                    <Bar
-                      yAxisId="left"
-                      dataKey="Net (OBR)"
-                      fill="#ef4444"
-                      fillOpacity={0.6}
-                      radius={[2, 2, 0, 0]}
-                    />
-                    <Bar
-                      yAxisId="left"
-                      dataKey="Gross"
-                      fill="#ef4444"
-                      fillOpacity={0.25}
-                      radius={[2, 2, 0, 0]}
-                    />
-                    <Line
-                      yAxisId="right"
-                      type="monotone"
-                      dataKey="% GDP"
-                      stroke="#f97316"
-                      strokeWidth={2}
-                      dot={{ r: 2 }}
-                    />
-                  </ComposedChart>
-                </ResponsiveContainer>
+                <div className="relative">
+                  <ResponsiveContainer width="100%" height={280}>
+                    <ComposedChart data={debtChart} margin={{ top: 45, right: 40, bottom: 5, left: 5 }}>
+                      <defs>
+                        <linearGradient id="debtBarGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#ef4444" stopOpacity={0.7} />
+                          <stop offset="100%" stopColor="#ef4444" stopOpacity={0.2} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+                      <XAxis dataKey="year" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} />
+                      <YAxis yAxisId="left" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} tickFormatter={(v) => "\u00a3" + v + "bn"} />
+                      <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} tickFormatter={(v) => v + "%"} />
+                      <Tooltip contentStyle={{ background: "#111", border: "1px solid #333", fontSize: 11, borderRadius: 8 }} />
+                      {/* Event annotation reference lines */}
+                      {[
+                        { year: "2008", label: "Financial Crisis" },
+                        { year: "2020", label: "COVID" },
+                        { year: "2022", label: "Mini-Budget" },
+                      ].map(ev => debtChart.some(d => d.year === ev.year) ? (
+                        <ReferenceLine key={ev.year} x={ev.year} yAxisId="left" stroke="rgba(239,68,68,0.3)" strokeDasharray="3 3"
+                          label={{ value: ev.label, position: "top", fill: "#9ca3af", fontSize: 9, fontWeight: 600 }} />
+                      ) : null)}
+                      <Bar yAxisId="left" dataKey="Net (OBR)" fill="url(#debtBarGrad)" radius={[3, 3, 0, 0]} />
+                      <Bar yAxisId="left" dataKey="Gross" fill="#ef4444" fillOpacity={0.15} radius={[3, 3, 0, 0]} />
+                      <Line yAxisId="right" type="monotone" dataKey="% GDP" stroke="#f97316" strokeWidth={2.5} dot={{ r: 2, fill: "#f97316" }} />
+                    </ComposedChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="flex flex-wrap gap-3 sm:gap-4 mt-1 text-[9px] sm:text-[10px] text-gray-600 font-mono justify-center">
+                  <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-sm bg-red-500/60 inline-block" /> Net (OBR)</span>
+                  <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-sm bg-red-500/20 inline-block" /> Gross</span>
+                  <span className="flex items-center gap-1"><span className="w-3 h-0.5 bg-orange-500 inline-block rounded" /> % GDP</span>
+                </div>
               </ChartCard>
             </ChartPair>
 
@@ -16186,6 +16232,77 @@ export default function App() {
                   costOfLivingData.headline.dieselPenceLitre + "p"}
               />
             </div>
+
+            {/* Combined Cost of Living — Spaghetti Chart */}
+            {(() => {
+              const colMetrics = [
+                { key: "cpi", label: "CPI Inflation", color: "#ef4444", data: costOfLivingData.cpiInflation?.data },
+                { key: "energy", label: "Energy Cap", color: "#f59e0b", data: costOfLivingData.energy?.priceCap?.data },
+                { key: "food", label: "Food Inflation", color: "#14b8a6", data: costOfLivingData.food?.inflation?.data },
+              ].filter(m => m.data && m.data.length > 0);
+              if (colMetrics.length < 2) return null;
+              // Build unified timeline (by month key "m" or "q")
+              const unified = {};
+              colMetrics.forEach(m => {
+                (m.data || []).forEach(d => {
+                  const k = d.m || d.q || d.year;
+                  if (!unified[k]) unified[k] = { date: k };
+                  unified[k][m.key] = d.v;
+                });
+              });
+              const combined = Object.values(unified).sort((a, b) => a.date.localeCompare(b.date));
+              const filtered = filterByRange ? filterByRange(combined, "date", colRange) : combined;
+              return (
+                <ChartCard
+                  title="Everything Outpaces Wages"
+                  subtitle="Hover any metric to isolate — all trends on one chart"
+                  onShare={handleChartShare}
+                  shareHeadline="The cost of everything is rising"
+                  shareSubline="CPI, energy, and food — all outpacing wages"
+                  accentColor="#ef4444"
+                >
+                  <div className="flex flex-wrap gap-2 sm:gap-4 justify-center mb-3">
+                    {colMetrics.map(m => (
+                      <span key={m.key}
+                        onMouseEnter={() => setColHovMetric(m.key)}
+                        onMouseLeave={() => setColHovMetric(null)}
+                        onTouchStart={() => setColHovMetric(colHovMetric === m.key ? null : m.key)}
+                        className="flex items-center gap-1.5 cursor-pointer transition-opacity min-h-[32px] sm:min-h-0 px-1"
+                        style={{ opacity: colHovMetric && colHovMetric !== m.key ? 0.2 : 1 }}>
+                        <span className="w-4 h-0.5 rounded inline-block" style={{ background: m.color }} />
+                        <span className="text-[10px] sm:text-xs font-semibold" style={{ color: m.color }}>{m.label}</span>
+                      </span>
+                    ))}
+                  </div>
+                  <ResponsiveContainer width="100%" height={280}>
+                    <LineChart data={filtered} margin={{ top: 5, right: 15, bottom: 20, left: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+                      <XAxis dataKey="date" tick={{ fill: "#9ca3af", fontSize: 9 }} interval="preserveStartEnd" angle={-30} textAnchor="end" height={45} tickLine={false} />
+                      <YAxis tick={{ fill: "#9ca3af", fontSize: 10 }} tickFormatter={(v) => v + "%"} tickLine={false} axisLine={false} />
+                      <ReferenceLine y={0} stroke="rgba(255,255,255,0.12)" strokeDasharray="6 4" />
+                      <Tooltip
+                        contentStyle={{ background: "rgba(0,0,0,0.92)", border: "1px solid #333", borderRadius: 8, fontSize: 11 }}
+                        labelStyle={{ color: "#e5e7eb", fontWeight: 600 }}
+                        formatter={(v, name) => {
+                          const m = colMetrics.find(x => x.key === name);
+                          return [v + "%", m ? m.label : name];
+                        }}
+                      />
+                      {colMetrics.map(m => (
+                        <Line key={m.key} type="monotone" dataKey={m.key} stroke={m.color}
+                          strokeWidth={colHovMetric === m.key ? 4 : colHovMetric === null ? 2 : 1}
+                          strokeOpacity={colHovMetric === null ? 0.8 : colHovMetric === m.key ? 1 : 0.1}
+                          dot={false} style={{ transition: "all 0.3s" }}
+                        />
+                      ))}
+                    </LineChart>
+                  </ResponsiveContainer>
+                  <p className="text-[9px] sm:text-[10px] text-gray-600 font-mono text-center mt-1">
+                    Source: ONS CPI, Ofgem, ONS Food Prices
+                  </p>
+                </ChartCard>
+              );
+            })()}
 
             {/* CPI Inflation trend */}
               <ChartPair>
