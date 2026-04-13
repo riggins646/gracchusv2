@@ -12088,26 +12088,28 @@ export default function App() {
               <ChartMeta source="Environment Agency EDM" sourceUrl="https://www.gov.uk/government/publications/water-company-storm-overflow-annual-returns" />
             </ChartCard>
 
-            <div className="bg-gradient-to-br from-gray-900/60 to-gray-950/40 border border-gray-800/60 rounded-xl p-6 sm:p-8">
-              <h3 className="text-[13px] uppercase tracking-[0.2em] text-gray-500 font-semibold mb-4">Fines vs Shareholder Dividends</h3>
-              <div className="flex items-end gap-4 mb-4">
-                <div className="text-center">
-                  <div className="bg-red-500/20 border border-red-900/40 rounded-lg px-6 py-3" style={{ height: "40px" }}>
-                    <span className="text-red-400 font-black text-lg">£168M</span>
+            <ChartCard chartId="sewage-fines-vs-dividends" title="Fines vs Shareholder Dividends" subtitle="Water companies fined £168M in 2024 — while paying £78B in dividends since privatisation" shareHeadline="0.2%" shareSubline="Fines are just 0.2% of dividends paid since privatisation — a cost of doing business, not a deterrent" accentColor="#ef4444" onShare={handleChartShare} explainData="Water company fines 2024: £168M total. Shareholder dividends since privatisation (1991): £78B total. Fines = 0.2% of dividends paid. Average fine per spill hour: £90. Meanwhile 1.87M hours of raw sewage pumped in 2025 alone.">
+              <div className="py-4 px-2">
+                <div className="flex items-end gap-4 mb-4">
+                  <div className="text-center">
+                    <div className="bg-red-500/20 border border-red-900/40 rounded-lg px-6 py-3" style={{ height: "40px" }}>
+                      <span className="text-red-400 font-black text-lg">£168M</span>
+                    </div>
+                    <div className="text-[10px] text-gray-500 mt-2">Fines (2024)</div>
                   </div>
-                  <div className="text-[10px] text-gray-500 mt-2">Fines (2024)</div>
-                </div>
-                <div className="text-gray-600 text-2xl font-bold mb-4">vs</div>
-                <div className="text-center flex-1">
-                  <div className="bg-green-500/10 border border-green-900/30 rounded-lg px-6 py-3" style={{ minHeight: "120px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <span className="text-green-400 font-black text-3xl">£78B</span>
+                  <div className="text-gray-600 text-2xl font-bold mb-4">vs</div>
+                  <div className="text-center flex-1">
+                    <div className="bg-green-500/10 border border-green-900/30 rounded-lg px-6 py-3" style={{ minHeight: "120px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <span className="text-green-400 font-black text-3xl">£78B</span>
+                    </div>
+                    <div className="text-[10px] text-gray-500 mt-2">Dividends since privatisation (1991)</div>
                   </div>
-                  <div className="text-[10px] text-gray-500 mt-2">Dividends since privatisation (1991)</div>
                 </div>
+                <p className="text-center text-lg font-bold text-white">Fines = <span className="text-red-400">0.2%</span> of dividends paid</p>
+                <p className="text-center text-xs text-gray-500 mt-1">A 0.2% cost of doing business — not a deterrent</p>
               </div>
-              <p className="text-center text-lg font-bold text-white">Fines = <span className="text-red-400">0.2%</span> of dividends paid</p>
-              <p className="text-center text-xs text-gray-500 mt-1">A 0.2% cost of doing business — not a deterrent</p>
-            </div>
+              <ChartMeta source="Ofwat, Environment Agency" sourceUrl="https://www.ofwat.gov.uk/" />
+            </ChartCard>
 
             <ChartCard chartId="sewage-trend" title="Annual Sewage Spill Hours (2020–2025)" subtitle="Hours of raw sewage pumped into rivers and seas" accentColor="#ef4444" onShare={handleChartShare} explainData={trendData.map(d => d.year + ": " + (d.hours / 1000000).toFixed(2) + "M hrs, " + (d.spills / 1000).toFixed(0) + "k spills").join("; ")}>
               <ResponsiveContainer width="100%" height={300}>
