@@ -16489,122 +16489,104 @@ export default function App() {
               />
             </div>
 
-            {/* Combined Cost of Living — Dual Y-Axis Chart */}
+            {/* Combined Cost of Living — Small Multiples */}
             {(() => {
-              // Percentage metrics (left axis): CPI, Food Inflation
-              const pctMetrics = [
-                { key: "cpi", label: "CPI Inflation", color: "#ef4444", data: costOfLivingData.cpiInflation?.data },
-                { key: "food", label: "Food Inflation", color: "#14b8a6", data: costOfLivingData.food?.inflation?.data },
+              const sparkMetrics = [
+                {
+                  key: "cpi", label: "CPI Inflation", color: "#ef4444",
+                  data: costOfLivingData.cpiInflation?.data,
+                  dateKey: "m", unit: "%", current: costOfLivingData.headline.cpiPct + "%",
+                  peak: null, source: "ONS",
+                },
+                {
+                  key: "food", label: "Food Inflation", color: "#14b8a6",
+                  data: costOfLivingData.food?.inflation?.data,
+                  dateKey: "m", unit: "%", current: costOfLivingData.headline.foodInflationPct + "%",
+                  peak: null, source: "ONS",
+                },
+                {
+                  key: "energy", label: "Energy Price Cap", color: "#f59e0b",
+                  data: costOfLivingData.energy?.priceCap?.data,
+                  dateKey: "q", unit: "£", current: "£" + Number(costOfLivingData.headline.energyCapGbp).toLocaleString(),
+                  peak: null, source: "Ofgem",
+                },
               ].filter(m => m.data && m.data.length > 0);
-              // Pounds metric (right axis): Energy Cap
-              const energyData = costOfLivingData.energy?.priceCap?.data;
-              const energyMetric = energyData?.length > 0
-                ? { key: "energy", label: "Energy Cap (£/yr)", color: "#f59e0b", data: energyData }
-                : null;
-              const allMetrics = [...pctMetrics, ...(energyMetric ? [energyMetric] : [])];
-              if (allMetrics.length < 2) return null;
 
-              // Build unified timeline
-              const unified = {};
-              allMetrics.forEach(m => {
-                (m.data || []).forEach(d => {
-                  const k = d.m || d.q || d.year;
-                  if (!unified[k]) unified[k] = { date: k };
-                  unified[k][m.key] = d.v;
-                });
+              // Calculate peaks
+              sparkMetrics.forEach(m => {
+                const vals = m.data.map(d => d.v).filter(v => typeof v === "number");
+                const peakVal = Math.max(...vals);
+                if (m.unit === "£") m.peak = "£" + peakVal.toLocaleString();
+                else m.peak = peakVal.toFixed(1) + "%";
               });
-              const combined = Object.values(unified).sort((a, b) => a.date.localeCompare(b.date));
-              // Only show from 2021 onwards for clarity
-              const from2021 = combined.filter(d => {
-                const yr = parseInt(d.date.match(/\d{4}/)?.[0] || "0");
-                return yr >= 2021;
-              });
-              const filtered = filterByRange ? filterByRange(from2021, "date", colRange) : from2021;
+
+              if (sparkMetrics.length === 0) return null;
+
               return (
                 <ChartCard
                   title="Everything Outpaces Wages"
-                  subtitle="Inflation rates (left axis) vs energy bills (right axis)"
+                  subtitle="Three measures of rising costs since 2021"
                   onShare={handleChartShare}
                   shareHeadline="The cost of everything is rising"
                   shareSubline="CPI, energy, and food — all outpacing wages"
                   accentColor="#ef4444"
+                  chartId="cost-of-living-overview"
                 >
-                  <div className="flex flex-wrap gap-2 sm:gap-4 justify-center mb-3">
-                    {allMetrics.map(m => (
-                      <span key={m.key}
-                        onMouseEnter={() => setColHovMetric(m.key)}
-                        onMouseLeave={() => setColHovMetric(null)}
-                        onTouchStart={() => setColHovMetric(colHovMetric === m.key ? null : m.key)}
-                        className="flex items-center gap-1.5 cursor-pointer transition-opacity min-h-[32px] sm:min-h-0 px-1"
-                        style={{ opacity: colHovMetric && colHovMetric !== m.key ? 0.2 : 1 }}>
-                        <span className="w-4 h-0.5 rounded inline-block" style={{ background: m.color }} />
-                        <span className="text-[10px] sm:text-xs font-semibold" style={{ color: m.color }}>{m.label}</span>
-                      </span>
-                    ))}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                    {sparkMetrics.map(m => {
+                      // Filter to 2021+ for clean presentation
+                      const filtered = m.data.filter(d => {
+                        const yr = parseInt((d[m.dateKey] || "").match(/\d{4}/)?.[0] || "0");
+                        return yr >= 2021;
+                      });
+                      const chartData = filtered.map(d => ({ date: d[m.dateKey], v: d.v }));
+                      return (
+                        <div key={m.key} className="bg-gray-950/50 border border-gray-800/50 rounded-lg px-3 pt-3 pb-2">
+                          {/* Header: label + current value */}
+                          <div className="flex items-baseline justify-between mb-1">
+                            <span className="text-[10px] uppercase tracking-[0.15em] font-mono" style={{ color: m.color }}>
+                              {m.label}
+                            </span>
+                            <span className="text-[10px] text-gray-600 font-mono">{m.source}</span>
+                          </div>
+                          <div className="flex items-baseline gap-2 mb-2">
+                            <span className="text-xl sm:text-2xl font-black text-white tracking-tight">{m.current}</span>
+                            <span className="text-[9px] text-gray-600 font-mono">now</span>
+                            <span className="text-[9px] text-gray-700 font-mono ml-auto">peak {m.peak}</span>
+                          </div>
+                          {/* Sparkline */}
+                          <ResponsiveContainer width="100%" height={80}>
+                            <AreaChart data={chartData} margin={{ top: 2, right: 2, bottom: 0, left: 2 }}>
+                              <defs>
+                                <linearGradient id={"grad-" + m.key} x1="0" y1="0" x2="0" y2="1">
+                                  <stop offset="0%" stopColor={m.color} stopOpacity={0.25} />
+                                  <stop offset="100%" stopColor={m.color} stopOpacity={0.02} />
+                                </linearGradient>
+                              </defs>
+                              <Area
+                                type={m.key === "energy" ? "stepAfter" : "monotone"}
+                                dataKey="v" stroke={m.color} strokeWidth={1.5}
+                                fill={"url(#grad-" + m.key + ")"}
+                                dot={false} connectNulls
+                              />
+                              <Tooltip
+                                contentStyle={{ background: "rgba(0,0,0,0.92)", border: "1px solid #333", borderRadius: 6, fontSize: 10, padding: "4px 8px" }}
+                                labelStyle={{ color: "#9ca3af", fontSize: 9 }}
+                                formatter={(v) => [m.unit === "£" ? "£" + Number(v).toLocaleString() : v + "%"]}
+                                labelFormatter={(l) => l}
+                              />
+                            </AreaChart>
+                          </ResponsiveContainer>
+                          {/* Time range label */}
+                          <div className="flex justify-between mt-0.5">
+                            <span className="text-[8px] text-gray-700 font-mono">{chartData[0]?.date}</span>
+                            <span className="text-[8px] text-gray-700 font-mono">{chartData[chartData.length - 1]?.date}</span>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
-                  <ResponsiveContainer width="100%" height={280}>
-                    <ComposedChart data={filtered} margin={{ top: 5, right: 50, bottom: 20, left: 5 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
-                      <XAxis
-                        dataKey="date"
-                        tick={{ fill: "#9ca3af", fontSize: 9 }}
-                        interval={Math.max(1, Math.floor(filtered.length / 8))}
-                        angle={-30}
-                        textAnchor="end"
-                        height={45}
-                        tickLine={false}
-                      />
-                      {/* Left axis — percentages (CPI, Food) */}
-                      <YAxis
-                        yAxisId="pct"
-                        tick={{ fill: "#9ca3af", fontSize: 10 }}
-                        tickFormatter={(v) => v + "%"}
-                        tickLine={false}
-                        axisLine={false}
-                        domain={[0, "auto"]}
-                      />
-                      {/* Right axis — pounds (Energy Cap) */}
-                      {energyMetric && (
-                        <YAxis
-                          yAxisId="gbp"
-                          orientation="right"
-                          tick={{ fill: "#f59e0b", fontSize: 10 }}
-                          tickFormatter={(v) => "£" + v.toLocaleString()}
-                          tickLine={false}
-                          axisLine={false}
-                          domain={[0, "auto"]}
-                        />
-                      )}
-                      <ReferenceLine y={0} yAxisId="pct" stroke="rgba(255,255,255,0.12)" strokeDasharray="6 4" />
-                      <Tooltip
-                        contentStyle={{ background: "rgba(0,0,0,0.92)", border: "1px solid #333", borderRadius: 8, fontSize: 11 }}
-                        labelStyle={{ color: "#e5e7eb", fontWeight: 600 }}
-                        formatter={(v, name) => {
-                          if (name === "energy") return ["£" + Number(v).toLocaleString() + "/yr", "Energy Cap"];
-                          const m = allMetrics.find(x => x.key === name);
-                          return [v + "%", m ? m.label : name];
-                        }}
-                      />
-                      {/* Percentage lines on left axis */}
-                      {pctMetrics.map(m => (
-                        <Line key={m.key} yAxisId="pct" type="monotone" dataKey={m.key} stroke={m.color}
-                          strokeWidth={colHovMetric === m.key ? 4 : colHovMetric === null ? 2 : 1}
-                          strokeOpacity={colHovMetric === null ? 0.8 : colHovMetric === m.key ? 1 : 0.1}
-                          dot={false} connectNulls style={{ transition: "all 0.3s" }}
-                        />
-                      ))}
-                      {/* Energy cap as area on right axis */}
-                      {energyMetric && (
-                        <Area yAxisId="gbp" type="stepAfter" dataKey="energy" fill="#f59e0b" fillOpacity={colHovMetric === null ? 0.08 : colHovMetric === "energy" ? 0.15 : 0.02}
-                          stroke="#f59e0b"
-                          strokeWidth={colHovMetric === "energy" ? 3 : colHovMetric === null ? 1.5 : 0.5}
-                          strokeOpacity={colHovMetric === null ? 0.6 : colHovMetric === "energy" ? 1 : 0.1}
-                          connectNulls style={{ transition: "all 0.3s" }}
-                        />
-                      )}
-                    </ComposedChart>
-                  </ResponsiveContainer>
-                  <p className="text-[9px] sm:text-[10px] text-gray-600 font-mono text-center mt-1">
+                  <p className="text-[9px] sm:text-[10px] text-gray-600 font-mono text-center mt-3">
                     Source: ONS CPI, Ofgem, ONS Food Prices
                   </p>
                 </ChartCard>
