@@ -64,7 +64,7 @@ import immigrationData from "../data/immigration.json";
 import nhsWaitsData from "../data/nhs-waits.json";
 import sewageData from "../data/sewage.json";
 import moonlightingData from "../data/moonlighting-mps.json";
-import { encodeShareId, buildContextLine, shareFmtAmt, renderCardToCanvas, renderTrendCard, renderChartShareCard, renderCancelledProjectCard } from "../lib/share-utils";
+import { encodeShareId, buildContextLine, shareFmtAmt, renderCardToCanvas, renderTrendCard, renderChartShareCard, renderCancelledProjectCard, renderSewageFinesCard } from "../lib/share-utils";
 import { sortRows, searchRows, processTableData, fmtMillions, fmtCompact, fmtCurrency, fmtPct, getUniqueValues, SORT_PRESETS } from "../lib/table-utils";
 
 const projects = projectsData;
@@ -12088,7 +12088,7 @@ export default function App() {
               <ChartMeta source="Environment Agency EDM" sourceUrl="https://www.gov.uk/government/publications/water-company-storm-overflow-annual-returns" />
             </ChartCard>
 
-            <ChartCard chartId="sewage-fines-vs-dividends" title="Fines vs Shareholder Dividends" subtitle="Water companies fined £168M in 2024 — while paying £78B in dividends since privatisation" shareHeadline="0.2%" shareSubline="Fines are just 0.2% of dividends paid since privatisation — a cost of doing business, not a deterrent" accentColor="#ef4444" onShare={handleChartShare} explainData="Water company fines 2024: £168M total. Shareholder dividends since privatisation (1991): £78B total. Fines = 0.2% of dividends paid. Average fine per spill hour: £90. Meanwhile 1.87M hours of raw sewage pumped in 2025 alone.">
+            <ChartCard chartId="sewage-fines-vs-dividends" title="Fines vs Shareholder Dividends" subtitle="Water companies fined £168M in 2024 — while paying £78B in dividends since privatisation" shareHeadline="0.2%" shareSubline="Fines are just 0.2% of dividends paid since privatisation — a cost of doing business, not a deterrent" accentColor="#ef4444" onShare={(data) => handleChartShare({ ...data, _sewageFines: true })} explainData="Water company fines 2024: £168M total. Shareholder dividends since privatisation (1991): £78B total. Fines = 0.2% of dividends paid. Average fine per spill hour: £90. Meanwhile 1.87M hours of raw sewage pumped in 2025 alone.">
               <div className="py-4 px-2">
                 <div className="flex items-end gap-4 mb-4">
                   <div className="text-center">
@@ -12346,7 +12346,7 @@ export default function App() {
               }>
                 {/* Render canvas image as preview so modal matches PNG exactly */}
                 <img
-                  src={chartShare._cancelledProject ? renderCancelledProjectCard(chartShare) : renderChartShareCard(chartShare)}
+                  src={chartShare._cancelledProject ? renderCancelledProjectCard(chartShare) : chartShare._sewageFines ? renderSewageFinesCard() : renderChartShareCard(chartShare)}
                   alt="Share preview"
                   className="w-full border border-gray-800/40"
                 />
