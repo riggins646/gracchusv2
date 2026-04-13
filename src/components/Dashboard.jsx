@@ -678,7 +678,7 @@ function ChartCard({
   const handleExplain = async () => {
     if (drawer === "explain") { closeDrawer(); return; }
     openDrawer("explain");
-    if (aiExplain) return;
+    if (aiExplain && !aiExplain.error) return; // allow retry on error
     setAiExplain("loading");
     try {
       const fetchStart = Date.now();
@@ -707,7 +707,7 @@ function ChartCard({
   const handleFix = async () => {
     if (drawer === "fix") { closeDrawer(); return; }
     openDrawer("fix");
-    if (aiFix) return;
+    if (aiFix && !aiFix.error) return; // allow retry on error
     setAiFix("loading");
     try {
       const fetchStart = Date.now();
@@ -4284,6 +4284,15 @@ export default function App() {
   const [birthYearInput, setBirthYearInput] = useState("");
   const [birthYearCopied, setBirthYearCopied] = useState(false);
 
+  // MP Scorecards state
+  const [scSearch, setScSearch] = useState("");
+  const [scParty, setScParty] = useState("All");
+  const [scSort, setScSort] = useState("score");
+  const [scSortDir, setScSortDir] = useState("desc");
+  const [scPage, setScPage] = useState(0);
+  const [scExpanded, setScExpanded] = useState(null);
+  const [scCopied, setScCopied] = useState(null);
+
   // Planning & Delays funnel state
   const [planQuickView, setPlanQuickView] =
     useState(null);
@@ -5037,6 +5046,7 @@ export default function App() {
       label: "Accountability",
       icon: Scale,
       children: [
+        { id: "transparency.scorecards", label: "MP Scorecards" },
         { id: "transparency.donations", label: "Political Donations" },
         { id: "transparency.mppay", label: "MPs' Pay vs the Country" },
         { id: "transparency.mp", label: "MPs' Income & Expenses" },
@@ -7767,6 +7777,738 @@ export default function App() {
         })()}
 
         {/* Chart share modal */}
+
+        {/* ===== MP SCORECARDS ===== */}
+        {view === "transparency.scorecards" && (() => {
+          const allMPs = mpRecords;
+          const loading = mpRecordsLoading;
+          const SC_PAGE = 24;
+
+          // Scoring: percentile rank based on total declared interests
+          const scored = allMPs.map((mp) => {
+            const total =
+              (mp.oi || 0) +
+              (mp.gi || 0) +
+              (mp.dn || 0);
+            return { ...mp, total };
+          });
+          // Sort by total to assign percentile
+          const byTotal = [...scored]
+            .sort((a, b) => a.total - b.total);
+          const scoreMap = {};
+          byTotal.forEach((mp, i) => {
+            scoreMap[mp.id || mp.n] =
+              Math.round(
+                (i / Math.max(byTotal.length - 1, 1))
+                * 100
+              );
+          });
+          const withScore = scored.map((mp) => ({
+            ...mp,
+            score:
+              scoreMap[mp.id || mp.n] || 0
+          }));
+
+          // Filtered
+          const filtered = (() => {
+            let list = [...withScore];
+            if (scParty !== "All") {
+              if (scParty === "Labour") {
+                list = list.filter(
+                  (m) => m.p === "Labour" ||
+                    m.p === "Labour (Co-op)"
+                );
+              } else {
+                list = list.filter(
+                  (m) => m.p === scParty ||
+                    m.pa === scParty
+                );
+              }
+            }
+            if (scSearch) {
+              const q = scSearch.toLowerCase();
+              list = list.filter(
+                (m) =>
+                  m.n.toLowerCase().includes(q) ||
+                  m.c.toLowerCase().includes(q)
+              );
+            }
+            // Sort
+            list.sort((a, b) => {
+              const av = scSort === "n"
+                ? a.n : (a[scSort] || 0);
+              const bv = scSort === "n"
+                ? b.n : (b[scSort] || 0);
+              if (typeof av === "string")
+                return scSortDir === "asc"
+                  ? av.localeCompare(bv)
+                  : bv.localeCompare(av);
+              return scSortDir === "asc"
+                ? av - bv : bv - av;
+            });
+            return list;
+          })();
+
+          const totalPages = Math.ceil(
+            filtered.length / SC_PAGE
+          );
+          const paged = filtered.slice(
+            scPage * SC_PAGE,
+            (scPage + 1) * SC_PAGE
+          );
+
+          // Party tabs
+          const parties = [
+            "All", "Labour",
+            "Conservative",
+            "Liberal Democrat",
+            "Reform UK", "SNP"
+          ];
+
+          // Format currency
+          const scFmt = (v) => {
+            if (!v || v === 0) return "\u2014";
+            if (v >= 1e6)
+              return "\u00a3" +
+                (v / 1e6).toFixed(1) + "m";
+            if (v >= 1e3)
+              return "\u00a3" +
+                Math.round(v / 1e3) + "k";
+            return "\u00a3" +
+              v.toLocaleString("en-GB");
+          };
+
+          // Score color
+          const scoreColor = (s) =>
+            s > 75 ? "#ef4444"
+            : s > 50 ? "#f59e0b"
+            : "#22c55e";
+
+          // Share MP
+          const handleShareMP = (mp) => {
+            const payload = {
+              n: mp.n, p: mp.pa || mp.p,
+              c: mp.c,
+              oi: mp.oi || 0,
+              gi: mp.gi || 0,
+              dn: mp.dn || 0,
+              sc: mp.score,
+              pr: mp.prC || 0,
+              sh: mp.shC || 0,
+              fm: mp.fmC || 0
+            };
+            const id = encodeShareId(payload);
+            const url = window.location.origin +
+              "/share/mp/" + id;
+            navigator.clipboard
+              .writeText(url)
+              .then(() => {
+                setScCopied(mp.n);
+                setTimeout(
+                  () => setScCopied(null), 2000
+                );
+              });
+          };
+
+          // Post MP to X
+          const handlePostMP = (mp) => {
+            const payload = {
+              n: mp.n, p: mp.pa || mp.p,
+              c: mp.c,
+              oi: mp.oi || 0,
+              gi: mp.gi || 0,
+              dn: mp.dn || 0,
+              sc: mp.score,
+              pr: mp.prC || 0,
+              sh: mp.shC || 0,
+              fm: mp.fmC || 0
+            };
+            const id = encodeShareId(payload);
+            const shareUrl =
+              window.location.origin +
+              "/share/mp/" + id;
+            const text =
+              mp.n + " (" +
+              (mp.pa || mp.p) + ")" +
+              "\nInterests Index: " +
+              mp.score + "/100" +
+              "\nOutside income: " +
+              scFmt(mp.oi) +
+              " | Gifts: " +
+              scFmt(mp.gi) +
+              " | Donations: " +
+              scFmt(mp.dn) +
+              "\n\nvia @GracchusHQ";
+            window.open(
+              "https://x.com/intent/post?text=" +
+                encodeURIComponent(text) +
+                "&url=" +
+                encodeURIComponent(shareUrl),
+              "_blank"
+            );
+          };
+
+          if (loading) {
+            return (
+              <div className={
+                "flex items-center " +
+                "justify-center py-20"
+              }>
+                <div className={
+                  "text-gray-600 text-xs " +
+                  "font-mono animate-pulse"
+                }>
+                  Loading MP data...
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <div className="space-y-6">
+              {/* Header */}
+              <div>
+                <div className={
+                  "text-[10px] uppercase " +
+                  "tracking-[0.3em] " +
+                  "text-amber-500/80 " +
+                  "font-mono mb-2"
+                }>
+                  Accountability
+                </div>
+                <h2 className={
+                  "text-2xl sm:text-3xl " +
+                  "font-black text-white " +
+                  "tracking-tight"
+                }>
+                  MP Scorecards
+                </h2>
+                <p className={
+                  "text-sm text-gray-500 " +
+                  "mt-1 max-w-xl"
+                }>
+                  Every MP ranked by declared
+                  financial interests. Outside
+                  income, gifts, and donations
+                  {"\u2014"}all from the
+                  Parliamentary Register.
+                </p>
+              </div>
+
+              {/* Controls */}
+              <div className={
+                "flex flex-col sm:flex-row " +
+                "gap-3 items-start " +
+                "sm:items-center"
+              }>
+                {/* Search */}
+                <div className={
+                  "relative flex-1 " +
+                  "max-w-xs w-full"
+                }>
+                  <Search
+                    size={14}
+                    className={
+                      "absolute left-3 " +
+                      "top-1/2 -translate-y-1/2 " +
+                      "text-gray-600"
+                    }
+                  />
+                  <input
+                    value={scSearch}
+                    onChange={(e) => {
+                      setScSearch(
+                        e.target.value
+                      );
+                      setScPage(0);
+                    }}
+                    placeholder={
+                      "Search MP or constituency"
+                    }
+                    className={
+                      "w-full bg-black/40 " +
+                      "border border-gray-800 " +
+                      "text-sm text-gray-300 " +
+                      "pl-9 pr-3 py-2 " +
+                      "focus:outline-none " +
+                      "focus:border-gray-600 " +
+                      "placeholder-gray-700 " +
+                      "transition-colors"
+                    }
+                  />
+                </div>
+
+                {/* Party filter */}
+                <div className={
+                  "flex gap-1 flex-wrap"
+                }>
+                  {parties.map((p) => (
+                    <button
+                      key={p}
+                      onClick={() => {
+                        setScParty(p);
+                        setScPage(0);
+                      }}
+                      className={
+                        "text-[10px] font-mono " +
+                        "uppercase " +
+                        "tracking-[0.1em] " +
+                        "px-3 py-1.5 border " +
+                        "transition-all " +
+                        (scParty === p
+                          ? "border-amber-500/50 " +
+                            "text-amber-400 " +
+                            "bg-amber-500/10"
+                          : "border-gray-800 " +
+                            "text-gray-600 " +
+                            "hover:text-gray-400 " +
+                            "hover:border-gray-700"
+                        )
+                      }
+                    >
+                      {p === "Liberal Democrat"
+                        ? "Lib Dem"
+                        : p === "Conservative"
+                        ? "Con"
+                        : p}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Sort */}
+                <select
+                  value={scSort}
+                  onChange={(e) => {
+                    setScSort(e.target.value);
+                    setScPage(0);
+                  }}
+                  className={
+                    "bg-black/40 border " +
+                    "border-gray-800 " +
+                    "text-xs text-gray-400 " +
+                    "px-3 py-2 " +
+                    "focus:outline-none " +
+                    "font-mono"
+                  }
+                >
+                  <option value="score">
+                    Interests Index
+                  </option>
+                  <option value="oi">
+                    Outside Income
+                  </option>
+                  <option value="gi">
+                    Gifts
+                  </option>
+                  <option value="dn">
+                    Donations
+                  </option>
+                  <option value="n">
+                    Name
+                  </option>
+                </select>
+              </div>
+
+              {/* Count */}
+              <div className={
+                "text-[10px] text-gray-700 " +
+                "font-mono tracking-wide"
+              }>
+                {filtered.length} MPs
+                {scParty !== "All"
+                  ? " in " + scParty : ""}
+                {scSearch
+                  ? " matching \u201c" +
+                    scSearch + "\u201d"
+                  : ""}
+              </div>
+
+              {/* Card grid */}
+              <div className={
+                "grid grid-cols-1 " +
+                "sm:grid-cols-2 " +
+                "lg:grid-cols-3 gap-3"
+              }>
+                {paged.map((mp) => {
+                  const sc = mp.score;
+                  const col = scoreColor(sc);
+                  const expanded =
+                    scExpanded === mp.n;
+                  return (
+                    <div
+                      key={mp.id || mp.n}
+                      className={
+                        "border " +
+                        "border-gray-800/40 " +
+                        "bg-gray-900/20 " +
+                        "hover:border-gray-700/50 " +
+                        "transition-all " +
+                        "group"
+                      }
+                    >
+                      <div className="p-4">
+                        {/* Top row */}
+                        <div className={
+                          "flex items-start " +
+                          "justify-between mb-3"
+                        }>
+                          <div className="min-w-0">
+                            <div className={
+                              "text-sm font-bold " +
+                              "text-white truncate"
+                            }>
+                              {mp.n}
+                            </div>
+                            <div className={
+                              "text-[10px] " +
+                              "text-gray-600 " +
+                              "font-mono truncate"
+                            }>
+                              {mp.pa || mp.p}
+                              {" \u00b7 "}
+                              {mp.c}
+                            </div>
+                          </div>
+                          {/* Score badge */}
+                          <div
+                            className={
+                              "flex-shrink-0 " +
+                              "text-right ml-3"
+                            }
+                          >
+                            <div
+                              className={
+                                "text-xl " +
+                                "font-black " +
+                                "leading-none"
+                              }
+                              style={{ color: col }}
+                            >
+                              {sc}
+                            </div>
+                            <div className={
+                              "text-[8px] " +
+                              "text-gray-700 " +
+                              "font-mono " +
+                              "uppercase"
+                            }>
+                              /100
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Score bar */}
+                        <div className={
+                          "h-1 bg-gray-800/50 " +
+                          "mb-3 overflow-hidden"
+                        }>
+                          <div
+                            className="h-full"
+                            style={{
+                              width: sc + "%",
+                              backgroundColor: col
+                            }}
+                          />
+                        </div>
+
+                        {/* Key stats */}
+                        <div className={
+                          "grid grid-cols-3 " +
+                          "gap-2 text-center"
+                        }>
+                          <div>
+                            <div className={
+                              "text-[9px] " +
+                              "text-gray-700 " +
+                              "font-mono uppercase"
+                            }>
+                              Income
+                            </div>
+                            <div className={
+                              "text-xs " +
+                              "font-bold " +
+                              "text-gray-300"
+                            }>
+                              {scFmt(mp.oi)}
+                            </div>
+                          </div>
+                          <div>
+                            <div className={
+                              "text-[9px] " +
+                              "text-gray-700 " +
+                              "font-mono uppercase"
+                            }>
+                              Gifts
+                            </div>
+                            <div className={
+                              "text-xs " +
+                              "font-bold " +
+                              "text-gray-300"
+                            }>
+                              {scFmt(mp.gi)}
+                            </div>
+                          </div>
+                          <div>
+                            <div className={
+                              "text-[9px] " +
+                              "text-gray-700 " +
+                              "font-mono uppercase"
+                            }>
+                              Donations
+                            </div>
+                            <div className={
+                              "text-xs " +
+                              "font-bold " +
+                              "text-gray-300"
+                            }>
+                              {scFmt(mp.dn)}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Expand toggle */}
+                        <button
+                          onClick={() =>
+                            setScExpanded(
+                              expanded
+                                ? null : mp.n
+                            )
+                          }
+                          className={
+                            "w-full mt-3 pt-2 " +
+                            "border-t " +
+                            "border-gray-800/30 " +
+                            "text-[10px] " +
+                            "font-mono " +
+                            "text-gray-700 " +
+                            "hover:text-gray-400 " +
+                            "transition-colors " +
+                            "flex items-center " +
+                            "justify-center gap-1"
+                          }
+                        >
+                          {expanded
+                            ? "Less"
+                            : "More"}
+                          <ChevronDown
+                            size={10}
+                            className={
+                              expanded
+                                ? "rotate-180 " +
+                                  "transition-transform"
+                                : "transition-transform"
+                            }
+                          />
+                        </button>
+
+                        {/* Expanded detail */}
+                        {expanded && (
+                          <div className={
+                            "mt-3 pt-3 " +
+                            "border-t " +
+                            "border-gray-800/30 " +
+                            "space-y-2"
+                          }>
+                            <div className={
+                              "grid grid-cols-3 " +
+                              "gap-2 text-center"
+                            }>
+                              <div>
+                                <div className={
+                                  "text-[9px] " +
+                                  "text-gray-700 " +
+                                  "font-mono " +
+                                  "uppercase"
+                                }>
+                                  Properties
+                                </div>
+                                <div className={
+                                  "text-xs " +
+                                  "text-gray-400"
+                                }>
+                                  {mp.prC || 0}
+                                </div>
+                              </div>
+                              <div>
+                                <div className={
+                                  "text-[9px] " +
+                                  "text-gray-700 " +
+                                  "font-mono " +
+                                  "uppercase"
+                                }>
+                                  Shares
+                                </div>
+                                <div className={
+                                  "text-xs " +
+                                  "text-gray-400"
+                                }>
+                                  {mp.shC || 0}
+                                </div>
+                              </div>
+                              <div>
+                                <div className={
+                                  "text-[9px] " +
+                                  "text-gray-700 " +
+                                  "font-mono " +
+                                  "uppercase"
+                                }>
+                                  Lobby Links
+                                </div>
+                                <div className={
+                                  "text-xs " +
+                                  (mp.fmC > 0
+                                    ? "text-red-400"
+                                    : "text-gray-400"
+                                  )
+                                }>
+                                  {mp.fmC || 0}
+                                </div>
+                              </div>
+                            </div>
+                            {/* Actions */}
+                            <div className={
+                              "flex gap-2 " +
+                              "justify-center " +
+                              "pt-2"
+                            }>
+                              <button
+                                onClick={() =>
+                                  handleShareMP(mp)
+                                }
+                                className={
+                                  "text-[10px] " +
+                                  "font-mono px-3 " +
+                                  "py-1.5 border " +
+                                  (scCopied === mp.n
+                                    ? "border-emerald-800/50 " +
+                                      "text-emerald-400"
+                                    : "border-gray-800 " +
+                                      "text-gray-600 " +
+                                      "hover:text-gray-400 " +
+                                      "hover:border-gray-700"
+                                  ) +
+                                  " transition-all"
+                                }
+                              >
+                                {scCopied === mp.n
+                                  ? "\u2713 Copied"
+                                  : "Share"}
+                              </button>
+                              <button
+                                onClick={() =>
+                                  handlePostMP(mp)
+                                }
+                                className={
+                                  "text-[10px] " +
+                                  "font-mono px-3 " +
+                                  "py-1.5 border " +
+                                  "border-gray-800 " +
+                                  "text-gray-600 " +
+                                  "hover:text-gray-400 " +
+                                  "hover:border-gray-700 " +
+                                  "transition-all"
+                                }
+                              >
+                                Post to X
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className={
+                  "flex items-center " +
+                  "justify-center gap-3"
+                }>
+                  <button
+                    disabled={scPage === 0}
+                    onClick={() =>
+                      setScPage(
+                        Math.max(0, scPage - 1)
+                      )
+                    }
+                    className={
+                      "text-[11px] font-mono " +
+                      "px-3 py-1.5 border " +
+                      "border-gray-800 " +
+                      (scPage === 0
+                        ? "text-gray-800 " +
+                          "cursor-not-allowed"
+                        : "text-gray-500 " +
+                          "hover:text-white " +
+                          "hover:border-gray-600"
+                      ) +
+                      " transition-all"
+                    }
+                  >
+                    {"\u2190"} Prev
+                  </button>
+                  <span className={
+                    "text-[10px] font-mono " +
+                    "text-gray-600"
+                  }>
+                    {scPage + 1} / {totalPages}
+                  </span>
+                  <button
+                    disabled={
+                      scPage >= totalPages - 1
+                    }
+                    onClick={() =>
+                      setScPage(
+                        Math.min(
+                          totalPages - 1,
+                          scPage + 1
+                        )
+                      )
+                    }
+                    className={
+                      "text-[11px] font-mono " +
+                      "px-3 py-1.5 border " +
+                      "border-gray-800 " +
+                      (scPage >= totalPages - 1
+                        ? "text-gray-800 " +
+                          "cursor-not-allowed"
+                        : "text-gray-500 " +
+                          "hover:text-white " +
+                          "hover:border-gray-600"
+                      ) +
+                      " transition-all"
+                    }
+                  >
+                    Next {"\u2192"}
+                  </button>
+                </div>
+              )}
+
+              {/* Source note */}
+              <div className={
+                "text-[10px] text-gray-700 " +
+                "leading-relaxed " +
+                "border-t border-gray-800/30 " +
+                "pt-4"
+              }>
+                Sources: UK Parliament Register
+                of Members{"\u2019"} Financial
+                Interests, IPSA (Independent
+                Parliamentary Standards
+                Authority). Interests Index is a
+                percentile ranking based on total
+                declared outside income, gifts,
+                and donations. Higher score =
+                more declared interests relative
+                to other MPs. Data covers the
+                current Parliament (since July
+                2024).
+              </div>
+            </div>
+          );
+        })()}
 
                 {/* ===== TRANSPARENCY: POLITICAL DONATIONS ===== */}
         {view === "transparency.donations" && (() => {
