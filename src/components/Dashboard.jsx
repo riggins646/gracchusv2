@@ -59,6 +59,7 @@ import spendingTreeData from "../data/spending-tree.json";
 import giltYieldsData from "../data/gilt-yields.json";
 import moneySupplyData from "../data/money-supply.json";
 import mpPayVsCountryData from "../data/mp-pay-vs-country.json";
+import birthYearData from "../data/birth-year-compare.json";
 import { encodeShareId, buildContextLine, shareFmtAmt, renderCardToCanvas, renderTrendCard, renderChartShareCard, renderCancelledProjectCard } from "../lib/share-utils";
 import { sortRows, searchRows, processTableData, fmtMillions, fmtCompact, fmtCurrency, fmtPct, getUniqueValues, SORT_PRESETS } from "../lib/table-utils";
 
@@ -4278,6 +4279,11 @@ export default function App() {
   const [aidProgSector, setAidProgSector] = useState("All");
   const [conLeagueQuickView, setConLeagueQuickView] = useState(null);
 
+  // Birth Year Compare state
+  const [birthYear, setBirthYear] = useState(null);
+  const [birthYearInput, setBirthYearInput] = useState("");
+  const [birthYearCopied, setBirthYearCopied] = useState(false);
+
   // Planning & Delays funnel state
   const [planQuickView, setPlanQuickView] =
     useState(null);
@@ -4984,6 +4990,11 @@ export default function App() {
       id: "overview",
       label: "Home",
       icon: BarChart3
+    },
+    {
+      id: "birthyear",
+      label: "Your Lifetime",
+      icon: Gift
     },
     {
       id: "costOfLiving",
@@ -22198,6 +22209,520 @@ export default function App() {
                   formula above.
                 </div>
               </SourcesFooter>
+            </div>
+          );
+        })()}
+
+        {/* ============ BIRTH YEAR COMPARE ============ */}
+        {view === "birthyear" && (() => {
+          // Interpolation helper
+          const byInterp = (values, yr) => {
+            const yrs = Object.keys(values)
+              .map(Number).sort((a, b) => a - b);
+            if (yr <= yrs[0])
+              return values[yrs[0]];
+            if (yr >= yrs[yrs.length - 1])
+              return values[yrs[yrs.length - 1]];
+            let lo = yrs[0], hi = yrs[yrs.length - 1];
+            for (const y of yrs) {
+              if (y <= yr) lo = y;
+              if (y >= yr && y < hi) hi = y;
+            }
+            if (lo === hi) return values[lo];
+            const t = (yr - lo) / (hi - lo);
+            return values[lo] +
+              t * (values[hi] - values[lo]);
+          };
+
+          // Format value based on metric type
+          const byFmt = (val, m) => {
+            if (m.id === "housePrice")
+              return "\u00a3" + Math.round(val)
+                .toLocaleString("en-GB");
+            if (m.unit === "k")
+              return Math.round(val) + "k";
+            if (m.unit === "%" ||
+              m.unit === "% of GDP")
+              return val.toFixed(1) + "%";
+            if (m.unit === "x salary")
+              return val.toFixed(1) + "x";
+            if (m.unit === "\u00a3bn/year")
+              return "\u00a3" +
+                Math.round(val) + "bn";
+            return val.toFixed(1);
+          };
+
+          // Compute results when birth year set
+          const byResults = birthYear
+            ? birthYearData.metrics.map((m) => {
+                const then = byInterp(
+                  m.values, birthYear
+                );
+                const now = byInterp(
+                  m.values, 2025
+                );
+                const change = now - then;
+                const isWorse =
+                  (m.worse === "up" && now > then) ||
+                  (m.worse === "down" && now < then);
+                const isBetter =
+                  (m.worse === "up" && now < then) ||
+                  (m.worse === "down" && now > then);
+                return {
+                  ...m, then, now, change,
+                  isWorse, isBetter,
+                  thenFmt: byFmt(then, m),
+                  nowFmt: byFmt(now, m),
+                  changeFmt: byFmt(
+                    Math.abs(change), m
+                  )
+                };
+              })
+            : [];
+
+          const age = birthYear
+            ? 2025 - birthYear : 0;
+
+          // Share handler
+          const handleBirthYearShare = () => {
+            const payload = { y: birthYear };
+            const id = encodeShareId(payload);
+            const url = window.location.origin +
+              "/share/birthyear/" + id;
+            navigator.clipboard.writeText(url)
+              .then(() => {
+                setBirthYearCopied(true);
+                setTimeout(
+                  () => setBirthYearCopied(false),
+                  2000
+                );
+              });
+          };
+
+          // Post to X handler
+          const handleBirthYearPostX = () => {
+            if (!birthYear || byResults.length === 0)
+              return;
+            const debt = byResults
+              .find((r) => r.id === "debt");
+            const house = byResults
+              .find((r) => r.id === "housePrice");
+            const energy = byResults
+              .find((r) => r.id === "energySelf");
+            const text =
+              "Born in " + birthYear +
+              ". In my lifetime:\n\n" +
+              (debt
+                ? "National debt: " +
+                  debt.thenFmt + " \u2192 " +
+                  debt.nowFmt + " of GDP\n"
+                : "") +
+              (house
+                ? "House prices: " +
+                  house.thenFmt + " \u2192 " +
+                  house.nowFmt + "\n"
+                : "") +
+              (energy
+                ? "Energy self-sufficiency: " +
+                  energy.thenFmt + " \u2192 " +
+                  energy.nowFmt + "\n"
+                : "") +
+              "\nvia @GracchusHQ";
+            const payload = { y: birthYear };
+            const id = encodeShareId(payload);
+            const shareUrl =
+              window.location.origin +
+              "/share/birthyear/" + id;
+            window.open(
+              "https://x.com/intent/post?text=" +
+                encodeURIComponent(text) +
+                "&url=" +
+                encodeURIComponent(shareUrl),
+              "_blank"
+            );
+          };
+
+          return (
+            <div className="space-y-8">
+              {/* Hero */}
+              <div className={
+                "relative overflow-hidden " +
+                "border border-gray-800/30 " +
+                "bg-gradient-to-br " +
+                "from-gray-900/40 " +
+                "via-[#030303] to-[#030303]"
+              }>
+                <div className={
+                  "absolute inset-0 " +
+                  "flex items-center " +
+                  "justify-end pr-8 " +
+                  "pointer-events-none " +
+                  "select-none"
+                }>
+                  <span className={
+                    "text-[200px] md:text-[280px] " +
+                    "font-black text-white/[0.02] " +
+                    "leading-none tracking-tighter"
+                  }>
+                    UK
+                  </span>
+                </div>
+                <div className={
+                  "relative px-6 sm:px-10 " +
+                  "py-10 sm:py-14"
+                }>
+                  <div className={
+                    "text-[10px] uppercase " +
+                    "tracking-[0.3em] " +
+                    "text-amber-500/80 " +
+                    "font-mono mb-6"
+                  }>
+                    Your Lifetime in Data
+                  </div>
+                  <h1 className={
+                    "text-3xl sm:text-4xl " +
+                    "md:text-5xl font-black " +
+                    "text-white tracking-tight " +
+                    "leading-tight mb-3"
+                  }>
+                    What changed since{" "}
+                    <br className="sm:hidden" />
+                    you were born?
+                  </h1>
+                  <p className={
+                    "text-gray-500 text-sm " +
+                    "sm:text-base max-w-lg mb-8"
+                  }>
+                    Enter your birth year to see
+                    how UK government debt, housing,
+                    energy, and spending have shifted
+                    across your lifetime.
+                  </p>
+
+                  {/* Birth year input */}
+                  <div className={
+                    "flex flex-col sm:flex-row " +
+                    "items-start sm:items-center " +
+                    "gap-3"
+                  }>
+                    <div className={
+                      "flex items-center gap-2"
+                    }>
+                      <span className={
+                        "text-[10px] uppercase " +
+                        "tracking-[0.2em] " +
+                        "text-gray-600 font-mono"
+                      }>
+                        Born in
+                      </span>
+                      <input
+                        type="number"
+                        min="1940"
+                        max="2010"
+                        placeholder="1990"
+                        value={birthYearInput}
+                        onChange={(e) =>
+                          setBirthYearInput(
+                            e.target.value
+                          )
+                        }
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            const y = parseInt(
+                              birthYearInput, 10
+                            );
+                            if (y >= 1940 &&
+                              y <= 2010) {
+                              setBirthYear(y);
+                            }
+                          }
+                        }}
+                        className={
+                          "w-24 bg-black/60 " +
+                          "border border-gray-700 " +
+                          "text-white text-center " +
+                          "text-lg font-black " +
+                          "py-2 px-3 " +
+                          "focus:outline-none " +
+                          "focus:border-amber-500 " +
+                          "placeholder-gray-700 " +
+                          "transition-colors"
+                        }
+                      />
+                    </div>
+                    <button
+                      onClick={() => {
+                        const y = parseInt(
+                          birthYearInput, 10
+                        );
+                        if (y >= 1940 &&
+                          y <= 2010) {
+                          setBirthYear(y);
+                        }
+                      }}
+                      className={
+                        "text-xs font-mono " +
+                        "uppercase " +
+                        "tracking-[0.15em] " +
+                        "px-6 py-2.5 " +
+                        "bg-amber-500/10 " +
+                        "border border-amber-500/30 " +
+                        "text-amber-400 " +
+                        "hover:bg-amber-500/20 " +
+                        "hover:border-amber-500/50 " +
+                        "transition-all"
+                      }
+                    >
+                      Show my lifetime
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Results */}
+              {birthYear && byResults.length > 0 && (
+                <>
+                  {/* Summary banner */}
+                  <div className={
+                    "flex flex-col sm:flex-row " +
+                    "items-start sm:items-center " +
+                    "justify-between gap-4 " +
+                    "px-1"
+                  }>
+                    <div>
+                      <div className={
+                        "text-2xl sm:text-3xl " +
+                        "font-black text-white " +
+                        "tracking-tight"
+                      }>
+                        Born in {birthYear}
+                      </div>
+                      <div className={
+                        "text-sm text-amber-500 " +
+                        "font-bold uppercase " +
+                        "tracking-wide mt-0.5"
+                      }>
+                        {age} years of change
+                      </div>
+                    </div>
+                    <div className={
+                      "flex gap-2 flex-wrap"
+                    }>
+                      <button
+                        onClick={
+                          handleBirthYearShare
+                        }
+                        className={
+                          "text-[11px] font-mono " +
+                          "uppercase " +
+                          "tracking-[0.1em] " +
+                          "px-4 py-2 border " +
+                          (birthYearCopied
+                            ? "border-emerald-800/50 " +
+                              "text-emerald-400"
+                            : "border-gray-700 " +
+                              "text-gray-400 " +
+                              "hover:text-white " +
+                              "hover:border-gray-500"
+                          ) +
+                          " transition-all"
+                        }
+                      >
+                        <span className={
+                          "inline-flex items-center " +
+                          "gap-1.5"
+                        }>
+                          <Share2 size={11} />
+                          {birthYearCopied
+                            ? "Link Copied!"
+                            : "Share"}
+                        </span>
+                      </button>
+                      <button
+                        onClick={
+                          handleBirthYearPostX
+                        }
+                        className={
+                          "text-[11px] font-mono " +
+                          "uppercase " +
+                          "tracking-[0.1em] " +
+                          "px-4 py-2 border " +
+                          "border-gray-700 " +
+                          "text-gray-400 " +
+                          "hover:text-white " +
+                          "hover:border-gray-500 " +
+                          "transition-all"
+                        }
+                      >
+                        Post to X
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Metrics grid */}
+                  <div className={
+                    "grid grid-cols-1 " +
+                    "sm:grid-cols-2 " +
+                    "lg:grid-cols-4 gap-4"
+                  }>
+                    {byResults.map((r) => (
+                      <div
+                        key={r.id}
+                        className={
+                          "border " +
+                          "border-gray-800/40 " +
+                          "bg-gray-900/20 " +
+                          "p-5 " +
+                          "hover:border-gray-700/60 " +
+                          "transition-colors"
+                        }
+                      >
+                        <div className={
+                          "text-[10px] uppercase " +
+                          "tracking-[0.2em] " +
+                          "text-gray-600 " +
+                          "font-mono mb-4"
+                        }>
+                          {r.label}
+                        </div>
+
+                        {/* Then → Now */}
+                        <div className={
+                          "flex items-baseline " +
+                          "gap-2 mb-3"
+                        }>
+                          <span className={
+                            "text-sm text-gray-500"
+                          }>
+                            {r.thenFmt}
+                          </span>
+                          <span className={
+                            "text-gray-700"
+                          }>
+                            {"\u2192"}
+                          </span>
+                          <span className={
+                            "text-lg font-black " +
+                            "text-white"
+                          }>
+                            {r.nowFmt}
+                          </span>
+                        </div>
+
+                        {/* Direction indicator */}
+                        <div className={
+                          "flex items-center gap-2"
+                        }>
+                          {r.worse !== "neutral" ? (
+                            <>
+                              <span
+                                className={
+                                  "text-xs font-bold"
+                                }
+                                style={{
+                                  color: r.isWorse
+                                    ? "#ef4444"
+                                    : r.isBetter
+                                    ? "#22c55e"
+                                    : "#6b7280"
+                                }}
+                              >
+                                {r.now > r.then
+                                  ? "\u2191"
+                                  : "\u2193"}{" "}
+                                {r.changeFmt}
+                              </span>
+                              <span className={
+                                "text-[10px] " +
+                                "text-gray-700 " +
+                                "font-mono"
+                              }>
+                                {r.isWorse
+                                  ? "worse"
+                                  : "better"}
+                              </span>
+                            </>
+                          ) : (
+                            <span className={
+                              "text-[10px] " +
+                              "text-gray-600 " +
+                              "font-mono"
+                            }>
+                              {r.now > r.then
+                                ? "\u2191 "
+                                : "\u2193 "}
+                              {r.changeFmt}{" "}
+                              change
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Source */}
+                        <div className={
+                          "text-[9px] " +
+                          "text-gray-800 " +
+                          "font-mono mt-3"
+                        }>
+                          {r.source}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Explainer */}
+                  <div className={
+                    "border-l-2 " +
+                    "border-amber-500/20 " +
+                    "pl-5 py-1 space-y-3 " +
+                    "max-w-2xl"
+                  }>
+                    <div className={
+                      "text-[10px] uppercase " +
+                      "tracking-[0.25em] " +
+                      "text-gray-600 font-mono"
+                    }>
+                      Why this matters
+                    </div>
+                    <p className={
+                      "text-[15px] " +
+                      "leading-relaxed " +
+                      "text-gray-400"
+                    }>
+                      You were born in{" "}
+                      {birthYear}. That{"\u2019"}s{" "}
+                      {age} years of UK government
+                      performance to reflect
+                      on{"\u2014"}measured in debt,
+                      housing, energy, and public
+                      spending.
+                    </p>
+                    <p className={
+                      "text-[15px] " +
+                      "leading-relaxed " +
+                      "text-gray-400"
+                    }>
+                      The metrics above are drawn
+                      from ONS, OBR, HM Treasury,
+                      NAO, Bank of England, and
+                      Land Registry. Each tracks
+                      something shaped by political
+                      decisions made during your
+                      lifetime. The figures are
+                      source-backed and verifiable.
+                    </p>
+                    <p className={
+                      "text-[15px] " +
+                      "leading-relaxed " +
+                      "text-gray-400"
+                    }>
+                      Gracchus publishes this data
+                      so citizens can hold
+                      government to account with
+                      facts, not opinions.
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
           );
         })()}

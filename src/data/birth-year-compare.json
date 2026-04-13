@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "What Changed Since You Were Born?",
+    "description": "Compare UK government performance across your lifetime",
+    "sources": ["ONS", "OBR", "HM Treasury", "NAO", "Bank of England", "Land Registry"]
+  },
+  "metrics": [
+    {
+      "id": "debt",
+      "label": "National Debt",
+      "unit": "% of GDP",
+      "worse": "up",
+      "context": "Public sector net debt as a share of GDP",
+      "source": "OBR / ONS",
+      "values": {
+        "1960": 130, "1965": 105, "1970": 82, "1975": 60,
+        "1980": 46, "1985": 44, "1990": 26, "1995": 34,
+        "2000": 30, "2005": 35, "2008": 37, "2010": 65,
+        "2015": 82, "2018": 85, "2020": 100, "2023": 98, "2025": 101
+      }
+    },
+    {
+      "id": "housePrice",
+      "label": "Average House Price",
+      "unit": "",
+      "prefix": "\u00a3",
+      "worse": "up",
+      "context": "UK average house price (nominal)",
+      "source": "Land Registry / ONS",
+      "values": {
+        "1960": 2500, "1965": 3700, "1970": 5000, "1975": 11000,
+        "1980": 23000, "1985": 32000, "1990": 58000, "1995": 52000,
+        "2000": 82000, "2005": 155000, "2008": 175000, "2010": 167000,
+        "2015": 195000, "2018": 230000, "2020": 252000, "2023": 285000, "2025": 295000
+      }
+    },
+    {
+      "id": "houseRatio",
+      "label": "House Price to Earnings",
+      "unit": "x salary",
+      "worse": "up",
+      "context": "Median house price vs median annual earnings",
+      "source": "ONS",
+      "values": {
+        "1960": 3.0, "1965": 3.2, "1970": 3.0, "1975": 3.4,
+        "1980": 3.5, "1985": 3.6, "1990": 4.0, "1995": 3.2,
+        "2000": 4.5, "2005": 6.8, "2008": 7.0, "2010": 7.0,
+        "2015": 7.5, "2018": 7.8, "2020": 7.7, "2023": 8.3, "2025": 8.5
+      }
+    },
+    {
+      "id": "debtInterest",
+      "label": "Debt Interest",
+      "unit": "\u00a3bn/year",
+      "worse": "up",
+      "context": "Annual cost of servicing government debt",
+      "source": "HM Treasury / OBR",
+      "values": {
+        "1960": 1.2, "1965": 1.5, "1970": 2.0, "1975": 3.5,
+        "1980": 10, "1985": 14, "1990": 18, "1995": 23,
+        "2000": 28, "2005": 26, "2008": 31, "2010": 44,
+        "2015": 36, "2018": 40, "2020": 39, "2023": 94, "2025": 89
+      }
+    },
+    {
+      "id": "energySelf",
+      "label": "Energy Self-Sufficiency",
+      "unit": "%",
+      "worse": "down",
+      "context": "UK domestic energy production vs consumption",
+      "source": "DESNZ",
+      "values": {
+        "1960": 55, "1965": 50, "1970": 50, "1975": 55,
+        "1980": 100, "1985": 110, "1990": 98, "1995": 110,
+        "2000": 120, "2005": 85, "2008": 73, "2010": 70,
+        "2015": 60, "2018": 55, "2020": 55, "2023": 48, "2025": 45
+      }
+    },
+    {
+      "id": "defence",
+      "label": "Defence Spending",
+      "unit": "% of GDP",
+      "worse": "neutral",
+      "context": "UK military spending as share of GDP",
+      "source": "NATO / SIPRI",
+      "values": {
+        "1960": 6.5, "1965": 5.8, "1970": 4.5, "1975": 4.5,
+        "1980": 4.7, "1985": 4.8, "1990": 3.8, "1995": 2.8,
+        "2000": 2.3, "2005": 2.2, "2008": 2.3, "2010": 2.5,
+        "2015": 1.9, "2018": 2.1, "2020": 2.2, "2023": 2.3, "2025": 2.5
+      }
+    },
+    {
+      "id": "taxBurden",
+      "label": "Tax Burden",
+      "unit": "% of GDP",
+      "worse": "up",
+      "context": "Total tax receipts as share of national income",
+      "source": "HMRC / ONS",
+      "values": {
+        "1960": 28, "1965": 30, "1970": 37, "1975": 35,
+        "1980": 35, "1985": 37, "1990": 34, "1995": 33,
+        "2000": 35, "2005": 35, "2008": 36, "2010": 35,
+        "2015": 34, "2018": 35, "2020": 33, "2023": 36, "2025": 37
+      }
+    },
+    {
+      "id": "civilService",
+      "label": "Civil Service Headcount",
+      "unit": "k",
+      "worse": "neutral",
+      "context": "Full-time equivalent civil servants",
+      "source": "ONS",
+      "values": {
+        "1960": 640, "1965": 680, "1970": 700, "1975": 750,
+        "1980": 730, "1985": 600, "1990": 570, "1995": 520,
+        "2000": 480, "2005": 530, "2008": 525, "2010": 530,
+        "2015": 420, "2018": 430, "2020": 475, "2023": 510, "2025": 520
+      }
+    }
+  ]
+}
