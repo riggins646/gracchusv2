@@ -118,7 +118,7 @@
     "category": "IT",
     "subcategory": "Health",
     "originalBudget": 6200,
-    "latestBudget": 12000,
+    "latestBudget": 9800,
     "originalDate": "2008",
     "latestDate": "Dismantled 2011",
     "status": "Cancelled",
@@ -128,7 +128,7 @@
       "Accenture",
       "BT"
     ],
-    "description": "One of the most expensive IT failures in government history. 12bn+ spent by dismantlement.",
+    "description": "Largest IT project ever attempted in the NHS. Actual spend estimated at £9.8bn before cancellation in 2013. Original budget was £6.2bn. NAO estimated total costs ranged from £7.4bn to £12.7bn depending on measurement.",
     "sources": [
       "https://www.nao.org.uk/reports/the-national-programme-for-it-in-the-nhs/"
     ],
@@ -308,7 +308,7 @@
     "category": "Transport",
     "subcategory": "Road",
     "originalBudget": 4000,
-    "latestBudget": 4000,
+    "latestBudget": 62,
     "originalDate": "2030",
     "latestDate": "Cancelled 2023",
     "status": "Cancelled",
@@ -316,7 +316,7 @@
       "National Highways",
       "Balfour Beatty"
     ],
-    "description": "Cancelled April 2023 citing safety concerns. 59.3m spent on scrapped schemes.",
+    "description": "Programme to convert hard shoulders into live traffic lanes. Cancelled April 2023 after safety concerns. £62m spent on planning and design of 14 cancelled schemes. Original programme budget was £4bn.",
     "sources": [
       "https://en.wikipedia.org/wiki/Smart_motorway"
     ],
@@ -430,14 +430,14 @@
     "category": "Transport",
     "subcategory": "Road",
     "originalBudget": 1100,
-    "latestBudget": 2400,
+    "latestBudget": 179,
     "originalDate": "2025",
     "latestDate": "Cancelled 2024",
     "status": "Cancelled",
     "contractors": [
       "National Highways"
     ],
-    "description": "Cancelled March 2024. 179m already spent on planning before cancellation.",
+    "description": "Proposed 2.9km tunnel near Stonehenge on the A303. Cancelled July 2024 by Labour government. £179m spent on planning and development. Original budget was £1.1bn, latest estimate £2.4bn.",
     "sources": [
       "https://en.wikipedia.org/wiki/Stonehenge_road_tunnel"
     ],
@@ -498,7 +498,7 @@
     "contractors": [
       "Raytheon"
     ],
-    "description": "Border control IT cancelled after massive delays. 830m spent. Raytheon awarded 224m compensation.",
+    "description": "Electronic border control system intended to track everyone entering and leaving the UK. Plagued by contractor disputes and delays. £830m spent 2003-2015 before effective cancellation. Original budget £750m.",
     "sources": [
       "https://en.wikipedia.org/wiki/E-Borders"
     ],
@@ -578,14 +578,14 @@
     "category": "Defence",
     "subcategory": "Aviation",
     "originalBudget": 1900,
-    "latestBudget": 3200,
+    "latestBudget": 3600,
     "originalDate": "2003",
     "latestDate": "Cancelled 2010",
     "status": "Cancelled",
     "contractors": [
       "BAE Systems"
     ],
-    "description": "Cancelled in 2010. 789m over budget and 9 years late. Only 3 aircraft built.",
+    "description": "Maritime reconnaissance aircraft to replace the Nimrod MR2. Cancelled by the 2010 Strategic Defence Review. £3.6bn spent (PAC estimate). All 9 airframes scrapped despite being nearly complete. Original budget £1.9bn.",
     "sources": [
       "https://en.wikipedia.org/wiki/BAE_Systems_Nimrod_MRA4"
     ],
@@ -1167,7 +1167,7 @@
     "category": "IT",
     "subcategory": "Digital",
     "originalBudget": 215,
-    "latestBudget": 305,
+    "latestBudget": 154,
     "originalDate": "2016",
     "latestDate": "Replaced 2022",
     "status": "Cancelled",
@@ -1175,7 +1175,7 @@
       "Digidentity",
       "Post Office"
     ],
-    "description": "Government identity verification. Only 5.4m sign-ups vs 25m target. Budget overrun 42%. Replaced by GOV.UK One Login.",
+    "description": "Government digital identity verification system. Effectively abandoned by 2020 in favour of One Login. £154m spent on GOV.UK Verify 2011-2018. Original budget £215m.",
     "sources": [
       "https://www.nao.org.uk/reports/investigation-into-verify/"
     ],
@@ -1809,7 +1809,7 @@
     "contractors": [
       "Thales UK"
     ],
-    "description": "Tactical UAV programme for 54 aircraft. Over-specified with 1,910 individual criteria. Persistent software and airworthiness issues. 60% cost overrun before programme scrapped in 2023.",
+    "description": "Tactical unmanned aerial system for the British Army. Plagued by delays and technical issues. £1.35bn spent by 2023 for 54 drones, many unserviceable. Effectively cancelled as a failed programme. Original budget £846m.",
     "sources": [
       "https://www.nao.org.uk/reports/ministry-of-defence-equipment-plan-2023-33/"
     ],
@@ -2027,12 +2027,12 @@
     "category": "Transport",
     "subcategory": "Roads",
     "originalBudget": 1000,
-    "latestBudget": 1400,
+    "latestBudget": 130,
     "originalDate": "cancelled",
     "latestDate": "2019 (cancelled)",
     "status": "Cancelled",
     "contractors": [],
-    "description": "Proposed relief road around Newport, Wales. Budget escalated to £1.4bn. Cancelled June 2019 by First Minister. Over £150m spent on preparatory work and land acquisition before abandonment.",
+    "description": "Proposed M4 relief road south of Newport, Wales. Cancelled June 2019 by Welsh Government on environmental grounds. Approximately £130m spent on planning, land purchases and preparation. Original budget £1bn.",
     "sources": [
       "https://www.newcivilengineer.com/latest/1-4bn-m4-relief-road-proposal-rejected-04-06-2019/"
     ],
@@ -2230,14 +2230,14 @@
     "category": "Energy",
     "subcategory": "Nuclear",
     "originalBudget": 20000,
-    "latestBudget": 20000,
+    "latestBudget": 2000,
     "originalDate": "suspended",
     "latestDate": "2019 (suspended)",
     "status": "Cancelled",
     "contractors": [
       "Hitachi / Horizon Nuclear Power"
     ],
-    "description": "Proposed 2,700 MWe ABWR station on Anglesey. Hitachi suspended Jan 2019. Horizon withdrew planning application Jan 2021. Government had committed £5bn direct funding. ~£2bn spent before suspension.",
+    "description": "Proposed nuclear power station on Anglesey, Wales. Hitachi withdrew January 2019 after spending approximately £2bn on development. UK Government bought the site for £160m in 2024. Never broke ground.",
     "sources": [
       "https://www.bbc.co.uk/news/uk-wales-46929034"
     ],
@@ -2252,14 +2252,14 @@
     "category": "Energy",
     "subcategory": "Nuclear",
     "originalBudget": 10000,
-    "latestBudget": 10000,
+    "latestBudget": 450,
     "originalDate": "cancelled",
     "latestDate": "2018 (cancelled)",
     "status": "Cancelled",
     "contractors": [
       "NuGen (Toshiba/Engie)"
     ],
-    "description": "Proposed 3.4 GW nuclear station in Cumbria. Toshiba cancelled via NuGen subsidiary Nov 2018, absorbing £100.5m loss. Would have required £2.8bn National Grid infrastructure.",
+    "description": "Proposed nuclear power station in Cumbria. Toshiba/NuGen withdrew November 2018 after spending approximately £450m. Never progressed beyond planning. Original projected cost £10bn.",
     "sources": [
       "https://www.bbc.co.uk/news/business-46148519"
     ],
@@ -2336,7 +2336,7 @@
       "Bibby Marine",
       "Landry & Kling"
     ],
-    "description": "Floating asylum accommodation in Portland, Dorset. Monthly cost £6,000/person due to under-occupancy. Contract not renewed after January 2025. Setup and operational costs exceeded hotel accommodation rates.",
+    "description": "Barge moored in Portland Harbour to house asylum seekers. Total cost approximately £35m including setup and operation over two years. Phased out by Labour government July 2024. Original contract £20m.",
     "sources": [
       "https://www.nao.org.uk/reports/asylum-accommodation-and-support/",
       "https://www.bbc.co.uk/news/uk-politics-66101204"
@@ -2354,12 +2354,12 @@
     "category": "Housing",
     "subcategory": "Asylum Accommodation",
     "originalBudget": 30,
-    "latestBudget": 60,
+    "latestBudget": 50,
     "originalDate": "2023",
     "latestDate": "2024 (scrapped)",
     "status": "Cancelled",
     "contractors": [],
-    "description": "Planned asylum processing centre at former RAF Scampton in Lincolnshire. £60m spent on development before plans were scrapped in September 2024. PAC found nearly £100m wasted across failed asylum housing projects.",
+    "description": "Proposed conversion of former RAF base in Lincolnshire to house asylum seekers. Cancelled September 2024. Approximately £50m spent without ever housing anyone. Original budget £30m.",
     "sources": [
       "https://committees.parliament.uk/committee/127/public-accounts-committee/"
     ],
@@ -2397,14 +2397,14 @@
     "category": "Transport",
     "subcategory": "Roads",
     "originalBudget": 320,
-    "latestBudget": 320,
+    "latestBudget": 25,
     "originalDate": "2024",
     "latestDate": "2024 (cancelled)",
     "status": "Cancelled",
     "contractors": [
       "National Highways"
     ],
-    "description": "Proposed bypass around Arundel in West Sussex. Cancelled July 2024 as part of government road programme review. Development costs written off.",
+    "description": "Proposed bypass of Arundel on the A27. Cancelled July 2024 by Labour government in roads review. Approximately £25m spent on planning and development. Full scheme cost estimated at £320m.",
     "sources": [
       "https://www.gov.uk/government/news/transport-secretary-announces-roads-investment-review"
     ],
@@ -2419,14 +2419,14 @@
     "category": "Transport",
     "subcategory": "Roads",
     "originalBudget": 580,
-    "latestBudget": 580,
+    "latestBudget": 25,
     "originalDate": "2028",
     "latestDate": "2024 (cancelled)",
     "status": "Cancelled",
     "contractors": [
       "National Highways"
     ],
-    "description": "Proposed dual carriageway upgrade between Taunton and Southfields. Cancelled October 2024 in roads review. Development costs written off as part of £2.7bn DfT write-off programme.",
+    "description": "Proposed dual carriageway between Taunton and Southfields. Cancelled July 2024 in roads review. Approximately £25m spent on planning, surveys and archaeological work (750+ trial trenches). Full scheme cost £580m.",
     "sources": [
       "https://www.gov.uk/government/news/transport-secretary-announces-roads-investment-review"
     ],
@@ -2441,14 +2441,14 @@
     "category": "Transport",
     "subcategory": "Roads",
     "originalBudget": 290,
-    "latestBudget": 290,
+    "latestBudget": 68,
     "originalDate": "2027",
     "latestDate": "2024 (cancelled)",
     "status": "Cancelled",
     "contractors": [
       "National Highways"
     ],
-    "description": "Proposed dualling of the A1 between Morpeth and Ellingham in Northumberland. Cancelled October 2024 in roads review. Part of broader DfT project cancellation programme.",
+    "description": "Proposed dualling of the A1 between Morpeth and Ellingham in Northumberland. Cancelled October 2024 in roads review. £68.4m confirmed spent via FOI. Original budget £290m.",
     "sources": [
       "https://www.gov.uk/government/news/transport-secretary-announces-roads-investment-review"
     ],
@@ -2463,7 +2463,7 @@
     "category": "Transport",
     "subcategory": "Rail",
     "originalBudget": 40000,
-    "latestBudget": 40000,
+    "latestBudget": 2600,
     "originalDate": "2040",
     "latestDate": "2023 (cancelled)",
     "status": "Cancelled",
@@ -2472,7 +2472,7 @@
       "Vinci",
       "Skanska"
     ],
-    "description": "Phase 2a (West Midlands to Crewe) and Phase 2b (Crewe to Manchester, Birmingham to Leeds) cancelled by PM in October 2023. Billions spent on planning, land acquisition, and early works written off. Network Rail Overhaul announced as partial replacement.",
+    "description": "Northern legs of HS2 from Birmingham to Manchester and Leeds. Cancelled by PM Sunak October 2023. £2.6bn spent on Phase 2 planning, land acquisition and early works. Original budget £40bn.",
     "sources": [
       "https://www.nao.org.uk/reports/hs2-a-progress-update/",
       "https://committees.parliament.uk/committee/127/public-accounts-committee/"
@@ -2488,12 +2488,12 @@
     "category": "Housing",
     "subcategory": "Asylum Policy",
     "originalBudget": 140,
-    "latestBudget": 700,
+    "latestBudget": 290,
     "originalDate": "2022",
     "latestDate": "2024 (scrapped)",
     "status": "Cancelled",
     "contractors": [],
-    "description": "Agreement to send asylum seekers to Rwanda for processing. £700m+ spent including £290m paid directly to Rwanda, legal costs, and operational setup. No deportation flights ever took place. Scheme scrapped by incoming government July 2024.",
+    "description": "Partnership with Rwanda to deport asylum seekers. Cancelled by Labour government July 2024. £290m paid directly to Rwanda. Total Home Office spend on the scheme approximately £700m including legal and operational costs. Direct Rwanda payments used as primary figure.",
     "sources": [
       "https://www.nao.org.uk/reports/investigation-into-the-uk-rwanda-partnership/",
       "https://committees.parliament.uk/committee/127/public-accounts-committee/"

@@ -266,10 +266,13 @@ function WasteSpotlight({ projects, onExplore, fmt, onShare }) {
 
   if (!current) return null;
 
-  const overrun = current.latestBudget - current.originalBudget;
-  const potholesEquiv = Math.round(overrun * 1e6 / 50);
-  const nursesEquiv = Math.round(overrun * 1e6 / 35000);
   const isCancelled = current.status === "Cancelled";
+  const overrun = current.latestBudget - current.originalBudget;
+  // For cancelled projects, the waste IS the total spend (nothing delivered).
+  // For over-budget projects, the waste is the overrun amount.
+  const wastedAmount = isCancelled ? current.latestBudget : Math.max(overrun, 0);
+  const potholesEquiv = Math.round(wastedAmount * 1e6 / 50);
+  const nursesEquiv = Math.round(wastedAmount * 1e6 / 35000);
 
   return (
     <div className="border-t border-gray-800/50 py-10">
@@ -341,19 +344,29 @@ function WasteSpotlight({ projects, onExplore, fmt, onShare }) {
           }>
             <div>
               <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-gray-700 font-mono mb-1">
-                Money Spent
+                {isCancelled ? "Wasted" : "Total Spend"}
               </div>
               <div className="text-3xl sm:text-4xl md:text-5xl font-black text-red-500">
                 {fmt(current.latestBudget)}
               </div>
             </div>
-            {overrun > 0 && (
+            {!isCancelled && overrun > 0 && (
               <div>
                 <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-gray-700 font-mono mb-1">
                   Over Budget
                 </div>
                 <div className="text-3xl sm:text-4xl md:text-5xl font-black text-amber-500">
                   +{fmt(overrun)}
+                </div>
+              </div>
+            )}
+            {isCancelled && (
+              <div>
+                <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-gray-700 font-mono mb-1">
+                  Original Budget
+                </div>
+                <div className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-600">
+                  {fmt(current.originalBudget)}
                 </div>
               </div>
             )}
