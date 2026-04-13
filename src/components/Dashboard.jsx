@@ -4925,8 +4925,8 @@ export default function App() {
 
   // Moonlighting MPs view state
   const [mpHovEarner, setMpHovEarner] = useState(null);
-  const [mpSortCol, setMpSortCol] = useState("outsideEarnings");
-  const [mpSortDir, setMpSortDir] = useState("desc");
+  const [mlSortCol, setMlSortCol] = useState("outsideEarnings");
+  const [mlSortDir, setMlSortDir] = useState("desc");
 
   // Sewage clock effect — ticks every second to show cumulative 2026 sewage hours
   useEffect(() => {
@@ -12140,9 +12140,9 @@ export default function App() {
           const votingCorr = moonlightingData.votingCorrelation.brackets;
 
           const sortedEarners = [...topEarners].sort((a, b) => {
-            const aVal = a[mpSortCol] ?? 0;
-            const bVal = b[mpSortCol] ?? 0;
-            return mpSortDir === "desc" ? bVal - aVal : aVal - bVal;
+            const aVal = a[mlSortCol] ?? 0;
+            const bVal = b[mlSortCol] ?? 0;
+            return mlSortDir === "desc" ? bVal - aVal : aVal - bVal;
           });
 
           const scatterData = topEarners.filter(mp => mp.votingRecord).map(mp => ({
@@ -12191,8 +12191,8 @@ export default function App() {
                     <tr className="border-b border-gray-800">
                       <th className="text-left px-3 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Name</th>
                       <th className="text-left px-2 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold hidden sm:table-cell">Constituency</th>
-                      <th className="text-right px-3 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold cursor-pointer hover:text-gray-300" onClick={() => { setMpSortCol("outsideEarnings"); setMpSortDir(mpSortCol === "outsideEarnings" && mpSortDir === "desc" ? "asc" : "desc"); }}>Earnings {mpSortCol === "outsideEarnings" ? (mpSortDir === "desc" ? "↓" : "↑") : ""}</th>
-                      <th className="text-right px-2 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold cursor-pointer hover:text-gray-300" onClick={() => { setMpSortCol("hoursPerWeek"); setMpSortDir(mpSortCol === "hoursPerWeek" && mpSortDir === "desc" ? "asc" : "desc"); }}>Hrs/Wk {mpSortCol === "hoursPerWeek" ? (mpSortDir === "desc" ? "↓" : "↑") : ""}</th>
+                      <th className="text-right px-3 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold cursor-pointer hover:text-gray-300" onClick={() => { setMlSortCol("outsideEarnings"); setMlSortDir(mlSortCol === "outsideEarnings" && mlSortDir === "desc" ? "asc" : "desc"); }}>Earnings {mlSortCol === "outsideEarnings" ? (mlSortDir === "desc" ? "↓" : "↑") : ""}</th>
+                      <th className="text-right px-2 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold cursor-pointer hover:text-gray-300" onClick={() => { setMlSortCol("hoursPerWeek"); setMlSortDir(mlSortCol === "hoursPerWeek" && mlSortDir === "desc" ? "asc" : "desc"); }}>Hrs/Wk {mlSortCol === "hoursPerWeek" ? (mlSortDir === "desc" ? "↓" : "↑") : ""}</th>
                       <th className="text-right px-2 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Votes</th>
                       <th className="text-right px-2 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold hidden sm:table-cell">Deprivation</th>
                     </tr>
