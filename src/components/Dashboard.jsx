@@ -61,6 +61,9 @@ import moneySupplyData from "../data/money-supply.json";
 import mpPayVsCountryData from "../data/mp-pay-vs-country.json";
 import birthYearData from "../data/birth-year-compare.json";
 import immigrationData from "../data/immigration.json";
+import nhsWaitsData from "../data/nhs-waits.json";
+import sewageData from "../data/sewage.json";
+import moonlightingData from "../data/moonlighting-mps.json";
 import { encodeShareId, buildContextLine, shareFmtAmt, renderCardToCanvas, renderTrendCard, renderChartShareCard, renderCancelledProjectCard } from "../lib/share-utils";
 import { sortRows, searchRows, processTableData, fmtMillions, fmtCompact, fmtCurrency, fmtPct, getUniqueValues, SORT_PRESETS } from "../lib/table-utils";
 
@@ -4912,6 +4915,32 @@ export default function App() {
   // Immigration view state
   const [immHovVisa, setImmHovVisa] = useState(null);
 
+  // NHS Wait Time Explorer view state
+  const [nhsRegion, setNhsRegion] = useState("national");
+  const [nhsSpecialty, setNhsSpecialty] = useState(null);
+
+  // Sewage Clock view state
+  const [sewageHovCompany, setSewageHovCompany] = useState(null);
+  const [sewageClockHours, setSewageClockHours] = useState(0);
+
+  // Moonlighting MPs view state
+  const [mpHovEarner, setMpHovEarner] = useState(null);
+  const [mpSortCol, setMpSortCol] = useState("outsideEarnings");
+  const [mpSortDir, setMpSortDir] = useState("desc");
+
+  // Sewage clock effect — ticks every second to show cumulative 2026 sewage hours
+  useEffect(() => {
+    const start = new Date("2026-01-01T00:00:00Z").getTime();
+    const rate = 1870000 / (365.25 * 24 * 3600 * 1000);
+    const tick = () => {
+      const now = Date.now();
+      setSewageClockHours(Math.floor((now - start) * rate));
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
   // Political Donations view state
   const [donGovFilter, setDonGovFilter] = useState(null);
   const [donHovParty, setDonHovParty] = useState(null);
@@ -5604,7 +5633,10 @@ export default function App() {
         { id: "transparency.mp", label: "MPs' Income & Expenses" },
         { id: "transparency.lobbying", label: "Lobbying" },
         { id: "transparency.aid", label: "Foreign Aid" },
-        { id: "transparency.immigration", label: "Immigration & Borders" }
+        { id: "transparency.immigration", label: "Immigration & Borders" },
+        { id: "transparency.nhswaits", label: "NHS Waiting Times" },
+        { id: "transparency.sewage", label: "Sewage Clock" },
+        { id: "transparency.moonlighting", label: "Moonlighting MPs" }
       ]
     },
     {
@@ -11839,6 +11871,410 @@ export default function App() {
             <div className="text-gray-600 text-xs px-1 mt-4">
               Source: {immigrationData.metadata.primarySource.name}. {immigrationData.metadata.methodology}
             </div>
+          </div>
+          );
+        })()}
+
+        {view === "transparency.nhswaits" && (() => {
+          const ks = nhsWaitsData.keyStats;
+          const specs = nhsWaitsData.specialties;
+          const regions = nhsWaitsData.regions;
+          const trend = nhsWaitsData.historicalTrend;
+
+          const selectedSpec = nhsSpecialty ? specs.find(s => s.id === nhsSpecialty) : null;
+          const selectedReg = nhsRegion !== "national" ? regions.find(r => r.id === nhsRegion) : null;
+
+          const specBarData = [...specs].sort((a, b) => b.medianWait - a.medianWait).map(s => ({
+            name: s.name.length > 18 ? s.name.slice(0, 16) + "…" : s.name,
+            fullName: s.name,
+            id: s.id,
+            medianWait: s.medianWait,
+            color: s.medianWait > 36 ? "#ef4444" : s.medianWait > 18 ? "#f59e0b" : "#10b981"
+          }));
+
+          const waitBands = nhsWaitsData.waitBands.bands;
+          const PARTY_BG_NHS = { Coalition: "#8B5CF6", Conservative: "#0087DC", Labour: "#DC241f" };
+
+          const estWait = selectedSpec ? (selectedReg ? Math.round(selectedSpec.medianWait * (selectedReg.medianWait / 14.2)) : selectedSpec.medianWait) : null;
+          const estWait2019 = estWait ? Math.round(estWait / (1 + selectedSpec.waitChange2019 / 100)) : null;
+
+          return (
+          <div className="space-y-6">
+            <div className="py-6 mb-4">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">Accountability → NHS</div>
+              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">NHS Waiting Times</h2>
+              <p className="text-gray-500 text-sm mt-2">{nhsWaitsData.contextSentences.headline}</p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Total Waiting</div>
+                <div className="text-2xl md:text-3xl font-black text-red-400">{(ks.totalWaiting / 1000000).toFixed(2)}M</div>
+                <div className="text-gray-600 text-xs mt-0.5">{(ks.individualPatients / 1000000).toFixed(2)}M individual patients</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Median Wait</div>
+                <div className="text-2xl md:text-3xl font-black text-orange-400">{ks.medianWaitWeeks}w</div>
+                <div className="text-gray-600 text-xs mt-0.5">was {ks.medianWait2019}w in 2019 (+{Math.round((ks.medianWaitWeeks / ks.medianWait2019 - 1) * 100)}%)</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">18-Week Target</div>
+                <div className="text-2xl md:text-3xl font-black text-amber-400">{ks.pctWithin18Weeks}%</div>
+                <div className="text-gray-600 text-xs mt-0.5">Target: {ks.target18Weeks}%</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">52+ Week Waiters</div>
+                <div className="text-2xl md:text-3xl font-black text-red-500">{ks.pctOver52Weeks}%</div>
+                <div className="text-gray-600 text-xs mt-0.5">~{Math.round(ks.totalWaiting * ks.pctOver52Weeks / 100000)}k people</div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="text-[11px] uppercase tracking-[0.15em] text-gray-500 font-semibold mb-2 block">Select Region</label>
+                <select value={nhsRegion} onChange={e => setNhsRegion(e.target.value)} className="w-full bg-gray-900/60 border border-gray-800 rounded-lg px-3 py-2.5 text-sm text-gray-300 focus:outline-none focus:border-gray-600">
+                  <option value="national">National Average</option>
+                  {regions.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="text-[11px] uppercase tracking-[0.15em] text-gray-500 font-semibold mb-2 block">Select Condition</label>
+                <select value={nhsSpecialty || ""} onChange={e => setNhsSpecialty(e.target.value || null)} className="w-full bg-gray-900/60 border border-gray-800 rounded-lg px-3 py-2.5 text-sm text-gray-300 focus:outline-none focus:border-gray-600">
+                  <option value="">Choose a specialty…</option>
+                  {specs.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+                </select>
+              </div>
+            </div>
+
+            {selectedSpec && (
+              <div className="bg-gradient-to-br from-gray-900/60 to-gray-950/40 border border-gray-800/60 rounded-xl p-6 sm:p-8">
+                <h3 className="text-[13px] uppercase tracking-[0.2em] text-gray-500 font-semibold mb-4">Your Estimated Wait</h3>
+                <p className="text-lg sm:text-xl text-gray-300 leading-relaxed mb-5">
+                  If you needed <span className="font-bold text-white">{selectedSpec.name}</span>{selectedReg ? " in " + selectedReg.name : " in England"}, you'd wait approximately <span className="font-black text-amber-400 text-2xl sm:text-3xl">{estWait} weeks</span>. In 2019, you'd have waited <span className="font-bold text-green-400">{estWait2019} weeks</span>.
+                </p>
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between text-xs text-gray-500"><span>Wait distribution</span><span>{estWait}w</span></div>
+                  <div className="w-full bg-gray-900/50 rounded-full h-2.5 overflow-hidden border border-gray-800/50">
+                    <div className="h-full bg-gradient-to-r from-green-500 via-amber-500 to-red-500 rounded-full" style={{ width: Math.min(100, estWait / 52 * 100) + "%" }} />
+                  </div>
+                  <div className="flex justify-between text-[9px] text-gray-600"><span>0w</span><span>18w (target)</span><span>36w</span><span>52w+</span></div>
+                </div>
+                {selectedSpec.regionalRange && (
+                  <p className="text-xs text-gray-500 mt-4">Range: {selectedSpec.regionalRange.min}w ({selectedSpec.regionalRange.minRegion}) to {selectedSpec.regionalRange.max}w ({selectedSpec.regionalRange.maxRegion})</p>
+                )}
+              </div>
+            )}
+
+            <ChartCard chartId="nhs-trend" title="Waiting List Growth 2010–2025" subtitle="Background colour = party in power" accentColor="#ef4444" onShare={handleChartShare} explainData={trend.map(d => d.year + ": " + (d.totalWaiting / 1000000).toFixed(2) + "M").join("; ")}>
+              <ResponsiveContainer width="100%" height={300}>
+                <AreaChart data={trend.map(d => ({ year: d.year, size: d.totalWaiting / 1000000 }))} margin={{ top: 20, right: 15, left: 0, bottom: 5 }}>
+                  <defs>
+                    <linearGradient id="nhsTrendGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#ef4444" stopOpacity={0.6} />
+                      <stop offset="100%" stopColor="#ef4444" stopOpacity={0.05} />
+                    </linearGradient>
+                  </defs>
+                  {nhsWaitsData.partyPeriods.map((p, i) => (
+                    <ReferenceArea key={i} x1={p.start} x2={p.end} fill={PARTY_BG_NHS[p.party]} fillOpacity={0.08} />
+                  ))}
+                  <ReferenceLine x={2020} stroke="rgba(255,255,255,0.2)" strokeDasharray="3 3" label={{ value: "COVID-19", position: "top", fill: "#9ca3af", fontSize: 8 }} />
+                  <XAxis dataKey="year" tick={{ fill: "#9ca3af", fontSize: 10 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => v.toFixed(1) + "M"} width={38} />
+                  <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [v.toFixed(2) + "M patients", "Waiting List"]} />
+                  <Area type="monotone" dataKey="size" fill="url(#nhsTrendGrad)" stroke="#ef4444" strokeWidth={2.5} dot={{ r: 3, fill: "#ef4444", stroke: "#0d0d1a", strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                </AreaChart>
+              </ResponsiveContainer>
+              <ChartMeta source="NHS England RTT Statistics" sourceUrl="https://www.england.nhs.uk/statistics/statistical-work-areas/rtt-waiting-times/" />
+            </ChartCard>
+
+            <ChartCard chartId="nhs-specialty" title="Median Wait by Specialty" subtitle="Green <18w • Amber 18–36w • Red 36w+" accentColor="#f59e0b" onShare={handleChartShare} explainData={specBarData.map(d => d.fullName + ": " + d.medianWait + "w").join("; ")}>
+              <ResponsiveContainer width="100%" height={380}>
+                <BarChart data={specBarData} layout="vertical" margin={{ top: 5, right: 20, left: 5, bottom: 5 }}>
+                  <XAxis type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => v + "w"} />
+                  <YAxis dataKey="name" type="category" tick={{ fill: "#d1d5db", fontSize: 9 }} axisLine={false} tickLine={false} width={140} />
+                  <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [v + " weeks", "Median Wait"]} />
+                  <Bar dataKey="medianWait" radius={[0, 6, 6, 0]}>
+                    {specBarData.map((entry, i) => (
+                      <Cell key={i} fill={entry.color} opacity={nhsSpecialty === entry.id ? 1 : 0.7} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+              <ChartMeta source="NHS England RTT Statistics" />
+            </ChartCard>
+
+            <ChartCard chartId="nhs-bands" title="Where the 7.25M Are Waiting" subtitle="Distribution across wait bands" accentColor="#ef4444" onShare={handleChartShare} explainData={waitBands.map(b => b.label + ": " + (b.count / 1000000).toFixed(2) + "M (" + b.pct + "%)").join("; ")}>
+              <ResponsiveContainer width="100%" height={260}>
+                <BarChart data={waitBands} margin={{ top: 10, right: 15, left: 0, bottom: 5 }}>
+                  <XAxis dataKey="label" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => (v / 1000000).toFixed(1) + "M"} width={42} />
+                  <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [(v / 1000000).toFixed(2) + "M patients (" + waitBands.find(b => b.count === v)?.pct + "%)", "Patients"]} />
+                  <Bar dataKey="count" radius={[6, 6, 0, 0]}>
+                    {waitBands.map((b, i) => <Cell key={i} fill={b.color} />)}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+              <ChartMeta source="NHS England RTT Statistics" />
+            </ChartCard>
+
+            <div className="text-gray-600 text-xs px-1 mt-4">Source: {nhsWaitsData.metadata.source}</div>
+          </div>
+          );
+        })()}
+
+        {view === "transparency.sewage" && (() => {
+          const sk = sewageData.keyStats;
+          const companies = [...sewageData.companies].sort((a, b) => b.hours2025 - a.hours2025);
+          const trendData = sewageData.annualTrend;
+
+          const yrsOfSewage = Math.floor(sewageClockHours / (24 * 365.25));
+          const daysOfSewage = Math.floor((sewageClockHours % (24 * 365.25)) / 24);
+
+          return (
+          <div className="space-y-6">
+            <div className="py-6 mb-4">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">Accountability → Environment</div>
+              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">The Sewage Clock</h2>
+              <p className="text-gray-500 text-sm mt-2">{sewageData.contextSentences.headline}</p>
+            </div>
+
+            <div className="bg-gradient-to-b from-red-950/20 to-transparent border border-red-900/30 rounded-2xl p-8 sm:p-12 text-center">
+              <div className="text-[11px] uppercase tracking-[0.25em] text-red-600 font-semibold mb-6">Estimated Sewage Hours Since Jan 1 2026</div>
+              <div className="text-5xl sm:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-400 to-amber-400 mb-3 font-mono tracking-tighter">
+                {sewageClockHours.toLocaleString()}
+              </div>
+              <div className="text-[11px] uppercase tracking-[0.2em] text-gray-500 mb-4">hours of raw sewage</div>
+              <div className="text-gray-400 text-sm sm:text-base">
+                That's approximately <span className="font-bold text-red-400">{yrsOfSewage} years</span> and <span className="font-bold text-red-400">{daysOfSewage} days</span> of continuous untreated sewage
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Total Spills (2025)</div>
+                <div className="text-2xl md:text-3xl font-black text-red-400">{(sk.totalSpills2025 / 1000).toFixed(0)}k</div>
+                <div className="text-gray-600 text-xs mt-0.5">Separate pollution events</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Total Hours (2025)</div>
+                <div className="text-2xl md:text-3xl font-black text-orange-400">{(sk.totalHours2025 / 1000000).toFixed(2)}M</div>
+                <div className="text-gray-600 text-xs mt-0.5">= {sk.equivalentYears2025} years continuous</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Dry Day Spills</div>
+                <div className="text-2xl md:text-3xl font-black text-red-500">{(sk.dryDayHours2025 / 1000).toFixed(0)}k hrs</div>
+                <div className="text-gray-600 text-xs mt-0.5">When it wasn't even raining</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Total Fines (2024)</div>
+                <div className="text-2xl md:text-3xl font-black text-amber-400">£{(sk.totalFines2024 / 1000000).toFixed(0)}M</div>
+                <div className="text-gray-600 text-xs mt-0.5">vs £{(sk.dividendsSincePrivatisation / 1000000000).toFixed(0)}B dividends since 1991</div>
+              </div>
+            </div>
+
+            <ChartCard chartId="sewage-companies" title="Sewage Hours by Water Company (2025)" subtitle="Ranked by total hours of untreated discharge" accentColor="#ef4444" onShare={handleChartShare} explainData={companies.map(c => c.name + ": " + (c.hours2025 / 1000).toFixed(0) + "k hrs").join("; ")}>
+              <ResponsiveContainer width="100%" height={340}>
+                <BarChart data={companies} layout="vertical" margin={{ top: 5, right: 20, left: 5, bottom: 5 }}>
+                  <XAxis type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => (v / 1000).toFixed(0) + "k"} />
+                  <YAxis dataKey="name" type="category" tick={{ fill: "#d1d5db", fontSize: 9 }} axisLine={false} tickLine={false} width={130} />
+                  <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [(v / 1000).toFixed(0) + "k hours", "Sewage Discharged"]} labelFormatter={l => { const c = companies.find(x => x.name === l); return c ? c.name + " (" + c.region + ")" : l; }} />
+                  <Bar dataKey="hours2025" radius={[0, 6, 6, 0]}>
+                    {companies.map((c, i) => (
+                      <Cell key={i} fill={c.color} opacity={sewageHovCompany === null || sewageHovCompany === c.name ? 0.85 : 0.25} onMouseEnter={() => setSewageHovCompany(c.name)} onMouseLeave={() => setSewageHovCompany(null)} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+              <ChartMeta source="Environment Agency EDM" sourceUrl="https://www.gov.uk/government/publications/water-company-storm-overflow-annual-returns" />
+            </ChartCard>
+
+            <div className="bg-gradient-to-br from-gray-900/60 to-gray-950/40 border border-gray-800/60 rounded-xl p-6 sm:p-8">
+              <h3 className="text-[13px] uppercase tracking-[0.2em] text-gray-500 font-semibold mb-4">Fines vs Shareholder Dividends</h3>
+              <div className="flex items-end gap-4 mb-4">
+                <div className="text-center">
+                  <div className="bg-red-500/20 border border-red-900/40 rounded-lg px-6 py-3" style={{ height: "40px" }}>
+                    <span className="text-red-400 font-black text-lg">£168M</span>
+                  </div>
+                  <div className="text-[10px] text-gray-500 mt-2">Fines (2024)</div>
+                </div>
+                <div className="text-gray-600 text-2xl font-bold mb-4">vs</div>
+                <div className="text-center flex-1">
+                  <div className="bg-green-500/10 border border-green-900/30 rounded-lg px-6 py-3" style={{ minHeight: "120px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <span className="text-green-400 font-black text-3xl">£78B</span>
+                  </div>
+                  <div className="text-[10px] text-gray-500 mt-2">Dividends since privatisation (1991)</div>
+                </div>
+              </div>
+              <p className="text-center text-lg font-bold text-white">Fines = <span className="text-red-400">0.2%</span> of dividends paid</p>
+              <p className="text-center text-xs text-gray-500 mt-1">A 0.2% cost of doing business — not a deterrent</p>
+            </div>
+
+            <ChartCard chartId="sewage-trend" title="Annual Sewage Spill Hours (2020–2025)" subtitle="Hours of raw sewage pumped into rivers and seas" accentColor="#ef4444" onShare={handleChartShare} explainData={trendData.map(d => d.year + ": " + (d.hours / 1000000).toFixed(2) + "M hrs, " + (d.spills / 1000).toFixed(0) + "k spills").join("; ")}>
+              <ResponsiveContainer width="100%" height={300}>
+                <AreaChart data={trendData.map(d => ({ year: d.year, hours: d.hours / 1000000 }))} margin={{ top: 10, right: 15, left: 0, bottom: 5 }}>
+                  <defs>
+                    <linearGradient id="sewageTrendGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#ef4444" stopOpacity={0.7} />
+                      <stop offset="100%" stopColor="#ef4444" stopOpacity={0.05} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="year" tick={{ fill: "#9ca3af", fontSize: 10 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => v.toFixed(1) + "M"} width={42} />
+                  <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [v.toFixed(2) + "M hours", "Sewage Spills"]} />
+                  <Area type="monotone" dataKey="hours" fill="url(#sewageTrendGrad)" stroke="#ef4444" strokeWidth={3} dot={{ r: 4, fill: "#ef4444", stroke: "#0d0d1a", strokeWidth: 2 }} activeDot={{ r: 7 }} />
+                </AreaChart>
+              </ResponsiveContainer>
+              <ChartMeta source="Environment Agency EDM" />
+            </ChartCard>
+
+            <div className="text-gray-600 text-xs px-1 mt-4">Source: {sewageData.metadata.source}</div>
+          </div>
+          );
+        })()}
+
+        {view === "transparency.moonlighting" && (() => {
+          const mk = moonlightingData.keyStats;
+          const topEarners = moonlightingData.topEarners.filter(mp => mp.outsideEarnings > 0);
+          const partyData = moonlightingData.partyBreakdown;
+          const catData = moonlightingData.incomeCategories;
+          const votingCorr = moonlightingData.votingCorrelation.brackets;
+
+          const sortedEarners = [...topEarners].sort((a, b) => {
+            const aVal = a[mpSortCol] ?? 0;
+            const bVal = b[mpSortCol] ?? 0;
+            return mpSortDir === "desc" ? bVal - aVal : aVal - bVal;
+          });
+
+          const scatterData = topEarners.filter(mp => mp.votingRecord).map(mp => ({
+            name: mp.name,
+            party: mp.party,
+            x: mp.outsideEarnings,
+            y: mp.votingRecord.pctAttendance,
+            color: mp.partyColor
+          }));
+
+          return (
+          <div className="space-y-6">
+            <div className="py-6 mb-4">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">Accountability → Representation</div>
+              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">Moonlighting MPs</h2>
+              <p className="text-gray-500 text-sm mt-2">{moonlightingData.contextSentences.headline}</p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">MPs with 2nd Jobs</div>
+                <div className="text-2xl md:text-3xl font-black text-amber-400">{mk.mpsDeclaredOutsideEarnings}<span className="text-base text-gray-500">/{mk.totalMPs}</span></div>
+                <div className="text-gray-600 text-xs mt-0.5">{mk.pctWithSecondJobs}% of Parliament</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Combined Hours</div>
+                <div className="text-2xl md:text-3xl font-black text-orange-400">{(mk.combinedHoursOnSecondJobs / 1000).toFixed(0)}k</div>
+                <div className="text-gray-600 text-xs mt-0.5">Hours on outside work</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Top Earner Multiple</div>
+                <div className="text-2xl md:text-3xl font-black text-red-400">{mk.topEarnerMultiple}×</div>
+                <div className="text-gray-600 text-xs mt-0.5">vs £{(mk.baseSalary2025 / 1000).toFixed(0)}k base salary</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">£100k+ Attendance</div>
+                <div className="text-2xl md:text-3xl font-black text-red-500">38.1%</div>
+                <div className="text-gray-600 text-xs mt-0.5">vs 82.4% for MPs with no 2nd job</div>
+              </div>
+            </div>
+
+            <ChartCard chartId="mps-table" title="Top Outside Earners" subtitle="Click column headers to sort" accentColor="#f59e0b" onShare={handleChartShare} explainData={sortedEarners.map(mp => mp.name + ": £" + (mp.outsideEarnings / 1000).toFixed(0) + "k").join("; ")}>
+              <div className="overflow-x-auto -mx-2">
+                <table className="w-full text-sm min-w-[640px]">
+                  <thead>
+                    <tr className="border-b border-gray-800">
+                      <th className="text-left px-3 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Name</th>
+                      <th className="text-left px-2 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold hidden sm:table-cell">Constituency</th>
+                      <th className="text-right px-3 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold cursor-pointer hover:text-gray-300" onClick={() => { setMpSortCol("outsideEarnings"); setMpSortDir(mpSortCol === "outsideEarnings" && mpSortDir === "desc" ? "asc" : "desc"); }}>Earnings {mpSortCol === "outsideEarnings" ? (mpSortDir === "desc" ? "↓" : "↑") : ""}</th>
+                      <th className="text-right px-2 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold cursor-pointer hover:text-gray-300" onClick={() => { setMpSortCol("hoursPerWeek"); setMpSortDir(mpSortCol === "hoursPerWeek" && mpSortDir === "desc" ? "asc" : "desc"); }}>Hrs/Wk {mpSortCol === "hoursPerWeek" ? (mpSortDir === "desc" ? "↓" : "↑") : ""}</th>
+                      <th className="text-right px-2 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Votes</th>
+                      <th className="text-right px-2 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold hidden sm:table-cell">Deprivation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sortedEarners.map(mp => (
+                      <tr key={mp.name} className={"border-b border-gray-800/40 transition " + (mpHovEarner === mp.name ? "bg-gray-800/30" : "hover:bg-gray-900/30")} onMouseEnter={() => setMpHovEarner(mp.name)} onMouseLeave={() => setMpHovEarner(null)} onTouchStart={() => setMpHovEarner(mp.name)}>
+                        <td className="px-3 py-3 text-xs text-white">
+                          <div className="flex items-center gap-2">
+                            <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: mp.partyColor }} />
+                            <span>{mp.name}</span>
+                            <span className="text-gray-600 text-[10px]">{mp.party}</span>
+                          </div>
+                        </td>
+                        <td className="px-2 py-3 text-xs text-gray-500 hidden sm:table-cell">{mp.constituency}</td>
+                        <td className="px-3 py-3 text-xs text-right font-bold text-amber-400">£{(mp.outsideEarnings / 1000).toFixed(0)}k</td>
+                        <td className="px-2 py-3 text-xs text-right text-gray-400">{mp.hoursPerWeek || "–"}</td>
+                        <td className="px-2 py-3 text-xs text-right" style={{ color: mp.votingRecord ? (mp.votingRecord.pctAttendance > 70 ? "#10b981" : mp.votingRecord.pctAttendance > 50 ? "#f59e0b" : "#ef4444") : "#6b7280" }}>{mp.votingRecord ? mp.votingRecord.pctAttendance + "%" : "–"}</td>
+                        <td className="px-2 py-3 text-xs text-right text-gray-500 hidden sm:table-cell">{mp.constituency_deprivation ? "Decile " + mp.constituency_deprivation.decile : "–"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </ChartCard>
+
+            <ChartCard chartId="mps-scatter" title="Outside Earnings vs Voting Attendance" subtitle="Higher income correlates with lower attendance" accentColor="#ef4444" onShare={handleChartShare} explainData={scatterData.map(d => d.name + ": £" + (d.x / 1000).toFixed(0) + "k, " + d.y + "% attendance").join("; ")}>
+              <ResponsiveContainer width="100%" height={320}>
+                <ScatterChart margin={{ top: 10, right: 20, bottom: 40, left: 50 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#333" />
+                  <XAxis dataKey="x" type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => "£" + (v / 1000).toFixed(0) + "k"} label={{ value: "Outside Earnings", position: "bottom", offset: 15, fill: "#6b7280", fontSize: 10 }} />
+                  <YAxis dataKey="y" type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} label={{ value: "Voting Attendance %", angle: -90, position: "insideLeft", fill: "#6b7280", fontSize: 10 }} domain={[0, 100]} />
+                  <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} cursor={{ strokeDasharray: "3 3", stroke: "#555" }} content={({ active, payload }) => { if (active && payload && payload.length) { const d = payload[0].payload; return <div style={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, padding: "8px 12px", fontSize: 11 }}><div style={{ color: "#fff", fontWeight: 700 }}>{d.name}</div><div style={{ color: "#9ca3af" }}>Earnings: £{(d.x / 1000).toFixed(0)}k</div><div style={{ color: "#9ca3af" }}>Attendance: {d.y}%</div></div>; } return null; }} />
+                  <Scatter data={scatterData}>
+                    {scatterData.map((d, i) => (
+                      <Cell key={i} fill={d.color} r={7} opacity={mpHovEarner === null || mpHovEarner === d.name ? 0.85 : 0.2} onMouseEnter={() => setMpHovEarner(d.name)} onMouseLeave={() => setMpHovEarner(null)} />
+                    ))}
+                  </Scatter>
+                </ScatterChart>
+              </ResponsiveContainer>
+              <ChartMeta source="TheyWorkForYou, Parliament UK" />
+            </ChartCard>
+
+            <ChartCard chartId="mps-party" title="MPs with Outside Jobs by Party" subtitle="Percentage of each party's MPs declaring second income" accentColor="#f59e0b" onShare={handleChartShare} explainData={partyData.map(p => p.party + ": " + p.pct + "%").join("; ")}>
+              <ResponsiveContainer width="100%" height={240}>
+                <BarChart data={partyData} layout="vertical" margin={{ top: 5, right: 20, left: 5, bottom: 5 }}>
+                  <XAxis type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => v + "%"} domain={[0, 100]} />
+                  <YAxis dataKey="party" type="category" tick={{ fill: "#d1d5db", fontSize: 10 }} axisLine={false} tickLine={false} width={110} />
+                  <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [v + "%", "With Outside Jobs"]} />
+                  <Bar dataKey="pct" radius={[0, 6, 6, 0]}>
+                    {partyData.map((p, i) => <Cell key={i} fill={p.color} />)}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+              <ChartMeta source="Commons Library" />
+            </ChartCard>
+
+            <ChartCard chartId="mps-income-cats" title="Where the Outside Money Comes From" subtitle="Breakdown by income source category" accentColor="#8b5cf6" onShare={handleChartShare} explainData={catData.map(c => c.category + ": £" + (c.totalEarned / 1000000).toFixed(1) + "M").join("; ")}>
+              <ResponsiveContainer width="100%" height={280}>
+                <BarChart data={catData} margin={{ top: 10, right: 15, left: 0, bottom: 40 }}>
+                  <XAxis dataKey="category" tick={{ fill: "#9ca3af", fontSize: 8 }} axisLine={false} tickLine={false} angle={-20} textAnchor="end" height={60} />
+                  <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => "£" + (v / 1000000).toFixed(1) + "M"} width={52} />
+                  <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => ["£" + (v / 1000000).toFixed(1) + "M (" + catData.find(c => c.totalEarned === v)?.mpsInvolved + " MPs)", "Total Earned"]} />
+                  <Bar dataKey="totalEarned" radius={[6, 6, 0, 0]}>
+                    {catData.map((c, i) => <Cell key={i} fill={c.color} />)}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+              <ChartMeta source="Parliament UK Register of Members' Financial Interests" />
+            </ChartCard>
+
+            <div className="bg-gradient-to-br from-red-950/20 to-transparent border border-red-900/30 rounded-2xl p-6 sm:p-8">
+              <h3 className="text-[11px] uppercase tracking-[0.2em] text-red-600 font-semibold mb-4">The Deprivation Gap</h3>
+              <p className="text-lg sm:text-2xl text-white font-bold mb-3">
+                MPs earning over £100k represent constituencies with an average deprivation decile of <span className="text-red-400">{moonlightingData.deprivationAnalysis.topEarnerAvgDeprivation}</span>
+              </p>
+              <p className="text-gray-400 text-base leading-relaxed">
+                National average: <span className="font-semibold text-white">{moonlightingData.deprivationAnalysis.nationalAvgDeprivation}</span>. Decile 1 = most deprived. The highest-earning MPs tend to represent the poorest areas — yet spend the least time in Parliament serving them.
+              </p>
+            </div>
+
+            <div className="text-gray-600 text-xs px-1 mt-4">Source: {moonlightingData.metadata.source}</div>
           </div>
           );
         })()}

@@ -1,0 +1,207 @@
+{
+  "metadata": {
+    "title": "NHS Waiting Times Explorer",
+    "lastUpdated": "2026-04-13",
+    "source": "NHS England RTT Statistics, BMA, King's Fund",
+    "period": "January 2026 (latest available)"
+  },
+  "contextSentences": {
+    "headline": "7.25 million people waiting for NHS treatment — the longest queues in history.",
+    "subtext": "Select your region and condition to see how long you'd wait."
+  },
+  "keyStats": {
+    "totalWaiting": 7250000,
+    "individualPatients": 6130000,
+    "medianWaitWeeks": 14.2,
+    "medianWait2019": 7.8,
+    "pctWithin18Weeks": 60.6,
+    "target18Weeks": 92,
+    "pctOver52Weeks": 1.95,
+    "treatmentsDelivered2025": 18400000,
+    "longestSpecialtyWait": "Trauma & Orthopaedics"
+  },
+  "regions": [
+    { "id": "london", "name": "London", "medianWait": 8.5, "pctWithin18": 84.6, "totalWaiting": 1120000, "rank": 2 },
+    { "id": "south_east", "name": "South East", "medianWait": 12.8, "pctWithin18": 68.2, "totalWaiting": 980000, "rank": 4 },
+    { "id": "south_west", "name": "South West", "medianWait": 15.1, "pctWithin18": 58.4, "totalWaiting": 620000, "rank": 6 },
+    { "id": "east", "name": "East of England", "medianWait": 13.5, "pctWithin18": 72.0, "totalWaiting": 780000, "rank": 5 },
+    { "id": "west_midlands", "name": "West Midlands", "medianWait": 3.5, "pctWithin18": 94.3, "totalWaiting": 410000, "rank": 1 },
+    { "id": "east_midlands", "name": "East Midlands", "medianWait": 16.2, "pctWithin18": 55.1, "totalWaiting": 540000, "rank": 7 },
+    { "id": "north_west", "name": "North West", "medianWait": 14.8, "pctWithin18": 61.0, "totalWaiting": 890000, "rank": 3 },
+    { "id": "north_east_yorkshire", "name": "North East & Yorkshire", "medianWait": 9.5, "pctWithin18": 80.8, "totalWaiting": 710000, "rank": 3 }
+  ],
+  "specialties": [
+    {
+      "id": "trauma_ortho",
+      "name": "Trauma & Orthopaedics",
+      "icon": "bone",
+      "totalWaiting": 860000,
+      "medianWait": 20.8,
+      "pctWithin18": 38,
+      "pctOver52": 3.8,
+      "waitChange2019": 115,
+      "regionalRange": { "min": 10, "minRegion": "West Midlands", "max": 67, "maxRegion": "East Midlands" },
+      "commonProcedures": ["Hip replacement", "Knee replacement", "Shoulder surgery", "Fracture repair"]
+    },
+    {
+      "id": "gynaecology",
+      "name": "Gynaecology",
+      "icon": "heart",
+      "totalWaiting": 597000,
+      "medianWait": 18.5,
+      "pctWithin18": 48,
+      "pctOver52": 2.1,
+      "waitChange2019": 223,
+      "regionalRange": { "min": 8, "minRegion": "West Midlands", "max": 56, "maxRegion": "North West" },
+      "commonProcedures": ["Hysterectomy", "Endometriosis treatment", "Fibroid removal", "Fertility investigations"]
+    },
+    {
+      "id": "ophthalmology",
+      "name": "Ophthalmology",
+      "icon": "eye",
+      "totalWaiting": 590000,
+      "medianWait": 16.2,
+      "pctWithin18": 52,
+      "pctOver52": 1.5,
+      "waitChange2019": 89,
+      "regionalRange": { "min": 6, "minRegion": "West Midlands", "max": 42, "maxRegion": "South West" },
+      "commonProcedures": ["Cataract surgery", "Glaucoma treatment", "Retinal procedures", "Laser eye surgery"]
+    },
+    {
+      "id": "ent",
+      "name": "Ear, Nose & Throat",
+      "icon": "ear",
+      "totalWaiting": 480000,
+      "medianWait": 17.8,
+      "pctWithin18": 50,
+      "pctOver52": 2.4,
+      "waitChange2019": 142,
+      "regionalRange": { "min": 7, "minRegion": "West Midlands", "max": 65, "maxRegion": "South East" },
+      "commonProcedures": ["Tonsillectomy", "Grommets", "Sinus surgery", "Hearing implants"]
+    },
+    {
+      "id": "general_surgery",
+      "name": "General Surgery",
+      "icon": "scissors",
+      "totalWaiting": 520000,
+      "medianWait": 14.6,
+      "pctWithin18": 58,
+      "pctOver52": 1.8,
+      "waitChange2019": 78,
+      "regionalRange": { "min": 5, "minRegion": "West Midlands", "max": 38, "maxRegion": "East Midlands" },
+      "commonProcedures": ["Hernia repair", "Gallbladder removal", "Appendectomy", "Bowel surgery"]
+    },
+    {
+      "id": "oral_surgery",
+      "name": "Oral Surgery",
+      "icon": "tooth",
+      "totalWaiting": 310000,
+      "medianWait": 19.2,
+      "pctWithin18": 51,
+      "pctOver52": 2.8,
+      "waitChange2019": 168,
+      "regionalRange": { "min": 9, "minRegion": "London", "max": 52, "maxRegion": "South West" },
+      "commonProcedures": ["Wisdom teeth extraction", "Jaw surgery", "Dental implants", "Oral biopsies"]
+    },
+    {
+      "id": "cardiology",
+      "name": "Cardiology",
+      "icon": "heartPulse",
+      "totalWaiting": 380000,
+      "medianWait": 11.8,
+      "pctWithin18": 66,
+      "pctOver52": 1.2,
+      "waitChange2019": 62,
+      "regionalRange": { "min": 4, "minRegion": "West Midlands", "max": 28, "maxRegion": "North West" },
+      "commonProcedures": ["Angioplasty", "Pacemaker fitting", "Heart valve repair", "Cardiac catheterisation"]
+    },
+    {
+      "id": "dermatology",
+      "name": "Dermatology",
+      "icon": "scan",
+      "totalWaiting": 340000,
+      "medianWait": 13.4,
+      "pctWithin18": 62,
+      "pctOver52": 1.4,
+      "waitChange2019": 95,
+      "regionalRange": { "min": 5, "minRegion": "West Midlands", "max": 35, "maxRegion": "East of England" },
+      "commonProcedures": ["Skin cancer checks", "Mole removal", "Psoriasis treatment", "Eczema management"]
+    },
+    {
+      "id": "urology",
+      "name": "Urology",
+      "icon": "kidney",
+      "totalWaiting": 370000,
+      "medianWait": 12.9,
+      "pctWithin18": 64,
+      "pctOver52": 1.6,
+      "waitChange2019": 85,
+      "regionalRange": { "min": 5, "minRegion": "West Midlands", "max": 32, "maxRegion": "South East" },
+      "commonProcedures": ["Prostate procedures", "Kidney stones", "Bladder surgery", "Vasectomy"]
+    },
+    {
+      "id": "respiratory",
+      "name": "Respiratory Medicine",
+      "icon": "wind",
+      "totalWaiting": 260000,
+      "medianWait": 10.5,
+      "pctWithin18": 71,
+      "pctOver52": 0.9,
+      "waitChange2019": 263,
+      "regionalRange": { "min": 4, "minRegion": "West Midlands", "max": 24, "maxRegion": "North West" },
+      "commonProcedures": ["COPD management", "Asthma specialist", "Sleep apnoea", "Lung function tests"]
+    },
+    {
+      "id": "gastro",
+      "name": "Gastroenterology",
+      "icon": "stomach",
+      "totalWaiting": 350000,
+      "medianWait": 11.2,
+      "pctWithin18": 68,
+      "pctOver52": 1.1,
+      "waitChange2019": 92,
+      "regionalRange": { "min": 4, "minRegion": "London", "max": 29, "maxRegion": "East Midlands" },
+      "commonProcedures": ["Colonoscopy", "Endoscopy", "IBS management", "Crohn's treatment"]
+    },
+    {
+      "id": "plastic_surgery",
+      "name": "Plastic Surgery",
+      "icon": "wand",
+      "totalWaiting": 190000,
+      "medianWait": 21.4,
+      "pctWithin18": 53,
+      "pctOver52": 3.2,
+      "waitChange2019": 145,
+      "regionalRange": { "min": 10, "minRegion": "London", "max": 58, "maxRegion": "South West" },
+      "commonProcedures": ["Skin grafts", "Reconstructive surgery", "Burns treatment", "Hand surgery"]
+    }
+  ],
+  "historicalTrend": [
+    { "year": 2010, "totalWaiting": 2500000, "medianWait": 5.2, "pctWithin18": 94.0 },
+    { "year": 2012, "totalWaiting": 2700000, "medianWait": 6.0, "pctWithin18": 92.5 },
+    { "year": 2014, "totalWaiting": 3100000, "medianWait": 6.8, "pctWithin18": 91.0 },
+    { "year": 2016, "totalWaiting": 3700000, "medianWait": 7.2, "pctWithin18": 90.2 },
+    { "year": 2018, "totalWaiting": 4200000, "medianWait": 7.5, "pctWithin18": 87.3 },
+    { "year": 2019, "totalWaiting": 4500000, "medianWait": 7.8, "pctWithin18": 84.2 },
+    { "year": 2020, "totalWaiting": 4950000, "medianWait": 12.8, "pctWithin18": 64.5 },
+    { "year": 2021, "totalWaiting": 5830000, "medianWait": 14.5, "pctWithin18": 58.4 },
+    { "year": 2022, "totalWaiting": 7210000, "medianWait": 14.1, "pctWithin18": 57.8 },
+    { "year": 2023, "totalWaiting": 7770000, "medianWait": 15.0, "pctWithin18": 56.2 },
+    { "year": 2024, "totalWaiting": 7540000, "medianWait": 14.6, "pctWithin18": 58.1 },
+    { "year": 2025, "totalWaiting": 7250000, "medianWait": 14.2, "pctWithin18": 60.6 }
+  ],
+  "partyPeriods": [
+    { "start": 2010, "end": 2015, "party": "Coalition", "color": "#8B5CF6" },
+    { "start": 2015, "end": 2024, "party": "Conservative", "color": "#0087DC" },
+    { "start": 2024, "end": 2026, "party": "Labour", "color": "#DC241f" }
+  ],
+  "waitBands": {
+    "description": "Breakdown of 7.25M patients by wait duration",
+    "bands": [
+      { "label": "0–18 weeks", "count": 4393500, "pct": 60.6, "color": "#10b981" },
+      { "label": "18–36 weeks", "count": 1740000, "pct": 24.0, "color": "#f59e0b" },
+      { "label": "36–52 weeks", "count": 975000, "pct": 13.4, "color": "#ef4444" },
+      { "label": "52+ weeks", "count": 141375, "pct": 1.95, "color": "#7c3aed" }
+    ]
+  }
+}

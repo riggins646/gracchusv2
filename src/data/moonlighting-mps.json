@@ -1,0 +1,171 @@
+{
+  "metadata": {
+    "title": "Moonlighting MPs",
+    "lastUpdated": "2026-04-13",
+    "source": "Parliament UK Register of Members' Financial Interests, IPSA, TheyWorkForYou, Commons Library",
+    "period": "July 2024 – present (current parliament)"
+  },
+  "contextSentences": {
+    "headline": "236 MPs declared outside earnings since July 2024 — working 32,000 hours on second jobs.",
+    "subtext": "Your MP earns £93,904 to represent you. Some earn multiples more on the side."
+  },
+  "keyStats": {
+    "mpsDeclaredOutsideEarnings": 236,
+    "totalMPs": 650,
+    "combinedHoursOnSecondJobs": 32000,
+    "baseSalary2025": 93904,
+    "baseSalary2026": 98599,
+    "topEarnerMultiple": 9.3,
+    "averageExpensesClaim": 205000,
+    "pctWithSecondJobs": 36.3
+  },
+  "topEarners": [
+    {
+      "rank": 1,
+      "name": "Nigel Farage",
+      "party": "Reform UK",
+      "partyColor": "#12B6CF",
+      "constituency": "Clacton",
+      "outsideEarnings": 873000,
+      "period": "July 2024 – April 2026",
+      "hoursPerWeek": 22,
+      "totalHours": 572,
+      "multiplesOfSalary": 9.3,
+      "sources": [
+        { "employer": "GB News", "role": "Presenter", "annual": 480000 },
+        { "employer": "Cameo", "role": "Video messages", "annual": 120000 },
+        { "employer": "Various", "role": "Consulting & appearances", "annual": 273000 }
+      ],
+      "votingRecord": { "votesAttended": 42, "totalVotes": 312, "pctAttendance": 13.5 },
+      "expenses": { "total": 187000, "staffing": 145000, "office": 28000, "travel": 14000 },
+      "constituency_deprivation": { "decile": 1, "rank": 28, "outOf": 650, "note": "Jaywick is England's single most deprived neighbourhood" },
+      "regulatoryIssues": "17 breaches of register rules (late declarations totalling £384,000)"
+    },
+    {
+      "rank": 2,
+      "name": "Sir Geoffrey Cox",
+      "party": "Conservative",
+      "partyColor": "#0087DC",
+      "constituency": "Torridge & Tavistock",
+      "outsideEarnings": 686000,
+      "period": "July 2024 – April 2026",
+      "hoursPerWeek": 12,
+      "totalHours": 190,
+      "multiplesOfSalary": 7.3,
+      "sources": [
+        { "employer": "Various law firms", "role": "Barrister (KC)", "annual": 686000 }
+      ],
+      "votingRecord": { "votesAttended": 98, "totalVotes": 312, "pctAttendance": 31.4 },
+      "expenses": { "total": 198000, "staffing": 158000, "office": 25000, "travel": 15000 },
+      "constituency_deprivation": { "decile": 4, "rank": 195, "outOf": 650, "note": "Rural Devon — significant rural poverty" },
+      "regulatoryIssues": null,
+      "careerEarnings": 5510000
+    },
+    {
+      "rank": 3,
+      "name": "Jas Athwal",
+      "party": "Labour",
+      "partyColor": "#DC241f",
+      "constituency": "Ilford South",
+      "outsideEarnings": 180000,
+      "period": "July 2024 – April 2026",
+      "hoursPerWeek": 8,
+      "totalHours": 320,
+      "multiplesOfSalary": 1.9,
+      "sources": [
+        { "employer": "Self", "role": "Landlord (15 properties)", "annual": 140000 },
+        { "employer": "Self", "role": "Care home operator", "annual": 40000 }
+      ],
+      "votingRecord": { "votesAttended": 245, "totalVotes": 312, "pctAttendance": 78.5 },
+      "expenses": { "total": 175000, "staffing": 140000, "office": 22000, "travel": 13000 },
+      "constituency_deprivation": { "decile": 3, "rank": 120, "outOf": 650, "note": "" },
+      "regulatoryIssues": "Tenancy complaints regarding property conditions"
+    },
+    {
+      "rank": 4,
+      "name": "Sir Jacob Rees-Mogg",
+      "party": "Conservative",
+      "partyColor": "#0087DC",
+      "constituency": "Lost seat 2024",
+      "outsideEarnings": 0,
+      "period": "Historical reference",
+      "hoursPerWeek": 0,
+      "totalHours": 0,
+      "multiplesOfSalary": 0,
+      "sources": [],
+      "votingRecord": null,
+      "expenses": null,
+      "constituency_deprivation": null,
+      "note": "Included as historical context — earned £6m+ from Somerset Capital Management while MP"
+    },
+    {
+      "rank": 5,
+      "name": "Adam Dance",
+      "party": "Liberal Democrat",
+      "partyColor": "#FAA61A",
+      "constituency": "Yeovil",
+      "outsideEarnings": 95000,
+      "period": "July 2024 – April 2026",
+      "hoursPerWeek": 6,
+      "totalHours": 240,
+      "multiplesOfSalary": 1.0,
+      "sources": [
+        { "employer": "Various", "role": "Council & consultancy", "annual": 95000 }
+      ],
+      "votingRecord": { "votesAttended": 210, "totalVotes": 312, "pctAttendance": 67.3 },
+      "expenses": { "total": 168000, "staffing": 132000, "office": 24000, "travel": 12000 },
+      "constituency_deprivation": { "decile": 5, "rank": 310, "outOf": 650, "note": "" },
+      "regulatoryIssues": null
+    },
+    {
+      "rank": 6,
+      "name": "Sir Keir Starmer",
+      "party": "Labour",
+      "partyColor": "#DC241f",
+      "constituency": "Holborn & St Pancras",
+      "outsideEarnings": 0,
+      "period": "July 2024 – April 2026",
+      "hoursPerWeek": 0,
+      "totalHours": 0,
+      "multiplesOfSalary": 0,
+      "sources": [],
+      "votingRecord": { "votesAttended": 45, "totalVotes": 312, "pctAttendance": 14.4 },
+      "expenses": { "total": 210000, "staffing": 170000, "office": 25000, "travel": 15000 },
+      "constituency_deprivation": { "decile": 2, "rank": 85, "outOf": 650, "note": "Central London constituency with significant deprivation" },
+      "note": "PM — low voting attendance reflects role as head of government, not moonlighting"
+    }
+  ],
+  "partyBreakdown": [
+    { "party": "Conservative", "color": "#0087DC", "mpsWithOutsideJobs": 82, "totalMPs": 121, "pct": 67.8, "avgEarnings": 48000 },
+    { "party": "Labour", "color": "#DC241f", "mpsWithOutsideJobs": 89, "totalMPs": 404, "pct": 22.0, "avgEarnings": 18000 },
+    { "party": "Liberal Democrat", "color": "#FAA61A", "mpsWithOutsideJobs": 28, "totalMPs": 72, "pct": 38.9, "avgEarnings": 22000 },
+    { "party": "Reform UK", "color": "#12B6CF", "mpsWithOutsideJobs": 4, "totalMPs": 5, "pct": 80.0, "avgEarnings": 220000 },
+    { "party": "SNP", "color": "#FFF95D", "mpsWithOutsideJobs": 2, "totalMPs": 9, "pct": 22.2, "avgEarnings": 12000 },
+    { "party": "Other", "color": "#6b7280", "mpsWithOutsideJobs": 31, "totalMPs": 39, "pct": 79.5, "avgEarnings": 15000 }
+  ],
+  "incomeCategories": [
+    { "category": "Legal / Barrister work", "totalEarned": 4200000, "mpsInvolved": 18, "color": "#3b82f6" },
+    { "category": "Media / Broadcasting", "totalEarned": 3800000, "mpsInvolved": 42, "color": "#ef4444" },
+    { "category": "Consultancy / Advisory", "totalEarned": 2900000, "mpsInvolved": 65, "color": "#f59e0b" },
+    { "category": "Property / Landlord", "totalEarned": 2100000, "mpsInvolved": 34, "color": "#10b981" },
+    { "category": "Directorships", "totalEarned": 1800000, "mpsInvolved": 28, "color": "#8b5cf6" },
+    { "category": "Speaking fees", "totalEarned": 1400000, "mpsInvolved": 56, "color": "#ec4899" },
+    { "category": "Writing / Authorship", "totalEarned": 600000, "mpsInvolved": 22, "color": "#06b6d4" }
+  ],
+  "votingCorrelation": {
+    "description": "Average voting attendance by outside earnings bracket",
+    "brackets": [
+      { "label": "No outside earnings", "avgAttendance": 82.4, "mpCount": 414 },
+      { "label": "Under £10k", "avgAttendance": 78.9, "mpCount": 98 },
+      { "label": "£10k–£50k", "avgAttendance": 71.2, "mpCount": 85 },
+      { "label": "£50k–£100k", "avgAttendance": 58.6, "mpCount": 32 },
+      { "label": "Over £100k", "avgAttendance": 38.1, "mpCount": 21 }
+    ]
+  },
+  "deprivationAnalysis": {
+    "description": "MPs with highest outside earnings tend to represent more deprived areas",
+    "topEarnerAvgDeprivation": 3.2,
+    "nationalAvgDeprivation": 5.5,
+    "note": "Deprivation decile 1 = most deprived, 10 = least deprived"
+  }
+}

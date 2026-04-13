@@ -1,0 +1,181 @@
+{
+  "metadata": {
+    "title": "The Sewage Clock",
+    "lastUpdated": "2026-04-13",
+    "source": "Environment Agency EDM, Ofwat, Rivers Trust, Surfers Against Sewage",
+    "period": "2025 annual data (latest)"
+  },
+  "contextSentences": {
+    "headline": "1.87 million hours of raw sewage pumped into England's rivers and seas in 2025.",
+    "subtext": "That's 213 years of continuous sewage dumping — in a single calendar year."
+  },
+  "keyStats": {
+    "totalHours2025": 1870000,
+    "totalSpills2025": 291492,
+    "totalHours2024": 3610000,
+    "totalSpills2024": 450398,
+    "dryDayHours2025": 187000,
+    "bathingWaterHours2025": 124000,
+    "peopleSickened2025": 1236,
+    "totalFines2024": 168000000,
+    "dividendsSincePrivatisation": 78000000000,
+    "debtSincePrivatisation": 60600000000,
+    "monitorsActive": 14254,
+    "equivalentYears2025": 213
+  },
+  "liveClockConfig": {
+    "annualHours": 1870000,
+    "hoursPerSecond": 0.0593,
+    "spillsPerHour": 0.156,
+    "startDate": "2025-01-01",
+    "note": "Rate calculated from 2025 annual total: 1,870,000 hours / 365 days / 24 hours = ~213.5 hours of sewage per hour of clock time"
+  },
+  "companies": [
+    {
+      "name": "Welsh Water",
+      "spills2024": 105986,
+      "hours2024": 856351,
+      "spills2025": 68900,
+      "hours2025": 557000,
+      "fine2024": 0,
+      "ceoPayAnnual": 340000,
+      "dividends2022": 0,
+      "note": "Not-for-profit company; no dividends",
+      "region": "Wales",
+      "color": "#3b82f6"
+    },
+    {
+      "name": "United Utilities",
+      "spills2024": 77817,
+      "hours2024": 520000,
+      "spills2025": 50600,
+      "hours2025": 338000,
+      "fine2024": 0,
+      "ceoPayAnnual": 2300000,
+      "dividends2022": 280000000,
+      "region": "North West",
+      "color": "#8b5cf6"
+    },
+    {
+      "name": "Yorkshire Water",
+      "spills2024": 68164,
+      "hours2024": 430262,
+      "spills2025": 44300,
+      "hours2025": 280000,
+      "fine2024": 47000000,
+      "ceoPayAnnual": 1600000,
+      "dividends2022": 96000000,
+      "region": "Yorkshire",
+      "color": "#10b981"
+    },
+    {
+      "name": "Severn Trent",
+      "spills2024": 62085,
+      "hours2024": 454155,
+      "spills2025": 40400,
+      "hours2025": 295000,
+      "fine2024": 0,
+      "ceoPayAnnual": 3100000,
+      "dividends2022": 230000000,
+      "region": "Midlands",
+      "color": "#f59e0b"
+    },
+    {
+      "name": "Thames Water",
+      "spills2024": 23061,
+      "hours2024": 298080,
+      "spills2025": 15000,
+      "hours2025": 94000,
+      "fine2024": 104500000,
+      "ceoPayAnnual": 1950000,
+      "dividends2022": 37000000,
+      "note": "Largest fine in Ofwat history; near financial collapse",
+      "region": "London & Thames Valley",
+      "color": "#ef4444"
+    },
+    {
+      "name": "Anglian Water",
+      "spills2024": 34200,
+      "hours2024": 280000,
+      "spills2025": 22200,
+      "hours2025": 82000,
+      "fine2024": 0,
+      "ceoPayAnnual": 1400000,
+      "dividends2022": 140000000,
+      "region": "East of England",
+      "color": "#06b6d4"
+    },
+    {
+      "name": "Southern Water",
+      "spills2024": 28500,
+      "hours2024": 210000,
+      "spills2025": 18500,
+      "hours2025": 75000,
+      "fine2024": 0,
+      "ceoPayAnnual": 1200000,
+      "dividends2022": 0,
+      "note": "Banned from paying dividends until 2025 due to prior violations",
+      "region": "South East",
+      "color": "#ec4899"
+    },
+    {
+      "name": "Northumbrian Water",
+      "spills2024": 22000,
+      "hours2024": 185000,
+      "spills2025": 14300,
+      "hours2025": 72000,
+      "fine2024": 17000000,
+      "ceoPayAnnual": 1100000,
+      "dividends2022": 160000000,
+      "region": "North East",
+      "color": "#64748b"
+    },
+    {
+      "name": "Wessex Water",
+      "spills2024": 18500,
+      "hours2024": 140000,
+      "spills2025": 12000,
+      "hours2025": 52000,
+      "fine2024": 11000000,
+      "ceoPayAnnual": 800000,
+      "dividends2022": 68000000,
+      "region": "South West",
+      "color": "#a855f7"
+    },
+    {
+      "name": "South West Water",
+      "spills2024": 10085,
+      "hours2024": 96000,
+      "spills2025": 5292,
+      "hours2025": 25000,
+      "fine2024": 0,
+      "ceoPayAnnual": 750000,
+      "dividends2022": 52000000,
+      "region": "Devon & Cornwall",
+      "color": "#14b8a6"
+    }
+  ],
+  "annualTrend": [
+    { "year": 2020, "spills": 403375, "hours": 3100000 },
+    { "year": 2021, "spills": 372533, "hours": 2700000 },
+    { "year": 2022, "spills": 301091, "hours": 1750000 },
+    { "year": 2023, "spills": 464056, "hours": 3400000 },
+    { "year": 2024, "spills": 450398, "hours": 3610000 },
+    { "year": 2025, "spills": 291492, "hours": 1870000 }
+  ],
+  "financialContext": {
+    "dividendsSince1991": 78000000000,
+    "infrastructureInvestment": 190000000000,
+    "totalDebt": 60600000000,
+    "executiveBonuses4Years": 62000000,
+    "avgBillIncrease2025Pct": 36,
+    "avgAnnualBill2025": 597
+  },
+  "enforcement": [
+    { "company": "Thames Water", "amount": 104500000, "year": 2024, "reason": "Sewage discharge failures", "note": "Largest Ofwat penalty ever" },
+    { "company": "Thames Water", "amount": 18200000, "year": 2024, "reason": "Dividend payment breaches" },
+    { "company": "Yorkshire Water", "amount": 47000000, "year": 2024, "reason": "Sewage discharge failures" },
+    { "company": "Northumbrian Water", "amount": 17000000, "year": 2024, "reason": "Sewage discharge failures" },
+    { "company": "Wessex Water", "amount": 11000000, "year": 2025, "reason": "Environmental permit breaches" }
+  ]
+}
