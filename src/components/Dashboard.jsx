@@ -253,7 +253,7 @@ function resolveAccent(accent) {
 /* =========================================================
    WASTE SPOTLIGHT — rotating cancelled/overrun project
    ========================================================= */
-function WasteSpotlight({ projects, onExplore, fmt }) {
+function WasteSpotlight({ projects, onExplore, fmt, onShare }) {
   const spotlightProjects = useMemo(() => {
     return [...projects]
       .filter((p) => p.status === "Cancelled" || (p.latestBudget - p.originalBudget) > 500)
@@ -269,6 +269,7 @@ function WasteSpotlight({ projects, onExplore, fmt }) {
   const overrun = current.latestBudget - current.originalBudget;
   const potholesEquiv = Math.round(overrun * 1e6 / 50);
   const nursesEquiv = Math.round(overrun * 1e6 / 35000);
+  const isCancelled = current.status === "Cancelled";
 
   return (
     <div className="border-t border-gray-800/50 py-10">
@@ -283,16 +284,17 @@ function WasteSpotlight({ projects, onExplore, fmt }) {
       </div>
 
       <div className="border border-gray-800/60 bg-gray-950/40">
+        {/* Status bar */}
         <div className={
-          "px-5 py-3 border-b border-gray-800/60 " +
+          "px-5 sm:px-8 py-3 border-b border-gray-800/60 " +
           "flex items-center justify-between"
         }>
           <div className={
             "text-[12px] uppercase tracking-[0.25em] " +
             "font-mono font-bold " +
-            (current.status === "Cancelled" ? "text-red-500" : "text-amber-500")
+            (isCancelled ? "text-red-500" : "text-amber-500")
           }>
-            {current.status === "Cancelled" ? "Cancelled Project" : "Major Overrun"}
+            {isCancelled ? "Cancelled Project" : "Major Overrun"}
           </div>
           <div className={
             "text-[11px] uppercase tracking-[0.15em] " +
@@ -301,47 +303,64 @@ function WasteSpotlight({ projects, onExplore, fmt }) {
             {spotlightIdx + 1}/{spotlightProjects.length}
           </div>
         </div>
-        <div className="px-5 py-6">
-          <div className="text-xl sm:text-2xl font-black text-white tracking-tight mb-1">
-            {current.name}
+
+        {/* Main content — stacked on mobile, side-by-side on desktop */}
+        <div className="px-5 py-6 sm:px-8 sm:py-8 md:flex md:items-start md:gap-10">
+          {/* Left column: project identity + editorial hook */}
+          <div className="md:flex-1 md:min-w-0">
+            <div className="text-xl sm:text-3xl md:text-4xl font-black text-white tracking-tight mb-1 sm:mb-2">
+              {current.name}
+            </div>
+            <div className={
+              "text-[11px] sm:text-[12px] uppercase tracking-[0.15em] " +
+              "text-gray-600 font-mono mb-5 sm:mb-6"
+            }>
+              {current.department}
+            </div>
+            <div className={
+              "text-[14px] sm:text-[16px] text-gray-400 leading-relaxed " +
+              "border-l-2 pl-4 mb-5 md:mb-0 " +
+              (isCancelled ? "border-red-500/40" : "border-amber-500/40")
+            }>
+              That is equivalent to{" "}
+              <span className="text-white font-semibold">
+                {nursesEquiv.toLocaleString("en-GB")} nurses
+              </span>{" "}
+              for a year or{" "}
+              <span className="text-white font-semibold">
+                {potholesEquiv.toLocaleString("en-GB")} pothole repairs
+              </span>.
+            </div>
           </div>
+
+          {/* Right column: big numbers */}
           <div className={
-            "text-[11px] uppercase tracking-[0.15em] " +
-            "text-gray-600 font-mono mb-4"
+            "flex flex-wrap gap-6 " +
+            "md:flex-none md:flex-col md:gap-5 md:items-end md:text-right md:pl-8 " +
+            "md:border-l md:border-gray-800/40"
           }>
-            {current.department}
-          </div>
-          <div className="flex flex-wrap gap-6 mb-4">
             <div>
-              <div className="text-[10px] uppercase tracking-[0.15em] text-gray-700 font-mono mb-1">
+              <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-gray-700 font-mono mb-1">
                 Money Spent
               </div>
-              <div className="text-3xl font-black text-red-500">
+              <div className="text-3xl sm:text-4xl md:text-5xl font-black text-red-500">
                 {fmt(current.latestBudget)}
               </div>
             </div>
             {overrun > 0 && (
               <div>
-                <div className="text-[10px] uppercase tracking-[0.15em] text-gray-700 font-mono mb-1">
+                <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.15em] text-gray-700 font-mono mb-1">
                   Over Budget
                 </div>
-                <div className="text-3xl font-black text-amber-500">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-black text-amber-500">
                   +{fmt(overrun)}
                 </div>
               </div>
             )}
           </div>
-          <div className="text-[14px] text-gray-500 leading-relaxed mb-4 border-l-2 border-gray-800 pl-3">
-            That is equivalent to{" "}
-            <span className="text-gray-300 font-semibold">
-              {nursesEquiv.toLocaleString("en-GB")} nurses
-            </span>{" "}
-            for a year or{" "}
-            <span className="text-gray-300 font-semibold">
-              {potholesEquiv.toLocaleString("en-GB")} pothole repairs
-            </span>.
-          </div>
         </div>
+
+        {/* Action bar */}
         <div className="border-t border-gray-800/60 grid grid-cols-2 sm:grid-cols-4">
           <button
             onClick={() => setSpotlightIdx((i) => (i - 1 + spotlightProjects.length) % spotlightProjects.length)}
@@ -367,22 +386,19 @@ function WasteSpotlight({ projects, onExplore, fmt }) {
           </button>
           <button
             onClick={() => {
-              const text =
-                (current.status === "Cancelled" ? "CANCELLED: " : "OVER BUDGET: ") +
-                current.name + " (" + current.department + ")" +
-                "\n" + fmt(current.latestBudget) + " spent" +
-                (overrun > 0 ? " — +" + fmt(overrun) + " over budget" : "") +
-                "\n\nThat's " + nursesEquiv.toLocaleString("en-GB") + " nurses or " +
-                potholesEquiv.toLocaleString("en-GB") + " pothole repairs" +
-                "\n\nvia @GracchusHQ";
-              window.open(
-                "https://x.com/intent/post?text=" +
-                encodeURIComponent(text) +
-                "&url=" +
-                encodeURIComponent(window.location.origin),
-                "_blank",
-                "noopener,noreferrer"
-              );
+              if (onShare) {
+                onShare({
+                  _cancelledProject: true,
+                  name: current.name,
+                  department: current.department,
+                  category: current.category,
+                  wasted: current.latestBudget,
+                  overrun: overrun > 0 ? overrun : 0,
+                  originalBudget: current.originalBudget,
+                  title: current.name + " \u2014 " + (isCancelled ? "Cancelled" : "Over Budget"),
+                  accent: isCancelled ? "#FF4D4D" : "#F59E0B"
+                });
+              }
             }}
             className={
               "px-3 py-3 text-[11px] uppercase " +
@@ -392,10 +408,8 @@ function WasteSpotlight({ projects, onExplore, fmt }) {
               "flex items-center justify-center gap-1.5"
             }
           >
-            <svg viewBox="0 0 24 24" className="w-3 h-3" fill="currentColor">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-            </svg>
-            Post
+            <Share2 size={11} />
+            Share
           </button>
           <button
             onClick={onExplore}
@@ -4349,6 +4363,116 @@ export default function App() {
     }
   }, []);
 
+  // Retention engine state
+  const [viewsThisSession, setViewsThisSession] =
+    useState(0);
+  const [showMilestonePrompt,
+    setShowMilestonePrompt] = useState(false);
+  const [milestonePromptDismissed,
+    setMilestonePromptDismissed] = useState(false);
+  const [lastVisitData, setLastVisitData] =
+    useState(null);
+  const [showScrollNudge, setShowScrollNudge] =
+    useState(false);
+  const [scrollNudgeDismissed,
+    setScrollNudgeDismissed] = useState(false);
+
+  // Track page views for milestone prompts
+  useEffect(() => {
+    setViewsThisSession((v) => v + 1);
+  }, [view]);
+
+  // Show milestone prompt after 3+ views
+  useEffect(() => {
+    if (
+      viewsThisSession >= 3 &&
+      !milestonePromptDismissed &&
+      subscribeStatus !== "done"
+    ) {
+      setShowMilestonePrompt(true);
+    }
+  }, [viewsThisSession,
+    milestonePromptDismissed,
+    subscribeStatus]);
+
+  // "Since your last visit" tracking
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(
+        "g_last_visit"
+      );
+      if (stored) {
+        const prev = JSON.parse(stored);
+        const daysSince = Math.floor(
+          (Date.now() - prev.ts) / 86400000
+        );
+        if (daysSince >= 1) {
+          setLastVisitData({
+            days: daysSince,
+            views: prev.views || 0
+          });
+        }
+      }
+      // Update for next visit
+      localStorage.setItem(
+        "g_last_visit",
+        JSON.stringify({
+          ts: Date.now(),
+          views: viewsThisSession
+        })
+      );
+    } catch { /* ignore */ }
+  }, []);
+
+  // Update last visit views on unmount/tab close
+  useEffect(() => {
+    const save = () => {
+      try {
+        localStorage.setItem(
+          "g_last_visit",
+          JSON.stringify({
+            ts: Date.now(),
+            views: viewsThisSession
+          })
+        );
+      } catch { /* ignore */ }
+    };
+    window.addEventListener(
+      "beforeunload", save
+    );
+    return () =>
+      window.removeEventListener(
+        "beforeunload", save
+      );
+  }, [viewsThisSession]);
+
+  // Scroll nudge — show after scrolling
+  // past 60% of page
+  useEffect(() => {
+    if (scrollNudgeDismissed ||
+      subscribeStatus === "done")
+      return;
+    const handleScroll = () => {
+      const pct = window.scrollY /
+        (document.body.scrollHeight -
+          window.innerHeight);
+      if (pct > 0.6 &&
+        viewsThisSession >= 2) {
+        setShowScrollNudge(true);
+      }
+    };
+    window.addEventListener(
+      "scroll", handleScroll,
+      { passive: true }
+    );
+    return () =>
+      window.removeEventListener(
+        "scroll", handleScroll
+      );
+  }, [scrollNudgeDismissed,
+    subscribeStatus,
+    viewsThisSession]);
+
   // MP Scorecards state
   const [scSearch, setScSearch] = useState("");
   const [scParty, setScParty] = useState("All");
@@ -5373,6 +5497,86 @@ export default function App() {
         {/* ============ OVERVIEW ============ */}
         {view === "overview" && (
           <div>
+            {/* ========= SINCE YOUR LAST VISIT ========= */}
+            {lastVisitData &&
+              lastVisitData.days >= 1 && (
+              <div className={
+                "border border-gray-800/40 " +
+                "bg-gray-950/60 mb-6 " +
+                "px-5 py-4 flex flex-col " +
+                "sm:flex-row items-start " +
+                "sm:items-center " +
+                "justify-between gap-3"
+              }>
+                <div>
+                  <div className={
+                    "text-[10px] uppercase " +
+                    "tracking-[0.25em] " +
+                    "text-amber-500/80 " +
+                    "font-mono mb-1"
+                  }>
+                    Welcome back
+                  </div>
+                  <div className={
+                    "text-sm text-gray-400"
+                  }>
+                    {lastVisitData.days === 1
+                      ? "It\u2019s been a day"
+                      : "It\u2019s been " +
+                        lastVisitData.days +
+                        " days"
+                    }
+                    {" since your last visit. "}
+                    The data keeps updating
+                    {"\u2014"}here{"\u2019"}s
+                    what{"\u2019"}s changed.
+                  </div>
+                </div>
+                <div className={
+                  "flex gap-2 shrink-0"
+                }>
+                  <button
+                    onClick={() =>
+                      setView("birthyear")
+                    }
+                    className={
+                      "text-[10px] font-mono " +
+                      "uppercase " +
+                      "tracking-[0.1em] " +
+                      "px-3 py-1.5 border " +
+                      "border-gray-800 " +
+                      "text-gray-600 " +
+                      "hover:text-amber-400 " +
+                      "hover:border-amber-500/30 " +
+                      "transition-all"
+                    }
+                  >
+                    Your Lifetime
+                  </button>
+                  <button
+                    onClick={() =>
+                      setView(
+                        "transparency.scorecards"
+                      )
+                    }
+                    className={
+                      "text-[10px] font-mono " +
+                      "uppercase " +
+                      "tracking-[0.1em] " +
+                      "px-3 py-1.5 border " +
+                      "border-gray-800 " +
+                      "text-gray-600 " +
+                      "hover:text-amber-400 " +
+                      "hover:border-amber-500/30 " +
+                      "transition-all"
+                    }
+                  >
+                    MP Scorecards
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* ========= HERO ========= */}
             <div className="pt-8 md:pt-12 pb-6 md:pb-8">
               <div className={
@@ -6077,11 +6281,166 @@ export default function App() {
               </div>
             </div>
 
+            {/* ========= MILESTONE SUBSCRIBE PROMPT ========= */}
+            {showMilestonePrompt &&
+              !milestonePromptDismissed &&
+              subscribeStatus !== "done" && (
+              <div className={
+                "border border-amber-500/20 " +
+                "bg-amber-500/[0.03] " +
+                "py-6 px-6 mb-6 relative"
+              }>
+                <button
+                  onClick={() => {
+                    setShowMilestonePrompt(false);
+                    setMilestonePromptDismissed(
+                      true
+                    );
+                  }}
+                  className={
+                    "absolute top-3 right-3 " +
+                    "text-gray-700 " +
+                    "hover:text-gray-400 " +
+                    "transition-colors"
+                  }
+                >
+                  <X size={14} />
+                </button>
+                <div className={
+                  "flex flex-col sm:flex-row " +
+                  "items-start sm:items-center " +
+                  "gap-4"
+                }>
+                  <div className="flex-1">
+                    <div className={
+                      "text-[10px] uppercase " +
+                      "tracking-[0.25em] " +
+                      "text-amber-500/80 " +
+                      "font-mono mb-1"
+                    }>
+                      You{"\u2019"}ve explored{" "}
+                      {viewsThisSession} pages
+                    </div>
+                    <div className={
+                      "text-lg font-bold " +
+                      "text-white mb-1"
+                    }>
+                      Get the weekly briefing
+                    </div>
+                    <div className={
+                      "text-[13px] " +
+                      "text-gray-500 " +
+                      "leading-relaxed"
+                    }>
+                      The numbers that matter,
+                      every Monday. Red flags,
+                      waste alerts, and data
+                      updates{"\u2014"}no spam.
+                    </div>
+                  </div>
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const email =
+                        e.target.elements
+                          .msEmail?.value;
+                      if (!email) return;
+                      setSubscribeStatus(
+                        "loading"
+                      );
+                      try {
+                        const res = await fetch(
+                          "/api/subscribe",
+                          {
+                            method: "POST",
+                            headers: {
+                              "Content-Type":
+                                "application/json"
+                            },
+                            body: JSON.stringify({
+                              email
+                            })
+                          }
+                        );
+                        if (res.ok) {
+                          setSubscribeStatus(
+                            "done"
+                          );
+                          setShowMilestonePrompt(
+                            false
+                          );
+                        } else {
+                          const d =
+                            await res.json();
+                          setSubscribeStatus(
+                            d.error ||
+                            "Something went wrong"
+                          );
+                        }
+                      } catch {
+                        setSubscribeStatus(
+                          "Network error"
+                        );
+                      }
+                    }}
+                    className={
+                      "flex flex-col " +
+                      "sm:flex-row gap-2 " +
+                      "shrink-0"
+                    }
+                  >
+                    <input
+                      name="msEmail"
+                      type="email"
+                      required
+                      placeholder="your@email.com"
+                      className={
+                        "bg-black/60 border " +
+                        "border-gray-800 " +
+                        "px-4 py-2.5 " +
+                        "text-[13px] " +
+                        "text-gray-300 " +
+                        "placeholder:text-gray-700 " +
+                        "focus:border-amber-500/50 " +
+                        "focus:outline-none " +
+                        "transition-colors " +
+                        "w-full sm:w-56"
+                      }
+                    />
+                    <button
+                      type="submit"
+                      disabled={
+                        subscribeStatus ===
+                        "loading"
+                      }
+                      className={
+                        "px-5 py-2.5 " +
+                        "bg-amber-600 " +
+                        "hover:bg-amber-500 " +
+                        "text-white text-[11px] " +
+                        "font-bold uppercase " +
+                        "tracking-[0.15em] " +
+                        "transition-colors " +
+                        "shrink-0 " +
+                        "disabled:opacity-50"
+                      }
+                    >
+                      {subscribeStatus ===
+                        "loading"
+                        ? "..."
+                        : "Subscribe"}
+                    </button>
+                  </form>
+                </div>
+              </div>
+            )}
+
             {/* ========= WASTE SPOTLIGHT ========= */}
             <WasteSpotlight
               projects={projects}
               onExplore={() => setView("projects")}
               fmt={fmt}
+              onShare={handleChartShare}
             />
 
             {/* ========= EMAIL CAPTURE & SOCIAL CTA ========= */}
@@ -23994,6 +24353,101 @@ export default function App() {
             setView(viewId);
           }}
         />
+      )}
+
+      {/* ========= FLOATING SCROLL NUDGE ========= */}
+      {showScrollNudge &&
+        !scrollNudgeDismissed &&
+        subscribeStatus !== "done" && (
+        <div
+          className={
+            "fixed bottom-0 left-0 right-0 " +
+            "z-[80] pointer-events-none"
+          }
+        >
+          <div
+            className={
+              "max-w-xl mx-auto px-4 pb-4 " +
+              "pointer-events-auto"
+            }
+          >
+            <div
+              className={
+                "bg-[#0a0a0a] border " +
+                "border-gray-800/60 " +
+                "backdrop-blur-sm " +
+                "px-5 py-3.5 flex items-center " +
+                "gap-4 shadow-2xl shadow-black/50"
+              }
+              style={{
+                animation:
+                  "slideUp 0.4s ease-out"
+              }}
+            >
+              <div className="flex-1 min-w-0">
+                <div
+                  className={
+                    "text-[10px] uppercase " +
+                    "tracking-[0.2em] " +
+                    "text-amber-500/80 " +
+                    "font-mono mb-0.5"
+                  }
+                >
+                  Stay informed
+                </div>
+                <div
+                  className={
+                    "text-[13px] text-gray-400 " +
+                    "leading-snug"
+                  }
+                >
+                  Get weekly data drops on UK
+                  {" "}spending &amp; accountability
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  setScrollNudgeDismissed(true);
+                  const el =
+                    document.getElementById(
+                      "subscribe-section"
+                    );
+                  if (el) {
+                    el.scrollIntoView({
+                      behavior: "smooth"
+                    });
+                  }
+                }}
+                className={
+                  "text-[10px] font-mono " +
+                  "uppercase tracking-[0.12em] " +
+                  "px-4 py-2 border " +
+                  "border-amber-500/50 " +
+                  "text-amber-500 " +
+                  "hover:bg-amber-500/10 " +
+                  "hover:border-amber-500 " +
+                  "transition-all " +
+                  "whitespace-nowrap flex-shrink-0"
+                }
+              >
+                Subscribe
+              </button>
+              <button
+                onClick={() =>
+                  setScrollNudgeDismissed(true)
+                }
+                className={
+                  "text-gray-700 " +
+                  "hover:text-gray-400 " +
+                  "transition-colors " +
+                  "flex-shrink-0"
+                }
+              >
+                <X size={14} />
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
