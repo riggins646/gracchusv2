@@ -16489,17 +16489,24 @@ export default function App() {
               />
             </div>
 
-            {/* Combined Cost of Living — Spaghetti Chart */}
+            {/* Combined Cost of Living — Dual Y-Axis Chart */}
             {(() => {
-              const colMetrics = [
+              // Percentage metrics (left axis): CPI, Food Inflation
+              const pctMetrics = [
                 { key: "cpi", label: "CPI Inflation", color: "#ef4444", data: costOfLivingData.cpiInflation?.data },
-                { key: "energy", label: "Energy Cap", color: "#f59e0b", data: costOfLivingData.energy?.priceCap?.data },
                 { key: "food", label: "Food Inflation", color: "#14b8a6", data: costOfLivingData.food?.inflation?.data },
               ].filter(m => m.data && m.data.length > 0);
-              if (colMetrics.length < 2) return null;
-              // Build unified timeline (by month key "m" or "q")
+              // Pounds metric (right axis): Energy Cap
+              const energyData = costOfLivingData.energy?.priceCap?.data;
+              const energyMetric = energyData?.length > 0
+                ? { key: "energy", label: "Energy Cap (£/yr)", color: "#f59e0b", data: energyData }
+                : null;
+              const allMetrics = [...pctMetrics, ...(energyMetric ? [energyMetric] : [])];
+              if (allMetrics.length < 2) return null;
+
+              // Build unified timeline
               const unified = {};
-              colMetrics.forEach(m => {
+              allMetrics.forEach(m => {
                 (m.data || []).forEach(d => {
                   const k = d.m || d.q || d.year;
                   if (!unified[k]) unified[k] = { date: k };
@@ -16507,18 +16514,23 @@ export default function App() {
                 });
               });
               const combined = Object.values(unified).sort((a, b) => a.date.localeCompare(b.date));
-              const filtered = filterByRange ? filterByRange(combined, "date", colRange) : combined;
+              // Only show from 2021 onwards for clarity
+              const from2021 = combined.filter(d => {
+                const yr = parseInt(d.date.match(/\d{4}/)?.[0] || "0");
+                return yr >= 2021;
+              });
+              const filtered = filterByRange ? filterByRange(from2021, "date", colRange) : from2021;
               return (
                 <ChartCard
                   title="Everything Outpaces Wages"
-                  subtitle="Hover any metric to isolate — all trends on one chart"
+                  subtitle="Inflation rates (left axis) vs energy bills (right axis)"
                   onShare={handleChartShare}
                   shareHeadline="The cost of everything is rising"
                   shareSubline="CPI, energy, and food — all outpacing wages"
                   accentColor="#ef4444"
                 >
                   <div className="flex flex-wrap gap-2 sm:gap-4 justify-center mb-3">
-                    {colMetrics.map(m => (
+                    {allMetrics.map(m => (
                       <span key={m.key}
                         onMouseEnter={() => setColHovMetric(m.key)}
                         onMouseLeave={() => setColHovMetric(null)}
@@ -16531,27 +16543,66 @@ export default function App() {
                     ))}
                   </div>
                   <ResponsiveContainer width="100%" height={280}>
-                    <LineChart data={filtered} margin={{ top: 5, right: 15, bottom: 20, left: 5 }}>
+                    <ComposedChart data={filtered} margin={{ top: 5, right: 50, bottom: 20, left: 5 }}>
                       <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
-                      <XAxis dataKey="date" tick={{ fill: "#9ca3af", fontSize: 9 }} interval="preserveStartEnd" angle={-30} textAnchor="end" height={45} tickLine={false} />
-                      <YAxis tick={{ fill: "#9ca3af", fontSize: 10 }} tickFormatter={(v) => v + "%"} tickLine={false} axisLine={false} />
-                      <ReferenceLine y={0} stroke="rgba(255,255,255,0.12)" strokeDasharray="6 4" />
+                      <XAxis
+                        dataKey="date"
+                        tick={{ fill: "#9ca3af", fontSize: 9 }}
+                        interval={Math.max(1, Math.floor(filtered.length / 8))}
+                        angle={-30}
+                        textAnchor="end"
+                        height={45}
+                        tickLine={false}
+                      />
+                      {/* Left axis — percentages (CPI, Food) */}
+                      <YAxis
+                        yAxisId="pct"
+                        tick={{ fill: "#9ca3af", fontSize: 10 }}
+                        tickFormatter={(v) => v + "%"}
+                        tickLine={false}
+                        axisLine={false}
+                        domain={[0, "auto"]}
+                      />
+                      {/* Right axis — pounds (Energy Cap) */}
+                      {energyMetric && (
+                        <YAxis
+                          yAxisId="gbp"
+                          orientation="right"
+                          tick={{ fill: "#f59e0b", fontSize: 10 }}
+                          tickFormatter={(v) => "£" + v.toLocaleString()}
+                          tickLine={false}
+                          axisLine={false}
+                          domain={[0, "auto"]}
+                        />
+                      )}
+                      <ReferenceLine y={0} yAxisId="pct" stroke="rgba(255,255,255,0.12)" strokeDasharray="6 4" />
                       <Tooltip
                         contentStyle={{ background: "rgba(0,0,0,0.92)", border: "1px solid #333", borderRadius: 8, fontSize: 11 }}
                         labelStyle={{ color: "#e5e7eb", fontWeight: 600 }}
                         formatter={(v, name) => {
-                          const m = colMetrics.find(x => x.key === name);
+                          if (name === "energy") return ["£" + Number(v).toLocaleString() + "/yr", "Energy Cap"];
+                          const m = allMetrics.find(x => x.key === name);
                           return [v + "%", m ? m.label : name];
                         }}
                       />
-                      {colMetrics.map(m => (
-                        <Line key={m.key} type="monotone" dataKey={m.key} stroke={m.color}
+                      {/* Percentage lines on left axis */}
+                      {pctMetrics.map(m => (
+                        <Line key={m.key} yAxisId="pct" type="monotone" dataKey={m.key} stroke={m.color}
                           strokeWidth={colHovMetric === m.key ? 4 : colHovMetric === null ? 2 : 1}
                           strokeOpacity={colHovMetric === null ? 0.8 : colHovMetric === m.key ? 1 : 0.1}
-                          dot={false} style={{ transition: "all 0.3s" }}
+                          dot={false} connectNulls style={{ transition: "all 0.3s" }}
                         />
                       ))}
-                    </LineChart>
+                      {/* Energy cap as area on right axis */}
+                      {energyMetric && (
+                        <Area yAxisId="gbp" type="stepAfter" dataKey="energy" fill="#f59e0b" fillOpacity={colHovMetric === null ? 0.08 : colHovMetric === "energy" ? 0.15 : 0.02}
+                          stroke="#f59e0b"
+                          strokeWidth={colHovMetric === "energy" ? 3 : colHovMetric === null ? 1.5 : 0.5}
+                          strokeOpacity={colHovMetric === null ? 0.6 : colHovMetric === "energy" ? 1 : 0.1}
+                          connectNulls style={{ transition: "all 0.3s" }}
+                        />
+                      )}
+                    </ComposedChart>
                   </ResponsiveContainer>
                   <p className="text-[9px] sm:text-[10px] text-gray-600 font-mono text-center mt-1">
                     Source: ONS CPI, Ofgem, ONS Food Prices
