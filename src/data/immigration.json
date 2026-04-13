@@ -1,0 +1,162 @@
+{
+  "metadata": {
+    "title": "UK Immigration & Borders",
+    "lastUpdated": "2025-06-30",
+    "primarySource": {
+      "name": "ONS, Home Office Immigration Statistics",
+      "url": "https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/internationalmigration"
+    },
+    "methodology": "Net migration from ONS LTIM; visa breakdowns from Home Office quarterly releases; asylum from Home Office Asy tables"
+  },
+  "contextSentences": {
+    "headline": "Every visa granted, every asylum claim, every policy shift — mapped against the party in power.",
+    "summary": "Net migration peaked at 764,000 in YE June 2023 before falling to 204,000 by mid-2025 after visa restrictions.",
+    "future": "The government targets reducing net migration further through salary thresholds and graduate route reforms."
+  },
+  "netMigration": {
+    "description": "Annual net migration (immigration minus emigration), thousands",
+    "series": [
+      { "year": 2012, "immigration": 498, "emigration": 321, "net": 177, "party": "Coalition" },
+      { "year": 2013, "immigration": 526, "emigration": 317, "net": 209, "party": "Coalition" },
+      { "year": 2014, "immigration": 632, "emigration": 319, "net": 313, "party": "Coalition" },
+      { "year": 2015, "immigration": 656, "emigration": 324, "net": 332, "party": "Conservative" },
+      { "year": 2016, "immigration": 650, "emigration": 318, "net": 332, "party": "Conservative" },
+      { "year": 2017, "immigration": 602, "emigration": 320, "net": 282, "party": "Conservative" },
+      { "year": 2018, "immigration": 580, "emigration": 309, "net": 271, "party": "Conservative" },
+      { "year": 2019, "immigration": 592, "emigration": 321, "net": 271, "party": "Conservative" },
+      { "year": 2020, "immigration": 361, "emigration": 327, "net": 34, "party": "Conservative" },
+      { "year": 2021, "immigration": 740, "emigration": 252, "net": 488, "party": "Conservative" },
+      { "year": 2022, "immigration": 1044, "emigration": 280, "net": 764, "party": "Conservative" },
+      { "year": 2023, "immigration": 1013, "emigration": 285, "net": 728, "party": "Conservative" },
+      { "year": 2024, "immigration": 949, "emigration": 300, "net": 649, "party": "Conservative" },
+      { "year": 2025, "immigration": 898, "emigration": 694, "net": 204, "party": "Labour" }
+    ]
+  },
+  "migrationByVisa": {
+    "description": "Immigration by visa category, thousands",
+    "series": [
+      { "year": 2012, "Work": 155, "Study": 190, "Family": 55, "Asylum": 22, "Humanitarian": 5, "Other": 71 },
+      { "year": 2013, "Work": 160, "Study": 195, "Family": 58, "Asylum": 24, "Humanitarian": 5, "Other": 84 },
+      { "year": 2014, "Work": 175, "Study": 185, "Family": 60, "Asylum": 26, "Humanitarian": 6, "Other": 180 },
+      { "year": 2015, "Work": 190, "Study": 170, "Family": 62, "Asylum": 33, "Humanitarian": 7, "Other": 194 },
+      { "year": 2016, "Work": 195, "Study": 165, "Family": 60, "Asylum": 30, "Humanitarian": 10, "Other": 190 },
+      { "year": 2017, "Work": 185, "Study": 160, "Family": 58, "Asylum": 27, "Humanitarian": 12, "Other": 160 },
+      { "year": 2018, "Work": 180, "Study": 155, "Family": 55, "Asylum": 29, "Humanitarian": 10, "Other": 151 },
+      { "year": 2019, "Work": 195, "Study": 165, "Family": 58, "Asylum": 35, "Humanitarian": 8, "Other": 131 },
+      { "year": 2020, "Work": 120, "Study": 80, "Family": 40, "Asylum": 28, "Humanitarian": 5, "Other": 88 },
+      { "year": 2021, "Work": 220, "Study": 280, "Family": 65, "Asylum": 48, "Humanitarian": 25, "Other": 102 },
+      { "year": 2022, "Work": 310, "Study": 360, "Family": 75, "Asylum": 72, "Humanitarian": 55, "Other": 172 },
+      { "year": 2023, "Work": 280, "Study": 320, "Family": 70, "Asylum": 68, "Humanitarian": 30, "Other": 245 },
+      { "year": 2024, "Work": 200, "Study": 210, "Family": 60, "Asylum": 55, "Humanitarian": 15, "Other": 409 },
+      { "year": 2025, "Work": 120, "Study": 140, "Family": 50, "Asylum": 45, "Humanitarian": 10, "Other": 533 }
+    ]
+  },
+  "originToVisa": {
+    "description": "Top origin countries mapped to visa purpose, thousands (YE Dec 2024)",
+    "flows": [
+      { "from": "India", "to": "Work", "value": 116 },
+      { "from": "India", "to": "Study", "value": 127 },
+      { "from": "India", "to": "Family", "value": 12 },
+      { "from": "Nigeria", "to": "Work", "value": 45 },
+      { "from": "Nigeria", "to": "Study", "value": 38 },
+      { "from": "Nigeria", "to": "Family", "value": 5 },
+      { "from": "Pakistan", "to": "Work", "value": 22 },
+      { "from": "Pakistan", "to": "Asylum", "value": 12 },
+      { "from": "Pakistan", "to": "Family", "value": 8 },
+      { "from": "China", "to": "Study", "value": 55 },
+      { "from": "China", "to": "Work", "value": 12 },
+      { "from": "Philippines", "to": "Work", "value": 28 },
+      { "from": "Zimbabwe", "to": "Work", "value": 18 },
+      { "from": "Ukraine", "to": "Humanitarian", "value": 45 },
+      { "from": "Hong Kong", "to": "Humanitarian", "value": 30 },
+      { "from": "Bangladesh", "to": "Work", "value": 15 },
+      { "from": "Bangladesh", "to": "Asylum", "value": 7 },
+      { "from": "Iran", "to": "Asylum", "value": 8 },
+      { "from": "Eritrea", "to": "Asylum", "value": 10 },
+      { "from": "Afghanistan", "to": "Asylum", "value": 7 },
+      { "from": "Afghanistan", "to": "Humanitarian", "value": 12 },
+      { "from": "Albania", "to": "Asylum", "value": 9 },
+      { "from": "Somalia", "to": "Asylum", "value": 5 },
+      { "from": "Sudan", "to": "Asylum", "value": 4 },
+      { "from": "Sri Lanka", "to": "Asylum", "value": 3 },
+      { "from": "South Africa", "to": "Work", "value": 14 },
+      { "from": "Nepal", "to": "Study", "value": 18 },
+      { "from": "Ghana", "to": "Work", "value": 10 }
+    ]
+  },
+  "asylum": {
+    "description": "Asylum applications and decisions by top nationality",
+    "totalApplications2024": 108086,
+    "totalDecisions2024": 72450,
+    "backlog": 128000,
+    "grantRate": 0.33,
+    "byNationality": [
+      { "name": "Pakistan", "applied": 12100, "decided": 6800, "grantRate": 0.28 },
+      { "name": "Eritrea", "applied": 9800, "decided": 7200, "grantRate": 0.82 },
+      { "name": "Albania", "applied": 9200, "decided": 8100, "grantRate": 0.18 },
+      { "name": "Iran", "applied": 8200, "decided": 5100, "grantRate": 0.72 },
+      { "name": "Afghanistan", "applied": 6500, "decided": 4800, "grantRate": 0.88 },
+      { "name": "Bangladesh", "applied": 6800, "decided": 3200, "grantRate": 0.15 },
+      { "name": "Somalia", "applied": 3800, "decided": 2500, "grantRate": 0.65 },
+      { "name": "Sudan", "applied": 4200, "decided": 2100, "grantRate": 0.71 },
+      { "name": "Vietnam", "applied": 3200, "decided": 2800, "grantRate": 0.35 },
+      { "name": "India", "applied": 2900, "decided": 2400, "grantRate": 0.12 }
+    ],
+    "annualApplications": [
+      { "year": 2012, "applications": 21785 },
+      { "year": 2013, "applications": 23507 },
+      { "year": 2014, "applications": 25020 },
+      { "year": 2015, "applications": 32733 },
+      { "year": 2016, "applications": 30603 },
+      { "year": 2017, "applications": 26350 },
+      { "year": 2018, "applications": 29456 },
+      { "year": 2019, "applications": 35566 },
+      { "year": 2020, "applications": 29456 },
+      { "year": 2021, "applications": 48540 },
+      { "year": 2022, "applications": 74751 },
+      { "year": 2023, "applications": 84425 },
+      { "year": 2024, "applications": 108086 },
+      { "year": 2025, "applications": 92000 }
+    ]
+  },
+  "dotMatrix": {
+    "description": "Net migration 2025 breakdown by category, each unit = 1,000 people",
+    "year": 2025,
+    "totalNet": 204,
+    "categories": [
+      { "category": "Work", "count": 70, "color": "#f59e0b" },
+      { "category": "Study", "count": 55, "color": "#3b82f6" },
+      { "category": "Family", "count": 35, "color": "#10b981" },
+      { "category": "Asylum", "count": 30, "color": "#ef4444" },
+      { "category": "Humanitarian", "count": 14, "color": "#a855f7" }
+    ]
+  },
+  "policyTimeline": [
+    { "year": 2010, "label": "Coalition forms — net migration cap pledged", "party": "Coalition", "major": false },
+    { "year": 2012, "label": "Coalition caps non-EU work visas", "party": "Coalition", "major": false },
+    { "year": 2015, "label": "Conservatives win majority", "party": "Conservative", "major": false },
+    { "year": 2016, "label": "BREXIT REFERENDUM — 51.9% vote Leave", "party": "Conservative", "major": true },
+    { "year": 2017, "label": "Article 50 triggered", "party": "Conservative", "major": true },
+    { "year": 2020, "label": "TRANSITION PERIOD ENDS — freedom of movement ends", "party": "Conservative", "major": true },
+    { "year": 2021, "label": "POINTS-BASED SYSTEM / Hong Kong BN(O) visa", "party": "Conservative", "major": true },
+    { "year": 2022, "label": "UKRAINE VISA SCHEMES / Rwanda plan announced", "party": "Conservative", "major": true },
+    { "year": 2023, "label": "Net migration hits record 764k", "party": "Conservative", "major": false },
+    { "year": 2024, "label": "Health & care visa crackdown — grants fall 68%", "party": "Conservative", "major": false },
+    { "year": 2025, "label": "LABOUR WINS — Rwanda scrapped, net migration falls to 204k", "party": "Labour", "major": true }
+  ],
+  "partyPeriods": [
+    { "start": 2010, "end": 2015, "party": "Coalition", "color": "#8B5CF6" },
+    { "start": 2015, "end": 2024, "party": "Conservative", "color": "#0087DC" },
+    { "start": 2024, "end": 2026, "party": "Labour", "color": "#DC241f" }
+  ],
+  "keyStats": {
+    "netMigration2025": 204,
+    "peakNetMigration": { "year": 2022, "value": 764 },
+    "asylumBacklog": 128000,
+    "totalVisasGranted2024": 949000,
+    "topOriginCountry": "India",
+    "topOriginValue": 255000,
+    "smallBoatCrossings2024": 36816,
+    "smallBoatCrossings2025": 41000
+  }
+}

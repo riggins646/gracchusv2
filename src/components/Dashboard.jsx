@@ -9,7 +9,7 @@ import {
   ScatterChart, Scatter, ZAxis, CartesianGrid, AreaChart, Area,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
   LineChart, Line, ComposedChart,
-  Treemap, ReferenceLine
+  Treemap, ReferenceLine, ReferenceArea
 } from "recharts";
 import {
   Search, TrendingUp, TrendingDown, AlertTriangle, Clock, Building2,
@@ -60,6 +60,7 @@ import giltYieldsData from "../data/gilt-yields.json";
 import moneySupplyData from "../data/money-supply.json";
 import mpPayVsCountryData from "../data/mp-pay-vs-country.json";
 import birthYearData from "../data/birth-year-compare.json";
+import immigrationData from "../data/immigration.json";
 import { encodeShareId, buildContextLine, shareFmtAmt, renderCardToCanvas, renderTrendCard, renderChartShareCard, renderCancelledProjectCard } from "../lib/share-utils";
 import { sortRows, searchRows, processTableData, fmtMillions, fmtCompact, fmtCurrency, fmtPct, getUniqueValues, SORT_PRESETS } from "../lib/table-utils";
 
@@ -892,6 +893,99 @@ function SlopeChartViz({ data, leftKey = "promised", rightKey = "current", nameK
           );
         })}
       </svg>
+    </div>
+  );
+}
+
+/* ── Alluvial / Sankey Diagram ── */
+function AlluvialChart({ flows, leftLabel = "ORIGIN", rightLabel = "PURPOSE", visaColors = {} }) {
+  const [hovFlow, setHovFlow] = useState(null);
+  const svgRef = useRef(null);
+  const [dims, setDims] = useState({ w: 700, h: 500 });
+  useEffect(() => {
+    const el = svgRef.current?.parentElement;
+    if (!el) return;
+    const ro = new ResizeObserver((entries) => {
+      const { width } = entries[0].contentRect;
+      setDims({ w: width, h: Math.max(400, width * 0.7) });
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  const ORIGIN_C = { India: "#f59e0b", Nigeria: "#10b981", Pakistan: "#3b82f6", China: "#ef4444", Philippines: "#a855f7", Zimbabwe: "#ec4899", Ukraine: "#facc15", "Hong Kong": "#f97316", Bangladesh: "#14b8a6", Iran: "#dc2626", Eritrea: "#8b5cf6", Afghanistan: "#6366f1", Albania: "#64748b", Somalia: "#fb923c", Sudan: "#84cc16", "Sri Lanka": "#06b6d4", "South Africa": "#d946ef", Nepal: "#22d3ee", Ghana: "#4ade80" };
+  const layout = useMemo(() => {
+    const origins = [...new Set(flows.map((f) => f.from))];
+    const categories = [...new Set(flows.map((f) => f.to))];
+    const leftTotals = {};
+    const rightTotals = {};
+    origins.forEach((o) => { leftTotals[o] = flows.filter((f) => f.from === o).reduce((s, f) => s + f.value, 0); });
+    categories.forEach((c) => { rightTotals[c] = flows.filter((f) => f.to === c).reduce((s, f) => s + f.value, 0); });
+    const pad = 4;
+    const totalLeft = origins.reduce((s, o) => s + leftTotals[o], 0) + pad * (origins.length - 1);
+    const totalRight = categories.reduce((s, c) => s + rightTotals[c], 0) + pad * (categories.length - 1);
+    const maxTotal = Math.max(totalLeft, totalRight);
+    const scale = (dims.h - 40) / maxTotal;
+    const leftNodes = []; let ly = 20;
+    origins.forEach((o) => { const h = leftTotals[o] * scale; leftNodes.push({ name: o, y: ly, h, color: ORIGIN_C[o] || "#6b7280" }); ly += h + pad; });
+    const rightNodes = []; let ry = 20;
+    categories.forEach((c) => { const h = rightTotals[c] * scale; rightNodes.push({ name: c, y: ry, h, color: visaColors[c] || "#6b7280" }); ry += h + pad; });
+    const leftOffsets = {}; origins.forEach((o) => { leftOffsets[o] = 0; });
+    const rightOffsets = {}; categories.forEach((c) => { rightOffsets[c] = 0; });
+    const fls = flows.map((f) => {
+      const ln = leftNodes.find((n) => n.name === f.from);
+      const rn = rightNodes.find((n) => n.name === f.to);
+      const h = f.value * scale;
+      const sy = ln.y + leftOffsets[f.from];
+      const ey = rn.y + rightOffsets[f.to];
+      leftOffsets[f.from] += h; rightOffsets[f.to] += h;
+      return { ...f, sy, ey, h, color: ln.color };
+    });
+    return { leftNodes, rightNodes, flows: fls };
+  }, [dims, flows, visaColors]);
+  const isMobile = dims.w < 500;
+  const lx = isMobile ? 80 : 110;
+  const rx = dims.w - (isMobile ? 70 : 90);
+  return (
+    <div className="relative">
+      <svg ref={svgRef} width="100%" viewBox={`0 0 ${dims.w} ${dims.h}`} style={{ overflow: "visible" }}>
+        <text x={lx - 8} y={10} textAnchor="end" fill="#ef4444" fontSize={9} fontWeight={800} fontFamily="system-ui" letterSpacing={1}>{leftLabel}</text>
+        <text x={rx + 8} y={10} textAnchor="start" fill="#ef4444" fontSize={9} fontWeight={800} fontFamily="system-ui" letterSpacing={1}>{rightLabel}</text>
+        {layout.flows.map((f, i) => {
+          const key = f.from + "-" + f.to;
+          const isHov = hovFlow === key;
+          const dimmed = hovFlow && !isHov;
+          const midX = (lx + rx) / 2;
+          return (<path key={i} d={"M " + lx + " " + f.sy + " C " + midX + " " + f.sy + ", " + midX + " " + f.ey + ", " + rx + " " + f.ey + " L " + rx + " " + (f.ey + f.h) + " C " + midX + " " + (f.ey + f.h) + ", " + midX + " " + (f.sy + f.h) + ", " + lx + " " + (f.sy + f.h) + " Z"} fill={f.color} fillOpacity={dimmed ? 0.03 : isHov ? 0.55 : 0.2} stroke={f.color} strokeOpacity={dimmed ? 0.04 : isHov ? 0.8 : 0.35} strokeWidth={isHov ? 1.5 : 0.5} style={{ transition: "all 0.3s", cursor: "pointer" }} onMouseEnter={() => setHovFlow(key)} onMouseLeave={() => setHovFlow(null)} onTouchStart={() => setHovFlow(hovFlow === key ? null : key)} />);
+        })}
+        {layout.leftNodes.map((n) => (<g key={n.name}><rect x={lx - 5} y={n.y} width={5} height={n.h} rx={2} fill={n.color} opacity={0.9} /><text x={lx - 10} y={n.y + n.h / 2} textAnchor="end" dominantBaseline="middle" fill="#ccc" fontSize={isMobile ? 7 : 10} fontWeight={600} fontFamily="system-ui">{n.name}</text></g>))}
+        {layout.rightNodes.map((n) => (<g key={n.name}><rect x={rx} y={n.y} width={5} height={n.h} rx={2} fill={n.color} opacity={0.9} /><text x={rx + 10} y={n.y + n.h / 2} textAnchor="start" dominantBaseline="middle" fill="#ccc" fontSize={isMobile ? 8 : 11} fontWeight={700} fontFamily="system-ui">{n.name}</text></g>))}
+      </svg>
+      {hovFlow && (() => { const f = layout.flows.find((fl) => fl.from + "-" + fl.to === hovFlow); if (!f) return null; return (<div className="absolute top-2 right-2 bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white pointer-events-none"><strong>{f.from}</strong>{" \u2192 "}<strong>{f.to}</strong>{": " + f.value + "k visas"}</div>); })()}
+    </div>
+  );
+}
+
+/* ── Dot Matrix / Unit Chart ── */
+function DotMatrixChart({ categories, totalNet, year }) {
+  const [hovCat, setHovCat] = useState(null);
+  const cols = 20;
+  const dots = [];
+  categories.forEach((d) => { for (let i = 0; i < d.count; i++) { dots.push({ color: d.color, category: d.category }); } });
+  return (
+    <div>
+      <div className="flex flex-wrap gap-3 sm:gap-4 justify-center mb-4">
+        {categories.map((d) => (
+          <span key={d.category} onMouseEnter={() => setHovCat(d.category)} onMouseLeave={() => setHovCat(null)} onTouchStart={() => setHovCat(hovCat === d.category ? null : d.category)} className="flex items-center gap-1.5 cursor-pointer min-h-[32px] sm:min-h-0 px-1" style={{ opacity: hovCat && hovCat !== d.category ? 0.2 : 1, transition: "opacity 0.3s" }}>
+            <span className="w-2.5 h-2.5 rounded-full inline-block" style={{ background: d.color }} />
+            <span className="text-white text-[10px] sm:text-xs font-semibold">{d.category}</span>
+            <span className="text-gray-500 text-[10px]">({d.count}k)</span>
+          </span>
+        ))}
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(" + cols + ", 1fr)", gap: 3, maxWidth: 480, margin: "0 auto", padding: "0 8px" }}>
+        {dots.map((d, i) => (<div key={i} style={{ width: "100%", paddingBottom: "100%", borderRadius: "50%", background: d.color, opacity: hovCat === null ? 0.85 : hovCat === d.category ? 1 : 0.06, transition: "opacity 0.3s", boxShadow: hovCat === d.category ? "0 0 4px " + d.color : "none" }} />))}
+      </div>
+      <p className="text-gray-600 text-[9px] text-center mt-3">Each dot = 1,000 people · Total: {totalNet.toLocaleString()}k net migration · YE June {year}</p>
     </div>
   );
 }
@@ -4815,6 +4909,9 @@ export default function App() {
       });
   }, []);
 
+  // Immigration view state
+  const [immHovVisa, setImmHovVisa] = useState(null);
+
   // Political Donations view state
   const [donGovFilter, setDonGovFilter] = useState(null);
   const [donHovParty, setDonHovParty] = useState(null);
@@ -5506,7 +5603,8 @@ export default function App() {
         { id: "transparency.mppay", label: "MPs' Pay vs the Country" },
         { id: "transparency.mp", label: "MPs' Income & Expenses" },
         { id: "transparency.lobbying", label: "Lobbying" },
-        { id: "transparency.aid", label: "Foreign Aid" }
+        { id: "transparency.aid", label: "Foreign Aid" },
+        { id: "transparency.immigration", label: "Immigration & Borders" }
       ]
     },
     {
@@ -11582,6 +11680,164 @@ export default function App() {
               Source:{" "}
               {foreignAidData.metadata.primarySource.name}.{" "}
               {foreignAidData.metadata.methodologyNote}
+            </div>
+          </div>
+          );
+        })()}
+
+        {/* ═══════════════════════════════════════════════════════════════
+            IMMIGRATION & BORDERS
+            ═══════════════════════════════════════════════════════════════ */}
+        {view === "transparency.immigration" && (() => {
+          const VISA_COLORS = { Work: "#f59e0b", Study: "#3b82f6", Family: "#10b981", Asylum: "#ef4444", Humanitarian: "#a855f7", Other: "#6b7280" };
+          const PARTY_BG = { Coalition: "#8B5CF6", Conservative: "#0087DC", Labour: "#DC241f" };
+          const visaSeries = immigrationData.migrationByVisa.series.map(d => ({ ...d, year: String(d.year) }));
+          const netSeries = immigrationData.netMigration.series.map(d => ({ ...d, yearStr: String(d.year) }));
+          const asylumNat = immigrationData.asylum.byNationality;
+          const dotCats = immigrationData.dotMatrix.categories;
+          const policyEvts = immigrationData.policyTimeline.filter(e => e.major);
+          const ks = immigrationData.keyStats;
+
+          return (
+          <div className="space-y-6">
+            {/* Section header */}
+            <div className="py-6 mb-4">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+                Accountability → Immigration
+              </div>
+              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+                Immigration & Borders
+              </h2>
+              <p className="text-gray-500 text-sm mt-2">
+                {immigrationData.contextSentences.headline}
+              </p>
+            </div>
+
+            {/* Key stats row */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1 flex items-center gap-1.5">Net Migration (2025)</div>
+                <div className="text-2xl md:text-3xl font-black text-yellow-400">{ks.netMigration2025.toLocaleString()}k</div>
+                <div className="text-gray-600 text-xs mt-0.5">Down from {ks.peakNetMigration.value}k peak</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Peak Net Migration</div>
+                <div className="text-2xl md:text-3xl font-black text-red-400">{ks.peakNetMigration.value.toLocaleString()}k</div>
+                <div className="text-gray-600 text-xs mt-0.5">YE June {ks.peakNetMigration.year}</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Asylum Backlog</div>
+                <div className="text-2xl md:text-3xl font-black text-red-400">{(ks.asylumBacklog / 1000).toFixed(0)}k</div>
+                <div className="text-gray-600 text-xs mt-0.5">Cases awaiting decision</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Top Origin</div>
+                <div className="text-2xl md:text-3xl font-black text-amber-400">{ks.topOriginCountry}</div>
+                <div className="text-gray-600 text-xs mt-0.5">{(ks.topOriginValue / 1000).toFixed(0)}k visas granted</div>
+              </div>
+            </div>
+
+            {/* ── Chart 1: Stream Chart — Migration by Visa Type ── */}
+            {(() => {
+              return (
+              <ChartCard chartId="immigration-stream" title="Net Migration by Visa Category" subtitle="Party in power shown as background band — hover legend to isolate" accentColor="#f59e0b" onShare={handleChartShare} explainData={visaSeries.map(d => d.year + ": Work " + d.Work + "k, Study " + d.Study + "k, Asylum " + d.Asylum + "k").join("; ")}>
+                <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-2">
+                  {Object.entries(PARTY_BG).map(([p, c]) => (
+                    <span key={p} className="flex items-center gap-1.5 text-gray-400 text-[9px] sm:text-[10px]">
+                      <span className="w-2.5 h-2 rounded-sm inline-block" style={{ background: c, opacity: 0.4 }} />{p}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-3">
+                  {Object.entries(VISA_COLORS).filter(([k]) => k !== "Other").map(([v, c]) => (
+                    <span key={v} onMouseEnter={() => setImmHovVisa(v)} onMouseLeave={() => setImmHovVisa(null)} onTouchStart={() => setImmHovVisa(immHovVisa === v ? null : v)} className="flex items-center gap-1.5 cursor-pointer transition-opacity min-h-[32px] sm:min-h-0 px-1" style={{ opacity: immHovVisa && immHovVisa !== v ? 0.25 : 1 }}>
+                      <span className="w-3 h-3 rounded-full inline-block" style={{ background: c }} />
+                      <span className="text-white text-[10px] sm:text-xs font-semibold">{v}</span>
+                    </span>
+                  ))}
+                </div>
+                <ResponsiveContainer width="100%" height={320}>
+                  <AreaChart data={visaSeries} stackOffset="wiggle" margin={{ top: 10, right: 15, left: 0, bottom: 5 }}>
+                    <defs>
+                      {Object.entries(VISA_COLORS).map(([v, c]) => (
+                        <linearGradient key={v} id={"immGrad-" + v} x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor={c} stopOpacity={0.8} />
+                          <stop offset="100%" stopColor={c} stopOpacity={0.25} />
+                        </linearGradient>
+                      ))}
+                    </defs>
+                    <ReferenceArea x1="2012" x2="2014" fill={PARTY_BG.Coalition} fillOpacity={0.08} />
+                    <ReferenceArea x1="2015" x2="2024" fill={PARTY_BG.Conservative} fillOpacity={0.08} />
+                    <ReferenceArea x1="2025" x2="2025" fill={PARTY_BG.Labour} fillOpacity={0.08} />
+                    <ReferenceLine x="2016" stroke="rgba(255,255,255,0.2)" strokeDasharray="3 3" label={{ value: "Brexit Vote", position: "top", fill: "#9ca3af", fontSize: 8, fontWeight: 600 }} />
+                    <ReferenceLine x="2020" stroke="rgba(255,255,255,0.2)" strokeDasharray="3 3" label={{ value: "Transition Ends", position: "top", fill: "#9ca3af", fontSize: 8, fontWeight: 600 }} />
+                    <ReferenceLine x="2021" stroke="rgba(255,255,255,0.2)" strokeDasharray="3 3" label={{ value: "Points System", position: "insideTopRight", fill: "#9ca3af", fontSize: 7, fontWeight: 600 }} />
+                    <XAxis dataKey="year" tick={{ fill: "#9ca3af", fontSize: 10 }} axisLine={false} tickLine={false} />
+                    <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={(v, name) => [Math.round(v) + "k", name]} />
+                    {Object.entries(VISA_COLORS).filter(([k]) => k !== "Other").map(([v, c]) => (
+                      <Area key={v} type="monotone" dataKey={v} stackId="1" fill={"url(#immGrad-" + v + ")"} stroke={c} fillOpacity={immHovVisa === null ? 0.7 : immHovVisa === v ? 0.9 : 0.05} strokeOpacity={immHovVisa === null ? 0.8 : immHovVisa === v ? 1 : 0.07} strokeWidth={immHovVisa === v ? 2.5 : 1} style={{ transition: "fill-opacity 0.3s, stroke-opacity 0.3s" }} />
+                    ))}
+                  </AreaChart>
+                </ResponsiveContainer>
+                <ChartMeta note="Thousands. Stacked stream shows relative volume by visa category over time." source="ONS Long-term International Migration; Home Office Immigration Statistics" sourceUrl="https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/internationalmigration" />
+              </ChartCard>
+              );
+            })()}
+
+            {/* ── Chart 2: Alluvial — Where They Come From, Why They Come ── */}
+            <ChartCard chartId="immigration-alluvial" title="Where They Come From \u2014 Why They Come" subtitle="Flow width = thousands of visas granted \u00b7 Hover a ribbon to isolate" accentColor="#ef4444" onShare={handleChartShare} explainData={immigrationData.originToVisa.flows.map(f => f.from + " \u2192 " + f.to + ": " + f.value + "k").join("; ")}>
+              <p className="text-gray-500 text-[10px] sm:text-xs mb-2 text-center">Top origin countries mapped to visa purpose (YE Dec 2024)</p>
+              <AlluvialChart flows={immigrationData.originToVisa.flows} leftLabel="ORIGIN" rightLabel="PURPOSE" visaColors={VISA_COLORS} />
+              <ChartMeta note="India dominates work and study visas. Asylum flows led by Pakistan, Eritrea, Iran, and Afghanistan." source="Home Office Immigration System Statistics" sourceUrl="https://www.gov.uk/government/statistical-data-sets/immigration-system-statistics-data-tables" />
+            </ChartCard>
+
+            {/* ── Chart 3: Asylum Slope Chart ── */}
+            <ChartCard chartId="immigration-asylum-slope" title="Asylum Claims vs Decisions" subtitle={"The gap = the backlog \u00b7 " + immigrationData.asylum.backlog.toLocaleString() + " cases awaiting decision"} accentColor="#ef4444" onShare={handleChartShare} explainData={asylumNat.map(d => d.name + ": " + d.applied + " applied, " + d.decided + " decided, grant rate " + Math.round(d.grantRate * 100) + "%").join("; ")}>
+              <SlopeChartViz data={asylumNat.map(d => ({ name: d.name, promised: d.applied, current: d.decided, cost: Math.round(d.applied / 1000) }))} leftKey="promised" rightKey="current" nameKey="name" sizeKey="cost" leftLabel="APPLIED" rightLabel="DECIDED" />
+              <ChartMeta note={"Overall grant rate: " + Math.round(immigrationData.asylum.grantRate * 100) + "%. Total applications YE Dec 2024: " + immigrationData.asylum.totalApplications2024.toLocaleString()} source="Home Office Asylum Statistics" sourceUrl="https://www.gov.uk/government/statistical-data-sets/asylum-and-resettlement-datasets" />
+            </ChartCard>
+
+            {/* ── Chart 4: Dot Matrix ── */}
+            <ChartCard chartId="immigration-dot-matrix" title={"Net Migration " + immigrationData.dotMatrix.year + ": " + immigrationData.dotMatrix.totalNet.toLocaleString() + ",000 People"} subtitle="Each dot = 1,000 people \u00b7 Hover to isolate by visa category" accentColor="#f59e0b" onShare={handleChartShare} explainData={dotCats.map(d => d.category + ": " + d.count + "k").join(", ") + " = " + immigrationData.dotMatrix.totalNet + "k total"}>
+              <DotMatrixChart categories={dotCats} totalNet={immigrationData.dotMatrix.totalNet} year={immigrationData.dotMatrix.year} />
+              <ChartMeta note="Breakdown is approximate based on visa category net flows." source="ONS Long-term International Migration" sourceUrl="https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/internationalmigration" />
+            </ChartCard>
+
+            {/* ── Chart 5: Timeline Ruler — Policy vs Numbers ── */}
+            <ChartCard chartId="immigration-timeline" title="Policy Decisions vs Migration Reality" subtitle="Background colour = party in power \u00b7 Markers = major policy events" accentColor="#ef4444" onShare={handleChartShare} explainData={netSeries.map(d => d.year + ": " + d.net + "k net, " + d.party).join("; ")}>
+              <div className="flex flex-wrap gap-3 sm:gap-4 justify-center mb-3">
+                {Object.entries(PARTY_BG).map(([p, c]) => (
+                  <span key={p} className="flex items-center gap-1.5 text-gray-400 text-[10px]">
+                    <span className="w-3.5 h-2 rounded-sm inline-block" style={{ background: c, opacity: 0.5 }} />{p}
+                  </span>
+                ))}
+              </div>
+              <ResponsiveContainer width="100%" height={300}>
+                <AreaChart data={netSeries} margin={{ top: 45, right: 20, left: 5, bottom: 5 }}>
+                  <defs>
+                    <linearGradient id="immNetGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#ef4444" stopOpacity={0.6} />
+                      <stop offset="100%" stopColor="#ef4444" stopOpacity={0.03} />
+                    </linearGradient>
+                  </defs>
+                  <ReferenceArea x1="2012" x2="2014" fill={PARTY_BG.Coalition} fillOpacity={0.1} />
+                  <ReferenceArea x1="2015" x2="2024" fill={PARTY_BG.Conservative} fillOpacity={0.1} />
+                  <ReferenceArea x1="2025" x2="2025" fill={PARTY_BG.Labour} fillOpacity={0.1} />
+                  {policyEvts.map(ev => (
+                    <ReferenceLine key={ev.year} x={String(ev.year)} stroke="rgba(255,255,255,0.25)" strokeDasharray="3 3" label={{ value: ev.label.length > 25 ? ev.label.slice(0, 23) + "\u2026" : ev.label, position: "top", fill: "#9ca3af", fontSize: 7, fontWeight: 700 }} />
+                  ))}
+                  <XAxis dataKey="yearStr" tick={{ fill: "#9ca3af", fontSize: 10 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => v + "k"} width={38} />
+                  <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [v + "k", "Net Migration"]} labelFormatter={l => { const ev = immigrationData.policyTimeline.find(e => String(e.year) === l); return ev ? l + " \u00b7 " + ev.party + (ev.label ? " \u00b7 " + ev.label : "") : l; }} />
+                  <Area type="monotone" dataKey="net" fill="url(#immNetGrad)" stroke="#ef4444" strokeWidth={2.5} dot={{ r: 3, fill: "#ef4444", stroke: "#0d0d1a", strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                </AreaChart>
+              </ResponsiveContainer>
+              <ChartMeta note={immigrationData.contextSentences.summary} source="ONS Long-term International Migration" sourceUrl="https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/internationalmigration" />
+            </ChartCard>
+
+            {/* Source footer */}
+            <div className="text-gray-600 text-xs px-1 mt-4">
+              Source: {immigrationData.metadata.primarySource.name}. {immigrationData.metadata.methodology}
             </div>
           </div>
           );
