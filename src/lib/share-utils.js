@@ -200,7 +200,8 @@ const ITEM_MAP = Object.fromEntries(
 export function encodeShareId(payload) {
   const json = JSON.stringify(payload);
   if (typeof window !== "undefined") {
-    return btoa(json)
+    // Encode via UTF-8 percent-encoding first to handle non-Latin1 chars (e.g. em dashes)
+    return btoa(unescape(encodeURIComponent(json)))
       .replace(/\+/g, "-")
       .replace(/\//g, "_")
       .replace(/=+$/, "");
@@ -224,15 +225,16 @@ export function decodeShareId(id) {
       .replace(/_/g, "/");
     let json;
     if (typeof window !== "undefined") {
-      json = atob(b64);
+      // Decode UTF-8 percent-encoding to handle non-Latin1 chars
+      json = decodeURIComponent(escape(atob(b64)));
     } else {
       json = Buffer.from(b64, "base64")
         .toString("utf8");
     }
     const payload = JSON.parse(json);
-    // Validate required fields
-    if (!payload.n || !payload.a
-      || !payload.i || payload.i.length < 1) {
+    // Chart share payloads use different fields (t, h, s) — only validate project payloads
+    if (payload.type !== "chart" && (!payload.n || !payload.a
+      || !payload.i || payload.i.length < 1)) {
       return null;
     }
     return payload;
