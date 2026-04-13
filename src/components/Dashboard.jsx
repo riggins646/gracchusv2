@@ -4284,6 +4284,71 @@ export default function App() {
   const [birthYearInput, setBirthYearInput] = useState("");
   const [birthYearCopied, setBirthYearCopied] = useState(false);
 
+  // Daily habit / streak state
+  const [streak, setStreak] = useState(0);
+  const [todayInsightIdx, setTodayInsightIdx] =
+    useState(0);
+
+  useEffect(() => {
+    // Streak tracking via localStorage
+    try {
+      const now = new Date();
+      const today = now.toISOString()
+        .slice(0, 10);
+      const stored =
+        localStorage.getItem("g_streak");
+      if (stored) {
+        const { last, count } =
+          JSON.parse(stored);
+        const lastDate = new Date(last);
+        const diffMs = now - lastDate;
+        const diffDays =
+          Math.floor(diffMs / 86400000);
+        if (last === today) {
+          // Already visited today
+          setStreak(count);
+        } else if (diffDays === 1) {
+          // Consecutive day
+          const next = count + 1;
+          setStreak(next);
+          localStorage.setItem(
+            "g_streak",
+            JSON.stringify({
+              last: today, count: next
+            })
+          );
+        } else {
+          // Streak broken
+          setStreak(1);
+          localStorage.setItem(
+            "g_streak",
+            JSON.stringify({
+              last: today, count: 1
+            })
+          );
+        }
+      } else {
+        // First visit
+        setStreak(1);
+        localStorage.setItem(
+          "g_streak",
+          JSON.stringify({
+            last: today, count: 1
+          })
+        );
+      }
+
+      // Deterministic daily index
+      const dayOfYear = Math.floor(
+        (now - new Date(now.getFullYear(), 0, 0))
+        / 86400000
+      );
+      setTodayInsightIdx(dayOfYear);
+    } catch {
+      setStreak(1);
+    }
+  }, []);
+
   // MP Scorecards state
   const [scSearch, setScSearch] = useState("");
   const [scParty, setScParty] = useState("All");
@@ -5482,6 +5547,306 @@ export default function App() {
                 )?.netBorrowing || 153
               }
             />
+
+            {/* ========= DAILY HABIT: STREAK + INSIGHT ========= */}
+            {(() => {
+              const insights = [
+                {
+                  stat: "\u00a3" + Math.round(
+                    (publicFinancesFlowData
+                      .annual.find(
+                        (y) => y.year === "2024-25"
+                      )?.netBorrowing || 153)
+                    * 1000 / 365
+                  ) + "m",
+                  label: "borrowed today",
+                  detail: "The UK government " +
+                    "borrows this much every " +
+                    "single day to cover the " +
+                    "gap between tax receipts " +
+                    "and spending.",
+                  view: "government.flow",
+                  accent: "text-red-500"
+                },
+                {
+                  stat: "\u00a3" + Math.round(
+                    (publicFinancesData.series
+                      ? publicFinancesData.series
+                        .slice(-1)[0]
+                        .debtInterestNet
+                      : 87
+                    ) * 1000 / 365
+                  ) + "m",
+                  label: "in debt interest today",
+                  detail: "This is what the UK " +
+                    "pays every day just to " +
+                    "service existing debt " +
+                    "\u2014 before a single " +
+                    "public service is funded.",
+                  view: "government.taxdebt",
+                  accent: "text-red-500"
+                },
+                {
+                  stat: projects
+                    .filter(
+                      (p) => p.status ===
+                        "Cancelled"
+                    ).length + "",
+                  label: "major projects cancelled",
+                  detail: "Billions spent on " +
+                    "planning, procurement, " +
+                    "and early works \u2014 " +
+                    "then abandoned with zero " +
+                    "public return.",
+                  view: "projects",
+                  accent: "text-red-400"
+                },
+                {
+                  stat: econOutputData
+                    .headline
+                    .productivityYoYPct + "%",
+                  label: "productivity growth",
+                  detail: "UK productivity has " +
+                    "been stagnant since 2008. " +
+                    "The US and Germany have " +
+                    "pulled further ahead " +
+                    "every year.",
+                  view: "economy.output",
+                  accent: "text-amber-500"
+                },
+                {
+                  stat: costOfLivingData
+                    .headline.cpiPct + "%",
+                  label: "CPI inflation",
+                  detail: "Prices remain " +
+                    "elevated after the " +
+                    "2022\u201323 shock. " +
+                    "Real wages have barely " +
+                    "recovered.",
+                  view: "economy.costOfLiving",
+                  accent: "text-amber-500"
+                },
+                {
+                  stat: econOutputData
+                    .headline.nhsWaiting ||
+                    "7.31M",
+                  label: "on NHS waiting lists",
+                  detail: "Millions waiting for " +
+                    "treatment. The backlog " +
+                    "has not returned to " +
+                    "pre-pandemic levels.",
+                  view: "economy.output",
+                  accent: "text-red-500"
+                },
+                {
+                  stat: "36%",
+                  label: "of MPs have second jobs",
+                  detail: "236 of 650 MPs " +
+                    "declare outside income. " +
+                    "Total declared: \u00a39.8m " +
+                    "since July 2024.",
+                  view: "transparency.scorecards",
+                  accent: "text-amber-500"
+                },
+                {
+                  stat: planningData
+                    .gridConnectionQueue
+                    .projectsInQueue
+                    .toLocaleString("en-GB"),
+                  label: "energy projects in " +
+                    "grid queue",
+                  detail: "Thousands of " +
+                    "renewable energy projects " +
+                    "waiting years to connect " +
+                    "to the grid. Net zero " +
+                    "targets are at risk.",
+                  view: "projects.planning",
+                  accent: "text-amber-500"
+                },
+                {
+                  stat: fmt(totalOverrun),
+                  label: "total project overruns",
+                  detail: "The cumulative cost " +
+                    "overrun across all " +
+                    "major UK public " +
+                    "projects tracked by " +
+                    "Gracchus.",
+                  view: "projects",
+                  accent: "text-red-500"
+                },
+                {
+                  stat: costOfLivingData
+                    .headline
+                    .petrolPenceLitre + "p",
+                  label: "per litre of petrol",
+                  detail: "Fuel duty plus VAT " +
+                    "account for over half " +
+                    "the price at the pump. " +
+                    "Prices remain near " +
+                    "historic highs.",
+                  view: "compare.bills",
+                  accent: "text-amber-500"
+                }
+              ];
+
+              const today =
+                insights[
+                  todayInsightIdx %
+                  insights.length
+                ];
+              const tomorrow =
+                insights[
+                  (todayInsightIdx + 1) %
+                  insights.length
+                ];
+
+              return (
+                <div className={
+                  "border border-gray-800/40 " +
+                  "bg-gray-950/40 mb-4"
+                }>
+                  <div className={
+                    "flex flex-col sm:flex-row"
+                  }>
+                    {/* Streak */}
+                    <div className={
+                      "flex items-center gap-3 " +
+                      "px-5 py-4 border-b " +
+                      "sm:border-b-0 " +
+                      "sm:border-r " +
+                      "border-gray-800/40 " +
+                      "shrink-0"
+                    }>
+                      <div className={
+                        "text-2xl"
+                      }>
+                        {streak >= 7
+                          ? "\ud83d\udd25"
+                          : streak >= 3
+                          ? "\u2b50"
+                          : "\ud83d\udcc5"}
+                      </div>
+                      <div>
+                        <div className={
+                          "text-lg font-black " +
+                          "text-white " +
+                          "leading-none"
+                        }>
+                          Day {streak}
+                        </div>
+                        <div className={
+                          "text-[10px] " +
+                          "text-gray-600 " +
+                          "font-mono uppercase " +
+                          "tracking-[0.1em]"
+                        }>
+                          {streak >= 7
+                            ? "On fire"
+                            : streak >= 3
+                            ? "Building a habit"
+                            : "Your streak"}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Today's insight */}
+                    <button
+                      onClick={() =>
+                        setView(today.view)
+                      }
+                      className={
+                        "flex-1 text-left " +
+                        "px-5 py-4 " +
+                        "hover:bg-white/[0.02] " +
+                        "transition-colors " +
+                        "group"
+                      }
+                    >
+                      <div className={
+                        "text-[9px] uppercase " +
+                        "tracking-[0.25em] " +
+                        "text-gray-700 " +
+                        "font-mono mb-1"
+                      }>
+                        Today{"\u2019"}s number
+                      </div>
+                      <div className={
+                        "flex items-baseline " +
+                        "gap-2"
+                      }>
+                        <span className={
+                          "text-xl sm:text-2xl " +
+                          "font-black " +
+                          today.accent
+                        }>
+                          {today.stat}
+                        </span>
+                        <span className={
+                          "text-sm text-gray-400 " +
+                          "group-hover:text-gray-300 " +
+                          "transition-colors"
+                        }>
+                          {today.label}
+                        </span>
+                      </div>
+                      <div className={
+                        "text-[12px] " +
+                        "text-gray-600 mt-1 " +
+                        "leading-relaxed " +
+                        "max-w-md"
+                      }>
+                        {today.detail}
+                      </div>
+                    </button>
+
+                    {/* Tomorrow teaser */}
+                    <div className={
+                      "px-5 py-4 border-t " +
+                      "sm:border-t-0 " +
+                      "sm:border-l " +
+                      "border-gray-800/40 " +
+                      "shrink-0 " +
+                      "sm:w-48 " +
+                      "flex items-center"
+                    }>
+                      <div>
+                        <div className={
+                          "text-[9px] uppercase " +
+                          "tracking-[0.25em] " +
+                          "text-gray-700 " +
+                          "font-mono mb-1"
+                        }>
+                          Tomorrow
+                        </div>
+                        <div className={
+                          "text-lg font-black " +
+                          "text-gray-800 " +
+                          "blur-[3px] " +
+                          "select-none"
+                        }>
+                          {tomorrow.stat}
+                        </div>
+                        <div className={
+                          "text-[11px] " +
+                          "text-gray-800 " +
+                          "blur-[2px] " +
+                          "select-none"
+                        }>
+                          {tomorrow.label}
+                        </div>
+                        <div className={
+                          "text-[10px] " +
+                          "text-gray-700 " +
+                          "font-mono mt-1"
+                        }>
+                          Come back to reveal
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* ========= LIVE TICKER STRIP ========= */}
             <LiveTickerStrip
