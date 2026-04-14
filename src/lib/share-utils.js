@@ -1452,40 +1452,41 @@ export function renderSewageFinesCard() {
   ctx.font = "600 12px " + MONO;
   ctx.letterSpacing = "4px";
   ctx.fillText("GRACCHUS", px + 28, y);
-  y += 58;
+  y += 80;
 
   // Giant hero number — the 0.2% that says it all
   ctx.fillStyle = "#ef4444";
-  ctx.font = "900 160px " + SANS;
+  ctx.font = "900 180px " + SANS;
   ctx.letterSpacing = "-8px";
-  ctx.fillText("0.2%", px - 4, y + 130);
-  y += 160;
+  ctx.fillText("0.2%", px - 6, y + 140);
+  y += 185;
 
   // The line that makes it hit
   ctx.fillStyle = "#ffffff";
-  ctx.font = "700 32px " + SANS;
+  ctx.font = "700 30px " + SANS;
   ctx.letterSpacing = "-0.5px";
   ctx.fillText("That\u2019s how much water companies pay in fines", px, y);
-  y += 44;
+  y += 42;
   ctx.fillText("compared to what they pay shareholders.", px, y);
-  y += 56;
+  y += 72;
 
   // The numbers — stacked, clean
   ctx.fillStyle = "#ef4444";
-  ctx.font = "900 24px " + MONO;
+  ctx.font = "900 22px " + MONO;
   ctx.letterSpacing = "0px";
   ctx.fillText("\u00a3168M", px, y);
   ctx.fillStyle = "#6b7280";
-  ctx.font = "400 20px " + SANS;
-  ctx.fillText("  fines levied in 2024", px + ctx.measureText("\u00a3168M").width + 4, y);
-  y += 40;
+  ctx.font = "400 19px " + SANS;
+  var finesLabelX = px + 90;
+  ctx.fillText("fines levied in 2024", finesLabelX, y);
+  y += 36;
 
   ctx.fillStyle = "#10b981";
-  ctx.font = "900 24px " + MONO;
+  ctx.font = "900 22px " + MONO;
   ctx.fillText("\u00a378B", px, y);
   ctx.fillStyle = "#6b7280";
-  ctx.font = "400 20px " + SANS;
-  ctx.fillText("   dividends extracted since privatisation", px + ctx.measureText("\u00a378B").width + 4, y);
+  ctx.font = "400 19px " + SANS;
+  ctx.fillText("dividends extracted since privatisation", finesLabelX, y);
 
   drawFooter(ctx, W, H, px);
   return canvas.toDataURL("image/png");
