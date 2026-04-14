@@ -1458,27 +1458,27 @@ export function renderSewageFinesCard() {
   ctx.fillStyle = "#ef4444";
   ctx.font = "900 200px " + SANS;
   ctx.letterSpacing = "-10px";
-  ctx.fillText("0.2%", px - 8, y + 155);
-  y += 190;
+  ctx.fillText("0.2%", px - 8, y + 150);
+  y += 200;
 
   // The line that makes it hit — big enough to read in a tweet embed
   ctx.fillStyle = "#ffffff";
-  ctx.font = "700 42px " + SANS;
+  ctx.font = "700 38px " + SANS;
   ctx.letterSpacing = "-1px";
   ctx.fillText("That\u2019s how much water companies", px, y);
-  y += 54;
+  y += 50;
   ctx.fillText("pay in fines vs. shareholder dividends.", px, y);
-  y += 76;
+  y += 68;
 
   // The numbers — large, unmissable
   ctx.fillStyle = "#ef4444";
-  ctx.font = "900 34px " + MONO;
+  ctx.font = "900 32px " + MONO;
   ctx.letterSpacing = "0px";
   ctx.fillText("\u00a3168M", px, y);
   ctx.fillStyle = "#9ca3af";
-  ctx.font = "500 28px " + SANS;
-  ctx.fillText("fines (2024)", px + 160, y);
-  y += 50;
+  ctx.font = "500 26px " + SANS;
+  ctx.fillText("fines (2024)", px + 155, y);
+  y += 46;
 
   ctx.fillStyle = "#10b981";
   ctx.font = "900 34px " + MONO;
