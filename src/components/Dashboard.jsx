@@ -1050,6 +1050,15 @@ function ChartCard({
   // briefly (300–700ms) so it always feels like AI is working.
   const premiumDelay = () => new Promise(r => setTimeout(r, 300 + Math.random() * 400));
 
+  const ensureToken = async () => {
+    if (_sessionToken) return _sessionToken;
+    try {
+      const r = await fetch("/api/token");
+      if (r.ok) { const d = await r.json(); if (d?.token) { _sessionToken = d.token; return d.token; } }
+    } catch {}
+    return null;
+  };
+
   const handleExplain = async () => {
     if (drawer === "explain") { closeDrawer(); return; }
     openDrawer("explain");
@@ -1057,13 +1066,27 @@ function ChartCard({
     setAiExplain("loading");
     try {
       const fetchStart = Date.now();
+      const token = await ensureToken();
       const headers = { "Content-Type": "application/json" };
-      if (_sessionToken) headers["X-Session-Token"] = _sessionToken;
-      const res = await fetch("/api/explain", {
+      if (token) headers["X-Session-Token"] = token;
+      let res = await fetch("/api/explain", {
         method: "POST",
         headers,
         body: JSON.stringify(buildPayload())
       });
+      // If 401 (expired/missing token), refresh and retry once
+      if (res.status === 401) {
+        _sessionToken = null;
+        const freshToken = await ensureToken();
+        if (freshToken) {
+          headers["X-Session-Token"] = freshToken;
+          res = await fetch("/api/explain", {
+            method: "POST",
+            headers,
+            body: JSON.stringify(buildPayload())
+          });
+        }
+      }
       if (res.status === 429) {
         setAiExplain({ error: "Too many requests — please wait a minute and try again" });
         return;
@@ -1086,13 +1109,27 @@ function ChartCard({
     setAiFix("loading");
     try {
       const fetchStart = Date.now();
+      const token = await ensureToken();
       const headers = { "Content-Type": "application/json" };
-      if (_sessionToken) headers["X-Session-Token"] = _sessionToken;
-      const res = await fetch("/api/fix", {
+      if (token) headers["X-Session-Token"] = token;
+      let res = await fetch("/api/fix", {
         method: "POST",
         headers,
         body: JSON.stringify(buildPayload())
       });
+      // If 401 (expired/missing token), refresh and retry once
+      if (res.status === 401) {
+        _sessionToken = null;
+        const freshToken = await ensureToken();
+        if (freshToken) {
+          headers["X-Session-Token"] = freshToken;
+          res = await fetch("/api/fix", {
+            method: "POST",
+            headers,
+            body: JSON.stringify(buildPayload())
+          });
+        }
+      }
       if (res.status === 429) {
         setAiFix({ error: "Too many requests — please wait a minute and try again" });
         return;
