@@ -22,18 +22,18 @@ const YEAR = "2026";
 const QUARTER_LABEL = `${QUARTER} ${YEAR}`;
 const UK_TAXPAYERS = 33_400_000;
 
-// ── Slide colour themes (Spotify-esque bold gradients) ──
+// ── Slide colour themes — vivid Spotify Wrapped style ──
 const THEMES = [
-  { bg: "from-blue-950 via-black to-black", accent: "#3B82F6", name: "blue" },
-  { bg: "from-amber-950 via-black to-black", accent: "#F59E0B", name: "amber" },
-  { bg: "from-red-950 via-black to-black", accent: "#FF4D4D", name: "red" },
-  { bg: "from-purple-950 via-black to-black", accent: "#A855F7", name: "purple" },
-  { bg: "from-emerald-950 via-black to-black", accent: "#10B981", name: "emerald" },
-  { bg: "from-rose-950 via-black to-black", accent: "#FB7185", name: "rose" },
-  { bg: "from-red-950 via-black to-black", accent: "#FF4D4D", name: "red2" },
-  { bg: "from-amber-950 via-black to-black", accent: "#F59E0B", name: "amber2" },
-  { bg: "from-purple-950 via-black to-black", accent: "#A855F7", name: "purple2" },
-  { bg: "from-emerald-950 via-black to-black", accent: "#10B981", name: "emerald2" },
+  { bg: "bg-[#0D1B2A]", accent: "#4CC9F0", shape: "#3A86FF", name: "deepblue" },
+  { bg: "bg-[#1A1A2E]", accent: "#FF6B6B", shape: "#E63946", name: "coral" },
+  { bg: "bg-[#0B0B0F]", accent: "#FF4D4D", shape: "#DC2626", name: "red" },
+  { bg: "bg-[#1B0A3C]", accent: "#A855F7", shape: "#7C3AED", name: "purple" },
+  { bg: "bg-[#002B1F]", accent: "#10B981", shape: "#059669", name: "emerald" },
+  { bg: "bg-[#2D1810]", accent: "#FB7185", shape: "#E11D48", name: "rose" },
+  { bg: "bg-[#1C1005]", accent: "#F59E0B", shape: "#D97706", name: "amber" },
+  { bg: "bg-[#0A192F]", accent: "#3B82F6", shape: "#2563EB", name: "blue" },
+  { bg: "bg-[#1A0A2E]", accent: "#C084FC", shape: "#9333EA", name: "violet" },
+  { bg: "bg-[#0D2818]", accent: "#34D399", shape: "#10B981", name: "green" },
 ];
 
 function fmt(m) {
@@ -376,42 +376,44 @@ function ShareModal({ slide, theme, onClose }) {
   );
 }
 
-// ── Single slide renderer ──────────────────────────────
+// ── Single slide renderer — Spotify Wrapped style ──────
 function Slide({ slide, theme, onShare }) {
   return (
     <div className={
-      "min-h-[70vh] sm:min-h-[80vh] flex flex-col justify-center " +
-      "px-6 sm:px-10 md:px-16 py-12 sm:py-16 " +
-      "bg-gradient-to-b " + theme.bg + " " +
+      "min-h-[70vh] sm:min-h-[80vh] flex flex-col items-center justify-center " +
+      "px-6 sm:px-10 md:px-16 py-16 sm:py-20 " +
+      theme.bg + " " +
       "relative overflow-hidden"
     }>
-      {/* Decorative gradient orb */}
-      <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-10 blur-3xl"
+      {/* Decorative geometric shapes */}
+      <div className="absolute top-[-10%] right-[-5%] w-[50vw] h-[50vw] max-w-[500px] max-h-[500px] rounded-full opacity-[0.08]"
         style={{ background: theme.accent }} />
+      <div className="absolute bottom-[-15%] left-[-10%] w-[40vw] h-[40vw] max-w-[400px] max-h-[400px] rounded-full opacity-[0.05]"
+        style={{ background: theme.shape || theme.accent }} />
 
-      <div className="relative z-10 max-w-2xl">
+      <div className="relative z-10 max-w-2xl w-full text-center">
         {/* Eyebrow */}
-        <div className="text-[11px] sm:text-[13px] uppercase tracking-[0.3em] font-mono mb-4 sm:mb-6"
+        <div className="text-[12px] sm:text-[14px] uppercase tracking-[0.35em] font-mono mb-6 sm:mb-8"
           style={{ color: theme.accent }}>
           {slide.eyebrow}
         </div>
 
         {/* Headline */}
         {slide.headline && (
-          <div className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-3 sm:mb-4 leading-tight">
+          <div className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-4 sm:mb-6 leading-[1.1]">
             {slide.headline}
           </div>
         )}
 
         {/* Big number */}
         {slide.bigNumber && (
-          <div className="mb-2">
-            <span className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight"
+          <div className="mb-4">
+            <span className="text-6xl sm:text-8xl md:text-9xl font-black tracking-tighter"
               style={{ color: theme.accent }}>
               {slide.bigNumber}
             </span>
             {slide.bigNumberSuffix && (
-              <div className="text-lg sm:text-2xl text-gray-400 font-medium mt-1">
+              <div className="text-lg sm:text-2xl text-white/60 font-medium mt-2 max-w-lg mx-auto">
                 {slide.bigNumberSuffix}
               </div>
             )}
@@ -420,53 +422,59 @@ function Slide({ slide, theme, onShare }) {
 
         {/* Subline */}
         {slide.subline && (
-          <div className="text-base sm:text-xl text-gray-400 mb-6 leading-relaxed">
+          <div className="text-base sm:text-xl text-white/45 mb-8 leading-relaxed max-w-xl mx-auto">
             {slide.subline}
           </div>
         )}
 
         {/* Detail text */}
-        {slide.detail && (
-          <div className="text-sm sm:text-base text-gray-500 leading-relaxed mb-6 max-w-lg border-l-2 pl-4"
-            style={{ borderColor: theme.accent + "40" }}>
+        {slide.detail && !slide.list && (
+          <div className="text-sm sm:text-lg text-white/40 leading-relaxed mb-6 max-w-lg mx-auto">
             {slide.detail}
           </div>
         )}
 
         {/* List */}
         {slide.list && (
-          <div className="mt-6">
+          <div className="mt-4 text-left max-w-lg mx-auto">
             {slide.listTitle && (
-              <div className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-3">
+              <div className="text-[11px] sm:text-[13px] uppercase tracking-[0.25em] font-mono mb-4 text-center"
+                style={{ color: theme.accent + "80" }}>
                 {slide.listTitle}
               </div>
             )}
-            <div className="space-y-3">
+            <div className="space-y-2">
               {slide.list.map((item, i) => (
-                <div key={i} className="border-b border-gray-800/40 pb-2">
+                <div key={i} className="border-b border-white/[0.06] pb-2">
                   <div className="flex items-baseline justify-between gap-4">
-                    <div className="text-sm sm:text-base text-gray-300 font-medium truncate flex-1 min-w-0">
+                    <div className="text-sm sm:text-lg text-white/80 font-semibold truncate flex-1 min-w-0">
                       {item.label}
                     </div>
-                    <div className="text-sm sm:text-base font-bold whitespace-nowrap"
+                    <div className="text-sm sm:text-lg font-bold whitespace-nowrap"
                       style={{ color: theme.accent }}>
                       {item.value}
                     </div>
                   </div>
                   {item.sub && (
-                    <div className="text-[11px] text-gray-600 mt-0.5 truncate">
+                    <div className="text-[12px] text-white/30 mt-0.5 truncate">
                       {item.sub}
                     </div>
                   )}
                 </div>
               ))}
             </div>
+            {/* Detail after list */}
+            {slide.detail && (
+              <div className="text-sm text-white/35 leading-relaxed mt-5 text-center">
+                {slide.detail}
+              </div>
+            )}
           </div>
         )}
 
         {/* Footer */}
         {slide.footer && (
-          <div className="mt-8 text-[11px] uppercase tracking-[0.15em] font-mono text-gray-700">
+          <div className="mt-8 text-[11px] uppercase tracking-[0.2em] font-mono text-white/20">
             {slide.footer}
           </div>
         )}
@@ -476,12 +484,12 @@ function Slide({ slide, theme, onShare }) {
       <button onClick={onShare}
         className={
           "absolute bottom-6 right-6 flex items-center gap-2 " +
-          "px-4 py-2.5 text-[11px] uppercase tracking-[0.15em] font-mono " +
-          "text-gray-500 hover:text-white " +
-          "border border-gray-800 hover:border-gray-600 " +
-          "bg-black/50 backdrop-blur-sm transition-all"
+          "px-5 py-3 text-[12px] uppercase tracking-[0.2em] font-mono " +
+          "text-white/50 hover:text-white " +
+          "border border-white/10 hover:border-white/30 " +
+          "bg-black/30 backdrop-blur-sm transition-all rounded-full"
         }>
-        <Share2 size={12} />
+        <Share2 size={14} />
         Share
       </button>
     </div>
