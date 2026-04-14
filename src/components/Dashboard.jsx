@@ -9,7 +9,7 @@ import {
   ScatterChart, Scatter, ZAxis, CartesianGrid, AreaChart, Area,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
   LineChart, Line, ComposedChart,
-  Treemap, ReferenceLine, ReferenceArea
+  Treemap, ReferenceLine, ReferenceArea, ReferenceDot, Label
 } from "recharts";
 import {
   Search, TrendingUp, TrendingDown, AlertTriangle, Clock, Building2,
@@ -5627,16 +5627,18 @@ export default function App() {
       label: "Accountability",
       icon: Scale,
       children: [
+        // Political group
         { id: "transparency.scorecards", label: "MP Scorecards" },
         { id: "transparency.donations", label: "Political Donations" },
         { id: "transparency.mppay", label: "MPs' Pay vs the Country" },
         { id: "transparency.mp", label: "MPs' Income & Expenses" },
         { id: "transparency.lobbying", label: "Lobbying" },
+        { id: "transparency.moonlighting", label: "Moonlighting MPs" },
+        // Public Services group
         { id: "transparency.aid", label: "Foreign Aid" },
         { id: "transparency.immigration", label: "Immigration & Borders" },
         { id: "transparency.nhswaits", label: "NHS Waiting Times" },
-        { id: "transparency.sewage", label: "Sewage Clock" },
-        { id: "transparency.moonlighting", label: "Moonlighting MPs" }
+        { id: "transparency.sewage", label: "Sewage Clock" }
       ]
     },
     {
@@ -5724,12 +5726,17 @@ export default function App() {
                 alt="Gracchus"
                 className="w-4 h-4 md:w-5 md:h-5"
               />
-              <span className={
-                "text-[10px] md:text-[11px] uppercase tracking-[0.2em] " +
-                "font-medium text-gray-400"
-              }>
-                GRACCHUS
-              </span>
+              <div className="flex flex-col">
+                <span className={
+                  "text-[10px] md:text-[11px] uppercase tracking-[0.2em] " +
+                  "font-medium text-gray-400"
+                }>
+                  GRACCHUS
+                </span>
+                <span className="text-[10px] text-gray-500 tracking-wider hidden sm:inline">
+                  UK government accountability in data.
+                </span>
+              </div>
               <a
                 href="https://x.com/GracchusHQ"
                 target="_blank"
@@ -5861,27 +5868,31 @@ export default function App() {
             activeChildren.length > 1 && (
             <div className={
               "hidden md:flex border-t border-gray-800/30 " +
-              "gap-0.5 py-1.5"
+              "gap-0.5 py-1.5 items-center flex-wrap"
             }>
-              {activeChildren.map((c) => (
-                <button
-                  key={c.id}
-                  onClick={() =>
-                    setView(c.id)
-                  }
-                  className={
-                    "px-3 py-1 text-[11px] " +
-                    "uppercase tracking-[0.1em] " +
-                    "font-medium transition-colors " +
-                    (view === c.id
-                      ? "text-white " +
-                        "bg-gray-800/50"
-                      : "text-gray-600 " +
-                        "hover:text-gray-400")
-                  }
-                >
-                  {c.label}
-                </button>
+              {activeChildren.map((c, index) => (
+                <div key={c.id} className="flex items-center gap-0.5">
+                  {c.id === "transparency.aid" && (
+                    <div className="w-px h-5 bg-gray-800 mx-1 shrink-0" />
+                  )}
+                  <button
+                    onClick={() =>
+                      setView(c.id)
+                    }
+                    className={
+                      "px-3 py-1 text-[11px] " +
+                      "uppercase tracking-[0.1em] " +
+                      "font-medium transition-colors " +
+                      (view === c.id
+                        ? "text-white " +
+                          "bg-gray-800/50"
+                        : "text-gray-600 " +
+                          "hover:text-gray-400")
+                    }
+                  >
+                    {c.label}
+                  </button>
+                </div>
               ))}
             </div>
           )}
@@ -7646,12 +7657,16 @@ export default function App() {
                             r: 5,
                             fill: "#f59e0b"
                           }}
+                          animationDuration={1000}
+                          animationEasing="ease-out"
                         />
                         <Bar
                           dataKey="decisions"
                           fill="#374151"
                           opacity={0.5}
                           barSize={14}
+                          animationDuration={800}
+                          animationEasing="ease-out"
                         />
                       </ComposedChart>
                     </ResponsiveContainer>
@@ -9746,6 +9761,8 @@ export default function App() {
                       strokeOpacity={donHovParty === null ? 0.9 : donHovParty === party ? 1 : 0.08}
                       strokeWidth={donHovParty === party ? 2 : 1}
                       style={{ transition: "fill-opacity 0.3s, stroke-opacity 0.3s" }}
+                      animationDuration={1000}
+                      animationEasing="ease-out"
                     />
                   ))}
                 </AreaChart>
@@ -9792,7 +9809,7 @@ export default function App() {
                     itemStyle={{ color: "#d1d5db" }}
                     formatter={(v) => ["\u00A3" + (v / 1e6).toFixed(1) + "m", "Total"]}
                   />
-                  <Bar dataKey="total" radius={[0, 4, 4, 0]}>
+                  <Bar dataKey="total" radius={[0, 4, 4, 0]} animationDuration={800} animationEasing="ease-out">
                     {(() => {
                       const data = govFilter
                         ? (() => {
@@ -10171,8 +10188,8 @@ export default function App() {
                       labelStyle={{ color: "#94a3b8" }}
                       formatter={(v) => ["\u00A3" + v.toLocaleString()]}
                     />
-                    <Bar dataKey="uk_median" name="UK Median" fill="#3b82f6" radius={[2, 2, 0, 0]} />
-                    <Bar dataKey="mp_salary" name="MP Salary" fill="#ef4444" radius={[2, 2, 0, 0]} opacity={0.85} />
+                    <Bar dataKey="uk_median" name="UK Median" fill="#3b82f6" radius={[2, 2, 0, 0]} animationDuration={800} animationEasing="ease-out" />
+                    <Bar dataKey="mp_salary" name="MP Salary" fill="#ef4444" radius={[2, 2, 0, 0]} opacity={0.85} animationDuration={800} animationEasing="ease-out" />
                   </BarChart>
                 </ResponsiveContainer>
                 <div className="flex items-center justify-center gap-6 mt-3 text-[11px] text-gray-500">
@@ -10204,12 +10221,12 @@ export default function App() {
                       labelStyle={{ color: "#94a3b8" }}
                       formatter={(v) => ["\u00A3" + v.toLocaleString()]}
                     />
-                    <Bar dataKey="salary" name="Base Salary" stackId="cost" fill="#ef4444" radius={[0, 0, 0, 0]} />
-                    <Bar dataKey="staffing" name="Staffing Budget" stackId="cost" fill="#a855f7" radius={[0, 0, 0, 0]} />
-                    <Bar dataKey="office" name="Office Costs" stackId="cost" fill="#f59e0b" radius={[0, 0, 0, 0]} />
-                    <Bar dataKey="accommodation" name="Accommodation" stackId="cost" fill="#22d3ee" radius={[0, 0, 0, 0]} />
-                    <Bar dataKey="travel" name="Travel" stackId="cost" fill="#10b981" radius={[0, 0, 0, 0]} />
-                    <Bar dataKey="other" name="Other" stackId="cost" fill="#64748b" radius={[2, 2, 0, 0]} />
+                    <Bar dataKey="salary" name="Base Salary" stackId="cost" fill="#ef4444" radius={[0, 0, 0, 0]} animationDuration={800} animationEasing="ease-out" />
+                    <Bar dataKey="staffing" name="Staffing Budget" stackId="cost" fill="#a855f7" radius={[0, 0, 0, 0]} animationDuration={800} animationEasing="ease-out" />
+                    <Bar dataKey="office" name="Office Costs" stackId="cost" fill="#f59e0b" radius={[0, 0, 0, 0]} animationDuration={800} animationEasing="ease-out" />
+                    <Bar dataKey="accommodation" name="Accommodation" stackId="cost" fill="#22d3ee" radius={[0, 0, 0, 0]} animationDuration={800} animationEasing="ease-out" />
+                    <Bar dataKey="travel" name="Travel" stackId="cost" fill="#10b981" radius={[0, 0, 0, 0]} animationDuration={800} animationEasing="ease-out" />
+                    <Bar dataKey="other" name="Other" stackId="cost" fill="#64748b" radius={[2, 2, 0, 0]} animationDuration={800} animationEasing="ease-out" />
                   </BarChart>
                 </ResponsiveContainer>
                 <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mt-3 text-[11px] text-gray-500">
@@ -10264,9 +10281,9 @@ export default function App() {
                       }}
                     />
                     {/* Median salary area (blue, lower) */}
-                    <Area yAxisId="salary" type="monotone" dataKey="uk_median" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.15} strokeWidth={2} dot={false} name="uk_median" />
+                    <Area yAxisId="salary" type="monotone" dataKey="uk_median" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.15} strokeWidth={2} dot={false} name="uk_median" animationDuration={1000} animationEasing="ease-out" />
                     {/* MP salary area (red, higher) — the gap between red and blue is shaded */}
-                    <Area yAxisId="salary" type="monotone" dataKey="mp_salary" stroke="#ef4444" fill="url(#mpSalaryGrad)" strokeWidth={2.5} dot={false} name="mp_salary" />
+                    <Area yAxisId="salary" type="monotone" dataKey="mp_salary" stroke="#ef4444" fill="url(#mpSalaryGrad)" strokeWidth={2.5} dot={false} name="mp_salary" animationDuration={1000} animationEasing="ease-out" />
                     {/* Multiplier line on right axis */}
                     <Line yAxisId="ratio" type="monotone" dataKey="mp_multiple" stroke="#f59e0b" strokeWidth={1.5} strokeDasharray="6 3" dot={false} name="mp_multiple" />
                   </ComposedChart>
@@ -10460,7 +10477,7 @@ export default function App() {
                         <XAxis dataKey="name" stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 11 }} />
                         <YAxis stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 11 }} tickFormatter={v => fmtMoney(v)} />
                         <Tooltip contentStyle={{ backgroundColor: "#111827", border: "1px solid #374151", borderRadius: 8 }} formatter={(v) => ["£" + v.toLocaleString(), "Value"]} />
-                        <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                        <Bar dataKey="value" radius={[4, 4, 0, 0]} animationDuration={800} animationEasing="ease-out">
                           {[0,1,2].map(i => <Cell key={i} fill={["#ef4444","#f59e0b","#6366f1"][i]} fillOpacity={0.8} />)}
                         </Bar>
                       </BarChart>
@@ -10688,7 +10705,7 @@ export default function App() {
                     <XAxis type="number" stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 11 }} tickFormatter={v => fmtMoney(v)} />
                     <YAxis type="category" dataKey="name" stroke="#6b7280" tick={{ fill: "#d1d5db", fontSize: 10 }} width={95} />
                     <Tooltip contentStyle={{ backgroundColor: "#111827", border: "1px solid #374151", borderRadius: 8 }} formatter={(v) => ["£" + v.toLocaleString(), "Outside Income"]} />
-                    <Bar dataKey="oi" radius={[0, 4, 4, 0]} fill="#ef4444" fillOpacity={0.8} />
+                    <Bar dataKey="oi" radius={[0, 4, 4, 0]} fill="#ef4444" fillOpacity={0.8} animationDuration={800} animationEasing="ease-out" />
                   </BarChart>
                 </ResponsiveContainer>
                 <ChartMeta
@@ -10705,10 +10722,10 @@ export default function App() {
                     <XAxis dataKey="year" stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 10 }} />
                     <YAxis stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 11 }} tickFormatter={v => "£" + v + "m"} />
                     <Tooltip contentStyle={{ backgroundColor: "#111827", border: "1px solid #374151", borderRadius: 8 }} formatter={(v, name) => ["£" + v.toFixed(1) + "m", name]} />
-                    <Bar dataKey="staffing" stackId="a" fill="#6366f1" fillOpacity={0.8} name="Staffing" />
-                    <Bar dataKey="office" stackId="a" fill="#8b5cf6" fillOpacity={0.7} name="Office" />
-                    <Bar dataKey="accommodation" stackId="a" fill="#a78bfa" fillOpacity={0.6} name="Accommodation" />
-                    <Bar dataKey="travel" stackId="a" fill="#c4b5fd" fillOpacity={0.5} name="Travel" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="staffing" stackId="a" fill="#6366f1" fillOpacity={0.8} name="Staffing" animationDuration={800} animationEasing="ease-out" />
+                    <Bar dataKey="office" stackId="a" fill="#8b5cf6" fillOpacity={0.7} name="Office" animationDuration={800} animationEasing="ease-out" />
+                    <Bar dataKey="accommodation" stackId="a" fill="#a78bfa" fillOpacity={0.6} name="Accommodation" animationDuration={800} animationEasing="ease-out" />
+                    <Bar dataKey="travel" stackId="a" fill="#c4b5fd" fillOpacity={0.5} name="Travel" radius={[4, 4, 0, 0]} animationDuration={800} animationEasing="ease-out" />
                   </BarChart>
                 </ResponsiveContainer>
                 <ChartMeta
@@ -10872,7 +10889,7 @@ export default function App() {
                       <XAxis dataKey="year" stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 11 }} />
                       <YAxis stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 11 }} />
                       <Tooltip contentStyle={{ backgroundColor: "#111827", border: "1px solid #374151", borderRadius: 8 }} formatter={(v) => [v + " firms", "Registered"]} />
-                      <Area type="monotone" dataKey="count" stroke="#6366f1" fill="#6366f1" fillOpacity={0.2} strokeWidth={2} />
+                      <Area type="monotone" dataKey="count" stroke="#6366f1" fill="#6366f1" fillOpacity={0.2} strokeWidth={2} animationDuration={1000} animationEasing="ease-out" />
                     </AreaChart>
                   </ResponsiveContainer>
                   <ChartMeta note={lobbyingData.contextSentences.growth} source="Office of the Registrar of Consultant Lobbyists" sourceUrl={lobbyingData.metadata.primarySources[0].url} />
@@ -11066,7 +11083,7 @@ export default function App() {
                       <XAxis type="number" stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 11 }} />
                       <YAxis type="category" dataKey="department" stroke="#6b7280" tick={{ fill: "#d1d5db", fontSize: 10 }} width={135} />
                       <Tooltip contentStyle={{ backgroundColor: "#111827", border: "1px solid #374151", borderRadius: 8 }} formatter={(v) => [v.toLocaleString() + " meetings", "Published"]} />
-                      <Bar dataKey="approxMeetings" radius={[0, 4, 4, 0]} fill="#6b7280" fillOpacity={0.7} />
+                      <Bar dataKey="approxMeetings" radius={[0, 4, 4, 0]} fill="#6b7280" fillOpacity={0.7} animationDuration={800} animationEasing="ease-out" />
                     </BarChart>
                   </ResponsiveContainer>
                   <ChartMeta note={lobbyingData.contextSentences.meetings} source="Transparency International UK — Open Access" sourceUrl={lobbyingData.metadata.primarySources[2].url} />
@@ -11099,7 +11116,7 @@ export default function App() {
                       <XAxis dataKey="country" stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 11 }} />
                       <YAxis stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 11 }} />
                       <Tooltip contentStyle={{ backgroundColor: "#111827", border: "1px solid #374151", borderRadius: 8 }} formatter={(v) => [v.toLocaleString(), "Registrants"]} />
-                      <Bar dataKey="registrants" radius={[4, 4, 0, 0]}>
+                      <Bar dataKey="registrants" radius={[4, 4, 0, 0]} animationDuration={800} animationEasing="ease-out">
                         {intlData.map((d, i) => (
                           <Cell key={i} fill={d.country === "United Kingdom" ? "#ef4444" : "#6366f1"} fillOpacity={0.7} />
                         ))}
@@ -11270,7 +11287,7 @@ export default function App() {
                     contentStyle={{ backgroundColor: "#111827", border: "1px solid #374151", borderRadius: 8 }}
                     formatter={(v, name) => [v.toFixed(2) + "%", name === "target" ? "UN Target" : "UK ODA"]}
                   />
-                  <Area type="monotone" dataKey="value" stroke="#6366f1" fill="#6366f1" fillOpacity={0.15} strokeWidth={2} name="UK ODA" />
+                  <Area type="monotone" dataKey="value" stroke="#6366f1" fill="#6366f1" fillOpacity={0.15} strokeWidth={2} name="UK ODA" animationDuration={1000} animationEasing="ease-out" />
                   <Line type="monotone" dataKey="target" stroke="#ef4444" strokeDasharray="6 3" strokeWidth={1.5} dot={false} name="UN Target (0.70%)" />
                 </ComposedChart>
               </ResponsiveContainer>
@@ -11292,8 +11309,8 @@ export default function App() {
                     contentStyle={{ backgroundColor: "#111827", border: "1px solid #374151", borderRadius: 8 }}
                     formatter={(v, name) => ["\u00a3" + v.toFixed(1) + "bn", name]}
                   />
-                  <Bar dataKey="bilateral" stackId="a" fill="#10b981" fillOpacity={0.8} name="Bilateral" />
-                  <Bar dataKey="multilateral" stackId="a" fill="#3b82f6" fillOpacity={0.6} name="Multilateral" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="bilateral" stackId="a" fill="#10b981" fillOpacity={0.8} name="Bilateral" animationDuration={800} animationEasing="ease-out" />
+                  <Bar dataKey="multilateral" stackId="a" fill="#3b82f6" fillOpacity={0.6} name="Multilateral" radius={[4, 4, 0, 0]} animationDuration={800} animationEasing="ease-out" />
                 </BarChart>
               </ResponsiveContainer>
               <ChartMeta
@@ -11386,7 +11403,7 @@ export default function App() {
                       return ["\u00a3" + v + "m" + (d.region ? " (" + d.region + ")" : ""), "Bilateral ODA"];
                     }}
                   />
-                  <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                  <Bar dataKey="value" radius={[0, 4, 4, 0]} animationDuration={800} animationEasing="ease-out">
                     {visibleRecipients.map((d, i) => {
                       const regionColours = { "Africa": "#10b981", "South Asia": "#6366f1", "Middle East": "#f59e0b", "Europe": "#3b82f6" };
                       return <Cell key={i} fill={regionColours[d.region] || "#6b7280"} fillOpacity={i < 3 ? 0.9 : 0.65} />;
@@ -11437,7 +11454,7 @@ export default function App() {
                     contentStyle={{ backgroundColor: "#111827", border: "1px solid #374151", borderRadius: 8 }}
                     formatter={(v) => ["\u00a3" + (v >= 1000 ? (v / 1e3).toFixed(2) + "bn" : v + "m"), "ODA"]}
                   />
-                  <Bar dataKey="value" radius={[0, 4, 4, 0]}>
+                  <Bar dataKey="value" radius={[0, 4, 4, 0]} animationDuration={800} animationEasing="ease-out">
                     {visibleSectors.map((d, i) => (
                       <Cell key={i} fill={d.colour || "#6b7280"} fillOpacity={0.8} />
                     ))}
@@ -11807,7 +11824,7 @@ export default function App() {
                     <XAxis dataKey="year" tick={{ fill: "#9ca3af", fontSize: 10 }} axisLine={false} tickLine={false} />
                     <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={(v, name) => [Math.round(v) + "k", name]} />
                     {Object.entries(VISA_COLORS).filter(([k]) => k !== "Other").map(([v, c]) => (
-                      <Area key={v} type="monotone" dataKey={v} stackId="1" fill={"url(#immGrad-" + v + ")"} stroke={c} fillOpacity={immHovVisa === null ? 0.7 : immHovVisa === v ? 0.9 : 0.05} strokeOpacity={immHovVisa === null ? 0.8 : immHovVisa === v ? 1 : 0.07} strokeWidth={immHovVisa === v ? 2.5 : 1} style={{ transition: "fill-opacity 0.3s, stroke-opacity 0.3s" }} />
+                      <Area key={v} type="monotone" dataKey={v} stackId="1" fill={"url(#immGrad-" + v + ")"} stroke={c} fillOpacity={immHovVisa === null ? 0.7 : immHovVisa === v ? 0.9 : 0.05} strokeOpacity={immHovVisa === null ? 0.8 : immHovVisa === v ? 1 : 0.07} strokeWidth={immHovVisa === v ? 2.5 : 1} style={{ transition: "fill-opacity 0.3s, stroke-opacity 0.3s" }} animationDuration={1000} animationEasing="ease-out" />
                     ))}
                   </AreaChart>
                 </ResponsiveContainer>
@@ -11861,7 +11878,7 @@ export default function App() {
                   <XAxis dataKey="yearStr" tick={{ fill: "#9ca3af", fontSize: 10 }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => v + "k"} width={38} />
                   <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [v + "k", "Net Migration"]} labelFormatter={l => { const ev = immigrationData.policyTimeline.find(e => String(e.year) === l); return ev ? l + " \u00b7 " + ev.party + (ev.label ? " \u00b7 " + ev.label : "") : l; }} />
-                  <Area type="monotone" dataKey="net" fill="url(#immNetGrad)" stroke="#ef4444" strokeWidth={2.5} dot={{ r: 3, fill: "#ef4444", stroke: "#0d0d1a", strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                  <Area type="monotone" dataKey="net" fill="url(#immNetGrad)" stroke="#ef4444" strokeWidth={2.5} dot={{ r: 3, fill: "#ef4444", stroke: "#0d0d1a", strokeWidth: 2 }} activeDot={{ r: 6 }} animationDuration={1000} animationEasing="ease-out" />
                 </AreaChart>
               </ResponsiveContainer>
               <ChartMeta note={immigrationData.contextSentences.summary} source="ONS Long-term International Migration" sourceUrl="https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/internationalmigration" />
@@ -11911,11 +11928,13 @@ export default function App() {
                 <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Total Waiting</div>
                 <div className="text-2xl md:text-3xl font-black text-red-400">{(ks.totalWaiting / 1000000).toFixed(2)}M</div>
                 <div className="text-gray-600 text-xs mt-0.5">{(ks.individualPatients / 1000000).toFixed(2)}M individual patients</div>
+                <div className="text-amber-500/60 text-[10px] mt-1">That's 1 in 8 people in England</div>
               </div>
               <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
                 <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Median Wait</div>
                 <div className="text-2xl md:text-3xl font-black text-orange-400">{ks.medianWaitWeeks}w</div>
                 <div className="text-gray-600 text-xs mt-0.5">was {ks.medianWait2019}w in 2019 (+{Math.round((ks.medianWaitWeeks / ks.medianWait2019 - 1) * 100)}%)</div>
+                <div className="text-amber-500/60 text-[10px] mt-1">Long enough to miss a whole school term</div>
               </div>
               <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
                 <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">18-Week Target</div>
@@ -11981,7 +12000,7 @@ export default function App() {
                   <XAxis dataKey="year" tick={{ fill: "#9ca3af", fontSize: 10 }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => v.toFixed(1) + "M"} width={38} />
                   <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [v.toFixed(2) + "M patients", "Waiting List"]} />
-                  <Area type="monotone" dataKey="size" fill="url(#nhsTrendGrad)" stroke="#ef4444" strokeWidth={2.5} dot={{ r: 3, fill: "#ef4444", stroke: "#0d0d1a", strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                  <Area type="monotone" dataKey="size" fill="url(#nhsTrendGrad)" stroke="#ef4444" strokeWidth={2.5} dot={{ r: 3, fill: "#ef4444", stroke: "#0d0d1a", strokeWidth: 2 }} activeDot={{ r: 6 }} animationDuration={1000} animationEasing="ease-out" />
                 </AreaChart>
               </ResponsiveContainer>
               <ChartMeta source="NHS England RTT Statistics" sourceUrl="https://www.england.nhs.uk/statistics/statistical-work-areas/rtt-waiting-times/" />
@@ -11993,7 +12012,7 @@ export default function App() {
                   <XAxis type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => v + "w"} />
                   <YAxis dataKey="name" type="category" tick={{ fill: "#d1d5db", fontSize: 9 }} axisLine={false} tickLine={false} width={140} />
                   <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [v + " weeks", "Median Wait"]} />
-                  <Bar dataKey="medianWait" radius={[0, 6, 6, 0]}>
+                  <Bar dataKey="medianWait" radius={[0, 6, 6, 0]} animationDuration={800} animationEasing="ease-out">
                     {specBarData.map((entry, i) => (
                       <Cell key={i} fill={entry.color} opacity={nhsSpecialty === entry.id ? 1 : 0.7} />
                     ))}
@@ -12009,7 +12028,7 @@ export default function App() {
                   <XAxis dataKey="label" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => (v / 1000000).toFixed(1) + "M"} width={42} />
                   <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [(v / 1000000).toFixed(2) + "M patients (" + waitBands.find(b => b.count === v)?.pct + "%)", "Patients"]} />
-                  <Bar dataKey="count" radius={[6, 6, 0, 0]}>
+                  <Bar dataKey="count" radius={[6, 6, 0, 0]} animationDuration={800} animationEasing="ease-out">
                     {waitBands.map((b, i) => <Cell key={i} fill={b.color} />)}
                   </Bar>
                 </BarChart>
@@ -12018,6 +12037,22 @@ export default function App() {
             </ChartCard>
 
             <div className="text-gray-600 text-xs px-1 mt-4">Source: {nhsWaitsData.metadata.source}</div>
+
+            <div className="border-t border-gray-800/40 pt-8 mt-8">
+              <div className="text-[11px] uppercase tracking-[0.2em] text-gray-600 font-mono mb-4">Related</div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {[
+                  { label: "Environment", title: "The Sewage Clock", view: "transparency.sewage" },
+                  { label: "Cost of Living", title: "Inflation & Affordability", view: "costOfLiving" },
+                  { label: "Economy", title: "Economic Output Index", view: "econOutput" }
+                ].map((r, i) => (
+                  <button key={i} onClick={() => setView(r.view)} className="text-left bg-gray-900/30 border border-gray-800/40 rounded-lg px-4 py-4 hover:bg-gray-900/50 hover:border-gray-700/50 transition-all group">
+                    <div className="text-[10px] uppercase tracking-[0.15em] text-red-500/70 font-mono mb-1">{r.label}</div>
+                    <div className="text-sm font-bold text-gray-300 group-hover:text-white transition-colors">{r.title}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
           );
         })()}
@@ -12059,6 +12094,7 @@ export default function App() {
                 <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Total Hours (2025)</div>
                 <div className="text-2xl md:text-3xl font-black text-orange-400">{(sk.totalHours2025 / 1000000).toFixed(2)}M</div>
                 <div className="text-gray-600 text-xs mt-0.5">= {sk.equivalentYears2025} years continuous</div>
+                <div className="text-amber-500/60 text-[10px] mt-1">That's {Math.round(sk.totalHours2025 / 1870)} hours per mile of river</div>
               </div>
               <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
                 <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Dry Day Spills</div>
@@ -12069,6 +12105,7 @@ export default function App() {
                 <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Total Fines (2024)</div>
                 <div className="text-2xl md:text-3xl font-black text-amber-400">£{(sk.totalFines2024 / 1000000).toFixed(0)}M</div>
                 <div className="text-gray-600 text-xs mt-0.5">vs £{(sk.dividendsSincePrivatisation / 1000000000).toFixed(0)}B dividends since 1991</div>
+                <div className="text-amber-500/60 text-[10px] mt-1">Just £{Math.round(sk.totalFines2024 / sk.totalSpills2025)} per spill event</div>
               </div>
             </div>
 
@@ -12078,7 +12115,7 @@ export default function App() {
                   <XAxis type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => (v / 1000).toFixed(0) + "k"} />
                   <YAxis dataKey="name" type="category" tick={{ fill: "#d1d5db", fontSize: 9 }} axisLine={false} tickLine={false} width={130} />
                   <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [(v / 1000).toFixed(0) + "k hours", "Sewage Discharged"]} labelFormatter={l => { const c = companies.find(x => x.name === l); return c ? c.name + " (" + c.region + ")" : l; }} />
-                  <Bar dataKey="hours2025" radius={[0, 6, 6, 0]}>
+                  <Bar dataKey="hours2025" radius={[0, 6, 6, 0]} animationDuration={800} animationEasing="ease-out">
                     {companies.map((c, i) => (
                       <Cell key={i} fill={c.color} opacity={sewageHovCompany === null || sewageHovCompany === c.name ? 0.85 : 0.25} onMouseEnter={() => setSewageHovCompany(c.name)} onMouseLeave={() => setSewageHovCompany(null)} />
                     ))}
@@ -12123,13 +12160,29 @@ export default function App() {
                   <XAxis dataKey="year" tick={{ fill: "#9ca3af", fontSize: 10 }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => v.toFixed(1) + "M"} width={42} />
                   <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [v.toFixed(2) + "M hours", "Sewage Spills"]} />
-                  <Area type="monotone" dataKey="hours" fill="url(#sewageTrendGrad)" stroke="#ef4444" strokeWidth={3} dot={{ r: 4, fill: "#ef4444", stroke: "#0d0d1a", strokeWidth: 2 }} activeDot={{ r: 7 }} />
+                  <Area type="monotone" dataKey="hours" fill="url(#sewageTrendGrad)" stroke="#ef4444" strokeWidth={3} dot={{ r: 4, fill: "#ef4444", stroke: "#0d0d1a", strokeWidth: 2 }} activeDot={{ r: 7 }} animationDuration={1000} animationEasing="ease-out" />
                 </AreaChart>
               </ResponsiveContainer>
               <ChartMeta source="Environment Agency EDM" />
             </ChartCard>
 
             <div className="text-gray-600 text-xs px-1 mt-4">Source: {sewageData.metadata.source}</div>
+
+            <div className="border-t border-gray-800/40 pt-8 mt-8">
+              <div className="text-[11px] uppercase tracking-[0.2em] text-gray-600 font-mono mb-4">Related</div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {[
+                  { label: "Accountability", title: "NHS Waiting Times", view: "transparency.nhswaits" },
+                  { label: "Political Conduct", title: "Moonlighting MPs", view: "transparency.moonlighting" },
+                  { label: "International", title: "Foreign Aid Spend", view: "foreignAid" }
+                ].map((r, i) => (
+                  <button key={i} onClick={() => setView(r.view)} className="text-left bg-gray-900/30 border border-gray-800/40 rounded-lg px-4 py-4 hover:bg-gray-900/50 hover:border-gray-700/50 transition-all group">
+                    <div className="text-[10px] uppercase tracking-[0.15em] text-red-500/70 font-mono mb-1">{r.label}</div>
+                    <div className="text-sm font-bold text-gray-300 group-hover:text-white transition-colors">{r.title}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
           );
         })()}
@@ -12168,16 +12221,19 @@ export default function App() {
                 <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">MPs with 2nd Jobs</div>
                 <div className="text-2xl md:text-3xl font-black text-amber-400">{mk.mpsDeclaredOutsideEarnings}<span className="text-base text-gray-500">/{mk.totalMPs}</span></div>
                 <div className="text-gray-600 text-xs mt-0.5">{mk.pctWithSecondJobs}% of Parliament</div>
+                <div className="text-amber-500/60 text-[10px] mt-1">More than 1 in 3 of your representatives</div>
               </div>
               <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
                 <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Combined Hours</div>
                 <div className="text-2xl md:text-3xl font-black text-orange-400">{(mk.combinedHoursOnSecondJobs / 1000).toFixed(0)}k</div>
                 <div className="text-gray-600 text-xs mt-0.5">Hours on outside work</div>
+                <div className="text-amber-500/60 text-[10px] mt-1">That's {Math.round(mk.combinedHoursOnSecondJobs / 1600)} full-time jobs' worth</div>
               </div>
               <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
                 <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Top Earner Multiple</div>
                 <div className="text-2xl md:text-3xl font-black text-red-400">{mk.topEarnerMultiple}×</div>
                 <div className="text-gray-600 text-xs mt-0.5">vs £{(mk.baseSalary2025 / 1000).toFixed(0)}k base salary</div>
+                <div className="text-amber-500/60 text-[10px] mt-1">= earning more in a week than a nurse earns in a year</div>
               </div>
               <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
                 <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">£100k+ Attendance</div>
@@ -12228,11 +12284,16 @@ export default function App() {
                   <XAxis dataKey="x" type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => "£" + (v / 1000).toFixed(0) + "k"} label={{ value: "Outside Earnings", position: "bottom", offset: 15, fill: "#6b7280", fontSize: 10 }} />
                   <YAxis dataKey="y" type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} label={{ value: "Voting Attendance %", angle: -90, position: "insideLeft", fill: "#6b7280", fontSize: 10 }} domain={[0, 100]} />
                   <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} cursor={{ strokeDasharray: "3 3", stroke: "#555" }} content={({ active, payload }) => { if (active && payload && payload.length) { const d = payload[0].payload; return <div style={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, padding: "8px 12px", fontSize: 11 }}><div style={{ color: "#fff", fontWeight: 700 }}>{d.name}</div><div style={{ color: "#9ca3af" }}>Earnings: £{(d.x / 1000).toFixed(0)}k</div><div style={{ color: "#9ca3af" }}>Attendance: {d.y}%</div></div>; } return null; }} />
-                  <Scatter data={scatterData}>
+                  <Scatter data={scatterData} animationDuration={600}>
                     {scatterData.map((d, i) => (
                       <Cell key={i} fill={d.color} r={7} opacity={mpHovEarner === null || mpHovEarner === d.name ? 0.85 : 0.2} onMouseEnter={() => setMpHovEarner(d.name)} onMouseLeave={() => setMpHovEarner(null)} />
                     ))}
                   </Scatter>
+                  {scatterData.sort((a, b) => b.x - a.x).slice(0, 3).map((d, i) => (
+                    <ReferenceDot key={i} x={d.x} y={d.y} r={0}>
+                      <Label value={d.name.split(" ").pop()} position="top" fill="#d1d5db" fontSize={10} fontWeight={600} />
+                    </ReferenceDot>
+                  ))}
                 </ScatterChart>
               </ResponsiveContainer>
               <ChartMeta source="TheyWorkForYou, Parliament UK" />
@@ -12244,7 +12305,7 @@ export default function App() {
                   <XAxis type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => v + "%"} domain={[0, 100]} />
                   <YAxis dataKey="party" type="category" tick={{ fill: "#d1d5db", fontSize: 10 }} axisLine={false} tickLine={false} width={110} />
                   <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [v + "%", "With Outside Jobs"]} />
-                  <Bar dataKey="pct" radius={[0, 6, 6, 0]}>
+                  <Bar dataKey="pct" radius={[0, 6, 6, 0]} animationDuration={800} animationEasing="ease-out">
                     {partyData.map((p, i) => <Cell key={i} fill={p.color} />)}
                   </Bar>
                 </BarChart>
@@ -12258,7 +12319,7 @@ export default function App() {
                   <XAxis dataKey="category" tick={{ fill: "#9ca3af", fontSize: 8 }} axisLine={false} tickLine={false} angle={-20} textAnchor="end" height={60} />
                   <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => "£" + (v / 1000000).toFixed(1) + "M"} width={52} />
                   <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => ["£" + (v / 1000000).toFixed(1) + "M (" + catData.find(c => c.totalEarned === v)?.mpsInvolved + " MPs)", "Total Earned"]} />
-                  <Bar dataKey="totalEarned" radius={[6, 6, 0, 0]}>
+                  <Bar dataKey="totalEarned" radius={[6, 6, 0, 0]} animationDuration={800} animationEasing="ease-out">
                     {catData.map((c, i) => <Cell key={i} fill={c.color} />)}
                   </Bar>
                 </BarChart>
@@ -12277,6 +12338,22 @@ export default function App() {
             </div>
 
             <div className="text-gray-600 text-xs px-1 mt-4">Source: {moonlightingData.metadata.source}</div>
+
+            <div className="border-t border-gray-800/40 pt-8 mt-8">
+              <div className="text-[11px] uppercase tracking-[0.2em] text-gray-600 font-mono mb-4">Related</div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {[
+                  { label: "Political Conduct", title: "Political Donations", view: "politicalDonations" },
+                  { label: "Accountability", title: "MPs' Income & Expenses", view: "mpInterests" },
+                  { label: "Political Conduct", title: "Lobbying Activity", view: "lobbying" }
+                ].map((r, i) => (
+                  <button key={i} onClick={() => setView(r.view)} className="text-left bg-gray-900/30 border border-gray-800/40 rounded-lg px-4 py-4 hover:bg-gray-900/50 hover:border-gray-700/50 transition-all group">
+                    <div className="text-[10px] uppercase tracking-[0.15em] text-red-500/70 font-mono mb-1">{r.label}</div>
+                    <div className="text-sm font-bold text-gray-300 group-hover:text-white transition-colors">{r.title}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
           );
         })()}
@@ -12992,7 +13069,7 @@ export default function App() {
                       }}
                       formatter={(v) => [fmt(v), "Annual Spend"]}
                     />
-                    <Bar dataKey="spend" radius={[0, 4, 4, 0]}>
+                    <Bar dataKey="spend" radius={[0, 4, 4, 0]} animationDuration={800} animationEasing="ease-out">
                       {suppliersSummary
                         .filter((s) => s.annualGovSpend > 0)
                         .sort(
@@ -14413,7 +14490,7 @@ export default function App() {
                         )} />
                       )}
                     />
-                    <Bar dataKey="headcount" fill="#3b82f6" fillOpacity={0.7} radius={[0, 4, 4, 0]} barSize={16} />
+                    <Bar dataKey="headcount" fill="#3b82f6" fillOpacity={0.7} radius={[0, 4, 4, 0]} barSize={16} animationDuration={800} animationEasing="ease-out" />
                   </BarChart>
                 </ResponsiveContainer>
               </ChartCard>
@@ -14485,7 +14562,7 @@ export default function App() {
                             </>
                           )} />
                         )} />
-                        <Area type="monotone" dataKey="total" stroke="#10b981" fill="#10b981" fillOpacity={0.15} strokeWidth={2} />
+                        <Area type="monotone" dataKey="total" stroke="#10b981" fill="#10b981" fillOpacity={0.15} strokeWidth={2} animationDuration={1000} animationEasing="ease-out" />
                       </AreaChart>
                     </ResponsiveContainer>
                   </ChartCard>
@@ -14508,7 +14585,7 @@ export default function App() {
                             </>
                           )} />
                         )} />
-                        <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={20}>
+                        <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={20} animationDuration={800} animationEasing="ease-out">
                           {welfareBreakdown.map((d, i) => (
                             <Cell key={i} fill={d.color} fillOpacity={0.8} />
                           ))}
@@ -14540,7 +14617,7 @@ export default function App() {
                           </>
                         )} />
                       )} />
-                      <Bar dataKey="spending" radius={[0, 4, 4, 0]} barSize={22}>
+                      <Bar dataKey="spending" radius={[0, 4, 4, 0]} barSize={22} animationDuration={800} animationEasing="ease-out">
                         {deptSpending.map((d, i) => (
                           <Cell key={i} fill={d.color} fillOpacity={0.75} />
                         ))}
@@ -14699,7 +14776,7 @@ export default function App() {
                                   </div>
                                 );
                               }} />
-                              <Area type="monotone" dataKey="total" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.1} strokeWidth={2} dot={{ r: 4, fill: "#3b82f6" }} />
+                              <Area type="monotone" dataKey="total" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.1} strokeWidth={2} dot={{ r: 4, fill: "#3b82f6" }} animationDuration={1000} animationEasing="ease-out" />
                             </AreaChart>
                           </ResponsiveContainer>
                         </div>
@@ -15116,8 +15193,8 @@ export default function App() {
                       <XAxis dataKey="year" tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} />
                       <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => `£${v}bn`} />
                       <Tooltip contentStyle={{ background: "#111", border: "1px solid #333", fontSize: 11 }} formatter={(v) => [`£${v}bn`, undefined]} />
-                      <Area type="monotone" dataKey="Spending" stroke="#ef4444" fill="#ef4444" fillOpacity={0.1} strokeWidth={2} />
-                      <Area type="monotone" dataKey="Receipts" stroke="#22c55e" fill="#22c55e" fillOpacity={0.08} strokeWidth={2} />
+                      <Area type="monotone" dataKey="Spending" stroke="#ef4444" fill="#ef4444" fillOpacity={0.1} strokeWidth={2} animationDuration={1000} animationEasing="ease-out" />
+                      <Area type="monotone" dataKey="Receipts" stroke="#22c55e" fill="#22c55e" fillOpacity={0.08} strokeWidth={2} animationDuration={1000} animationEasing="ease-out" />
                     </AreaChart>
                   </ResponsiveContainer>
                 </ChartCard>
@@ -15586,6 +15663,8 @@ export default function App() {
                       fill="#ef4444"
                       fillOpacity={0.7}
                       stroke="#ef4444"
+                      animationDuration={1000}
+                      animationEasing="ease-out"
                     />
                     <Area
                       type="monotone"
@@ -15594,6 +15673,8 @@ export default function App() {
                       fill="#f97316"
                       fillOpacity={0.5}
                       stroke="#f97316"
+                      animationDuration={1000}
+                      animationEasing="ease-out"
                     />
                     <Area
                       type="monotone"
@@ -15602,6 +15683,8 @@ export default function App() {
                       fill="#eab308"
                       fillOpacity={0.4}
                       stroke="#eab308"
+                      animationDuration={1000}
+                      animationEasing="ease-out"
                     />
                     <Area
                       type="monotone"
@@ -15610,6 +15693,8 @@ export default function App() {
                       fill="#22d3ee"
                       fillOpacity={0.4}
                       stroke="#22d3ee"
+                      animationDuration={1000}
+                      animationEasing="ease-out"
                     />
                     <Area
                       type="monotone"
@@ -15618,6 +15703,8 @@ export default function App() {
                       fill="#a78bfa"
                       fillOpacity={0.3}
                       stroke="#a78bfa"
+                      animationDuration={1000}
+                      animationEasing="ease-out"
                     />
                     <Area
                       type="monotone"
@@ -15626,6 +15713,8 @@ export default function App() {
                       fill="#6b7280"
                       fillOpacity={0.3}
                       stroke="#6b7280"
+                      animationDuration={1000}
+                      animationEasing="ease-out"
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -15662,8 +15751,8 @@ export default function App() {
                         <ReferenceLine key={ev.year} x={ev.year} yAxisId="left" stroke="rgba(239,68,68,0.3)" strokeDasharray="3 3"
                           label={{ value: ev.label, position: "top", fill: "#9ca3af", fontSize: 9, fontWeight: 600 }} />
                       ) : null)}
-                      <Bar yAxisId="left" dataKey="Net (OBR)" fill="url(#debtBarGrad)" radius={[3, 3, 0, 0]} />
-                      <Bar yAxisId="left" dataKey="Gross" fill="#ef4444" fillOpacity={0.15} radius={[3, 3, 0, 0]} />
+                      <Bar yAxisId="left" dataKey="Net (OBR)" fill="url(#debtBarGrad)" radius={[3, 3, 0, 0]} animationDuration={800} animationEasing="ease-out" />
+                      <Bar yAxisId="left" dataKey="Gross" fill="#ef4444" fillOpacity={0.15} radius={[3, 3, 0, 0]} animationDuration={800} animationEasing="ease-out" />
                       <Line yAxisId="right" type="monotone" dataKey="% GDP" stroke="#f97316" strokeWidth={2.5} dot={{ r: 2, fill: "#f97316" }} />
                     </ComposedChart>
                   </ResponsiveContainer>
@@ -15738,6 +15827,8 @@ export default function App() {
                       fillOpacity={0.2}
                       stroke="#22d3ee"
                       strokeWidth={2}
+                      animationDuration={1000}
+                      animationEasing="ease-out"
                     />
                     <Area
                       type="monotone"
@@ -15746,6 +15837,8 @@ export default function App() {
                       fillOpacity={0.2}
                       stroke="#ef4444"
                       strokeWidth={2}
+                      animationDuration={1000}
+                      animationEasing="ease-out"
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -15884,7 +15977,7 @@ export default function App() {
                     <CartesianGrid strokeDasharray="3 3" stroke="#222" />
                     {/* OECD average reference line */}
                     <Area type="monotone" dataKey="pct" fill="none" stroke="none" />
-                    <Bar dataKey="pct" name="UK Tax Burden" radius={[2, 2, 0, 0]}>
+                    <Bar dataKey="pct" name="UK Tax Burden" radius={[2, 2, 0, 0]} animationDuration={800} animationEasing="ease-out">
                       {giltYieldsData.taxBurden.data.map((d, i) => (
                         <Cell key={i} fill={d.type === "forecast" ? "#f97316" : "#ef4444"} fillOpacity={d.type === "forecast" ? 0.5 : 0.7} />
                       ))}
@@ -15913,9 +16006,9 @@ export default function App() {
                     <XAxis dataKey="month" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} />
                     <YAxis tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} tickFormatter={(v) => "£" + v + "bn"} />
                     <Tooltip contentStyle={{ background: "#111", border: "1px solid #333", fontSize: 11 }} formatter={(v) => ["£" + v.toFixed(1) + "bn", undefined]} />
-                    <Bar dataKey="2022-23" fill="#6b7280" fillOpacity={0.3} radius={[2, 2, 0, 0]} />
-                    <Bar dataKey="2023-24" fill="#a78bfa" fillOpacity={0.5} radius={[2, 2, 0, 0]} />
-                    <Bar dataKey="2024-25" fill="#ef4444" fillOpacity={0.8} radius={[2, 2, 0, 0]} />
+                    <Bar dataKey="2022-23" fill="#6b7280" fillOpacity={0.3} radius={[2, 2, 0, 0]} animationDuration={800} animationEasing="ease-out" />
+                    <Bar dataKey="2023-24" fill="#a78bfa" fillOpacity={0.5} radius={[2, 2, 0, 0]} animationDuration={800} animationEasing="ease-out" />
+                    <Bar dataKey="2024-25" fill="#ef4444" fillOpacity={0.8} radius={[2, 2, 0, 0]} animationDuration={800} animationEasing="ease-out" />
                   </BarChart>
                 </ResponsiveContainer>
               </ChartCard>
@@ -15950,8 +16043,8 @@ export default function App() {
                     <XAxis dataKey="range" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} />
                     <YAxis tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} tickFormatter={(v) => "£" + v + "bn"} />
                     <Tooltip contentStyle={{ background: "#111", border: "1px solid #333", fontSize: 11 }} formatter={(v) => ["£" + v + "bn", undefined]} />
-                    <Bar dataKey="conventional" name="Conventional Gilts" stackId="a" fill="#ef4444" fillOpacity={0.7} radius={[0, 0, 0, 0]} />
-                    <Bar dataKey="indexLinked" name="Index-Linked Gilts" stackId="a" fill="#f97316" fillOpacity={0.6} radius={[2, 2, 0, 0]} />
+                    <Bar dataKey="conventional" name="Conventional Gilts" stackId="a" fill="#ef4444" fillOpacity={0.7} radius={[0, 0, 0, 0]} animationDuration={800} animationEasing="ease-out" />
+                    <Bar dataKey="indexLinked" name="Index-Linked Gilts" stackId="a" fill="#f97316" fillOpacity={0.6} radius={[2, 2, 0, 0]} animationDuration={800} animationEasing="ease-out" />
                   </BarChart>
                 </ResponsiveContainer>
                 <div className="grid grid-cols-3 gap-4 mt-4">
@@ -16319,7 +16412,7 @@ export default function App() {
                       />
                     }
                   />
-                  <Bar dataKey="v" radius={[3, 3, 0, 0]}>
+                  <Bar dataKey="v" radius={[3, 3, 0, 0]} animationDuration={800} animationEasing="ease-out">
                     {econOutputData.gdpGrowthQuarterly.map((d, i) => (
                       <Cell
                         key={i}
@@ -16793,7 +16886,7 @@ export default function App() {
                   <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} tickFormatter={(v) => v + "%"} />
                   <Tooltip contentStyle={{ background: "#111", border: "1px solid #333", fontSize: 11 }} />
                   <CartesianGrid strokeDasharray="3 3" stroke="#222" />
-                  <Area yAxisId="left" type="monotone" dataKey="level" name="M4 (£bn)" fill="#22d3ee" fillOpacity={0.15} stroke="#22d3ee" strokeWidth={2} />
+                  <Area yAxisId="left" type="monotone" dataKey="level" name="M4 (£bn)" fill="#22d3ee" fillOpacity={0.15} stroke="#22d3ee" strokeWidth={2} animationDuration={1000} animationEasing="ease-out" />
                   <Line yAxisId="right" type="monotone" dataKey="yoyPct" name="YoY Growth %" stroke="#f97316" strokeWidth={1.5} dot={false} />
                 </ComposedChart>
               </ResponsiveContainer>
@@ -18517,7 +18610,7 @@ export default function App() {
                   <YAxis tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} tickFormatter={(v) => v.toFixed(2) + "p"} domain={[0.4, 1.05]} />
                   <Tooltip contentStyle={{ background: "#111", border: "1px solid #333", fontSize: 11 }} formatter={(v) => ["£" + v.toFixed(2), "Value of £1 (2000)"]} />
                   <CartesianGrid strokeDasharray="3 3" stroke="#222" />
-                  <Area type="monotone" dataKey="value" fill="#ef4444" fillOpacity={0.15} stroke="#ef4444" strokeWidth={2} />
+                  <Area type="monotone" dataKey="value" fill="#ef4444" fillOpacity={0.15} stroke="#ef4444" strokeWidth={2} animationDuration={1000} animationEasing="ease-out" />
                 </AreaChart>
               </ResponsiveContainer>
               <div className="mt-3 text-center">
@@ -18570,8 +18663,8 @@ export default function App() {
                   <YAxis yAxisId="left" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} tickFormatter={(v) => "£" + v + "bn"} />
                   <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} tickFormatter={(v) => "£" + v + "bn"} />
                   <Tooltip contentStyle={{ background: "#111", border: "1px solid #333", fontSize: 11 }} />
-                  <Area yAxisId="left" type="monotone" dataKey="outstanding" name="Total Outstanding (£bn)" fill="#ef4444" fillOpacity={0.15} stroke="#ef4444" strokeWidth={2} />
-                  <Bar yAxisId="right" dataKey="netMonthly" name="Monthly Net Lending (£bn)" fill="#22d3ee" fillOpacity={0.6} radius={[2, 2, 0, 0]} />
+                  <Area yAxisId="left" type="monotone" dataKey="outstanding" name="Total Outstanding (£bn)" fill="#ef4444" fillOpacity={0.15} stroke="#ef4444" strokeWidth={2} animationDuration={1000} animationEasing="ease-out" />
+                  <Bar yAxisId="right" dataKey="netMonthly" name="Monthly Net Lending (£bn)" fill="#22d3ee" fillOpacity={0.6} radius={[2, 2, 0, 0]} animationDuration={800} animationEasing="ease-out" />
                 </ComposedChart>
               </ResponsiveContainer>
             </ChartCard>
@@ -18583,7 +18676,7 @@ export default function App() {
                   <XAxis dataKey="year" tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fontSize: 10, fill: "#555" }} axisLine={false} tickLine={false} tickFormatter={(v) => v + "%"} />
                   <Tooltip contentStyle={{ background: "#111", border: "1px solid #333", fontSize: 11 }} formatter={(v) => [v + "%", "Savings Ratio"]} />
-                  <Bar dataKey="pct" name="Savings Ratio" radius={[3, 3, 0, 0]}>
+                  <Bar dataKey="pct" name="Savings Ratio" radius={[3, 3, 0, 0]} animationDuration={800} animationEasing="ease-out">
                     {moneySupplyData.personalFinance.savings.householdSavingsRatio.map((d, i) => (
                       <Cell key={i} fill={d.pct > 12 ? "#22d3ee" : "#6b7280"} fillOpacity={0.6} />
                     ))}
@@ -20453,7 +20546,7 @@ export default function App() {
                       />
                     )}
                   />
-                  <Bar dataKey="costPerKmUsdM" barSize={16}>
+                  <Bar dataKey="costPerKmUsdM" barSize={16} animationDuration={800} animationEasing="ease-out">
                     {[...compareData.infrastructure.data]
                       .sort(
                         (a, b) =>
@@ -20617,8 +20710,8 @@ export default function App() {
                         />
                       }
                     />
-                    <Bar dataKey="advanceGbpPerKm" fill="#3b82f6" name="Advance" />
-                    <Bar dataKey="flexibleGbpPerKm" fill="#ef4444" name="Flexible" />
+                    <Bar dataKey="advanceGbpPerKm" fill="#3b82f6" name="Advance" animationDuration={800} animationEasing="ease-out" />
+                    <Bar dataKey="flexibleGbpPerKm" fill="#ef4444" name="Flexible" animationDuration={800} animationEasing="ease-out" />
                   </BarChart>
                 </ResponsiveContainer>
               </ChartCard>
@@ -20661,7 +20754,7 @@ export default function App() {
                         />
                       }
                     />
-                    <Bar dataKey="singleGbp" fill="#3b82f6" />
+                    <Bar dataKey="singleGbp" fill="#3b82f6" animationDuration={800} animationEasing="ease-out" />
                   </BarChart>
                 </ResponsiveContainer>
               </ChartCard>
@@ -20852,7 +20945,7 @@ export default function App() {
                       />
                     )}
                   />
-                  <Bar dataKey="pricePerKwhUsd" barSize={16}>
+                  <Bar dataKey="pricePerKwhUsd" barSize={16} animationDuration={800} animationEasing="ease-out">
                     {[...compareData.electricity.data]
                       .sort(
                         (a, b) =>
@@ -21021,7 +21114,7 @@ export default function App() {
                         />
                       )}
                     />
-                    <Bar dataKey="petrolPerLitre" barSize={16}>
+                    <Bar dataKey="petrolPerLitre" barSize={16} animationDuration={800} animationEasing="ease-out">
                       {[...compareData.fuel.data]
                         .sort((a, b) => a.petrolPerLitre - b.petrolPerLitre)
                         .map((d) => (
@@ -22643,7 +22736,7 @@ export default function App() {
                         />
                       }
                     />
-                    <Bar dataKey="count" fill="#ef4444" />
+                    <Bar dataKey="count" fill="#ef4444" animationDuration={800} animationEasing="ease-out" />
                   </BarChart>
                 </ResponsiveContainer>
               </ChartCard>
@@ -22694,7 +22787,7 @@ export default function App() {
                         />
                       }
                     />
-                    <Area dataKey="proceedsM" fill="#10b981" stroke="#10b981" fillOpacity={0.3} />
+                    <Area dataKey="proceedsM" fill="#10b981" stroke="#10b981" fillOpacity={0.3} animationDuration={1000} animationEasing="ease-out" />
                   </AreaChart>
                 </ResponsiveContainer>
               </ChartCard>
@@ -22746,7 +22839,7 @@ export default function App() {
                         />
                       }
                     />
-                    <Bar dataKey="listed" fill="#3b82f6" />
+                    <Bar dataKey="listed" fill="#3b82f6" animationDuration={800} animationEasing="ease-out" />
                   </BarChart>
                 </ResponsiveContainer>
               </ChartCard>
@@ -22888,7 +22981,7 @@ export default function App() {
                         />
                       }
                     />
-                    <Area dataKey="revenueM" fill="#10b981" stroke="#10b981" fillOpacity={0.3} />
+                    <Area dataKey="revenueM" fill="#10b981" stroke="#10b981" fillOpacity={0.3} animationDuration={1000} animationEasing="ease-out" />
                   </AreaChart>
                 </ResponsiveContainer>
               </ChartCard>
@@ -22945,7 +23038,7 @@ export default function App() {
                         />
                       }
                     />
-                    <Bar yAxisId="left" dataKey="passengers" fill="#3b82f6" />
+                    <Bar yAxisId="left" dataKey="passengers" fill="#3b82f6" animationDuration={800} animationEasing="ease-out" />
                   </ComposedChart>
                 </ResponsiveContainer>
               </ChartCard>
@@ -23544,7 +23637,7 @@ export default function App() {
                           />
                         )}
                       />
-                      <Bar dataKey="overrun" radius={[0, 2, 2, 0]} barSize={18}>
+                      <Bar dataKey="overrun" radius={[0, 2, 2, 0]} barSize={18} animationDuration={800} animationEasing="ease-out">
                         {overrunChart.map((d, i) => (
                           <Cell
                             key={i}
