@@ -1,0 +1,527 @@
+{
+  "metadata": {
+    "source": "Multiple web sources including World Bank, OECD, government statistics, regulatory bodies, and industry reports",
+    "lastUpdated": "2026-04-14",
+    "methodology": "Data compiled from official government publications, regulatory filings, World Bank reports, and academic research. All figures converted to GBP/USD as appropriate. Cost data adjusted to 2024/2025 prices where necessary. Timeline data reflects most recent publicly available project information as of April 2026.",
+    "disclaimer": "Data represents latest available figures from cited sources. Some historical figures used where recent data unavailable. All figures rounded to reasonable precision given source uncertainty."
+  },
+  "railCosts": {
+    "category": "High-Speed Rail Construction Costs",
+    "unit": "£ million per km",
+    "projects": [
+      {
+        "country": "UK",
+        "project": "HS2 (Phase 1)",
+        "costPerKm": 205,
+        "costPerKmGBP": "£205m",
+        "totalCost": "£46.2bn (March 2026 estimate)",
+        "note": "Current estimate £81-100bn final cost. Highest construction cost per km globally.",
+        "source": "HS2 Ltd 6-monthly report to Parliament (March 2026), New Civil Engineer (March 2026)"
+      },
+      {
+        "country": "France",
+        "project": "TGV/LGV Network Average",
+        "costPerKm": 21.5,
+        "costPerKmGBP": "€20m (avg €16.4-25m range)",
+        "range": "€16.4m-€26.5m depending on terrain",
+        "examples": [
+          "LGV Rhin-Rhône: €16.4m/km",
+          "LGV Bretagne/PDL: €18.7m/km",
+          "LGV PACA: €54.8m/km (mountain tunnels)"
+        ],
+        "source": "Statista (2014 data), ResearchGate"
+      },
+      {
+        "country": "Germany",
+        "project": "ICE/High-Speed Network",
+        "costPerKm": 64.7,
+        "costPerKmUSD": "$64.7m/km",
+        "note": "Ulm-Augsburg line €5.5bn for 85km. High tunnel percentage increases costs significantly.",
+        "source": "DB Engineering, Railway Technology"
+      },
+      {
+        "country": "Spain",
+        "project": "AVE Network Average",
+        "costPerKm": 17.7,
+        "costPerKmEUR": "€17.7m average",
+        "range": "€6m-€19m range",
+        "note": "Most cost-efficient high-speed rail in Europe. 2.5x cheaper than UK.",
+        "source": "INECO, Global Railway Review"
+      },
+      {
+        "country": "China",
+        "project": "High-Speed Rail Network",
+        "costPerKm": 18,
+        "costPerKmUSD": "$17-21m",
+        "note": "One-third lower than European costs. Standardized designs and strategic supply chain.",
+        "source": "World Bank (2014), International Railway Journal"
+      },
+      {
+        "country": "Japan",
+        "project": "Shinkansen (original)",
+        "costPerKm": 25,
+        "costPerKmHistorical": "¥3.6bn in 2024 prices",
+        "note": "Chūō Shinkansen (maglev) much higher: $64bn for 290km = $220m/km",
+        "source": "Ministry of Land, Infrastructure, Transport and Tourism (MLIT)"
+      }
+    ],
+    "ukAvgPerKm": "£205m (HS2 - highest globally)",
+    "intlAvgPerKm": "~£20m (Spain, France average)",
+    "ukTointlRatio": "10x more expensive than Spain/France average"
+  },
+  "planningTimelines": {
+    "category": "Infrastructure Planning Approval Timeline (proposal to construction start)",
+    "uk": {
+      "process": "Development Consent Order (DCO) under Planning Act 2008",
+      "stages": [
+        {
+          "stage": "Pre-application consultation",
+          "duration": "6-18 months",
+          "description": "Developer must consult extensively with local communities"
+        },
+        {
+          "stage": "DCO Application submission",
+          "duration": "28 days (acceptance)",
+          "description": "Planning Inspectorate reviews completeness"
+        },
+        {
+          "stage": "Examination period",
+          "duration": "6 months",
+          "description": "Planning Inspectorate examines application"
+        },
+        {
+          "stage": "Recommendation report",
+          "duration": "3 months",
+          "description": "Examining Authority makes recommendation"
+        },
+        {
+          "stage": "Secretary of State decision",
+          "duration": "3 months",
+          "description": "Final decision and any post-decision challenges"
+        },
+        {
+          "stage": "Post-decision appeal period",
+          "duration": "6 weeks",
+          "description": "Period for High Court challenge"
+        }
+      ],
+      "totalTimeline": "12-15 months formal process (18+ months total including pre-application)",
+      "hsExample": "HS2: 2010 proposal to 2017 Parliamentary approval = 7 years; 2017 approval to 2020 construction start = 3 years. Total 10 years proposal to construction.",
+      "source": "Planning Inspectorate, House of Commons Library, HS2 Ltd"
+    },
+    "france": {
+      "process": "Déclaration d'Utilité Publique (DUP) - Declaration of Public Utility",
+      "stages": [
+        {
+          "stage": "Public inquiry",
+          "duration": "1 month minimum",
+          "description": "Public consultation period with inquiry commissioner"
+        },
+        {
+          "stage": "Declaration decision",
+          "duration": "Up to 1 year after inquiry",
+          "description": "State decision (prefectural decree or Council of State decree)"
+        },
+        {
+          "stage": "Expropriation period",
+          "duration": "5 years maximum",
+          "description": "Period to execute land acquisition if needed"
+        }
+      ],
+      "totalTimeline": "18-24 months to DUP approval (faster than UK)",
+      "source": "French Government (Service Public), La Gazette des Communes"
+    },
+    "germany": {
+      "process": "Planfeststellungsverfahren (Plan approval procedure)",
+      "stages": [
+        {
+          "stage": "Planning and environmental assessment",
+          "duration": "8-12 years average",
+          "description": "Spatial impact assessment, route determination, stakeholder participation"
+        },
+        {
+          "stage": "Plan approval decision",
+          "duration": "Included in above",
+          "description": "Formal plan approval procedure"
+        }
+      ],
+      "totalTimeline": "8-20 years for major projects (longest in peer group)",
+      "note": "Recent modernization efforts aim to simplify procedures and reduce timeline",
+      "source": "German Federal Ministry of Transport, Research Gate"
+    },
+    "denmark": {
+      "process": "Environmental Impact Assessment (EIA) + Tender",
+      "example": "Offshore wind farms",
+      "timeline": "3-4 years from permit award to first power (realization phase)",
+      "note": "Denmark uses streamlined processes for renewable energy. Fehmarn Belt Fixed Link (rail): construction began 2020, completion target 2029.",
+      "source": "Danish Energy Agency, IEA, Railway Technology"
+    },
+    "summary": "UK DCO process (18 months formal, 10 years total with pre-application) vs France DUP (18-24 months) vs Germany (8-20 years). UK fast on paper but slow in practice with extensive pre-application requirements."
+  },
+  "nuclear": {
+    "category": "Nuclear Power Plant Construction - Cost per GW and Timeline",
+    "unit": "£ billion per GW (2024 prices)",
+    "projects": [
+      {
+        "country": "UK",
+        "project": "Hinkley Point C (EPR)",
+        "capacity": "3.2 GW",
+        "totalCost": "£43bn (2024 prices)",
+        "costPerGW": "£13.4bn/GW",
+        "costPerGWUSD": "$16bn/GW (estimated)",
+        "timeline": "2017-2030 (13 years construction)",
+        "constructionStart": "March 2017",
+        "projectedFirstPower": "2030",
+        "delayFromOriginal": "5 years (originally 2025)",
+        "note": "Massive cost overrun: originally estimated £18bn in 2015 prices",
+        "source": "EDF, World Nuclear News, Solar Power Portal"
+      },
+      {
+        "country": "France",
+        "project": "Flamanville 3 (EPR)",
+        "capacity": "1.65 GW",
+        "totalCost": "€23.7bn (2023 prices) / £21.1bn (2020 prices)",
+        "costPerGW": "€14.4bn/GW / £12.8bn/GW",
+        "timeline": "2007-2024 (17 years construction)",
+        "constructionStart": "2007",
+        "gridConnection": "December 2024",
+        "fullPower": "December 2025",
+        "delayFromOriginal": "12 years (originally 2012, 4x cost overrun from €3.3bn estimate)",
+        "source": "EDF, World Nuclear Association, Enerdata"
+      },
+      {
+        "country": "China",
+        "project": "Nuclear Program (average)",
+        "capacity": "1 GW",
+        "costPerGW": "$2.2-2.4bn/GW (2023 prices)",
+        "costPerGWGBP": "£1.8-1.9bn/GW",
+        "timeline": "5-7 years typical construction",
+        "constructionRate": "Nearly all projects completed in 7 years or less since 2010",
+        "note": "Standardized designs, strategic supply chains, sustained government commitment. 55 operational reactors. 2024: 11 new reactors approved, avg $2.8bn each.",
+        "source": "World Bank, Anthropocene Institute, China Energy Portal"
+      },
+      {
+        "country": "South Korea",
+        "project": "Nuclear Program (average)",
+        "capacity": "1 GW",
+        "costPerGW": "$2.2bn/GW (2020 estimate)",
+        "costPerGWGBP": "£1.7-1.8bn/GW",
+        "timeline": "6 years typical (Dukovany reference)",
+        "constructionRate": "1/4 the cost of UK nuclear construction",
+        "note": "Sustained cost reductions through long-term government commitment and private contractor expertise development",
+        "source": "World Nuclear Association, IEA NEA"
+      }
+    ],
+    "ukComparison": "UK Hinkley Point C (£13.4bn/GW) is 7-8x more expensive than China (£1.8-1.9bn/GW) and South Korea (£1.7-1.8bn/GW), and similar to France Flamanville (£12.8bn/GW) which also massively overran."
+  },
+  "windFarms": {
+    "category": "Offshore Wind Farm Development Timeline",
+    "approvalToFirstPower": {
+      "uk": {
+        "timeline": "7-10 years historically, improving to 3-4 years for recent projects",
+        "note": "2024 saw first year without new completions since 2016; 2025 saw rebound with 1.3GW commissioned",
+        "recentProjects": [
+          {
+            "name": "Moray West & Neart Na Gaoithe",
+            "commissioned": "2025",
+            "capacity": "1.33 GW"
+          },
+          {
+            "name": "Culzean (floating)",
+            "expectedCompletion": "Summer 2026",
+            "firstFloatingUK": "Yes"
+          }
+        ],
+        "pipeline": "11.5 GW under construction (as of 2025), 2.6 GW planned for 2026",
+        "source": "Renewable UK, Offshore Wind, National Grid"
+      },
+      "denmark": {
+        "timeline": "4-7 years approval to operation",
+        "note": "Well-established permitting with EIA requirements. Infrastructure cost subsidy schemes available.",
+        "recentProjects": [
+          {
+            "name": "Thor Offshore",
+            "capacity": "1.1 GW",
+            "licensed": "2026",
+            "expectedCompletion": "2027"
+          },
+          {
+            "name": "North Sea I (A1-A3)",
+            "expectedCompletion": "End 2030",
+            "capacity": "6+ GW planned"
+          }
+        ],
+        "energyIslands": "€9bn investment, first operational by 2030 (expected)",
+        "source": "Danish Energy Agency, Offshore Wind"
+      },
+      "netherlands": {
+        "timeline": "3-4 years realization phase (permitting reduced from 7-10 years)",
+        "note": "Significantly accelerated permitting in recent years",
+        "recentProjects": [
+          {
+            "name": "IJmuiden Ver Alpha/Beta",
+            "expectedCompletion": "2029-2030"
+          },
+          {
+            "name": "IJVer Gamma/Nederwiek",
+            "tender": "Q3 2025",
+            "expectedCompletion": "2030-2031"
+          }
+        ],
+        "target": "21 GW offshore by 2030",
+        "source": "Dutch Ministry, RVO.nl, Windpower Monthly"
+      }
+    }
+  },
+  "housing": {
+    "category": "Residential Construction and Planning",
+    "constructionRate": {
+      "uk": {
+        "year": "2024",
+        "completions": "153,910 homes",
+        "yearOnYearChange": "-5.8% vs 2023",
+        "starts": "107,530",
+        "startsChange": "-29.5% vs 2023",
+        "perCapitaNote": "Trend declining; 3Q 2025 only 37,500 starts (lowest since Q3 2014)"
+      },
+      "france": {
+        "year": "2025",
+        "completions": "Estimated 120,000-150,000 homes annually",
+        "authorizations": "379,222 dwellings (2025)",
+        "starts": "274,611 dwellings (2025)",
+        "note": "Recovery in 2025 after 2024 slowdown"
+      },
+      "germany": {
+        "year": "2024",
+        "completions": "251,937 homes",
+        "yearOnYearChange": "-14.42% vs 2023",
+        "buildingPermits": "215,920",
+        "permitsChange": "-16.98%",
+        "lowestLevel": "Lowest since 2015 completions, lowest permits since 2010"
+      },
+      "netherlands": {
+        "homesPerCapita": "0.45 homes per person",
+        "buildingPermits2024": "62,000",
+        "target": "100,000 new homes annually",
+        "shortfall": "410,000 homes by early 2026 (cumulative shortage)",
+        "historicalRate": "44,000-86,000 homes annually since 2000"
+      }
+    },
+    "planningPermissionTimeline": {
+      "uk": {
+        "statutory": "8 weeks (minor/household) or 13 weeks (major/full)",
+        "eia": "16 weeks+ for Environmental Impact Assessment",
+        "reality": "Only 19% of major applications decided within 13 weeks (2022-2024)",
+        "compliance": "One-third of local authorities failed to meet deadline on single major application",
+        "validityPeriod": "3 years from approval",
+        "source": "Home Builders Federation, Planning on Empty report (Feb 2025)"
+      }
+    }
+  },
+  "transportProjects": {
+    "category": "Major Urban Rail Transit Projects - Timeline and Cost Overruns",
+    "projects": [
+      {
+        "name": "Crossrail / Elizabeth Line (London)",
+        "country": "UK",
+        "type": "Underground/surface rail",
+        "length": "118 km",
+        "originalBudget": "£14.8bn (2010)",
+        "finalCost": "£18.8bn",
+        "overrunPercent": "+28% nominal",
+        "openingDate": "May 24, 2022",
+        "originalDate": "2018",
+        "delayYears": "4 years",
+        "costPerKm": "~£159m/km overall (central tunnel much higher)",
+        "source": "House of Commons Library, NAO, Elizabeth Line operator"
+      },
+      {
+        "name": "Paris Grand Express",
+        "country": "France",
+        "type": "Metro extension (automated)",
+        "length": "200+ km new track",
+        "originalBudget": "EUR 19bn (2010)",
+        "estimatedCost": "EUR 35bn",
+        "overrunPercent": "+84% (cost estimates only)",
+        "constructionStart": "2016",
+        "expectedCompletion": "2030",
+        "firstSectionDelay": "Pont de Sèvres section: 2020 planned → late 2026 actual",
+        "note": "2x size of Crossrail, mainly tunneled. Delays attributed to testing issues.",
+        "source": "Major Projects Association, Railway Technology, Wall Street Journal"
+      },
+      {
+        "name": "Copenhagen Metro",
+        "country": "Denmark",
+        "type": "Automated metro",
+        "phases": [
+          {
+            "name": "Initial Lines (M1/M2)",
+            "opened": "2002-2003",
+            "constructionStart": "1996"
+          },
+          {
+            "name": "Airport extension (M3)",
+            "opened": "2007"
+          },
+          {
+            "name": "City Circle Line (M3 full)",
+            "completed": "September 2019",
+            "length": "15.5 km",
+            "costAtApproval": "DKK 21.3bn",
+            "finalCost": "DKK 23.3bn",
+            "costPerKm": "~$280m/km (2022 PPP)"
+          }
+        ],
+        "costFactor": "Lower than London/Paris due to driverless trains, no barriers, value capture funding",
+        "source": "Copenhagen Metro operator, Eno Transit"
+      },
+      {
+        "name": "Munich S-Bahn (Second Core Route expansion)",
+        "country": "Germany",
+        "type": "S-Bahn expansion",
+        "centerSection": "7 km central tunnel",
+        "timeline": "Construction 2026-2033",
+        "description": "Doubling capacity with second parallel line and new tunnel under city",
+        "costStatus": "Specific costs not available in sources",
+        "source": "Deutsche Bahn, Sweco, Tunnel Online"
+      }
+    ],
+    "costOverrunAnalysis": "Crossrail +28%, Paris Grand Express +84% (cost estimate only). Copenhagen completed closer to budget using different delivery model (driverless, value capture). UK/France transport projects show significantly higher cost growth than Nordic comparators."
+  },
+  "consultancy": {
+    "category": "Government Dependence on External Consultancy",
+    "uk": {
+      "year": "2024",
+      "totalSpend": "£1.5bn (Big Four + MBB firms)",
+      "annualContracts": "610 contracts worth £1.475bn",
+      "breakdown": {
+        "q1q2": "348 contracts, £638m",
+        "q3q4": "262 contracts, £837m"
+      },
+      "trend": "£1.0bn (2022) → £1.4bn (2023) → £1.5bn (2024) - increasing trend",
+      "governmentGoal": "Halve consultancy spending by 2026 (save £1.2bn)",
+      "target2025": "1,700+ contracts worth £2.4bn were ending in 2025",
+      "source": "City AM, Tussell, UK Government"
+    },
+    "us": {
+      "year": "2024",
+      "federalSpend": "$220m+ (Big Four only)",
+      "trend": "Trump administration pushing significant cuts; 1,300+ Deloitte contracts terminated/slimmed (worth $372m)",
+      "source": "The Hill Times, FEDmanager"
+    },
+    "eu": {
+      "period": "2016-2019",
+      "totalSpend": "EUR 462m (Big Four only)",
+      "breakdown": {
+        "kpmg": "EUR 154.84m",
+        "ey": "EUR 121.32m",
+        "pwc": "EUR 93.77m",
+        "deloitte": "EUR 92.28m"
+      },
+      "note": "Only covers EU Commission; individual member state spending not aggregated"
+    },
+    "summary": "UK heavily dependent on external consultancies (£1.5bn annually with Big Four/MBB). Continental European governments employ stronger internal technical corps, reducing external consultant dependence."
+  },
+  "civilService": {
+    "category": "Public Sector Employment as % of Workforce",
+    "uk": {
+      "year": "2024",
+      "civilServiceHeadcount": "546,000 employees",
+      "civilServiceFTE": "510,125 FTE",
+      "totalPublicSector": "6.1 million (Q3 2024)",
+      "civilServicePercent": "9% of public sector employment",
+      "publicSectorPercent": "~16-17% of total workforce (estimated from 6.1m/~33m)",
+      "note": "Civil service is only ~1.6% of total employed population, but represents growth trajectory (↑ 4.6% YoY June 2024)"
+    },
+    "france": {
+      "ratio": "~89 civil servants per 1,000 inhabitants",
+      "context": "Higher public sector presence than UK/Germany/Netherlands",
+      "source": "French government statistics (2015 baseline)"
+    },
+    "germany": {
+      "publicSectorPercent": "<13% of total employment",
+      "ranking": "Among lowest in OECD",
+      "source": "OECD, Eurostat"
+    },
+    "netherlands": {
+      "publicSectorPercent": "<13% of total employment",
+      "ranking": "Among lowest in OECD (alongside Germany)",
+      "source": "OECD"
+    },
+    "note": "Smaller public sectors in Germany/Netherlands correlate with higher reliance on external consultants. UK relatively balanced. France maintains larger public administration."
+  },
+  "headlineComparisons": [
+    {
+      "metric": "High-speed rail cost per km",
+      "uk": "£205m",
+      "best": "£15m (Spain)",
+      "ratio": "13-14x",
+      "comparison": "HS2 costs 13-14 times more per km than Spanish AVE network",
+      "source": "HS2 Ltd, INECO"
+    },
+    {
+      "metric": "Nuclear power cost per GW",
+      "uk": "£13.4bn/GW (Hinkley Point C)",
+      "best": "£1.8bn/GW (China)",
+      "ratio": "7.4x",
+      "comparison": "UK nuclear construction costs 7x more than China's latest reactors",
+      "source": "World Bank, EDF, Anthropocene Institute"
+    },
+    {
+      "metric": "Major rail transit cost overrun rate",
+      "uk": "Crossrail +28% (4-year delay)",
+      "comparison": "Paris Grand Express +84% (4+ year delay). Copenhagen Metro closer to budget.",
+      "ratio": "UK/France 3x worse than Nordic models",
+      "source": "House of Commons Library, Major Projects Association"
+    },
+    {
+      "metric": "Infrastructure planning timeline",
+      "uk": "10 years (HS2: proposal to construction approval)",
+      "best": "18-24 months (France DUP process)",
+      "ratio": "5x longer",
+      "comparison": "UK planning process 5x slower than France for major infrastructure",
+      "source": "Planning Inspectorate, French Government"
+    },
+    {
+      "metric": "Annual government consultancy spend",
+      "uk": "£1.5bn (Big Four/MBB, 2024)",
+      "policy": "Targeting cuts to halve by 2026",
+      "context": "Continental Europe employs stronger internal technical capacity, reducing external dependence",
+      "source": "City AM, UK Cabinet Office"
+    },
+    {
+      "metric": "Urban metro construction cost per km",
+      "uk": "~£250-300m/km (Elizabeth Line central tunnel)",
+      "comparison": "Copenhagen £280m/km, Madrid £50-100m/km",
+      "note": "UK among most expensive globally alongside Netherlands",
+      "source": "Transit Costs Project, Eno"
+    },
+    {
+      "metric": "Housing completions growth",
+      "uk": "-5.8% YoY 2024; -14.4% YoY Germany 2024",
+      "context": "Both falling below replacement rate; Netherlands gap 410,000 homes",
+      "note": "Shared planning/construction capacity crisis across UK/Germany",
+      "source": "ONS, Destatis, Dutch government"
+    },
+    {
+      "metric": "Offshore wind approval timeline improvement",
+      "netherlands": "7-10 years → 3-4 years (recent acceleration)",
+      "uk": "Still 7-10 years historically",
+      "comparison": "Netherlands cut timelines nearly 50%, UK plateaued",
+      "source": "RVO, Renewable UK"
+    },
+    {
+      "metric": "Planning permission compliance",
+      "uk": "19% meet 13-week statutory deadline for major applications",
+      "context": "One-third of local authorities cannot meet deadline on ANY major application",
+      "source": "Home Builders Federation (Feb 2025)"
+    },
+    {
+      "metric": "Metro construction efficiency",
+      "denmark": "Driverless trains, no barriers, value-capture funding = £280m/km",
+      "uk": "Traditional staffed, barrier systems, taxpayer-funded = £250-300m/km",
+      "lesson": "Operational model and funding mechanism affects capital efficiency significantly",
+      "source": "Copenhagen Metro operator, Eno Transit"
+    }
+  ]
+}

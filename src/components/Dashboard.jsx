@@ -64,6 +64,7 @@ import immigrationData from "../data/immigration.json";
 import nhsWaitsData from "../data/nhs-waits.json";
 import sewageData from "../data/sewage.json";
 import moonlightingData from "../data/moonlighting-mps.json";
+import deliveryBenchmarks from "../data/delivery-benchmarks.json";
 import { encodeShareId, buildContextLine, shareFmtAmt, renderCardToCanvas, renderTrendCard, renderChartShareCard, renderCancelledProjectCard, renderSewageFinesCard } from "../lib/share-utils";
 import { sortRows, searchRows, processTableData, fmtMillions, fmtCompact, fmtCurrency, fmtPct, getUniqueValues, SORT_PRESETS } from "../lib/table-utils";
 
@@ -6202,6 +6203,97 @@ export default function App() {
                     ))}
                   </div>
                 </div>
+              </div>
+            </div>
+
+            {/* ========= THE DAMAGE REPORT ========= */}
+            <div className="border-t border-red-900/30 pt-10 pb-6">
+              <div className="flex items-center gap-2 mb-1">
+                <ShieldAlert size={14} className="text-red-500" />
+                <div className="text-[13px] uppercase tracking-[0.3em] font-mono text-red-500 font-bold">
+                  The Damage Report
+                </div>
+              </div>
+              <div className="text-[15px] text-gray-500 mb-6 leading-relaxed">
+                How the UK compares to the rest of the world — and what it costs you.
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border border-gray-800/60">
+                {[
+                  {
+                    tag: "Rail", accent: "text-red-500",
+                    stat: "13\u00D7", statSub: "more expensive",
+                    desc: "HS2 costs \u00A3205m/km. Spain builds high-speed rail for \u00A315m/km.",
+                    view: "projects", source: "HS2 Ltd, INECO"
+                  },
+                  {
+                    tag: "Nuclear", accent: "text-red-500",
+                    stat: "7.4\u00D7", statSub: "more per GW",
+                    desc: "Hinkley Point C: \u00A313.4bn/GW. China builds reactors for \u00A31.8bn/GW.",
+                    view: "compare.bills", source: "World Bank, EDF"
+                  },
+                  {
+                    tag: "Planning", accent: "text-red-400",
+                    stat: "5\u00D7", statSub: "slower approvals",
+                    desc: "UK infrastructure takes 10 years to approve. France does it in 18\u201324 months.",
+                    view: "projects.planning", source: "Planning Inspectorate"
+                  },
+                  {
+                    tag: "Overruns", accent: "text-red-500",
+                    stat: fmt(totalOverrun), statSub: "over budget",
+                    desc: projects.filter(p => p.status === "Cancelled").length + " projects cancelled. \u00A3" + Math.round(projects.filter(p => p.status === "Cancelled").reduce((s, p) => s + (p.spentBeforeCancellation || 0), 0) / 1000) + "bn written off entirely.",
+                    view: "projects", source: "NAO, IPA"
+                  },
+                  {
+                    tag: "Consultants", accent: "text-amber-500",
+                    stat: "\u00A31.5bn", statSub: "to Big Four (2024)",
+                    desc: "Government spent \u00A31.5bn on McKinsey, Deloitte, PwC, KPMG in one year.",
+                    view: "suppliers", source: "Cabinet Office"
+                  },
+                  {
+                    tag: "Wind farms", accent: "text-amber-500",
+                    stat: "7\u201310 yrs", statSub: "to approve",
+                    desc: "Netherlands cut approval to 3\u20134 years. UK still stuck at 7\u201310.",
+                    view: "projects.planning", source: "RVO, Renewable UK"
+                  },
+                  {
+                    tag: "Planning", accent: "text-red-400",
+                    stat: "19%", statSub: "on time",
+                    desc: "Only 19% of major planning applications meet the 13-week statutory deadline.",
+                    view: "projects.planning", source: "HBF (Feb 2025)"
+                  },
+                  {
+                    tag: "Productivity", accent: "text-red-500",
+                    stat: "38%", statSub: "behind the US",
+                    desc: "UK productivity \u0024 56.50/hr. USA: $91.50/hr. The gap has widened every year since 2008.",
+                    view: "compare.structural", source: "OECD, ONS"
+                  },
+                  {
+                    tag: "Delays", accent: "text-red-400",
+                    stat: "10 yrs", statSub: "average slippage",
+                    desc: "Emergency Services Network: 10-year delay, 505% cost overrun. Still not working.",
+                    view: "projects.delays", source: "NAO, Home Office"
+                  }
+                ].map((card, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setView(card.view)}
+                    className="text-left px-5 py-5 border-b border-r border-gray-800/60 hover:bg-red-500/[0.03] transition-colors group"
+                  >
+                    <div className={"text-[10px] uppercase tracking-[0.2em] font-mono mb-2 " + card.accent}>
+                      {card.tag}
+                    </div>
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span className="text-2xl font-black text-white tracking-tight">{card.stat}</span>
+                      <span className="text-sm text-gray-500">{card.statSub}</span>
+                    </div>
+                    <div className="text-[13px] text-gray-500 leading-relaxed mb-3">
+                      {card.desc}
+                    </div>
+                    <div className="text-[9px] text-gray-700 font-mono uppercase tracking-wider">
+                      {card.source} {"\u2192"}
+                    </div>
+                  </button>
+                ))}
               </div>
             </div>
 
