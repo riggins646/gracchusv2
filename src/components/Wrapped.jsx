@@ -190,6 +190,7 @@ function useSlides(d) {
       list: d.q1MPs.topQ1Earners.slice(0, 4).map((mp, i) => ({
         label: (i + 1) + ". " + mp.name,
         value: fmtK(mp.amount),
+        sub: mp.name === "Rishi Sunak" ? "All donated to charity. Still 300 hours on the clock." : undefined,
       })),
       listTitle: "Name & shame",
       footer: "Declared in Q1 \u00b7 Source: Parliament Register",
