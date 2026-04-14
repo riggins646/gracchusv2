@@ -1443,8 +1443,8 @@ export function renderSewageFinesCard() {
   ctx.fillStyle = "#ef4444";
   ctx.fillRect(0, 0, W, 4);
 
-  var px = 72;
-  var y = 52;
+  var px = 64;
+  var y = 48;
 
   // Icon + eyebrow
   drawIcon(ctx, px, y - 14, 18);
@@ -1452,41 +1452,40 @@ export function renderSewageFinesCard() {
   ctx.font = "600 12px " + MONO;
   ctx.letterSpacing = "4px";
   ctx.fillText("GRACCHUS", px + 28, y);
-  y += 80;
+  y += 64;
 
   // Giant hero number — the 0.2% that says it all
   ctx.fillStyle = "#ef4444";
-  ctx.font = "900 180px " + SANS;
-  ctx.letterSpacing = "-8px";
-  ctx.fillText("0.2%", px - 6, y + 140);
-  y += 185;
+  ctx.font = "900 200px " + SANS;
+  ctx.letterSpacing = "-10px";
+  ctx.fillText("0.2%", px - 8, y + 155);
+  y += 190;
 
-  // The line that makes it hit
+  // The line that makes it hit — big enough to read in a tweet embed
   ctx.fillStyle = "#ffffff";
-  ctx.font = "700 30px " + SANS;
-  ctx.letterSpacing = "-0.5px";
-  ctx.fillText("That\u2019s how much water companies pay in fines", px, y);
-  y += 42;
-  ctx.fillText("compared to what they pay shareholders.", px, y);
-  y += 72;
+  ctx.font = "700 42px " + SANS;
+  ctx.letterSpacing = "-1px";
+  ctx.fillText("That\u2019s how much water companies", px, y);
+  y += 54;
+  ctx.fillText("pay in fines vs. shareholder dividends.", px, y);
+  y += 76;
 
-  // The numbers — stacked, clean
+  // The numbers — large, unmissable
   ctx.fillStyle = "#ef4444";
-  ctx.font = "900 22px " + MONO;
+  ctx.font = "900 34px " + MONO;
   ctx.letterSpacing = "0px";
   ctx.fillText("\u00a3168M", px, y);
-  ctx.fillStyle = "#6b7280";
-  ctx.font = "400 19px " + SANS;
-  var finesLabelX = px + 90;
-  ctx.fillText("fines levied in 2024", finesLabelX, y);
-  y += 36;
+  ctx.fillStyle = "#9ca3af";
+  ctx.font = "500 28px " + SANS;
+  ctx.fillText("fines (2024)", px + 160, y);
+  y += 50;
 
   ctx.fillStyle = "#10b981";
-  ctx.font = "900 22px " + MONO;
+  ctx.font = "900 34px " + MONO;
   ctx.fillText("\u00a378B", px, y);
-  ctx.fillStyle = "#6b7280";
-  ctx.font = "400 19px " + SANS;
-  ctx.fillText("dividends extracted since privatisation", finesLabelX, y);
+  ctx.fillStyle = "#9ca3af";
+  ctx.font = "500 28px " + SANS;
+  ctx.fillText("dividends since privatisation", px + 130, y);
 
   drawFooter(ctx, W, H, px);
   return canvas.toDataURL("image/png");
