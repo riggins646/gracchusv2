@@ -4655,8 +4655,82 @@ function ProjectDetail({ project, onClose, onNavigate }) {
 // ============================================================================
 // MAIN APP
 // ============================================================================
+// View ID → URL hash slug mapping (and reverse)
+const VIEW_SLUGS = {
+  "overview": "",
+  "wrapped": "wrapped",
+  "birthyear": "your-lifetime",
+  "projects": "budget-overruns",
+  "projects.planning": "planning-failures",
+  "projects.delays": "delivery-delays",
+  "suppliers": "suppliers-contracts",
+  "league.departments": "department-rankings",
+  "transparency.scorecards": "mp-scorecards",
+  "transparency.donations": "donations",
+  "transparency.mppay": "mps-money",
+  "transparency.mp": "mp-detail",
+  "transparency.moonlighting": "moonlighting-mps",
+  "transparency.lobbying": "lobbying",
+  "transparency.nhswaits": "nhs-waiting-times",
+  "transparency.sewage": "sewage-clock",
+  "transparency.windwaste": "wind-waste",
+  "transparency.aid": "foreign-aid",
+  "transparency.immigration": "immigration",
+  "economy.costOfLiving": "cost-of-living",
+  "compare.bills": "energy-bills",
+  "compare.infrastructure": "transport",
+  "government.flow": "where-tax-goes",
+  "government.taxdebt": "tax-debt",
+  "government.civilservice": "civil-service",
+  "compare.defence": "defence",
+  "economy.output": "gdp-output",
+  "economy.production": "production-trade",
+  "economy.innovation": "innovation",
+  "economy.markets": "markets",
+  "compare.structural": "structural",
+  "foreignAid": "foreign-aid",
+  "mpInterests": "mp-interests",
+  "lobbying": "lobbying-register",
+  "politicalDonations": "political-donations"
+};
+const SLUG_TO_VIEW = Object.fromEntries(
+  Object.entries(VIEW_SLUGS).map(([k, v]) => [v, k])
+);
+function viewToSlug(v) { return VIEW_SLUGS[v] ?? v.replace(/\./g, "-"); }
+function slugToView(s) { return SLUG_TO_VIEW[s] ?? s; }
+
 export default function App() {
-  const [view, setView] = useState("overview");
+  const [view, setViewRaw] = useState(() => {
+    if (typeof window !== "undefined" && window.location.hash) {
+      const slug = window.location.hash.slice(1);
+      return slugToView(slug) || "overview";
+    }
+    return "overview";
+  });
+
+  // Wrap setView to also update the URL hash
+  const setView = useCallback((v) => {
+    setViewRaw(v);
+    const slug = viewToSlug(v);
+    const newHash = slug ? "#" + slug : "";
+    if (typeof window !== "undefined") {
+      const current = window.location.hash || "";
+      if (current !== newHash && current !== "#" + slug) {
+        window.history.pushState(null, "", newHash || window.location.pathname);
+      }
+    }
+  }, []);
+
+  // Listen for browser back/forward
+  useEffect(() => {
+    const onHashChange = () => {
+      const slug = window.location.hash.slice(1);
+      const target = slug ? slugToView(slug) : "overview";
+      setViewRaw(target);
+    };
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -6368,6 +6442,28 @@ export default function App() {
               }
             />
 
+            {/* ========= WIND WASTE MINI-TICKER ========= */}
+            <button onClick={() => setView("transparency.windwaste")} className="w-full border-t border-b border-cyan-900/30 py-4 my-2 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 hover:bg-cyan-950/10 transition-colors group cursor-pointer">
+              <div className="flex items-center gap-2">
+                <div className="text-[10px] uppercase tracking-[0.2em] text-cyan-600 font-mono">Wind Waste Clock</div>
+              </div>
+              <div className="flex items-center gap-6 sm:gap-10">
+                <div className="text-center">
+                  <div className="text-xl sm:text-2xl font-black text-cyan-400 font-mono tracking-tight">£{curtailmentCost.toLocaleString()}</div>
+                  <div className="text-[9px] text-gray-600 uppercase tracking-wider">wasted this year</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xl sm:text-2xl font-black text-amber-400 font-mono tracking-tight">{curtailmentMWh.toLocaleString()} MWh</div>
+                  <div className="text-[9px] text-gray-600 uppercase tracking-wider">clean energy thrown away</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xl sm:text-2xl font-black text-amber-500 font-mono tracking-tight">{Math.floor(curtailmentMWh / windCurtailmentData.bitcoinComparison.mwhPerBTC).toLocaleString()} BTC</div>
+                  <div className="text-[9px] text-gray-600 uppercase tracking-wider">could've been mined</div>
+                </div>
+              </div>
+              <div className="text-[10px] text-gray-700 font-mono group-hover:text-cyan-500 transition-colors">Explore →</div>
+            </button>
+
             {/* ========= DAILY HABIT: STREAK + INSIGHT ========= */}
             {(() => {
               const insights = [
@@ -6700,6 +6796,11 @@ export default function App() {
                   label: "Petrol",
                   value: costOfLivingData.headline.petrolPenceLitre + "p/L",
                   status: parseFloat(costOfLivingData.headline.petrolPenceLitre) > 145 ? "bad" : "neutral"
+                },
+                {
+                  label: "Wind Waste",
+                  value: "£" + (windCurtailmentData.keyStats.totalConstraintCost2025 / 1000000000).toFixed(1) + "bn/yr",
+                  status: "bad"
                 }
               ]}
             />
@@ -6759,6 +6860,14 @@ export default function App() {
                     desc: "Growth near zero. Productivity 38% behind the US. Real wages barely recovered.",
                     accent: "text-amber-500",
                     border: "border-amber-500/30"
+                  },
+                  {
+                    id: "transparency.windwaste",
+                    eyebrow: "Energy Waste",
+                    title: "£" + (windCurtailmentData.keyStats.totalConstraintCost2025 / 1000000000).toFixed(1) + "bn to switch off wind farms",
+                    desc: windCurtailmentData.keyStats.energyCurtailed2024TWh + " TWh of clean energy wasted in 2024 — up " + windCurtailmentData.keyStats.curtailmentIncrease2024Pct + "%. We pay them to stop, then pay gas plants to replace them.",
+                    accent: "text-cyan-500",
+                    border: "border-cyan-500/40"
                   },
                   {
                     id: "league.departments",

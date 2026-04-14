@@ -2,30 +2,38 @@
 
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { Share2, ChevronRight, ChevronLeft, X, Download, Copy, Check } from "lucide-react";
+import deptSpendingData from "../data/departmental-spending.json";
+import publicFinancesData from "../data/public-finances.json";
+import spendingData from "../data/spending.json";
+import costOfLivingData from "../data/cost-of-living.json";
+import moonlightingData from "../data/moonlighting-mps.json";
+import mpInterestsData from "../data/mp-interests.json";
+import donationsData from "../data/political-donations.json";
 import projectsData from "../data/projects.json";
-import civilServiceData from "../data/civil-service.json";
 import { renderWrappedCard } from "../lib/wrapped-cards";
 
 /* =========================================================
    GRACCHUS QUARTERLY WRAPPED — Q1 2026
-   Spotify Wrapped–style slide-through of UK government
-   performance data. 5-6 punchy slides with share cards.
+   10-slide narrative arc: personal → outrage → receipt
    ========================================================= */
 
 const QUARTER = "Q1";
 const YEAR = "2026";
 const QUARTER_LABEL = `${QUARTER} ${YEAR}`;
-const UK_TAXPAYERS = 33_400_000; // Approx UK income tax payers
+const UK_TAXPAYERS = 33_400_000;
 
 // ── Slide colour themes (Spotify-esque bold gradients) ──
 const THEMES = [
-  { bg: "from-red-950 via-black to-black", accent: "#FF4D4D", name: "red" },
+  { bg: "from-blue-950 via-black to-black", accent: "#3B82F6", name: "blue" },
   { bg: "from-amber-950 via-black to-black", accent: "#F59E0B", name: "amber" },
+  { bg: "from-red-950 via-black to-black", accent: "#FF4D4D", name: "red" },
   { bg: "from-purple-950 via-black to-black", accent: "#A855F7", name: "purple" },
   { bg: "from-emerald-950 via-black to-black", accent: "#10B981", name: "emerald" },
-  { bg: "from-blue-950 via-black to-black", accent: "#3B82F6", name: "blue" },
   { bg: "from-rose-950 via-black to-black", accent: "#FB7185", name: "rose" },
-  { bg: "from-red-950 via-black to-black", accent: "#FF4D4D", name: "red" },
+  { bg: "from-red-950 via-black to-black", accent: "#FF4D4D", name: "red2" },
+  { bg: "from-amber-950 via-black to-black", accent: "#F59E0B", name: "amber2" },
+  { bg: "from-purple-950 via-black to-black", accent: "#A855F7", name: "purple2" },
+  { bg: "from-emerald-950 via-black to-black", accent: "#10B981", name: "emerald2" },
 ];
 
 function fmt(m) {
@@ -33,195 +41,240 @@ function fmt(m) {
   return "\u00a3" + m.toLocaleString("en-GB") + "m";
 }
 
-function fmtFull(m) {
-  if (m >= 1000) return "\u00a3" + (m * 1_000_000).toLocaleString("en-GB");
-  return "\u00a3" + (m * 1_000_000).toLocaleString("en-GB");
+function fmtK(v) {
+  if (v >= 1000000) return "\u00a3" + (v / 1000000).toFixed(1) + "m";
+  if (v >= 1000) return "\u00a3" + (v / 1000).toFixed(0) + "k";
+  return "\u00a3" + v.toLocaleString("en-GB");
 }
 
 // ── Data calculations ──────────────────────────────────
 function useWrappedData() {
   return useMemo(() => {
-    const projects = projectsData;
+    // ─── SLIDE 1: The Quarter's Bill ───
+    const annualSpend = deptSpendingData.metadata.totalPolicySpending; // £1,164bn
+    const quarterSpend = annualSpend / 4; // ~£291bn
 
-    // Active projects (In Progress) updated in Q1 2026
-    const active = projects.filter(
-      (p) => p.status === "In Progress"
-    );
-    const totalActiveSpend = active.reduce((s, p) => s + p.latestBudget, 0);
-    const totalOverrun = active.reduce(
-      (s, p) => s + Math.max(p.latestBudget - p.originalBudget, 0), 0
-    );
+    // ─── SLIDE 2: Cost of Living (Q1 specific) ───
+    const cpiPct = costOfLivingData.headline.cpiPct;
+    const petrol = costOfLivingData.headline.petrolPenceLitre;
+    const diesel = costOfLivingData.headline.dieselPenceLitre;
+    const energyCap = costOfLivingData.headline.energyCapGBP;
+    const rentPct = costOfLivingData.headline.avgRentChangePct;
+    const realWages = costOfLivingData.headline.realWageGrowthPct;
 
-    // Biggest overrun by percentage
-    const overrunProjects = projects
-      .filter((p) => p.status === "In Progress" && p.latestBudget > p.originalBudget && p.originalBudget > 0)
-      .map((p) => ({
-        ...p,
-        overrunPct: ((p.latestBudget - p.originalBudget) / p.originalBudget) * 100,
-        overrunAbs: p.latestBudget - p.originalBudget,
-      }))
-      .sort((a, b) => b.overrunPct - a.overrunPct);
+    // ─── SLIDE 3: Debt Interest ───
+    const latestFinances = publicFinancesData.series[publicFinancesData.series.length - 1];
+    const annualDebtInterest = latestFinances.debtInterestNet; // £84.8bn
+    const quarterDebtInterest = annualDebtInterest / 4;
+    const dailyDebtInterest = annualDebtInterest * 1000 / 365; // £m per day
+    const debtPctGDP = latestFinances.debtInterestPctGDP;
 
-    // Cancelled projects
-    const cancelled = projects.filter((p) => p.status === "Cancelled");
+    // ─── SLIDE 4: Benefits Bill ───
+    const welfareBrkdn = spendingData.welfareBreakdown;
+    const welfareTotal = welfareBrkdn.reduce((s, w) => s + w.amount, 0);
+    const quarterWelfare = welfareTotal / 4;
+    const topBenefits = [...welfareBrkdn].sort((a, b) => b.amount - a.amount).slice(0, 5);
+
+    // ─── SLIDE 5: Where Tax Went (dept spending) ───
+    const depts = [...deptSpendingData.departments].sort((a, b) => b.spend - a.spend).slice(0, 6);
+
+    // ─── SLIDE 6: Moonlighting MPs (Q1 specific) ───
+    const q1MPs = moonlightingData.q1_2026;
+
+    // ─── SLIDE 7: Gifts & Hospitality (Q1 specific) ───
+    const q1Gifts = mpInterestsData.q1_2026.giftsAndHospitality;
+
+    // ─── SLIDE 8: Political Donations (Q1 specific) ───
+    const q1Donations = donationsData.byYear.find(y => y.year === 2026);
+    const q1PartyDonations = donationsData.partyYearSeries.find(y => y.year === 2026);
+
+    // ─── SLIDE 9: Cancellation Graveyard ───
+    const cancelled = projectsData.filter(p => p.status === "Cancelled");
     const totalCancelledWaste = cancelled.reduce((s, p) => s + p.latestBudget, 0);
+    const topCancelled = [...cancelled].sort((a, b) => b.latestBudget - a.latestBudget).slice(0, 5);
 
-    // Department rankings by waste (overruns + cancellation spend)
-    const deptWaste = {};
-    projects.forEach((p) => {
-      const dept = p.department;
-      if (!deptWaste[dept]) deptWaste[dept] = { dept, waste: 0, projects: 0, cancelled: 0 };
-      if (p.status === "Cancelled") {
-        deptWaste[dept].waste += p.latestBudget;
-        deptWaste[dept].cancelled++;
-      } else if (p.latestBudget > p.originalBudget) {
-        deptWaste[dept].waste += (p.latestBudget - p.originalBudget);
-      }
-      deptWaste[dept].projects++;
-    });
-    const deptRanking = Object.values(deptWaste)
-      .filter((d) => d.waste > 0)
-      .sort((a, b) => b.waste - a.waste);
-
-    // Contractor appearances on troubled projects
-    const contractorCount = {};
-    projects
-      .filter((p) => p.status === "Cancelled" || p.latestBudget > p.originalBudget * 1.1)
-      .forEach((p) => {
-        (p.contractors || []).forEach((c) => {
-          if (!contractorCount[c]) contractorCount[c] = { name: c, count: 0, projects: [] };
-          contractorCount[c].count++;
-          contractorCount[c].projects.push(p.name);
-        });
-      });
-    const contractorRanking = Object.values(contractorCount)
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 5);
-
-    // Tax per person
-    const wastePerTaxpayer = Math.round((totalOverrun * 1_000_000) / UK_TAXPAYERS);
-    const cancelledPerTaxpayer = Math.round((totalCancelledWaste * 1_000_000) / UK_TAXPAYERS);
-
-    // Civil service
-    const csTotal = civilServiceData?.timeline?.[civilServiceData.timeline.length - 1];
-
-    // Pothole equivalents of total waste (overruns + cancelled)
-    const totalWaste = totalOverrun + totalCancelledWaste;
-    const potholeEquiv = Math.round((totalWaste * 1e6) / 50);
-    const nurseEquiv = Math.round((totalWaste * 1e6) / 35000);
+    // ─── SLIDE 10: Personal receipt ───
+    const perTaxpayer = Math.round((quarterSpend * 1000000000) / UK_TAXPAYERS);
+    const perTaxpayerDebt = Math.round((quarterDebtInterest * 1000000000) / UK_TAXPAYERS);
+    const perTaxpayerWelfare = Math.round((quarterWelfare * 1000000000) / UK_TAXPAYERS);
+    const perTaxpayerNHS = Math.round((depts.find(d => d.short === "DHSC")?.spend || 202) / 4 * 1000000000 / UK_TAXPAYERS);
+    const perTaxpayerDefence = Math.round((depts.find(d => d.short === "MOD")?.spend || 39) / 4 * 1000000000 / UK_TAXPAYERS);
+    const mpSalaryPerTaxpayer = Math.round((650 * 98599 / 4) / UK_TAXPAYERS * 100) / 100;
 
     return {
-      totalActiveSpend,
-      totalOverrun,
-      overrunProjects,
-      cancelled,
-      totalCancelledWaste,
-      deptRanking,
-      contractorRanking,
-      wastePerTaxpayer,
-      cancelledPerTaxpayer,
-      totalWaste,
-      potholeEquiv,
-      nurseEquiv,
-      csTotal,
-      projectCount: projects.length,
-      activeCount: active.length,
+      quarterSpend, annualSpend,
+      cpiPct, petrol, diesel, energyCap, rentPct, realWages,
+      annualDebtInterest, quarterDebtInterest, dailyDebtInterest, debtPctGDP,
+      welfareTotal, quarterWelfare, topBenefits,
+      depts,
+      q1MPs,
+      q1Gifts,
+      q1Donations, q1PartyDonations,
+      cancelled, totalCancelledWaste, topCancelled,
+      perTaxpayer, perTaxpayerDebt, perTaxpayerWelfare, perTaxpayerNHS, perTaxpayerDefence, mpSalaryPerTaxpayer,
     };
   }, []);
 }
 
 // ── Build slides from data ─────────────────────────────
-function useSlides(data) {
-  return useMemo(() => {
-    const top3Overrun = data.overrunProjects.slice(0, 3);
-    const top3Dept = data.deptRanking.slice(0, 5);
-    const top3Contractor = data.contractorRanking.slice(0, 3);
+function useSlides(d) {
+  return useMemo(() => [
+    // SLIDE 0: The Quarter's Bill
+    {
+      id: "bill",
+      eyebrow: QUARTER_LABEL + " WRAPPED",
+      headline: "This quarter, your government spent",
+      bigNumber: "\u00a3" + d.quarterSpend.toFixed(0) + "bn",
+      subline: "That\u2019s \u00a3" + (d.quarterSpend * 1000 / 90).toFixed(0) + "m every single day for 90 days.",
+      detail: "Annual spending: \u00a3" + d.annualSpend.toFixed(0) + "bn. Here\u2019s where it went \u2014 and who benefited.",
+      footer: "Source: HM Treasury PESA 2025",
+    },
 
-    return [
-      // SLIDE 0: Intro / Total Spend
-      {
-        id: "intro",
-        eyebrow: QUARTER_LABEL + " WRAPPED",
-        headline: "Your government spent",
-        bigNumber: fmt(data.totalActiveSpend),
-        subline: "across " + data.activeCount + " active projects",
-        detail: "That\u2019s " + fmtFull(data.totalActiveSpend) + " of public money currently in play.",
-        footer: fmt(data.totalOverrun) + " over original budgets",
-      },
+    // SLIDE 1: Cost of Living
+    {
+      id: "costOfLiving",
+      eyebrow: "WHAT LIFE COST YOU IN Q1",
+      headline: "Prices in Q1 2026",
+      subline: "CPI inflation sat at " + d.cpiPct + "%. Here\u2019s what that felt like at the till and at home.",
+      list: [
+        { label: "Petrol", value: d.petrol + "p/L" },
+        { label: "Diesel", value: d.diesel + "p/L" },
+        { label: "Energy cap (annual)", value: "\u00a3" + d.energyCap.toLocaleString() },
+        { label: "Average rent change", value: (d.rentPct > 0 ? "+" : "") + d.rentPct + "%" },
+        { label: "Real wage growth", value: (d.realWages > 0 ? "+" : "") + d.realWages + "%" },
+      ],
+      footer: "Source: ONS CPI, DESNZ, Ofgem",
+    },
 
-      // SLIDE 1: Biggest Overrun
-      {
-        id: "overrun",
-        eyebrow: "OVERRUN OF THE QUARTER",
-        headline: top3Overrun[0]?.name || "",
-        bigNumber: Math.round(top3Overrun[0]?.overrunPct || 0) + "%",
-        bigNumberSuffix: "over budget",
-        subline: top3Overrun[0]?.department || "",
-        detail:
-          fmt(top3Overrun[0]?.originalBudget || 0) + " budget \u2192 " +
-          fmt(top3Overrun[0]?.latestBudget || 0) + " actual",
-        list: top3Overrun.slice(1).map((p) => ({
-          label: p.name,
-          value: Math.round(p.overrunPct) + "% over",
-        })),
-        listTitle: "Runners up",
-      },
+    // SLIDE 2: Debt Interest
+    {
+      id: "debtInterest",
+      eyebrow: "BEFORE ANYTHING ELSE",
+      headline: "Debt interest this quarter",
+      bigNumber: "\u00a3" + d.quarterDebtInterest.toFixed(1) + "bn",
+      bigNumberSuffix: "just to service the national debt",
+      subline: "That\u2019s \u00a3" + d.dailyDebtInterest.toFixed(0) + "m per day — " + d.debtPctGDP + "% of GDP — before a single nurse was hired or road fixed.",
+      detail: "Annual debt interest: \u00a3" + d.annualDebtInterest + "bn. More than the entire defence budget.",
+      footer: "Source: ONS Public Sector Finances, OBR",
+    },
 
-      // SLIDE 2: Department Wall of Shame
-      {
-        id: "departments",
-        eyebrow: "WALL OF SHAME",
-        headline: "Worst departments",
-        subline: "Ranked by total waste: overruns + cancellations",
-        list: top3Dept.map((d, i) => ({
-          label: (i + 1) + ". " + d.dept,
-          value: fmt(d.waste),
-          sub: d.cancelled > 0 ? d.cancelled + " cancelled" : d.projects + " projects",
-        })),
-      },
+    // SLIDE 3: Benefits Bill
+    {
+      id: "welfare",
+      eyebrow: "THE BENEFITS BILL",
+      headline: "Welfare spending this quarter",
+      bigNumber: "\u00a3" + d.quarterWelfare.toFixed(0) + "bn",
+      subline: "Annual welfare bill: \u00a3" + d.welfareTotal.toFixed(0) + "bn — the single biggest line in the budget.",
+      list: d.topBenefits.map(b => ({
+        label: b.category,
+        value: "\u00a3" + (b.amount / 4).toFixed(1) + "bn/qtr",
+      })),
+      listTitle: "Biggest categories (quarterly rate)",
+      footer: "Source: DWP Benefit Expenditure Tables 2025",
+    },
 
-      // SLIDE 3: Cancellation Graveyard
-      {
-        id: "cancelled",
-        eyebrow: "THE CANCELLATION GRAVEYARD",
-        headline: fmt(data.totalCancelledWaste) + " wasted",
-        subline: data.cancelled.length + " projects cancelled, nothing to show for it",
-        detail: "That could have paid for " +
-          data.nurseEquiv.toLocaleString("en-GB") + " nurses for a year, or " +
-          data.potholeEquiv.toLocaleString("en-GB") + " pothole repairs.",
-        list: data.cancelled
-          .sort((a, b) => b.latestBudget - a.latestBudget)
-          .slice(0, 4)
-          .map((p) => ({ label: p.name, value: fmt(p.latestBudget) })),
-        listTitle: "Biggest losses",
-      },
+    // SLIDE 4: Where Your Tax Went
+    {
+      id: "departments",
+      eyebrow: "WHERE YOUR TAX WENT",
+      headline: "Top departments by spend",
+      subline: "Your share of each department\u2019s Q1 spending, based on " + (UK_TAXPAYERS / 1000000).toFixed(1) + "m UK income taxpayers.",
+      list: d.depts.map(dept => ({
+        label: dept.name,
+        value: "\u00a3" + Math.round(dept.spend / 4 * 1000000000 / UK_TAXPAYERS).toLocaleString(),
+        sub: "\u00a3" + (dept.spend / 4).toFixed(1) + "bn total",
+      })),
+      footer: "Source: HM Treasury PESA 2025",
+    },
 
-      // SLIDE 4: Contractor Bingo
-      {
-        id: "contractors",
-        eyebrow: "CONTRACTOR BINGO",
-        headline: "Usual suspects",
-        subline: "Companies appearing on the most troubled projects",
-        list: top3Contractor.map((c, i) => ({
-          label: (i + 1) + ". " + c.name,
-          value: c.count + " projects",
-          sub: c.projects.slice(0, 2).join(", "),
-        })),
-      },
+    // SLIDE 5: Moonlighting MPs (Q1 specific)
+    {
+      id: "moonlighting",
+      eyebrow: "MOONLIGHTING MPS — Q1 2026",
+      headline: d.q1MPs.newDeclarations + " new declarations",
+      bigNumber: fmtK(d.q1MPs.totalDeclaredQ1),
+      bigNumberSuffix: "in outside earnings declared in Q1",
+      subline: d.q1MPs.totalHoursQ1.toLocaleString() + " hours on second jobs. Average voting attendance of top earners: " + d.q1MPs.avgAttendanceTopEarners + "% (vs " + d.q1MPs.avgAttendanceAllMPs + "% for all MPs).",
+      list: d.q1MPs.topQ1Earners.map((mp, i) => ({
+        label: (i + 1) + ". " + mp.name + " (" + mp.party + ")",
+        value: fmtK(mp.amount),
+        sub: mp.source + " \u00b7 Voted " + mp.votingAttendance + "%",
+      })),
+      listTitle: "Top Q1 earners — name & shame",
+      footer: "Source: Parliament Register of Members' Financial Interests",
+    },
 
-      // SLIDE 5: Your Tax Receipt
-      {
-        id: "tax",
-        eyebrow: "YOUR PERSONAL TAX RECEIPT",
-        headline: "You paid",
-        bigNumber: "\u00a3" + data.wastePerTaxpayer.toLocaleString("en-GB"),
-        bigNumberSuffix: "towards overruns",
-        subline: "Plus \u00a3" + data.cancelledPerTaxpayer.toLocaleString("en-GB") + " on cancelled projects",
-        detail: "Every UK taxpayer contributed to " + fmt(data.totalWaste) + " of government waste this year.",
-        footer: "Based on " + (UK_TAXPAYERS / 1_000_000).toFixed(1) + "m UK income tax payers",
-      },
-    ];
-  }, [data]);
+    // SLIDE 6: Gifts & Hospitality (Q1 specific)
+    {
+      id: "gifts",
+      eyebrow: "GIFTS & HOSPITALITY — Q1 2026",
+      headline: d.q1Gifts.mpsReceiving + " MPs accepted gifts",
+      bigNumber: fmtK(d.q1Gifts.totalValue),
+      bigNumberSuffix: "in gifts & hospitality in Q1",
+      subline: d.q1Gifts.totalItems + " items declared across " + d.q1Gifts.byCategory.length + " categories. Overseas trips alone: \u00a3" + (d.q1Gifts.byCategory.find(c => c.category === "Overseas travel")?.value / 1000).toFixed(0) + "k.",
+      list: d.q1Gifts.topItems.slice(0, 5).map(g => ({
+        label: g.mp + " (" + g.party + ")",
+        value: fmtK(g.value),
+        sub: g.item + " — from " + g.donor,
+      })),
+      listTitle: "Notable Q1 gifts",
+      footer: "Source: Parliament Register, GOV.UK Ministers' Gifts Register",
+    },
+
+    // SLIDE 7: Political Donations (Q1 specific)
+    {
+      id: "donations",
+      eyebrow: "WHO'S FUNDING WHOM — Q1 2026",
+      headline: (d.q1Donations?.count || 62) + " donations registered",
+      bigNumber: "\u00a3" + ((d.q1Donations?.total || 1197214) / 1000000).toFixed(1) + "m",
+      bigNumberSuffix: "donated to UK political parties in Q1",
+      subline: "Labour: \u00a3" + ((d.q1PartyDonations?.Labour || 545000) / 1000).toFixed(0) + "k. Other parties: \u00a3" + ((d.q1PartyDonations?.Other || 652214) / 1000).toFixed(0) + "k. Conservative: \u00a30.",
+      detail: "In a full year, UK parties receive \u00a360\u201370m in donations. Q1 2026 is quiet — election cycles drive the big money.",
+      list: [
+        { label: "Labour", value: "\u00a3" + ((d.q1PartyDonations?.Labour || 0) / 1000).toFixed(0) + "k" },
+        { label: "Other parties", value: "\u00a3" + ((d.q1PartyDonations?.Other || 0) / 1000).toFixed(0) + "k" },
+        { label: "Conservative", value: "\u00a30" },
+        { label: "Reform UK", value: "\u00a30" },
+        { label: "Lib Dems", value: "\u00a30" },
+      ],
+      listTitle: "Q1 2026 by party",
+      footer: "Source: Electoral Commission",
+    },
+
+    // SLIDE 8: Cancellation Graveyard
+    {
+      id: "cancelled",
+      eyebrow: "THE CANCELLATION GRAVEYARD",
+      headline: fmt(d.totalCancelledWaste) + " written off",
+      subline: d.cancelled.length + " projects cancelled with nothing to show. The equivalent of " + Math.round(d.totalCancelledWaste * 1000000 / 35000).toLocaleString() + " nurses for a year.",
+      list: d.topCancelled.map(p => ({
+        label: p.name,
+        value: fmt(p.latestBudget),
+        sub: p.department,
+      })),
+      listTitle: "Biggest write-offs",
+      footer: "Source: NAO, IPA Annual Reports",
+    },
+
+    // SLIDE 9: Your Personal Q1 Receipt
+    {
+      id: "receipt",
+      eyebrow: "YOUR PERSONAL Q1 RECEIPT",
+      headline: "Your share of Q1 2026",
+      bigNumber: "\u00a3" + d.perTaxpayer.toLocaleString(),
+      bigNumberSuffix: "total government spending per taxpayer",
+      list: [
+        { label: "NHS & Social Care", value: "\u00a3" + d.perTaxpayerNHS.toLocaleString() },
+        { label: "Welfare & Benefits", value: "\u00a3" + d.perTaxpayerWelfare.toLocaleString() },
+        { label: "Debt Interest", value: "\u00a3" + d.perTaxpayerDebt.toLocaleString() },
+        { label: "Defence", value: "\u00a3" + d.perTaxpayerDefence.toLocaleString() },
+        { label: "MPs\u2019 salaries (your share)", value: "\u00a3" + d.mpSalaryPerTaxpayer.toFixed(2) },
+      ],
+      listTitle: "Where your money went",
+      detail: "Meanwhile, the top 5 moonlighting MPs earned " + fmtK(d.q1MPs.totalDeclaredQ1) + " on the side — while voting less than half the time.",
+      footer: "Based on " + (UK_TAXPAYERS / 1000000).toFixed(1) + "m UK income taxpayers",
+    },
+  ], [d]);
 }
 
 // ── Share modal ────────────────────────────────────────
@@ -376,14 +429,21 @@ function Slide({ slide, theme, onShare }) {
             )}
             <div className="space-y-3">
               {slide.list.map((item, i) => (
-                <div key={i} className="flex items-baseline justify-between gap-4 border-b border-gray-800/40 pb-2">
-                  <div className="text-sm sm:text-base text-gray-300 font-medium truncate flex-1 min-w-0">
-                    {item.label}
+                <div key={i} className="border-b border-gray-800/40 pb-2">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <div className="text-sm sm:text-base text-gray-300 font-medium truncate flex-1 min-w-0">
+                      {item.label}
+                    </div>
+                    <div className="text-sm sm:text-base font-bold whitespace-nowrap"
+                      style={{ color: theme.accent }}>
+                      {item.value}
+                    </div>
                   </div>
-                  <div className="text-sm sm:text-base font-bold whitespace-nowrap"
-                    style={{ color: theme.accent }}>
-                    {item.value}
-                  </div>
+                  {item.sub && (
+                    <div className="text-[11px] text-gray-600 mt-0.5 truncate">
+                      {item.sub}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

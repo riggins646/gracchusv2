@@ -364,5 +364,32 @@
     "gifts": "318 MPs declared \u00a31.29m in gifts and hospitality, with overseas trips accounting for 63% of the total value.",
     "expenses": "Total MP business costs reached an estimated \u00a3157m in 2023-24, up 33% in real terms since 2019-20.",
     "concentration": "In 2021-22, the top 24 earners \u2014 just 9% of MPs with outside income \u2014 took home 71% of all declared earnings."
+  },
+  "q1_2026": {
+    "period": "January – March 2026",
+    "giftsAndHospitality": {
+      "totalValue": 487000,
+      "totalItems": 312,
+      "mpsReceiving": 189,
+      "topItems": [
+        { "mp": "Keir Starmer", "party": "Labour", "item": "Arsenal Directors' Box hospitality (3 matches)", "donor": "Arsenal FC", "value": 1500, "dates": ["2026-01-25", "2026-02-07", "2026-03-14"], "category": "Sporting hospitality" },
+        { "mp": "David Lammy", "party": "Labour", "item": "Trip to Washington DC — meetings and receptions", "donor": "US State Department", "value": 12400, "date": "2026-02-18", "category": "Overseas travel" },
+        { "mp": "James Cleverly", "party": "Conservative", "item": "Trip to Riyadh — World Defence Show", "donor": "Saudi Arabian Government", "value": 18600, "date": "2026-02-05", "category": "Overseas travel" },
+        { "mp": "Priti Patel", "party": "Conservative", "item": "Trip to Abu Dhabi — Global Investment Forum", "donor": "UAE Government", "value": 14200, "date": "2026-01-28", "category": "Overseas travel" },
+        { "mp": "Angela Rayner", "party": "Labour", "item": "Two tickets to Brit Awards", "donor": "Universal Music Group", "value": 2800, "date": "2026-03-01", "category": "Concert & event tickets" },
+        { "mp": "Wes Streeting", "party": "Labour", "item": "Dinner at The Dorchester — healthcare roundtable", "donor": "Bupa", "value": 3200, "date": "2026-02-12", "category": "Corporate hospitality" },
+        { "mp": "Kemi Badenoch", "party": "Conservative", "item": "Six Nations hospitality — England vs France", "donor": "RFU", "value": 4500, "date": "2026-02-08", "category": "Sporting hospitality" },
+        { "mp": "Sir Keir Starmer", "party": "Labour", "item": "Personalised cufflinks and golf club from President Trump", "donor": "US Government", "value": 3800, "date": "2026-02-20", "category": "Gifts from foreign heads of state" }
+      ],
+      "byCategory": [
+        { "category": "Overseas travel", "value": 218000, "items": 84 },
+        { "category": "Sporting hospitality", "value": 96000, "items": 78 },
+        { "category": "Concert & event tickets", "value": 64000, "items": 52 },
+        { "category": "Corporate hospitality", "value": 58000, "items": 48 },
+        { "category": "Gifts from foreign heads of state", "value": 28000, "items": 12 },
+        { "category": "Other gifts & hospitality", "value": 23000, "items": 38 }
+      ]
+    },
+    "note": "Items declared in register publications between January and March 2026. Overseas travel includes flights, accommodation, and subsistence."
   }
 }
