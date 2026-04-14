@@ -349,7 +349,7 @@ function ShareModal({ slide, theme, onClose }) {
 function Slide({ slide, theme, onShare }) {
   return (
     <div className={
-      "h-[calc(100vh-48px)] flex flex-col items-center justify-center " +
+      "h-full flex flex-col items-center justify-center " +
       "px-6 sm:px-10 md:px-16 py-16 sm:py-20 " +
       theme.bg + " " +
       "relative overflow-hidden"
@@ -360,7 +360,7 @@ function Slide({ slide, theme, onShare }) {
       <div className="absolute bottom-[-15%] left-[-10%] w-[40vw] h-[40vw] max-w-[400px] max-h-[400px] rounded-full opacity-[0.05]"
         style={{ background: theme.shape || theme.accent }} />
 
-      <div className="relative z-10 max-w-2xl w-full text-center overflow-y-auto max-h-[calc(100vh-140px)]">
+      <div className="relative z-10 max-w-2xl w-full text-center overflow-y-auto max-h-[80%] px-1">
         {/* Eyebrow */}
         <div className="text-[12px] sm:text-[14px] uppercase tracking-[0.35em] font-mono mb-6 sm:mb-8"
           style={{ color: theme.accent }}>
@@ -513,12 +513,18 @@ export default function Wrapped({ onBack }) {
     touchStartX.current = null;
   };
 
+  // Lock body scroll when Wrapped is open
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, []);
+
   return (
-    <div ref={containerRef} className="relative bg-black min-h-screen"
+    <div ref={containerRef} className="fixed inset-0 z-50 bg-black overflow-hidden"
       onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
 
       {/* Top bar */}
-      <div className="fixed top-0 left-0 right-0 z-40 bg-black/80 backdrop-blur-sm border-b border-gray-800/50">
+      <div className="absolute top-0 left-0 right-0 z-40 bg-black/80 backdrop-blur-sm border-b border-gray-800/50">
         <div className="flex items-center justify-between px-4 sm:px-6 py-3">
           <button onClick={onBack}
             className="text-[11px] uppercase tracking-[0.15em] font-mono text-gray-500 hover:text-white transition-colors">
@@ -542,8 +548,8 @@ export default function Wrapped({ onBack }) {
         </div>
       </div>
 
-      {/* Slide content */}
-      <div className="pt-12">
+      {/* Slide content — fills remaining space below top bar */}
+      <div className="absolute top-12 bottom-0 left-0 right-0">
         <Slide
           slide={slide}
           theme={theme}
@@ -554,27 +560,36 @@ export default function Wrapped({ onBack }) {
       {/* Navigation arrows (desktop) */}
       {currentSlide > 0 && (
         <button onClick={goPrev}
-          className="hidden sm:flex fixed left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 items-center justify-center text-gray-600 hover:text-white border border-gray-800 hover:border-gray-600 bg-black/50 backdrop-blur-sm transition-all">
+          className="hidden sm:flex fixed left-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 items-center justify-center text-gray-600 hover:text-white border border-gray-800 hover:border-gray-600 bg-black/50 backdrop-blur-sm transition-all">
           <ChevronLeft size={20} />
         </button>
       )}
       {currentSlide < slides.length - 1 && (
         <button onClick={goNext}
-          className="hidden sm:flex fixed right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 items-center justify-center text-gray-600 hover:text-white border border-gray-800 hover:border-gray-600 bg-black/50 backdrop-blur-sm transition-all">
+          className="hidden sm:flex fixed right-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 items-center justify-center text-gray-600 hover:text-white border border-gray-800 hover:border-gray-600 bg-black/50 backdrop-blur-sm transition-all">
           <ChevronRight size={20} />
         </button>
       )}
 
-      {/* Mobile tap zones */}
-      <div className="sm:hidden fixed inset-0 z-20 flex pointer-events-none">
-        <div className="w-1/3 pointer-events-auto" onClick={goPrev} />
-        <div className="w-1/3" />
-        <div className="w-1/3 pointer-events-auto" onClick={goNext} />
+      {/* Mobile: share button floats above tap zones */}
+      <div className="sm:hidden absolute bottom-20 right-4 z-40">
+        <button onClick={() => setShareSlide(currentSlide)}
+          className="flex items-center gap-2 px-5 py-3 text-[12px] uppercase tracking-[0.2em] font-mono text-white/70 border border-white/20 bg-black/60 backdrop-blur-sm rounded-full active:bg-white/10">
+          <Share2 size={14} />
+          Share
+        </button>
+      </div>
+
+      {/* Mobile tap zones — bottom portion only so share button isn't blocked */}
+      <div className="sm:hidden absolute top-12 bottom-0 left-0 right-0 z-30 flex pointer-events-none">
+        <div className="w-1/3 h-full pointer-events-auto" onClick={goPrev} />
+        <div className="w-1/3 h-full" />
+        <div className="w-1/3 h-full pointer-events-auto" onClick={goNext} />
       </div>
 
       {/* Bottom hint */}
       {currentSlide === 0 && (
-        <div className="fixed bottom-6 left-0 right-0 text-center z-30 animate-pulse">
+        <div className="absolute bottom-6 left-0 right-0 text-center z-40 animate-pulse">
           <div className="text-[11px] uppercase tracking-[0.2em] font-mono text-gray-700">
             Swipe or tap to continue {"\u2192"}
           </div>
