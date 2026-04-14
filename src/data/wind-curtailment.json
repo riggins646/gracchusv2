@@ -1,0 +1,77 @@
+{
+  "metadata": {
+    "title": "The Wind Waste Clock",
+    "lastUpdated": "2026-04-14",
+    "source": "NESO Annual Balancing Costs Report, Renewable Energy Foundation, Elexon BMRS, DESNZ",
+    "period": "2020–2025 annual data; 2026 running estimate",
+    "methodology": "Constraint payments are compensation paid to wind farms instructed to reduce output when the transmission network cannot carry the generated power. The B6 Anglo-Scottish boundary is the primary bottleneck."
+  },
+  "contextSentences": {
+    "headline": "The UK pays wind farms billions to switch off — because the grid can't carry the power they generate.",
+    "subtext": "Scottish wind farms produce more energy than the transmission network can handle. Rather than upgrading the grid, we pay them constraint payments to stop generating. Then we pay gas plants to fill the gap."
+  },
+  "keyStats": {
+    "totalConstraintCost2025": 1460000000,
+    "windFarmPayments2025": 380000000,
+    "windFarmPayments2024": 393000000,
+    "energyCurtailed2024TWh": 8.3,
+    "energyCurtailed2023TWh": 4.3,
+    "energyCurtailed2025NorthScotlandTWh": 8.8,
+    "curtailmentIncrease2024Pct": 91,
+    "scottishSharePct": 95,
+    "b6BoundaryCostAnnual": 1000000000,
+    "projectedCost2030": 7400000000,
+    "cumulativeSince2020": 4200000000
+  },
+  "liveClockConfig": {
+    "annualConstraintCostGBP": 1460000000,
+    "annualWindPaymentsGBP": 380000000,
+    "annualCurtailedTWh": 8.3,
+    "costPerSecondGBP": 46.28,
+    "mwhWastedPerSecond": 0.948
+  },
+  "annualTrend": [
+    { "year": 2020, "totalConstraintCostM": 648, "windFarmPaymentsM": 282, "curtailedTWh": 3.6 },
+    { "year": 2021, "totalConstraintCostM": 717, "windFarmPaymentsM": 248, "curtailedTWh": 2.8 },
+    { "year": 2022, "totalConstraintCostM": 1230, "windFarmPaymentsM": 480, "curtailedTWh": 4.0 },
+    { "year": 2023, "totalConstraintCostM": 980, "windFarmPaymentsM": 310, "curtailedTWh": 4.3 },
+    { "year": 2024, "totalConstraintCostM": 1230, "windFarmPaymentsM": 393, "curtailedTWh": 8.3 },
+    { "year": 2025, "totalConstraintCostM": 1460, "windFarmPaymentsM": 380, "curtailedTWh": 9.1 }
+  ],
+  "topWindFarms": [
+    { "name": "Viking Wind Farm", "operator": "SSE Renewables", "location": "Shetland", "payments2025H1M": 116, "capacityMW": 443, "color": "#3b82f6" },
+    { "name": "Seagreen", "operator": "SSE / TotalEnergies", "location": "Firth of Forth", "payments2024M": 65, "capacityMW": 1075, "note": "Responsible for 40% of constraint volume in 2024", "color": "#06b6d4" },
+    { "name": "Moray East", "operator": "Ocean Winds", "location": "Moray Firth", "payments2024M": 42, "capacityMW": 950, "color": "#10b981" },
+    { "name": "Beatrice", "operator": "SSE Renewables", "location": "Moray Firth", "payments2024M": 35, "capacityMW": 588, "color": "#f59e0b" },
+    { "name": "Clyde Wind Farm", "operator": "SSE Renewables", "location": "South Lanarkshire", "payments2024M": 28, "capacityMW": 522, "color": "#a855f7" },
+    { "name": "Whitelee", "operator": "ScottishPower", "location": "East Renfrewshire", "payments2024M": 22, "capacityMW": 539, "color": "#ef4444" }
+  ],
+  "b6Boundary": {
+    "nominalCapacityMW": 6800,
+    "operatingCapacityPct": 57,
+    "constraintCost2024M": 1000,
+    "projectedCost2030M": 3000,
+    "explanation": "The B6 boundary is the transmission bottleneck between Scotland and England. It operated at only 50–65% of its nominal 6,800 MW capacity through May–November 2024, forcing Scottish wind farms to curtail output."
+  },
+  "bitcoinComparison": {
+    "kwhPerBTC": 854400,
+    "mwhPerBTC": 854.4,
+    "networkHashrateEHs": 1727,
+    "efficiencyJPerTH": 15,
+    "annualNetworkTWh": 211.58,
+    "note": "Based on 2025–2026 average mining difficulty. Actual BTC yield depends on hardware efficiency, difficulty adjustments (every ~2 weeks), and operational factors. This is an illustrative comparison of wasted energy potential, not a mining proposal."
+  },
+  "projections": {
+    "nesoForecast2030M": 7400,
+    "lcpDeltaForecast2030M": 6100,
+    "source": "NESO and LCP Delta (March 2026)"
+  },
+  "sources": [
+    { "name": "NESO Data Portal", "url": "https://www.neso.energy/data-portal", "type": "primary" },
+    { "name": "NESO Constraint Breakdown", "url": "https://www.neso.energy/data-portal/constraint-breakdown", "type": "primary" },
+    { "name": "NESO Annual Balancing Costs Report 2025", "url": "https://www.neso.energy/document/362561/download", "type": "primary" },
+    { "name": "Renewable Energy Foundation", "url": "https://www.ref.org.uk/constraints/index.php", "type": "primary" },
+    { "name": "Elexon BMRS", "url": "https://bmrs.elexon.co.uk/", "type": "supplementary" },
+    { "name": "LCP Delta", "url": "https://www.lcp.com/en/energy-transition/solutions/data-and-forecasts/research-data", "type": "supplementary" }
+  ]
+}

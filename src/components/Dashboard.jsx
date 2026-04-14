@@ -65,7 +65,9 @@ import nhsWaitsData from "../data/nhs-waits.json";
 import sewageData from "../data/sewage.json";
 import moonlightingData from "../data/moonlighting-mps.json";
 import deliveryBenchmarks from "../data/delivery-benchmarks.json";
+import windCurtailmentData from "../data/wind-curtailment.json";
 import { encodeShareId, buildContextLine, shareFmtAmt, renderCardToCanvas, renderTrendCard, renderChartShareCard, renderCancelledProjectCard, renderSewageFinesCard } from "../lib/share-utils";
+import Wrapped from "./Wrapped";
 import { sortRows, searchRows, processTableData, fmtMillions, fmtCompact, fmtCurrency, fmtPct, getUniqueValues, SORT_PRESETS } from "../lib/table-utils";
 
 const projects = projectsData;
@@ -4961,6 +4963,10 @@ export default function App() {
   const [sewageHovCompany, setSewageHovCompany] = useState(null);
   const [sewageClockHours, setSewageClockHours] = useState(0);
 
+  // Wind Curtailment view state
+  const [curtailmentCost, setCurtailmentCost] = useState(0);
+  const [curtailmentMWh, setCurtailmentMWh] = useState(0);
+
   // Moonlighting MPs view state
   const [mpHovEarner, setMpHovEarner] = useState(null);
   const [mlSortCol, setMlSortCol] = useState("outsideEarnings");
@@ -4973,6 +4979,22 @@ export default function App() {
     const tick = () => {
       const now = Date.now();
       setSewageClockHours(Math.floor((now - start) * rate));
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  // Wind curtailment clock — ticks every second to show cumulative 2026 constraint costs & wasted energy
+  useEffect(() => {
+    const start = new Date("2026-01-01T00:00:00Z").getTime();
+    const cc = windCurtailmentData.liveClockConfig;
+    const costRate = cc.annualConstraintCostGBP / (365.25 * 24 * 3600 * 1000);
+    const mwhRate = (cc.annualCurtailedTWh * 1000000) / (365.25 * 24 * 3600 * 1000);
+    const tick = () => {
+      const elapsed = Date.now() - start;
+      setCurtailmentCost(Math.floor(elapsed * costRate));
+      setCurtailmentMWh(Math.floor(elapsed * mwhRate));
     };
     tick();
     const id = setInterval(tick, 1000);
@@ -5676,6 +5698,7 @@ export default function App() {
       children: [
         { id: "transparency.nhswaits", label: "NHS Waiting Times" },
         { id: "transparency.sewage", label: "Sewage Clock" },
+        { id: "transparency.windwaste", label: "Wind Waste Clock" },
         { id: "transparency.aid", label: "Foreign Aid" },
         { id: "transparency.immigration", label: "Immigration" }
       ]
@@ -5950,7 +5973,15 @@ export default function App() {
         </div>
       </header>
 
-      <main className="max-w-[1400px] mx-auto px-3 sm:px-6 py-4 sm:py-8">
+      {/* ============ WRAPPED (full-screen takeover) ============ */}
+      {view === "wrapped" && (
+        <Wrapped onBack={() => setView("overview")} />
+      )}
+
+      <main className={
+        "max-w-[1400px] mx-auto px-3 sm:px-6 py-4 sm:py-8" +
+        (view === "wrapped" ? " hidden" : "")
+      }>
 
         {/* ============ OVERVIEW ============ */}
         {view === "overview" && (
@@ -6039,6 +6070,37 @@ export default function App() {
                 </div>
               </div>
             )}
+
+            {/* ========= WRAPPED CTA ========= */}
+            <button
+              onClick={() => setView("wrapped")}
+              className={
+                "w-full mb-6 px-5 sm:px-8 py-5 sm:py-6 " +
+                "bg-gradient-to-r from-red-950/60 via-black to-purple-950/40 " +
+                "border border-red-500/20 hover:border-red-500/40 " +
+                "transition-all group cursor-pointer text-left " +
+                "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+              }
+            >
+              <div>
+                <div className={
+                  "text-[11px] uppercase tracking-[0.25em] " +
+                  "font-mono font-bold text-red-500 mb-1"
+                }>
+                  New: Q1 2026 Wrapped
+                </div>
+                <div className="text-base sm:text-lg text-gray-300 font-medium">
+                  Your government{"'"}s quarterly performance report is here
+                </div>
+              </div>
+              <div className={
+                "text-[11px] uppercase tracking-[0.15em] font-mono " +
+                "text-gray-600 group-hover:text-red-400 transition-colors " +
+                "flex items-center gap-1.5 whitespace-nowrap"
+              }>
+                View Wrapped {"\u2192"}
+              </div>
+            </button>
 
             {/* ========= HERO ========= */}
             <div className="pt-8 md:pt-12 pb-6 md:pb-8">
@@ -12340,6 +12402,194 @@ export default function App() {
                 ].map((r, i) => (
                   <button key={i} onClick={() => setView(r.view)} className="text-left bg-gray-900/30 border border-gray-800/40 rounded-lg px-4 py-4 hover:bg-gray-900/50 hover:border-gray-700/50 transition-all group">
                     <div className="text-[10px] uppercase tracking-[0.15em] text-red-500/70 font-mono mb-1">{r.label}</div>
+                    <div className="text-sm font-bold text-gray-300 group-hover:text-white transition-colors">{r.title}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+          );
+        })()}
+
+        {view === "transparency.windwaste" && (() => {
+          const wc = windCurtailmentData;
+          const ks = wc.keyStats;
+          const trend = wc.annualTrend;
+          const farms = wc.topWindFarms;
+          const btc = wc.bitcoinComparison;
+
+          // BTC calculation: curtailed MWh so far this year → theoretical BTC
+          const btcMined = Math.floor(curtailmentMWh / btc.mwhPerBTC);
+          const btcValueGBP = btcMined * 65000; // ~£65k per BTC (conservative estimate)
+
+          return (
+          <div className="space-y-6">
+            <div className="py-6 mb-4">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">Accountability → Energy</div>
+              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">The Wind Waste Clock</h2>
+              <p className="text-gray-500 text-sm mt-2">{wc.contextSentences.headline}</p>
+            </div>
+
+            {/* Live cost ticker */}
+            <div className="bg-gradient-to-b from-cyan-950/20 to-transparent border border-cyan-900/30 rounded-2xl p-8 sm:p-12 text-center">
+              <div className="text-[11px] uppercase tracking-[0.25em] text-cyan-600 font-semibold mb-6">Constraint Costs Since Jan 1 2026</div>
+              <div className="text-5xl sm:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 mb-3 font-mono tracking-tighter">
+                £{curtailmentCost.toLocaleString()}
+              </div>
+              <div className="text-[11px] uppercase tracking-[0.2em] text-gray-500 mb-4">paid to turn off power we generated</div>
+              <div className="text-gray-400 text-sm sm:text-base">
+                That's <span className="font-bold text-cyan-400">{curtailmentMWh.toLocaleString()} MWh</span> of clean energy wasted — enough to mine <span className="font-bold text-amber-400">{btcMined.toLocaleString()} Bitcoin</span> (≈ £{(btcValueGBP / 1000000).toFixed(0)}M)
+              </div>
+            </div>
+
+            {/* Headline stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Total Constraint Costs (2025)</div>
+                <div className="text-2xl md:text-3xl font-black text-cyan-400">£{(ks.totalConstraintCost2025 / 1000000000).toFixed(2)}B</div>
+                <div className="text-gray-600 text-xs mt-0.5">Paid to balance the grid</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Wind Farm Payments (2025)</div>
+                <div className="text-2xl md:text-3xl font-black text-blue-400">£{(ks.windFarmPayments2025 / 1000000).toFixed(0)}M</div>
+                <div className="text-gray-600 text-xs mt-0.5">Direct payments to switch off</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Energy Wasted (2024)</div>
+                <div className="text-2xl md:text-3xl font-black text-amber-400">{ks.energyCurtailed2024TWh} TWh</div>
+                <div className="text-gray-600 text-xs mt-0.5">Up {ks.curtailmentIncrease2024Pct}% from 2023</div>
+              </div>
+              <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+                <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Projected 2030 Cost</div>
+                <div className="text-2xl md:text-3xl font-black text-red-400">£{(ks.projectedCost2030 / 1000000000).toFixed(1)}B</div>
+                <div className="text-gray-600 text-xs mt-0.5">If grid isn't upgraded (NESO)</div>
+              </div>
+            </div>
+
+            {/* The double-pay explainer */}
+            <div className="bg-gradient-to-br from-red-950/20 to-transparent border border-red-900/30 rounded-2xl p-6 sm:p-8">
+              <h3 className="text-[11px] uppercase tracking-[0.2em] text-red-600 font-semibold mb-4">Paying Twice</h3>
+              <p className="text-lg sm:text-xl text-white font-bold mb-3">
+                You pay wind farms <span className="text-cyan-400">£380M</span> to stop generating — then pay gas plants to replace the power they would have made
+              </p>
+              <p className="text-gray-400 text-base leading-relaxed">
+                {ks.scottishSharePct}% of curtailment costs come from Scottish wind farms, bottlenecked by the B6 Anglo-Scottish boundary — a transmission line running at just {wc.b6Boundary.operatingCapacityPct}% of its {(wc.b6Boundary.nominalCapacityMW / 1000).toFixed(1)}GW capacity. The result: clean energy is thrown away, fossil fuels burn instead, and bills go up.
+              </p>
+            </div>
+
+            {/* Annual constraint costs trend */}
+            <ChartCard chartId="wind-constraint-trend" title="annual constraint costs (2020–2025)" subtitle="Total grid balancing costs vs direct wind farm payments (£M)" accentColor="#06b6d4" onShare={handleChartShare} explainData={trend.map(d => d.year + ": Total £" + d.totalConstraintCostM + "M, Wind £" + d.windFarmPaymentsM + "M, Curtailed " + d.curtailedTWh + " TWh").join("; ")}>
+              <ResponsiveContainer width="100%" height={320}>
+                <ComposedChart data={trend} margin={{ top: 10, right: 15, left: 5, bottom: 5 }}>
+                  <defs>
+                    <linearGradient id="curtailTotalGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#06b6d4" stopOpacity={0.5} />
+                      <stop offset="100%" stopColor="#06b6d4" stopOpacity={0.05} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                  <XAxis dataKey="year" tick={{ fill: "#9ca3af", fontSize: 10 }} axisLine={false} tickLine={false} />
+                  <YAxis yAxisId="cost" tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => "£" + v + "M"} width={60} />
+                  <YAxis yAxisId="twh" orientation="right" tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => v + " TWh"} width={55} />
+                  <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={(v, name) => name === "curtailedTWh" ? [v + " TWh", "Energy Wasted"] : ["£" + v + "M", name === "totalConstraintCostM" ? "Total Constraint Cost" : "Wind Farm Payments"]} />
+                  <Area yAxisId="cost" type="monotone" dataKey="totalConstraintCostM" fill="url(#curtailTotalGrad)" stroke="#06b6d4" strokeWidth={2} dot={{ r: 4, fill: "#06b6d4", stroke: "#0d0d1a", strokeWidth: 2 }} />
+                  <Bar yAxisId="cost" dataKey="windFarmPaymentsM" fill="#3b82f6" radius={[4, 4, 0, 0]} opacity={0.7} barSize={32} />
+                  <Line yAxisId="twh" type="monotone" dataKey="curtailedTWh" stroke="#f59e0b" strokeWidth={2} dot={{ r: 4, fill: "#f59e0b", stroke: "#0d0d1a", strokeWidth: 2 }} />
+                </ComposedChart>
+              </ResponsiveContainer>
+              <div className="flex gap-4 mt-2 text-xs text-gray-500 justify-center flex-wrap">
+                <div className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-cyan-500 inline-block" /> Total Constraint Cost</div>
+                <div className="flex items-center gap-1.5"><span className="w-3 h-3 bg-blue-500 inline-block rounded-sm opacity-70" /> Wind Farm Payments</div>
+                <div className="flex items-center gap-1.5"><span className="w-3 h-0.5 bg-amber-500 inline-block" /> Energy Curtailed (TWh)</div>
+              </div>
+              <ChartMeta source="NESO Annual Balancing Costs Report" sourceUrl="https://www.neso.energy/data-portal" />
+            </ChartCard>
+
+            {/* Top wind farms by constraint payments */}
+            <ChartCard chartId="wind-top-farms" title="top wind farms by constraint payments" subtitle="Highest-paid farms to switch off — predominantly Scottish offshore wind" accentColor="#3b82f6" onShare={handleChartShare} explainData={farms.map(f => f.name + " (" + f.operator + "): £" + (f.payments2024M || f.payments2025H1M) + "M").join("; ")}>
+              <ResponsiveContainer width="100%" height={280}>
+                <BarChart data={farms.map(f => ({ name: f.name, cost: f.payments2024M || f.payments2025H1M, operator: f.operator, location: f.location, capacity: f.capacityMW, color: f.color, note: f.note }))} layout="vertical" margin={{ top: 5, right: 20, left: 5, bottom: 5 }}>
+                  <XAxis type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => "£" + v + "M"} />
+                  <YAxis dataKey="name" type="category" tick={{ fill: "#d1d5db", fontSize: 9 }} axisLine={false} tickLine={false} width={140} />
+                  <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={(v, _, props) => ["£" + v + "M", "Constraint Payments"]} labelFormatter={l => { const f = farms.find(x => x.name === l); return f ? f.name + " · " + f.operator + " · " + f.location + " · " + f.capacityMW + "MW" : l; }} />
+                  <Bar dataKey="cost" radius={[0, 6, 6, 0]} animationDuration={800} animationEasing="ease-out">
+                    {farms.map((f, i) => <Cell key={i} fill={f.color} opacity={0.85} />)}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+              <ChartMeta source="Renewable Energy Foundation, NESO" sourceUrl="https://www.ref.org.uk/constraints/index.php" />
+            </ChartCard>
+
+            {/* Bitcoin comparison */}
+            <div className="bg-gradient-to-b from-amber-950/20 to-transparent border border-amber-900/30 rounded-2xl p-6 sm:p-8">
+              <h3 className="text-[11px] uppercase tracking-[0.2em] text-amber-600 font-semibold mb-4">What Could We Have Done With That Energy?</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div className="text-center">
+                  <div className="text-3xl sm:text-4xl font-black text-amber-400 mb-1">{(ks.energyCurtailed2024TWh * 1000000 / btc.mwhPerBTC).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                  <div className="text-[10px] uppercase tracking-wider text-gray-500">Bitcoin could've been mined (2024)</div>
+                  <div className="text-gray-600 text-xs mt-1">At {btc.kwhPerBTC.toLocaleString()} kWh per BTC</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl sm:text-4xl font-black text-emerald-400 mb-1">{((ks.energyCurtailed2024TWh * 1000000) / 3.5).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </div>
+                  <div className="text-[10px] uppercase tracking-wider text-gray-500">Homes powered for a year</div>
+                  <div className="text-gray-600 text-xs mt-1">At avg 3,500 kWh/home/year</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl sm:text-4xl font-black text-cyan-400 mb-1">{(ks.energyCurtailed2024TWh * 1000000 * 0.207 / 1000000).toFixed(1)}M</div>
+                  <div className="text-[10px] uppercase tracking-wider text-gray-500">Tonnes CO₂ avoided (if used)</div>
+                  <div className="text-gray-600 text-xs mt-1">vs gas at 0.207 kg CO₂/kWh</div>
+                </div>
+              </div>
+              <p className="text-gray-500 text-xs text-center italic">{btc.note}</p>
+            </div>
+
+            {/* B6 Boundary explanation */}
+            <ChartCard chartId="wind-b6-boundary" title="the B6 bottleneck — Scotland to England" subtitle="The transmission boundary that causes 95% of UK wind curtailment" accentColor="#06b6d4" onShare={handleChartShare} explainData={wc.b6Boundary.explanation}>
+              <div className="py-4 px-2">
+                <div className="flex items-end gap-4 sm:gap-8 mb-6 justify-center">
+                  <div className="text-center">
+                    <div className="bg-cyan-500/10 border border-cyan-900/30 rounded-lg px-6 py-3" style={{ minHeight: "100px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <span className="text-cyan-400 font-black text-2xl">{wc.b6Boundary.nominalCapacityMW.toLocaleString()} MW</span>
+                    </div>
+                    <div className="text-[10px] text-gray-500 mt-2">Nominal B6 Capacity</div>
+                  </div>
+                  <div className="text-gray-600 text-2xl font-bold mb-8">→</div>
+                  <div className="text-center">
+                    <div className="bg-red-500/10 border border-red-900/30 rounded-lg px-6 py-3" style={{ minHeight: "100px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <span className="text-red-400 font-black text-2xl">{Math.round(wc.b6Boundary.nominalCapacityMW * wc.b6Boundary.operatingCapacityPct / 100).toLocaleString()} MW</span>
+                    </div>
+                    <div className="text-[10px] text-gray-500 mt-2">Actual Operating Capacity ({wc.b6Boundary.operatingCapacityPct}%)</div>
+                  </div>
+                </div>
+                <p className="text-center text-base text-white font-bold mb-2">
+                  <span className="text-red-400">{100 - wc.b6Boundary.operatingCapacityPct}%</span> of Scottish wind capacity is bottlenecked
+                </p>
+                <p className="text-center text-xs text-gray-500">Costing over £{(wc.b6Boundary.constraintCost2024M / 1000).toFixed(0)}B per year — projected to reach £{(wc.b6Boundary.projectedCost2030M / 1000).toFixed(0)}B by 2030</p>
+              </div>
+              <ChartMeta source="NESO, Apatura Energy" sourceUrl="https://www.neso.energy/data-portal/constraint-breakdown" />
+            </ChartCard>
+
+            {/* Projection */}
+            <div className="bg-gray-900/30 border border-gray-800/40 rounded-xl p-5">
+              <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-2">Looking Ahead</div>
+              <p className="text-gray-300 text-sm leading-relaxed">
+                NESO forecasts constraint costs reaching <span className="font-bold text-red-400">£{(wc.projections.nesoForecast2030M / 1000).toFixed(1)}B by 2030</span> without major grid upgrades. LCP Delta's more optimistic model still projects <span className="font-bold text-amber-400">£{(wc.projections.lcpDeltaForecast2030M / 1000).toFixed(1)}B</span>. Either way, without the Eastern HVDC link and B6 upgrades, Britain will continue paying billions to waste its own clean energy.
+              </p>
+            </div>
+
+            <div className="text-gray-600 text-xs px-1 mt-4">Sources: {wc.metadata.source}</div>
+
+            <div className="border-t border-gray-800/40 pt-8 mt-8">
+              <div className="text-[11px] uppercase tracking-[0.2em] text-gray-600 font-mono mb-4">Related</div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {[
+                  { label: "Your Money", title: "Energy & Bills", view: "compare.bills" },
+                  { label: "Environment", title: "The Sewage Clock", view: "transparency.sewage" },
+                  { label: "Economy", title: "Markets & Indices", view: "economy.markets" }
+                ].map((r, i) => (
+                  <button key={i} onClick={() => setView(r.view)} className="text-left bg-gray-900/30 border border-gray-800/40 rounded-lg px-4 py-4 hover:bg-gray-900/50 hover:border-gray-700/50 transition-all group">
+                    <div className="text-[10px] uppercase tracking-[0.15em] text-cyan-500/70 font-mono mb-1">{r.label}</div>
                     <div className="text-sm font-bold text-gray-300 group-hover:text-white transition-colors">{r.title}</div>
                   </button>
                 ))}
