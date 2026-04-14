@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Cost of Living",
-    "lastUpdated": "2026-04-12",
+    "lastUpdated": "2026-04-14",
     "description": "UK cost of living indicators: inflation, wages, housing, energy, food and transport."
   },
   "headline": {
@@ -10,8 +10,8 @@
     "avgRentGbp": 1374,
     "energyCapGbp": 1641,
     "foodInflationPct": 3.3,
-    "petrolPenceLitre": 158.4,
-    "dieselPenceLitre": 191.4
+    "petrolPenceLitre": 158.3,
+    "dieselPenceLitre": 191.5
   },
   "cpiInflation": {
     "source": "ONS Consumer Prices Index (CPI, % YoY)",
@@ -851,9 +851,9 @@
   },
   "transport": {
     "currentPrice": {
-      "petrolPence": 158.4,
-      "dieselPence": 191.4,
-      "lastUpdated": "2026-04-12",
+      "petrolPence": 158.3,
+      "dieselPence": 191.5,
+      "lastUpdated": "2026-04-14",
       "sourceName": "DESNZ Weekly Road Fuel Prices",
       "sourceUrl": "https://www.gov.uk/government/statistics/weekly-road-fuel-prices",
       "sourceConfidence": "high",
@@ -901,7 +901,8 @@
         { "m": "07 Apr 2026", "v": 154.7, "freq": "weekly" },
         { "m": "10 Apr 2026", "v": 157.7, "freq": "daily" },
         { "m": "11 Apr 2026", "v": 158.4, "freq": "daily" },
-        { "m": "12 Apr 2026", "v": 158.4, "freq": "daily" }
+        { "m": "12 Apr 2026", "v": 158.4, "freq": "daily" },
+        { "m": "14 Apr 2026", "v": 158.3, "freq": "daily" }
       ]
     },
     "diesel": {
@@ -945,7 +946,8 @@
         { "m": "07 Apr 2026", "v": 186.8, "freq": "weekly" },
         { "m": "10 Apr 2026", "v": 190.6, "freq": "daily" },
         { "m": "11 Apr 2026", "v": 191.4, "freq": "daily" },
-        { "m": "12 Apr 2026", "v": 191.4, "freq": "daily" }
+        { "m": "12 Apr 2026", "v": 191.4, "freq": "daily" },
+        { "m": "14 Apr 2026", "v": 191.5, "freq": "daily" }
       ]
     },
     "railFares": {

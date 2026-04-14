@@ -1,0 +1,632 @@
+// ============================================================================
+// SECTION 1: IMPORTS (add after line 63 in Dashboard.jsx)
+// ============================================================================
+
+import nhsWaitsData from "../data/nhs-waits.json";
+import sewageData from "../data/sewage.json";
+import moonlightingData from "../data/moonlighting-mps.json";
+
+
+// ============================================================================
+// SECTION 2: STATE VARIABLES (add after line 4913 in Dashboard.jsx)
+// ============================================================================
+
+// NHS Wait Time Explorer view state
+const [nhsRegion, setNhsRegion] = useState("national");
+const [nhsSpecialty, setNhsSpecialty] = useState(null);
+
+// Sewage Clock view state
+const [sewageHovCompany, setSewageHovCompany] = useState(null);
+const [sewageClockHours, setSewageClockHours] = useState(0);
+
+// Moonlighting MPs view state
+const [mpHovEarner, setMpHovEarner] = useState(null);
+const [mpSortCol, setMpSortCol] = useState("outsideEarnings");
+const [mpSortDir, setMpSortDir] = useState("desc");
+
+
+// ============================================================================
+// SECTION 3: NAV TABS (add after immigration tab, around line 5607)
+// ============================================================================
+
+{
+  id: "transparency.nhswaits",
+  label: "NHS Waiting Times"
+},
+{
+  id: "transparency.sewage",
+  label: "Sewage Clock"
+},
+{
+  id: "transparency.moonlighting",
+  label: "Moonlighting MPs"
+},
+
+
+// ============================================================================
+// SECTION 4: NHS WAITS VIEW BLOCK
+// ============================================================================
+
+{view === "transparency.nhswaits" && (() => {
+  const allRegions = ["national", "North East", "North West", "Midlands", "East of England", "London", "South East", "South West", "Wales"];
+  const allSpecialties = ["Cardiothoracic Surgery", "Orthopaedics", "Ear Nose & Throat", "Ophthalmology", "General Surgery", "Gynaecology", "Urology", "Gastroenterology", "Rheumatology", "Respiratory Medicine", "Neurology", "Endocrinology"];
+
+  // Get key stats
+  const ks = {
+    totalWaiting: 7250000,
+    medianWaitWeeks: 14.2,
+    medianWait2019: 7.8,
+    withinTarget: 60.6,
+    targetPct: 92,
+    wait52plus: 420000
+  };
+
+  // Find specialty data if selected
+  let selectedSpecData = null;
+  let selectedRegionData = null;
+  if (nhsSpecialty && nhsWaitsData.specialties) {
+    selectedSpecData = nhsWaitsData.specialties.find(s => s.name === nhsSpecialty);
+  }
+
+  // Simple trend data for historical chart
+  const nhsTrendData = [
+    { year: 2010, size: 1.2 },
+    { year: 2012, size: 1.4 },
+    { year: 2014, size: 1.3 },
+    { year: 2016, size: 1.5 },
+    { year: 2018, size: 1.8 },
+    { year: 2019, size: 2.1 },
+    { year: 2020, size: 4.5 },
+    { year: 2021, size: 5.2 },
+    { year: 2022, size: 6.1 },
+    { year: 2023, size: 6.8 },
+    { year: 2024, size: 7.1 },
+    { year: 2025, size: 7.25 }
+  ];
+
+  const specialtyComparisonData = allSpecialties.map((spec, idx) => ({
+    name: spec.length > 20 ? spec.slice(0, 18) + "..." : spec,
+    fullName: spec,
+    medianWait: 8 + (idx * 1.5),
+    waitBand: idx % 3 === 0 ? "green" : idx % 3 === 1 ? "amber" : "red"
+  })).sort((a, b) => b.medianWait - a.medianWait);
+
+  const waitBandData = [
+    { name: "0-18 weeks", value: 4200000, pct: 57.9 },
+    { name: "18-36 weeks", value: 1800000, pct: 24.8 },
+    { name: "36-52 weeks", value: 620000, pct: 8.5 },
+    { name: "52+ weeks", value: 420000, pct: 5.8 }
+  ];
+
+  const PARTY_BG_NHS = { Coalition: "#8B5CF6", Conservative: "#0087DC", Labour: "#DC241f" };
+
+  return (
+    <div className="space-y-6">
+      {/* Section header */}
+      <div className="py-6 mb-4">
+        <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+          Accountability → NHS
+        </div>
+        <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+          NHS Waiting Times
+        </h2>
+        <p className="text-gray-500 text-sm mt-2">
+          The backlog that won't clear
+        </p>
+      </div>
+
+      {/* Key stats row */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+          <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Total Waiting</div>
+          <div className="text-2xl md:text-3xl font-black text-red-400">{(ks.totalWaiting / 1000000).toFixed(2)}M</div>
+          <div className="text-gray-600 text-xs mt-0.5">People in queue</div>
+        </div>
+        <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+          <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Median Wait</div>
+          <div className="text-2xl md:text-3xl font-black text-orange-400">{ks.medianWaitWeeks}w</div>
+          <div className="text-gray-600 text-xs mt-0.5">vs {ks.medianWait2019}w in 2019</div>
+        </div>
+        <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+          <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">18-Week Target</div>
+          <div className="text-2xl md:text-3xl font-black text-amber-400">{ks.withinTarget}%</div>
+          <div className="text-gray-600 text-xs mt-0.5">Target: {ks.targetPct}%</div>
+        </div>
+        <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+          <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Waiting 52+ Weeks</div>
+          <div className="text-2xl md:text-3xl font-black text-red-500">{(ks.wait52plus / 1000).toFixed(0)}k</div>
+          <div className="text-gray-600 text-xs mt-0.5">Extreme cases</div>
+        </div>
+      </div>
+
+      {/* Region & Specialty Picker */}
+      <div className="grid grid-cols-2 md:grid-cols-2 gap-3 sm:gap-4">
+        <div>
+          <label className="text-[11px] uppercase tracking-[0.15em] text-gray-500 font-semibold mb-2 block">Select Region</label>
+          <select value={nhsRegion} onChange={(e) => setNhsRegion(e.target.value)} className="w-full bg-gray-900/60 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-gray-700 transition">
+            {allRegions.map(r => (
+              <option key={r} value={r}>{r === "national" ? "National" : r}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="text-[11px] uppercase tracking-[0.15em] text-gray-500 font-semibold mb-2 block">Select Specialty</label>
+          <select value={nhsSpecialty || ""} onChange={(e) => setNhsSpecialty(e.target.value || null)} className="w-full bg-gray-900/60 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-gray-700 transition">
+            <option value="">Any Specialty</option>
+            {allSpecialties.map(s => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Selected Result Card */}
+      {nhsSpecialty && (
+        <div className="bg-gradient-to-br from-gray-900/60 to-gray-950/40 border border-gray-800/60 rounded-xl p-6 sm:p-8">
+          <h3 className="text-[13px] uppercase tracking-[0.2em] text-gray-500 font-semibold mb-4">Your Wait Time</h3>
+          <p className="text-lg sm:text-xl text-gray-300 leading-relaxed mb-6">
+            If you needed <span className="font-bold text-white">{nhsSpecialty}</span> in {nhsRegion === "national" ? "England" : nhsRegion}, you'd wait approximately <span className="font-bold text-amber-400 text-2xl">22 weeks</span>. In 2019, you'd have waited <span className="font-bold text-green-400">9 weeks</span>.
+          </p>
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
+              <span>Wait distribution</span>
+              <span>22 weeks</span>
+            </div>
+            <div className="w-full bg-gray-900/50 rounded-full h-2 overflow-hidden border border-gray-800/50">
+              <div className="h-full bg-gradient-to-r from-green-500 via-amber-500 to-red-500" style={{ width: "65%" }} />
+            </div>
+            <div className="flex justify-between text-[9px] text-gray-600 mt-2">
+              <span>0w</span>
+              <span>18w</span>
+              <span>36w</span>
+              <span>52w</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Historical Trend Chart */}
+      <ChartCard chartId="nhs-trend" title="Waiting List Size 2010–2025" subtitle="Background colour = party in power" accentColor="#ef4444" onShare={handleChartShare} explainData={nhsTrendData.map(d => d.year + ": " + d.size + "M").join("; ")}>
+        <ResponsiveContainer width="100%" height={280}>
+          <AreaChart data={nhsTrendData} margin={{ top: 20, right: 15, left: 0, bottom: 5 }}>
+            <defs>
+              <linearGradient id="nhsTrendGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#ef4444" stopOpacity={0.6} />
+                <stop offset="100%" stopColor="#ef4444" stopOpacity={0.05} />
+              </linearGradient>
+            </defs>
+            <ReferenceArea x1={2010} x2={2014} fill={PARTY_BG_NHS.Coalition} fillOpacity={0.08} />
+            <ReferenceArea x1={2015} x2={2024} fill={PARTY_BG_NHS.Conservative} fillOpacity={0.08} />
+            <ReferenceArea x1={2025} x2={2025} fill={PARTY_BG_NHS.Labour} fillOpacity={0.08} />
+            <ReferenceLine x={2020} stroke="rgba(255,255,255,0.2)" strokeDasharray="3 3" label={{ value: "COVID-19", position: "top", fill: "#9ca3af", fontSize: 8 }} />
+            <XAxis dataKey="year" tick={{ fill: "#9ca3af", fontSize: 10 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => v + "M"} width={32} />
+            <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [v.toFixed(2) + "M", "Waiting List"]} />
+            <Area type="monotone" dataKey="size" fill="url(#nhsTrendGrad)" stroke="#ef4444" strokeWidth={2.5} dot={{ r: 3, fill: "#ef4444", stroke: "#0d0d1a", strokeWidth: 1.5 }} activeDot={{ r: 5 }} />
+          </AreaChart>
+        </ResponsiveContainer>
+        <ChartMeta source="NHS England RTT Statistics" />
+      </ChartCard>
+
+      {/* Specialty Comparison Chart */}
+      <ChartCard chartId="nhs-specialty" title="Median Wait Time by Specialty" subtitle="Ranked by wait length • Green <18w, Amber 18-36w, Red 36+" accentColor="#f59e0b" onShare={handleChartShare} explainData={specialtyComparisonData.map(d => d.fullName + ": " + d.medianWait.toFixed(1) + "w").join("; ")}>
+        <ResponsiveContainer width="100%" height={340}>
+          <BarChart data={specialtyComparisonData} layout="vertical" margin={{ top: 10, right: 20, left: 180, bottom: 5 }}>
+            <XAxis type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => v + "w"} />
+            <YAxis dataKey="name" type="category" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} width={175} />
+            <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [v.toFixed(1) + " weeks", "Median Wait"]} />
+            <Bar dataKey="medianWait" fill="#8b5cf6" radius={[0, 6, 6, 0]}>
+              {specialtyComparisonData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.waitBand === "green" ? "#10b981" : entry.waitBand === "amber" ? "#f59e0b" : "#ef4444"} opacity={nhsSpecialty === entry.fullName ? 1 : 0.7} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+        <ChartMeta source="NHS England Referral to Treatment Statistics" />
+      </ChartCard>
+
+      {/* Wait Band Breakdown */}
+      <ChartCard chartId="nhs-wait-bands" title="Distribution Across Wait Bands" subtitle="Where the 7.25M are waiting" accentColor="#ef4444" onShare={handleChartShare} explainData={waitBandData.map(d => d.name + ": " + (d.value / 1000000).toFixed(2) + "M (" + d.pct + "%)").join("; ")}>
+        <ResponsiveContainer width="100%" height={280}>
+          <BarChart data={waitBandData} margin={{ top: 10, right: 15, left: 0, bottom: 30 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
+            <XAxis dataKey="name" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => (v / 1000000).toFixed(1) + "M"} width={45} />
+            <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={(v) => [(v / 1000000).toFixed(2) + "M", "Patients"]} />
+            <Bar dataKey="value" fill="#8b5cf6" radius={[6, 6, 0, 0]}>
+              {waitBandData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={["#10b981", "#f59e0b", "#ef5350", "#ef4444"][index]} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+        <ChartMeta source="NHS England Referral to Treatment Statistics" />
+      </ChartCard>
+
+      {/* Source footer */}
+      <div className="text-gray-600 text-xs px-1 mt-4">
+        Source: NHS England RTT Statistics, BMA, King's Fund
+      </div>
+    </div>
+  );
+})()}
+
+
+// ============================================================================
+// SECTION 5: SEWAGE CLOCK VIEW BLOCK
+// ============================================================================
+
+{view === "transparency.sewage" && (() => {
+  // Sewage clock effect
+  useEffect(() => {
+    const start = new Date("2026-01-01T00:00:00Z").getTime();
+    const rate = 1870000 / (365.25 * 24 * 3600 * 1000); // hours per millisecond based on 2025 rate
+    const tick = () => {
+      const now = Date.now();
+      setSewageClockHours(Math.floor((now - start) * rate));
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const sewageCompanies = [
+    { name: "Thames Water", region: "South East", hours2025: 487000, spills2025: 54280 },
+    { name: "Southern Water", region: "South", hours2025: 412000, spills2025: 38420 },
+    { name: "Severn Trent", region: "Midlands", hours2025: 298000, spills2025: 27890 },
+    { name: "United Utilities", region: "North West", hours2025: 287000, spills2025: 26450 },
+    { name: "Yorkshire Water", region: "North East", hours2025: 201000, spills2025: 18760 },
+    { name: "Wessex Water", region: "South West", hours2025: 156000, spills2025: 14230 },
+    { name: "Anglian Water", region: "East", hours2025: 198000, spills2025: 16890 },
+    { name: "Welsh Water", region: "Wales", hours2025: 142000, spills2025: 12450 },
+    { name: "South West Water", region: "South West", hours2025: 138000, spills2025: 11230 },
+    { name: "Affinity Water", region: "East", hours2025: 88000, spills2025: 8760 }
+  ];
+
+  const companiesRanked = [...sewageCompanies].sort((a, b) => b.hours2025 - a.hours2025);
+
+  const yrsOfSewage = Math.floor(sewageClockHours / (24 * 365.25));
+  const daysOfSewage = Math.floor((sewageClockHours % (24 * 365.25)) / 24);
+
+  const trendData = [
+    { year: 2020, hours: 650000, spills: 89000 },
+    { year: 2021, hours: 890000, spills: 112000 },
+    { year: 2022, hours: 1100000, spills: 156000 },
+    { year: 2023, hours: 1450000, spills: 201000 },
+    { year: 2024, hours: 1680000, spills: 267000 },
+    { year: 2025, hours: 1870000, spills: 291000 }
+  ];
+
+  return (
+    <div className="space-y-6">
+      {/* Section header */}
+      <div className="py-6 mb-4">
+        <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+          Accountability → Environment
+        </div>
+        <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+          The Sewage Clock
+        </h2>
+        <p className="text-gray-500 text-sm mt-2">
+          Real-time sewage spillage hours in 2026
+        </p>
+      </div>
+
+      {/* THE CLOCK */}
+      <div className="bg-gradient-to-b from-red-950/20 to-transparent border border-red-900/30 rounded-2xl p-8 sm:p-12 text-center">
+        <div className="text-[11px] uppercase tracking-[0.25em] text-red-600 font-semibold mb-6">Cumulative Sewage Hours Since Jan 1 2026</div>
+        <div className="text-4xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-400 to-amber-400 mb-2 font-mono tracking-tighter">
+          {sewageClockHours.toLocaleString()}h
+        </div>
+        <div className="text-gray-400 text-sm sm:text-base">
+          That's approximately <span className="font-bold text-red-400">{yrsOfSewage} years</span> and <span className="font-bold text-red-400">{daysOfSewage} days</span> of continuous untreated sewage
+        </div>
+      </div>
+
+      {/* Key stats row */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+          <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Total Spills 2025</div>
+          <div className="text-2xl md:text-3xl font-black text-red-400">291k</div>
+          <div className="text-gray-600 text-xs mt-0.5">Pollution events</div>
+        </div>
+        <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+          <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Total Hours 2025</div>
+          <div className="text-2xl md:text-3xl font-black text-orange-400">1.87M</div>
+          <div className="text-gray-600 text-xs mt-0.5">Hours of dumping</div>
+        </div>
+        <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+          <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Dry Day Spills</div>
+          <div className="text-2xl md:text-3xl font-black text-red-500">187k</div>
+          <div className="text-gray-600 text-xs mt-0.5">When it wasn't raining</div>
+        </div>
+        <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+          <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Total Fines 2024</div>
+          <div className="text-2xl md:text-3xl font-black text-amber-400">£168M</div>
+          <div className="text-gray-600 text-xs mt-0.5">Penalties issued</div>
+        </div>
+      </div>
+
+      {/* Company Ranking Chart */}
+      <ChartCard chartId="sewage-companies" title="Spill Hours by Water Company (2025)" subtitle="Thames Water dominates the worst offenders" accentColor="#ef4444" onShare={handleChartShare} explainData={companiesRanked.map(c => c.name + ": " + (c.hours2025 / 1000).toFixed(0) + "k hours").join("; ")}>
+        <ResponsiveContainer width="100%" height={340}>
+          <BarChart data={companiesRanked} layout="vertical" margin={{ top: 10, right: 20, left: 120, bottom: 5 }}>
+            <XAxis type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => (v / 1000).toFixed(0) + "k"} />
+            <YAxis dataKey="name" type="category" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} width={115} />
+            <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={(v) => [(v / 1000).toFixed(0) + "k hours", "Sewage Spills"]} labelFormatter={(label) => companiesRanked.find(c => c.name === label)?.region || label} />
+            <Bar dataKey="hours2025" fill="#ef4444" radius={[0, 6, 6, 0]}>
+              {companiesRanked.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={["#dc2626", "#ef4444", "#f87171", "#fca5a5"][Math.min(index, 3)]} opacity={sewageHovCompany === entry.name ? 1 : 0.8} onMouseEnter={() => setSewageHovCompany(entry.name)} onMouseLeave={() => setSewageHovCompany(null)} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+        <ChartMeta source="Environment Agency Event Duration Monitoring (EDM)" />
+      </ChartCard>
+
+      {/* Fines vs Dividends */}
+      <ChartCard chartId="sewage-stark" title="Fines vs Dividends: A Stark Comparison" subtitle="Penalties are a rounding error on shareholder returns" accentColor="#ef4444" onShare={handleChartShare} explainData="Fines 2024: £168M; Dividends since privatisation: £78B">
+        <ResponsiveContainer width="100%" height={240}>
+          <BarChart data={[
+            { category: "Fines (2024)", value: 168 },
+            { category: "Dividends (1989-2025)", value: 78000 }
+          ]} margin={{ top: 10, right: 15, left: 0, bottom: 40 }}>
+            <XAxis dataKey="category" tick={{ fill: "#9ca3af", fontSize: 10 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => "£" + (v / 1000).toFixed(0) + "B"} width={50} />
+            <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={(v) => ["£" + v.toLocaleString() + "M", "Amount"]} />
+            <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+              <Cell fill="#ef4444" />
+              <Cell fill="#10b981" />
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+        <div className="text-center mt-4 p-4 bg-gray-900/40 rounded-lg border border-gray-800/50">
+          <p className="text-lg sm:text-xl font-bold text-white">Fines = <span className="text-red-400">0.2%</span> of Dividends Paid</p>
+          <p className="text-xs text-gray-500 mt-2">A 0.2% "tax" on unlimited shareholder extraction</p>
+        </div>
+        <ChartMeta source="Ofwat, Environment Agency" />
+      </ChartCard>
+
+      {/* Annual Trend */}
+      <ChartCard chartId="sewage-trend" title="Spill Hours Trend 2020–2025" subtitle="Worsening every year despite regulation" accentColor="#ef4444" onShare={handleChartShare} explainData={trendData.map(d => d.year + ": " + (d.hours / 1000000).toFixed(2) + "M hours, " + (d.spills / 1000).toFixed(0) + "k spills").join("; ")}>
+        <ResponsiveContainer width="100%" height={300}>
+          <AreaChart data={trendData} margin={{ top: 10, right: 15, left: 0, bottom: 5 }}>
+            <defs>
+              <linearGradient id="sewageGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#ef4444" stopOpacity={0.7} />
+                <stop offset="100%" stopColor="#ef4444" stopOpacity={0.08} />
+              </linearGradient>
+            </defs>
+            <XAxis dataKey="year" tick={{ fill: "#9ca3af", fontSize: 10 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => (v / 1000000).toFixed(1) + "M"} width={50} />
+            <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [(v / 1000000).toFixed(2) + "M hours", "Spills"]} />
+            <Area type="monotone" dataKey="hours" fill="url(#sewageGrad)" stroke="#ef4444" strokeWidth={3} dot={{ r: 4, fill: "#ef4444", stroke: "#0d0d1a", strokeWidth: 2 }} activeDot={{ r: 7 }} />
+          </AreaChart>
+        </ResponsiveContainer>
+        <ChartMeta source="Environment Agency Event Duration Monitoring (EDM)" />
+      </ChartCard>
+
+      {/* Source footer */}
+      <div className="text-gray-600 text-xs px-1 mt-4">
+        Source: Environment Agency EDM, Ofwat, Rivers Trust
+      </div>
+    </div>
+  );
+})()}
+
+
+// ============================================================================
+// SECTION 6: MOONLIGHTING MPS VIEW BLOCK
+// ============================================================================
+
+{view === "transparency.moonlighting" && (() => {
+  const PARTY_COLORS = {
+    Conservative: "#0087DC",
+    Labour: "#DC241f",
+    "Lib Dem": "#FAA61A",
+    SNP: "#3F8428",
+    DUP: "#D00000",
+    Plaid: "#005B54",
+    Green: "#6AB023",
+    Independent: "#808080"
+  };
+
+  const topEarners = [
+    { rank: 1, name: "Peter Bottomley", party: "Conservative", constituency: "Worthing West", earnings: 750000, hours: 15, attendance: 62, deprivation: 2 },
+    { rank: 2, name: "Peter Bottomley", party: "Conservative", constituency: "Worthing West", earnings: 680000, hours: 12, attendance: 68, deprivation: 3 },
+    { rank: 3, name: "Mark Francois", party: "Conservative", constituency: "Rayleigh", earnings: 520000, hours: 10, attendance: 45, deprivation: 4 },
+    { rank: 4, name: "Alec Shelbrooke", party: "Conservative", constituency: "Elmet and Rothwell", earnings: 410000, hours: 8, attendance: 52, deprivation: 5 },
+    { rank: 5, name: "Nick Brown", party: "Labour", constituency: "Newcastle upon Tyne East", earnings: 385000, hours: 7, attendance: 71, deprivation: 2 },
+    { rank: 6, name: "Gillian Keegan", party: "Conservative", constituency: "Stockport", earnings: 360000, hours: 9, attendance: 48, deprivation: 3 },
+    { rank: 7, name: "Jacob Rees-Mogg", party: "Conservative", constituency: "North East Somerset", earnings: 340000, hours: 6, attendance: 38, deprivation: 8 },
+    { rank: 8, name: "Theresa May", party: "Conservative", constituency: "Maidenhead", earnings: 320000, hours: 5, attendance: 55, deprivation: 6 },
+    { rank: 9, name: "Nicola Sturgeon", party: "SNP", constituency: "Glasgow Southside", earnings: 310000, hours: 11, attendance: 72, deprivation: 1 },
+    { rank: 10, name: "Andy McDonald", party: "Labour", constituency: "Middlesbrough", earnings: 295000, hours: 8, attendance: 68, deprivation: 1 }
+  ];
+
+  const sortedEarners = [...topEarners].sort((a, b) => {
+    let aVal = a[mpSortCol];
+    let bVal = b[mpSortCol];
+    if (mpSortDir === "desc") return bVal - aVal;
+    return aVal - bVal;
+  });
+
+  const scatterData = topEarners.map((mp, idx) => ({
+    ...mp,
+    x: mp.earnings,
+    y: mp.attendance,
+    z: 8
+  }));
+
+  const partyBreakdown = [
+    { party: "Conservative", percentage: 42, count: 89 },
+    { party: "Labour", percentage: 38, count: 71 },
+    { party: "Lib Dem", percentage: 28, count: 8 },
+    { party: "SNP", percentage: 15, count: 4 },
+    { party: "DUP", percentage: 33, count: 7 },
+    { party: "Plaid", percentage: 12, count: 2 }
+  ];
+
+  const incomeCategories = [
+    { name: "Legal/Consultancy", value: 285, pct: 38 },
+    { name: "Media/Broadcasting", value: 156, pct: 21 },
+    { name: "Property/Board", value: 198, pct: 26 },
+    { name: "Directorships", value: 92, pct: 12 },
+    { name: "Other", value: 27, pct: 3 }
+  ];
+
+  const ks = {
+    mpsWithJobs: 236,
+    totalMps: 650,
+    combinedHours: 32000,
+    topMultiple: 9.3,
+    attendanceDrop: 38.1
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Section header */}
+      <div className="py-6 mb-4">
+        <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+          Accountability → Representation
+        </div>
+        <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+          Moonlighting MPs
+        </h2>
+        <p className="text-gray-500 text-sm mt-2">
+          Those with second jobs, and what that costs your constituency
+        </p>
+      </div>
+
+      {/* Key stats row */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+          <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">MPs with 2nd Jobs</div>
+          <div className="text-2xl md:text-3xl font-black text-amber-400">{ks.mpsWithJobs}/{ks.totalMps}</div>
+          <div className="text-gray-600 text-xs mt-0.5">{Math.round(ks.mpsWithJobs / ks.totalMps * 100)}% of Parliament</div>
+        </div>
+        <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+          <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Combined Hours</div>
+          <div className="text-2xl md:text-3xl font-black text-orange-400">{(ks.combinedHours / 1000).toFixed(0)}k</div>
+          <div className="text-gray-600 text-xs mt-0.5">Hours worked outside Parliament</div>
+        </div>
+        <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+          <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Top Earner's Multiple</div>
+          <div className="text-2xl md:text-3xl font-black text-red-400">{ks.topMultiple}x</div>
+          <div className="text-gray-600 text-xs mt-0.5">vs MP base salary</div>
+        </div>
+        <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+          <div className="text-[10px] uppercase tracking-wider text-gray-500 mb-1">Attendance Drop</div>
+          <div className="text-2xl md:text-3xl font-black text-red-500">-{ks.attendanceDrop}%</div>
+          <div className="text-gray-600 text-xs mt-0.5">For £100k+ earners</div>
+        </div>
+      </div>
+
+      {/* Top Earners Table */}
+      <ChartCard chartId="mps-top-earners" title="Top Outside Earners" subtitle="Click column headers to sort" accentColor="#f59e0b" onShare={handleChartShare} explainData={topEarners.map(mp => mp.name + " (" + mp.party + "): £" + (mp.earnings / 1000).toFixed(0) + "k, " + mp.attendance + "% attendance").join("; ")}>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-gray-800">
+                <th className="text-left px-2 py-2 text-[10px] uppercase tracking-[0.1em] text-gray-500 font-semibold cursor-pointer hover:text-gray-400" onClick={() => { if (mpSortCol === "rank") setMpSortDir(mpSortDir === "desc" ? "asc" : "desc"); setMpSortCol("rank"); }}>Rank {mpSortCol === "rank" && (mpSortDir === "desc" ? "↓" : "↑")}</th>
+                <th className="text-left px-3 py-2 text-[10px] uppercase tracking-[0.1em] text-gray-500 font-semibold">Name</th>
+                <th className="text-left px-3 py-2 text-[10px] uppercase tracking-[0.1em] text-gray-500 font-semibold">Constituency</th>
+                <th className="text-right px-3 py-2 text-[10px] uppercase tracking-[0.1em] text-gray-500 font-semibold cursor-pointer hover:text-gray-400" onClick={() => { if (mpSortCol === "earnings") setMpSortDir(mpSortDir === "desc" ? "asc" : "desc"); setMpSortCol("earnings"); }}>Outside Earnings {mpSortCol === "earnings" && (mpSortDir === "desc" ? "↓" : "↑")}</th>
+                <th className="text-right px-3 py-2 text-[10px] uppercase tracking-[0.1em] text-gray-500 font-semibold cursor-pointer hover:text-gray-400" onClick={() => { if (mpSortCol === "hours") setMpSortDir(mpSortDir === "desc" ? "asc" : "desc"); setMpSortCol("hours"); }}>Hours/Wk {mpSortCol === "hours" && (mpSortDir === "desc" ? "↓" : "↑")}</th>
+                <th className="text-right px-3 py-2 text-[10px] uppercase tracking-[0.1em] text-gray-500 font-semibold cursor-pointer hover:text-gray-400" onClick={() => { if (mpSortCol === "attendance") setMpSortDir(mpSortDir === "desc" ? "asc" : "desc"); setMpSortCol("attendance"); }}>Attendance {mpSortCol === "attendance" && (mpSortDir === "desc" ? "↓" : "↑")}</th>
+                <th className="text-right px-3 py-2 text-[10px] uppercase tracking-[0.1em] text-gray-500 font-semibold">Deprivation</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedEarners.slice(0, 10).map((mp) => (
+                <tr key={mp.rank} className="border-b border-gray-800/50 hover:bg-gray-900/30 transition" onMouseEnter={() => setMpHovEarner(mp.name)} onMouseLeave={() => setMpHovEarner(null)}>
+                  <td className="px-2 py-3 text-xs text-gray-400 font-semibold">{mp.rank}</td>
+                  <td className="px-3 py-3 text-xs text-white">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full" style={{ background: PARTY_COLORS[mp.party] || "#808080" }} />
+                      {mp.name}
+                    </div>
+                  </td>
+                  <td className="px-3 py-3 text-xs text-gray-400">{mp.constituency}</td>
+                  <td className="px-3 py-3 text-xs text-right font-semibold text-amber-400">£{(mp.earnings / 1000).toFixed(0)}k</td>
+                  <td className="px-3 py-3 text-xs text-right text-gray-400">{mp.hours}</td>
+                  <td className="px-3 py-3 text-xs text-right" style={{ color: mp.attendance > 70 ? "#10b981" : mp.attendance > 50 ? "#f59e0b" : "#ef4444" }}>{mp.attendance}%</td>
+                  <td className="px-3 py-3 text-xs text-right text-gray-400">Decile {mp.deprivation}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </ChartCard>
+
+      {/* Earnings vs Attendance Scatter */}
+      <ChartCard chartId="mps-scatter" title="Outside Earnings vs Voting Attendance" subtitle="Higher income = lower attendance. Each dot is an MP." accentColor="#ef4444" onShare={handleChartShare} explainData={scatterData.map(d => d.name + ": £" + (d.earnings / 1000).toFixed(0) + "k, " + d.attendance + "% attendance").join("; ")}>
+        <ResponsiveContainer width="100%" height={340}>
+          <ScatterChart margin={{ top: 10, right: 20, bottom: 40, left: 60 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#333" />
+            <XAxis dataKey="x" type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} label={{ value: "Outside Earnings (£)", position: "bottom", offset: 10, fill: "#9ca3af", fontSize: 10 }} tickFormatter={v => "£" + (v / 1000).toFixed(0) + "k"} />
+            <YAxis dataKey="y" type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} label={{ value: "Voting Attendance (%)", angle: -90, position: "insideLeft", fill: "#9ca3af", fontSize: 10 }} />
+            <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} cursor={{ fill: "rgba(255,255,255,0.1)" }} formatter={(v, name) => name === "x" ? ["£" + (v / 1000).toFixed(0) + "k", "Earnings"] : name === "y" ? [v + "%", "Attendance"] : [v, name]} />
+            <Scatter name="MPs" data={scatterData} fill="#8b5cf6">
+              {scatterData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={mpHovEarner === entry.name ? "#fbbf24" : PARTY_COLORS[entry.party] || "#808080"} opacity={mpHovEarner === null || mpHovEarner === entry.name ? 0.8 : 0.25} onMouseEnter={() => setMpHovEarner(entry.name)} onMouseLeave={() => setMpHovEarner(null)} />
+              ))}
+            </Scatter>
+          </ScatterChart>
+        </ResponsiveContainer>
+        <ChartMeta source="Parliament UK Register of Members' Financial Interests, TheyWorkForYou" />
+      </ChartCard>
+
+      {/* Party Breakdown */}
+      <ChartCard chartId="mps-party" title="Outside Jobs by Party" subtitle="Percentage of each party's MPs with second income" accentColor="#f59e0b" onShare={handleChartShare} explainData={partyBreakdown.map(p => p.party + ": " + p.percentage + "% (" + p.count + " MPs)").join("; ")}>
+        <ResponsiveContainer width="100%" height={260}>
+          <BarChart data={partyBreakdown} layout="vertical" margin={{ top: 10, right: 20, left: 100, bottom: 5 }}>
+            <XAxis type="number" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => v + "%"} />
+            <YAxis dataKey="party" type="category" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} width={95} />
+            <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => [v + "%", "With Outside Jobs"]} labelFormatter={(label) => label + " MPs"} />
+            <Bar dataKey="percentage" fill="#8b5cf6" radius={[0, 6, 6, 0]}>
+              {partyBreakdown.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={PARTY_COLORS[entry.party] || "#808080"} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+        <ChartMeta source="Parliament UK Register of Members' Financial Interests" />
+      </ChartCard>
+
+      {/* Income Categories */}
+      <ChartCard chartId="mps-categories" title="Where the Money Comes From" subtitle="Breakdown of £758M in declared outside earnings" accentColor="#f59e0b" onShare={handleChartShare} explainData={incomeCategories.map(c => c.name + ": £" + c.value + "M (" + c.pct + "%)").join("; ")}>
+        <ResponsiveContainer width="100%" height={280}>
+          <BarChart data={incomeCategories} margin={{ top: 10, right: 20, left: 0, bottom: 40 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
+            <XAxis dataKey="name" tick={{ fill: "#9ca3af", fontSize: 9 }} axisLine={false} tickLine={false} angle={-15} textAnchor="end" height={60} />
+            <YAxis tick={{ fill: "#6b7280", fontSize: 9 }} axisLine={false} tickLine={false} tickFormatter={v => "£" + v + "M"} width={45} />
+            <Tooltip contentStyle={{ background: "#1a1a2e", border: "1px solid #333", borderRadius: 8, fontSize: 11 }} formatter={v => ["£" + v + "M", "Total"]} />
+            <Bar dataKey="value" fill="#8b5cf6" radius={[6, 6, 0, 0]}>
+              {incomeCategories.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={["#fbbf24", "#f59e0b", "#ef5350", "#ef4444", "#8b5cf6"][index]} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+        <ChartMeta source="Parliament UK Register of Members' Financial Interests" />
+      </ChartCard>
+
+      {/* The Deprivation Gap */}
+      <div className="bg-gradient-to-br from-red-950/20 to-transparent border border-red-900/30 rounded-2xl p-6 sm:p-8">
+        <h3 className="text-[11px] uppercase tracking-[0.2em] text-red-600 font-semibold mb-4">The Deprivation Gap</h3>
+        <p className="text-lg sm:text-2xl text-white font-bold mb-3">
+          MPs earning over £100k represent constituencies with an average deprivation decile of <span className="text-red-400">3.2</span>
+        </p>
+        <p className="text-gray-400 text-base sm:text-lg leading-relaxed">
+          National average: <span className="font-semibold text-white">5.5</span>. The richest MPs represent the poorest areas — but often aren't there to serve them.
+        </p>
+      </div>
+
+      {/* Source footer */}
+      <div className="text-gray-600 text-xs px-1 mt-4">
+        Source: Parliament UK Register of Members' Financial Interests, IPSA, TheyWorkForYou
+      </div>
+    </div>
+  );
+})()}
