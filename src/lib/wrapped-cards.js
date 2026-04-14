@@ -139,7 +139,7 @@ function measureContent(ctx, slide, cw) {
   // Headline
   if (slide.headline) {
     var hl = slide.headline.length;
-    var hs = hl < 30 ? 72 : hl < 50 ? 56 : 46;
+    var hs = hl < 30 ? 80 : hl < 50 ? 62 : 50;
     var hlh = Math.round(hs * 1.18);
     ctx.font = "900 " + hs + "px " + SANS;
     var nlines = countLines(ctx, slide.headline, cw);
@@ -150,20 +150,20 @@ function measureContent(ctx, slide, cw) {
   // Big number
   if (hasBigNum) {
     var nl = slide.bigNumber.length;
-    var ns = nl <= 5 ? 190 : nl <= 8 ? 150 : nl <= 11 ? 115 : 95;
+    var ns = nl <= 5 ? 210 : nl <= 8 ? 165 : nl <= 11 ? 125 : 100;
     h += ns + 20;
     if (slide.bigNumberSuffix) {
-      ctx.font = "600 34px " + SANS;
+      ctx.font = "600 38px " + SANS;
       var sLines = countLines(ctx, slide.bigNumberSuffix, cw);
-      h += Math.min(sLines, 2) * 44 + 24;
+      h += Math.min(sLines, 2) * 48 + 28;
     }
   }
 
   // Subline
   if (slide.subline && (!hasList || slide.subline.length < 80)) {
-    ctx.font = "500 28px " + SANS;
+    ctx.font = "500 32px " + SANS;
     var subL = countLines(ctx, slide.subline, cw);
-    h += Math.min(subL, 3) * 40 + 20;
+    h += Math.min(subL, 3) * 44 + 24;
   }
 
   // Detail (no-list)
@@ -196,27 +196,27 @@ export function renderWrappedCard(slide, theme) {
 
   drawBackground(ctx, pal, idx);
 
-  // ── Top branding ──
-  ctx.font = "bold 24px " + MONO;
+  // ── Top branding (compact) ──
+  ctx.font = "bold 22px " + MONO;
   ctx.fillStyle = pal.accent;
   ctx.textAlign = "left";
-  ctx.fillText("GRACCHUS", P, 76);
+  ctx.fillText("GRACCHUS", P, 56);
   ctx.textAlign = "right";
-  ctx.font = "bold 20px " + MONO;
+  ctx.font = "bold 18px " + MONO;
   ctx.fillStyle = "rgba(255,255,255,0.4)";
-  ctx.fillText("Q1 2026", S - P, 76);
+  ctx.fillText("Q1 2026", S - P, 56);
 
-  // ── Bottom branding ──
+  // ── Bottom branding (compact) ──
   ctx.fillStyle = "rgba(0,0,0,0.3)";
-  ctx.fillRect(0, S - 84, S, 84);
-  ctx.font = "bold 22px " + MONO;
+  ctx.fillRect(0, S - 60, S, 60);
+  ctx.font = "bold 20px " + MONO;
   ctx.textAlign = "center";
   ctx.fillStyle = pal.accent;
-  ctx.fillText("GRACCHUS.AI", cx, S - 34);
+  ctx.fillText("GRACCHUS.AI", cx, S - 22);
 
   // ── Vertically centre content ──
-  var zoneTop = 110;
-  var zoneBot = S - 100;
+  var zoneTop = 80;
+  var zoneBot = S - 70;
   var zoneH = zoneBot - zoneTop;
   var contentH = measureContent(ctx, slide, cw);
   var y = zoneTop + Math.max(0, (zoneH - contentH) / 2);
@@ -236,7 +236,7 @@ export function renderWrappedCard(slide, theme) {
   // Headline
   if (slide.headline) {
     var hl = slide.headline.length;
-    var hs = hl < 30 ? 72 : hl < 50 ? 56 : 46;
+    var hs = hl < 30 ? 80 : hl < 50 ? 62 : 50;
     ctx.font = "900 " + hs + "px " + SANS;
     ctx.fillStyle = "#fff";
     ctx.textAlign = "center";
@@ -247,7 +247,7 @@ export function renderWrappedCard(slide, theme) {
   // Big number
   if (hasBigNum) {
     var nl = slide.bigNumber.length;
-    var ns = nl <= 5 ? 190 : nl <= 8 ? 150 : nl <= 11 ? 115 : 95;
+    var ns = nl <= 5 ? 210 : nl <= 8 ? 165 : nl <= 11 ? 125 : 100;
     ctx.font = "900 " + ns + "px " + SANS;
     ctx.fillStyle = pal.accent;
     ctx.textAlign = "center";
@@ -255,11 +255,11 @@ export function renderWrappedCard(slide, theme) {
     y += ns + 20;
 
     if (slide.bigNumberSuffix) {
-      ctx.font = "600 34px " + SANS;
+      ctx.font = "600 38px " + SANS;
       ctx.fillStyle = "rgba(255,255,255,0.65)";
       ctx.textAlign = "center";
-      y = wrap(ctx, slide.bigNumberSuffix, cx, y, cw, 44, 2, "center");
-      y += 24;
+      y = wrap(ctx, slide.bigNumberSuffix, cx, y, cw, 48, 2, "center");
+      y += 28;
     }
   }
 
@@ -267,11 +267,11 @@ export function renderWrappedCard(slide, theme) {
   if (slide.subline) {
     var showSub = !hasList || slide.subline.length < 80;
     if (showSub) {
-      ctx.font = "500 28px " + SANS;
+      ctx.font = "500 32px " + SANS;
       ctx.fillStyle = "rgba(255,255,255,0.5)";
       ctx.textAlign = "center";
-      y = wrap(ctx, slide.subline, cx, y, cw, 40, 3, "center");
-      y += 20;
+      y = wrap(ctx, slide.subline, cx, y, cw, 44, 3, "center");
+      y += 24;
     }
   }
 
