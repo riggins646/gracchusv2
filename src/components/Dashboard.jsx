@@ -5113,24 +5113,36 @@ export default function App() {
 
   // Redirect removed/merged hubs to their default child views
   useEffect(() => {
+    // New parent tab redirects
+    if (view === "yourMoney") setView("economy.costOfLiving");
+    if (view === "govAccountability") setView("projects");
+    if (view === "government") setView("government.civilservice");
+    if (view === "ukServices") setView("transparency.nhswaits");
     if (view === "economy") setView("economy.output");
-    if (view === "league") setView("league.departments");
-    if (view === "league.consultancy") setView("suppliers.consultants");
-    if (view === "compare") setView("economy.costOfLiving");
+    // Merged tab redirects
+    if (view === "transparency.mpmoney") setView("transparency.mppay");
+    // Legacy redirects (old nav IDs that may be bookmarked)
     if (view === "costOfLiving") setView("economy.costOfLiving");
     if (view === "taxSpending") setView("government.flow");
     if (view === "wasteProjects") setView("projects");
     if (view === "accountability") setView("transparency.donations");
     if (view === "publicServices") setView("transparency.nhswaits");
     if (view === "policy") setView("transparency.aid");
-    if (view === "transparency.mpmoney") setView("transparency.mppay");
+    // Old sub-tab redirects
+    if (view === "league") setView("league.departments");
+    if (view === "league.consultancy") setView("suppliers.consultants");
+    if (view === "compare") setView("economy.costOfLiving");
     if (view === "compare.innovation") setView("economy.innovation");
     if (view === "compare.transport") setView("compare.infrastructure");
     if (view === "compare.fuel") setView("compare.bills");
-    if (view === "government.spending") setView("government");
+    if (view === "government.spending") setView("government.civilservice");
     if (view === "suppliers.scrutiny") setView("suppliers");
     if (view === "compare.affordability") setView("overview");
     if (view === "compare.tax") setView("overview");
+    // Folded tabs — redirect to parent
+    if (view === "economy.energy") setView("compare.bills");
+    if (view === "government.apd") setView("government.taxdebt");
+    if (view === "suppliers.consultants") setView("suppliers");
   }, [view]);
 
   // Scroll to top and close mobile nav whenever the view changes
@@ -5627,68 +5639,44 @@ export default function App() {
       icon: Gift
     },
     {
-      id: "costOfLiving",
-      label: "Cost of Living",
+      id: "yourMoney",
+      label: "Your Money",
       icon: PoundSterling,
       children: [
         { id: "economy.costOfLiving", label: "Prices & Inflation" },
-        { id: "economy.energy", label: "Energy" },
-        { id: "compare.bills", label: "Bills, Fuel & Energy" },
-        { id: "compare.infrastructure", label: "Transport & Infrastructure" },
+        { id: "compare.bills", label: "Energy & Bills" },
+        { id: "compare.infrastructure", label: "Transport" },
+        { id: "government.flow", label: "Where Tax Goes" },
+        { id: "government.taxdebt", label: "Tax & Debt" },
+        { id: "government.civilservice", label: "Civil Service" },
+        { id: "compare.defence", label: "Defence" }
       ]
     },
     {
-      id: "taxSpending",
-      label: "Tax & Spending",
-      icon: Briefcase,
-      children: [
-        { id: "government.flow", label: "Where Your Money Goes" },
-        { id: "government.taxdebt", label: "Tax & Public Finances" },
-        { id: "government", label: "Civil Service & Spending" },
-        { id: "compare.defence", label: "Defence" },
-        { id: "government.apd", label: "Air Passenger Duty" }
-      ]
-    },
-    {
-      id: "wasteProjects",
-      label: "Waste & Projects",
-      icon: AlertTriangle,
+      id: "govAccountability",
+      label: "Government",
+      icon: Landmark,
       children: [
         { id: "projects", label: "Budget Overruns" },
         { id: "projects.planning", label: "Planning Failures" },
         { id: "projects.delays", label: "Delivery Delays" },
         { id: "suppliers", label: "Suppliers & Contracts" },
-        { id: "suppliers.consultants", label: "Consultancy Spend" },
-        { id: "league.departments", label: "Department Rankings" }
-      ]
-    },
-    {
-      id: "accountability",
-      label: "Accountability",
-      icon: Scale,
-      children: [
+        { id: "league.departments", label: "Dept Rankings" },
         { id: "transparency.scorecards", label: "MP Scorecards" },
-        { id: "transparency.donations", label: "Political Donations" },
+        { id: "transparency.donations", label: "Donations" },
         { id: "transparency.mpmoney", label: "MPs & Money" },
         { id: "transparency.lobbying", label: "Lobbying" }
       ]
     },
     {
-      id: "publicServices",
-      label: "Public Services",
+      id: "ukServices",
+      label: "UK Services",
       icon: Activity,
       children: [
         { id: "transparency.nhswaits", label: "NHS Waiting Times" },
-        { id: "transparency.sewage", label: "Sewage Clock" }
-      ]
-    },
-    {
-      id: "policy",
-      label: "Policy",
-      icon: Globe,
-      children: [
+        { id: "transparency.sewage", label: "Sewage Clock" },
         { id: "transparency.aid", label: "Foreign Aid" },
-        { id: "transparency.immigration", label: "Immigration & Borders" }
+        { id: "transparency.immigration", label: "Immigration" }
       ]
     },
     {
@@ -5700,7 +5688,7 @@ export default function App() {
         { id: "economy.production", label: "Production & Trade" },
         { id: "economy.innovation", label: "Innovation & R&D" },
         { id: "economy.markets", label: "Markets" },
-        { id: "compare.structural", label: "Structural Performance" }
+        { id: "compare.structural", label: "Structural" }
       ]
     }
   ];
@@ -14455,11 +14443,11 @@ export default function App() {
         )}
 
         {/* ============ GOVERNMENT: CIVIL SERVICE ============ */}
-        {view === "government" && (
+        {view === "government.civilservice" && (
           <div className="space-y-6">
             <div className="py-6 mb-4">
               <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
-                {"Tax & Spending \u203A Civil Service"}
+                {"Your Money \u203A Civil Service"}
               </div>
               <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
                 The Government Machine
