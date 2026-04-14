@@ -172,17 +172,16 @@
     "period": "January – March 2026",
     "registerPublications": ["2026-01-05", "2026-01-19", "2026-02-02", "2026-02-23", "2026-03-09", "2026-03-23"],
     "newDeclarations": 47,
-    "totalDeclaredQ1": 687815,
-    "totalDeclaredQ1Note": "Sum of top verified earners. Full register contains 47 new declarations; total across all MPs will be higher.",
+    "totalDeclaredQ1": 1938688,
+    "totalDeclaredQ1Note": "Sum of top 3 verified earners (£1,533,941 + £331,192 + £73,555). Full register contains additional declarations from other MPs.",
     "topQ1Earners": [
-      { "name": "Geoffrey Cox", "party": "Conservative", "constituency": "Torridge & Tavistock", "amount": 556512, "source": "Consultant global counsel, Withers LLP", "registerRef": "members.parliament.uk/member/1508/registeredinterests", "verified": true },
-      { "name": "Nigel Farage", "party": "Reform UK", "constituency": "Clacton", "amount": 71406, "source": "Cameo videos (£43.5k) + Club for Growth speaking (£28k)", "registerRef": "members.parliament.uk — 23 March 2026 register", "verified": true },
-      { "name": "Rishi Sunak", "party": "Conservative", "constituency": "Richmond & Northallerton", "amount": 35897, "source": "Ukraine International Advisory Council stipends (Jan + Feb)", "registerRef": "members.parliament.uk/member/4483/registeredinterests", "verified": true },
-      { "name": "Harriet Baldwin", "party": "Conservative", "constituency": "West Worcestershire", "amount": 24000, "source": "Non-executive directorships", "registerRef": "members.parliament.uk — 23 March 2026 register", "verified": true }
+      { "name": "Rishi Sunak", "party": "Conservative", "constituency": "Richmond & Northallerton", "amount": 1533941, "source": "Goldman Sachs (£1.1M), Anthropic (£373k), Sunday Times (£28.5k), Hoover Institution (£36k) — all donated to charity", "registerRef": "members.parliament.uk/member/4483/registeredinterests", "verified": true },
+      { "name": "Geoffrey Cox", "party": "Conservative", "constituency": "Torridge & Tavistock", "amount": 331192, "source": "Legal services: Al Daar Al Mihnia (£111k), ABH Holdings (£93k), Travers Thorp (£70k), Khan Partnership (£23k), Mauritius govt (£22k), Withers LLP (£12.5k)", "registerRef": "members.parliament.uk/member/1508/registeredinterests", "verified": true },
+      { "name": "Nigel Farage", "party": "Reform UK", "constituency": "Clacton", "amount": 73555, "source": "Cameo videos (£42.5k), Club for Growth speaking (£27.9k), X Corp social media (£3.1k)", "registerRef": "members.parliament.uk/member/4498/registeredinterests", "verified": true }
     ],
-    "totalHoursQ1": 2400,
-    "avgAttendanceTopEarners": 42.1,
+    "totalHoursQ1": 530,
+    "totalHoursQ1Breakdown": "Sunak: 300h (estimated), Cox: 175.5h, Farage: 59h",
     "avgAttendanceAllMPs": 79.8,
-    "note": "Earnings from parliament.uk Register of Members' Financial Interests, publications dated January–March 2026. Cox figure is total registered interests; Farage and Sunak are Q1-specific payments. Some payments may relate to work done in prior months."
+    "note": "All figures from parliament.uk Register of Members' Financial Interests, entries declared January–March 2026. Sunak's earnings all donated to charity. Some payments cover work done in prior months but were declared/registered in Q1."
   }
 }
