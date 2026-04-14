@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
-import { Share2, ChevronRight, ChevronLeft, X, Download, Copy, Check } from "lucide-react";
+import { Share2, ChevronRight, ChevronLeft, X, Download } from "lucide-react";
 import deptSpendingData from "../data/departmental-spending.json";
 import publicFinancesData from "../data/public-finances.json";
 import spendingData from "../data/spending.json";
@@ -260,70 +260,81 @@ function ShareModal({ slide, theme, onClose }) {
   );
 
   const filename = `gracchus-${QUARTER.toLowerCase()}-${YEAR}-${slide.id}.png`;
+  const [saveHint, setSaveHint] = useState(false);
 
-  // Helper: get image as blob
-  const getBlob = useCallback(async () => {
+  // Helper: get image as File
+  const getFile = useCallback(async () => {
     const res = await fetch(imgSrc);
-    return res.blob();
-  }, [imgSrc]);
+    const blob = await res.blob();
+    return new File([blob], filename, { type: "image/png" });
+  }, [imgSrc, filename]);
 
-  // SHARE — opens native share sheet (iOS: save to photos, AirDrop, Messages, WhatsApp, X, etc)
-  const handleNativeShare = useCallback(async () => {
+  // SHARE — native share sheet with image (X, WhatsApp, AirDrop, Messages, etc)
+  const handleShare = useCallback(async () => {
     try {
-      const blob = await getBlob();
-      const file = new File([blob], filename, { type: "image/png" });
-      const shareText = (slide.eyebrow || "") + " " +
-        (slide.headline || "") +
-        (slide.bigNumber ? " " + slide.bigNumber : "") +
-        " \u2022 gracchus.ai";
-      if (navigator.share) {
-        const shareData = { text: shareText };
-        // Try with files first, fall back to text-only
-        if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          shareData.files = [file];
+      const file = await getFile();
+      if (typeof navigator.share === "function") {
+        await navigator.share({
+          files: [file],
+          title: "Gracchus Q1 2026 Wrapped",
+          text: (slide.eyebrow || "") + " " + (slide.headline || "") +
+            (slide.bigNumber ? " " + slide.bigNumber : "") + " \u2022 gracchus.ai",
+        });
+        return;
+      }
+    } catch (e) {
+      if (e.name === "AbortError") return;
+      // share failed — try without files
+      try {
+        if (typeof navigator.share === "function") {
+          await navigator.share({
+            title: "Gracchus Q1 2026 Wrapped",
+            text: (slide.eyebrow || "") + " " + (slide.headline || "") +
+              (slide.bigNumber ? " " + slide.bigNumber : "") + " \u2022 gracchus.ai",
+            url: "https://gracchus.ai/#wrapped",
+          });
+          return;
         }
-        await navigator.share(shareData);
+      } catch (e2) {
+        if (e2.name === "AbortError") return;
+      }
+    }
+    // Desktop fallback: copy to clipboard
+    try {
+      const blob = await (await fetch(imgSrc)).blob();
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // nothing worked
+    }
+  }, [imgSrc, getFile, slide]);
+
+  // SAVE — on mobile, show long-press hint on the image. On desktop, download.
+  const handleSave = useCallback(async () => {
+    // Try native share with just the file (on iOS this shows "Save Image" in share sheet)
+    try {
+      const file = await getFile();
+      if (typeof navigator.share === "function" && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file] });
         return;
       }
     } catch (e) {
       if (e.name === "AbortError") return;
     }
-    // Desktop fallback: copy image to clipboard
-    try {
-      const blob = await getBlob();
-      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Last resort: download
+    // Fallback: show hint to long-press on mobile, download on desktop
+    if (/iPhone|iPad|Android/i.test(navigator.userAgent)) {
+      setSaveHint(true);
+      setTimeout(() => setSaveHint(false), 4000);
+    } else {
       const a = document.createElement("a");
       a.href = imgSrc;
       a.download = filename;
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
     }
-  }, [imgSrc, getBlob, filename, slide]);
-
-  // SAVE — download the image (on iOS this saves to Files/Downloads, on desktop it downloads)
-  const handleSave = useCallback(() => {
-    const a = document.createElement("a");
-    a.href = imgSrc;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  }, [imgSrc, filename]);
-
-  // COPY — clipboard
-  const handleCopy = useCallback(async () => {
-    try {
-      const blob = await getBlob();
-      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      handleSave();
-    }
-  }, [getBlob, handleSave]);
+  }, [imgSrc, getFile, filename]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
@@ -340,20 +351,25 @@ function ShareModal({ slide, theme, onClose }) {
         </div>
         <div className="p-4">
           <img src={imgSrc} alt="Share card" className="w-full aspect-square border border-gray-800/40 mb-4" />
-          <div className="grid grid-cols-3 gap-2">
-            <button onClick={handleNativeShare}
-              className="flex items-center justify-center gap-2 px-3 py-3 text-[12px] uppercase tracking-wider font-mono text-white bg-white/10 hover:bg-white/20 transition-colors border border-gray-700 rounded">
-              <Share2 size={14} />
+          {saveHint && (
+            <div className="text-center text-[12px] text-amber-400 font-mono uppercase tracking-wider mb-3 animate-pulse">
+              Long-press the image above to save to your camera roll
+            </div>
+          )}
+          {copied && (
+            <div className="text-center text-[12px] text-emerald-400 font-mono uppercase tracking-wider mb-3">
+              Image copied to clipboard
+            </div>
+          )}
+          <div className="grid grid-cols-2 gap-3">
+            <button onClick={handleShare}
+              className="flex items-center justify-center gap-2 px-4 py-3.5 text-[13px] uppercase tracking-wider font-mono text-white bg-white/10 hover:bg-white/20 transition-colors border border-gray-600 rounded-lg">
+              <Share2 size={16} />
               Share
             </button>
-            <button onClick={handleCopy}
-              className="flex items-center justify-center gap-2 px-3 py-3 text-[12px] uppercase tracking-wider font-mono text-white bg-white/5 hover:bg-white/10 transition-colors border border-gray-800 rounded">
-              {copied ? <Check size={14} /> : <Copy size={14} />}
-              {copied ? "Copied" : "Copy"}
-            </button>
             <button onClick={handleSave}
-              className="flex items-center justify-center gap-2 px-3 py-3 text-[12px] uppercase tracking-wider font-mono text-white bg-white/5 hover:bg-white/10 transition-colors border border-gray-800 rounded">
-              <Download size={14} />
+              className="flex items-center justify-center gap-2 px-4 py-3.5 text-[13px] uppercase tracking-wider font-mono text-white bg-white/5 hover:bg-white/10 transition-colors border border-gray-700 rounded-lg">
+              <Download size={16} />
               Save
             </button>
           </div>
