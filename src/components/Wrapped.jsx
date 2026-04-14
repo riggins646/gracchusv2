@@ -368,7 +368,7 @@ function Slide({ slide, theme, onShare }) {
   return (
     <div className={
       "h-full flex flex-col items-center justify-center " +
-      "px-6 sm:px-10 md:px-16 py-16 sm:py-20 " +
+      "px-6 sm:px-10 md:px-16 py-8 sm:py-16 " +
       theme.bg + " " +
       "relative overflow-hidden"
     }>
@@ -378,7 +378,7 @@ function Slide({ slide, theme, onShare }) {
       <div className="absolute bottom-[-15%] left-[-10%] w-[40vw] h-[40vw] max-w-[400px] max-h-[400px] rounded-full opacity-[0.05]"
         style={{ background: theme.shape || theme.accent }} />
 
-      <div className="relative z-10 max-w-2xl w-full text-center overflow-y-auto max-h-[80%] px-1">
+      <div className="relative z-10 max-w-2xl w-full text-center overflow-y-auto max-h-[88%] px-1">
         {/* Eyebrow */}
         <div className="text-[12px] sm:text-[14px] uppercase tracking-[0.35em] font-mono mb-6 sm:mb-8"
           style={{ color: theme.accent }}>
