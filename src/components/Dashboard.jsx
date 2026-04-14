@@ -5121,6 +5121,9 @@ export default function App() {
     if (view === "taxSpending") setView("government.flow");
     if (view === "wasteProjects") setView("projects");
     if (view === "accountability") setView("transparency.donations");
+    if (view === "publicServices") setView("transparency.nhswaits");
+    if (view === "policy") setView("transparency.aid");
+    if (view === "transparency.mpmoney") setView("transparency.mppay");
     if (view === "compare.innovation") setView("economy.innovation");
     if (view === "compare.transport") setView("compare.infrastructure");
     if (view === "compare.fuel") setView("compare.bills");
@@ -5664,18 +5667,28 @@ export default function App() {
       label: "Accountability",
       icon: Scale,
       children: [
-        // Political group
         { id: "transparency.scorecards", label: "MP Scorecards" },
         { id: "transparency.donations", label: "Political Donations" },
-        { id: "transparency.mppay", label: "MPs' Pay vs the Country" },
-        { id: "transparency.mp", label: "MPs' Income & Expenses" },
-        { id: "transparency.lobbying", label: "Lobbying" },
-        { id: "transparency.moonlighting", label: "Moonlighting MPs" },
-        // Public Services group
-        { id: "transparency.aid", label: "Foreign Aid" },
-        { id: "transparency.immigration", label: "Immigration & Borders" },
+        { id: "transparency.mpmoney", label: "MPs & Money" },
+        { id: "transparency.lobbying", label: "Lobbying" }
+      ]
+    },
+    {
+      id: "publicServices",
+      label: "Public Services",
+      icon: Activity,
+      children: [
         { id: "transparency.nhswaits", label: "NHS Waiting Times" },
         { id: "transparency.sewage", label: "Sewage Clock" }
+      ]
+    },
+    {
+      id: "policy",
+      label: "Policy",
+      icon: Globe,
+      children: [
+        { id: "transparency.aid", label: "Foreign Aid" },
+        { id: "transparency.immigration", label: "Immigration & Borders" }
       ]
     },
     {
@@ -5692,12 +5705,16 @@ export default function App() {
     }
   ];
 
+  // Map merged views back to their parent tab for nav highlighting
+  const mpMoneyViews = ["transparency.mppay", "transparency.mp", "transparency.moonlighting"];
+  const viewForNav = mpMoneyViews.includes(view) ? "transparency.mpmoney" : view;
+
   const activeParent = navItems.find(
     (n) =>
-      view === n.id ||
+      viewForNav === n.id ||
       (n.children &&
         n.children.some(
-          (c) => c.id === view
+          (c) => c.id === viewForNav
         ))
   );
 
@@ -5878,7 +5895,11 @@ export default function App() {
                     </button>
                     {isActive && n.children && (
                       <div className="pl-6 pb-1">
-                        {n.children.map((c) => (
+                        {n.children.map((c) => {
+                          const mobileActive = c.id === "transparency.mpmoney"
+                            ? mpMoneyViews.includes(view)
+                            : view === c.id;
+                          return (
                           <button
                             key={c.id}
                             onClick={() => {
@@ -5887,12 +5908,13 @@ export default function App() {
                             }}
                             className={
                               "w-full text-left px-3 py-1.5 text-[11px] uppercase tracking-[0.1em] font-medium transition-colors " +
-                              (view === c.id ? "text-white" : "text-gray-600 hover:text-gray-400")
+                              (mobileActive ? "text-white" : "text-gray-600 hover:text-gray-400")
                             }
                           >
                             {c.label}
                           </button>
-                        ))}
+                          );
+                        })}
                       </div>
                     )}
                   </div>
@@ -5907,11 +5929,13 @@ export default function App() {
               "hidden md:flex border-t border-gray-800/30 " +
               "gap-0.5 py-1.5 items-center flex-wrap"
             }>
-              {activeChildren.map((c, index) => (
+              {activeChildren.map((c, index) => {
+                const mpMoneyViews = ["transparency.mppay", "transparency.mp", "transparency.moonlighting"];
+                const isChildActive = c.id === "transparency.mpmoney"
+                  ? mpMoneyViews.includes(view)
+                  : view === c.id;
+                return (
                 <div key={c.id} className="flex items-center gap-0.5">
-                  {c.id === "transparency.aid" && (
-                    <div className="w-px h-5 bg-gray-800 mx-1 shrink-0" />
-                  )}
                   <button
                     onClick={() =>
                       setView(c.id)
@@ -5920,7 +5944,7 @@ export default function App() {
                       "px-3 py-1 text-[11px] " +
                       "uppercase tracking-[0.1em] " +
                       "font-medium transition-colors " +
-                      (view === c.id
+                      (isChildActive
                         ? "text-white " +
                           "bg-gray-800/50"
                         : "text-gray-600 " +
@@ -5930,7 +5954,8 @@ export default function App() {
                     {c.label}
                   </button>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
@@ -10176,10 +10201,20 @@ export default function App() {
 
           return (
           <div className="space-y-6">
+            {/* MPs & Money toggle */}
+            <div className="flex gap-1 border border-gray-800/50 rounded-lg p-1 w-fit">
+              {[
+                { id: "transparency.mppay", label: "Pay vs Country" },
+                { id: "transparency.mp", label: "Income & Expenses" },
+                { id: "transparency.moonlighting", label: "Moonlighting" }
+              ].map(t => (
+                <button key={t.id} onClick={() => setView(t.id)} className={"px-3 py-1.5 text-[11px] uppercase tracking-[0.1em] font-medium rounded-md transition-colors " + (view === t.id ? "text-white bg-gray-800/60" : "text-gray-600 hover:text-gray-400")}>{t.label}</button>
+              ))}
+            </div>
             {/* HEADER */}
             <div className="py-6 mb-4">
               <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
-                {"Accountability \u203A MPs\u2019 Pay"}
+                {"Accountability \u203A MPs & Money"}
               </div>
               <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
                 {"MPs\u2019 Pay vs the Country"}
@@ -10566,9 +10601,19 @@ export default function App() {
           // Main MP list view
           return (
           <div className="space-y-6">
+            {/* MPs & Money toggle */}
+            <div className="flex gap-1 border border-gray-800/50 rounded-lg p-1 w-fit">
+              {[
+                { id: "transparency.mppay", label: "Pay vs Country" },
+                { id: "transparency.mp", label: "Income & Expenses" },
+                { id: "transparency.moonlighting", label: "Moonlighting" }
+              ].map(t => (
+                <button key={t.id} onClick={() => setView(t.id)} className={"px-3 py-1.5 text-[11px] uppercase tracking-[0.1em] font-medium rounded-md transition-colors " + (view === t.id ? "text-white bg-gray-800/60" : "text-gray-600 hover:text-gray-400")}>{t.label}</button>
+              ))}
+            </div>
             <div className="py-6 mb-4">
               <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
-                Accountability → Parliament
+                Accountability → MPs & Money
               </div>
               <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
                 MP Accountability Tracker
@@ -12247,8 +12292,18 @@ export default function App() {
 
           return (
           <div className="space-y-6">
+            {/* MPs & Money toggle */}
+            <div className="flex gap-1 border border-gray-800/50 rounded-lg p-1 w-fit">
+              {[
+                { id: "transparency.mppay", label: "Pay vs Country" },
+                { id: "transparency.mp", label: "Income & Expenses" },
+                { id: "transparency.moonlighting", label: "Moonlighting" }
+              ].map(t => (
+                <button key={t.id} onClick={() => setView(t.id)} className={"px-3 py-1.5 text-[11px] uppercase tracking-[0.1em] font-medium rounded-md transition-colors " + (view === t.id ? "text-white bg-gray-800/60" : "text-gray-600 hover:text-gray-400")}>{t.label}</button>
+              ))}
+            </div>
             <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">Accountability → Representation</div>
+              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">Accountability → MPs & Money</div>
               <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">Moonlighting MPs</h2>
               <p className="text-gray-500 text-sm mt-2">{moonlightingData.contextSentences.headline}</p>
             </div>
