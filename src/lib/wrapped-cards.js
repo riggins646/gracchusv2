@@ -134,7 +134,7 @@ function measureContent(ctx, slide, cw) {
   var hasList = !!slide.list;
 
   // Eyebrow
-  if (slide.eyebrow) { h += 22 + 44; }
+  if (slide.eyebrow) { h += 22 + 64; }
 
   // Headline
   if (slide.headline) {
@@ -230,18 +230,70 @@ export function renderWrappedCard(slide, theme) {
     ctx.fillStyle = pal.accent;
     ctx.textAlign = "center";
     ctx.fillText(slide.eyebrow.toUpperCase(), cx, y + 22);
-    y += 22 + 44;
+    y += 22 + 64;
   }
 
-  // Headline
+  // Headline (with optional accent phrase)
   if (slide.headline) {
     var hl = slide.headline.length;
     var hs = hl < 30 ? 80 : hl < 50 ? 62 : 50;
-    ctx.font = "900 " + hs + "px " + SANS;
-    ctx.fillStyle = "#fff";
-    ctx.textAlign = "center";
-    y = wrap(ctx, slide.headline, cx, y, cw, Math.round(hs * 1.18), 3, "center");
-    y += 32;
+    var hlh = Math.round(hs * 1.18);
+    var accentPhrase = slide.accentPhrase || null;
+
+    if (accentPhrase && slide.headline.includes(accentPhrase)) {
+      // Render with accent-coloured phrase
+      var words = slide.headline.split(" ");
+      var cur = "";
+      var lines = [];
+      ctx.font = "900 " + hs + "px " + SANS;
+      for (var wi = 0; wi < words.length; wi++) {
+        var test = cur + (cur ? " " : "") + words[wi];
+        if (ctx.measureText(test).width > cw && cur) {
+          lines.push(cur);
+          cur = words[wi];
+        } else {
+          cur = test;
+        }
+      }
+      if (cur) lines.push(cur);
+      lines = lines.slice(0, 3);
+      ctx.textAlign = "center";
+      for (var li = 0; li < lines.length; li++) {
+        var line = lines[li];
+        var lineY = y + li * hlh;
+        if (line.includes(accentPhrase)) {
+          // Split line around the accent phrase and draw segments
+          var before = line.substring(0, line.indexOf(accentPhrase));
+          var after = line.substring(line.indexOf(accentPhrase) + accentPhrase.length);
+          var totalW = ctx.measureText(line).width;
+          var startX = cx - totalW / 2;
+          ctx.textAlign = "left";
+          if (before) {
+            ctx.fillStyle = "#fff";
+            ctx.fillText(before, startX, lineY);
+            startX += ctx.measureText(before).width;
+          }
+          ctx.fillStyle = pal.accent;
+          ctx.fillText(accentPhrase, startX, lineY);
+          startX += ctx.measureText(accentPhrase).width;
+          if (after) {
+            ctx.fillStyle = "#fff";
+            ctx.fillText(after, startX, lineY);
+          }
+          ctx.textAlign = "center";
+        } else {
+          ctx.fillStyle = "#fff";
+          ctx.fillText(line, cx, lineY);
+        }
+      }
+      y += lines.length * hlh + 32;
+    } else {
+      ctx.font = "900 " + hs + "px " + SANS;
+      ctx.fillStyle = "#fff";
+      ctx.textAlign = "center";
+      y = wrap(ctx, slide.headline, cx, y, cw, hlh, 3, "center");
+      y += 32;
+    }
   }
 
   // Big number

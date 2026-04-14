@@ -125,6 +125,7 @@ function useSlides(d) {
       id: "bill",
       eyebrow: "YOUR Q1 2026 WRAPPED",
       headline: "Your government\u2019s top genre this quarter was: spending money",
+      accentPhrase: "spending money",
       bigNumber: "\u00a3" + d.quarterSpend.toFixed(0) + "bn",
       bigNumberSuffix: "in 90 days. That\u2019s \u00a3" + (d.quarterSpend * 1000 / 90).toFixed(0) + "m a day.",
       detail: "You were in the top 100% of taxpayers who funded this. Congratulations. Let\u2019s see where it went.",
@@ -153,6 +154,7 @@ function useSlides(d) {
       id: "debtInterest",
       eyebrow: "THE OPENING ACT",
       headline: "Before anyone got a single public service",
+      accentPhrase: "single public service",
       bigNumber: "\u00a3" + d.quarterDebtInterest.toFixed(1) + "bn",
       bigNumberSuffix: "went straight to debt interest",
       subline: "\u00a3" + d.dailyDebtInterest.toFixed(0) + "m a day. Every day. Just paying the interest. Not the debt. The interest. That\u2019s " + d.debtPctGDP + "% of GDP gone before the lights are even on.",
@@ -165,6 +167,7 @@ function useSlides(d) {
       id: "welfare",
       eyebrow: "THE BIGGEST LINE ITEM",
       headline: "Your government\u2019s most-played track: welfare",
+      accentPhrase: "welfare",
       bigNumber: "\u00a3" + d.quarterWelfare.toFixed(0) + "bn",
       bigNumberSuffix: "this quarter alone",
       subline: "\u00a3" + d.welfareTotal.toFixed(0) + "bn a year. The single largest thing your government spends money on. Here\u2019s the setlist:",
@@ -401,7 +404,13 @@ function Slide({ slide, theme, onShare }) {
         {/* Headline */}
         {slide.headline && (
           <div className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight mb-4 sm:mb-6 leading-[1.1]">
-            {slide.headline}
+            {slide.accentPhrase && slide.headline.includes(slide.accentPhrase) ? (
+              <>
+                {slide.headline.split(slide.accentPhrase)[0]}
+                <span style={{ color: theme.accent }}>{slide.accentPhrase}</span>
+                {slide.headline.split(slide.accentPhrase)[1]}
+              </>
+            ) : slide.headline}
           </div>
         )}
 
