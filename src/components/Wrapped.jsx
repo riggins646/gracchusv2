@@ -8,7 +8,6 @@ import spendingData from "../data/spending.json";
 import costOfLivingData from "../data/cost-of-living.json";
 import moonlightingData from "../data/moonlighting-mps.json";
 import mpInterestsData from "../data/mp-interests.json";
-import donationsData from "../data/political-donations.json";
 import projectsData from "../data/projects.json";
 import { renderWrappedCard } from "../lib/wrapped-cards";
 
@@ -85,10 +84,7 @@ function useWrappedData() {
     const q1Gifts = mpInterestsData.q1_2026.giftsAndHospitality;
 
     // ─── SLIDE 8: Political Donations (Q1 specific) ───
-    const q1Donations = donationsData.byYear.find(y => y.year === 2026);
-    const q1PartyDonations = donationsData.partyYearSeries.find(y => y.year === 2026);
-
-    // ─── SLIDE 9: Cancellation Graveyard ───
+    // ─── SLIDE 7: Cancellation Graveyard ───
     const cancelled = projectsData.filter(p => p.status === "Cancelled");
     const totalCancelledWaste = cancelled.reduce((s, p) => s + p.latestBudget, 0);
     const topCancelled = [...cancelled].sort((a, b) => b.latestBudget - a.latestBudget).slice(0, 5);
@@ -110,7 +106,6 @@ function useWrappedData() {
       depts,
       q1MPs,
       q1Gifts,
-      q1Donations, q1PartyDonations,
       cancelled, totalCancelledWaste, topCancelled,
       perTaxpayer, perTaxpayerDebt, perTaxpayerWelfare, perTaxpayerNHS, perTaxpayerDefence, mpSalaryPerTaxpayer,
     };
@@ -227,36 +222,7 @@ function useSlides(d) {
       footer: "Source: Parliament Register, GOV.UK Ministers' Gifts",
     },
 
-    // SLIDE 7: Political Donations (Q1 specific)
-    (() => {
-      const ps = d.q1PartyDonations || {};
-      const partyRows = [
-        { name: "Labour", val: ps.Labour || 0 },
-        { name: "Conservative", val: ps.Conservative || 0 },
-        { name: "Reform UK", val: ps["Reform UK"] || 0 },
-        { name: "Liberal Democrats", val: ps["Liberal Democrats"] || 0 },
-        { name: "Green", val: ps.Green || 0 },
-        { name: "SNP", val: ps.SNP || 0 },
-        { name: "Other", val: ps.Other || 0 },
-      ].filter(p => p.val > 0).sort((a, b) => b.val - a.val);
-
-      return {
-        id: "donations",
-        eyebrow: "THE MONEY BEHIND THE CURTAIN",
-        headline: "Someone\u2019s always paying",
-        bigNumber: "\u00a3" + ((d.q1Donations?.total || 1197214) / 1000000).toFixed(1) + "m",
-        bigNumberSuffix: "in political donations so far this quarter",
-        subline: (d.q1Donations?.count || 62) + " donations reported. Q1 2025 saw \u00a312.95m \u2014 the rest of 2026\u2019s returns are still coming in. But we\u2019re watching.",
-        list: partyRows.map(p => ({
-          label: p.name,
-          value: "\u00a3" + (p.val >= 1000000 ? (p.val / 1000000).toFixed(1) + "m" : (p.val / 1000).toFixed(0) + "k"),
-        })),
-        listTitle: "Reported so far",
-        footer: "Source: Electoral Commission (data still being published)",
-      };
-    })(),
-
-    // SLIDE 8: Cancellation Graveyard
+    // SLIDE 7: Cancellation Graveyard
     {
       id: "cancelled",
       eyebrow: "THE SKIP BUTTON",
@@ -383,7 +349,7 @@ function ShareModal({ slide, theme, onClose }) {
 function Slide({ slide, theme, onShare }) {
   return (
     <div className={
-      "min-h-[70vh] sm:min-h-[80vh] flex flex-col items-center justify-center " +
+      "h-[calc(100vh-48px)] flex flex-col items-center justify-center " +
       "px-6 sm:px-10 md:px-16 py-16 sm:py-20 " +
       theme.bg + " " +
       "relative overflow-hidden"
@@ -394,7 +360,7 @@ function Slide({ slide, theme, onShare }) {
       <div className="absolute bottom-[-15%] left-[-10%] w-[40vw] h-[40vw] max-w-[400px] max-h-[400px] rounded-full opacity-[0.05]"
         style={{ background: theme.shape || theme.accent }} />
 
-      <div className="relative z-10 max-w-2xl w-full text-center">
+      <div className="relative z-10 max-w-2xl w-full text-center overflow-y-auto max-h-[calc(100vh-140px)]">
         {/* Eyebrow */}
         <div className="text-[12px] sm:text-[14px] uppercase tracking-[0.35em] font-mono mb-6 sm:mb-8"
           style={{ color: theme.accent }}>
