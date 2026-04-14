@@ -165,7 +165,7 @@ function useSlides(d) {
       accentPhrase: "welfare",
       bigNumber: "\u00a3" + d.quarterWelfare.toFixed(0) + "bn",
       bigNumberSuffix: "this quarter alone",
-      subline: "\u00a3" + d.welfareTotal.toFixed(0) + "bn a year. The single largest thing your government spends money on. Here\u2019s the setlist:",
+      subline: "\u00a3" + d.welfareTotal.toFixed(0) + "bn a year. The biggest line in the budget.",
       list: d.topBenefits.map(b => ({
         label: b.name || b.category,
         value: "\u00a3" + ((b.value || b.amount || 0) / 4).toFixed(1) + "bn",
@@ -179,11 +179,10 @@ function useSlides(d) {
       id: "departments",
       eyebrow: "YOUR LISTENING HISTORY",
       headline: "Your personal tax went to these departments",
-      subline: "Your share of Q1 spending, split across " + (UK_TAXPAYERS / 1000000).toFixed(1) + "m taxpayers. You funded all of this. You\u2019re welcome, civil service.",
-      list: d.depts.map(dept => ({
+      subline: "Your personal share, split across " + (UK_TAXPAYERS / 1000000).toFixed(1) + "m taxpayers.",
+      list: d.depts.slice(0, 5).map(dept => ({
         label: dept.name,
         value: "\u00a3" + Math.round(dept.spend / 4 * 1000000000 / UK_TAXPAYERS).toLocaleString(),
-        sub: "\u00a3" + (dept.spend / 4).toFixed(1) + "bn dept total",
       })),
       footer: "Source: HM Treasury PESA 2025",
     },
@@ -192,66 +191,58 @@ function useSlides(d) {
     {
       id: "moonlighting",
       eyebrow: "SIDE HUSTLE SEASON",
-      headline: "Your MPs earned " + fmtK(d.q1MPs.totalDeclaredQ1) + " on the side this quarter",
+      headline: fmtK(d.q1MPs.totalDeclaredQ1) + " earned on the side",
       bigNumber: d.q1MPs.totalHoursQ1.toLocaleString(),
-      bigNumberSuffix: "hours on second jobs instead of representing you",
-      subline: d.q1MPs.newDeclarations + " new declarations. Top earners voted " + d.q1MPs.avgAttendanceTopEarners + "% of the time. Average MP: " + d.q1MPs.avgAttendanceAllMPs + "%. Part-time job, full-time salary.",
-      list: d.q1MPs.topQ1Earners.map((mp, i) => ({
+      bigNumberSuffix: "hours on second jobs. Top earners voted " + d.q1MPs.avgAttendanceTopEarners + "%.",
+      list: d.q1MPs.topQ1Earners.slice(0, 4).map((mp, i) => ({
         label: (i + 1) + ". " + mp.name,
         value: fmtK(mp.amount),
-        sub: mp.source + " \u2022 voted " + mp.votingAttendance + "% of the time",
       })),
-      listTitle: "The top earners. Your representatives.",
-      footer: "Source: Parliament Register of Members' Financial Interests",
+      listTitle: "Name & shame",
+      footer: "Source: Parliament Register",
     },
 
     // SLIDE 6: Gifts & Hospitality (Q1 specific)
     {
       id: "gifts",
       eyebrow: "THE FREE STUFF",
-      headline: d.q1Gifts.mpsReceiving + " of your MPs accepted freebies this quarter",
-      bigNumber: fmtK(d.q1Gifts.totalValue),
-      bigNumberSuffix: "in gifts, trips, and hospitality",
-      subline: d.q1Gifts.totalItems + " items. Football boxes. Brit Awards tickets. Flights to Riyadh. Cufflinks from Trump. All declared. All legal. All paid for by someone who wants something.",
-      list: d.q1Gifts.topItems.slice(0, 5).map(g => ({
+      headline: fmtK(d.q1Gifts.totalValue) + " in freebies accepted",
+      subline: d.q1Gifts.mpsReceiving + " MPs. " + d.q1Gifts.totalItems + " items. Football boxes, Brit Awards, flights to Riyadh, cufflinks from Trump.",
+      list: d.q1Gifts.topItems.slice(0, 4).map(g => ({
         label: g.mp,
         value: fmtK(g.value),
-        sub: g.item + " \u2014 from " + g.donor,
       })),
-      listTitle: "Highlights from the register",
-      footer: "Source: Parliament Register, GOV.UK Ministers' Gifts",
+      listTitle: "Highlights",
+      footer: "Source: Parliament Register",
     },
 
     // SLIDE 7: Cancellation Graveyard
     {
       id: "cancelled",
       eyebrow: "THE SKIP BUTTON",
-      headline: "Projects your government started then gave up on",
-      bigNumber: fmt(d.totalCancelledWaste),
-      bigNumberSuffix: "spent on " + d.cancelled.length + " cancelled projects. Nothing to show for it.",
-      subline: "That\u2019s " + Math.round(d.totalCancelledWaste * 1000000 / 35000).toLocaleString() + " nurses for a year. Or " + Math.round(d.totalCancelledWaste * 1000000 / 50).toLocaleString() + " pothole repairs. Instead: literally nothing.",
-      list: d.topCancelled.map(p => ({
+      headline: fmt(d.totalCancelledWaste) + " wasted on cancelled projects",
+      bigNumberSuffix: d.cancelled.length + " projects. " + Math.round(d.totalCancelledWaste * 1000000 / 35000).toLocaleString() + " nurses\u2019 worth. Gone.",
+      list: d.topCancelled.slice(0, 4).map(p => ({
         label: p.name,
         value: fmt(p.latestBudget),
-        sub: p.department,
       })),
       listTitle: "The biggest write-offs",
-      footer: "Source: NAO, IPA Annual Reports",
+      footer: "Source: NAO, IPA",
     },
 
-    // SLIDE 9: Your Personal Q1 Receipt
+    // SLIDE 8: Your Personal Q1 Receipt
     {
       id: "receipt",
       eyebrow: "YOUR Q1 RECEIPT",
-      headline: "Thanks for being a UK taxpayer this quarter",
+      headline: "Thanks for being a taxpayer",
       bigNumber: "\u00a3" + d.perTaxpayer.toLocaleString(),
-      bigNumberSuffix: "was your personal contribution to the machine",
+      bigNumberSuffix: "your personal Q1 contribution",
       list: [
         { label: "NHS & Social Care", value: "\u00a3" + d.perTaxpayerNHS.toLocaleString() },
         { label: "Welfare & Benefits", value: "\u00a3" + d.perTaxpayerWelfare.toLocaleString() },
         { label: "Debt Interest", value: "\u00a3" + d.perTaxpayerDebt.toLocaleString() },
         { label: "Defence", value: "\u00a3" + d.perTaxpayerDefence.toLocaleString() },
-        { label: "Your share of all MPs' salaries", value: "\u00a3" + d.mpSalaryPerTaxpayer.toFixed(2) },
+        { label: "MPs\u2019 salaries", value: "\u00a3" + d.mpSalaryPerTaxpayer.toFixed(2) },
       ],
       listTitle: "Where your money went",
       detail: "Meanwhile, the top 5 side-hustling MPs earned " + fmtK(d.q1MPs.totalDeclaredQ1) + " on top of their salary \u2014 while voting less than half the time. See you next quarter.",
@@ -268,42 +259,70 @@ function ShareModal({ slide, theme, onClose }) {
     [slide, theme]
   );
 
-  const handleDownload = useCallback(() => {
+  // Convert data URL to blob for sharing
+  const getBlob = useCallback(async () => {
+    const res = await fetch(imgSrc);
+    return res.blob();
+  }, [imgSrc]);
+
+  const filename = `gracchus-${QUARTER.toLowerCase()}-${YEAR}-${slide.id}.png`;
+
+  // Save — uses Web Share API on mobile (camera roll / share sheet), download on desktop
+  const handleSave = useCallback(async () => {
+    try {
+      const blob = await getBlob();
+      const file = new File([blob], filename, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file] });
+        return;
+      }
+    } catch (e) {
+      if (e.name === "AbortError") return; // user cancelled share sheet
+    }
+    // Fallback: download
     const a = document.createElement("a");
     a.href = imgSrc;
-    a.download = `gracchus-${QUARTER.toLowerCase()}-${YEAR}-${slide.id}.png`;
+    a.download = filename;
     a.click();
-  }, [imgSrc, slide.id]);
+  }, [imgSrc, getBlob, filename]);
 
   const handleCopy = useCallback(async () => {
     try {
-      const res = await fetch(imgSrc);
-      const blob = await res.blob();
+      const blob = await getBlob();
       await navigator.clipboard.write([
         new ClipboardItem({ "image/png": blob }),
       ]);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      handleDownload();
+      handleSave();
     }
-  }, [imgSrc, handleDownload]);
+  }, [getBlob, handleSave]);
 
-  const handlePost = useCallback(() => {
-    const text = slide.eyebrow + "\n\n" +
+  // Post to X — uses Web Share API with image (opens share sheet with image attached)
+  const handlePost = useCallback(async () => {
+    const text = (slide.eyebrow || "") + "\n" +
       (slide.headline || "") +
       (slide.bigNumber ? " " + slide.bigNumber : "") +
-      (slide.bigNumberSuffix ? " " + slide.bigNumberSuffix : "") +
-      (slide.subline ? "\n" + slide.subline : "") +
-      "\n\nvia @GracchusHQ";
+      "\n\nvia @GracchusHQ \u2022 gracchus.ai";
+    try {
+      const blob = await getBlob();
+      const file = new File([blob], filename, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ text, files: [file] });
+        return;
+      }
+    } catch (e) {
+      if (e.name === "AbortError") return;
+    }
+    // Fallback: open X with text (can't attach image via URL intent)
     window.open(
       "https://x.com/intent/post?text=" +
-      encodeURIComponent(text) +
-      "&url=" + encodeURIComponent(window.location.href),
+      encodeURIComponent(text),
       "_blank",
       "noopener,noreferrer"
     );
-  }, [slide]);
+  }, [slide, getBlob, filename]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
@@ -333,7 +352,7 @@ function ShareModal({ slide, theme, onClose }) {
               {copied ? <Check size={14} /> : <Copy size={14} />}
               {copied ? "Copied" : "Copy"}
             </button>
-            <button onClick={handleDownload}
+            <button onClick={handleSave}
               className="flex items-center justify-center gap-2 px-3 py-2.5 text-[11px] uppercase tracking-wider font-mono text-white bg-white/5 hover:bg-white/10 transition-colors border border-gray-800">
               <Download size={14} />
               Save
@@ -455,10 +474,10 @@ function Slide({ slide, theme, onShare }) {
         )}
       </div>
 
-      {/* Share button */}
+      {/* Share button — desktop only (mobile has floating button outside) */}
       <button onClick={onShare}
         className={
-          "absolute bottom-6 right-6 flex items-center gap-2 " +
+          "hidden sm:flex absolute bottom-6 right-6 items-center gap-2 " +
           "px-5 py-3 text-[12px] uppercase tracking-[0.2em] font-mono " +
           "text-white/50 hover:text-white " +
           "border border-white/10 hover:border-white/30 " +
