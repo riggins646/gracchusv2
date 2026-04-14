@@ -259,70 +259,71 @@ function ShareModal({ slide, theme, onClose }) {
     [slide, theme]
   );
 
-  // Convert data URL to blob for sharing
+  const filename = `gracchus-${QUARTER.toLowerCase()}-${YEAR}-${slide.id}.png`;
+
+  // Helper: get image as blob
   const getBlob = useCallback(async () => {
     const res = await fetch(imgSrc);
     return res.blob();
   }, [imgSrc]);
 
-  const filename = `gracchus-${QUARTER.toLowerCase()}-${YEAR}-${slide.id}.png`;
-
-  // Save — uses Web Share API on mobile (camera roll / share sheet), download on desktop
-  const handleSave = useCallback(async () => {
+  // SHARE — opens native share sheet (iOS: save to photos, AirDrop, Messages, WhatsApp, X, etc)
+  const handleNativeShare = useCallback(async () => {
     try {
       const blob = await getBlob();
       const file = new File([blob], filename, { type: "image/png" });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file] });
+      const shareText = (slide.eyebrow || "") + " " +
+        (slide.headline || "") +
+        (slide.bigNumber ? " " + slide.bigNumber : "") +
+        " \u2022 gracchus.ai";
+      if (navigator.share) {
+        const shareData = { text: shareText };
+        // Try with files first, fall back to text-only
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          shareData.files = [file];
+        }
+        await navigator.share(shareData);
         return;
       }
     } catch (e) {
-      if (e.name === "AbortError") return; // user cancelled share sheet
+      if (e.name === "AbortError") return;
     }
-    // Fallback: download
+    // Desktop fallback: copy image to clipboard
+    try {
+      const blob = await getBlob();
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Last resort: download
+      const a = document.createElement("a");
+      a.href = imgSrc;
+      a.download = filename;
+      a.click();
+    }
+  }, [imgSrc, getBlob, filename, slide]);
+
+  // SAVE — download the image (on iOS this saves to Files/Downloads, on desktop it downloads)
+  const handleSave = useCallback(() => {
     const a = document.createElement("a");
     a.href = imgSrc;
     a.download = filename;
+    document.body.appendChild(a);
     a.click();
-  }, [imgSrc, getBlob, filename]);
+    document.body.removeChild(a);
+  }, [imgSrc, filename]);
 
+  // COPY — clipboard
   const handleCopy = useCallback(async () => {
     try {
       const blob = await getBlob();
-      await navigator.clipboard.write([
-        new ClipboardItem({ "image/png": blob }),
-      ]);
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
       handleSave();
     }
   }, [getBlob, handleSave]);
-
-  // Post to X — uses Web Share API with image (opens share sheet with image attached)
-  const handlePost = useCallback(async () => {
-    const text = (slide.eyebrow || "") + "\n" +
-      (slide.headline || "") +
-      (slide.bigNumber ? " " + slide.bigNumber : "") +
-      "\n\nvia @GracchusHQ \u2022 gracchus.ai";
-    try {
-      const blob = await getBlob();
-      const file = new File([blob], filename, { type: "image/png" });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ text, files: [file] });
-        return;
-      }
-    } catch (e) {
-      if (e.name === "AbortError") return;
-    }
-    // Fallback: open X with text (can't attach image via URL intent)
-    window.open(
-      "https://x.com/intent/post?text=" +
-      encodeURIComponent(text),
-      "_blank",
-      "noopener,noreferrer"
-    );
-  }, [slide, getBlob, filename]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
@@ -340,20 +341,18 @@ function ShareModal({ slide, theme, onClose }) {
         <div className="p-4">
           <img src={imgSrc} alt="Share card" className="w-full aspect-square border border-gray-800/40 mb-4" />
           <div className="grid grid-cols-3 gap-2">
-            <button onClick={handlePost}
-              className="flex items-center justify-center gap-2 px-3 py-2.5 text-[11px] uppercase tracking-wider font-mono text-white bg-white/5 hover:bg-white/10 transition-colors border border-gray-800">
-              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-              Post
+            <button onClick={handleNativeShare}
+              className="flex items-center justify-center gap-2 px-3 py-3 text-[12px] uppercase tracking-wider font-mono text-white bg-white/10 hover:bg-white/20 transition-colors border border-gray-700 rounded">
+              <Share2 size={14} />
+              Share
             </button>
             <button onClick={handleCopy}
-              className="flex items-center justify-center gap-2 px-3 py-2.5 text-[11px] uppercase tracking-wider font-mono text-white bg-white/5 hover:bg-white/10 transition-colors border border-gray-800">
+              className="flex items-center justify-center gap-2 px-3 py-3 text-[12px] uppercase tracking-wider font-mono text-white bg-white/5 hover:bg-white/10 transition-colors border border-gray-800 rounded">
               {copied ? <Check size={14} /> : <Copy size={14} />}
               {copied ? "Copied" : "Copy"}
             </button>
             <button onClick={handleSave}
-              className="flex items-center justify-center gap-2 px-3 py-2.5 text-[11px] uppercase tracking-wider font-mono text-white bg-white/5 hover:bg-white/10 transition-colors border border-gray-800">
+              className="flex items-center justify-center gap-2 px-3 py-3 text-[12px] uppercase tracking-wider font-mono text-white bg-white/5 hover:bg-white/10 transition-colors border border-gray-800 rounded">
               <Download size={14} />
               Save
             </button>
@@ -590,8 +589,8 @@ export default function Wrapped({ onBack }) {
         </button>
       )}
 
-      {/* Mobile: share button floats above tap zones */}
-      <div className="sm:hidden absolute bottom-20 right-4 z-40">
+      {/* Mobile: share button pinned to very bottom */}
+      <div className="sm:hidden absolute bottom-3 right-4 z-40">
         <button onClick={() => setShareSlide(currentSlide)}
           className="flex items-center gap-2 px-5 py-3 text-[12px] uppercase tracking-[0.2em] font-mono text-white/70 border border-white/20 bg-black/60 backdrop-blur-sm rounded-full active:bg-white/10">
           <Share2 size={14} />
