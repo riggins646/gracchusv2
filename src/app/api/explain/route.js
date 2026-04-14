@@ -77,7 +77,8 @@ export async function POST(request) {
 
     // ── Origin check (CSRF protection) ──────────────────────────
     const origin = request.headers.get("origin");
-    if (origin && !origin.endsWith("gracchus.ai")) {
+    const ALLOWED_ORIGINS = ["https://gracchus.ai", "https://www.gracchus.ai"];
+    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
       return Response.json({ error: "Forbidden" }, { status: 403 });
     }
 

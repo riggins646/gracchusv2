@@ -58,12 +58,11 @@ export async function POST(req) {
 
     // ── Origin check (CSRF protection) ──────────────────────────
     const origin = req.headers.get("origin");
-    if (
-      origin &&
-      !origin.endsWith("gracchus.ai") &&
-      !origin.endsWith(".vercel.app") &&
-      !origin.startsWith("http://localhost")
-    ) {
+    const ALLOWED_ORIGINS = ["https://gracchus.ai", "https://www.gracchus.ai"];
+    if (process.env.NODE_ENV === "development") {
+      ALLOWED_ORIGINS.push("http://localhost:3000");
+    }
+    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
@@ -113,9 +112,8 @@ export async function POST(req) {
       );
     }
 
-    // Surface the actual error for diagnosis
     return NextResponse.json(
-      { error: "Could not subscribe: " + (err?.message || "unknown error") },
+      { error: "Newsletter signup failed. Please try again later." },
       { status: 500 }
     );
   }

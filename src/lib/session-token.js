@@ -11,13 +11,14 @@
  * automated abuse significantly harder without affecting real users at all.
  */
 
-// CRON_SECRET is the primary signing key. Falls back to ANTHROPIC_API_KEY
-// in development. No hardcoded fallback — if neither is set, tokens will
-// fail to verify, which is the correct secure default.
-const SECRET = (typeof process !== "undefined"
-  ? process.env.CRON_SECRET || process.env.ANTHROPIC_API_KEY
-  : null) || (() => {
-    console.error("[session-token] WARNING: No CRON_SECRET or ANTHROPIC_API_KEY — tokens are insecure");
+// CRON_SECRET is the signing key for session tokens.
+// In development only, falls back to a random string.
+// NEVER use ANTHROPIC_API_KEY as a signing secret — different rotation schedules.
+const SECRET = (typeof process !== "undefined" ? process.env.CRON_SECRET : null)
+  || (() => {
+    if (typeof process !== "undefined" && process.env.NODE_ENV === "production") {
+      console.error("[session-token] CRITICAL: CRON_SECRET not set in production");
+    }
     return "dev-only-" + Math.random().toString(36).slice(2);
   })();
 
@@ -43,24 +44,30 @@ export async function sign(timestamp) {
 
 export async function createToken() {
   const timestamp = Date.now();
-  const signature = await sign(timestamp);
-  return `${timestamp}.${signature}`;
+  // Add cryptographic nonce to prevent timestamp prediction attacks
+  const nonceBytes = crypto.getRandomValues(new Uint8Array(16));
+  const nonce = Array.from(nonceBytes).map(b => b.toString(16).padStart(2, "0")).join("");
+  const payload = `${timestamp}.${nonce}`;
+  const signature = await sign(payload);
+  return `${timestamp}.${nonce}.${signature}`;
 }
 
 export async function verifyToken(token) {
   if (!token || typeof token !== "string") return false;
 
   const parts = token.split(".");
-  if (parts.length !== 2) return false;
+  if (parts.length !== 3) return false;
 
-  const [timestampStr, providedSig] = parts;
+  const [timestampStr, nonce, providedSig] = parts;
   const timestamp = parseInt(timestampStr, 10);
   if (isNaN(timestamp)) return false;
+  if (!nonce || nonce.length !== 32) return false;
 
   // Check expiry
   if (Date.now() - timestamp > TOKEN_TTL) return false;
 
   // Check signature
-  const expectedSig = await sign(timestamp);
+  const payload = `${timestamp}.${nonce}`;
+  const expectedSig = await sign(payload);
   return expectedSig === providedSig;
 }
