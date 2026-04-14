@@ -123,67 +123,69 @@ function useSlides(d) {
     // SLIDE 0: The Quarter's Bill
     {
       id: "bill",
-      eyebrow: QUARTER_LABEL + " WRAPPED",
-      headline: "This quarter, your government spent",
+      eyebrow: "YOUR Q1 2026 WRAPPED",
+      headline: "Your government\u2019s top genre this quarter was: spending money",
       bigNumber: "\u00a3" + d.quarterSpend.toFixed(0) + "bn",
-      subline: "That\u2019s \u00a3" + (d.quarterSpend * 1000 / 90).toFixed(0) + "m every single day for 90 days.",
-      detail: "Annual spending: \u00a3" + d.annualSpend.toFixed(0) + "bn. Here\u2019s where it went \u2014 and who benefited.",
+      bigNumberSuffix: "in 90 days. That\u2019s \u00a3" + (d.quarterSpend * 1000 / 90).toFixed(0) + "m a day.",
+      detail: "You were in the top 100% of taxpayers who funded this. Congratulations. Let\u2019s see where it went.",
       footer: "Source: HM Treasury PESA 2025",
     },
 
     // SLIDE 1: Cost of Living
     {
       id: "costOfLiving",
-      eyebrow: "WHAT LIFE COST YOU IN Q1",
-      headline: "Prices in Q1 2026",
-      subline: "CPI inflation sat at " + d.cpiPct + "%. Here\u2019s what that felt like at the till and at home.",
+      eyebrow: "YOUR VIBE CHECK",
+      headline: "Here\u2019s what just existing cost you in Q1",
+      subline: "Inflation at " + d.cpiPct + "%. Your wages grew " + (d.realWages > 0 ? "" : "minus ") + Math.abs(d.realWages) + "% in real terms. " + (d.realWages > 0 ? "So technically you\u2019re winning. Barely." : "So you got poorer. Again."),
       list: [
         { label: "Petrol", value: d.petrol + "p/L" },
         { label: "Diesel", value: d.diesel + "p/L" },
-        { label: "Energy cap (annual)", value: "\u00a3" + (d.energyCap || 0).toLocaleString() },
-        { label: "Average monthly rent", value: "\u00a3" + (d.avgRentGbp || 0).toLocaleString() },
+        { label: "Energy cap", value: "\u00a3" + (d.energyCap || 0).toLocaleString() + "/yr" },
+        { label: "Average rent", value: "\u00a3" + (d.avgRentGbp || 0).toLocaleString() + "/mo" },
         { label: "Real wage growth", value: (d.realWages > 0 ? "+" : "") + d.realWages + "%" },
       ],
-      footer: "Source: ONS CPI, DESNZ, Ofgem",
+      listTitle: "The price of being British",
+      footer: "Source: ONS, DESNZ, Ofgem",
     },
 
     // SLIDE 2: Debt Interest
     {
       id: "debtInterest",
-      eyebrow: "BEFORE ANYTHING ELSE",
-      headline: "Debt interest this quarter",
+      eyebrow: "THE OPENING ACT",
+      headline: "Before anyone got a single public service",
       bigNumber: "\u00a3" + d.quarterDebtInterest.toFixed(1) + "bn",
-      bigNumberSuffix: "just to service the national debt",
-      subline: "That\u2019s \u00a3" + d.dailyDebtInterest.toFixed(0) + "m per day — " + d.debtPctGDP + "% of GDP — before a single nurse was hired or road fixed.",
-      detail: "Annual debt interest: \u00a3" + d.annualDebtInterest + "bn. More than the entire defence budget.",
+      bigNumberSuffix: "went straight to debt interest",
+      subline: "\u00a3" + d.dailyDebtInterest.toFixed(0) + "m a day. Every day. Just paying the interest. Not the debt. The interest. That\u2019s " + d.debtPctGDP + "% of GDP gone before the lights are even on.",
+      detail: "The full-year bill is \u00a3" + d.annualDebtInterest + "bn. More than we spend on defence. Sleep well.",
       footer: "Source: ONS Public Sector Finances, OBR",
     },
 
     // SLIDE 3: Benefits Bill
     {
       id: "welfare",
-      eyebrow: "THE BENEFITS BILL",
-      headline: "Welfare spending this quarter",
+      eyebrow: "THE BIGGEST LINE ITEM",
+      headline: "Your government\u2019s most-played track: welfare",
       bigNumber: "\u00a3" + d.quarterWelfare.toFixed(0) + "bn",
-      subline: "Annual welfare bill: \u00a3" + d.welfareTotal.toFixed(0) + "bn — the single biggest line in the budget.",
+      bigNumberSuffix: "this quarter alone",
+      subline: "\u00a3" + d.welfareTotal.toFixed(0) + "bn a year. The single largest thing your government spends money on. Here\u2019s the setlist:",
       list: d.topBenefits.map(b => ({
         label: b.name || b.category,
-        value: "\u00a3" + ((b.value || b.amount || 0) / 4).toFixed(1) + "bn/qtr",
+        value: "\u00a3" + ((b.value || b.amount || 0) / 4).toFixed(1) + "bn",
       })),
-      listTitle: "Biggest categories (quarterly rate)",
+      listTitle: "Quarterly rate",
       footer: "Source: DWP Benefit Expenditure Tables 2025",
     },
 
     // SLIDE 4: Where Your Tax Went
     {
       id: "departments",
-      eyebrow: "WHERE YOUR TAX WENT",
-      headline: "Top departments by spend",
-      subline: "Your share of each department\u2019s Q1 spending, based on " + (UK_TAXPAYERS / 1000000).toFixed(1) + "m UK income taxpayers.",
+      eyebrow: "YOUR LISTENING HISTORY",
+      headline: "Your personal tax went to these departments",
+      subline: "Your share of Q1 spending, split across " + (UK_TAXPAYERS / 1000000).toFixed(1) + "m taxpayers. You funded all of this. You\u2019re welcome, civil service.",
       list: d.depts.map(dept => ({
         label: dept.name,
         value: "\u00a3" + Math.round(dept.spend / 4 * 1000000000 / UK_TAXPAYERS).toLocaleString(),
-        sub: "\u00a3" + (dept.spend / 4).toFixed(1) + "bn total",
+        sub: "\u00a3" + (dept.spend / 4).toFixed(1) + "bn dept total",
       })),
       footer: "Source: HM Treasury PESA 2025",
     },
@@ -191,88 +193,99 @@ function useSlides(d) {
     // SLIDE 5: Moonlighting MPs (Q1 specific)
     {
       id: "moonlighting",
-      eyebrow: "MOONLIGHTING MPS — Q1 2026",
-      headline: d.q1MPs.newDeclarations + " new declarations",
-      bigNumber: fmtK(d.q1MPs.totalDeclaredQ1),
-      bigNumberSuffix: "in outside earnings declared in Q1",
-      subline: d.q1MPs.totalHoursQ1.toLocaleString() + " hours on second jobs. Average voting attendance of top earners: " + d.q1MPs.avgAttendanceTopEarners + "% (vs " + d.q1MPs.avgAttendanceAllMPs + "% for all MPs).",
+      eyebrow: "SIDE HUSTLE SEASON",
+      headline: "Your MPs earned " + fmtK(d.q1MPs.totalDeclaredQ1) + " on the side this quarter",
+      bigNumber: d.q1MPs.totalHoursQ1.toLocaleString(),
+      bigNumberSuffix: "hours on second jobs instead of representing you",
+      subline: d.q1MPs.newDeclarations + " new declarations. Top earners voted " + d.q1MPs.avgAttendanceTopEarners + "% of the time. Average MP: " + d.q1MPs.avgAttendanceAllMPs + "%. Part-time job, full-time salary.",
       list: d.q1MPs.topQ1Earners.map((mp, i) => ({
-        label: (i + 1) + ". " + mp.name + " (" + mp.party + ")",
+        label: (i + 1) + ". " + mp.name,
         value: fmtK(mp.amount),
-        sub: mp.source + " \u00b7 Voted " + mp.votingAttendance + "%",
+        sub: mp.source + " \u2022 voted " + mp.votingAttendance + "% of the time",
       })),
-      listTitle: "Top Q1 earners — name & shame",
+      listTitle: "The top earners. Your representatives.",
       footer: "Source: Parliament Register of Members' Financial Interests",
     },
 
     // SLIDE 6: Gifts & Hospitality (Q1 specific)
     {
       id: "gifts",
-      eyebrow: "GIFTS & HOSPITALITY — Q1 2026",
-      headline: d.q1Gifts.mpsReceiving + " MPs accepted gifts",
+      eyebrow: "THE FREE STUFF",
+      headline: d.q1Gifts.mpsReceiving + " of your MPs accepted freebies this quarter",
       bigNumber: fmtK(d.q1Gifts.totalValue),
-      bigNumberSuffix: "in gifts & hospitality in Q1",
-      subline: d.q1Gifts.totalItems + " items declared across " + d.q1Gifts.byCategory.length + " categories. Overseas trips alone: \u00a3" + (d.q1Gifts.byCategory.find(c => c.category === "Overseas travel")?.value / 1000).toFixed(0) + "k.",
+      bigNumberSuffix: "in gifts, trips, and hospitality",
+      subline: d.q1Gifts.totalItems + " items. Football boxes. Brit Awards tickets. Flights to Riyadh. Cufflinks from Trump. All declared. All legal. All paid for by someone who wants something.",
       list: d.q1Gifts.topItems.slice(0, 5).map(g => ({
-        label: g.mp + " (" + g.party + ")",
+        label: g.mp,
         value: fmtK(g.value),
-        sub: g.item + " — from " + g.donor,
+        sub: g.item + " \u2014 from " + g.donor,
       })),
-      listTitle: "Notable Q1 gifts",
-      footer: "Source: Parliament Register, GOV.UK Ministers' Gifts Register",
+      listTitle: "Highlights from the register",
+      footer: "Source: Parliament Register, GOV.UK Ministers' Gifts",
     },
 
     // SLIDE 7: Political Donations (Q1 specific)
-    {
-      id: "donations",
-      eyebrow: "WHO'S FUNDING WHOM — Q1 2026",
-      headline: (d.q1Donations?.count || 62) + " donations registered",
-      bigNumber: "\u00a3" + ((d.q1Donations?.total || 1197214) / 1000000).toFixed(1) + "m",
-      bigNumberSuffix: "donated to UK political parties in Q1",
-      subline: "Labour: \u00a3" + ((d.q1PartyDonations?.Labour || 545000) / 1000).toFixed(0) + "k. Other parties: \u00a3" + ((d.q1PartyDonations?.Other || 652214) / 1000).toFixed(0) + "k. Conservative: \u00a30.",
-      detail: "In a full year, UK parties receive \u00a360\u201370m in donations. Q1 2026 is quiet — election cycles drive the big money.",
-      list: [
-        { label: "Labour", value: "\u00a3" + ((d.q1PartyDonations?.Labour || 0) / 1000).toFixed(0) + "k" },
-        { label: "Other parties", value: "\u00a3" + ((d.q1PartyDonations?.Other || 0) / 1000).toFixed(0) + "k" },
-        { label: "Conservative", value: "\u00a30" },
-        { label: "Reform UK", value: "\u00a30" },
-        { label: "Lib Dems", value: "\u00a30" },
-      ],
-      listTitle: "Q1 2026 by party",
-      footer: "Source: Electoral Commission",
-    },
+    (() => {
+      const ps = d.q1PartyDonations || {};
+      const partyRows = [
+        { name: "Labour", val: ps.Labour || 0 },
+        { name: "Conservative", val: ps.Conservative || 0 },
+        { name: "Reform UK", val: ps["Reform UK"] || 0 },
+        { name: "Liberal Democrats", val: ps["Liberal Democrats"] || 0 },
+        { name: "Green", val: ps.Green || 0 },
+        { name: "SNP", val: ps.SNP || 0 },
+        { name: "Other", val: ps.Other || 0 },
+      ].filter(p => p.val > 0).sort((a, b) => b.val - a.val);
+
+      return {
+        id: "donations",
+        eyebrow: "THE MONEY BEHIND THE CURTAIN",
+        headline: "Someone\u2019s always paying",
+        bigNumber: "\u00a3" + ((d.q1Donations?.total || 1197214) / 1000000).toFixed(1) + "m",
+        bigNumberSuffix: "in political donations so far this quarter",
+        subline: (d.q1Donations?.count || 62) + " donations reported. Q1 2025 saw \u00a312.95m \u2014 the rest of 2026\u2019s returns are still coming in. But we\u2019re watching.",
+        list: partyRows.map(p => ({
+          label: p.name,
+          value: "\u00a3" + (p.val >= 1000000 ? (p.val / 1000000).toFixed(1) + "m" : (p.val / 1000).toFixed(0) + "k"),
+        })),
+        listTitle: "Reported so far",
+        footer: "Source: Electoral Commission (data still being published)",
+      };
+    })(),
 
     // SLIDE 8: Cancellation Graveyard
     {
       id: "cancelled",
-      eyebrow: "THE CANCELLATION GRAVEYARD",
-      headline: fmt(d.totalCancelledWaste) + " written off",
-      subline: d.cancelled.length + " projects cancelled with nothing to show. The equivalent of " + Math.round(d.totalCancelledWaste * 1000000 / 35000).toLocaleString() + " nurses for a year.",
+      eyebrow: "THE SKIP BUTTON",
+      headline: "Projects your government started then gave up on",
+      bigNumber: fmt(d.totalCancelledWaste),
+      bigNumberSuffix: "spent on " + d.cancelled.length + " cancelled projects. Nothing to show for it.",
+      subline: "That\u2019s " + Math.round(d.totalCancelledWaste * 1000000 / 35000).toLocaleString() + " nurses for a year. Or " + Math.round(d.totalCancelledWaste * 1000000 / 50).toLocaleString() + " pothole repairs. Instead: literally nothing.",
       list: d.topCancelled.map(p => ({
         label: p.name,
         value: fmt(p.latestBudget),
         sub: p.department,
       })),
-      listTitle: "Biggest write-offs",
+      listTitle: "The biggest write-offs",
       footer: "Source: NAO, IPA Annual Reports",
     },
 
     // SLIDE 9: Your Personal Q1 Receipt
     {
       id: "receipt",
-      eyebrow: "YOUR PERSONAL Q1 RECEIPT",
-      headline: "Your share of Q1 2026",
+      eyebrow: "YOUR Q1 RECEIPT",
+      headline: "Thanks for being a UK taxpayer this quarter",
       bigNumber: "\u00a3" + d.perTaxpayer.toLocaleString(),
-      bigNumberSuffix: "total government spending per taxpayer",
+      bigNumberSuffix: "was your personal contribution to the machine",
       list: [
         { label: "NHS & Social Care", value: "\u00a3" + d.perTaxpayerNHS.toLocaleString() },
         { label: "Welfare & Benefits", value: "\u00a3" + d.perTaxpayerWelfare.toLocaleString() },
         { label: "Debt Interest", value: "\u00a3" + d.perTaxpayerDebt.toLocaleString() },
         { label: "Defence", value: "\u00a3" + d.perTaxpayerDefence.toLocaleString() },
-        { label: "MPs\u2019 salaries (your share)", value: "\u00a3" + d.mpSalaryPerTaxpayer.toFixed(2) },
+        { label: "Your share of all MPs' salaries", value: "\u00a3" + d.mpSalaryPerTaxpayer.toFixed(2) },
       ],
       listTitle: "Where your money went",
-      detail: "Meanwhile, the top 5 moonlighting MPs earned " + fmtK(d.q1MPs.totalDeclaredQ1) + " on the side — while voting less than half the time.",
+      detail: "Meanwhile, the top 5 side-hustling MPs earned " + fmtK(d.q1MPs.totalDeclaredQ1) + " on top of their salary \u2014 while voting less than half the time. See you next quarter.",
       footer: "Based on " + (UK_TAXPAYERS / 1000000).toFixed(1) + "m UK income taxpayers",
     },
   ], [d]);
