@@ -10288,7 +10288,7 @@ export default function App() {
                 { id: "transparency.mp", label: "Income & Expenses" },
                 { id: "transparency.moonlighting", label: "Moonlighting" }
               ].map(t => (
-                <button key={t.id} onClick={() => setView(t.id)} className={"px-3 py-1.5 text-[11px] uppercase tracking-[0.1em] font-medium rounded-md transition-colors " + (view === t.id ? "text-white bg-gray-800/60" : "text-gray-600 hover:text-gray-400")}>{t.label}</button>
+                <button key={t.id} onClick={() => setView(t.id)} className={"px-2 sm:px-3 py-1.5 text-[10px] sm:text-[11px] uppercase tracking-[0.05em] sm:tracking-[0.1em] font-medium rounded-md transition-colors whitespace-nowrap" + (view === t.id ? "text-white bg-gray-800/60" : "text-gray-600 hover:text-gray-400")}>{t.label}</button>
               ))}
             </div>
             {/* HEADER */}
@@ -10688,7 +10688,7 @@ export default function App() {
                 { id: "transparency.mp", label: "Income & Expenses" },
                 { id: "transparency.moonlighting", label: "Moonlighting" }
               ].map(t => (
-                <button key={t.id} onClick={() => setView(t.id)} className={"px-3 py-1.5 text-[11px] uppercase tracking-[0.1em] font-medium rounded-md transition-colors " + (view === t.id ? "text-white bg-gray-800/60" : "text-gray-600 hover:text-gray-400")}>{t.label}</button>
+                <button key={t.id} onClick={() => setView(t.id)} className={"px-2 sm:px-3 py-1.5 text-[10px] sm:text-[11px] uppercase tracking-[0.05em] sm:tracking-[0.1em] font-medium rounded-md transition-colors whitespace-nowrap" + (view === t.id ? "text-white bg-gray-800/60" : "text-gray-600 hover:text-gray-400")}>{t.label}</button>
               ))}
             </div>
             <div className="py-6 mb-4">
@@ -12379,7 +12379,7 @@ export default function App() {
                 { id: "transparency.mp", label: "Income & Expenses" },
                 { id: "transparency.moonlighting", label: "Moonlighting" }
               ].map(t => (
-                <button key={t.id} onClick={() => setView(t.id)} className={"px-3 py-1.5 text-[11px] uppercase tracking-[0.1em] font-medium rounded-md transition-colors " + (view === t.id ? "text-white bg-gray-800/60" : "text-gray-600 hover:text-gray-400")}>{t.label}</button>
+                <button key={t.id} onClick={() => setView(t.id)} className={"px-2 sm:px-3 py-1.5 text-[10px] sm:text-[11px] uppercase tracking-[0.05em] sm:tracking-[0.1em] font-medium rounded-md transition-colors whitespace-nowrap" + (view === t.id ? "text-white bg-gray-800/60" : "text-gray-600 hover:text-gray-400")}>{t.label}</button>
               ))}
             </div>
             <div className="py-6 mb-4">
@@ -12463,7 +12463,7 @@ export default function App() {
                   </Scatter>
                   {scatterData.sort((a, b) => b.x - a.x).slice(0, 3).map((d, i) => (
                     <ReferenceDot key={i} x={d.x} y={d.y} r={0}>
-                      <Label value={d.name.split(" ").pop()} position="top" fill="#d1d5db" fontSize={10} fontWeight={600} />
+                      <Label value={d.name.split(" ").pop()} position={i === 0 ? "top" : i === 1 ? "right" : "left"} fill="#d1d5db" fontSize={11} fontWeight={600} offset={8} />
                     </ReferenceDot>
                   ))}
                 </ScatterChart>
