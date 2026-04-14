@@ -90,7 +90,7 @@ function useWrappedData() {
     const allDepts = deptSpendingData.departments;
     const perTaxpayerNHS = Math.round((allDepts.find(d => d.short === "DHSC")?.spend || 202) / 4 * 1000000000 / UK_TAXPAYERS);
     const perTaxpayerDefence = Math.round((allDepts.find(d => d.short === "MoD")?.spend || 39) / 4 * 1000000000 / UK_TAXPAYERS);
-    const mpSalaryPerTaxpayer = Math.round((650 * 98599 / 4) / UK_TAXPAYERS * 100) / 100;
+    const mpSalaryPerTaxpayer = Math.round((650 * 93904 / 4) / UK_TAXPAYERS * 100) / 100; // Q1 salary was £93,904 (pre-April increase)
 
     return {
       quarterSpend, annualSpend,
@@ -117,7 +117,7 @@ function useSlides(d) {
       bigNumber: "\u00a3" + d.quarterSpend.toFixed(0) + "bn",
       bigNumberSuffix: "in 90 days. That\u2019s \u00a3" + (d.quarterSpend * 1000 / 90).toFixed(0) + "m a day.",
       detail: "You were in the top 100% of taxpayers who funded this. Congratulations. Let\u2019s see where it went.",
-      footer: "Source: HM Treasury PESA 2025",
+      footer: "At annual rate \u00b7 Source: HM Treasury PESA 2025",
     },
 
     // SLIDE 1: Cost of Living
@@ -147,7 +147,7 @@ function useSlides(d) {
       bigNumberSuffix: "went straight to debt interest",
       subline: "\u00a3" + d.dailyDebtInterest.toFixed(0) + "m a day. Every day. Just paying the interest. Not the debt. The interest. That\u2019s " + d.debtPctGDP + "% of GDP gone before the lights are even on.",
       detail: "The full-year bill is \u00a3" + d.annualDebtInterest + "bn. More than we spend on defence. Sleep well.",
-      footer: "Source: ONS Public Sector Finances, OBR",
+      footer: "At annual rate \u00b7 Source: ONS Public Sector Finances",
     },
 
     // SLIDE 3: Benefits Bill
@@ -158,7 +158,7 @@ function useSlides(d) {
       accentPhrase: "welfare",
       bigNumber: "\u00a3" + d.quarterWelfare.toFixed(0) + "bn",
       bigNumberSuffix: "this quarter alone",
-      subline: "\u00a3" + d.welfareTotal.toFixed(0) + "bn a year. The biggest line in the budget.",
+      subline: "\u00a3" + d.welfareTotal.toFixed(0) + "bn a year. The biggest line in the budget. Quarterly rate shown.",
       list: d.topBenefits.map(b => ({
         label: b.name || b.category,
         value: "\u00a3" + ((b.value || b.amount || 0) / 4).toFixed(1) + "bn",
@@ -184,23 +184,23 @@ function useSlides(d) {
     {
       id: "moonlighting",
       eyebrow: "SIDE HUSTLE SEASON",
-      headline: fmtK(d.q1MPs.totalDeclaredQ1) + " earned on the side",
+      headline: fmtK(d.q1MPs.totalDeclaredQ1) + " declared on the side",
       bigNumber: d.q1MPs.totalHoursQ1.toLocaleString(),
-      bigNumberSuffix: "hours on second jobs. Top earners voted " + d.q1MPs.avgAttendanceTopEarners + "%.",
+      bigNumberSuffix: "hours logged on second jobs in Q1",
       list: d.q1MPs.topQ1Earners.slice(0, 4).map((mp, i) => ({
         label: (i + 1) + ". " + mp.name,
         value: fmtK(mp.amount),
       })),
       listTitle: "Name & shame",
-      footer: "Source: Parliament Register",
+      footer: "Declared in Q1 \u00b7 Source: Parliament Register",
     },
 
     // SLIDE 6: Gifts & Hospitality (Q1 specific)
     {
       id: "gifts",
       eyebrow: "THE FREE STUFF",
-      headline: fmtK(d.q1Gifts.totalValue) + " in freebies accepted",
-      subline: d.q1Gifts.mpsReceiving + " MPs. " + d.q1Gifts.totalItems + " items. Football boxes, overseas trips, cufflinks from Trump, private retreats.",
+      headline: "Your MPs accepted freebies this quarter",
+      subline: "Football boxes, overseas trips, cufflinks from Trump, private retreats. All declared. All legal. All from someone who wants something.",
       list: d.q1Gifts.topItems.slice(0, 4).map(g => ({
         label: g.mp,
         value: fmtK(g.value),
@@ -224,8 +224,8 @@ function useSlides(d) {
         { label: "MPs\u2019 salaries", value: "\u00a3" + d.mpSalaryPerTaxpayer.toFixed(2) },
       ],
       listTitle: "Where your money went",
-      detail: "Meanwhile, the top side-hustling MPs earned " + fmtK(d.q1MPs.totalDeclaredQ1) + " on top of their salary \u2014 while voting less than half the time. See you next quarter.",
-      footer: "Based on " + (UK_TAXPAYERS / 1000000).toFixed(1) + "m UK income taxpayers",
+      detail: "Meanwhile, the top side-hustling MPs declared " + fmtK(d.q1MPs.totalDeclaredQ1) + " in outside interests this quarter. See you in Q2.",
+      footer: "At annual rate \u00b7 Based on " + (UK_TAXPAYERS / 1000000).toFixed(1) + "m UK income taxpayers",
     },
   ], [d]);
 }
