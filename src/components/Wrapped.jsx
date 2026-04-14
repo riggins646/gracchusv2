@@ -350,7 +350,7 @@ function ShareModal({ slide, theme, onClose }) {
           </button>
         </div>
         <div className="p-4">
-          <img src={imgSrc} alt="Share card" className="w-full border border-gray-800/40 mb-4" />
+          <img src={imgSrc} alt="Share card" className="w-full aspect-square border border-gray-800/40 mb-4" />
           <div className="grid grid-cols-3 gap-2">
             <button onClick={handlePost}
               className="flex items-center justify-center gap-2 px-3 py-2.5 text-[11px] uppercase tracking-wider font-mono text-white bg-white/5 hover:bg-white/10 transition-colors border border-gray-800">
