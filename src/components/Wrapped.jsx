@@ -339,7 +339,7 @@ function ShareModal({ slide, theme, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
       onClick={onClose}>
-      <div className="bg-gray-950 border border-gray-800 max-w-lg w-full"
+      <div className="bg-gray-950 border border-gray-800 max-w-xl w-full"
         onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between px-5 py-3 border-b border-gray-800">
           <div className="text-[12px] uppercase tracking-[0.25em] font-mono text-gray-500">

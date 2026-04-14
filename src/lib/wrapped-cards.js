@@ -1,14 +1,13 @@
 /* =========================================================
    WRAPPED SHARE CARDS — Bold gradient square PNGs
-   1:1 square format for universal social sharing.
-   Large readable type, strong gradient backgrounds.
+   1200x1200 square. Large readable type throughout.
    ========================================================= */
 
 var SANS = "system-ui, -apple-system, 'Segoe UI', sans-serif";
 var MONO = "ui-monospace, 'SF Mono', 'Cascadia Mono', monospace";
 
-var W = 1080;
-var H = 1080;
+var W = 1200;
+var H = 1200;
 
 function makeCanvas() {
   var c = document.createElement("canvas");
@@ -27,11 +26,9 @@ function hexToRgb(hex) {
 function drawGradientBg(ctx, accent) {
   var rgb = hexToRgb(accent);
 
-  // Black base
   ctx.fillStyle = "#050505";
   ctx.fillRect(0, 0, W, H);
 
-  // Main diagonal gradient — accent colour top-left fading to black
   var grad = ctx.createLinearGradient(0, 0, W, H);
   grad.addColorStop(0, "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.5)");
   grad.addColorStop(0.35, "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.15)");
@@ -39,7 +36,6 @@ function drawGradientBg(ctx, accent) {
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
 
-  // Secondary glow — top-right accent orb
   var radial = ctx.createRadialGradient(W * 0.9, H * 0.1, 0, W * 0.9, H * 0.1, W * 0.55);
   radial.addColorStop(0, "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.18)");
   radial.addColorStop(1, "rgba(0,0,0,0)");
@@ -47,35 +43,7 @@ function drawGradientBg(ctx, accent) {
   ctx.fillRect(0, 0, W, H);
 }
 
-function drawBranding(ctx, accent) {
-  // Top-left: GRACCHUS wordmark
-  ctx.font = "bold 22px " + MONO;
-  ctx.fillStyle = accent;
-  ctx.textAlign = "left";
-  ctx.fillText("GRACCHUS", 64, 72);
-
-  // Top-right: Q1 2026 WRAPPED
-  ctx.font = "bold 18px " + MONO;
-  ctx.fillStyle = "rgba(255,255,255,0.3)";
-  ctx.textAlign = "right";
-  ctx.fillText("Q1 2026 WRAPPED", W - 64, 72);
-  ctx.textAlign = "left";
-
-  // Bottom bar
-  ctx.fillStyle = "rgba(255,255,255,0.03)";
-  ctx.fillRect(0, H - 70, W, 70);
-
-  ctx.font = "bold 16px " + MONO;
-  ctx.fillStyle = "rgba(255,255,255,0.25)";
-  ctx.textAlign = "left";
-  ctx.fillText("GRACCHUS.AI", 64, H - 28);
-  ctx.textAlign = "right";
-  ctx.fillStyle = accent;
-  ctx.fillText("UK GOV PERFORMANCE TRACKER", W - 64, H - 28);
-  ctx.textAlign = "left";
-}
-
-function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+function wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
   var words = text.split(" ");
   var line = "";
   var lines = [];
@@ -89,6 +57,7 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
     }
   }
   if (line) lines.push(line);
+  if (maxLines) lines = lines.slice(0, maxLines);
   for (var j = 0; j < lines.length; j++) {
     ctx.fillText(lines[j], x, y + j * lineHeight);
   }
@@ -108,129 +77,127 @@ export function renderWrappedCard(slide, theme) {
   var canvas = makeCanvas();
   var ctx = canvas.getContext("2d");
   var accent = theme.accent;
-  var pad = 64;
+  var pad = 80;
   var contentW = W - pad * 2;
 
   drawGradientBg(ctx, accent);
-  drawBranding(ctx, accent);
 
-  // Decide layout: cards with big numbers vs list-only cards
+  // ── Top branding ──
+  ctx.font = "bold 24px " + MONO;
+  ctx.fillStyle = accent;
+  ctx.textAlign = "left";
+  ctx.fillText("GRACCHUS", pad, 80);
+  ctx.font = "bold 20px " + MONO;
+  ctx.fillStyle = "rgba(255,255,255,0.3)";
+  ctx.textAlign = "right";
+  ctx.fillText("Q1 2026 WRAPPED", W - pad, 80);
+  ctx.textAlign = "left";
+
+  // ── Bottom branding ──
+  ctx.fillStyle = "rgba(255,255,255,0.04)";
+  ctx.fillRect(0, H - 80, W, 80);
+  ctx.font = "bold 18px " + MONO;
+  ctx.fillStyle = "rgba(255,255,255,0.25)";
+  ctx.fillText("GRACCHUS.AI", pad, H - 32);
+  ctx.textAlign = "right";
+  ctx.fillStyle = accent;
+  ctx.fillText("UK GOV PERFORMANCE TRACKER", W - pad, H - 32);
+  ctx.textAlign = "left";
+
   var hasBigNum = !!slide.bigNumber;
   var hasList = !!slide.list;
-  var y = 120;
+  var y = 140;
 
   // ── Eyebrow ──
   if (slide.eyebrow) {
-    ctx.font = "bold 18px " + MONO;
+    ctx.font = "bold 22px " + MONO;
     ctx.fillStyle = accent;
     ctx.fillText(slide.eyebrow.toUpperCase(), pad, y);
-    y += 48;
+    y += 56;
   }
 
   // ── Headline ──
   if (slide.headline) {
-    // Shorter headlines get bigger type
-    var headSize = slide.headline.length < 40 ? 56 : 44;
-    var headLine = slide.headline.length < 40 ? 66 : 54;
-    ctx.font = "900 " + headSize + "px " + SANS;
+    var hLen = slide.headline.length;
+    var hSize = hLen < 35 ? 64 : hLen < 55 ? 52 : 44;
+    var hLead = hLen < 35 ? 76 : hLen < 55 ? 64 : 54;
+    ctx.font = "900 " + hSize + "px " + SANS;
     ctx.fillStyle = "#ffffff";
-    y = wrapText(ctx, slide.headline, pad, y, contentW, headLine);
-    y += 24;
+    y = wrapText(ctx, slide.headline, pad, y, contentW, hLead, 3);
+    y += 28;
   }
 
   // ── Big number ──
   if (hasBigNum) {
-    // Scale number size based on length
-    var numLen = slide.bigNumber.length;
-    var numSize = numLen <= 6 ? 140 : numLen <= 9 ? 110 : 88;
-    ctx.font = "900 " + numSize + "px " + SANS;
+    var nLen = slide.bigNumber.length;
+    var nSize = nLen <= 6 ? 160 : nLen <= 9 ? 120 : 96;
+    ctx.font = "900 " + nSize + "px " + SANS;
     ctx.fillStyle = accent;
-    ctx.fillText(slide.bigNumber, pad, y + numSize * 0.82);
-    y += numSize + 12;
+    ctx.fillText(slide.bigNumber, pad, y + nSize * 0.8);
+    y += nSize + 16;
 
     if (slide.bigNumberSuffix) {
-      ctx.font = "600 28px " + SANS;
+      ctx.font = "600 32px " + SANS;
       ctx.fillStyle = "rgba(255,255,255,0.6)";
-      y = wrapText(ctx, slide.bigNumberSuffix, pad, y, contentW, 36);
-      y += 16;
+      y = wrapText(ctx, slide.bigNumberSuffix, pad, y, contentW, 42, 2);
+      y += 24;
     }
   }
 
-  // ── Subline (only if no list, or short subline) ──
-  if (slide.subline && (!hasList || slide.subline.length < 80)) {
-    ctx.font = "500 24px " + SANS;
+  // ── Subline ──
+  if (slide.subline && (!hasList || slide.subline.length < 100)) {
+    ctx.font = "500 28px " + SANS;
     ctx.fillStyle = "rgba(255,255,255,0.5)";
-    // Limit to 3 lines max on share card
-    var subWords = slide.subline.split(" ");
-    var subLine = "";
-    var subLines = [];
-    for (var sw = 0; sw < subWords.length; sw++) {
-      var subTest = subLine + (subLine ? " " : "") + subWords[sw];
-      if (ctx.measureText(subTest).width > contentW) {
-        subLines.push(subLine);
-        subLine = subWords[sw];
-      } else {
-        subLine = subTest;
-      }
-    }
-    if (subLine) subLines.push(subLine);
-    subLines = subLines.slice(0, 3);
-    for (var sl = 0; sl < subLines.length; sl++) {
-      ctx.fillText(subLines[sl], pad, y + sl * 32);
-    }
-    y += subLines.length * 32 + 16;
+    y = wrapText(ctx, slide.subline, pad, y, contentW, 38, 3);
+    y += 20;
   }
 
   // ── List ──
   if (hasList) {
-    y += 8;
+    y += 12;
     if (slide.listTitle) {
-      ctx.font = "bold 16px " + MONO;
+      ctx.font = "bold 20px " + MONO;
       ctx.fillStyle = "rgba(255,255,255,0.3)";
       ctx.fillText(slide.listTitle.toUpperCase(), pad, y);
-      y += 36;
+      y += 40;
     }
 
-    // How many items fit? Calculate remaining space
-    var bottomReserved = 90; // branding bar
+    var bottomReserved = 100;
     var remainingH = H - y - bottomReserved;
-    var itemH = 52;
+    var itemH = 56;
     var maxItems = Math.min(slide.list.length, 5, Math.floor(remainingH / itemH));
 
     for (var li = 0; li < maxItems; li++) {
       var item = slide.list[li];
 
-      // Separator line
       ctx.fillStyle = "rgba(255,255,255,0.08)";
       ctx.fillRect(pad, y, contentW, 1);
-      y += 6;
+      y += 8;
 
-      // Label — left
-      ctx.font = "600 26px " + SANS;
+      ctx.font = "600 28px " + SANS;
       ctx.fillStyle = "rgba(255,255,255,0.85)";
       ctx.textAlign = "left";
-      ctx.fillText(truncText(ctx, item.label, contentW - 220), pad, y + 30);
+      ctx.fillText(truncText(ctx, item.label, contentW - 240), pad, y + 32);
 
-      // Value — right
-      ctx.font = "bold 26px " + SANS;
+      ctx.font = "bold 28px " + SANS;
       ctx.fillStyle = accent;
       ctx.textAlign = "right";
-      ctx.fillText(item.value, W - pad, y + 30);
+      ctx.fillText(item.value, W - pad, y + 32);
       ctx.textAlign = "left";
 
       y += itemH;
     }
   }
 
-  // ── Detail (only for slides without lists) ──
+  // ── Detail (no-list slides only) ──
   if (slide.detail && !hasList) {
-    y += 8;
+    y += 12;
     var rgb = hexToRgb(accent);
     ctx.fillStyle = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.35)";
-    ctx.fillRect(pad, y, 4, 72);
-    ctx.font = "500 22px " + SANS;
-    ctx.fillStyle = "rgba(255,255,255,0.45)";
-    wrapText(ctx, slide.detail, pad + 20, y + 22, contentW - 24, 30);
+    ctx.fillRect(pad, y, 4, 80);
+    ctx.font = "500 26px " + SANS;
+    ctx.fillStyle = "rgba(255,255,255,0.5)";
+    wrapText(ctx, slide.detail, pad + 24, y + 28, contentW - 28, 36, 3);
   }
 
   return canvas.toDataURL("image/png");
