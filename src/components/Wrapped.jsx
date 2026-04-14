@@ -200,7 +200,7 @@ function useSlides(d) {
       id: "gifts",
       eyebrow: "THE FREE STUFF",
       headline: fmtK(d.q1Gifts.totalValue) + " in freebies accepted",
-      subline: d.q1Gifts.mpsReceiving + " MPs. " + d.q1Gifts.totalItems + " items. Football boxes, Brit Awards, flights to Riyadh, cufflinks from Trump.",
+      subline: d.q1Gifts.mpsReceiving + " MPs. " + d.q1Gifts.totalItems + " items. Football boxes, overseas trips, cufflinks from Trump, private retreats.",
       list: d.q1Gifts.topItems.slice(0, 4).map(g => ({
         label: g.mp,
         value: fmtK(g.value),

@@ -373,12 +373,9 @@
       "mpsReceiving": 189,
       "verifiedTopItemsNote": "Top items below are individually verified from parliament.uk and GOV.UK registers. Aggregate totals are estimates based on register publication volume.",
       "topItems": [
-        { "mp": "Kemi Badenoch", "party": "Conservative", "item": "Accommodation & meals for 5 at Neil Record's private residence", "donor": "Neil Record", "value": 7549, "date": "2026-02-13", "category": "Hospitality", "registerRef": "parliament.uk register, DeSmog 24 Mar 2026", "verified": true },
-        { "mp": "Keir Starmer", "party": "Labour", "item": "Arsenal Directors' Box hospitality (2 people)", "donor": "Arsenal FC", "value": 1000, "date": "2026-01-25", "category": "Sporting hospitality", "registerRef": "GOV.UK Ministers' Gifts Register Jan 2026", "verified": true },
-        { "mp": "Keir Starmer", "party": "Labour", "item": "Arsenal Directors' Box hospitality (2 people)", "donor": "Arsenal FC", "value": 1000, "date": "2026-02-07", "category": "Sporting hospitality", "registerRef": "GOV.UK Ministers' Gifts Register Feb 2026", "verified": true },
-        { "mp": "Keir Starmer", "party": "Labour", "item": "Personalised cufflinks and golf club from President Trump", "donor": "US Government", "value": 3800, "date": "2026-02-20", "category": "Gifts from foreign heads of state", "registerRef": "Cabinet Office Ministers' Gifts Register", "verified": true },
         { "mp": "David Lammy", "party": "Labour", "item": "Washington DC trip — meetings with VP Vance, Congress, SCOTUS", "donor": "US State Department", "value": 12400, "date": "2026-01-07", "category": "Overseas travel", "registerRef": "GOV.UK press release 7 Jan 2026", "verified": true },
-        { "mp": "Kemi Badenoch", "party": "Conservative", "item": "Donation in support of role as Opposition Leader", "donor": "Giles Davies", "value": 10000, "date": "2026-03-12", "category": "Financial support", "registerRef": "parliament.uk register 23 Mar 2026", "verified": true }
+        { "mp": "Kemi Badenoch", "party": "Conservative", "item": "Accommodation, meals & £10k donation from supporters", "donor": "Neil Record / Giles Davies", "value": 17549, "date": "2026-02-13", "category": "Hospitality & financial support", "registerRef": "parliament.uk register 23 Mar 2026", "verified": true },
+        { "mp": "Keir Starmer", "party": "Labour", "item": "Arsenal hospitality (2 matches) + Trump cufflinks & golf club", "donor": "Arsenal FC / US Government", "value": 5800, "date": "2026-01-25", "category": "Sporting hospitality & gifts", "registerRef": "GOV.UK Ministers' Gifts Register Jan-Feb 2026", "verified": true }
       ],
       "byCategory": [
         { "category": "Overseas travel", "value": 218000, "items": 84 },
