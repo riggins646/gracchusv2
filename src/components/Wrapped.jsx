@@ -58,8 +58,8 @@ function useWrappedData() {
     const cpiPct = costOfLivingData.headline.cpiPct;
     const petrol = costOfLivingData.headline.petrolPenceLitre;
     const diesel = costOfLivingData.headline.dieselPenceLitre;
-    const energyCap = costOfLivingData.headline.energyCapGBP;
-    const rentPct = costOfLivingData.headline.avgRentChangePct;
+    const energyCap = costOfLivingData.headline.energyCapGbp;
+    const avgRentGbp = costOfLivingData.headline.avgRentGbp;
     const realWages = costOfLivingData.headline.realWageGrowthPct;
 
     // ─── SLIDE 3: Debt Interest ───
@@ -71,9 +71,9 @@ function useWrappedData() {
 
     // ─── SLIDE 4: Benefits Bill ───
     const welfareBrkdn = spendingData.welfareBreakdown;
-    const welfareTotal = welfareBrkdn.reduce((s, w) => s + w.amount, 0);
+    const welfareTotal = welfareBrkdn.reduce((s, w) => s + (w.value || w.amount || 0), 0);
     const quarterWelfare = welfareTotal / 4;
-    const topBenefits = [...welfareBrkdn].sort((a, b) => b.amount - a.amount).slice(0, 5);
+    const topBenefits = [...welfareBrkdn].sort((a, b) => (b.value || b.amount || 0) - (a.value || a.amount || 0)).slice(0, 5);
 
     // ─── SLIDE 5: Where Tax Went (dept spending) ───
     const depts = [...deptSpendingData.departments].sort((a, b) => b.spend - a.spend).slice(0, 6);
@@ -97,13 +97,14 @@ function useWrappedData() {
     const perTaxpayer = Math.round((quarterSpend * 1000000000) / UK_TAXPAYERS);
     const perTaxpayerDebt = Math.round((quarterDebtInterest * 1000000000) / UK_TAXPAYERS);
     const perTaxpayerWelfare = Math.round((quarterWelfare * 1000000000) / UK_TAXPAYERS);
-    const perTaxpayerNHS = Math.round((depts.find(d => d.short === "DHSC")?.spend || 202) / 4 * 1000000000 / UK_TAXPAYERS);
-    const perTaxpayerDefence = Math.round((depts.find(d => d.short === "MOD")?.spend || 39) / 4 * 1000000000 / UK_TAXPAYERS);
+    const allDepts = deptSpendingData.departments;
+    const perTaxpayerNHS = Math.round((allDepts.find(d => d.short === "DHSC")?.spend || 202) / 4 * 1000000000 / UK_TAXPAYERS);
+    const perTaxpayerDefence = Math.round((allDepts.find(d => d.short === "MoD")?.spend || 39) / 4 * 1000000000 / UK_TAXPAYERS);
     const mpSalaryPerTaxpayer = Math.round((650 * 98599 / 4) / UK_TAXPAYERS * 100) / 100;
 
     return {
       quarterSpend, annualSpend,
-      cpiPct, petrol, diesel, energyCap, rentPct, realWages,
+      cpiPct, petrol, diesel, energyCap, avgRentGbp, realWages,
       annualDebtInterest, quarterDebtInterest, dailyDebtInterest, debtPctGDP,
       welfareTotal, quarterWelfare, topBenefits,
       depts,
@@ -139,8 +140,8 @@ function useSlides(d) {
       list: [
         { label: "Petrol", value: d.petrol + "p/L" },
         { label: "Diesel", value: d.diesel + "p/L" },
-        { label: "Energy cap (annual)", value: "\u00a3" + d.energyCap.toLocaleString() },
-        { label: "Average rent change", value: (d.rentPct > 0 ? "+" : "") + d.rentPct + "%" },
+        { label: "Energy cap (annual)", value: "\u00a3" + (d.energyCap || 0).toLocaleString() },
+        { label: "Average monthly rent", value: "\u00a3" + (d.avgRentGbp || 0).toLocaleString() },
         { label: "Real wage growth", value: (d.realWages > 0 ? "+" : "") + d.realWages + "%" },
       ],
       footer: "Source: ONS CPI, DESNZ, Ofgem",
@@ -166,8 +167,8 @@ function useSlides(d) {
       bigNumber: "\u00a3" + d.quarterWelfare.toFixed(0) + "bn",
       subline: "Annual welfare bill: \u00a3" + d.welfareTotal.toFixed(0) + "bn — the single biggest line in the budget.",
       list: d.topBenefits.map(b => ({
-        label: b.category,
-        value: "\u00a3" + (b.amount / 4).toFixed(1) + "bn/qtr",
+        label: b.name || b.category,
+        value: "\u00a3" + ((b.value || b.amount || 0) / 4).toFixed(1) + "bn/qtr",
       })),
       listTitle: "Biggest categories (quarterly rate)",
       footer: "Source: DWP Benefit Expenditure Tables 2025",
