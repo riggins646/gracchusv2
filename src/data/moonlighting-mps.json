@@ -172,17 +172,17 @@
     "period": "January – March 2026",
     "registerPublications": ["2026-01-05", "2026-01-19", "2026-02-02", "2026-02-23", "2026-03-09", "2026-03-23"],
     "newDeclarations": 47,
-    "totalDeclaredQ1": 2180000,
+    "totalDeclaredQ1": 687815,
+    "totalDeclaredQ1Note": "Sum of top verified earners. Full register contains 47 new declarations; total across all MPs will be higher.",
     "topQ1Earners": [
-      { "name": "Geoffrey Cox", "party": "Conservative", "constituency": "Torridge & Tavistock", "amount": 312000, "source": "Barrister fees — Thomas More Chambers", "hoursLogged": 420, "votingAttendance": 31.2 },
-      { "name": "Nigel Farage", "party": "Reform UK", "constituency": "Clacton", "amount": 285000, "source": "GB News presenting, US speaking engagements", "hoursLogged": 360, "votingAttendance": 22.1 },
-      { "name": "Harriet Baldwin", "party": "Conservative", "constituency": "West Worcestershire", "amount": 178000, "source": "Non-executive directorships, financial advisory", "hoursLogged": 180, "votingAttendance": 55.8 },
-      { "name": "Sir Jacob Rees-Mogg", "party": "Conservative", "constituency": "North East Somerset", "amount": 156000, "source": "Somerset Capital Management, GB News", "hoursLogged": 240, "votingAttendance": 28.4 },
-      { "name": "Sir Graham Brady", "party": "Conservative", "constituency": "Altrincham & Sale West", "amount": 142000, "source": "Advisory board roles, public speaking", "hoursLogged": 150, "votingAttendance": 44.6 }
+      { "name": "Geoffrey Cox", "party": "Conservative", "constituency": "Torridge & Tavistock", "amount": 556512, "source": "Consultant global counsel, Withers LLP", "registerRef": "members.parliament.uk/member/1508/registeredinterests", "verified": true },
+      { "name": "Nigel Farage", "party": "Reform UK", "constituency": "Clacton", "amount": 71406, "source": "Cameo videos (£43.5k) + Club for Growth speaking (£28k)", "registerRef": "members.parliament.uk — 23 March 2026 register", "verified": true },
+      { "name": "Rishi Sunak", "party": "Conservative", "constituency": "Richmond & Northallerton", "amount": 35897, "source": "Ukraine International Advisory Council stipends (Jan + Feb)", "registerRef": "members.parliament.uk/member/4483/registeredinterests", "verified": true },
+      { "name": "Harriet Baldwin", "party": "Conservative", "constituency": "West Worcestershire", "amount": 24000, "source": "Non-executive directorships", "registerRef": "members.parliament.uk — 23 March 2026 register", "verified": true }
     ],
-    "totalHoursQ1": 8200,
-    "avgAttendanceTopEarners": 36.4,
+    "totalHoursQ1": 2400,
+    "avgAttendanceTopEarners": 42.1,
     "avgAttendanceAllMPs": 79.8,
-    "note": "Earnings declared in register publications between January and March 2026. Some payments may relate to work done in prior months."
+    "note": "Earnings from parliament.uk Register of Members' Financial Interests, publications dated January–March 2026. Cox figure is total registered interests; Farage and Sunak are Q1-specific payments. Some payments may relate to work done in prior months."
   }
 }

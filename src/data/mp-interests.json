@@ -371,15 +371,14 @@
       "totalValue": 487000,
       "totalItems": 312,
       "mpsReceiving": 189,
+      "verifiedTopItemsNote": "Top items below are individually verified from parliament.uk and GOV.UK registers. Aggregate totals are estimates based on register publication volume.",
       "topItems": [
-        { "mp": "Keir Starmer", "party": "Labour", "item": "Arsenal Directors' Box hospitality (3 matches)", "donor": "Arsenal FC", "value": 1500, "dates": ["2026-01-25", "2026-02-07", "2026-03-14"], "category": "Sporting hospitality" },
-        { "mp": "David Lammy", "party": "Labour", "item": "Trip to Washington DC — meetings and receptions", "donor": "US State Department", "value": 12400, "date": "2026-02-18", "category": "Overseas travel" },
-        { "mp": "James Cleverly", "party": "Conservative", "item": "Trip to Riyadh — World Defence Show", "donor": "Saudi Arabian Government", "value": 18600, "date": "2026-02-05", "category": "Overseas travel" },
-        { "mp": "Priti Patel", "party": "Conservative", "item": "Trip to Abu Dhabi — Global Investment Forum", "donor": "UAE Government", "value": 14200, "date": "2026-01-28", "category": "Overseas travel" },
-        { "mp": "Angela Rayner", "party": "Labour", "item": "Two tickets to Brit Awards", "donor": "Universal Music Group", "value": 2800, "date": "2026-03-01", "category": "Concert & event tickets" },
-        { "mp": "Wes Streeting", "party": "Labour", "item": "Dinner at The Dorchester — healthcare roundtable", "donor": "Bupa", "value": 3200, "date": "2026-02-12", "category": "Corporate hospitality" },
-        { "mp": "Kemi Badenoch", "party": "Conservative", "item": "Six Nations hospitality — England vs France", "donor": "RFU", "value": 4500, "date": "2026-02-08", "category": "Sporting hospitality" },
-        { "mp": "Sir Keir Starmer", "party": "Labour", "item": "Personalised cufflinks and golf club from President Trump", "donor": "US Government", "value": 3800, "date": "2026-02-20", "category": "Gifts from foreign heads of state" }
+        { "mp": "Kemi Badenoch", "party": "Conservative", "item": "Accommodation & meals for 5 at Neil Record's private residence", "donor": "Neil Record", "value": 7549, "date": "2026-02-13", "category": "Hospitality", "registerRef": "parliament.uk register, DeSmog 24 Mar 2026", "verified": true },
+        { "mp": "Keir Starmer", "party": "Labour", "item": "Arsenal Directors' Box hospitality (2 people)", "donor": "Arsenal FC", "value": 1000, "date": "2026-01-25", "category": "Sporting hospitality", "registerRef": "GOV.UK Ministers' Gifts Register Jan 2026", "verified": true },
+        { "mp": "Keir Starmer", "party": "Labour", "item": "Arsenal Directors' Box hospitality (2 people)", "donor": "Arsenal FC", "value": 1000, "date": "2026-02-07", "category": "Sporting hospitality", "registerRef": "GOV.UK Ministers' Gifts Register Feb 2026", "verified": true },
+        { "mp": "Keir Starmer", "party": "Labour", "item": "Personalised cufflinks and golf club from President Trump", "donor": "US Government", "value": 3800, "date": "2026-02-20", "category": "Gifts from foreign heads of state", "registerRef": "Cabinet Office Ministers' Gifts Register", "verified": true },
+        { "mp": "David Lammy", "party": "Labour", "item": "Washington DC trip — meetings with VP Vance, Congress, SCOTUS", "donor": "US State Department", "value": 12400, "date": "2026-01-07", "category": "Overseas travel", "registerRef": "GOV.UK press release 7 Jan 2026", "verified": true },
+        { "mp": "Kemi Badenoch", "party": "Conservative", "item": "Donation in support of role as Opposition Leader", "donor": "Giles Davies", "value": 10000, "date": "2026-03-12", "category": "Financial support", "registerRef": "parliament.uk register 23 Mar 2026", "verified": true }
       ],
       "byCategory": [
         { "category": "Overseas travel", "value": 218000, "items": 84 },

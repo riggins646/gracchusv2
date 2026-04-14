@@ -8,7 +8,6 @@ import spendingData from "../data/spending.json";
 import costOfLivingData from "../data/cost-of-living.json";
 import moonlightingData from "../data/moonlighting-mps.json";
 import mpInterestsData from "../data/mp-interests.json";
-import projectsData from "../data/projects.json";
 import { renderWrappedCard } from "../lib/wrapped-cards";
 
 /* =========================================================
@@ -84,12 +83,7 @@ function useWrappedData() {
     const q1Gifts = mpInterestsData.q1_2026.giftsAndHospitality;
 
     // ─── SLIDE 8: Political Donations (Q1 specific) ───
-    // ─── SLIDE 7: Cancellation Graveyard ───
-    const cancelled = projectsData.filter(p => p.status === "Cancelled");
-    const totalCancelledWaste = cancelled.reduce((s, p) => s + p.latestBudget, 0);
-    const topCancelled = [...cancelled].sort((a, b) => b.latestBudget - a.latestBudget).slice(0, 5);
-
-    // ─── SLIDE 10: Personal receipt ───
+    // ─── SLIDE 7: Personal receipt ───
     const perTaxpayer = Math.round((quarterSpend * 1000000000) / UK_TAXPAYERS);
     const perTaxpayerDebt = Math.round((quarterDebtInterest * 1000000000) / UK_TAXPAYERS);
     const perTaxpayerWelfare = Math.round((quarterWelfare * 1000000000) / UK_TAXPAYERS);
@@ -106,7 +100,6 @@ function useWrappedData() {
       depts,
       q1MPs,
       q1Gifts,
-      cancelled, totalCancelledWaste, topCancelled,
       perTaxpayer, perTaxpayerDebt, perTaxpayerWelfare, perTaxpayerNHS, perTaxpayerDefence, mpSalaryPerTaxpayer,
     };
   }, []);
@@ -216,21 +209,7 @@ function useSlides(d) {
       footer: "Source: Parliament Register",
     },
 
-    // SLIDE 7: Cancellation Graveyard
-    {
-      id: "cancelled",
-      eyebrow: "THE SKIP BUTTON",
-      headline: fmt(d.totalCancelledWaste) + " wasted on cancelled projects",
-      bigNumberSuffix: d.cancelled.length + " projects. " + Math.round(d.totalCancelledWaste * 1000000 / 35000).toLocaleString() + " nurses\u2019 worth. Gone.",
-      list: d.topCancelled.slice(0, 4).map(p => ({
-        label: p.name,
-        value: fmt(p.latestBudget),
-      })),
-      listTitle: "The biggest write-offs",
-      footer: "Source: NAO, IPA",
-    },
-
-    // SLIDE 8: Your Personal Q1 Receipt
+    // SLIDE 7: Your Personal Q1 Receipt
     {
       id: "receipt",
       eyebrow: "YOUR Q1 RECEIPT",
@@ -245,7 +224,7 @@ function useSlides(d) {
         { label: "MPs\u2019 salaries", value: "\u00a3" + d.mpSalaryPerTaxpayer.toFixed(2) },
       ],
       listTitle: "Where your money went",
-      detail: "Meanwhile, the top 5 side-hustling MPs earned " + fmtK(d.q1MPs.totalDeclaredQ1) + " on top of their salary \u2014 while voting less than half the time. See you next quarter.",
+      detail: "Meanwhile, the top side-hustling MPs earned " + fmtK(d.q1MPs.totalDeclaredQ1) + " on top of their salary \u2014 while voting less than half the time. See you next quarter.",
       footer: "Based on " + (UK_TAXPAYERS / 1000000).toFixed(1) + "m UK income taxpayers",
     },
   ], [d]);
