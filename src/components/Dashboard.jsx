@@ -4701,35 +4701,49 @@ function slugToView(s) { return SLUG_TO_VIEW[s] ?? s; }
 
 export default function App() {
   const [view, setViewRaw] = useState(() => {
-    if (typeof window !== "undefined" && window.location.hash) {
+    if (typeof window === "undefined") return "overview";
+    // Read from pathname first (clean URLs), fall back to hash (legacy)
+    const path = window.location.pathname.slice(1); // remove leading /
+    if (path && path !== "") {
+      const fromPath = slugToView(path);
+      if (fromPath && fromPath !== path) return fromPath; // matched a known slug
+      if (SLUG_TO_VIEW[path]) return SLUG_TO_VIEW[path];
+    }
+    // Legacy hash support
+    if (window.location.hash) {
       const slug = window.location.hash.slice(1);
-      return slugToView(slug) || "overview";
+      const target = slugToView(slug);
+      // Redirect hash URL to clean URL
+      const cleanPath = "/" + (viewToSlug(target) || "");
+      window.history.replaceState(null, "", cleanPath);
+      return target || "overview";
     }
     return "overview";
   });
 
-  // Wrap setView to also update the URL hash
+  // Wrap setView to update the URL with clean paths
   const setView = useCallback((v) => {
     setViewRaw(v);
     const slug = viewToSlug(v);
-    const newHash = slug ? "#" + slug : "";
-    if (typeof window !== "undefined") {
-      const current = window.location.hash || "";
-      if (current !== newHash && current !== "#" + slug) {
-        window.history.pushState(null, "", newHash || window.location.pathname);
-      }
+    const newPath = slug ? "/" + slug : "/";
+    if (typeof window !== "undefined" && window.location.pathname !== newPath) {
+      window.history.pushState(null, "", newPath);
     }
   }, []);
 
-  // Listen for browser back/forward
+  // Listen for browser back/forward (popstate)
   useEffect(() => {
-    const onHashChange = () => {
-      const slug = window.location.hash.slice(1);
-      const target = slug ? slugToView(slug) : "overview";
-      setViewRaw(target);
+    const onPopState = () => {
+      const path = window.location.pathname.slice(1);
+      if (path) {
+        const target = slugToView(path);
+        setViewRaw(target || "overview");
+      } else {
+        setViewRaw("overview");
+      }
     };
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
   }, []);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);

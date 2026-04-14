@@ -5,6 +5,20 @@ const nextConfig = {
   // Explicitly disable source maps in production builds
   productionBrowserSourceMaps: false,
 
+  // ── Clean URL rewrites ───────────────────────────────────────────
+  // Single-segment paths that don't match existing routes (about, api, share,
+  // _next, static files) get rewritten to / so Dashboard can handle them.
+  async rewrites() {
+    return {
+      afterFiles: [
+        {
+          source: "/:slug((?!api|about|share|_next|data|favicon|gracchus|robots).*)",
+          destination: "/",
+        },
+      ],
+    };
+  },
+
   // ── Security Headers ──────────────────────────────────────────────
   async headers() {
     return [
