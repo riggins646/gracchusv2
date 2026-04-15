@@ -24,10 +24,11 @@
       "connectionType": "Peer / House of Lords",
       "competitive": false,
       "vipLane": true,
-      "outcome": "Court ordered 122m repayment Oct 2025. Gowns failed sterilisation. Company entered insolvency.",
+      "outcome": "Court ordered £122m repayment Oct 2025. Gowns failed sterilisation. Company wound up Dec 2025 with £148m owed to government. Only ~£600k available for unsecured creditors. HMRC separately owed ~£39m. Recovery of taxpayer funds considered unlikely.",
       "severity": "critical",
       "era": "COVID",
-      "source": "https://goodlawproject.org/ppe-medpro-must-repay-122m-for-breach-of-contract/"
+      "source": "https://goodlawproject.org/ppe-medpro-must-repay-122m-for-breach-of-contract/",
+      "lastUpdated": "2026-04-15"
     },
     {
       "id": "CR-002",
