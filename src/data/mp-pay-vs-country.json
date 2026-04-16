@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "MPs' Pay vs the Country",
-    "compiled": "2026-04-09",
+    "compiled": "2026-04-16",
     "sources": [
       "IPSA (Independent Parliamentary Standards Authority)",
       "ONS Annual Survey of Hours and Earnings (ASHE) Table 1 & Table 13",
@@ -46,7 +46,7 @@
       "uk_median": 20870,
       "private_median": 20250,
       "pay_gap": 35488,
-      "mp_multiple": 2.70
+      "mp_multiple": 2.7
     },
     {
       "year": 2004,
@@ -78,7 +78,7 @@
       "uk_median": 23806,
       "private_median": 23090,
       "pay_gap": 38014,
-      "mp_multiple": 2.60
+      "mp_multiple": 2.6
     },
     {
       "year": 2008,
@@ -182,7 +182,7 @@
       "uk_median": 31487,
       "private_median": 30540,
       "pay_gap": 50445,
-      "mp_multiple": 2.60
+      "mp_multiple": 2.6
     },
     {
       "year": 2021,
@@ -223,6 +223,15 @@
       "private_median": 38720,
       "pay_gap": 54865,
       "mp_multiple": 2.41
+    },
+    {
+      "year": 2026,
+      "mp_salary": 98599,
+      "uk_median": 39039,
+      "private_median": 38720,
+      "pay_gap": 59560,
+      "mp_multiple": 2.53,
+      "note": "MP salary confirmed by IPSA (1.5pct adj + 3.5pct CoL). Median earnings still 2025 ASHE; 2026 ASHE due October 2026."
     }
   ],
   "mpCosts": [

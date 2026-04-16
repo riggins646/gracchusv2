@@ -1,13 +1,13 @@
 {
   "metadata": {
     "title": "Economic Output",
-    "lastUpdated": "2026-03",
+    "lastUpdated": "2026-04",
     "description": "UK macro-economic performance metrics."
   },
   "headline": {
     "gdpBnGbp": 2560,
     "gdpGrowthQoQ": 0.1,
-    "gdpGrowthYoY": 1.0,
+    "gdpGrowthYoY": 0.8,
     "gdpPerCapitaPPP": 52518,
     "mfgPmi": 51.4,
     "svcPmi": 51.2,
