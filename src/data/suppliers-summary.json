@@ -554,5 +554,20 @@
     "projects": [],
     "notes": "DLIS digital logistics for MOD (\u00a3113m, Feb 2026, joint with Accenture as Digital Allies consortium). Part of BMfS programme.",
     "strategicSupplier": false
+  },
+  {
+    "name": "Boeing Defence UK",
+    "contractCount": 1,
+    "totalValue": 879000000,
+    "annualGovSpend": null,
+    "sector": "Defence",
+    "departments": [
+      "Ministry of Defence"
+    ],
+    "projects": [
+      "Apache / Chinook In-Service Support (Rotary Wing Enterprise)"
+    ],
+    "notes": "\u00a3879m 3-year integrated in-service support contract for British Army AH-64E Apache and RAF CH-47 Chinook fleets. Awarded 15 April 2026. First time both rotary fleets unified under a single contract. Supports 700+ Boeing UK jobs and 500 supply chain jobs.",
+    "strategicSupplier": false
   }
 ]

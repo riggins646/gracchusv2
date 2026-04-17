@@ -1286,5 +1286,24 @@
     "competitive": true,
     "duration": "Multi-year (BMfS programme)",
     "source": "https://www.gov.uk/government/news/final-piece-in-place-for-defence-support-transformation"
+  },
+  {
+    "id": "DEF-019",
+    "title": "Apache & Chinook In-Service Support (Rotary Wing Enterprise)",
+    "description": "3-year integrated in-service support contract for British Army AH-64E Apache and RAF CH-47 Chinook helicopter fleets. First time both rotary fleets unified under single contract. Covers aircraft support, maintenance, supply chain management, training and integration. Supports 700+ Boeing UK jobs and 500 supply chain jobs across Middle Wallop, Wattisham, Odiham, Bristol, Gosport, Yeovil and Almondbank.",
+    "buyer": "Ministry of Defence",
+    "status": "active",
+    "awardDate": "2026-04",
+    "value": 879000000,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "Boeing Defence UK"
+      }
+    ],
+    "category": "defence",
+    "competitive": false,
+    "duration": "3 years",
+    "source": "https://des.mod.uk/879m-apache-and-chinook-helicopters-contract-supports-more-than-1-200-uk-jobs/"
   }
 ]

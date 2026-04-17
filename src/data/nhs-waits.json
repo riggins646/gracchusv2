@@ -1,22 +1,22 @@
 {
   "metadata": {
     "title": "NHS Waiting Times Explorer",
-    "lastUpdated": "2026-04-13",
+    "lastUpdated": "2026-04-17",
     "source": "NHS England RTT Statistics, BMA, King's Fund",
-    "period": "January 2026 (latest available)"
+    "period": "February 2026 (latest available)"
   },
   "contextSentences": {
-    "headline": "7.25 million people waiting for NHS treatment — the longest queues in history.",
+    "headline": "7.22 million people waiting for NHS treatment — down for the fourth consecutive month.",
     "subtext": "Select your region and condition to see how long you'd wait."
   },
   "keyStats": {
-    "totalWaiting": 7250000,
-    "individualPatients": 6130000,
-    "medianWaitWeeks": 14.2,
+    "totalWaiting": 7220000,
+    "individualPatients": 6100000,
+    "medianWaitWeeks": 13.2,
     "medianWait2019": 7.8,
-    "pctWithin18Weeks": 60.6,
+    "pctWithin18Weeks": 62.6,
     "target18Weeks": 92,
-    "pctOver52Weeks": 1.95,
+    "pctOver52Weeks": 1.70,
     "treatmentsDelivered2025": 18400000,
     "longestSpecialtyWait": "Trauma & Orthopaedics"
   },
@@ -196,12 +196,12 @@
     { "start": 2024, "end": 2026, "party": "Labour", "color": "#DC241f" }
   ],
   "waitBands": {
-    "description": "Breakdown of 7.25M patients by wait duration",
+    "description": "Breakdown of 7.22M patients by wait duration (February 2026)",
     "bands": [
-      { "label": "0–18 weeks", "count": 4393500, "pct": 60.6, "color": "#10b981" },
-      { "label": "18–36 weeks", "count": 1740000, "pct": 24.0, "color": "#f59e0b" },
-      { "label": "36–52 weeks", "count": 975000, "pct": 13.4, "color": "#ef4444" },
-      { "label": "52+ weeks", "count": 141375, "pct": 1.95, "color": "#7c3aed" }
+      { "label": "0–18 weeks", "count": 4519720, "pct": 62.6, "color": "#10b981" },
+      { "label": "18–36 weeks", "count": 1660600, "pct": 23.0, "color": "#f59e0b" },
+      { "label": "36–52 weeks", "count": 917012, "pct": 12.7, "color": "#ef4444" },
+      { "label": "52+ weeks", "count": 122668, "pct": 1.70, "color": "#7c3aed" }
     ]
   }
 }
