@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Cost of Living",
-    "lastUpdated": "2026-04-17",
+    "lastUpdated": "2026-04-19",
     "description": "UK cost of living indicators: inflation, wages, housing, energy, food and transport."
   },
   "headline": {
@@ -561,7 +561,7 @@
       ]
     },
     "housePrice": {
-      "source": "ONS House Price Index (average price, \u00a3k)",
+      "source": "ONS House Price Index (average price, £k)",
       "data": [
         {
           "year": 2000,
@@ -816,7 +816,7 @@
       ]
     },
     "basketItems": {
-      "source": "ONS / Kantar Worldpanel (typical monthly household spend, \u00a3)",
+      "source": "ONS / Kantar Worldpanel (typical monthly household spend, £)",
       "data": [
         {
           "item": "Bread & cereals",
@@ -853,9 +853,9 @@
   },
   "transport": {
     "currentPrice": {
-      "petrolPence": 158.2,
-      "dieselPence": 191.1,
-      "lastUpdated": "2026-04-17",
+      "petrolPence": 157.9,
+      "dieselPence": 190.8,
+      "lastUpdated": "2026-04-19",
       "sourceName": "DESNZ Weekly Road Fuel Prices",
       "sourceUrl": "https://www.gov.uk/government/statistics/weekly-road-fuel-prices",
       "sourceConfidence": "high",
@@ -869,44 +869,206 @@
       "updateFrequency": "weekly",
       "methodologyNote": "UK national weighted average unleaded petrol pump price (pence per litre), from the DESNZ weekly road fuel price series. Weekly data from CMA mandatory reporting covering major retailers (~90% of retail volume).",
       "data": [
-        { "m": "Jan 2021", "v": 117.5, "freq": "monthly" },
-        { "m": "Apr 2021", "v": 125.5, "freq": "monthly" },
-        { "m": "Jul 2021", "v": 131.2, "freq": "monthly" },
-        { "m": "Oct 2021", "v": 140.8, "freq": "monthly" },
-        { "m": "Jan 2022", "v": 148.0, "freq": "monthly" },
-        { "m": "Mar 2022", "v": 163.5, "freq": "monthly" },
-        { "m": "Jun 2022", "v": 185.2, "freq": "monthly" },
-        { "m": "Jul 2022", "v": 191.5, "freq": "monthly" },
-        { "m": "Oct 2022", "v": 165.0, "freq": "monthly" },
-        { "m": "Jan 2023", "v": 152.0, "freq": "monthly" },
-        { "m": "Apr 2023", "v": 148.5, "freq": "monthly" },
-        { "m": "Jul 2023", "v": 146.0, "freq": "monthly" },
-        { "m": "Oct 2023", "v": 155.0, "freq": "monthly" },
-        { "m": "Jan 2024", "v": 142.5, "freq": "monthly" },
-        { "m": "Apr 2024", "v": 148.2, "freq": "monthly" },
-        { "m": "Jul 2024", "v": 145.8, "freq": "monthly" },
-        { "m": "Oct 2024", "v": 137.2, "freq": "monthly" },
-        { "m": "Jan 2025", "v": 136.5, "freq": "monthly" },
-        { "m": "Apr 2025", "v": 134.8, "freq": "monthly" },
-        { "m": "Jul 2025", "v": 134.0, "freq": "monthly" },
-        { "m": "Oct 2025", "v": 133.5, "freq": "monthly" },
-        { "m": "Jan 2026", "v": 136.5, "freq": "monthly" },
-        { "m": "03 Feb 2026", "v": 136.2, "freq": "weekly" },
-        { "m": "10 Feb 2026", "v": 136.8, "freq": "weekly" },
-        { "m": "17 Feb 2026", "v": 137.1, "freq": "weekly" },
-        { "m": "24 Feb 2026", "v": 137.5, "freq": "weekly" },
-        { "m": "03 Mar 2026", "v": 140.8, "freq": "weekly" },
-        { "m": "10 Mar 2026", "v": 144.2, "freq": "weekly" },
-        { "m": "17 Mar 2026", "v": 148.5, "freq": "weekly" },
-        { "m": "24 Mar 2026", "v": 150.6, "freq": "weekly" },
-        { "m": "31 Mar 2026", "v": 152.9, "freq": "weekly" },
-        { "m": "07 Apr 2026", "v": 154.7, "freq": "weekly" },
-        { "m": "10 Apr 2026", "v": 157.7, "freq": "daily" },
-        { "m": "11 Apr 2026", "v": 158.4, "freq": "daily" },
-        { "m": "12 Apr 2026", "v": 158.4, "freq": "daily" },
-        { "m": "14 Apr 2026", "v": 158.3, "freq": "daily" },
-        { "m": "16 Apr 2026", "v": 158.3, "freq": "daily" },
-        { "m": "17 Apr 2026", "v": 158.2, "freq": "daily" }
+        {
+          "m": "Jan 2021",
+          "v": 117.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "Apr 2021",
+          "v": 125.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jul 2021",
+          "v": 131.2,
+          "freq": "monthly"
+        },
+        {
+          "m": "Oct 2021",
+          "v": 140.8,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jan 2022",
+          "v": 148.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Mar 2022",
+          "v": 163.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jun 2022",
+          "v": 185.2,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jul 2022",
+          "v": 191.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "Oct 2022",
+          "v": 165.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jan 2023",
+          "v": 152.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Apr 2023",
+          "v": 148.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jul 2023",
+          "v": 146.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Oct 2023",
+          "v": 155.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jan 2024",
+          "v": 142.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "Apr 2024",
+          "v": 148.2,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jul 2024",
+          "v": 145.8,
+          "freq": "monthly"
+        },
+        {
+          "m": "Oct 2024",
+          "v": 137.2,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jan 2025",
+          "v": 136.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "Apr 2025",
+          "v": 134.8,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jul 2025",
+          "v": 134.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Oct 2025",
+          "v": 133.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jan 2026",
+          "v": 136.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "03 Feb 2026",
+          "v": 136.2,
+          "freq": "weekly"
+        },
+        {
+          "m": "10 Feb 2026",
+          "v": 136.8,
+          "freq": "weekly"
+        },
+        {
+          "m": "17 Feb 2026",
+          "v": 137.1,
+          "freq": "weekly"
+        },
+        {
+          "m": "24 Feb 2026",
+          "v": 137.5,
+          "freq": "weekly"
+        },
+        {
+          "m": "03 Mar 2026",
+          "v": 140.8,
+          "freq": "weekly"
+        },
+        {
+          "m": "10 Mar 2026",
+          "v": 144.2,
+          "freq": "weekly"
+        },
+        {
+          "m": "17 Mar 2026",
+          "v": 148.5,
+          "freq": "weekly"
+        },
+        {
+          "m": "24 Mar 2026",
+          "v": 150.6,
+          "freq": "weekly"
+        },
+        {
+          "m": "31 Mar 2026",
+          "v": 152.9,
+          "freq": "weekly"
+        },
+        {
+          "m": "07 Apr 2026",
+          "v": 154.7,
+          "freq": "weekly"
+        },
+        {
+          "m": "10 Apr 2026",
+          "v": 157.7,
+          "freq": "daily"
+        },
+        {
+          "m": "11 Apr 2026",
+          "v": 158.4,
+          "freq": "daily"
+        },
+        {
+          "m": "12 Apr 2026",
+          "v": 158.4,
+          "freq": "daily"
+        },
+        {
+          "m": "14 Apr 2026",
+          "v": 158.3,
+          "freq": "daily"
+        },
+        {
+          "m": "16 Apr 2026",
+          "v": 158.3,
+          "freq": "daily"
+        },
+        {
+          "m": "17 Apr 2026",
+          "v": 158.2,
+          "freq": "daily"
+        },
+        {
+          "m": "18 Apr 2026",
+          "v": 157.9,
+          "freq": "daily"
+        },
+        {
+          "m": "19 Apr 2026",
+          "v": 157.9,
+          "freq": "daily"
+        }
       ]
     },
     "diesel": {
@@ -916,44 +1078,206 @@
       "updateFrequency": "weekly",
       "methodologyNote": "UK national weighted average diesel pump price (pence per litre), from the DESNZ weekly road fuel price series. Weekly data from CMA mandatory reporting.",
       "data": [
-        { "m": "Jan 2021", "v": 120.0, "freq": "monthly" },
-        { "m": "Apr 2021", "v": 128.5, "freq": "monthly" },
-        { "m": "Jul 2021", "v": 133.8, "freq": "monthly" },
-        { "m": "Oct 2021", "v": 144.5, "freq": "monthly" },
-        { "m": "Jan 2022", "v": 152.0, "freq": "monthly" },
-        { "m": "Mar 2022", "v": 173.0, "freq": "monthly" },
-        { "m": "Jun 2022", "v": 194.5, "freq": "monthly" },
-        { "m": "Jul 2022", "v": 199.0, "freq": "monthly" },
-        { "m": "Oct 2022", "v": 183.0, "freq": "monthly" },
-        { "m": "Jan 2023", "v": 172.0, "freq": "monthly" },
-        { "m": "Apr 2023", "v": 158.0, "freq": "monthly" },
-        { "m": "Jul 2023", "v": 150.0, "freq": "monthly" },
-        { "m": "Oct 2023", "v": 159.0, "freq": "monthly" },
-        { "m": "Jan 2024", "v": 153.5, "freq": "monthly" },
-        { "m": "Apr 2024", "v": 155.0, "freq": "monthly" },
-        { "m": "Jul 2024", "v": 152.8, "freq": "monthly" },
-        { "m": "Oct 2024", "v": 146.5, "freq": "monthly" },
-        { "m": "Jan 2025", "v": 143.5, "freq": "monthly" },
-        { "m": "Apr 2025", "v": 141.0, "freq": "monthly" },
-        { "m": "Jul 2025", "v": 139.8, "freq": "monthly" },
-        { "m": "Oct 2025", "v": 139.2, "freq": "monthly" },
-        { "m": "Jan 2026", "v": 142.0, "freq": "monthly" },
-        { "m": "03 Feb 2026", "v": 142.5, "freq": "weekly" },
-        { "m": "10 Feb 2026", "v": 143.0, "freq": "weekly" },
-        { "m": "17 Feb 2026", "v": 143.8, "freq": "weekly" },
-        { "m": "24 Feb 2026", "v": 145.2, "freq": "weekly" },
-        { "m": "03 Mar 2026", "v": 152.5, "freq": "weekly" },
-        { "m": "10 Mar 2026", "v": 160.0, "freq": "weekly" },
-        { "m": "17 Mar 2026", "v": 168.5, "freq": "weekly" },
-        { "m": "24 Mar 2026", "v": 173.2, "freq": "weekly" },
-        { "m": "31 Mar 2026", "v": 176.5, "freq": "weekly" },
-        { "m": "07 Apr 2026", "v": 186.8, "freq": "weekly" },
-        { "m": "10 Apr 2026", "v": 190.6, "freq": "daily" },
-        { "m": "11 Apr 2026", "v": 191.4, "freq": "daily" },
-        { "m": "12 Apr 2026", "v": 191.4, "freq": "daily" },
-        { "m": "14 Apr 2026", "v": 191.5, "freq": "daily" },
-        { "m": "16 Apr 2026", "v": 191.5, "freq": "daily" },
-        { "m": "17 Apr 2026", "v": 191.1, "freq": "daily" }
+        {
+          "m": "Jan 2021",
+          "v": 120.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Apr 2021",
+          "v": 128.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jul 2021",
+          "v": 133.8,
+          "freq": "monthly"
+        },
+        {
+          "m": "Oct 2021",
+          "v": 144.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jan 2022",
+          "v": 152.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Mar 2022",
+          "v": 173.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jun 2022",
+          "v": 194.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jul 2022",
+          "v": 199.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Oct 2022",
+          "v": 183.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jan 2023",
+          "v": 172.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Apr 2023",
+          "v": 158.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jul 2023",
+          "v": 150.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Oct 2023",
+          "v": 159.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jan 2024",
+          "v": 153.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "Apr 2024",
+          "v": 155.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jul 2024",
+          "v": 152.8,
+          "freq": "monthly"
+        },
+        {
+          "m": "Oct 2024",
+          "v": 146.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jan 2025",
+          "v": 143.5,
+          "freq": "monthly"
+        },
+        {
+          "m": "Apr 2025",
+          "v": 141.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jul 2025",
+          "v": 139.8,
+          "freq": "monthly"
+        },
+        {
+          "m": "Oct 2025",
+          "v": 139.2,
+          "freq": "monthly"
+        },
+        {
+          "m": "Jan 2026",
+          "v": 142.0,
+          "freq": "monthly"
+        },
+        {
+          "m": "03 Feb 2026",
+          "v": 142.5,
+          "freq": "weekly"
+        },
+        {
+          "m": "10 Feb 2026",
+          "v": 143.0,
+          "freq": "weekly"
+        },
+        {
+          "m": "17 Feb 2026",
+          "v": 143.8,
+          "freq": "weekly"
+        },
+        {
+          "m": "24 Feb 2026",
+          "v": 145.2,
+          "freq": "weekly"
+        },
+        {
+          "m": "03 Mar 2026",
+          "v": 152.5,
+          "freq": "weekly"
+        },
+        {
+          "m": "10 Mar 2026",
+          "v": 160.0,
+          "freq": "weekly"
+        },
+        {
+          "m": "17 Mar 2026",
+          "v": 168.5,
+          "freq": "weekly"
+        },
+        {
+          "m": "24 Mar 2026",
+          "v": 173.2,
+          "freq": "weekly"
+        },
+        {
+          "m": "31 Mar 2026",
+          "v": 176.5,
+          "freq": "weekly"
+        },
+        {
+          "m": "07 Apr 2026",
+          "v": 186.8,
+          "freq": "weekly"
+        },
+        {
+          "m": "10 Apr 2026",
+          "v": 190.6,
+          "freq": "daily"
+        },
+        {
+          "m": "11 Apr 2026",
+          "v": 191.4,
+          "freq": "daily"
+        },
+        {
+          "m": "12 Apr 2026",
+          "v": 191.4,
+          "freq": "daily"
+        },
+        {
+          "m": "14 Apr 2026",
+          "v": 191.5,
+          "freq": "daily"
+        },
+        {
+          "m": "16 Apr 2026",
+          "v": 191.5,
+          "freq": "daily"
+        },
+        {
+          "m": "17 Apr 2026",
+          "v": 191.1,
+          "freq": "daily"
+        },
+        {
+          "m": "18 Apr 2026",
+          "v": 190.8,
+          "freq": "daily"
+        },
+        {
+          "m": "19 Apr 2026",
+          "v": 190.8,
+          "freq": "daily"
+        }
       ]
     },
     "railFares": {
@@ -992,7 +1316,7 @@
   },
   "householdBasket": {
     "source": "ONS Family Spending Survey / Kantar",
-    "description": "Estimated average monthly household costs (\u00a3)",
+    "description": "Estimated average monthly household costs (£)",
     "data": [
       {
         "cat": "Housing & rent",

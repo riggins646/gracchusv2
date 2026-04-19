@@ -11,11 +11,17 @@
     "latestDate": "Late 2030s",
     "status": "In Progress",
     "contractors": [
-      "Balfour Beatty",
-      "Vinci",
-      "Skanska",
-      "Eiffage",
-      "Kier"
+      "Balfour Beatty VINCI",
+      "SCS Railways Joint Venture",
+      "Align Joint Venture",
+      "EKFB Joint Venture",
+      "Balfour Beatty VINCI SYSTRA",
+      "Mace Dragados Joint Venture",
+      "Hitachi-Alstom High Speed",
+      "Costain Skanska Joint Venture",
+      "Fusion Joint Venture",
+      "LM Joint Venture",
+      "Siemens Mobility / Costain Joint Venture"
     ],
     "description": "UK flagship high-speed rail. Northern legs scrapped. Cost widely estimated to exceed £100bn. March 2026 parliamentary report: £43.6bn spent to Feb 2026 (£46.2bn inc. scrapped Phase 2). Earthworks 70% complete. Speed reduction under consideration (186mph vs 224mph). Revised cost estimate expected summer 2026.",
     "sources": [
@@ -23,7 +29,12 @@
       "https://www.newcivilengineer.com/latest/hs2-46-2bn-already-spent-but-new-total-estimate-not-yet-detailed-25-03-2026/",
       "https://committees.parliament.uk/committee/127/public-accounts-committee/"
     ],
-    "lastUpdated": "2026-04-10"
+    "lastUpdated": "2026-04-10",
+    "contractorResearch": {
+      "groups": 9,
+      "members": 22,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 2,
@@ -37,16 +48,27 @@
     "latestDate": "2022",
     "status": "Completed",
     "contractors": [
-      "Costain",
-      "Skanska",
-      "Balfour Beatty",
-      "Morgan Sindall"
+      "BAM Ferrovial Kier",
+      "Dragados Sisk Joint Venture",
+      "Hochtief / J Murphy Joint Venture",
+      "Costain Skanska Joint Venture",
+      "Laing O'Rourke",
+      "BBMV Joint Venture",
+      "Canary Wharf Contractors Limited",
+      "Alstom Transport / Costain / TSO Joint Venture",
+      "Bombardier Transportation UK Limited",
+      "Siemens / Invensys Rail Consortium"
     ],
     "description": "Elizabeth Line with severe delays and 4bn cost overrun. Opened 3.5 years late in May 2022.",
     "sources": [
       "https://www.nao.org.uk/reports/crossrail/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 6,
+      "members": 12,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 3,
@@ -60,13 +82,19 @@
     "latestDate": "Cancelled 2017",
     "status": "Cancelled",
     "contractors": [
-      "Heatherwick Studio"
+      "Garden Bridge Trust",
+      "Bouygues Travaux Publics / Cimolai S.p.A. Joint Venture"
     ],
     "description": "Pedestrian bridge cancelled in 2017 after 53.5m of public money spent. Never built.",
     "sources": [
       "https://www.nao.org.uk/reports/investigation-the-department-for-transports-funding-of-the-garden-bridge/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 4,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 4,
@@ -80,8 +108,11 @@
     "latestDate": "2030 (Unit 1)",
     "status": "In Progress",
     "contractors": [
-      "EDF Energy",
-      "China General Nuclear"
+      "NNB Generation Company",
+      "Bylor Joint Venture",
+      "Kier BAM Joint Venture",
+      "Sir Robert McAlpine Limited",
+      "Laing O'Rourke Construction Limited"
     ],
     "description": "Nuclear power station in Somerset. Budget escalated from £18bn to £48bn (nominal 2026 prices; £35bn in 2015 prices per EDF Feb 2026 update). Unit 1 first power now expected 2030, delayed from 2029 due to electromechanical work issues. EDF took €2.5bn impairment charge.",
     "sources": [
@@ -89,7 +120,12 @@
       "https://www.newcivilengineer.com/latest/hinkley-point-cs-cost-climbs-to-35bn-with-confirmation-unit-1-will-power-up-in-2030-20-02-2026/",
       "https://committees.parliament.uk/committee/127/public-accounts-committee/"
     ],
-    "lastUpdated": "2026-04-10"
+    "lastUpdated": "2026-04-10",
+    "contractorResearch": {
+      "groups": 6,
+      "members": 21,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 5,
@@ -103,13 +139,19 @@
     "latestDate": "2030s",
     "status": "In Progress",
     "contractors": [
-      "General Dynamics"
+      "General Dynamics Land Systems-UK",
+      "CTA International"
     ],
     "description": "Troubled armoured vehicle programme with 10+ year delays. Excessive vibration causing soldier illness.",
     "sources": [
       "https://commonslibrary.parliament.uk/research-briefings/cbp-9764/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 14,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 6,
@@ -123,16 +165,22 @@
     "latestDate": "Dismantled 2011",
     "status": "Cancelled",
     "contractors": [
-      "Fujitsu",
-      "CSC",
       "Accenture",
-      "BT"
+      "Computer Sciences Corporation",
+      "Fujitsu Services Limited",
+      "BT",
+      "Atos Origin"
     ],
     "description": "Largest IT project ever attempted in the NHS. Actual spend estimated at £9.8bn before cancellation in 2013. Original budget was £6.2bn. NAO estimated total costs ranged from £7.4bn to £12.7bn depending on measurement.",
     "sources": [
       "https://www.nao.org.uk/reports/the-national-programme-for-it-in-the-nhs/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 8,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 7,
@@ -146,13 +194,22 @@
     "latestDate": "2024+",
     "status": "In Progress",
     "contractors": [
-      "Capgemini"
+      "IBM United Kingdom Limited",
+      "Accenture",
+      "HP Enterprise Services UK Limited",
+      "British Telecommunications plc",
+      "Capgemini UK plc"
     ],
     "description": "Welfare IT system. Cost increases from 2.2bn to 15.8bn. Multiple implementation delays.",
     "sources": [
       "https://www.nao.org.uk/reports/universal-credit/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 11,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 8,
@@ -166,14 +223,22 @@
     "latestDate": "2014",
     "status": "Completed",
     "contractors": [
-      "Siemens",
-      "Bilfinger Berger"
+      "Bilfinger Berger UK Limited",
+      "Siemens plc",
+      "Construcciones y Auxiliar de Ferrocarriles SA",
+      "Transdev plc",
+      "Edinburgh Trams Limited"
     ],
     "description": "Restricted tram line opened May 2014, nearly 500m over budget and 3 years late.",
     "sources": [
       "https://www.edinburghtraminquiry.org/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 7,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 9,
@@ -187,14 +252,18 @@
     "latestDate": "2004",
     "status": "Completed",
     "contractors": [
-      "Costain",
-      "Bovis"
+      "Bovis Lend Lease"
     ],
     "description": "Cost increased nearly 10x from 55m to 430m. Opened October 2004, 3 years late.",
     "sources": [
       "https://en.wikipedia.org/wiki/Scottish_Parliament_Building"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 3,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 10,
@@ -208,13 +277,19 @@
     "latestDate": "2000",
     "status": "Completed",
     "contractors": [
-      "Richard Rogers Partnership"
+      "Sir Robert McAlpine Limited",
+      "Laing Management Limited"
     ],
     "description": "Total costs reached 789m at liquidation. Lottery funding 204m over estimate.",
     "sources": [
       "https://en.wikipedia.org/wiki/Millennium_Dome"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 6,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 11,
@@ -228,14 +303,18 @@
     "latestDate": "2007",
     "status": "Completed",
     "contractors": [
-      "Multiplex",
-      "Cleveland Bridge"
+      "Multiplex Constructions"
     ],
     "description": "Opened March 2007, 3 years late. Budget overrun of 142%.",
     "sources": [
       "https://en.wikipedia.org/wiki/Wembley_Stadium"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 6,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 12,
@@ -249,13 +328,22 @@
     "latestDate": "2012",
     "status": "Completed",
     "contractors": [
-      "Multiple contractors"
+      "Sir Robert McAlpine Limited",
+      "Balfour Beatty Group Limited",
+      "ISG plc",
+      "Lendlease Construction",
+      "Carillion Construction Limited"
     ],
     "description": "Cost 15bn, nearly 4x the 4bn bid budget. Delivered on time but massively over original estimates.",
     "sources": [
       "https://www.nao.org.uk/reports/the-budget-for-the-london-2012-olympic-and-paralympic-games/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 6,
+      "members": 15,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 13,
@@ -269,15 +357,19 @@
     "latestDate": "2020",
     "status": "Completed",
     "contractors": [
-      "Network Rail",
-      "Siemens",
-      "Alstom"
+      "Siemens Mobility Limited",
+      "Costain Limited"
     ],
     "description": "London rail upgrade. Phase 2 increased 18% due to unexpected conditions.",
     "sources": [
       "https://www.nao.org.uk/reports/update-on-the-thameslink-programme/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 5,
+      "members": 18,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 14,
@@ -291,15 +383,20 @@
     "latestDate": "2019",
     "status": "Completed",
     "contractors": [
-      "Balfour Beatty",
-      "Skanska",
-      "Mace"
+      "Balfour Beatty Civil Engineering Limited",
+      "Skanska Construction UK Limited",
+      "Costain Limited"
     ],
     "description": "A rare success story. Completed 8 months early and on budget at 1.5bn.",
     "sources": [
       "https://www.gov.uk/government/news/britains-biggest-road-project-opens-to-traffic-eight-months-early"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 1,
+      "members": 6,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 15,
@@ -313,14 +410,19 @@
     "latestDate": "Cancelled 2023",
     "status": "Cancelled",
     "contractors": [
-      "National Highways",
-      "Balfour Beatty"
+      "Costain Skanska JV",
+      "Carillion plc"
     ],
     "description": "Programme to convert hard shoulders into live traffic lanes. Cancelled April 2023 after safety concerns. £62m spent on planning and design of 14 cancelled schemes. Original programme budget was £4bn.",
     "sources": [
       "https://en.wikipedia.org/wiki/Smart_motorway"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 10,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 16,
@@ -334,13 +436,20 @@
     "latestDate": "2017",
     "status": "Completed",
     "contractors": [
-      "BAE Systems"
+      "BAE Systems plc",
+      "Babcock International Group plc",
+      "Thales UK Limited"
     ],
     "description": "UK two largest warships. Budget increased 85% from 4.1bn to 7.6bn.",
     "sources": [
       "https://www.nao.org.uk/reports/carrier-strike/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 15,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 17,
@@ -354,13 +463,18 @@
     "latestDate": "2025+",
     "status": "In Progress",
     "contractors": [
-      "BAE Systems"
+      "BAE Systems plc"
     ],
     "description": "Nuclear attack submarines. Budget soared from 2.4bn to 12.2bn over 25+ years.",
     "sources": [
       "https://ukdefencejournal.org.uk/astute-boats-4-7-now-more-than-800m-over-budget/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 10,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 18,
@@ -374,13 +488,18 @@
     "latestDate": "2028",
     "status": "In Progress",
     "contractors": [
-      "BAE Systems"
+      "BAE Systems plc"
     ],
     "description": "Anti-submarine warfare frigates. 8 ships planned. 233m cost growth with 12-month delay.",
     "sources": [
       "https://en.wikipedia.org/wiki/Type_26_frigate"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 9,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 19,
@@ -394,14 +513,22 @@
     "latestDate": "2007",
     "status": "Completed",
     "contractors": [
-      "Balfour Beatty",
-      "Bechtel"
+      "London & Continental Railways Limited",
+      "Union Railways",
+      "Bechtel Limited",
+      "Ove Arup & Partners International Limited",
+      "Halcrow Group Limited"
     ],
     "description": "High-speed rail to St Pancras. Opened November 2007, 18% over budget.",
     "sources": [
       "https://en.wikipedia.org/wiki/High_Speed_1"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 8,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 20,
@@ -415,13 +542,26 @@
     "latestDate": "1999",
     "status": "Completed",
     "contractors": [
-      "Bechtel"
+      "Balfour Beatty Civil Engineering Limited",
+      "Costain Limited",
+      "Taylor Woodrow Construction",
+      "Tarmac Construction",
+      "Kvaerner Trollope & Colls Limited",
+      "Aoki Corporation / Soletanche Bachy JV",
+      "Mowlem plc",
+      "GEC-Alsthom Metro-Cammell",
+      "Westinghouse Signal Limited"
     ],
     "description": "67% budget overrun (1.4bn extra). 75 months vs 53 months planned.",
     "sources": [
       "https://en.wikipedia.org/wiki/Jubilee_Line_Extension"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 11,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 21,
@@ -435,13 +575,20 @@
     "latestDate": "Cancelled 2024",
     "status": "Cancelled",
     "contractors": [
-      "National Highways"
+      "Costain Limited",
+      "VINCI Construction Grands Projets",
+      "Mott MacDonald Limited"
     ],
     "description": "Proposed 2.9km tunnel near Stonehenge on the A303. Cancelled July 2024 by Labour government. £179m spent on planning and development. Original budget was £1.1bn, latest estimate £2.4bn.",
     "sources": [
       "https://en.wikipedia.org/wiki/Stonehenge_road_tunnel"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 1,
+      "members": 3,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 22,
@@ -455,14 +602,25 @@
     "latestDate": "2024",
     "status": "Completed",
     "contractors": [
-      "Balfour Beatty",
-      "Bam Nuttall"
+      "BAM Nuttall Limited",
+      "Morgan Sindall Construction & Infrastructure Limited",
+      "Balfour Beatty Group Limited",
+      "Ferrovial Agroman",
+      "Laing O'Rourke Construction Limited",
+      "Costain Limited",
+      "VINCI Construction Grands Projets",
+      "Bachy Soletanche Limited"
     ],
     "description": "25km super sewer. Cost escalated from 1.7bn to 5bn over 20 years.",
     "sources": [
       "https://en.wikipedia.org/wiki/Thames_Tideway_Tunnel"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 5,
+      "members": 14,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 23,
@@ -476,13 +634,22 @@
     "latestDate": "2040s",
     "status": "In Progress",
     "contractors": [
-      "TBD"
+      "Transport for the North",
+      "Mott MacDonald Limited",
+      "WSP UK Limited",
+      "Arup Group Limited",
+      "Atkins Limited"
     ],
     "description": "Revived Jan 2026 with 1.1bn initial funding. 45bn Treasury cap may be insufficient.",
     "sources": [
       "https://www.constructionnews.co.uk/government/northern-powerhouse-rail-revived-with-1-1bn-funding-14-01-2026"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 9,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 24,
@@ -496,13 +663,22 @@
     "latestDate": "Cancelled 2010",
     "status": "Cancelled",
     "contractors": [
-      "Raytheon"
+      "Raytheon Systems Limited",
+      "Serco Group plc",
+      "Detica",
+      "Capgemini UK plc",
+      "Accenture"
     ],
     "description": "Electronic border control system intended to track everyone entering and leaving the UK. Plagued by contractor disputes and delays. £830m spent 2003-2015 before effective cancellation. Original budget £750m.",
     "sources": [
       "https://en.wikipedia.org/wiki/E-Borders"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 6,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 25,
@@ -516,15 +692,21 @@
     "latestDate": "2029+",
     "status": "In Progress",
     "contractors": [
-      "BT/EE",
-      "IBM",
-      "Ericsson"
+      "IBM United Kingdom Limited",
+      "EE Limited",
+      "Motorola Solutions UK Ltd",
+      "Airwave Solutions Limited"
     ],
     "description": "Troubled 11bn project to replace Airwave radio. First use now expected 2029+ vs 2017 target.",
     "sources": [
       "https://www.nao.org.uk/reports/emergency-services-network/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 6,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 26,
@@ -538,16 +720,27 @@
     "latestDate": "2034",
     "status": "In Progress",
     "contractors": [
-      "Bouygues-Murphy JV",
-      "Balfour Beatty",
-      "Skanska"
+      "Arcadis Consulting",
+      "Jacobs U.K. Limited",
+      "COWI UK Limited",
+      "BAM Nuttall Limited",
+      "Ferrovial Construction UK Limited",
+      "Balfour Beatty Civil Engineering Limited",
+      "Skanska Construction UK Limited",
+      "Bouygues Travaux Publics",
+      "VINCI Construction UK Limited"
     ],
     "description": "25km tunnel beneath Thames connecting Essex and Kent. Approved March 2025 after years of planning delays. Over 1.5bn spent before construction even began. Budget escalated from 4.4bn to 10.2bn. Opening pushed to 2034.",
     "sources": [
       "https://www.constructionnews.co.uk/civils/budget-2025-900m-allocated-for-lower-thames-crossing-26-11-2025/",
       "https://www.nao.org.uk/reports/lower-thames-crossing/"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 12,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 27,
@@ -561,15 +754,20 @@
     "latestDate": "2021",
     "status": "Completed",
     "contractors": [
-      "Bam Nuttall",
-      "Ferrovial",
-      "Laing O'Rourke"
+      "Ferrovial Agroman",
+      "Laing O'Rourke Construction Limited",
+      "Alstom Transport UK"
     ],
     "description": "Completed 160m under budget, a rare success. Opened September 2021.",
     "sources": [
       "https://en.wikipedia.org/wiki/Northern_line_extension_to_Battersea"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 5,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 28,
@@ -583,13 +781,18 @@
     "latestDate": "Cancelled 2010",
     "status": "Cancelled",
     "contractors": [
-      "BAE Systems"
+      "BAE Systems plc"
     ],
     "description": "Maritime reconnaissance aircraft to replace the Nimrod MR2. Cancelled by the 2010 Strategic Defence Review. £3.6bn spent (PAC estimate). All 9 airframes scrapped despite being nearly complete. Original budget £1.9bn.",
     "sources": [
       "https://en.wikipedia.org/wiki/BAE_Systems_Nimrod_MRA4"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 7,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 29,
@@ -603,13 +806,20 @@
     "latestDate": "Ongoing",
     "status": "Compensation Ongoing",
     "contractors": [
-      "Fujitsu"
+      "Fujitsu Services Limited",
+      "Accenture",
+      "Coforge Limited"
     ],
     "description": "Wrongly prosecuted 900+ subpostmasters (236 imprisoned). Over 1.48bn compensation paid.",
     "sources": [
       "https://en.wikipedia.org/wiki/British_Post_Office_scandal"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 5,
+      "members": 7,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 30,
@@ -623,13 +833,18 @@
     "latestDate": "2027",
     "status": "In Progress",
     "contractors": [
-      "Bovis"
+      "Lendlease Construction"
     ],
     "description": "Grade I listed building. 59% budget overrun from 330m to 525m.",
     "sources": [
       "https://www.constructionnews.co.uk/buildings/further-delays-hit-manchester-town-hall-restoration/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 5,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 31,
@@ -643,15 +858,22 @@
     "latestDate": "2040+",
     "status": "In Development",
     "contractors": [
-      "BAE Systems",
-      "Rolls-Royce",
-      "Leonardo"
+      "Edgewing Limited",
+      "Rolls-Royce plc",
+      "IHI Corporation",
+      "Avio Aero S.r.l.",
+      "Leonardo UK Limited"
     ],
     "description": "Next-gen fighter jet with Italy and Japan. 2bn initial phase now 12bn+.",
     "sources": [
       "https://en.wikipedia.org/wiki/BAE_Systems_Tempest"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 11,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 32,
@@ -665,13 +887,18 @@
     "latestDate": "2040+",
     "status": "In Planning",
     "contractors": [
-      "Heathrow Airport Holdings"
+      "Heathrow Airport Limited"
     ],
     "description": "Cost estimate risen from 14bn to 49bn. Massive opposition continues.",
     "sources": [
       "https://en.wikipedia.org/wiki/Expansion_of_Heathrow_Airport"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 7,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 33,
@@ -685,14 +912,19 @@
     "latestDate": "2030s",
     "status": "In Progress",
     "contractors": [
-      "EDF Energy",
-      "Laing ORourke"
+      "Bouygues Travaux Publics",
+      "Laing O'Rourke Plc"
     ],
     "description": "Twin EPR reactor nuclear station in Suffolk. FID taken July 2025. Government holds 44.9% equity. Cost estimates tripled from initial figures.",
     "sources": [
       "https://www.gov.uk/government/collections/new-nuclear-power-plants"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 5,
+      "members": 16,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 34,
@@ -706,13 +938,21 @@
     "latestDate": "2030s",
     "status": "In Development",
     "contractors": [
-      "Rolls-Royce SMR"
+      "Rolls-Royce SMR Limited",
+      "GE-Hitachi Nuclear Energy Americas LLC",
+      "Holtec Britain Limited",
+      "Westinghouse Electric Company UK Limited"
     ],
     "description": "Small Modular Reactor programme. Rolls-Royce SMR selected. First deployment planned at Wylfa, Wales. 2.5bn from GB Energy budget.",
     "sources": [
       "https://www.gov.uk/government/news/rolls-royce-smr-selected-to-build-small-modular-nuclear-reactors"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 8,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 35,
@@ -726,16 +966,26 @@
     "latestDate": "2030s",
     "status": "In Progress",
     "contractors": [
-      "BP",
-      "ENI",
-      "Equinor",
-      "Shell"
+      "Northern Endurance Partnership",
+      "bp Exploration Operating Company Limited",
+      "Equinor UK Limited",
+      "TotalEnergies E&P UK Limited",
+      "Liverpool Bay CCS Limited",
+      "Net Zero Teesside Power Limited",
+      "EET Hydrogen",
+      "Hanson Cement Limited",
+      "Viridor Energy Limited"
     ],
     "description": "East Coast Cluster (Teesside) and HyNet (NW England/Wales). 21.7bn commitment over 25 years. Financial close Dec 2024.",
     "sources": [
       "https://www.gov.uk/government/news/new-vision-to-create-competitive-carbon-capture-market-follows-unprecedented-20-billion-investment"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 11,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 36,
@@ -749,13 +999,18 @@
     "latestDate": "2030",
     "status": "In Development",
     "contractors": [
-      "TBD"
+      "Great British Energy Limited"
     ],
     "description": "New publicly-owned energy company. 8.3bn over parliament (5.8bn GB Energy, 2.5bn nuclear). Investment fund launching summer 2026.",
     "sources": [
       "https://www.gbe.gov.uk/strategic-plan-2025-html"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 3,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 37,
@@ -769,15 +1024,23 @@
     "latestDate": "2031",
     "status": "In Progress",
     "contractors": [
-      "Laing ORourke",
-      "Morgan Sindall",
-      "Balfour Beatty"
+      "Laing O'Rourke Construction Limited",
+      "Morgan Sindall Infrastructure Limited",
+      "Balfour Beatty plc",
+      "Kier Infrastructure and Overseas Limited",
+      "Murphy Group",
+      "Linxon UK Limited"
     ],
     "description": "RIIO-T3 programme: 80+ major high-voltage cable projects. 35bn investment 2026-2031. Largest grid upgrade since 1950s.",
     "sources": [
       "https://www.nationalgrid.com/the-great-grid-upgrade"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 16,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 38,
@@ -791,16 +1054,18 @@
     "latestDate": "2030",
     "status": "In Progress",
     "contractors": [
-      "British Gas",
-      "EON",
-      "EDF",
-      "Capita"
+      "Smart DCC Limited"
     ],
     "description": "National smart meter installation. 70% coverage by Sept 2025. Deadline extended from 2020 to 2025 to 2030. Net benefit 3.7bn to date.",
     "sources": [
       "https://www.gov.uk/government/consultations/smart-metering-policy-framework-post-2025"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 13,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 39,
@@ -814,13 +1079,18 @@
     "latestDate": "Closed 2021",
     "status": "Cancelled",
     "contractors": [
-      "Multiple contractors"
+      "ICF Consulting Services Limited"
     ],
     "description": "Home insulation voucher scheme. Only 314m of 1.5bn voucher budget spent (21%). Closed after 6 months. Admin costs over 1k per home.",
     "sources": [
       "https://www.nao.org.uk/wp-content/uploads/2021/09/Green-Homes-Grant-Voucher-Scheme.pdf"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 4,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 40,
@@ -834,14 +1104,20 @@
     "latestDate": "2030s",
     "status": "In Progress",
     "contractors": [
-      "BAE Systems",
-      "Rolls-Royce"
+      "BAE Systems plc",
+      "Rolls-Royce Submarines Limited",
+      "General Dynamics Electric Boat"
     ],
     "description": "Four nuclear-armed submarines replacing Vanguard-class. 31bn budget + 10bn contingency. Unity reactor contract (9bn) awarded to Rolls-Royce.",
     "sources": [
       "https://commonslibrary.parliament.uk/research-briefings/cbp-8010/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 8,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 41,
@@ -855,13 +1131,18 @@
     "latestDate": "2028",
     "status": "In Progress",
     "contractors": [
-      "Babcock International"
+      "Babcock International Group plc"
     ],
     "description": "Five general-purpose frigates. On budget at 1.25bn. Built at Rosyth. First steel cut 2021. Minor schedule slip.",
     "sources": [
       "https://www.royalnavy.mod.uk/the-equipment/ships/future-ships/type-31"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 11,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 42,
@@ -875,15 +1156,19 @@
     "latestDate": "2030",
     "status": "In Progress",
     "contractors": [
-      "RBSL",
-      "KMW",
-      "Rheinmetall"
+      "ARTEC GmbH",
+      "Rheinmetall BAE Systems Land Limited"
     ],
     "description": "623 Boxer 8x8 vehicles for Mechanised Infantry. UK rejoined programme in 2018 after leaving in 2003. Assembly at Telford.",
     "sources": [
       "https://des.mod.uk/boxer-armoured-vehicle-programme/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 9,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 43,
@@ -897,15 +1182,18 @@
     "latestDate": "2033",
     "status": "In Progress",
     "contractors": [
-      "Lockheed Martin",
-      "BAE Systems",
-      "Rolls-Royce"
+      "Lockheed Martin Corporation"
     ],
     "description": "Stealth fighter procurement. MOD claims 18.76bn; NAO lifecycle estimate 71bn for 138 jets. Only 33 delivered so far. 52bn cost gap.",
     "sources": [
       "https://www.nao.org.uk/reports/ministry-of-defence-equipment-plan-2023-33/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 11,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 44,
@@ -919,14 +1207,18 @@
     "latestDate": "2027",
     "status": "In Progress",
     "contractors": [
-      "RBSL",
-      "Rheinmetall"
+      "Rheinmetall BAE Systems Land Limited"
     ],
     "description": "Upgrade of 148 Challenger 2 tanks with new turret and smoothbore gun. On budget and ahead of schedule.",
     "sources": [
       "https://des.mod.uk/challenger-3/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 9,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 45,
@@ -940,14 +1232,21 @@
     "latestDate": "2040s",
     "status": "In Development",
     "contractors": [
-      "BAE Systems",
-      "ASC"
+      "BAE Systems Marine Limited",
+      "Rolls-Royce Submarines Limited",
+      "General Dynamics Electric Boat",
+      "ASC Pty Ltd"
     ],
     "description": "SSN-AUKUS nuclear-powered attack submarines with Australia. Analyst estimates exceed 40bn for UK share. Full cost not disclosed.",
     "sources": [
       "https://www.gov.uk/government/publications/aukus"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 7,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 46,
@@ -961,13 +1260,30 @@
     "latestDate": "2039+",
     "status": "In Progress",
     "contractors": [
-      "Multiple contractors"
+      "Bovis Construction",
+      "Dragados SA",
+      "John Graham Construction Limited",
+      "Integrated Health Projects",
+      "Kier Construction Limited",
+      "Laing O'Rourke Delivery Limited",
+      "Morgan Sindall Construction and Infrastructure Limited",
+      "Sacyr UK Limited",
+      "Skanska Construction UK Limited",
+      "Willmott Dixon Construction Limited",
+      "BAM Construction Limited",
+      "Galliford Try Construction Limited",
+      "Tilbury Douglas Construction Limited"
     ],
     "description": "40 hospitals promise. Only 7 under construction by 2026. Cost escalated from 3.7bn to 15bn per wave. Programme split into waves.",
     "sources": [
       "https://www.nao.org.uk/reports/the-new-hospital-programme/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 16,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 47,
@@ -981,13 +1297,18 @@
     "latestDate": "2030",
     "status": "In Progress",
     "contractors": [
-      "Palantir"
+      "Palantir Technologies UK Limited"
     ],
     "description": "Centralised NHS data analytics platform. 7-year contract. Controversial award after legal challenge. Budget risen to 485m.",
     "sources": [
       "https://www.digitalhealth.net/2023/11/nhs-england-awards-330m-federated-data-platform-contract-to-palantir/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 1,
+      "members": 4,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 48,
@@ -1001,15 +1322,23 @@
     "latestDate": "Closed 2021",
     "status": "Completed",
     "contractors": [
-      "Mace",
-      "BDP",
-      "Turner & Townsend"
+      "Integrated Health Projects",
+      "VINCI Building",
+      "Sir Robert McAlpine Limited",
+      "BAM Construction Limited",
+      "Kier Construction Limited",
+      "Interserve Construction Limited"
     ],
     "description": "Seven emergency COVID hospitals. Cost 532m total. Only 3 of 7 were ever used for patients. All closed by 2021.",
     "sources": [
       "https://www.nao.org.uk/reports/investigation-into-the-nightingale-hospitals/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 9,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 49,
@@ -1023,13 +1352,22 @@
     "latestDate": "2026",
     "status": "In Progress",
     "contractors": [
-      "Multiple housing associations"
+      "Clarion Housing Group Limited",
+      "L&Q",
+      "Places for People Group Limited",
+      "Peabody Trust",
+      "Hyde Group Housing Association"
     ],
     "description": "Flagship social housing programme. Budget topped up multiple times to 13.83bn. Target: 180,000 affordable homes by 2026.",
     "sources": [
       "https://www.gov.uk/government/collections/affordable-homes-programme-2021-to-2026"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 12,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 50,
@@ -1043,13 +1381,18 @@
     "latestDate": "2029+",
     "status": "In Progress",
     "contractors": [
-      "Multiple contractors"
+      "Rydon Group Holdings Limited"
     ],
     "description": "Removal of unsafe cladding from high-rise buildings. Budget grew from 1bn to 4.5bn. Actual remediation need estimated at 15bn+.",
     "sources": [
       "https://www.nao.org.uk/reports/cladding-remediation/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 4,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 51,
@@ -1063,17 +1406,22 @@
     "latestDate": "2030",
     "status": "In Progress",
     "contractors": [
-      "Wates",
-      "Kier",
-      "Mitie",
-      "Sodexo",
-      "G4S"
+      "Kier Construction Limited",
+      "G4S Care and Justice Services",
+      "Lendlease Construction",
+      "Serco Limited",
+      "Mitie Care & Custody Limited"
     ],
     "description": "Pledge to build 10,000 new prison places. Budget risen from 2.5bn to 9.5bn. 5-year delay. Includes HMP Five Wells, Millsike, Welland Oaks.",
     "sources": [
       "https://www.nao.org.uk/reports/increasing-the-capacity-of-the-prison-estate-to-meet-demand/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 16,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 52,
@@ -1087,13 +1435,30 @@
     "latestDate": "2040+",
     "status": "In Progress",
     "contractors": [
-      "Multiple contractors"
+      "Kier Construction Limited",
+      "Morgan Sindall Construction & Infrastructure Limited",
+      "Wates Construction Limited",
+      "Willmott Dixon Construction Limited",
+      "Galliford Try Construction Limited",
+      "Tilbury Douglas Construction Limited",
+      "Bouygues UK Limited",
+      "BAM Construction Limited",
+      "Bowmer & Kirkland Limited",
+      "ISG Construction Limited",
+      "The McAvoy Group Limited",
+      "Caledonian Modular Limited",
+      "Reds10 Limited"
     ],
     "description": "Target to rebuild 500 schools. Only 4% complete by 2026. Triggered by RAAC concrete crisis. Total need estimated at 20bn.",
     "sources": [
       "https://www.nao.org.uk/reports/condition-of-school-buildings/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 13,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 53,
@@ -1107,8 +1472,11 @@
     "latestDate": "2025",
     "status": "In Progress",
     "contractors": [
-      "Deloitte",
-      "GDS In-house"
+      "Amazon Web Services EMEA SARL",
+      "iProov Limited",
+      "Onfido Limited",
+      "Yoti Limited",
+      "Post Office Limited"
     ],
     "description": "Single sign-on for all government services. 11m+ users, 80+ services integrated. On track. Replaced failed Verify programme.",
     "sources": [
@@ -1116,7 +1484,12 @@
     ],
     "lastUpdated": "2026-03-26",
     "cronyLinked": true,
-    "cronyNote": "Deloitte consultancy contract"
+    "cronyNote": "Deloitte consultancy contract",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 10,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 54,
@@ -1130,15 +1503,22 @@
     "latestDate": "2026",
     "status": "In Progress",
     "contractors": [
-      "HMRC In-house",
-      "Capgemini",
-      "Fujitsu"
+      "Capgemini UK plc",
+      "Fujitsu Services Limited",
+      "Accenture",
+      "DXC Technology Services Limited",
+      "IBM United Kingdom Limited"
     ],
     "description": "Digital tax reporting for businesses. Multiple delays. VAT phase live. Income Tax Self-Assessment launching April 2026.",
     "sources": [
       "https://www.nao.org.uk/reports/making-tax-digital/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 10,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 55,
@@ -1152,13 +1532,19 @@
     "latestDate": "2023",
     "status": "Completed",
     "contractors": [
-      "IBM"
+      "IBM United Kingdom Limited",
+      "Capgemini UK plc"
     ],
     "description": "Replacement for CHIEF customs system. Budget doubled from 157m to 325m. Delivered 4 years late. Now processing all UK declarations.",
     "sources": [
       "https://www.nao.org.uk/reports/the-customs-declaration-service/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 4,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 56,
@@ -1172,14 +1558,25 @@
     "latestDate": "Replaced 2022",
     "status": "Cancelled",
     "contractors": [
-      "Digidentity",
-      "Post Office"
+      "Post Office Limited",
+      "Digidentity B.V.",
+      "Experian Limited",
+      "Barclays Bank UK plc",
+      "SecureIdentity",
+      "Royal Mail Group Limited",
+      "GB Group plc",
+      "Verizon UK Limited"
     ],
     "description": "Government digital identity verification system. Effectively abandoned by 2020 in favour of One Login. £154m spent on GOV.UK Verify 2011-2018. Original budget £215m.",
     "sources": [
       "https://www.nao.org.uk/reports/investigation-into-verify/"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 9,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 57,
@@ -1193,14 +1590,18 @@
     "latestDate": "2026",
     "status": "In Progress",
     "contractors": [
-      "Leidos",
-      "Accenture"
+      "Leidos Innovations UK Limited"
     ],
     "description": "Replacement for Police National Computer. 68% budget overrun. 5+ years behind schedule. Critical national security system.",
     "sources": [
       "https://www.computerweekly.com/news/366536261/Police-national-law-enforcement-data-programme-hits-over-1bn"
     ],
-    "lastUpdated": "2026-03-26"
+    "lastUpdated": "2026-03-26",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 6,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 58,
@@ -1214,13 +1615,21 @@
     "latestDate": "2020",
     "status": "Completed",
     "contractors": [
-      "Network Rail"
+      "Amey Rail Limited",
+      "Carillion Construction Limited",
+      "ABC Electrification Limited",
+      "Hitachi Rail Europe Limited"
     ],
     "description": "Electrification of Great Western Main Line from Paddington to Cardiff. Cost ballooned from 1bn to 5.58bn. Swansea extension cancelled due to costs. NAO called it a case study in poor cost estimation.",
     "sources": [
       "https://www.nao.org.uk/reports/modernising-the-great-western-railway/"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 6,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 59,
@@ -1234,15 +1643,26 @@
     "latestDate": "2036",
     "status": "In Progress",
     "contractors": [
-      "Network Rail",
-      "BAM Nuttall",
-      "Morgan Sindall"
+      "Amey Rail Limited",
+      "BAM Nuttall Limited",
+      "Arup Group Limited",
+      "Siemens Mobility Limited",
+      "J. Murphy & Sons Limited",
+      "Volker Rail Limited",
+      "Jacobs U.K. Limited",
+      "Morgan Sindall Infrastructure plc",
+      "AECOM Limited"
     ],
     "description": "Railway upgrade connecting Manchester, Huddersfield, Leeds and York. Scope reduced multiple times yet costs still escalated from 2.9bn to 11.2bn. 3.9bn boost announced Dec 2023.",
     "sources": [
       "https://www.gov.uk/government/news/service-announcement-39-billion-boost-for-more-reliable-train-journeys-in-the-north"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 11,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 60,
@@ -1256,14 +1676,22 @@
     "latestDate": "2030",
     "status": "In Progress",
     "contractors": [
-      "Network Rail",
-      "Laing O'Rourke"
+      "Laing O'Rourke Construction Limited",
+      "VolkerFitzpatrick Limited",
+      "J. Murphy & Sons Limited",
+      "Atkins Limited",
+      "Kier Infrastructure and Overseas Limited"
     ],
     "description": "New rail link between Oxford and Cambridge. Western section Bicester-Bletchley opened 2024. Central section costs escalating. Original concept revived from closed Varsity Line.",
     "sources": [
       "https://www.networkrail.co.uk/running-the-railway/our-routes/east-west-rail/"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 11,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 61,
@@ -1276,12 +1704,20 @@
     "originalDate": "2035",
     "latestDate": "2040+",
     "status": "In Progress",
-    "contractors": [],
+    "contractors": [
+      "Sir Robert McAlpine Limited",
+      "Vivark / GRAHAM Construction"
+    ],
     "description": "Comprehensive restoration of 19th-century Parliament building. Phase One alone costed at 3bn. Full programme estimates range 15.6bn to 39.2bn. Delay costs 70m per year. Fire, asbestos and structural risks mounting.",
     "sources": [
       "https://www.parliament.uk/business/news/2026/feb-2026/delivering-restoration-and-renewal-of-the-palace-of-westminster-the-costed-proposals-published/"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 6,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 62,
@@ -1295,14 +1731,19 @@
     "latestDate": "2013",
     "status": "Completed",
     "contractors": [
-      "BAE Systems",
-      "Cammell Laird"
+      "BAE Systems plc",
+      "BAE Systems plc — PIP prime"
     ],
     "description": "Six guided-missile destroyers for Royal Navy. Order cut from 12 to 8 then to 6. 1.5bn overrun. Persistent propulsion failures required costly Power Improvement Programme retrofit.",
     "sources": [
       "https://en.wikipedia.org/wiki/Type_45_destroyer"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 11,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 63,
@@ -1316,15 +1757,24 @@
     "latestDate": "2008",
     "status": "Completed",
     "contractors": [
-      "BAE Systems",
-      "Airbus",
-      "Leonardo"
+      "BAE Systems plc",
+      "Airbus Defence and Space GmbH",
+      "Leonardo S.p.A.",
+      "Rolls-Royce plc",
+      "MTU Aero Engines AG",
+      "Avio Aero",
+      "ITP Aero"
     ],
     "description": "Multi-role combat aircraft. UK received 160 aircraft. Massive cost overrun from 7bn to over 21bn for procurement alone. Per-unit cost tripled. Entered service 5 years late.",
     "sources": [
       "https://www.nao.org.uk/reports/eurofighter-typhoon/"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 11,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 65,
@@ -1338,13 +1788,22 @@
     "latestDate": "2024",
     "status": "Completed",
     "contractors": [
-      "Network Rail"
+      "Network Rail Infrastructure Limited",
+      "Balfour Beatty Rail Limited",
+      "VolkerRail Limited",
+      "Carillion Powerlines Limited",
+      "J. Murphy & Sons Limited"
     ],
     "description": "Electrification of Midland Main Line from London St Pancras to Kettering/Corby. Scope repeatedly cut back from full Sheffield route. Cost tripled from 500m to 1.5bn for reduced scope.",
     "sources": [
       "https://www.nao.org.uk/reports/modernising-the-great-western-railway/"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 9,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 66,
@@ -1358,15 +1817,20 @@
     "latestDate": "2032",
     "status": "In Progress",
     "contractors": [
-      "National Highways",
-      "Costain",
-      "Kier"
+      "Balfour Beatty / Keltbray JV",
+      "Kier Highways Limited",
+      "BAM Nuttall Limited"
     ],
     "description": "Dualling of A66 between Penrith and Scotch Corner. Major trans-Pennine road upgrade. Budget nearly doubled from 1bn to 1.9bn. Construction underway on multiple sections.",
     "sources": [
       "https://nationalhighways.co.uk/our-roads/north-west/a66-northern-trans-pennine/"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 7,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 67,
@@ -1380,14 +1844,23 @@
     "latestDate": "2120+",
     "status": "In Progress",
     "contractors": [
-      "Nuclear Decommissioning Authority",
-      "Sellafield Ltd"
+      "Morgan Sindall Infrastructure",
+      "Costain Limited",
+      "HOCHTIEF",
+      "A2R — joint venture of AtkinsRéalis and Altrad Babcock",
+      "The Decommissioning Alliance — joint venture of Amentum, AtkinsRéalis and Westinghouse Environmental Services",
+      "Nuclear Decommissioning Solutions — joint venture of Altrad Babcock, Cavendish Nuclear and Shepley Engineers"
     ],
     "description": "Decommissioning of Europe's most complex nuclear site. Lifetime cost estimate tripled from 45bn to 136bn. Will take over a century to complete. Single largest UK government liability.",
     "sources": [
       "https://www.nao.org.uk/reports/sellafield/"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 5,
+      "members": 15,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 68,
@@ -1401,15 +1874,23 @@
     "latestDate": "2030",
     "status": "In Progress",
     "contractors": [
-      "Openreach",
-      "CityFibre",
-      "Various ISPs"
+      "Openreach Limited",
+      "CityFibre Holdings Limited",
+      "Gigaclear plc",
+      "Fibrus Networks Limited",
+      "Truespeed Communications Limited",
+      "Voneus Broadband Limited"
     ],
     "description": "Gigabit-capable broadband to 85% of UK by 2025, 99% by 2030. Target downgraded from original universal full-fibre by 2025. Slow contract rollout in rural areas. 5bn public investment.",
     "sources": [
       "https://www.gov.uk/government/publications/project-gigabit-delivery-plan"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 1,
+      "members": 6,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 69,
@@ -1423,14 +1904,18 @@
     "latestDate": "2029",
     "status": "In Progress",
     "contractors": [
-      "Thales",
-      "IDEMIA"
+      "Government Digital Service"
     ],
     "description": "Biometric digital ID cards and verification system. 1.8bn budget announced in 2025 Budget. Controversial revival of national identity scheme scrapped in 2010 by Coalition government.",
     "sources": [
       "https://www.computerweekly.com/news/366635135/Budget-2025-300m-extra-for-NHS-IT-and-a-18bn-budget-for-digital-ID-cards"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 1,
+      "members": 2,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 70,
@@ -1444,13 +1929,18 @@
     "latestDate": "2029",
     "status": "In Progress",
     "contractors": [
-      "Various NHS providers"
+      "Palantir Technologies UK Limited"
     ],
     "description": "Digitisation of NHS systems. NHS App as digital front door, single patient records, electronic prescriptions. Budget doubled to 10bn. Aims for 17bn in savings over 3 years through productivity gains.",
     "sources": [
       "https://www.digitalhealth.net/2025/06/government-to-invest-up-to-10bn-to-bring-nhs-into-the-digital-age/"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 9,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 71,
@@ -1464,15 +1954,21 @@
     "latestDate": "2031",
     "status": "In Progress",
     "contractors": [
-      "Kier",
-      "Wates",
-      "Various"
+      "ISG Construction Limited",
+      "Kier Construction Limited",
+      "Laing O'Rourke Delivery Limited",
+      "Wates Construction Limited"
     ],
     "description": "14,000 new prison places by 2031. Budget escalated from 5.9bn to 9.4bn driven by rapid deployment cells, 40% construction inflation and 1.8bn maintenance backlog across existing estate.",
     "sources": [
       "https://www.nao.org.uk/press-releases/prison-expansion-plan-was-unrealistic-and-not-prioritised-nao/"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 7,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 72,
@@ -1486,13 +1982,28 @@
     "latestDate": "1994",
     "status": "Completed",
     "contractors": [
-      "TransManche Link (TML)"
+      "Balfour Beatty plc",
+      "Costain Group plc",
+      "Tarmac Construction Limited",
+      "Taylor Woodrow Construction Limited",
+      "Wimpey Construction UK Limited",
+      "Bouygues SA",
+      "Dumez SA",
+      "Société Auxiliaire d'Entreprises",
+      "Société Générale d'Entreprises",
+      "Spie Batignolles",
+      "Eurotunnel plc"
     ],
     "description": "Channel Tunnel construction. Original 1985 estimate was 4.7bn, actual cost reached 9.5bn in 1994 prices. 80% overrun. Construction consortium nearly bankrupted. Largest privately-funded infrastructure project of its era.",
     "sources": [
       "https://en.wikipedia.org/wiki/Channel_Tunnel"
     ],
-    "lastUpdated": "2026-03-27"
+    "lastUpdated": "2026-03-27",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 11,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 73,
@@ -1506,7 +2017,12 @@
     "latestDate": "2017",
     "status": "Completed",
     "contractors": [
-      "Forth Crossing Bridge Constructors (Dragados, Hochtief, Samsung C&T)"
+      "Hochtief Solutions AG",
+      "American Bridge International",
+      "Dragados S.A.",
+      "Morrison Construction",
+      "John Sisk & Son Limited",
+      "Roadbridge Limited"
     ],
     "description": "Second Forth road crossing between Edinburgh and Fife. Cable-stayed bridge opened Aug 2017, £245m under budget. One of few UK megaprojects delivered below estimate.",
     "sources": [
@@ -1514,7 +2030,12 @@
     ],
     "sourceName": "Transport Scotland",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 8,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 74,
@@ -1528,9 +2049,9 @@
     "latestDate": "2019",
     "status": "Completed",
     "contractors": [
-      "Balfour Beatty",
-      "Carillion (collapsed)",
-      "Galliford Try"
+      "Balfour Beatty Civil Engineering Limited",
+      "Carillion Construction Limited",
+      "Galliford Try Construction Limited"
     ],
     "description": "Major bypass around Aberdeen. PPP contract originally £745m fixed-price, but delays, Carillion collapse, and utility conflicts pushed final cost past £1.2bn. 200%+ overrun on original estimate.",
     "sources": [
@@ -1541,7 +2062,12 @@
     "sourceConfidence": "high",
     "lastUpdated": "2025-01",
     "cronyLinked": true,
-    "cronyNote": "Carillion involvement before collapse"
+    "cronyNote": "Carillion involvement before collapse",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 5,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 75,
@@ -1555,7 +2081,7 @@
     "latestDate": "2023",
     "status": "Completed",
     "contractors": [
-      "Dragados"
+      "Dragados UK Limited"
     ],
     "description": "Major expansion of London's busiest Underground station. New Northern line platform, entrance on Cannon Street, step-free access. 40% capacity increase. Completed Feb 2023 on budget.",
     "sources": [
@@ -1564,7 +2090,12 @@
     ],
     "sourceName": "Transport for London",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 3,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 76,
@@ -1578,7 +2109,8 @@
     "latestDate": "2035",
     "status": "In Progress",
     "contractors": [
-      "Multiple design-build contractors"
+      "Wills Bros Civil Engineering Limited",
+      "Balfour Beatty plc"
     ],
     "description": "Upgrading 83 miles of A9 from Perth to Inverness to dual carriageway. Originally £3bn (2008 prices) for 2025 completion, now £3.97bn for 2035. MIM procurement abandoned as 28% more expensive than capital-funded approach.",
     "sources": [
@@ -1587,7 +2119,12 @@
     ],
     "sourceName": "Transport Scotland / Scottish Government",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 6,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 77,
@@ -1601,8 +2138,7 @@
     "latestDate": "2016",
     "status": "Completed",
     "contractors": [
-      "Laing O'Rourke (construction)",
-      "HOK / PLP Architecture"
+      "Laing O'Rourke Construction Limited"
     ],
     "description": "Europe's largest biomedical research facility, Camden, London. 1,500 staff incl 1,250 scientists. UK Government contributed £220m, with MRC, Wellcome Trust, Cancer Research UK, Imperial and KCL as funders.",
     "sources": [
@@ -1611,7 +2147,12 @@
     ],
     "sourceName": "Francis Crick Institute / Wikipedia",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 8,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 78,
@@ -1625,7 +2166,8 @@
     "latestDate": "2024",
     "status": "In Progress",
     "contractors": [
-      "AWE plc (now AWE Nuclear Security Technologies)"
+      "Kier Construction Limited",
+      "Laing O'Rourke Construction Limited"
     ],
     "description": "Warhead assembly/disassembly facility at AWE Burghfield. NAO found construction started before design was finalised, causing 148% cost overrun and 7-year delay. 48% of cost increase from immature designs.",
     "sources": [
@@ -1634,7 +2176,12 @@
     ],
     "sourceName": "Nuclear Information Service / NAO / RUSI",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 6,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 79,
@@ -1648,7 +2195,9 @@
     "latestDate": "2027",
     "status": "In Progress",
     "contractors": [
-      "Skanska"
+      "Skanska Construction UK Limited",
+      "Costain Limited",
+      "STRABAG Limited"
     ],
     "description": "New 10-mile dual carriageway linking A1 (Bedfordshire) to A428 (Cambridgeshire). UK's largest road project currently under construction. Classified as Tier 1 nationally significant. Halfway point reached Oct 2025.",
     "sources": [
@@ -1657,7 +2206,12 @@
     ],
     "sourceName": "National Highways",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 4,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 80,
@@ -1671,7 +2225,9 @@
     "latestDate": "2025",
     "status": "Completed",
     "contractors": [
-      "Riverlinx CJV (BAM Nuttall, Ferrovial, SK Ecoplant)"
+      "BAM Nuttall Limited",
+      "Ferrovial Construction UK",
+      "SK E&C Corporation"
     ],
     "description": "New Thames crossing in east London connecting A102 to A406. 25-year DBFM PFI contract. TfL's direct capital exposure ~£179m; full 25-year availability payments estimated at ~£2bn. Opened April 2025.",
     "sources": [
@@ -1680,7 +2236,12 @@
     ],
     "sourceName": "Transport for London / London Assembly",
     "sourceConfidence": "medium",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 8,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 81,
@@ -1694,7 +2255,9 @@
     "latestDate": "2017",
     "status": "Completed",
     "contractors": [
-      "Merseylink consortium (Samsung C&T, FCC Construccion, Kier)"
+      "Kier Infrastructure and Overseas Limited",
+      "Samsung C&T Corporation",
+      "FCC Construcción S.A."
     ],
     "description": "Cable-stayed bridge over River Mersey estuary. £600m capital construction cost; 30-year PPP total is £1.86bn (2014-2044) including operations and maintenance. Opened Oct 2017. Tolled crossing.",
     "sources": [
@@ -1703,7 +2266,12 @@
     ],
     "sourceName": "Mersey Gateway Project / GOV.UK",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 9,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 82,
@@ -1717,7 +2285,7 @@
     "latestDate": "2023",
     "status": "Completed",
     "contractors": [
-      "VolkerFitzpatrick"
+      "VolkerFitzpatrick Limited"
     ],
     "description": "Automated people mover connecting Luton Airport Parkway station to terminal. Two years late and ~£75m over budget due to COVID, construction delays, and organisational problems. Opened March 2023.",
     "sources": [
@@ -1726,7 +2294,12 @@
     ],
     "sourceName": "Luton Today / Wikipedia",
     "sourceConfidence": "medium",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 3,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 83,
@@ -1740,7 +2313,7 @@
     "latestDate": "2021",
     "status": "Completed",
     "contractors": [
-      "Various (multi-phase construction)"
+      "Diamond Light Source Limited"
     ],
     "description": "UK national synchrotron facility at Harwell, Oxfordshire. Phase I £263m (2007), Phase II £120m (2012), Phase III £111m (2021). 33+ beamlines operational. Joint-funded by STFC and Wellcome Trust.",
     "sources": [
@@ -1748,7 +2321,12 @@
     ],
     "sourceName": "Diamond Light Source",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 5,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 84,
@@ -1762,7 +2340,9 @@
     "latestDate": "2035",
     "status": "In Progress",
     "contractors": [
-      "Multiple (NEC4 framework)"
+      "Babcock Marine",
+      "Kier Construction Limited",
+      "Laing O'Rourke Construction Limited"
     ],
     "description": "Multi-billion modernisation of UK nuclear submarine base at Faslane/Coulport. Initial £250m enabling tranche (2025-2028) under \"Clyde 2070\" branding, preparing for Dreadnought-class. 10-year NEC4 framework valued £1.3bn; total programme estimated £1.9bn.",
     "sources": [
@@ -1771,7 +2351,12 @@
     ],
     "sourceName": "UK Defence Journal / Forces News",
     "sourceConfidence": "medium",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 4,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 85,
@@ -1785,7 +2370,7 @@
     "latestDate": "2021 (cancelled)",
     "status": "Cancelled",
     "contractors": [
-      "Lockheed Martin UK"
+      "Lockheed Martin UK Ampthill Limited"
     ],
     "description": "Upgrade of Warrior Infantry Fighting Vehicles cancelled March 2021 by Integrated Review. £594m spent before cancellation. Replacement by Boxer vehicles under separate programme.",
     "sources": [
@@ -1793,7 +2378,12 @@
     ],
     "sourceName": "UK Parliament Hansard",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 1,
+      "members": 3,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 86,
@@ -1807,7 +2397,8 @@
     "latestDate": "2023 (programme ended)",
     "status": "Cancelled",
     "contractors": [
-      "Thales UK"
+      "Thales UK Limited",
+      "UAV Tactical Systems Ltd"
     ],
     "description": "Tactical unmanned aerial system for the British Army. Plagued by delays and technical issues. £1.35bn spent by 2023 for 54 drones, many unserviceable. Effectively cancelled as a failed programme. Original budget £846m.",
     "sources": [
@@ -1815,7 +2406,12 @@
     ],
     "sourceName": "NAO Equipment Plan / LBC",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 1,
+      "members": 3,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 87,
@@ -1829,7 +2425,8 @@
     "latestDate": "2035 (PFI end)",
     "status": "In Progress",
     "contractors": [
-      "AirTanker consortium (EADS/Cobham/Rolls-Royce/Thales)"
+      "AirTanker Limited",
+      "AirTanker Services Limited"
     ],
     "description": "27-year PFI contract for 14 A330 MRTT tanker aircraft. Delivered on time. Total programme cost inc. MoD personnel and fuel estimated £12.3bn over contract life.",
     "sources": [
@@ -1837,7 +2434,12 @@
     ],
     "sourceName": "UK Defence Journal / MOD",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 7,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 88,
@@ -1851,7 +2453,7 @@
     "latestDate": "2024",
     "status": "Completed",
     "contractors": [
-      "Boeing Defense UK"
+      "The Boeing Company"
     ],
     "description": "Foreign Military Sale of 50 AH-64E Apache helicopters. Approved at £2bn in 2020, delivered at £1.79bn. One of few defence programmes delivered under budget.",
     "sources": [
@@ -1859,7 +2461,12 @@
     ],
     "sourceName": "Defence Equipment & Support",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 7,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 89,
@@ -1873,8 +2480,7 @@
     "latestDate": "2024+",
     "status": "In Progress",
     "contractors": [
-      "Leonardo",
-      "Thales UK"
+      "Lockheed Martin UK Limited"
     ],
     "description": "Searchwater radar on Merlin HM2 for Queen Elizabeth carriers. Budget ballooned from £269m to £425m+. Full operational capability still not achieved despite carrier strike deployments.",
     "sources": [
@@ -1882,7 +2488,12 @@
     ],
     "sourceName": "UK Defence Journal / Flight Global",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 1,
+      "members": 3,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 90,
@@ -1896,8 +2507,7 @@
     "latestDate": "2022",
     "status": "Completed",
     "contractors": [
-      "Airbus Defence and Space",
-      "Paradigm Secure Communications"
+      "Paradigm Secure Communications Limited"
     ],
     "description": "PFI contract for military satellite communications constellation. Delivered under original budget. 4 satellites providing global comms. Contract extended to 2022.",
     "sources": [
@@ -1905,7 +2515,12 @@
     ],
     "sourceName": "Airbus / MOD",
     "sourceConfidence": "medium",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 4,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 91,
@@ -1919,8 +2534,11 @@
     "latestDate": "2041",
     "status": "In Development",
     "contractors": [
-      "Babcock Satcom",
-      "Airbus Defence and Space"
+      "Airbus Defence and Space Limited",
+      "Babcock International Group plc",
+      "BT plc",
+      "Inmarsat Government Limited",
+      "Lockheed Martin UK Limited"
     ],
     "description": "Next-generation military satellite communications through 2041. Skynet 6A satellite contract £500m+ signed 2020. Total programme value estimated £6bn inc. satellites, ground segment and services.",
     "sources": [
@@ -1928,7 +2546,12 @@
     ],
     "sourceName": "GOV.UK",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 6,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 92,
@@ -1942,7 +2565,7 @@
     "latestDate": "2025+",
     "status": "In Progress",
     "contractors": [
-      "General Atomics Aeronautical Systems"
+      "General Atomics Aeronautical Systems, Inc."
     ],
     "description": "MQ-9B remotely piloted aircraft. Whole-life cost up from £1.24bn Main Gate to £1.76bn by Mar 2023. £520m overrun (42%). First aircraft arrived UK 2024 amid continued delays.",
     "sources": [
@@ -1950,7 +2573,12 @@
     ],
     "sourceName": "NAO Equipment Plan",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 6,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 93,
@@ -1964,9 +2592,7 @@
     "latestDate": "2026",
     "status": "In Progress",
     "contractors": [
-      "Boeing",
-      "Northrop Grumman",
-      "STS Aviation"
+      "The Boeing Company"
     ],
     "description": "5 Boeing E-7 aircraft replacing E-3D Sentry. Core contract US.98bn (£1.51bn) plus £300m for Northrop Grumman radar and £83m RAF Lossiemouth works. IOC expected 2026.",
     "sources": [
@@ -1974,7 +2600,12 @@
     ],
     "sourceName": "Defence Equipment & Support",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 7,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 94,
@@ -1988,7 +2619,7 @@
     "latestDate": "2030+",
     "status": "In Development",
     "contractors": [
-      "General Dynamics UK (terminated Dec 2023)"
+      "General Dynamics United Kingdom Limited"
     ],
     "description": "Next-gen tactical comms for Land forces. £3.2bn through-life budget. £828m spent by 2024. General Dynamics contract terminated Dec 2023 for non-performance. Programme being restructured.",
     "sources": [
@@ -1996,7 +2627,12 @@
     ],
     "sourceName": "GOV.UK / European Security & Defence",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 4,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 95,
@@ -2010,7 +2646,7 @@
     "latestDate": "2015",
     "status": "Completed",
     "contractors": [
-      "BAM Nuttall"
+      "BAM Nuttall Limited"
     ],
     "description": "30-mile railway with 7 new stations, Edinburgh to Tweedbank. Delivered on time Sept 2015. 20% above original estimate but within revised budget. 13m journeys in first decade.",
     "sources": [
@@ -2018,7 +2654,12 @@
     ],
     "sourceName": "Transport Scotland",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 2,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 96,
@@ -2031,14 +2672,22 @@
     "originalDate": "cancelled",
     "latestDate": "2019 (cancelled)",
     "status": "Cancelled",
-    "contractors": [],
+    "contractors": [
+      "Costain Group plc",
+      "Vinci Construction UK Limited"
+    ],
     "description": "Proposed M4 relief road south of Newport, Wales. Cancelled June 2019 by Welsh Government on environmental grounds. Approximately £130m spent on planning, land purchases and preparation. Original budget £1bn.",
     "sources": [
       "https://www.newcivilengineer.com/latest/1-4bn-m4-relief-road-proposal-rejected-04-06-2019/"
     ],
     "sourceName": "New Civil Engineer",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 5,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 97,
@@ -2051,14 +2700,25 @@
     "originalDate": "shelved",
     "latestDate": "2020 (shelved)",
     "status": "In Planning",
-    "contractors": [],
+    "contractors": [
+      "Arup Group Limited",
+      "Mott MacDonald Limited",
+      "Jacobs UK Limited",
+      "Steer Davies Gleave Limited",
+      "Weston Williamson + Partners"
+    ],
     "description": "Proposed north-south London rail line. Cost est £27-32bn (2014 prices). Shelved Nov 2020 as condition of emergency COVID TfL funding deal. £115m+ spent on development before shelving.",
     "sources": [
       "https://www.crossrail2.co.uk/"
     ],
     "sourceName": "Crossrail 2 / TfL",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 1,
+      "members": 6,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 98,
@@ -2072,8 +2732,8 @@
     "latestDate": "2015",
     "status": "Completed",
     "contractors": [
-      "Taylor Woodrow",
-      "Alstom"
+      "Vinci Construction UK Limited",
+      "Alstom Transport UK Limited"
     ],
     "description": "Two tram extensions (17km) to Clifton and Toton. Total cost £570m, DfT funding £371m. Completed Aug 2015, 8 months late but on budget. Funded partly from Workplace Parking Levy.",
     "sources": [
@@ -2081,7 +2741,12 @@
     ],
     "sourceName": "GOV.UK / European Investment Bank",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 8,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 99,
@@ -2095,8 +2760,11 @@
     "latestDate": "2015",
     "status": "Completed",
     "contractors": [
-      "EDS (now DXC Technology)",
-      "HP Enterprise"
+      "EDS Defence Limited",
+      "Fujitsu Services Limited",
+      "General Dynamics United Kingdom Limited",
+      "EADS Defence and Security Systems Limited",
+      "Logica UK Limited"
     ],
     "description": "Integrated defence IT network. Parliament told £2.3bn; actual cost £7.09bn by 2015 (208% overrun). NAO found immature designs, weak oversight. Delivered only 29,000 of 63,000 terminals by 2008.",
     "sources": [
@@ -2104,7 +2772,12 @@
     ],
     "sourceName": "National Audit Office",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 7,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 100,
@@ -2118,8 +2791,7 @@
     "latestDate": "2025+",
     "status": "In Progress",
     "contractors": [
-      "CGI",
-      "Various"
+      "Kainos Software Limited"
     ],
     "description": "Courts and tribunals digital reform. Original £1bn, extended to £1.3bn. Common Platform case management system troubled. HMCTS expects £2bn lifetime savings. NAO flagged delivery risks.",
     "sources": [
@@ -2127,7 +2799,12 @@
     ],
     "sourceName": "National Audit Office",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 9,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 101,
@@ -2141,7 +2818,11 @@
     "latestDate": "TBD",
     "status": "In Development",
     "contractors": [
-      "Nuclear Waste Services"
+      "Nuclear Waste Services",
+      "Jacobs U.K. Limited",
+      "AECOM Limited",
+      "Amentum Clean Energy Solutions",
+      "Cavendish Nuclear Limited"
     ],
     "description": "Deep geological repository for UK higher-activity radioactive waste. Mid-range est £20bn, high-end £54bn. HM Treasury rated \"unachievable\" in 2025 due to major issues with scope, schedule and cost.",
     "sources": [
@@ -2149,7 +2830,12 @@
     ],
     "sourceName": "GOV.UK / New Civil Engineer",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 5,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 102,
@@ -2163,7 +2849,11 @@
     "latestDate": "100+ years",
     "status": "In Progress",
     "contractors": [
-      "Multiple (£485m framework 2023)"
+      "Cavendish Fluor Partnership Limited",
+      "Cavendish Nuclear Limited",
+      "Fluor Limited",
+      "EnergySolutions EU Limited",
+      "Bechtel Limited"
     ],
     "description": "Decommissioning of Magnox nuclear fleet across UK. Original 2014 bid £3.8bn, rose to £6bn by 2017, latest est £8.7bn. Multi-decade programme. NAO found original competition wasted £122m.",
     "sources": [
@@ -2171,7 +2861,12 @@
     ],
     "sourceName": "National Audit Office",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 6,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 103,
@@ -2185,8 +2880,8 @@
     "latestDate": "2024",
     "status": "Completed",
     "contractors": [
-      "Carillion (collapsed Jan 2018)",
-      "Laing O'Rourke"
+      "Carillion Construction Limited",
+      "Laing O'Rourke Construction Limited"
     ],
     "description": "PFI hospital collapsed with Carillion Jan 2018. Construction cost doubled from £350m to £724m. Govt paid £42m compensation to terminate PFI. Total taxpayer cost £739m. Opened 6+ years late.",
     "sources": [
@@ -2196,7 +2891,12 @@
     "sourceConfidence": "high",
     "lastUpdated": "2025-01",
     "cronyLinked": true,
-    "cronyNote": "Carillion PFI hospital — collapsed mid-build"
+    "cronyNote": "Carillion PFI hospital — collapsed mid-build",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 5,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 104,
@@ -2210,8 +2910,8 @@
     "latestDate": "2024",
     "status": "Completed",
     "contractors": [
-      "Carillion (collapsed)",
-      "Skanska"
+      "Carillion Construction Limited",
+      "Balfour Beatty Construction Limited"
     ],
     "description": "PFI hospital hit by Carillion collapse after £205m spent. Construction cost doubled to £709m taxpayer share. Handed to Skanska. Originally due Oct 2018, opened Oct 2024. 6-year delay.",
     "sources": [
@@ -2221,7 +2921,12 @@
     "sourceConfidence": "high",
     "lastUpdated": "2025-01",
     "cronyLinked": true,
-    "cronyNote": "Carillion PFI hospital — collapsed mid-build"
+    "cronyNote": "Carillion PFI hospital — collapsed mid-build",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 5,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 105,
@@ -2235,7 +2940,11 @@
     "latestDate": "2019 (suspended)",
     "status": "Cancelled",
     "contractors": [
-      "Hitachi / Horizon Nuclear Power"
+      "Horizon Nuclear Power Wylfa Limited",
+      "Horizon Nuclear Power Limited",
+      "Hitachi-GE Nuclear Energy, Ltd.",
+      "Jacobs U.K. Limited",
+      "Atkins Limited"
     ],
     "description": "Proposed nuclear power station on Anglesey, Wales. Hitachi withdrew January 2019 after spending approximately £2bn on development. UK Government bought the site for £160m in 2024. Never broke ground.",
     "sources": [
@@ -2243,7 +2952,12 @@
     ],
     "sourceName": "BBC News / GOV.UK",
     "sourceConfidence": "medium",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 7,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 106,
@@ -2257,7 +2971,11 @@
     "latestDate": "2018 (cancelled)",
     "status": "Cancelled",
     "contractors": [
-      "NuGen (Toshiba/Engie)"
+      "NuGeneration Limited",
+      "Toshiba Corporation",
+      "ENGIE",
+      "Iberdrola SA",
+      "SSE plc"
     ],
     "description": "Proposed nuclear power station in Cumbria. Toshiba/NuGen withdrew November 2018 after spending approximately £450m. Never progressed beyond planning. Original projected cost £10bn.",
     "sources": [
@@ -2265,7 +2983,12 @@
     ],
     "sourceName": "BBC News / Power Technology",
     "sourceConfidence": "medium",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 9,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 107,
@@ -2279,11 +3002,9 @@
     "latestDate": "2022 (wound down)",
     "status": "Completed",
     "contractors": [
-      "Deloitte",
-      "Serco",
-      "Sitel",
-      "G4S",
-      "Mitie"
+      "Serco Limited",
+      "Sitel UK Limited",
+      "Randox Laboratories Limited"
     ],
     "description": "COVID-19 test and trace programme. NAO found over 900 consultants charged up to £1,000/day. Programme cost £37bn with widely questioned value for money. £1.2bn on unused antivirals.",
     "sources": [
@@ -2294,7 +3015,12 @@
     "sourceConfidence": "high",
     "lastUpdated": "2026-01",
     "cronyLinked": true,
-    "cronyNote": "Test & Trace contracts awarded to Deloitte, Serco, BCG via emergency procurement"
+    "cronyNote": "Test & Trace contracts awarded to Deloitte, Serco, BCG via emergency procurement",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 9,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 108,
@@ -2308,7 +3034,7 @@
     "latestDate": "2022",
     "status": "Completed",
     "contractors": [
-      "Multiple (VIP Lane contracts)"
+      "Uniserve Group"
     ],
     "description": "Emergency PPE procurement during COVID. NAO found £4bn of unusable PPE to be destroyed, £762m unlikely to be recovered, 52% of surgical gowns non-compliant. 135 contracts flagged with 3+ corruption red flags.",
     "sources": [
@@ -2319,7 +3045,12 @@
     "sourceConfidence": "high",
     "lastUpdated": "2025-06",
     "cronyLinked": true,
-    "cronyNote": "PPE contracts awarded through VIP Lane to politically connected firms"
+    "cronyNote": "PPE contracts awarded through VIP Lane to politically connected firms",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 6,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 109,
@@ -2333,8 +3064,9 @@
     "latestDate": "2025 (contract ended)",
     "status": "Cancelled",
     "contractors": [
-      "Bibby Marine",
-      "Landry & Kling"
+      "Bibby Marine Limited",
+      "Corporate Travel Management",
+      "Clearsprings Ready Homes Limited"
     ],
     "description": "Barge moored in Portland Harbour to house asylum seekers. Total cost approximately £35m including setup and operation over two years. Phased out by Labour government July 2024. Original contract £20m.",
     "sources": [
@@ -2345,7 +3077,12 @@
     "sourceConfidence": "high",
     "lastUpdated": "2025-03",
     "cronyLinked": true,
-    "cronyNote": "Asylum accommodation contract scrutinised for value for money"
+    "cronyNote": "Asylum accommodation contract scrutinised for value for money",
+    "contractorResearch": {
+      "groups": 4,
+      "members": 4,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 110,
@@ -2358,7 +3095,9 @@
     "originalDate": "2023",
     "latestDate": "2024 (scrapped)",
     "status": "Cancelled",
-    "contractors": [],
+    "contractors": [
+      "Clearsprings Ready Homes Limited"
+    ],
     "description": "Proposed conversion of former RAF base in Lincolnshire to house asylum seekers. Cancelled September 2024. Approximately £50m spent without ever housing anyone. Original budget £30m.",
     "sources": [
       "https://committees.parliament.uk/committee/127/public-accounts-committee/"
@@ -2367,7 +3106,12 @@
     "sourceConfidence": "high",
     "lastUpdated": "2025-02",
     "cronyLinked": true,
-    "cronyNote": "Asylum site development costs questioned by PAC"
+    "cronyNote": "Asylum site development costs questioned by PAC",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 3,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 111,
@@ -2380,7 +3124,9 @@
     "originalDate": "2018",
     "latestDate": "2024 (ongoing)",
     "status": "Compensation Ongoing",
-    "contractors": [],
+    "contractors": [
+      "Department for Work and Pensions"
+    ],
     "description": "DWP systemic failure to flag overpayments to carers. £357m in wrongful overpayments between 2018-2024. Cliff-edge rules meant earning 1p over threshold lost entire week's allowance. ~600 carers faced criminal prosecution.",
     "sources": [
       "https://committees.parliament.uk/committee/127/public-accounts-committee/",
@@ -2388,7 +3134,12 @@
     ],
     "sourceName": "NAO / Public Accounts Committee",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-06"
+    "lastUpdated": "2025-06",
+    "contractorResearch": {
+      "groups": 1,
+      "members": 3,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 112,
@@ -2402,7 +3153,10 @@
     "latestDate": "2024 (cancelled)",
     "status": "Cancelled",
     "contractors": [
-      "National Highways"
+      "Arup Group Limited",
+      "WSP UK Limited",
+      "Mott MacDonald Limited",
+      "Jacobs UK Limited"
     ],
     "description": "Proposed bypass of Arundel on the A27. Cancelled July 2024 by Labour government in roads review. Approximately £25m spent on planning and development. Full scheme cost estimated at £320m.",
     "sources": [
@@ -2410,7 +3164,12 @@
     ],
     "sourceName": "GOV.UK",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 1,
+      "members": 4,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 113,
@@ -2424,7 +3183,11 @@
     "latestDate": "2024 (cancelled)",
     "status": "Cancelled",
     "contractors": [
-      "National Highways"
+      "Arup Group Limited",
+      "WSP UK Limited",
+      "Jacobs UK Limited",
+      "Wessex Archaeology Limited",
+      "Cotswold Archaeology Limited"
     ],
     "description": "Proposed dual carriageway between Taunton and Southfields. Cancelled July 2024 in roads review. Approximately £25m spent on planning, surveys and archaeological work (750+ trial trenches). Full scheme cost £580m.",
     "sources": [
@@ -2432,7 +3195,12 @@
     ],
     "sourceName": "GOV.UK",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 2,
+      "members": 5,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 114,
@@ -2446,7 +3214,10 @@
     "latestDate": "2024 (cancelled)",
     "status": "Cancelled",
     "contractors": [
-      "National Highways"
+      "Arup Group Limited",
+      "WSP UK Limited",
+      "Mott MacDonald Limited",
+      "Jacobs UK Limited"
     ],
     "description": "Proposed dualling of the A1 between Morpeth and Ellingham in Northumberland. Cancelled October 2024 in roads review. £68.4m confirmed spent via FOI. Original budget £290m.",
     "sources": [
@@ -2454,7 +3225,12 @@
     ],
     "sourceName": "GOV.UK",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-01"
+    "lastUpdated": "2025-01",
+    "contractorResearch": {
+      "groups": 1,
+      "members": 4,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 115,
@@ -2468,9 +3244,7 @@
     "latestDate": "2023 (cancelled)",
     "status": "Cancelled",
     "contractors": [
-      "Balfour Beatty",
-      "Vinci",
-      "Skanska"
+      "Balfour Beatty Group Limited"
     ],
     "description": "Northern legs of HS2 from Birmingham to Manchester and Leeds. Cancelled by PM Sunak October 2023. £2.6bn spent on Phase 2 planning, land acquisition and early works. Original budget £40bn.",
     "sources": [
@@ -2479,7 +3253,12 @@
     ],
     "sourceName": "NAO / Public Accounts Committee",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-12"
+    "lastUpdated": "2025-12",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 6,
+      "lastUpdated": "2026-04-18"
+    }
   },
   {
     "id": 116,
@@ -2492,7 +3271,10 @@
     "originalDate": "2022",
     "latestDate": "2024 (scrapped)",
     "status": "Cancelled",
-    "contractors": [],
+    "contractors": [
+      "Government of Rwanda — Ministry of Finance and Economic Planning",
+      "Mitie Care & Custody"
+    ],
     "description": "Partnership with Rwanda to deport asylum seekers. Cancelled by Labour government July 2024. £290m paid directly to Rwanda. Total Home Office spend on the scheme approximately £700m including legal and operational costs. Direct Rwanda payments used as primary figure.",
     "sources": [
       "https://www.nao.org.uk/reports/investigation-into-the-uk-rwanda-partnership/",
@@ -2500,7 +3282,12 @@
     ],
     "sourceName": "NAO / Public Accounts Committee",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-06"
+    "lastUpdated": "2025-06",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 4,
+      "lastUpdated": "2026-04-17"
+    }
   },
   {
     "id": 117,
@@ -2513,7 +3300,13 @@
     "originalDate": "2020",
     "latestDate": "2024 (ongoing recovery)",
     "status": "Compensation Ongoing",
-    "contractors": [],
+    "contractors": [
+      "Barclays Bank PLC",
+      "Lloyds Bank plc",
+      "NatWest Group plc",
+      "HSBC UK Bank plc",
+      "Santander UK plc"
+    ],
     "description": "Government-backed emergency loans to small businesses during COVID. NAO estimated £4.9bn in fraud losses and £1.1bn in credit losses due to minimal checks at application. Loan scheme design prioritised speed over fraud prevention.",
     "sources": [
       "https://www.nao.org.uk/reports/the-bounce-back-loan-scheme-an-update/",
@@ -2521,6 +3314,11 @@
     ],
     "sourceName": "NAO / Public Accounts Committee",
     "sourceConfidence": "high",
-    "lastUpdated": "2025-09"
+    "lastUpdated": "2025-09",
+    "contractorResearch": {
+      "groups": 3,
+      "members": 10,
+      "lastUpdated": "2026-04-17"
+    }
   }
 ]
