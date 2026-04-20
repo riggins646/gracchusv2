@@ -1,0 +1,1522 @@
+{
+  "schemaVersion": "2026-04-19.grading.v1",
+  "generatedAt": "2026-04-19",
+  "summary": {
+    "totalProjects": 116,
+    "totalEntriesGraded": 1671,
+    "gradeCounts": {
+      "B": 1156,
+      "C": 80,
+      "A": 419,
+      "U": 4,
+      "D": 12
+    },
+    "overallWeightedScore": 0.8693,
+    "overallLetter": "B",
+    "totalWeightedValueGBP": 663516367477,
+    "letterCounts": {
+      "B": 47,
+      "A": 58,
+      "C": 10,
+      "D": 1
+    }
+  },
+  "projects": [
+    {
+      "projectId": 31,
+      "projectName": "Global Combat Air Programme (GCAP / Tempest)",
+      "score": 0.4362,
+      "letter": "D",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 2686000000,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "B": 14,
+        "A": 1,
+        "D": 1,
+        "C": 1
+      }
+    },
+    {
+      "projectId": 63,
+      "projectName": "Eurofighter Typhoon",
+      "score": 0.5,
+      "letter": "C",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 8000000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 4,
+        "B": 12,
+        "C": 1
+      }
+    },
+    {
+      "projectId": 7,
+      "projectName": "Universal Credit IT System",
+      "score": 0.5,
+      "letter": "C",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 1341000000,
+      "nWeightedEntries": 3,
+      "gradeCounts": {
+        "C": 3,
+        "B": 12,
+        "A": 4,
+        "U": 1
+      }
+    },
+    {
+      "projectId": 106,
+      "projectName": "Moorside Nuclear Power Station",
+      "score": 0.5,
+      "letter": "C",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 125000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "C": 1,
+        "B": 9
+      }
+    },
+    {
+      "projectId": 11,
+      "projectName": "Wembley Stadium Rebuild (new Wembley)",
+      "score": 0.5,
+      "letter": "C",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 1243000000,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "C": 2,
+        "A": 6,
+        "B": 1
+      }
+    },
+    {
+      "projectId": 84,
+      "projectName": "HM Naval Base Clyde Infrastructure Programme (Faslane / Coulport)",
+      "score": 0.5,
+      "letter": "C",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 1900000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "C": 1,
+        "A": 4
+      }
+    },
+    {
+      "projectId": 30,
+      "projectName": "Manchester Town Hall — Our Town Hall Refurbishment",
+      "score": 0.5,
+      "letter": "C",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 715000000,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "C": 2,
+        "B": 5
+      }
+    },
+    {
+      "projectId": 83,
+      "projectName": "Diamond Light Source (UK national synchrotron)",
+      "score": 0.5,
+      "letter": "C",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 383000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "C": 1,
+        "B": 6
+      }
+    },
+    {
+      "projectId": 32,
+      "projectName": "Heathrow Third Runway (Northwest Runway expansion)",
+      "score": 0.5,
+      "letter": "C",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 3000000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "C": 1,
+        "B": 7,
+        "A": 2
+      }
+    },
+    {
+      "projectId": 40,
+      "projectName": "Dreadnought-Class Submarines",
+      "score": 0.5033,
+      "letter": "C",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 9121000000,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "B": 13,
+        "A": 1,
+        "C": 1
+      }
+    },
+    {
+      "projectId": 25,
+      "projectName": "Emergency Services Network (ESN)",
+      "score": 0.6414,
+      "letter": "C",
+      "corroborationRatio": 0.4118,
+      "weightedValueGBP": 4038000000,
+      "nWeightedEntries": 5,
+      "gradeCounts": {
+        "B": 7,
+        "C": 7,
+        "A": 4
+      }
+    },
+    {
+      "projectId": 2,
+      "projectName": "Crossrail / Elizabeth Line",
+      "score": 0.7117,
+      "letter": "B",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 1240000000,
+      "nWeightedEntries": 3,
+      "gradeCounts": {
+        "B": 10,
+        "C": 16,
+        "U": 1
+      }
+    },
+    {
+      "projectId": 4,
+      "projectName": "Hinkley Point C (HPC)",
+      "score": 0.7174,
+      "letter": "B",
+      "corroborationRatio": 0.2545,
+      "weightedValueGBP": 11500000000,
+      "nWeightedEntries": 5,
+      "gradeCounts": {
+        "B": 30,
+        "C": 3
+      }
+    },
+    {
+      "projectId": 1,
+      "projectName": "HS2 (High Speed 2) — Phase One",
+      "score": 0.7193,
+      "letter": "B",
+      "corroborationRatio": 0.5363,
+      "weightedValueGBP": 20934075000,
+      "nWeightedEntries": 14,
+      "gradeCounts": {
+        "B": 38,
+        "C": 8,
+        "A": 6,
+        "U": 1
+      }
+    },
+    {
+      "projectId": 28,
+      "projectName": "Nimrod MRA4 Maritime Patrol Aircraft",
+      "score": 0.7297,
+      "letter": "B",
+      "corroborationRatio": 0.6296,
+      "weightedValueGBP": 7400000000,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "A": 6,
+        "C": 3,
+        "B": 7
+      }
+    },
+    {
+      "projectId": 67,
+      "projectName": "Sellafield Decommissioning",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 2973272226,
+      "nWeightedEntries": 24,
+      "gradeCounts": {
+        "B": 45,
+        "C": 6
+      }
+    },
+    {
+      "projectId": 17,
+      "projectName": "Astute-Class Submarines",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 12200000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 10,
+        "A": 5
+      }
+    },
+    {
+      "projectId": 18,
+      "projectName": "Type 26 Global Combat Ship (City-Class) Frigates",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 7900000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 14
+      }
+    },
+    {
+      "projectId": 88,
+      "projectName": "Apache AH-64E Attack Helicopter",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 1500000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 10
+      }
+    },
+    {
+      "projectId": 42,
+      "projectName": "Boxer Mechanised Infantry Vehicle (MIV)",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 2800000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 12
+      }
+    },
+    {
+      "projectId": 33,
+      "projectName": "Sizewell C Nuclear Power Station",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 38000000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 25
+      }
+    },
+    {
+      "projectId": 34,
+      "projectName": "Great British Nuclear — Small Modular Reactor Programme",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 2500000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 18
+      }
+    },
+    {
+      "projectId": 35,
+      "projectName": "Carbon Capture, Usage and Storage (CCUS) Clusters — Track 1",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 21700000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 17
+      }
+    },
+    {
+      "projectId": 26,
+      "projectName": "Lower Thames Crossing",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 9200149386,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "B": 17
+      }
+    },
+    {
+      "projectId": 44,
+      "projectName": "Challenger 3 Main Battle Tank",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.9982,
+      "weightedValueGBP": 801421280,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "B": 13
+      }
+    },
+    {
+      "projectId": 91,
+      "projectName": "Skynet 6 Satellite Communications",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.0676,
+      "weightedValueGBP": 7400000000,
+      "nWeightedEntries": 4,
+      "gradeCounts": {
+        "B": 12
+      }
+    },
+    {
+      "projectId": 93,
+      "projectName": "E-7 Wedgetail Airborne Early Warning",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 1510000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 9
+      }
+    },
+    {
+      "projectId": 105,
+      "projectName": "Wylfa Newydd Nuclear Power Station",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 2000000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 9
+      }
+    },
+    {
+      "projectId": 41,
+      "projectName": "Type 31 Inspiration-Class Frigates",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 1250000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 15
+      }
+    },
+    {
+      "projectId": 92,
+      "projectName": "Protector RG Mk1 Uncrewed Aircraft",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 195000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 7
+      }
+    },
+    {
+      "projectId": 71,
+      "projectName": "Prison Estate Expansion (14,000 places) — Alliance 4 New Prisons (A4NP)",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.2391,
+      "weightedValueGBP": 1673130279,
+      "nWeightedEntries": 3,
+      "gradeCounts": {
+        "B": 15
+      }
+    },
+    {
+      "projectId": 73,
+      "projectName": "Queensferry Crossing",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 1350000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 1,
+        "A": 8
+      }
+    },
+    {
+      "projectId": 47,
+      "projectName": "NHS Federated Data Platform (FDP)",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 358500000,
+      "nWeightedEntries": 3,
+      "gradeCounts": {
+        "B": 8
+      }
+    },
+    {
+      "projectId": 95,
+      "projectName": "Borders Railway",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.4544,
+      "weightedValueGBP": 647000000,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "B": 2,
+        "A": 2
+      }
+    },
+    {
+      "projectId": 77,
+      "projectName": "Francis Crick Institute",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 700000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 10
+      }
+    },
+    {
+      "projectId": 66,
+      "projectName": "A66 Northern Trans-Pennine",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 1500000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 8
+      }
+    },
+    {
+      "projectId": 75,
+      "projectName": "Bank Station Capacity Upgrade",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 722000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 5
+      }
+    },
+    {
+      "projectId": 21,
+      "projectName": "A303 Amesbury to Berwick Down (Stonehenge Tunnel)",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 2500112089,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "B": 5
+      }
+    },
+    {
+      "projectId": 27,
+      "projectName": "Northern Line Extension to Battersea",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 1100000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 6
+      }
+    },
+    {
+      "projectId": 79,
+      "projectName": "A428 Black Cat to Caxton Gibbet",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 1531000000,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "B": 6
+      }
+    },
+    {
+      "projectId": 80,
+      "projectName": "Silvertown Tunnel",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 2200000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 9
+      }
+    },
+    {
+      "projectId": 81,
+      "projectName": "Mersey Gateway Bridge",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 600000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 12
+      }
+    },
+    {
+      "projectId": 82,
+      "projectName": "Luton DART (Direct Air-Rail Transit)",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 298000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 5
+      }
+    },
+    {
+      "projectId": 98,
+      "projectName": "Nottingham Express Transit Phase 2 (NET2)",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.9997,
+      "weightedValueGBP": 870251248,
+      "nWeightedEntries": 6,
+      "gradeCounts": {
+        "B": 15
+      }
+    },
+    {
+      "projectId": 96,
+      "projectName": "M4 Relief Road (Newport) — cancelled",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 114000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 6
+      }
+    },
+    {
+      "projectId": 65,
+      "projectName": "Midland Main Line Electrification",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 1500000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 10,
+        "A": 2
+      }
+    },
+    {
+      "projectId": 70,
+      "projectName": "NHS Digital Transformation (incl. Federated Data Platform)",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 10000000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 11,
+        "A": 1
+      }
+    },
+    {
+      "projectId": 37,
+      "projectName": "Great Grid Upgrade (National Grid Electricity Transmission RIIO-T3)",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 60000000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 19
+      }
+    },
+    {
+      "projectId": 112,
+      "projectName": "A27 Arundel Bypass (cancelled)",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.9997,
+      "weightedValueGBP": 630199409,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "B": 6
+      }
+    },
+    {
+      "projectId": 113,
+      "projectName": "A358 Taunton to Southfields Dualling (cancelled)",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 500000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "B": 6
+      }
+    },
+    {
+      "projectId": 114,
+      "projectName": "A1 Morpeth to Ellingham Dualling (cancelled)",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.9978,
+      "weightedValueGBP": 68549152,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "B": 6
+      }
+    },
+    {
+      "projectId": 36,
+      "projectName": "Great British Energy (GB Energy)",
+      "score": 0.75,
+      "letter": "B",
+      "corroborationRatio": 0.9997,
+      "weightedValueGBP": 8302549362,
+      "nWeightedEntries": 3,
+      "gradeCounts": {
+        "B": 6,
+        "A": 1
+      }
+    },
+    {
+      "projectId": 29,
+      "projectName": "Post Office Horizon IT",
+      "score": 0.7577,
+      "letter": "B",
+      "corroborationRatio": 0.6284,
+      "weightedValueGBP": 5302140000,
+      "nWeightedEntries": 9,
+      "gradeCounts": {
+        "A": 12,
+        "C": 6,
+        "B": 5
+      }
+    },
+    {
+      "projectId": 16,
+      "projectName": "HMS Queen Elizabeth-Class Aircraft Carriers (QEC)",
+      "score": 0.7885,
+      "letter": "B",
+      "corroborationRatio": 0.1166,
+      "weightedValueGBP": 9744000000,
+      "nWeightedEntries": 4,
+      "gradeCounts": {
+        "A": 4,
+        "D": 2,
+        "B": 18,
+        "C": 1
+      }
+    },
+    {
+      "projectId": 45,
+      "projectName": "AUKUS Submarine Programme",
+      "score": 0.8422,
+      "letter": "B",
+      "corroborationRatio": 0.762,
+      "weightedValueGBP": 10850000000,
+      "nWeightedEntries": 4,
+      "gradeCounts": {
+        "B": 12,
+        "A": 1
+      }
+    },
+    {
+      "projectId": 85,
+      "projectName": "Warrior Capability Sustainment Programme (WCSP)",
+      "score": 0.8495,
+      "letter": "B",
+      "corroborationRatio": 0.4685,
+      "weightedValueGBP": 1080403720,
+      "nWeightedEntries": 4,
+      "gradeCounts": {
+        "A": 5,
+        "B": 3
+      }
+    },
+    {
+      "projectId": 107,
+      "projectName": "NHS Test and Trace",
+      "score": 0.8737,
+      "letter": "B",
+      "corroborationRatio": 0.8154,
+      "weightedValueGBP": 4032363400,
+      "nWeightedEntries": 14,
+      "gradeCounts": {
+        "C": 4,
+        "A": 24,
+        "B": 1
+      }
+    },
+    {
+      "projectId": 24,
+      "projectName": "E-Borders",
+      "score": 0.8858,
+      "letter": "B",
+      "corroborationRatio": 0.9856,
+      "weightedValueGBP": 1706000000,
+      "nWeightedEntries": 5,
+      "gradeCounts": {
+        "A": 10,
+        "B": 5
+      }
+    },
+    {
+      "projectId": 13,
+      "projectName": "Thameslink Programme",
+      "score": 0.936,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 2150000000,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "A": 2,
+        "B": 22
+      }
+    },
+    {
+      "projectId": 51,
+      "projectName": "New Prisons Programme (10,000 places) — PETP Wave 1",
+      "score": 0.9519,
+      "letter": "A",
+      "corroborationRatio": 0.8484,
+      "weightedValueGBP": 4953000000,
+      "nWeightedEntries": 3,
+      "gradeCounts": {
+        "A": 1,
+        "B": 23
+      }
+    },
+    {
+      "projectId": 52,
+      "projectName": "School Rebuilding Programme",
+      "score": 0.9771,
+      "letter": "A",
+      "corroborationRatio": 0.9297,
+      "weightedValueGBP": 20919078446,
+      "nWeightedEntries": 137,
+      "gradeCounts": {
+        "A": 3,
+        "B": 149
+      }
+    },
+    {
+      "projectId": 100,
+      "projectName": "HM Courts & Tribunals Service Reform Programme",
+      "score": 0.9774,
+      "letter": "A",
+      "corroborationRatio": 0.9306,
+      "weightedValueGBP": 1429357473,
+      "nWeightedEntries": 6,
+      "gradeCounts": {
+        "A": 4,
+        "B": 16
+      }
+    },
+    {
+      "projectId": 5,
+      "projectName": "Ajax Armoured Vehicle",
+      "score": 0.9832,
+      "letter": "A",
+      "corroborationRatio": 0.9708,
+      "weightedValueGBP": 11525000001,
+      "nWeightedEntries": 8,
+      "gradeCounts": {
+        "A": 4,
+        "B": 12,
+        "D": 8,
+        "C": 3
+      }
+    },
+    {
+      "projectId": 56,
+      "projectName": "GOV.UK Verify Identity Programme",
+      "score": 0.9863,
+      "letter": "A",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 186820000,
+      "nWeightedEntries": 4,
+      "gradeCounts": {
+        "A": 11,
+        "C": 2,
+        "B": 3
+      }
+    },
+    {
+      "projectId": 115,
+      "projectName": "HS2 Phase 2 — Phase 2a (WMC-Crewe) and Phase 2b (Crewe-Manchester / West Midlands-Leeds) — CANCELLED",
+      "score": 0.9941,
+      "letter": "A",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 2222000000,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "A": 2,
+        "B": 9
+      }
+    },
+    {
+      "projectId": 38,
+      "projectName": "Smart Meter Rollout (Smart Metering Implementation Programme)",
+      "score": 0.9944,
+      "letter": "A",
+      "corroborationRatio": 0.0169,
+      "weightedValueGBP": 13810000000,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "A": 1,
+        "B": 19,
+        "C": 2
+      }
+    },
+    {
+      "projectId": 99,
+      "projectName": "Defence Information Infrastructure (DII)",
+      "score": 0.9964,
+      "letter": "A",
+      "corroborationRatio": 0.9892,
+      "weightedValueGBP": 7203345771,
+      "nWeightedEntries": 6,
+      "gradeCounts": {
+        "A": 7,
+        "B": 13
+      }
+    },
+    {
+      "projectId": 97,
+      "projectName": "Crossrail 2 (shelved)",
+      "score": 0.9988,
+      "letter": "A",
+      "corroborationRatio": 0.9963,
+      "weightedValueGBP": 278880000,
+      "nWeightedEntries": 4,
+      "gradeCounts": {
+        "A": 2,
+        "B": 9
+      }
+    },
+    {
+      "projectId": 69,
+      "projectName": "UK Digital Identity programme",
+      "score": 0.9989,
+      "letter": "A",
+      "corroborationRatio": 0.9967,
+      "weightedValueGBP": 1808000000,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "A": 1,
+        "B": 3
+      }
+    },
+    {
+      "projectId": 20,
+      "projectName": "Jubilee Line Extension",
+      "score": 0.9994,
+      "letter": "A",
+      "corroborationRatio": 0.9982,
+      "weightedValueGBP": 3508406872,
+      "nWeightedEntries": 4,
+      "gradeCounts": {
+        "A": 12,
+        "B": 3
+      }
+    },
+    {
+      "projectId": 15,
+      "projectName": "Smart Motorways Programme",
+      "score": 0.9996,
+      "letter": "A",
+      "corroborationRatio": 0.9989,
+      "weightedValueGBP": 6008600377,
+      "nWeightedEntries": 6,
+      "gradeCounts": {
+        "A": 4,
+        "B": 14
+      }
+    },
+    {
+      "projectId": 101,
+      "projectName": "Geological Disposal Facility (GDF)",
+      "score": 0.9997,
+      "letter": "A",
+      "corroborationRatio": 0.9992,
+      "weightedValueGBP": 37041340021,
+      "nWeightedEntries": 9,
+      "gradeCounts": {
+        "A": 1,
+        "B": 14
+      }
+    },
+    {
+      "projectId": 57,
+      "projectName": "Police NLEDS (National Law Enforcement Data Service)",
+      "score": 0.9997,
+      "letter": "A",
+      "corroborationRatio": 0.9991,
+      "weightedValueGBP": 1101375000,
+      "nWeightedEntries": 3,
+      "gradeCounts": {
+        "A": 6,
+        "B": 6
+      }
+    },
+    {
+      "projectId": 108,
+      "projectName": "COVID PPE Procurement",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 0.5677,
+      "weightedValueGBP": 2422000000,
+      "nWeightedEntries": 6,
+      "gradeCounts": {
+        "A": 13,
+        "D": 1,
+        "C": 4
+      }
+    },
+    {
+      "projectId": 116,
+      "projectName": "Rwanda Asylum Partnership (Migration and Economic Development Partnership)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 1085000000,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "A": 5,
+        "B": 5,
+        "U": 1,
+        "C": 1
+      }
+    },
+    {
+      "projectId": 6,
+      "projectName": "NHS National Programme for IT (NPfIT / Connecting for Health)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 3485000000,
+      "nWeightedEntries": 4,
+      "gradeCounts": {
+        "A": 18,
+        "B": 2
+      }
+    },
+    {
+      "projectId": 3,
+      "projectName": "Garden Bridge",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 9700000,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "B": 4,
+        "A": 6
+      }
+    },
+    {
+      "projectId": 62,
+      "projectName": "Type 45 Daring-Class Destroyers",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 6464000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 7,
+        "B": 9
+      }
+    },
+    {
+      "projectId": 43,
+      "projectName": "F-35B Lightning II",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 11000000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 2,
+        "B": 14
+      }
+    },
+    {
+      "projectId": 90,
+      "projectName": "Skynet 5 Satellite Communications",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 3600000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 4,
+        "B": 3
+      }
+    },
+    {
+      "projectId": 39,
+      "projectName": "Green Homes Grant (Voucher Scheme)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 49400000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 4,
+        "B": 4
+      }
+    },
+    {
+      "projectId": 53,
+      "projectName": "GOV.UK One Login",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 305000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 3,
+        "B": 12
+      }
+    },
+    {
+      "projectId": 54,
+      "projectName": "Making Tax Digital (MTD)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 1300000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 3,
+        "B": 11
+      }
+    },
+    {
+      "projectId": 23,
+      "projectName": "Northern Powerhouse Rail",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 23000000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 2,
+        "B": 10
+      }
+    },
+    {
+      "projectId": 59,
+      "projectName": "TransPennine Route Upgrade",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 11500050000,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "A": 1,
+        "B": 15
+      }
+    },
+    {
+      "projectId": 60,
+      "projectName": "East West Rail",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 9500000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 1,
+        "B": 15
+      }
+    },
+    {
+      "projectId": 87,
+      "projectName": "Voyager / Future Strategic Tanker Aircraft (FSTA)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 0.0,
+      "weightedValueGBP": 10500000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 2,
+        "B": 7
+      }
+    },
+    {
+      "projectId": 46,
+      "projectName": "New Hospital Programme (NHP) — 40 Hospitals",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 20000000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 1,
+        "B": 23
+      }
+    },
+    {
+      "projectId": 50,
+      "projectName": "Building Safety Fund (Post-Grenfell cladding remediation)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 5100000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 2,
+        "B": 6
+      }
+    },
+    {
+      "projectId": 8,
+      "projectName": "Edinburgh Trams (Phase 1a — Airport to York Place)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 776000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 7,
+        "B": 2
+      }
+    },
+    {
+      "projectId": 9,
+      "projectName": "Scottish Parliament Building (Holyrood)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 414000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 4,
+        "B": 1
+      }
+    },
+    {
+      "projectId": 10,
+      "projectName": "Millennium Dome (Millennium Experience, Greenwich)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 789000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 7,
+        "B": 2
+      }
+    },
+    {
+      "projectId": 12,
+      "projectName": "London 2012 Olympic and Paralympic Games",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 9298000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 5,
+        "B": 14
+      }
+    },
+    {
+      "projectId": 22,
+      "projectName": "Thames Tideway Tunnel",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 5000000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 15,
+        "B": 10
+      }
+    },
+    {
+      "projectId": 19,
+      "projectName": "HS1 (Channel Tunnel Rail Link)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 5200000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 11,
+        "B": 1
+      }
+    },
+    {
+      "projectId": 48,
+      "projectName": "NHS Nightingale Hospitals (COVID-19 field hospitals)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 532000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 10
+      }
+    },
+    {
+      "projectId": 103,
+      "projectName": "Royal Liverpool University Hospital (new-build)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 1356073200,
+      "nWeightedEntries": 3,
+      "gradeCounts": {
+        "A": 7,
+        "B": 2
+      }
+    },
+    {
+      "projectId": 104,
+      "projectName": "Midland Metropolitan University Hospital",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 988000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 6,
+        "B": 1
+      }
+    },
+    {
+      "projectId": 61,
+      "projectName": "Palace of Westminster Restoration & Renewal",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 13000000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 5,
+        "B": 2
+      }
+    },
+    {
+      "projectId": 117,
+      "projectName": "COVID Bounce Back Loan Scheme (BBLS) — fraud exposure",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 47000000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 12,
+        "B": 2
+      }
+    },
+    {
+      "projectId": 86,
+      "projectName": "Watchkeeper WK450 Unmanned Aerial Vehicle",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 1350000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 5
+      }
+    },
+    {
+      "projectId": 89,
+      "projectName": "Crowsnest Airborne Early Warning System",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 425000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 5
+      }
+    },
+    {
+      "projectId": 94,
+      "projectName": "Morpheus Tactical Communications (EvO)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 330000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 5
+      }
+    },
+    {
+      "projectId": 78,
+      "projectName": "AWE Mensa Programme (Nuclear Warhead Assembly/Disassembly Facility)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 734000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 6,
+        "B": 3
+      }
+    },
+    {
+      "projectId": 55,
+      "projectName": "Customs Declaration Service (CDS)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 270000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 5
+      }
+    },
+    {
+      "projectId": 68,
+      "projectName": "Project Gigabit (UK rural gigabit broadband)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 5000000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 2,
+        "B": 6
+      }
+    },
+    {
+      "projectId": 102,
+      "projectName": "Magnox Decommissioning Programme",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 6900000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 7,
+        "B": 2
+      }
+    },
+    {
+      "projectId": 49,
+      "projectName": "Affordable Homes Programme 2021–26",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 11500000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 1,
+        "B": 12
+      }
+    },
+    {
+      "projectId": 14,
+      "projectName": "A14 Cambridge to Huntingdon improvement scheme",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 0.9999,
+      "weightedValueGBP": 1500123765,
+      "nWeightedEntries": 2,
+      "gradeCounts": {
+        "A": 7,
+        "B": 1
+      }
+    },
+    {
+      "projectId": 58,
+      "projectName": "Great Western Electrification Programme",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 2800000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 7,
+        "B": 1
+      }
+    },
+    {
+      "projectId": 74,
+      "projectName": "Aberdeen Western Peripheral Route / Balmedie-Tipperty (AWPR)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 745000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 6,
+        "B": 1
+      }
+    },
+    {
+      "projectId": 109,
+      "projectName": "Bibby Stockholm Asylum Barge (Portland Port)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 46000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 6
+      }
+    },
+    {
+      "projectId": 72,
+      "projectName": "Channel Tunnel (original 1987–1994 construction)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 4650000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 12,
+        "B": 1
+      }
+    },
+    {
+      "projectId": 76,
+      "projectName": "A9 Dualling Programme (Perth to Inverness)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 3700000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 1,
+        "B": 9
+      }
+    },
+    {
+      "projectId": 110,
+      "projectName": "RAF Scampton Asylum Accommodation Site (cancelled)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 60000000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 3,
+        "B": 2
+      }
+    },
+    {
+      "projectId": 111,
+      "projectName": "Carer's Allowance Overpayments (administrative failure)",
+      "score": 1.0,
+      "letter": "A",
+      "corroborationRatio": 1.0,
+      "weightedValueGBP": 251700000,
+      "nWeightedEntries": 1,
+      "gradeCounts": {
+        "A": 4,
+        "B": 1
+      }
+    }
+  ]
+}

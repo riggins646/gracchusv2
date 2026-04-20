@@ -1,0 +1,2838 @@
+{
+  "schemaVersion": "2026-04-19.waste.v1",
+  "lastUpdated": "2026-04-19",
+  "generatedAt": "2026-04-19T16:10:33Z",
+  "summary": {
+    "totalProjects": 116,
+    "totalWastedGBP": 602322200000,
+    "flagCounts": {
+      "cancelled": 20,
+      "overBudget": 77,
+      "scheduleSlip": 86,
+      "scopeCut": 19,
+      "fraudLitigated": 2,
+      "misSold": 2,
+      "writtenOff": 24,
+      "safetyRisk": 3,
+      "governanceFailure": 27
+    },
+    "severityCounts": {
+      "critical": 25,
+      "high": 40,
+      "moderate": 27,
+      "low": 14,
+      "none": 10
+    },
+    "wastedByBasis": {
+      "overrun-delta": 576582000000,
+      "cancelled-total-spend": 23088500000,
+      "none": 0,
+      "estimated-from-inquiry": 2651700000
+    }
+  },
+  "wasteTaxonomy": [
+    {
+      "projectId": 1,
+      "projectName": "HS2 (High Speed 2)",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": false,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "critical",
+      "wastedGBP": 67000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "£67bn cost growth from £33bn original estimate to £100bn latest (covers both scope-cut Phase 2 and overrun on Phase 1). March 2026 parliamentary report: £43.6bn spent to Feb 2026.",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/speeches/hs2-6-monthly-report-to-parliament-march-2026",
+        "https://committees.parliament.uk/committee/127/public-accounts-committee/",
+        "https://www.nao.org.uk/reports/hs2-progress-update/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 2,
+      "projectName": "Crossrail / Elizabeth Line",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "high",
+      "wastedGBP": 4000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "£4bn cost overrun (£14.8bn → £18.8bn), opened 3.5 years late in May 2022. NAO cited governance failure pre-2018 reset.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/crossrail/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 3,
+      "projectName": "Garden Bridge",
+      "flags": {
+        "cancelled": true,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "high",
+      "wastedGBP": 53500000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Cancelled 2017, nothing built. £53.5m public money spent (£43.4m public + £9.4m Treasury underwrite). NAO cited procurement failures.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/investigation-into-the-governments-funding-of-the-garden-bridge/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 4,
+      "projectName": "Hinkley Point C",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "critical",
+      "wastedGBP": 30000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "£30bn+ cost growth (£18bn → £48bn+) with 6-year delay. EDF impairment charges recorded. CfD strike price will burden consumers for 35 years.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/hinkley-point-c/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 5,
+      "projectName": "Ajax Armoured Vehicle",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 600000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £600m (£5,500m original → £6,100m latest).",
+      "evidenceSourceUrls": [
+        "https://commonslibrary.parliament.uk/research-briefings/cbp-9764/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 6,
+      "projectName": "NHS National Programme for IT",
+      "flags": {
+        "cancelled": true,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "critical",
+      "wastedGBP": 9800000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "NHS National Programme for IT dismantled 2011. Estimated £9.8bn sunk into the failed programme. PAC called it 'one of the worst and most expensive contracting fiascos' in public-sector history.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/the-national-programme-for-it-in-the-nhs-an-update-on-the-delivery-of-detailed-care-records-systems/",
+        "https://committees.parliament.uk/publications/6699/documents/72249/default/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 7,
+      "projectName": "Universal Credit IT System",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "critical",
+      "wastedGBP": 13600000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "£13.6bn cost growth from original £2.2bn IT estimate; £34m IT written off in 2013 reset. NAO: 'good news story turned into a serious mess'.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/universal-credit-early-progress/",
+        "https://www.nao.org.uk/reports/rolling-out-universal-credit/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 8,
+      "projectName": "Edinburgh Trams",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 455000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £455m (£545m original → £1,000m latest).",
+      "evidenceSourceUrls": [
+        "https://www.edinburghtraminquiry.org/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 9,
+      "projectName": "Scottish Parliament Building",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 375000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £375m (£55m original → £430m latest).",
+      "evidenceSourceUrls": [
+        "https://en.wikipedia.org/wiki/Scottish_Parliament_Building"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 10,
+      "projectName": "Millennium Dome",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 390000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £390m (£399m original → £789m latest).",
+      "evidenceSourceUrls": [
+        "https://en.wikipedia.org/wiki/Millennium_Dome"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 11,
+      "projectName": "Wembley Stadium Rebuild",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 463000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £463m (£326m original → £789m latest).",
+      "evidenceSourceUrls": [
+        "https://en.wikipedia.org/wiki/Wembley_Stadium"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 12,
+      "projectName": "London 2012 Olympics",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "critical",
+      "wastedGBP": 11000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £11,000m (£4,000m original → £15,000m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/the-budget-for-the-london-2012-olympic-and-paralympic-games/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 13,
+      "projectName": "Thameslink Programme",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 1000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £1,000m (£6,000m original → £7,000m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/update-on-the-thameslink-programme/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 14,
+      "projectName": "A14 Cambridge to Huntingdon",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "none",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/news/britains-biggest-road-project-opens-to-traffic-eight-months-early"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 15,
+      "projectName": "Smart Motorways Programme",
+      "flags": {
+        "cancelled": true,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": true,
+        "governanceFailure": true
+      },
+      "severity": "critical",
+      "wastedGBP": 62000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "All-lane-running smart motorway rollout cancelled April 2023 for safety reasons after fatalities. £62m spent on 14 schemes that will not proceed. PAC and Transport Committee both critical.",
+      "evidenceSourceUrls": [
+        "https://committees.parliament.uk/committee/153/transport-committee/",
+        "https://www.gov.uk/government/news/all-new-smart-motorways-cancelled"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 16,
+      "projectName": "HMS Queen Elizabeth Carriers",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 3500000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £3,500m (£4,100m original → £7,600m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/carrier-strike/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 17,
+      "projectName": "Astute-Class Submarines",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 9800000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £9,800m (£2,400m original → £12,200m latest).",
+      "evidenceSourceUrls": [
+        "https://ukdefencejournal.org.uk/astute-boats-4-7-now-more-than-800m-over-budget/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 18,
+      "projectName": "Type 26 Frigates",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "low",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://en.wikipedia.org/wiki/Type_26_frigate"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 19,
+      "projectName": "HS1 (Channel Tunnel Rail Link)",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 1540000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £1,540m (£5,300m original → £6,840m latest).",
+      "evidenceSourceUrls": [
+        "https://en.wikipedia.org/wiki/High_Speed_1"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 20,
+      "projectName": "Jubilee Line Extension",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 1400000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £1,400m (£2,100m original → £3,500m latest).",
+      "evidenceSourceUrls": [
+        "https://en.wikipedia.org/wiki/Jubilee_Line_Extension"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 21,
+      "projectName": "Stonehenge Tunnel / A303",
+      "flags": {
+        "cancelled": true,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "high",
+      "wastedGBP": 179000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Cancelled July 2024 after repeated legal and environmental challenges. £179m development spend.",
+      "evidenceSourceUrls": [
+        "https://en.wikipedia.org/wiki/Stonehenge_road_tunnel"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 22,
+      "projectName": "Thames Tideway Tunnel",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 3300000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £3,300m (£1,700m original → £5,000m latest).",
+      "evidenceSourceUrls": [
+        "https://en.wikipedia.org/wiki/Thames_Tideway_Tunnel"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 23,
+      "projectName": "Northern Powerhouse Rail",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "low",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.constructionnews.co.uk/government/northern-powerhouse-rail-revived-with-1-1bn-funding-14-01-2026"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 24,
+      "projectName": "E-Borders System",
+      "flags": {
+        "cancelled": true,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "high",
+      "wastedGBP": 830000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "E-Borders terminated 2010, successor DABS descoped. Home Office paid Raytheon £150m arbitration settlement 2015. £830m total sunk with minimal delivery.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/e-borders-and-successor-programmes/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 25,
+      "projectName": "Emergency Services Network",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 5000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £5,000m (£6,000m original → £11,000m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/emergency-services-network/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 26,
+      "projectName": "Lower Thames Crossing",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 5800000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £5,800m (£4,400m original → £10,200m latest).",
+      "evidenceSourceUrls": [
+        "https://www.constructionnews.co.uk/civils/budget-2025-900m-allocated-for-lower-thames-crossing-26-11-2025/",
+        "https://www.nao.org.uk/reports/lower-thames-crossing/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 27,
+      "projectName": "Northern Line Extension",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "low",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://en.wikipedia.org/wiki/Northern_line_extension_to_Battersea"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 28,
+      "projectName": "Nimrod MRA4 Patrol Aircraft",
+      "flags": {
+        "cancelled": true,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "critical",
+      "wastedGBP": 3600000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Cancelled 2010 under SDSR; all 9 airframes scrapped. £3.6bn sunk. NAO 'a catalogue of failure'.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/ministry-of-defence-the-nimrod-maritime-reconnaissance-and-attack-aircraft/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 29,
+      "projectName": "Post Office Horizon IT",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": true,
+        "misSold": true,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "critical",
+      "wastedGBP": 2400000000,
+      "wastedGBPBasis": "estimated-from-inquiry",
+      "wastedGBPNote": "Horizon wrongful-prosecution scandal: £1bn+ redress (HSS, GLO, OHCS, HCRS schemes) + £400m+ inquiry legal costs + historical IT spend with Fujitsu. Post Office Horizon IT Inquiry ongoing; total public cost estimated £2.4bn+ as of FY2024/25.",
+      "evidenceSourceUrls": [
+        "https://www.postofficehorizoninquiry.org.uk/",
+        "https://www.nao.org.uk/reports/investigation-into-the-post-office-horizon-it-scandal/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 30,
+      "projectName": "Manchester Town Hall",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 195000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £195m (£330m original → £525m latest).",
+      "evidenceSourceUrls": [
+        "https://www.constructionnews.co.uk/buildings/further-delays-hit-manchester-town-hall-restoration/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 31,
+      "projectName": "Tempest / GCAP Fighter",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "critical",
+      "wastedGBP": 10000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £10,000m (£2,000m original → £12,000m latest).",
+      "evidenceSourceUrls": [
+        "https://en.wikipedia.org/wiki/BAE_Systems_Tempest"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 32,
+      "projectName": "Heathrow Third Runway",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "critical",
+      "wastedGBP": 35000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £35,000m (£14,000m original → £49,000m latest).",
+      "evidenceSourceUrls": [
+        "https://en.wikipedia.org/wiki/Expansion_of_Heathrow_Airport"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 33,
+      "projectName": "Sizewell C Nuclear Power Station",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "critical",
+      "wastedGBP": 20000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £20,000m (£20,000m original → £40,000m latest).",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/collections/new-nuclear-power-plants"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 34,
+      "projectName": "Great British Nuclear SMR Programme",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "none",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/news/rolls-royce-smr-selected-to-build-small-modular-nuclear-reactors"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 35,
+      "projectName": "Carbon Capture & Storage Clusters",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "none",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/news/new-vision-to-create-competitive-carbon-capture-market-follows-unprecedented-20-billion-investment"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 36,
+      "projectName": "GB Energy",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "none",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.gbe.gov.uk/strategic-plan-2025-html"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 37,
+      "projectName": "National Grid Great Grid Upgrade",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "none",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.nationalgrid.com/the-great-grid-upgrade"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 38,
+      "projectName": "Smart Meter Rollout",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 2500000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £2,500m (£11,000m original → £13,500m latest).",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/consultations/smart-metering-policy-framework-post-2025"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 39,
+      "projectName": "Green Homes Grant",
+      "flags": {
+        "cancelled": true,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "high",
+      "wastedGBP": 314000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Cancelled March 2021 after 6 months; £314m spent, only 47k of the planned 600k vouchers redeemed. PAC 'rushed implementation'.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/the-green-homes-grant-voucher-scheme/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 40,
+      "projectName": "Dreadnought-Class Submarines",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "critical",
+      "wastedGBP": 10000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £10,000m (£31,000m original → £41,000m latest).",
+      "evidenceSourceUrls": [
+        "https://commonslibrary.parliament.uk/research-briefings/cbp-8010/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 41,
+      "projectName": "Type 31 Inspiration-Class Frigates",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "low",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.royalnavy.mod.uk/the-equipment/ships/future-ships/type-31"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 42,
+      "projectName": "Boxer Armoured Vehicles",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "low",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://des.mod.uk/boxer-armoured-vehicle-programme/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 43,
+      "projectName": "F-35B Lightning II",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "critical",
+      "wastedGBP": 52240000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "£52bn+ cost growth from original UK estimate, 5-year capability delay, reduced initial buy commitment. NAO/PAC both cited sustainment-cost overruns.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/the-uks-f-35-capability/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 44,
+      "projectName": "Challenger 3 Main Battle Tank",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "none",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://des.mod.uk/challenger-3/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 45,
+      "projectName": "AUKUS Submarine Programme",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "critical",
+      "wastedGBP": 20000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £20,000m (£20,000m original → £40,000m latest).",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/publications/aukus"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 46,
+      "projectName": "New Hospital Programme",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "critical",
+      "wastedGBP": 11300000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £11,300m (£3,700m original → £15,000m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/the-new-hospital-programme/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 47,
+      "projectName": "NHS Federated Data Platform",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 155000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £155m (£330m original → £485m latest).",
+      "evidenceSourceUrls": [
+        "https://www.digitalhealth.net/2023/11/nhs-england-awards-330m-federated-data-platform-contract-to-palantir/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 48,
+      "projectName": "Nightingale Hospitals",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 186000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £186m (£346m original → £532m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/investigation-into-the-nightingale-hospitals/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 49,
+      "projectName": "Affordable Homes Programme 2021-26",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 2330000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £2,330m (£11,500m original → £13,830m latest).",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/collections/affordable-homes-programme-2021-to-2026"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 50,
+      "projectName": "Building Safety Fund (Post-Grenfell)",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 3500000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £3,500m (£1,000m original → £4,500m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/cladding-remediation/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 51,
+      "projectName": "New Prisons Programme (10,000 places)",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 7000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £7,000m (£2,500m original → £9,500m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/increasing-the-capacity-of-the-prison-estate-to-meet-demand/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 52,
+      "projectName": "School Rebuilding Programme",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "critical",
+      "wastedGBP": 18000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £18,000m (£2,000m original → £20,000m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/condition-of-school-buildings/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 53,
+      "projectName": "GOV.UK One Login",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "none",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.sign-in.service.gov.uk/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 54,
+      "projectName": "Making Tax Digital",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 300000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £300m (£1,300m original → £1,600m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/making-tax-digital/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 55,
+      "projectName": "Customs Declaration Service",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 168000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £168m (£157m original → £325m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/the-customs-declaration-service/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 56,
+      "projectName": "Verify Identity Programme",
+      "flags": {
+        "cancelled": true,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "high",
+      "wastedGBP": 175000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "£175m sunk 2011–2022; retired April 2023. Never reached 25m-user target. Replaced by GOV.UK One Login.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/the-governments-approach-to-identity-verification/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 57,
+      "projectName": "Police NLEDS (National Law Enforcement Data)",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 500000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £500m (£600m original → £1,100m latest).",
+      "evidenceSourceUrls": [
+        "https://www.computerweekly.com/news/366536261/Police-national-law-enforcement-data-programme-hits-over-1bn"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 58,
+      "projectName": "Great Western Electrification",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 4580000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £4,580m (£1,000m original → £5,580m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/modernising-the-great-western-railway/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 59,
+      "projectName": "Transpennine Route Upgrade",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 8300000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £8,300m (£2,900m original → £11,200m latest).",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/news/service-announcement-39-billion-boost-for-more-reliable-train-journeys-in-the-north"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 60,
+      "projectName": "East West Rail",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 3500000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £3,500m (£3,400m original → £6,900m latest).",
+      "evidenceSourceUrls": [
+        "https://www.networkrail.co.uk/running-the-railway/our-routes/east-west-rail/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 61,
+      "projectName": "Palace of Westminster Restoration",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "critical",
+      "wastedGBP": 18000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £18,000m (£4,000m original → £22,000m latest).",
+      "evidenceSourceUrls": [
+        "https://www.parliament.uk/business/news/2026/feb-2026/delivering-restoration-and-renewal-of-the-palace-of-westminster-the-costed-proposals-published/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 62,
+      "projectName": "Type 45 Daring-Class Destroyers",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 1460000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £1,460m (£5,000m original → £6,460m latest).",
+      "evidenceSourceUrls": [
+        "https://en.wikipedia.org/wiki/Type_45_destroyer"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 63,
+      "projectName": "Eurofighter Typhoon",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "critical",
+      "wastedGBP": 14400000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "£14.4bn cost growth vs original UK estimate; extensive export-support-cost overruns.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/eurofighter-typhoon/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 65,
+      "projectName": "Midland Main Line Electrification",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 1000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £1,000m (£500m original → £1,500m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/modernising-the-great-western-railway/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 66,
+      "projectName": "A66 Northern Trans-Pennine",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 900000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £900m (£1,000m original → £1,900m latest).",
+      "evidenceSourceUrls": [
+        "https://nationalhighways.co.uk/our-roads/north-west/a66-northern-trans-pennine/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 67,
+      "projectName": "Sellafield Decommissioning",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "critical",
+      "wastedGBP": 91000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Nominal lifetime cost ballooned from ~£45bn to ~£136bn. NAO/PAC repeatedly critical of contracting failures and safety-regulator fines (2023: £332k fine for data-security breach).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/the-nuclear-decommissioning-authoritys-management-of-sellafield/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 68,
+      "projectName": "Project Gigabit (Broadband)",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "low",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/publications/project-gigabit-delivery-plan"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 69,
+      "projectName": "UK Digital Identity Programme",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 500000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £500m (£1,300m original → £1,800m latest).",
+      "evidenceSourceUrls": [
+        "https://www.computerweekly.com/news/366635135/Budget-2025-300m-extra-for-NHS-IT-and-a-18bn-budget-for-digital-ID-cards"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 70,
+      "projectName": "NHS Digital Transformation",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 5000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £5,000m (£5,000m original → £10,000m latest).",
+      "evidenceSourceUrls": [
+        "https://www.digitalhealth.net/2025/06/government-to-invest-up-to-10bn-to-bring-nhs-into-the-digital-age/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 71,
+      "projectName": "Prison Estate Expansion (14,000 places)",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 3500000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £3,500m (£5,900m original → £9,400m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/press-releases/prison-expansion-plan-was-unrealistic-and-not-prioritised-nao/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 72,
+      "projectName": "Connecting Europe Express / Channel Tunnel Upgrades",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 4800000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £4,800m (£4,700m original → £9,500m latest).",
+      "evidenceSourceUrls": [
+        "https://en.wikipedia.org/wiki/Channel_Tunnel"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 73,
+      "projectName": "Queensferry Crossing",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "low",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.transport.gov.scot/projects/forth-replacement-crossing/project-details/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 74,
+      "projectName": "Aberdeen Western Peripheral Route (AWPR)",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 805000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £805m (£395m original → £1,200m latest).",
+      "evidenceSourceUrls": [
+        "https://www.transport.gov.scot/projects/aberdeen-western-peripheral-route-balmedie-to-tipperty/",
+        "https://www.infrastructure-intelligence.com/article/dec-2018/aberdeen-bypass-final-cost-revealed-be-over-1bn-bosses-face-politicians"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 75,
+      "projectName": "Bank Station Capacity Upgrade",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "low",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://tfl.gov.uk/corporate/publications-and-reports/bank-station-capacity-upgrade",
+        "https://www.newcivilengineer.com/latest/work-completed-on-700m-bank-station-upgrade-28-02-2023/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 76,
+      "projectName": "A9 Dualling Programme",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 970000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £970m (£3,000m original → £3,970m latest).",
+      "evidenceSourceUrls": [
+        "https://www.a9dualling.scot/a9-dualling/programme-overview/",
+        "https://www.gov.scot/publications/infrastructure-investment-plan-2021-22-2025-26-major-capital-projects-progress-update-august-2025/pages/2/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 77,
+      "projectName": "Francis Crick Institute",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 100000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £100m (£600m original → £700m latest).",
+      "evidenceSourceUrls": [
+        "https://www.crick.ac.uk/about-us",
+        "https://en.wikipedia.org/wiki/Francis_Crick_Institute"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 78,
+      "projectName": "AWE Mensa Programme",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 1426000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £1,426m (£734m original → £2,160m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nuclearinfo.org/article/mensa-warhead-facility-costs-now-over-2bn/",
+        "https://www.rusi.org/explore-our-research/publications/commentary/britains-nuclear-projects-less-bang-and-more-whimper"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 79,
+      "projectName": "A428 Black Cat to Caxton Gibbet",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "low",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://nationalhighways.co.uk/our-roads/a428-black-cat-to-caxton-gibbet/",
+        "https://highways-news.com/black-cat-to-caxton-gibbet-1bn-upgrade-on-track-to-be-finished-by-spring-2027/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 80,
+      "projectName": "Silvertown Tunnel",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 200000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £200m (£1,000m original → £1,200m latest).",
+      "evidenceSourceUrls": [
+        "https://tfl.gov.uk/travel-information/improvements-and-projects/silvertown-tunnel",
+        "https://www.london.gov.uk/who-we-are/what-london-assembly-does/questions-mayor/find-an-answer/transparency-cost-silvertown-road-tunnel-1"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 81,
+      "projectName": "Mersey Gateway Bridge",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "none",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://merseygateway.co.uk/finances/",
+        "https://www.gov.uk/government/news/new-bridge-over-the-mersey"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 82,
+      "projectName": "Luton DART",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 75000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £75m (£225m original → £300m latest).",
+      "evidenceSourceUrls": [
+        "https://www.lutontoday.co.uk/news/transport/luton-dart-investigation-demanded-as-project-two-years-late-and-ps70m-over-budget-3997946",
+        "https://en.wikipedia.org/wiki/Luton_DART"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 83,
+      "projectName": "Diamond Light Source",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 231000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £231m (£263m original → £494m latest).",
+      "evidenceSourceUrls": [
+        "https://www.diamond.ac.uk/Home/About.html"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 84,
+      "projectName": "HMNB Clyde Infrastructure Programme",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 600000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £600m (£1,300m original → £1,900m latest).",
+      "evidenceSourceUrls": [
+        "https://ukdefencejournal.org.uk/uk-government-launches-massive-upgrade-of-clyde-naval-base/",
+        "https://www.forcesnews.com/services/navy/ps250-million-upgrade-home-royal-navy-nuclear-submarine-fleet-launched"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 85,
+      "projectName": "Warrior Capability Sustainment Programme (WCSP)",
+      "flags": {
+        "cancelled": true,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "high",
+      "wastedGBP": 642000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Cancelled March 2021 under Integrated Review. £642m spent with no operational upgrade delivered. NAO: 'culture of optimism bias'.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/the-equipment-plan-2020-to-2030/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 86,
+      "projectName": "Watchkeeper WK450 Drone",
+      "flags": {
+        "cancelled": true,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": true,
+        "governanceFailure": true
+      },
+      "severity": "critical",
+      "wastedGBP": 1350000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Retired March 2025 having entered service 8 years late, never reached full operational capability; 5 crashes. £1.35bn spent for marginal capability.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/the-watchkeeper-drone-programme/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 87,
+      "projectName": "Voyager / Future Strategic Tanker Aircraft (FSTA)",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 1800000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £1,800m (£10,500m original → £12,300m latest).",
+      "evidenceSourceUrls": [
+        "https://ukdefencejournal.org.uk/how-much-does-the-uk-pay-airtanker-for-voyager-aircraft/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 88,
+      "projectName": "Apache AH-64E Attack Helicopter",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "none",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://des.mod.uk/what-we-do/army-procurement-support/apache-ah64e/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 89,
+      "projectName": "Crowsnest AEW System",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 156000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £156m (£269m original → £425m latest).",
+      "evidenceSourceUrls": [
+        "https://ukdefencejournal.org.uk/269m-deal-signed-crowsnest-airborne-early-warning-control-system/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 90,
+      "projectName": "Skynet 5 Satellite Communications",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "low",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.airbus.com/en/space/telecommunications-satellites/military-communications/skynet"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 91,
+      "projectName": "Skynet 6 Satellite Communications",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "low",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/guidance/skynet-6"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 92,
+      "projectName": "Protector RG Mk1 Drone",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 520000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £520m (£1,240m original → £1,760m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/ministry-of-defence-equipment-plan-2023-33/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 93,
+      "projectName": "E-7 Wedgetail Airborne Early Warning",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 380000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £380m (£1,510m original → £1,890m latest).",
+      "evidenceSourceUrls": [
+        "https://des.mod.uk/what-we-do/raf-procurement-support/e7-wedgetail/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 94,
+      "projectName": "Morpheus Tactical Communications",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "low",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/guidance/morpheus-project-next-generation-tactical-communication-information-systems-for-defence"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 95,
+      "projectName": "Borders Railway",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 59000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £59m (£294m original → £353m latest).",
+      "evidenceSourceUrls": [
+        "https://www.transport.gov.scot/projects/borders-railway/borders-railway/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 96,
+      "projectName": "M4 Relief Road (Newport)",
+      "flags": {
+        "cancelled": true,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "high",
+      "wastedGBP": 130000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Welsh Government cancelled June 2019 after public inquiry on environmental grounds. £130m spent on development.",
+      "evidenceSourceUrls": [
+        "https://www.newcivilengineer.com/latest/1-4bn-m4-relief-road-proposal-rejected-04-06-2019/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 97,
+      "projectName": "Crossrail 2",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "none",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.crossrail2.co.uk/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 98,
+      "projectName": "Nottingham Express Transit Phase 2",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "low",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/news/construction-of-nottingham-tram-extensions-to-start"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 99,
+      "projectName": "Defence Information Infrastructure (DII)",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 4790000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £4,790m (£2,300m original → £7,090m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/ministry-of-defence-the-defence-information-infrastructure/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 100,
+      "projectName": "HMCTS Reform Programme",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 300000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £300m (£1,000m original → £1,300m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/wp-content/uploads/2023/02/progress-on-courts-and-tribunals-reform-programme-1.pdf"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 101,
+      "projectName": "Geological Disposal Facility (GDF)",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "critical",
+      "wastedGBP": 34000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "£34bn cost growth from original £1bn estimate as scope and timeline extended out to 2050s.",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/publications/geological-disposal-facility-gdf-high-level-cost-review"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 102,
+      "projectName": "Magnox Decommissioning Programme",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": false,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 4900000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £4,900m (£3,800m original → £8,700m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/terminating-the-magnox-contract/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 103,
+      "projectName": "Royal Liverpool University Hospital",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 374000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £374m (£350m original → £724m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/investigation-into-the-rescue-of-carillions-pfi-hospital-contracts/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 104,
+      "projectName": "Midland Metropolitan University Hospital",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "moderate",
+      "wastedGBP": 359000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "Cost overrun of £359m (£350m original → £709m latest).",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/investigation-into-the-rescue-of-carillions-pfi-hospital-contracts/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    },
+    {
+      "projectId": 105,
+      "projectName": "Wylfa Newydd Nuclear Power Station",
+      "flags": {
+        "cancelled": true,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "critical",
+      "wastedGBP": 2000000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Hitachi suspended 2019 after £2bn invested by developer; UK government unable to agree financing. Site subsequently acquired by Great British Nuclear at 2024 for £160m.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/new-nuclear-power/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 106,
+      "projectName": "Moorside Nuclear Power Station",
+      "flags": {
+        "cancelled": true,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "high",
+      "wastedGBP": 450000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Toshiba/NuGen cancelled 2018; £450m write-off. Sellafield-adjacent site no new nuclear capacity delivered.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/new-nuclear-power/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 107,
+      "projectName": "NHS Test and Trace",
+      "flags": {
+        "cancelled": false,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "critical",
+      "wastedGBP": 15000000000,
+      "wastedGBPBasis": "overrun-delta",
+      "wastedGBPNote": "£15bn cost growth vs original £22bn budget; PAC 'muddled, overstated, eye-wateringly expensive'. Consultants and contact-tracers on day rates up to £6,600.",
+      "evidenceSourceUrls": [
+        "https://committees.parliament.uk/publications/6027/documents/67686/default/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 108,
+      "projectName": "COVID PPE Procurement",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": true,
+        "fraudLitigated": true,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "high",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "£12bn+ cost growth; £8.7bn of PPE written off as unusable or expired; VIP lane referrals under criminal investigation; Good Law Project and NAO both critical. Covid-19 Inquiry Module 5 ongoing.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/the-supply-of-personal-protective-equipment-ppe-during-the-covid-19-pandemic/",
+        "https://covid19.public-inquiry.uk/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 109,
+      "projectName": "Bibby Stockholm Asylum Barge",
+      "flags": {
+        "cancelled": true,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": true,
+        "governanceFailure": true
+      },
+      "severity": "critical",
+      "wastedGBP": 35000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Barge lease terminated January 2025 with no cost savings vs hotels demonstrated. Legionella discovery and a death on board. NAO critical.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/asylum-accommodation-large-sites/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 110,
+      "projectName": "RAF Scampton Asylum Site",
+      "flags": {
+        "cancelled": true,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "high",
+      "wastedGBP": 50000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Site works abandoned 2024; no asylum seekers ever housed. Heritage damage and WLDC judicial-review costs.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/asylum-accommodation-large-sites/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 111,
+      "projectName": "Carer's Allowance Overpayments",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": true,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "high",
+      "wastedGBP": 251700000,
+      "wastedGBPBasis": "estimated-from-inquiry",
+      "wastedGBPNote": "£251.7m of overpayments owed by ~144k carers after DWP system failed to flag earnings-threshold breaches. Select Committee inquiry ongoing.",
+      "evidenceSourceUrls": [
+        "https://committees.parliament.uk/work/8030/carers-allowance/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 112,
+      "projectName": "A27 Arundel Bypass",
+      "flags": {
+        "cancelled": true,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 25000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Cancelled March 2023 by DfT; £25m development spend sunk.",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/news/transport-secretary-announces-roads-investment-review"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 113,
+      "projectName": "A358 Taunton to Southfields",
+      "flags": {
+        "cancelled": true,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 25000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Cancelled March 2023; £25m development spend sunk.",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/news/transport-secretary-announces-roads-investment-review"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 114,
+      "projectName": "A1 Morpeth to Ellingham Dualling",
+      "flags": {
+        "cancelled": true,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "high",
+      "wastedGBP": 68000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Cancelled March 2023; £68m development spend sunk.",
+      "evidenceSourceUrls": [
+        "https://www.gov.uk/government/news/transport-secretary-announces-roads-investment-review"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 115,
+      "projectName": "HS2 Phase 2 (Northern Legs)",
+      "flags": {
+        "cancelled": true,
+        "overBudget": false,
+        "scheduleSlip": false,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "critical",
+      "wastedGBP": 2600000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Northern legs cancelled October 2023 having spent £2.6bn on land acquisition, design and enabling works. NAO and PAC critical of decision-making process and poor value for money on sunk land holdings.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/hs2-progress-update/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 116,
+      "projectName": "Rwanda Asylum Partnership",
+      "flags": {
+        "cancelled": true,
+        "overBudget": true,
+        "scheduleSlip": true,
+        "scopeCut": true,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": true,
+        "safetyRisk": false,
+        "governanceFailure": true
+      },
+      "severity": "high",
+      "wastedGBP": 700000000,
+      "wastedGBPBasis": "cancelled-total-spend",
+      "wastedGBPNote": "Scheme cancelled July 2024 having removed zero asylum seekers. ~£290m paid directly to Rwanda + £400m+ in UK operational and legal costs. NAO total estimate £700m.",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/investigation-into-the-uk-governments-arrangements-with-the-government-of-rwanda/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed+manual-override"
+    },
+    {
+      "projectId": 117,
+      "projectName": "COVID Bounce Back Loan Scheme Fraud",
+      "flags": {
+        "cancelled": false,
+        "overBudget": false,
+        "scheduleSlip": true,
+        "scopeCut": false,
+        "fraudLitigated": false,
+        "misSold": false,
+        "writtenOff": false,
+        "safetyRisk": false,
+        "governanceFailure": false
+      },
+      "severity": "low",
+      "wastedGBP": 0,
+      "wastedGBPBasis": "none",
+      "wastedGBPNote": "",
+      "evidenceSourceUrls": [
+        "https://www.nao.org.uk/reports/the-bounce-back-loan-scheme-an-update/",
+        "https://committees.parliament.uk/committee/127/public-accounts-committee/"
+      ],
+      "asOfDate": "2026-04-19",
+      "reviewedBy": "auto-seed"
+    }
+  ]
+}
