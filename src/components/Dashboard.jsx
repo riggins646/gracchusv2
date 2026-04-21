@@ -4505,7 +4505,7 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
           "px-6 py-5 " +
           (severe ? "bg-red-500/[0.06]" : "")
         }>
-          <div className="flex items-baseline gap-3">
+          <div className="flex items-baseline gap-3 group">
             <span className={
               "text-3xl font-black font-mono tabular-nums " + ovColor
             }>
@@ -4516,6 +4516,14 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
             }>
               {ovSign}{op.toFixed(1)}%
             </span>
+            <CiteChip
+              citation={
+                `${p.name} — ${neg ? "under" : "over"} budget ` +
+                `by ${fmt(Math.abs(ov))} (${ovSign}${op.toFixed(1)}%). ` +
+                `Source: projects.json (${p.department}). ` +
+                `Gracchus, accessed ${new Date().toISOString().slice(0,10)}.`
+              }
+            />
           </div>
           <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono mt-1">
             {neg ? "Under budget" : "Budget overrun"}
@@ -4531,7 +4539,7 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
         {/* — METRICS GRID — */}
         <div className="px-6 py-4 border-t border-gray-800/40">
           <div className="grid grid-cols-2 gap-x-8 gap-y-4">
-            <div>
+            <div className="group">
               <div className={
                 "text-[9px] uppercase tracking-[0.2em] " +
                 "text-gray-700 font-mono mb-1"
@@ -4539,21 +4547,41 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
                 Original Budget
               </div>
               <div className={
+                "inline-flex items-baseline " +
                 "text-gray-500 text-sm font-mono " +
                 "line-through decoration-gray-800"
               }>
                 {fmt(p.originalBudget)}
+                <CiteChip
+                  citation={
+                    `${p.name} — original budget ` +
+                    `${fmt(p.originalBudget)}. ` +
+                    `Source: projects.json. Gracchus, ` +
+                    `accessed ${new Date().toISOString().slice(0,10)}.`
+                  }
+                />
               </div>
             </div>
-            <div>
+            <div className="group">
               <div className={
                 "text-[9px] uppercase tracking-[0.2em] " +
                 "text-gray-700 font-mono mb-1"
               }>
                 Latest Budget
               </div>
-              <div className="text-white text-sm font-mono font-bold">
+              <div className={
+                "inline-flex items-baseline " +
+                "text-white text-sm font-mono font-bold"
+              }>
                 {fmt(p.latestBudget)}
+                <CiteChip
+                  citation={
+                    `${p.name} — latest budget ` +
+                    `${fmt(p.latestBudget)}. ` +
+                    `Source: projects.json. Gracchus, ` +
+                    `accessed ${new Date().toISOString().slice(0,10)}.`
+                  }
+                />
               </div>
             </div>
             <div>
@@ -5252,45 +5280,90 @@ function SupplierDetail({ supplierId, supplierName, onClose, onSelectProject, on
 
         {/* — METRICS GRID — */}
         <div className="grid grid-cols-2 gap-px bg-gray-800/40 border-b border-gray-800/40">
-          <div className="bg-black px-6 py-4">
+          <div className="bg-black px-6 py-4 group">
             <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
               Total disclosed
             </div>
-            <div className="text-2xl font-black font-mono tabular-nums text-white mt-1">
+            <div className="inline-flex items-baseline text-2xl font-black font-mono tabular-nums text-white mt-1">
               {totalGBP > 0 ? fmt(totalGBP / 1e6) : "—"}
+              {totalGBP > 0 && (
+                <CiteChip
+                  citation={
+                    `${displayName} — ${fmt(totalGBP / 1e6)} disclosed ` +
+                    `across ${projectRows.length} tracked project` +
+                    `${projectRows.length === 1 ? "" : "s"} and ` +
+                    `${buyerRows.length} gov buyer` +
+                    `${buyerRows.length === 1 ? "" : "s"}. ` +
+                    `Source: money-map.json. Gracchus, ` +
+                    `accessed ${new Date().toISOString().slice(0,10)}.`
+                  }
+                />
+              )}
             </div>
             <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
               across tracked projects
             </div>
           </div>
-          <div className="bg-black px-6 py-4">
+          <div className="bg-black px-6 py-4 group">
             <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
               Projects
             </div>
-            <div className="text-2xl font-black font-mono tabular-nums text-white mt-1">
+            <div className="inline-flex items-baseline text-2xl font-black font-mono tabular-nums text-white mt-1">
               {projectRows.length}
+              {projectRows.length > 0 && (
+                <CiteChip
+                  citation={
+                    `${displayName} appears in ${projectRows.length} ` +
+                    `tracked UK project` +
+                    `${projectRows.length === 1 ? "" : "s"}. ` +
+                    `Source: project-contractors.json via money-map.json. ` +
+                    `Gracchus, accessed ${new Date().toISOString().slice(0,10)}.`
+                  }
+                />
+              )}
             </div>
             <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
               where this firm is a member
             </div>
           </div>
-          <div className="bg-black px-6 py-4">
+          <div className="bg-black px-6 py-4 group">
             <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
               Buyers
             </div>
-            <div className="text-2xl font-black font-mono tabular-nums text-white mt-1">
+            <div className="inline-flex items-baseline text-2xl font-black font-mono tabular-nums text-white mt-1">
               {buyerRows.length}
+              {buyerRows.length > 0 && (
+                <CiteChip
+                  citation={
+                    `${displayName} has disclosed awards from ` +
+                    `${buyerRows.length} distinct gov buyer` +
+                    `${buyerRows.length === 1 ? "" : "s"}. ` +
+                    `Source: money-map.json (awards edges). ` +
+                    `Gracchus, accessed ${new Date().toISOString().slice(0,10)}.`
+                  }
+                />
+              )}
             </div>
             <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
               distinct gov buyers
             </div>
           </div>
-          <div className="bg-black px-6 py-4">
+          <div className="bg-black px-6 py-4 group">
             <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
               Buyer concentration
             </div>
-            <div className={"text-2xl font-black font-mono tabular-nums mt-1 " + concentrationColor}>
+            <div className={"inline-flex items-baseline text-2xl font-black font-mono tabular-nums mt-1 " + concentrationColor}>
               {concentrationLabel}
+              {totalBuyerGBP > 0 && (
+                <CiteChip
+                  citation={
+                    `${displayName} — buyer concentration ` +
+                    `${concentrationLabel} (HHI ${hhi.toFixed(0)}). ` +
+                    `Source: money-map.json; HHI = \u03a3(share\u00b2) \u00d7 10000. ` +
+                    `Gracchus, accessed ${new Date().toISOString().slice(0,10)}.`
+                  }
+                />
+              )}
             </div>
             <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
               HHI {hhi.toFixed(0)}
@@ -5619,23 +5692,51 @@ function BuyerDetail({ buyerId, buyerName, onClose, onSelectSupplier, onSelectPr
 
         {/* — METRICS GRID — */}
         <div className="grid grid-cols-2 gap-px bg-gray-800/40 border-b border-gray-800/40">
-          <div className="bg-black px-6 py-4">
+          <div className="bg-black px-6 py-4 group">
             <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
               Total awarded
             </div>
-            <div className="text-2xl font-black font-mono tabular-nums text-white mt-1">
+            <div className="inline-flex items-baseline text-2xl font-black font-mono tabular-nums text-white mt-1">
               {totalGBP > 0 ? fmt(totalGBP / 1e6) : "—"}
+              {totalGBP > 0 && (
+                <CiteChip
+                  citation={
+                    `${displayName} — ${fmt(totalGBP / 1e6)} awarded to ` +
+                    `${supplierRows.length} supplier` +
+                    `${supplierRows.length === 1 ? "" : "s"} across ` +
+                    `${projectRows.length} tracked project` +
+                    `${projectRows.length === 1 ? "" : "s"}. ` +
+                    `Source: money-map.json. Gracchus, ` +
+                    `accessed ${new Date().toISOString().slice(0,10)}.`
+                  }
+                />
+              )}
             </div>
             <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
               in current window
             </div>
           </div>
-          <div className="bg-black px-6 py-4">
+          <div className="bg-black px-6 py-4 group">
             <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
               Suppliers
             </div>
-            <div className="text-2xl font-black font-mono tabular-nums text-white mt-1">
+            <div className="inline-flex items-baseline text-2xl font-black font-mono tabular-nums text-white mt-1">
               {supplierRows.length}
+              {supplierRows.length > 0 && (
+                <CiteChip
+                  citation={
+                    `${displayName} awarded contracts to ` +
+                    `${supplierRows.length} distinct supplier` +
+                    `${supplierRows.length === 1 ? "" : "s"}` +
+                    `${node?.scores?.supplierCountValued
+                      ? ` (${node.scores.supplierCountValued} with a ` +
+                        `disclosed £)`
+                      : ""}. ` +
+                    `Source: money-map.json. Gracchus, ` +
+                    `accessed ${new Date().toISOString().slice(0,10)}.`
+                  }
+                />
+              )}
             </div>
             <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
               {node?.scores?.supplierCountValued
@@ -5643,23 +5744,45 @@ function BuyerDetail({ buyerId, buyerName, onClose, onSelectSupplier, onSelectPr
                 : "distinct firms"}
             </div>
           </div>
-          <div className="bg-black px-6 py-4">
+          <div className="bg-black px-6 py-4 group">
             <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
               Projects served
             </div>
-            <div className="text-2xl font-black font-mono tabular-nums text-white mt-1">
+            <div className="inline-flex items-baseline text-2xl font-black font-mono tabular-nums text-white mt-1">
               {projectRows.length}
+              {projectRows.length > 0 && (
+                <CiteChip
+                  citation={
+                    `${displayName} procures for ${projectRows.length} ` +
+                    `tracked UK megaproject` +
+                    `${projectRows.length === 1 ? "" : "s"}. ` +
+                    `Source: money-map.json (project_ids on award ` +
+                    `edges). Gracchus, ` +
+                    `accessed ${new Date().toISOString().slice(0,10)}.`
+                  }
+                />
+              )}
             </div>
             <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
               tracked megaprojects
             </div>
           </div>
-          <div className="bg-black px-6 py-4">
+          <div className="bg-black px-6 py-4 group">
             <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
               Supplier concentration
             </div>
-            <div className={"text-2xl font-black font-mono tabular-nums mt-1 " + concentrationColor}>
+            <div className={"inline-flex items-baseline text-2xl font-black font-mono tabular-nums mt-1 " + concentrationColor}>
               {concentrationLabel}
+              {totalSupplierGBP > 0 && (
+                <CiteChip
+                  citation={
+                    `${displayName} — supplier concentration ` +
+                    `${concentrationLabel} (HHI ${hhi.toFixed(0)}). ` +
+                    `Source: money-map.json; HHI = \u03a3(share\u00b2) \u00d7 10000. ` +
+                    `Gracchus, accessed ${new Date().toISOString().slice(0,10)}.`
+                  }
+                />
+              )}
             </div>
             <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
               HHI {hhi.toFixed(0)}
@@ -7875,20 +7998,62 @@ export default function App() {
                       : 0;
                   const grade = sourceQualitySummary?.overallLetter;
                   const verified = refreshMeta?.lastVerifiedMonth;
+                  const _today = new Date().toISOString().slice(0, 10);
                   const cells = [
-                    [projects.length.toLocaleString(), "projects tracked"],
-                    [totalGroups.toLocaleString(), "contractor groups"],
-                    [totalMembers.toLocaleString(), "people & firms"],
-                    [`${pct}%`, "contractor £ disclosed"],
+                    [
+                      projects.length.toLocaleString(),
+                      "projects tracked",
+                      `${projects.length.toLocaleString()} UK megaprojects ` +
+                        `tracked on Gracchus. Source: projects.json. ` +
+                        `Accessed ${_today}.`,
+                    ],
+                    [
+                      totalGroups.toLocaleString(),
+                      "contractor groups",
+                      `${totalGroups.toLocaleString()} contractor groups ` +
+                        `across tracked UK projects. ` +
+                        `Source: project-contractors.json. ` +
+                        `Accessed ${_today}.`,
+                    ],
+                    [
+                      totalMembers.toLocaleString(),
+                      "people & firms",
+                      `${totalMembers.toLocaleString()} individual firms ` +
+                        `and people named in contractor groups. ` +
+                        `Source: project-contractors.json. ` +
+                        `Accessed ${_today}.`,
+                    ],
+                    [
+                      `${pct}%`,
+                      "contractor £ disclosed",
+                      `${pct}% of contractor members have a disclosed ` +
+                        `£ value (${disclosedMembers.toLocaleString()} of ` +
+                        `${totalMembers.toLocaleString()}). ` +
+                        `Source: project-contractors.json. ` +
+                        `Accessed ${_today}.`,
+                    ],
                   ];
                   if (grade && grade !== "U") {
-                    cells.push([grade, "avg source grade"]);
+                    cells.push([
+                      grade,
+                      "avg source grade",
+                      `Average source-quality grade ${grade} across ` +
+                        `tracked contractor records. ` +
+                        `Source: Gracchus source-quality model. ` +
+                        `Accessed ${_today}.`,
+                    ]);
                   }
                   if (verified) {
-                    cells.push([verified, "last verified"]);
+                    cells.push([
+                      verified,
+                      "last verified",
+                      `Contractor dataset last verified ${verified}. ` +
+                        `Source: Gracchus refresh metadata. ` +
+                        `Accessed ${_today}.`,
+                    ]);
                   }
                   const out = [];
-                  cells.forEach(([value, label], i) => {
+                  cells.forEach(([value, label, citation], i) => {
                     if (i > 0) {
                       out.push(
                         <span
@@ -7903,10 +8068,11 @@ export default function App() {
                     out.push(
                       <span
                         key={label}
-                        className="flex items-baseline gap-2 whitespace-nowrap"
+                        className="flex items-baseline gap-2 whitespace-nowrap group"
                       >
-                        <span className="text-gray-100 font-semibold tabular-nums">
+                        <span className="inline-flex items-baseline text-gray-100 font-semibold tabular-nums">
                           {value}
+                          <CiteChip citation={citation} />
                         </span>
                         <span className="text-gray-500">{label}</span>
                       </span>
@@ -8432,6 +8598,7 @@ export default function App() {
                 const mapNodes = mapBuyers + mapSuppliers;
                 const mapAwards = moneyMapData?.counts?.awardEdges || 0;
 
+                const _today = new Date().toISOString().slice(0, 10);
                 const cards = [
                   {
                     id: "projects",
@@ -8439,6 +8606,11 @@ export default function App() {
                     metric: fmt(totalOverrun),
                     metricLabel: "over budget",
                     note: `Across ${projects.length} UK megaprojects — traced line-by-line to the firms collecting the fees.`,
+                    citation:
+                      `${fmt(totalOverrun)} total cost overrun across ` +
+                      `${projects.length} tracked UK projects. ` +
+                      `Source: projects.json (latest − original budget, ` +
+                      `summed). Gracchus, accessed ${_today}.`,
                   },
                   {
                     id: "suppliers",
@@ -8446,6 +8618,13 @@ export default function App() {
                     metric: totalGroups.toLocaleString(),
                     metricLabel: "contractor groups",
                     note: `${totalMembers.toLocaleString()} firms and people, ${disclosurePct}% with a disclosed £. The rest are named but the figure isn't yet public.`,
+                    citation:
+                      `${totalGroups.toLocaleString()} contractor groups ` +
+                      `covering ${totalMembers.toLocaleString()} firms and ` +
+                      `people across UK megaprojects; ${disclosurePct}% ` +
+                      `have a disclosed contract £. ` +
+                      `Source: project-contractors.json. Gracchus, ` +
+                      `accessed ${_today}.`,
                   },
                   {
                     id: "transparency.crony",
@@ -8453,6 +8632,11 @@ export default function App() {
                     metric: cronyDisplay,
                     metricLabel: "high-risk contracts",
                     note: "VIP lane · political donations · lobbying · MPs & outside money.",
+                    citation:
+                      `${cronyDisplay} of high-risk UK government ` +
+                      `contracts (VIP lane, donor-linked, political ` +
+                      `ties). Source: crony-contracts.json. ` +
+                      `Gracchus, accessed ${_today}.`,
                   },
                   {
                     id: "moneymap",
@@ -8460,8 +8644,22 @@ export default function App() {
                     metric: mapNodes.toLocaleString(),
                     metricLabel: `nodes · ${mapAwards.toLocaleString()} awards`,
                     note: "Departments → firms. The live canvas of who's been paid whom.",
+                    citation:
+                      `${mapNodes.toLocaleString()} nodes ` +
+                      `(${mapBuyers.toLocaleString()} buyers + ` +
+                      `${mapSuppliers.toLocaleString()} suppliers) and ` +
+                      `${mapAwards.toLocaleString()} award edges on the ` +
+                      `Money Map. Source: money-map.json. Gracchus, ` +
+                      `accessed ${_today}.`,
                   },
                 ];
+
+                const _onCardKey = (e, id) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setView(id);
+                  }
+                };
 
                 return (
                   <div className={
@@ -8469,15 +8667,21 @@ export default function App() {
                     "lg:grid-cols-4 gap-4"
                   }>
                     {cards.map((c) => (
-                      <button
+                      <div
                         key={c.id}
+                        role="button"
+                        tabIndex={0}
                         onClick={() => setView(c.id)}
+                        onKeyDown={(e) => _onCardKey(e, c.id)}
                         className={
                           "border border-gray-800/60 " +
                           "hover:border-ember-500/50 " +
                           "bg-gray-950/40 hover:bg-gray-950/80 " +
                           "p-5 text-left transition group " +
-                          "flex flex-col gap-3 min-h-[180px]"
+                          "flex flex-col gap-3 min-h-[180px] " +
+                          "cursor-pointer " +
+                          "focus:outline-none " +
+                          "focus:border-ember-500/70"
                         }
                       >
                         <div className={
@@ -8489,11 +8693,13 @@ export default function App() {
                         </div>
                         <div className="flex items-baseline gap-2 flex-wrap">
                           <span className={
+                            "inline-flex items-baseline " +
                             "font-serif text-3xl sm:text-4xl " +
                             "font-medium tracking-[-0.01em] " +
                             "text-gray-100 tabular-nums"
                           }>
                             {c.metric}
+                            <CiteChip citation={c.citation} />
                           </span>
                           <span className="text-xs text-gray-500">
                             {c.metricLabel}
@@ -8512,7 +8718,7 @@ export default function App() {
                           open
                           <span aria-hidden="true">→</span>
                         </div>
-                      </button>
+                      </div>
                     ))}
                   </div>
                 );
@@ -26616,10 +26822,20 @@ export default function App() {
                     Ranking 1 / 3
                   </div>
                   <h3 className={
+                    "group inline-flex items-baseline " +
                     "text-white font-serif text-lg " +
                     "mt-0.5 leading-tight"
                   }>
                     Repeat Offenders
+                    <CiteChip
+                      citation={
+                        `Gracchus \u201cRepeat Offenders\u201d ranking, ` +
+                        `top ${offenders.length}. Score blends buyer count, ` +
+                        `award count, disclosed £ and tier-A share. ` +
+                        `Source: money-map.json (rankings.topRepeatOffenders). ` +
+                        `Accessed ${new Date().toISOString().slice(0,10)}.`
+                      }
+                    />
                   </h3>
                   <p className={
                     "text-gray-500 text-[12px] mt-1 " +
@@ -26744,10 +26960,22 @@ export default function App() {
                     Ranking 2 / 3
                   </div>
                   <h3 className={
+                    "group inline-flex items-baseline " +
                     "text-white font-serif text-lg " +
                     "mt-0.5 leading-tight"
                   }>
                     Buyer-Dependent Suppliers
+                    <CiteChip
+                      citation={
+                        `Gracchus \u201cBuyer-Dependent Suppliers\u201d ` +
+                        `ranking, top ${dependent.length}. Dependence = ` +
+                        `share of supplier\u2019s tracked £ coming from ` +
+                        `its top buyer. ` +
+                        `Source: money-map.json ` +
+                        `(rankings.topDependentSuppliers). ` +
+                        `Accessed ${new Date().toISOString().slice(0,10)}.`
+                      }
+                    />
                   </h3>
                   <p className={
                     "text-gray-500 text-[12px] mt-1 " +
@@ -26869,10 +27097,21 @@ export default function App() {
                     Ranking 3 / 3
                   </div>
                   <h3 className={
+                    "group inline-flex items-baseline " +
                     "text-white font-serif text-lg " +
                     "mt-0.5 leading-tight"
                   }>
                     Concentrated Buyers
+                    <CiteChip
+                      citation={
+                        `Gracchus \u201cConcentrated Buyers\u201d ranking, ` +
+                        `top ${concentratedBuyers.length}. HHI = sum of ` +
+                        `squared supplier shares; \u22650.25 is highly ` +
+                        `concentrated, 1.00 = single-supplier. ` +
+                        `Source: money-map.json (rankings.topBuyersByHHI). ` +
+                        `Accessed ${new Date().toISOString().slice(0,10)}.`
+                      }
+                    />
                   </h3>
                   <p className={
                     "text-gray-500 text-[12px] mt-1 " +
