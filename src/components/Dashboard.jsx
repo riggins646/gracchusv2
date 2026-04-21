@@ -24,6 +24,7 @@ import {
 let _sessionToken = null;
 
 import CiteChip from "./CiteChip";
+import useDrawerFocus from "../lib/useDrawerFocus";
 import projectsData from "../data/projects.json";
 import civilServiceData from "../data/civil-service.json";
 import spendingData from "../data/spending.json";
@@ -6475,70 +6476,8 @@ function archivedLabel(v) {
 /* CiteChip now lives in ./CiteChip.jsx so MoneyMap.jsx can use it too.
  * See the component file for docs on usage + the nested-button gotcha. */
 
-/* ============================================================================
- * useDrawerFocus — focus-trap + focus-restore hook for slide-in drawers.
- *
- * Mount-time: stores document.activeElement (the trigger), then moves
- *   focus into the drawer (first focusable element, else the container).
- * While open: Tab cycles inside the drawer only; Esc calls onClose.
- * Unmount: restores focus to the trigger so keyboard users aren't
- *   dumped at the top of the page.
- *
- * Usage:
- *   const ref = useDrawerFocus(onClose);
- *   return <div ref={ref} tabIndex={-1} ...>
- *
- * Why: ProjectDetail / SupplierDetail / BuyerDetail are modal drawers;
- * without a trap, keyboard users Tab past the backdrop into the page
- * behind, and Esc doesn't close them.
- * ========================================================================= */
-function useDrawerFocus(onClose) {
-  const ref = useRef(null);
-  useEffect(() => {
-    const prevActive = typeof document !== "undefined" ? document.activeElement : null;
-    const node = ref.current;
-    if (!node) return undefined;
-
-    // Focus first focusable, else the container itself (tabIndex=-1).
-    const FOCUSABLE = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
-    const firstFocusable = node.querySelector(FOCUSABLE);
-    (firstFocusable || node).focus?.();
-
-    const onKey = (e) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        onClose?.();
-        return;
-      }
-      if (e.key !== "Tab") return;
-      const focusables = Array.from(node.querySelectorAll(FOCUSABLE)).filter(
-        (el) => !el.hasAttribute("disabled") && el.offsetParent !== null
-      );
-      if (focusables.length === 0) {
-        e.preventDefault();
-        return;
-      }
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-    node.addEventListener("keydown", onKey);
-    return () => {
-      node.removeEventListener("keydown", onKey);
-      // Restore focus to the element that opened the drawer (if still in DOM).
-      if (prevActive && typeof prevActive.focus === "function" && document.contains(prevActive)) {
-        try { prevActive.focus(); } catch { /* no-op */ }
-      }
-    };
-  }, [onClose]);
-  return ref;
-}
+/* useDrawerFocus extracted to src/lib/useDrawerFocus.js so Money Map's
+   drawer can share the same focus-trap behaviour. Imported at top. */
 
 export default function App() {
   // Initial render must produce the SAME DOM on server and client. The
