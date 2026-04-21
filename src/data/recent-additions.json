@@ -5,6 +5,28 @@
     {
       "date": "2026-04-21",
       "type": "feature",
+      "title": "Drawer accessibility \u2014 focus trap, Esc close, empty states",
+      "summary": "Project, Supplier, and Buyer dossier drawers now trap focus, return it to the thing you opened them from, and close on Escape. Unresolved links render a terse 'unavailable' panel instead of crashing. Skip-to-content link wired for keyboard users.",
+      "metric": "a11y pass"
+    },
+    {
+      "date": "2026-04-21",
+      "type": "feature",
+      "title": "Story of the Week rotates weekly",
+      "summary": "The homepage lead cycles through the six most-overrun projects with disclosed primes, picking by ISO week-of-year so every reader sees the same pick in a given week. Current week's story is data-picked, not hand-curated.",
+      "view": "projects",
+      "metric": "6-story rotation"
+    },
+    {
+      "date": "2026-04-21",
+      "type": "feature",
+      "title": "Citation chips in Money Map drawer + print styles",
+      "summary": "Money Map node drawer now exposes copy-citation chips on total-\u00a3, HHI, buyer/supplier counts, and top-edge figures. Dossiers print clean on light paper \u2014 header chrome hidden, drawer flows the full page, links append their URL.",
+      "view": "moneymap"
+    },
+    {
+      "date": "2026-04-21",
+      "type": "feature",
       "title": "Citation chip on every headline figure",
       "summary": "Hover any figure on the home page, in a project dossier, or in a supplier profile \u2014 a small \u00a9 appears, click to copy a terse citation (finding, source file, access date). The whole tracker is now quotable without re-keying.",
       "metric": "hover \u2192 copy"

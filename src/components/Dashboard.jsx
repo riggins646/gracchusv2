@@ -23,6 +23,7 @@ import {
 // Module-level session token — shared between Dashboard (writes) and ChartCard (reads)
 let _sessionToken = null;
 
+import CiteChip from "./CiteChip";
 import projectsData from "../data/projects.json";
 import civilServiceData from "../data/civil-service.json";
 import spendingData from "../data/spending.json";
@@ -2155,7 +2156,7 @@ function SourcesFooter({ children }) {
  */
 function PageHeader({
   eyebrow, breadcrumb, breadcrumbAction,
-  title, description, dataAsOf
+  title, description, dataAsOf, citation
 }) {
   // Editorial register: mono section-kicker eyebrow over a
   // mixed-case Plex Serif title. The ProPublica / FT pattern.
@@ -2196,8 +2197,9 @@ function PageHeader({
           {title}
         </h2>
         {dataAsOf && (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-wider bg-gray-800/60 text-gray-500 border border-gray-800/40 self-center">
+          <span className="group inline-flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-wider bg-gray-800/60 text-gray-500 border border-gray-800/40 self-center">
             <RefreshCw size={9} /> Data as of {dataAsOf}
+            {citation && <CiteChip citation={citation} />}
           </span>
         )}
       </div>
@@ -4445,6 +4447,47 @@ function DailyCostGenerator() {
 
 function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
   const p = project;
+  const drawerRef = useDrawerFocus(onClose);
+
+  // Guard — if we open a drawer with no project (bad cross-link, stale
+  // URL hash, missing id), show a terse error panel instead of crashing
+  // on `p.latestBudget`.
+  if (!p) {
+    return (
+      <div className="fixed inset-0 z-50 flex justify-end" onClick={onClose}>
+        <div className="absolute inset-0 bg-black/60" />
+        <div
+          ref={drawerRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Project dossier unavailable"
+          tabIndex={-1}
+          className={
+            "relative w-full max-w-[520px] h-full bg-black " +
+            "border-l border-gray-800/60 overflow-y-auto outline-none " +
+            "flex flex-col items-center justify-center px-8 text-center"
+          }
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="text-[10px] uppercase tracking-[0.25em] font-mono text-gray-600 mb-3">
+            Dossier unavailable
+          </div>
+          <div className="text-gray-300 text-sm leading-relaxed max-w-sm">
+            We couldn&rsquo;t resolve this project. The link may be stale or
+            the id may no longer be in our tracker. Try the command palette
+            (⌘K) to search, or head back to the Projects view.
+          </div>
+          <button
+            onClick={onClose}
+            className="mt-6 text-[10px] uppercase tracking-[0.25em] font-mono text-gray-500 hover:text-white"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const ov = getOverrun(p);
   const op = getOverrunPct(p);
   const neg = ov < 0;
@@ -4464,9 +4507,14 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
     >
       <div className="absolute inset-0 bg-black/60" />
       <div
+        ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Project dossier: ${p.name}`}
+        tabIndex={-1}
         className={
           "relative w-full max-w-[520px] h-full bg-black " +
-          "border-l border-gray-800/60 overflow-y-auto"
+          "border-l border-gray-800/60 overflow-y-auto outline-none"
         }
         onClick={(e) => e.stopPropagation()}
       >
@@ -4850,7 +4898,7 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
                     </button>
                   )}
                 </div>
-                <div className="flex items-baseline gap-3 mb-2">
+                <div className="flex items-baseline gap-3 mb-2 group">
                   <span
                     className={
                       "text-3xl font-black font-mono tabular-nums " +
@@ -4863,6 +4911,15 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
                     {disclosedMembers.length}/{allMembers.length} members have
                     {" "}&pound; disclosed
                   </span>
+                  <CiteChip
+                    citation={
+                      `${p.name} — ${(pct * 100).toFixed(0)}% of contractor ` +
+                      `members have a disclosed \u00a3 value ` +
+                      `(${disclosedMembers.length} of ${allMembers.length}). ` +
+                      `Source: project-contractors.json. ` +
+                      `Gracchus, accessed ${new Date().toISOString().slice(0,10)}.`
+                    }
+                  />
                 </div>
                 {/* Progress bar */}
                 <div className="h-1 bg-gray-900 rounded-full overflow-hidden mb-4">
@@ -4872,21 +4929,43 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-                  <div>
+                  <div className="group">
                     <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono mb-1">
                       Member-level &pound;
                     </div>
-                    <div className="text-white text-sm font-mono font-bold tabular-nums">
+                    <div className="inline-flex items-baseline text-white text-sm font-mono font-bold tabular-nums">
                       {disclosedTotalM > 0 ? fmt(disclosedTotalM) : "—"}
+                      {disclosedTotalM > 0 && (
+                        <CiteChip
+                          citation={
+                            `${p.name} — ${fmt(disclosedTotalM)} disclosed ` +
+                            `at member level (sum of disclosed contractor ` +
+                            `contract values). ` +
+                            `Source: project-contractors.json ` +
+                            `(contractValueGBP + valueHistory.latest). ` +
+                            `Gracchus, accessed ${new Date().toISOString().slice(0,10)}.`
+                          }
+                        />
+                      )}
                     </div>
                   </div>
                   {pvh.length > 0 && (
-                    <div>
+                    <div className="group">
                       <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono mb-1">
                         Programme &pound; (aggregate)
                       </div>
-                      <div className="text-white text-sm font-mono font-bold tabular-nums">
+                      <div className="inline-flex items-baseline text-white text-sm font-mono font-bold tabular-nums">
                         {fmt(pvhTotalM)}
+                        <CiteChip
+                          citation={
+                            `${p.name} — ${fmt(pvhTotalM)} programme-level ` +
+                            `disclosed value (aggregate of framework / ` +
+                            `multi-prime awards). ` +
+                            `Source: project-contractors.json ` +
+                            `(projectValueHistory). Gracchus, ` +
+                            `accessed ${new Date().toISOString().slice(0,10)}.`
+                          }
+                        />
                       </div>
                     </div>
                   )}
@@ -5234,6 +5313,7 @@ function SupplierDetail({ supplierId, supplierName, onClose, onSelectProject, on
   const srcTierOf = (s) => (s?.grade || s?.tier || "?").toString().toUpperCase();
 
   const displayName = node?.label || supplierName || "Supplier";
+  const drawerRef = useDrawerFocus(onClose);
 
   return (
     <div
@@ -5242,9 +5322,14 @@ function SupplierDetail({ supplierId, supplierName, onClose, onSelectProject, on
     >
       <div className="absolute inset-0 bg-black/70" />
       <div
+        ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Supplier profile: ${displayName}`}
+        tabIndex={-1}
         className={
           "relative w-full max-w-[520px] h-full bg-black " +
-          "border-l border-gray-800/60 overflow-y-auto"
+          "border-l border-gray-800/60 overflow-y-auto outline-none"
         }
         onClick={(e) => e.stopPropagation()}
       >
@@ -5546,6 +5631,23 @@ function SupplierDetail({ supplierId, supplierName, onClose, onSelectProject, on
           </div>
         )}
 
+        {/* — EMPTY STATE — drawer opened but we have no £, no projects,
+             and no buyers. Show a terse editorial note so the user
+             doesn't face a blank scroll. */}
+        {projectRows.length === 0 && buyerRows.length === 0 && totalGBP === 0 && (
+          <div className="px-6 py-10 text-center border-b border-gray-800/40">
+            <div className="text-[10px] uppercase tracking-[0.25em] font-mono text-gray-600 mb-2">
+              No disclosed £ yet
+            </div>
+            <div className="text-sm text-gray-400 leading-relaxed max-w-md mx-auto">
+              {displayName} appears in contractor records but no per-line £
+              figure is publicly disclosed in the sources we index today.
+              Recovery routes — OCDS call-offs, departmental £25k+ returns,
+              Companies House filings — are on our backlog.
+            </div>
+          </div>
+        )}
+
         {/* — MONEY MAP CTA — */}
         {node && onNavigate && (
           <div className="px-6 py-4 border-b border-gray-800/40">
@@ -5651,6 +5753,7 @@ function BuyerDetail({ buyerId, buyerName, onClose, onSelectSupplier, onSelectPr
   const srcTierOf = (s) => (s?.grade || s?.tier || "?").toString().toUpperCase();
 
   const displayName = node?.label || buyerName || "Buyer";
+  const drawerRef = useDrawerFocus(onClose);
 
   return (
     <div
@@ -5659,7 +5762,12 @@ function BuyerDetail({ buyerId, buyerName, onClose, onSelectSupplier, onSelectPr
     >
       <div className="absolute inset-0 bg-black/70" />
       <div
-        className="relative w-full max-w-[520px] h-full bg-black border-l border-gray-800/60 overflow-y-auto"
+        ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Buyer profile: ${displayName}`}
+        tabIndex={-1}
+        className="relative w-full max-w-[520px] h-full bg-black border-l border-gray-800/60 overflow-y-auto outline-none"
         onClick={(e) => e.stopPropagation()}
       >
         {/* — HEADER — */}
@@ -5935,6 +6043,21 @@ function BuyerDetail({ buyerId, buyerName, onClose, onSelectSupplier, onSelectPr
                   </div>
                 );
               })}
+            </div>
+          </div>
+        )}
+
+        {/* — EMPTY STATE — same pattern as SupplierDetail; fires when
+             no projects AND no suppliers AND no disclosed £. */}
+        {projectRows.length === 0 && supplierRows.length === 0 && totalGBP === 0 && (
+          <div className="px-6 py-10 text-center border-b border-gray-800/40">
+            <div className="text-[10px] uppercase tracking-[0.25em] font-mono text-gray-600 mb-2">
+              No disclosed £ yet
+            </div>
+            <div className="text-sm text-gray-400 leading-relaxed max-w-md mx-auto">
+              {displayName} is indexed as a public buyer but no contract-line
+              £ figure is disclosed in the sources we currently ingest for it.
+              Departmental £25k+ returns are the most likely recovery route.
             </div>
           </div>
         )}
@@ -6349,55 +6472,72 @@ function archivedLabel(v) {
   return map[v] || v;
 }
 
+/* CiteChip now lives in ./CiteChip.jsx so MoneyMap.jsx can use it too.
+ * See the component file for docs on usage + the nested-button gotcha. */
+
 /* ============================================================================
- * CiteChip — tiny hover-revealed citation copy affordance.
+ * useDrawerFocus — focus-trap + focus-restore hook for slide-in drawers.
  *
- * Wrap any figure (£ value, %, count) like this:
+ * Mount-time: stores document.activeElement (the trigger), then moves
+ *   focus into the drawer (first focusable element, else the container).
+ * While open: Tab cycles inside the drawer only; Esc calls onClose.
+ * Unmount: restores focus to the trigger so keyboard users aren't
+ *   dumped at the top of the page.
  *
- *   <span className="group inline-flex items-baseline gap-1">
- *     <span className="font-mono">{fmt(value)}</span>
- *     <CiteChip citation="Project X — latest budget £15.8bn, projects.json, Gracchus 2026-04-21" />
- *   </span>
+ * Usage:
+ *   const ref = useDrawerFocus(onClose);
+ *   return <div ref={ref} tabIndex={-1} ...>
  *
- * The chip is invisible until the parent `.group` is hovered, at which
- * point a subtle "©" superscript appears. Clicking it copies the
- * formatted citation string to the clipboard and briefly confirms with
- * a check mark.
- *
- * Keep the citation string terse: {source name} — {finding} ({file,
- * date}). The chip is a trust artefact, not a footnote dump.
+ * Why: ProjectDetail / SupplierDetail / BuyerDetail are modal drawers;
+ * without a trap, keyboard users Tab past the backdrop into the page
+ * behind, and Esc doesn't close them.
  * ========================================================================= */
-function CiteChip({ citation, label = "copy citation" }) {
-  const [copied, setCopied] = useState(false);
-  if (!citation) return null;
-  const onCopy = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    try {
-      navigator.clipboard?.writeText(citation);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1400);
-    } catch {
-      setCopied(false);
-    }
-  };
-  return (
-    <button
-      type="button"
-      onClick={onCopy}
-      title={label}
-      aria-label={label}
-      className={
-        "ml-1 text-[10px] font-mono align-super " +
-        "text-gray-600 hover:text-ember-400 " +
-        "opacity-0 group-hover:opacity-100 " +
-        "focus:opacity-100 transition-opacity " +
-        "leading-none select-none"
+function useDrawerFocus(onClose) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const prevActive = typeof document !== "undefined" ? document.activeElement : null;
+    const node = ref.current;
+    if (!node) return undefined;
+
+    // Focus first focusable, else the container itself (tabIndex=-1).
+    const FOCUSABLE = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const firstFocusable = node.querySelector(FOCUSABLE);
+    (firstFocusable || node).focus?.();
+
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose?.();
+        return;
       }
-    >
-      {copied ? "✓" : "©"}
-    </button>
-  );
+      if (e.key !== "Tab") return;
+      const focusables = Array.from(node.querySelectorAll(FOCUSABLE)).filter(
+        (el) => !el.hasAttribute("disabled") && el.offsetParent !== null
+      );
+      if (focusables.length === 0) {
+        e.preventDefault();
+        return;
+      }
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    node.addEventListener("keydown", onKey);
+    return () => {
+      node.removeEventListener("keydown", onKey);
+      // Restore focus to the element that opened the drawer (if still in DOM).
+      if (prevActive && typeof prevActive.focus === "function" && document.contains(prevActive)) {
+        try { prevActive.focus(); } catch { /* no-op */ }
+      }
+    };
+  }, [onClose]);
+  return ref;
 }
 
 export default function App() {
@@ -7634,6 +7774,19 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      {/* A11y — skip link. Hidden until focused, then jumps past the
+           header + nav to the main content. Visible only to keyboard
+           users. */}
+      <a
+        href="#main-content"
+        className={
+          "sr-only-focusable absolute left-3 top-3 z-[100] " +
+          "bg-ember-600 text-white text-xs font-mono px-3 py-2 " +
+          "tracking-wider uppercase"
+        }
+      >
+        Skip to content
+      </a>
       {/* HEADER — minimal editorial bar */}
       <header className={
         "border-b border-gray-800/50 " +
@@ -7858,8 +8011,8 @@ export default function App() {
         <Wrapped onBack={() => setView("overview")} />
       )}
 
-      <main className={
-        "max-w-[1400px] mx-auto px-3 sm:px-6 py-4 sm:py-8" +
+      <main id="main-content" tabIndex={-1} className={
+        "max-w-[1400px] mx-auto px-3 sm:px-6 py-4 sm:py-8 outline-none" +
         (view === "wrapped" ? " hidden" : "")
       }>
 
@@ -8149,7 +8302,21 @@ export default function App() {
                 (a, b) =>
                   b.overPct - a.overPct || b.overrunM - a.overrunM,
               );
-              const story = candidates[0];
+              // Rotation: cycle weekly through the top N most-overrun,
+              // most-disclosed candidates so the homepage doesn't calcify
+              // on one story. Week index is ISO week-of-year so the same
+              // story is shown to everyone on the same week (no per-user
+              // randomness — keeps citations reproducible).
+              const TOP_N = 6;
+              const topPool = candidates.slice(0, TOP_N);
+              if (topPool.length === 0) return null;
+              const now = new Date();
+              const jan1 = new Date(Date.UTC(now.getUTCFullYear(), 0, 1));
+              const dayOfYear = Math.floor(
+                (now - jan1) / (1000 * 60 * 60 * 24),
+              );
+              const weekIdx = Math.floor(dayOfYear / 7);
+              const story = topPool[weekIdx % topPool.length];
               if (!story) return null;
 
               const fmtPrime = (v) =>
@@ -8878,6 +9045,12 @@ export default function App() {
               eyebrow="Waste & Projects"
               title="Project Tracker"
               dataAsOf="Mar 2025"
+              citation={
+                `${projects.length} UK major government projects, ` +
+                `total latest budget ${fmt(totalLatest)}. ` +
+                `Source: projects.json (IPA & dept data). ` +
+                `Gracchus, accessed ${new Date().toISOString().slice(0,10)}.`
+              }
               description={
                 projects.length +
                 " major UK government projects. " +
@@ -15573,45 +15746,85 @@ export default function App() {
 
             {/* Key stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              <div className="border-l-2 border-gray-800 pl-4 py-3">
+              <div className="border-l-2 border-gray-800 pl-4 py-3 group">
                 <p className="text-gray-500 text-xs uppercase">
                   VIP Lane Contracts
                 </p>
-                <p className="text-xl font-bold text-red-400">
+                <p className="inline-flex items-baseline text-xl font-bold text-red-400">
                   {"£"}1.7bn
+                  <CiteChip
+                    citation={
+                      `\u00a31.7bn of UK government PPE contracts routed ` +
+                      `through the ministerial \u201cVIP lane\u201d during ` +
+                      `COVID-19 (51 companies, 115 contracts). ` +
+                      `Source: Good Law Project / National Audit Office ` +
+                      `investigation into DHSC PPE procurement, 2021\u201322. ` +
+                      `Gracchus, accessed ${new Date().toISOString().slice(0,10)}.`
+                    }
+                  />
                 </p>
                 <p className="text-gray-600 text-xs">
                   51 companies, 115 contracts
                 </p>
               </div>
-              <div className="border-l-2 border-gray-800 pl-4 py-3">
+              <div className="border-l-2 border-gray-800 pl-4 py-3 group">
                 <p className="text-gray-500 text-xs uppercase">
                   Unfit PPE from VIP Lane
                 </p>
-                <p className="text-xl font-bold text-red-400">
+                <p className="inline-flex items-baseline text-xl font-bold text-red-400">
                   {"£"}1bn
+                  <CiteChip
+                    citation={
+                      `\u00a31bn of PPE procured via the VIP lane was ` +
+                      `unfit for use (59% of VIP-lane PPE spending). ` +
+                      `Source: NAO report \u201cInvestigation into ` +
+                      `government procurement during the COVID-19 ` +
+                      `pandemic\u201d (HC 959), Nov 2020, and subsequent ` +
+                      `PAC evidence. Gracchus, accessed ` +
+                      `${new Date().toISOString().slice(0,10)}.`
+                    }
+                  />
                 </p>
                 <p className="text-gray-600 text-xs">
                   59% of VIP PPE spending
                 </p>
               </div>
-              <div className="border-l-2 border-gray-800 pl-4 py-3">
+              <div className="border-l-2 border-gray-800 pl-4 py-3 group">
                 <p className="text-gray-500 text-xs uppercase">
                   High-Risk Contracts
                 </p>
-                <p className="text-xl font-bold text-amber-400">
+                <p className="inline-flex items-baseline text-xl font-bold text-amber-400">
                   135
+                  <CiteChip
+                    citation={
+                      `135 UK PPE contracts worth \u00a315.3bn flagged ` +
+                      `as carrying \u201cred-flag\u201d corruption risks. ` +
+                      `Source: Transparency International UK, ` +
+                      `\u201cTrack and Trace\u201d report (Apr 2021) ` +
+                      `and follow-up analysis. ` +
+                      `Gracchus, accessed ${new Date().toISOString().slice(0,10)}.`
+                    }
+                  />
                 </p>
                 <p className="text-gray-600 text-xs">
                   Worth {"£"}15.3bn (TI UK)
                 </p>
               </div>
-              <div className="border-l-2 border-gray-800 pl-4 py-3">
+              <div className="border-l-2 border-gray-800 pl-4 py-3 group">
                 <p className="text-gray-500 text-xs uppercase">
                   No-Competition Awards
                 </p>
-                <p className="text-xl font-bold text-amber-400">
+                <p className="inline-flex items-baseline text-xl font-bold text-amber-400">
                   {"£"}30.7bn
+                  <CiteChip
+                    citation={
+                      `\u00a330.7bn of UK COVID-era contracts awarded ` +
+                      `without open competition (\u22482/3 by value of all ` +
+                      `COVID contracts). Source: NAO and TI UK ` +
+                      `analysis of Contracts Finder data, 2020\u201321. ` +
+                      `Gracchus, accessed ${new Date().toISOString().slice(0,10)}.`
+                    }
+                  />
                 </p>
                 <p className="text-gray-600 text-xs">
                   2/3 of all COVID contracts
@@ -26800,6 +27013,12 @@ export default function App() {
                 eyebrow={"Contractors \u203A Rankings"}
                 title="Supplier Rankings"
                 dataAsOf="Apr 2026"
+                citation={
+                  `Gracchus Supplier Rankings — three league tables ` +
+                  `derived from disclosed contractor £ on tracked UK ` +
+                  `projects. Source: money-map.json (rankings.*). ` +
+                  `Accessed ${new Date().toISOString().slice(0,10)}.`
+                }
                 description={
                   "Three league tables. Suppliers who win across many " +
                   "buyers, suppliers dangerously dependent on one buyer, " +
@@ -27370,6 +27589,13 @@ export default function App() {
                 eyebrow={"Contractors \u203A Transparency"}
                 title="Coverage Transparency"
                 dataAsOf="Apr 2026"
+                citation={
+                  `Gracchus Coverage Transparency — disclosure coverage ` +
+                  `per project, per source tier. ` +
+                  `Source: project-source-quality.json + ` +
+                  `project-contractors.json. Accessed ` +
+                  `${new Date().toISOString().slice(0,10)}.`
+                }
                 description={
                   "What portion of our tracked contractor roster " +
                   "has a £ figure attached to a public source. " +

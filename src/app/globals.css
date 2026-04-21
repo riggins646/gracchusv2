@@ -8,6 +8,75 @@ body {
 }
 
 /* ================================================
+   A11Y — visible keyboard-focus indicators
+   Every browser-default focus ring was a11y-poor
+   against the pure-black background (very thin,
+   system-blue). We apply a consistent ember-amber
+   ring only for keyboard navigation (:focus-visible)
+   so mouse users never see the ring. Elements that
+   manage their own focus (palette, drawers) opt out
+   by setting `.no-focus-ring` or using outline-none
+   + their own treatment.
+   ================================================ */
+:focus {
+  outline: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[role="dialog"]:focus-visible,
+[tabindex="0"]:focus-visible {
+  outline: 2px solid rgba(245, 158, 11, 0.9); /* ember-500 @ 90% */
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+
+/* A11y — respect reduced-motion for our bespoke animations. */
+@media (prefers-reduced-motion: reduce) {
+  .gracchus-shimmer-text,
+  .gracchus-shimmer-text.purple,
+  .gracchus-spinner,
+  .gracchus-glow,
+  .gracchus-loading-dot,
+  .gracchus-loading-text {
+    animation: none !important;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* CiteChip — on touch-only devices there is no hover, so the
+   group-hover reveal never fires. Make the chip always visible on
+   coarse pointers so readers on phones/tablets can still copy
+   citations. Uses the same opacity dance but via a media query
+   rather than :hover. */
+@media (hover: none) and (pointer: coarse) {
+  button[aria-label="copy citation"] {
+    opacity: 0.55 !important;
+  }
+  button[aria-label="copy citation"]:active {
+    opacity: 1 !important;
+  }
+}
+
+/* A11y — SR-only utility used by skip-link and visually-hidden labels. */
+.sr-only-focusable:not(:focus):not(:focus-within) {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ================================================
    TABULAR NUMERALS
    Every £ figure, delta, rank, timestamp, and other
    mono-rendered number aligns cleanly by column.
@@ -159,5 +228,113 @@ table tbody td,
   .share-modal-mobile {
     padding-left: 12px;
     padding-right: 12px;
+  }
+}
+
+/* ================================================
+   PRINT — Project dossier optimisation
+   Readers print / save-as-PDF a dossier to bring
+   into meetings. The live site is dark-on-black,
+   which wastes ink and renders useless on paper.
+   Strip the chrome, flip to light, and let the
+   dossier column take the full page.
+   ================================================ */
+@media print {
+  /* Light background, black text — ink-economical. */
+  html, body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  /* Hide app shell chrome. The dossier is the page now. */
+  header,
+  nav,
+  footer,
+  [role="navigation"],
+  /* Skip link, cmd-palette trigger, hover-only affordances */
+  .sr-only-focusable,
+  .no-print,
+  /* CiteChip is an on-screen trust marker; on paper, the
+     citation text in-line is more useful than a © glyph. */
+  button[aria-label="copy citation"] {
+    display: none !important;
+  }
+
+  /* Drawers become full-page flowing content rather than a
+     fixed-right slide-in. Backdrop disappears; the body of the
+     dossier extends naturally. */
+  [role="dialog"] {
+    position: static !important;
+    max-width: none !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    border: 0 !important;
+    background: #fff !important;
+    color: #111 !important;
+  }
+  [role="dialog"] .fixed,
+  [role="dialog"] .absolute {
+    position: static !important;
+  }
+  /* Kill the darkened backdrop behind the drawer on print. */
+  .fixed.inset-0.z-50 > .absolute,
+  .fixed.inset-0.z-\[60\] > .absolute {
+    display: none !important;
+  }
+
+  /* Flip the brand-dark inverse text surfaces used across the
+     drawer to print-friendly equivalents. */
+  .bg-black,
+  .bg-gray-900\/20,
+  .bg-gray-950 {
+    background: #fff !important;
+  }
+  .text-white,
+  .text-gray-50,
+  .text-gray-100,
+  .text-gray-200,
+  .text-gray-300,
+  .text-gray-400 {
+    color: #111 !important;
+  }
+  .text-gray-500,
+  .text-gray-600,
+  .text-gray-700,
+  .text-gray-800 {
+    color: #555 !important;
+  }
+
+  /* Borders: a hairline grey so tables and group dividers still
+     read on white paper. */
+  [class*="border-gray-800"],
+  [class*="border-gray-700"] {
+    border-color: #ccc !important;
+  }
+
+  /* Don't break inside a dossier panel. */
+  section, article, [role="dialog"] > div {
+    page-break-inside: avoid;
+  }
+
+  /* Links: keep them, add the URL for anyone reading paper. */
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #666;
+    word-break: break-all;
+  }
+  a[href^="#"]:after,
+  a[href^="javascript:"]:after {
+    content: "";
+  }
+
+  /* Body font scale: the serif looks right in print at 11pt. */
+  body, [role="dialog"] {
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+  h1, h2, h3 {
+    page-break-after: avoid;
   }
 }
