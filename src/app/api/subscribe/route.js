@@ -1,6 +1,7 @@
 import { put, list } from "@vercel/blob";
 import { NextResponse } from "next/server";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
+import { checkOrigin } from "@/lib/origin-check";
 
 /* ───────────────────────────────────────────────
    POST /api/subscribe
@@ -57,14 +58,8 @@ export async function POST(req) {
     getToken();
 
     // ── Origin check (CSRF protection) ──────────────────────────
-    const origin = req.headers.get("origin");
-    const ALLOWED_ORIGINS = ["https://gracchus.ai", "https://www.gracchus.ai"];
-    if (process.env.NODE_ENV === "development") {
-      ALLOWED_ORIGINS.push("http://localhost:3000");
-    }
-    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-    }
+    const blocked = checkOrigin(req);
+    if (blocked) return blocked;
 
     // ── Rate limiting: 5 per hour per IP ────────────────────────
     const ip = getClientIp(req);

@@ -11,6 +11,7 @@ import { list } from "@vercel/blob";
 import { put } from "@vercel/blob";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { verifyToken } from "@/lib/session-token";
+import { checkOrigin } from "@/lib/origin-check";
 import {
   blobPath,
   resolveChartId,
@@ -58,11 +59,8 @@ export async function POST(request) {
     }
 
     // ── Origin check (CSRF protection) ──────────────────────────
-    const origin = request.headers.get("origin");
-    const ALLOWED_ORIGINS = ["https://gracchus.ai", "https://www.gracchus.ai"];
-    if (origin && !ALLOWED_ORIGINS.includes(origin)) {
-      return Response.json({ error: "Forbidden" }, { status: 403 });
-    }
+    const blocked = checkOrigin(request);
+    if (blocked) return blocked;
 
     const body = await request.json();
 

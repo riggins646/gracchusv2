@@ -66,6 +66,12 @@ import sewageData from "../data/sewage.json";
 import moonlightingData from "../data/moonlighting-mps.json";
 import deliveryBenchmarks from "../data/delivery-benchmarks.json";
 import windCurtailmentData from "../data/wind-curtailment.json";
+import projectContractorsData from "../data/project-contractors.json";
+import projectWasteData from "../data/project-waste.json";
+import projectSourceQuality from "../data/project-source-quality.json";
+import moneyMapData from "../data/money-map.json";
+import recentAdditionsData from "../data/recent-additions.json";
+import MoneyMap from "./MoneyMap";
 import { encodeShareId, buildContextLine, shareFmtAmt, renderCardToCanvas, renderTrendCard, renderChartShareCard, renderCancelledProjectCard, renderSewageFinesCard } from "../lib/share-utils";
 import Wrapped from "./Wrapped";
 import { sortRows, searchRows, processTableData, fmtMillions, fmtCompact, fmtCurrency, fmtPct, getUniqueValues, SORT_PRESETS } from "../lib/table-utils";
@@ -95,6 +101,35 @@ const fmt = (m) => {
   return "£" + m + "m";
 };
 
+// Mirror of scripts/build-money-map.mjs normKey + slugify so that a
+// supplier name in project-contractors.json maps to the same money-map
+// node id. Used to cross-link from the project X-ray drawer into the
+// supplier profile view.
+const _LEGAL_SUFFIX = /\s+(plc|p\.l\.c\.|ltd|limited|llp|lp|llc|inc|group|holdings|uk(\s+limited)?|\((uk|gb|europe)\))\.?$/i;
+const _PAREN_SUB = /\s*\([^)]*\)\s*$/;
+const _DASH_SUB = /\s*[—–-]\s*[^—–-]+$/;
+function mmNormKey(name) {
+  let s = String(name || "").replace(/\s+/g, " ").trim();
+  s = s.replace(_PAREN_SUB, "").trim();
+  if (s.length > 28 && /[—–-]/.test(s)) {
+    const trimmed = s.replace(_DASH_SUB, "").trim();
+    if (trimmed.split(/\s+/).length >= 2) s = trimmed;
+  }
+  return s.replace(_LEGAL_SUFFIX, "").replace(/[,./]$/g, "").trim().toLowerCase();
+}
+function mmSlug(s) {
+  return String(s || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60);
+}
+function supplierIdFromName(name) {
+  const key = mmNormKey(name);
+  if (!key) return null;
+  return "supplier-" + mmSlug(key);
+}
+
 const getOverrun = (p) => p.latestBudget - p.originalBudget;
 const getOverrunPct = (p) => (
   p.originalBudget > 0
@@ -102,25 +137,98 @@ const getOverrunPct = (p) => (
     : 0
 );
 
+// Project lifecycle badge colours, now backed by the `severity.*`
+// tailwind tokens (see tailwind.config.js) so there is a single
+// source of truth for the scale. `onbudget` for completed projects,
+// `slipping` for in-progress (amber caution), `planning` for
+// pre-commitment stages, and `cancelled` for written-off / comp-only
+// programmes.
 const statusColors = {
   "Completed": {
-    bg: "bg-emerald-900/30", text: "text-emerald-400", dot: "bg-emerald-400"
+    bg: "bg-severity-onbudget/20",   text: "text-severity-onbudget",   dot: "bg-severity-onbudget"
   },
   "In Progress": {
-    bg: "bg-amber-900/30", text: "text-amber-400", dot: "bg-amber-400"
+    bg: "bg-severity-slipping/20",   text: "text-severity-slipping",   dot: "bg-severity-slipping"
   },
   "In Development": {
-    bg: "bg-blue-900/30", text: "text-blue-400", dot: "bg-blue-400"
+    bg: "bg-severity-planning/25",   text: "text-severity-planning",   dot: "bg-severity-planning"
   },
   "In Planning": {
-    bg: "bg-blue-900/30", text: "text-blue-300", dot: "bg-blue-300"
+    bg: "bg-severity-planning/20",   text: "text-severity-planning",   dot: "bg-severity-planning"
   },
   "Cancelled": {
-    bg: "bg-red-900/30", text: "text-red-400", dot: "bg-red-400"
+    bg: "bg-severity-cancelled/20",  text: "text-severity-cancelled",  dot: "bg-severity-cancelled"
   },
   "Compensation Ongoing": {
-    bg: "bg-red-900/30", text: "text-red-400", dot: "bg-red-400"
+    bg: "bg-severity-cancelled/20",  text: "text-severity-cancelled",  dot: "bg-severity-cancelled"
   }
+};
+
+// Pillar-3 waste taxonomy: per-project flags (cancelled / over-budget /
+// schedule-slip / scope-cut / fraud-litigated / mis-sold / written-off /
+// safety-risk / governance-failure), severity, and a computed £ wasted
+// figure per project. See scripts/waste-taxonomy.md for schema.
+const wasteById = (projectWasteData.wasteTaxonomy || []).reduce(
+  (acc, w) => { acc[w.projectId] = w; return acc; }, {}
+);
+const wasteSummary = projectWasteData.summary || {
+  totalWastedGBP: 0, severityCounts: {}, flagCounts: {}, wastedByBasis: {},
+};
+
+// severity → tailwind classes (dark theme)
+const wasteSeverityColors = {
+  critical: { text: "text-red-400",    bg: "bg-red-500/[0.08]",   border: "border-red-500/30",   dot: "bg-red-400" },
+  high:     { text: "text-orange-400", bg: "bg-orange-500/[0.08]",border: "border-orange-500/30",dot: "bg-orange-400" },
+  moderate: { text: "text-amber-400",  bg: "bg-amber-500/[0.06]", border: "border-amber-500/30", dot: "bg-amber-400" },
+  low:      { text: "text-yellow-400", bg: "bg-yellow-500/[0.05]",border: "border-yellow-500/20",dot: "bg-yellow-400" },
+  none:     { text: "text-gray-500",   bg: "bg-gray-900/40",      border: "border-gray-800/60", dot: "bg-gray-600" },
+};
+
+// Per-flag badge metadata: label + one-letter chip + title tooltip
+const wasteFlagMeta = {
+  cancelled:         { chip: "C", label: "Cancelled",          color: "text-red-400 border-red-500/40 bg-red-500/[0.08]" },
+  overBudget:        { chip: "£", label: "Over budget",        color: "text-orange-400 border-orange-500/40 bg-orange-500/[0.08]" },
+  scheduleSlip:      { chip: "T", label: "Schedule slip",      color: "text-amber-400 border-amber-500/40 bg-amber-500/[0.08]" },
+  scopeCut:          { chip: "S", label: "Scope cut",          color: "text-amber-300 border-amber-400/40 bg-amber-400/[0.06]" },
+  fraudLitigated:    { chip: "F", label: "Fraud / litigation", color: "text-red-500 border-red-600/40 bg-red-600/[0.10]" },
+  misSold:           { chip: "M", label: "Mis-sold",           color: "text-red-500 border-red-600/40 bg-red-600/[0.10]" },
+  writtenOff:        { chip: "W", label: "Written off",        color: "text-orange-400 border-orange-500/40 bg-orange-500/[0.08]" },
+  safetyRisk:        { chip: "!", label: "Safety risk",        color: "text-red-500 border-red-600/40 bg-red-600/[0.12]" },
+  governanceFailure: { chip: "G", label: "Governance failure", color: "text-amber-400 border-amber-500/40 bg-amber-500/[0.06]" },
+};
+
+// Format wastedGBP (stored as whole £) back through the shared `fmt` helper
+// which expects £m. Returns "£53m" / "£1.2bn" etc.
+const fmtWastedGBP = (gbp) => fmt(Math.round(gbp / 1_000_000));
+
+// Pillar-4 source grading: per-project weighted-mean score + letter grade
+// (A/B/C/D) derived from the A/B/C/D grade on every £-value citation.
+// See scripts/source-grading.md for the rubric.
+const sourceQualityById = (projectSourceQuality.projects || []).reduce(
+  (acc, p) => { acc[p.projectId] = p; return acc; }, {}
+);
+const sourceQualitySummary = projectSourceQuality.summary || {
+  totalEntriesGraded: 0, gradeCounts: {}, overallLetter: "U",
+  overallWeightedScore: null, letterCounts: {},
+};
+
+// Grade → tailwind classes. A = green (primary authoritative),
+// B = blue (primary transactional), C = amber (reputable secondary),
+// D = red (aggregated / ad-hoc), U = gray (ungraded / FOI gap).
+const sourceGradeColors = {
+  A: { text: "text-emerald-400", border: "border-emerald-500/40", bg: "bg-emerald-500/[0.08]", dot: "bg-emerald-400" },
+  B: { text: "text-sky-400",     border: "border-sky-500/40",     bg: "bg-sky-500/[0.08]",     dot: "bg-sky-400" },
+  C: { text: "text-amber-400",   border: "border-amber-500/40",   bg: "bg-amber-500/[0.06]",   dot: "bg-amber-400" },
+  D: { text: "text-red-400",     border: "border-red-500/40",     bg: "bg-red-500/[0.08]",     dot: "bg-red-400" },
+  U: { text: "text-gray-500",    border: "border-gray-700/60",    bg: "bg-gray-900/40",        dot: "bg-gray-600" },
+};
+
+const sourceGradeLabel = {
+  A: "Primary authoritative (NAO, PAC, court)",
+  B: "Primary transactional (gov.uk, corporate IR)",
+  C: "Reputable secondary press",
+  D: "Aggregated / Wikipedia / ad-hoc",
+  U: "Ungraded / FOI gap",
 };
 
 const categoryColors = {
@@ -636,15 +744,15 @@ function SectionHeader({ label, title, accent }) {
       {label && (
         <div className={
           "text-[10px] uppercase tracking-[0.2em] " +
-          "font-medium mb-2 " +
+          "font-mono mb-2 " +
           (accent || "text-gray-500")
         }>
           {label}
         </div>
       )}
       <h2 className={
-        "text-xl sm:text-2xl md:text-3xl font-black " +
-        "uppercase tracking-tight"
+        "text-2xl sm:text-3xl md:text-4xl font-serif " +
+        "font-medium text-white leading-[1.1] tracking-[-0.01em]"
       }>
         {title}
       </h2>
@@ -2049,6 +2157,10 @@ function PageHeader({
   eyebrow, breadcrumb, breadcrumbAction,
   title, description, dataAsOf
 }) {
+  // Editorial register: mono section-kicker eyebrow over a
+  // mixed-case Plex Serif title. The ProPublica / FT pattern.
+  // Section kickers stay uppercase-tracked mono so the page
+  // still has a data-register chrome above its headline.
   return (
     <div className="py-6 mb-4">
       {breadcrumb && (
@@ -2056,7 +2168,7 @@ function PageHeader({
           onClick={breadcrumbAction}
           className={
             "text-[10px] uppercase " +
-            "tracking-[0.2em] font-medium " +
+            "tracking-[0.2em] font-mono " +
             "text-gray-600 mb-2 flex " +
             "items-center gap-1 " +
             "hover:text-gray-400 " +
@@ -2069,28 +2181,30 @@ function PageHeader({
       {!breadcrumb && eyebrow && (
         <div className={
           "text-[10px] uppercase " +
-          "tracking-[0.2em] font-medium " +
+          "tracking-[0.2em] font-mono " +
           "text-gray-600 mb-2"
         }>
           {eyebrow}
         </div>
       )}
-      <div className="flex items-center gap-3 flex-wrap">
+      <div className="flex items-baseline gap-3 flex-wrap">
         <h2 className={
-          "text-2xl md:text-3xl font-black " +
-          "uppercase tracking-tight"
+          "text-3xl md:text-4xl font-serif " +
+          "font-medium text-white " +
+          "leading-[1.1] tracking-[-0.01em]"
         }>
           {title}
         </h2>
         {dataAsOf && (
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-wider bg-gray-800/60 text-gray-500 border border-gray-800/40">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-wider bg-gray-800/60 text-gray-500 border border-gray-800/40 self-center">
             <RefreshCw size={9} /> Data as of {dataAsOf}
           </span>
         )}
       </div>
       {description && (
         <p className={
-          "text-gray-500 text-sm mt-2"
+          "text-gray-400 text-[15px] mt-3 " +
+          "leading-relaxed max-w-[820px]"
         }>
           {description}
         </p>
@@ -4329,7 +4443,7 @@ function DailyCostGenerator() {
   );
 }
 
-function ProjectDetail({ project, onClose, onNavigate }) {
+function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
   const p = project;
   const ov = getOverrun(p);
   const op = getOverrunPct(p);
@@ -4376,8 +4490,8 @@ function ProjectDetail({ project, onClose, onNavigate }) {
             </button>
           </div>
           <h2 className={
-            "text-xl font-black uppercase tracking-tight " +
-            "text-white leading-tight"
+            "text-2xl font-serif font-medium " +
+            "text-white leading-tight tracking-[-0.01em]"
           }>
             {p.name}
           </h2>
@@ -4589,27 +4703,361 @@ function ProjectDetail({ project, onClose, onNavigate }) {
           </p>
         </div>
 
-        {/* — CONTRACTORS — */}
-        {p.contractors && p.contractors.length > 0 && (
-          <div className="px-6 py-4 border-t border-gray-800/40">
-            <div className={
-              "text-[9px] uppercase tracking-[0.2em] " +
-              "text-gray-700 font-mono mb-2"
-            }>
-              Key Contractors
-            </div>
-            <div className="flex flex-wrap gap-x-4 gap-y-1">
-              {p.contractors.map((c) => (
-                <span
-                  key={c}
-                  className="text-gray-400 text-[11px] font-mono"
-                >
-                  {c}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
+        {/* — MONEY X-RAY (rich contractor data from project-contractors.json) — */}
+        {(() => {
+          const xr = projectContractorsData?.projects?.find(
+            (x) => x.projectId === p.id
+          );
+          if (!xr) {
+            // Fallback: slim contractor list from projects.json
+            if (!p.contractors || p.contractors.length === 0) return null;
+            return (
+              <div className="px-6 py-4 border-t border-gray-800/40">
+                <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono mb-2">
+                  Key Contractors
+                </div>
+                <div className="flex flex-wrap gap-x-4 gap-y-1">
+                  {p.contractors.map((c) => (
+                    <span key={c} className="text-gray-400 text-[11px] font-mono">
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            );
+          }
+          const groups = Array.isArray(xr.contractors) ? xr.contractors : [];
+          const allMembers = groups.flatMap((g) => g.members || []);
+          const latestValueOf = (m) => {
+            if (m.valueHistory && m.valueHistory.length) {
+              const sorted = [...m.valueHistory].sort((a, b) =>
+                (b.asOfDate || "").localeCompare(a.asOfDate || "")
+              );
+              return sorted[0].valueGBP || 0;
+            }
+            return m.contractValueGBP || 0;
+          };
+          const disclosedMembers = allMembers.filter(
+            (m) => latestValueOf(m) > 0
+          );
+          const pct = allMembers.length
+            ? disclosedMembers.length / allMembers.length
+            : 0;
+          const disclosedTotalM =
+            disclosedMembers.reduce((acc, m) => acc + latestValueOf(m), 0) / 1e6;
+          const pvh = Array.isArray(xr.projectValueHistory)
+            ? xr.projectValueHistory
+            : [];
+          const pvhTotalM =
+            pvh.reduce((acc, v) => acc + (v.valueGBP || 0), 0) / 1e6;
+          const pvhSorted = [...pvh].sort((a, b) =>
+            (b.asOfDate || "").localeCompare(a.asOfDate || "")
+          );
+          const scoreColour =
+            pct >= 0.66
+              ? "text-emerald-400"
+              : pct >= 0.33
+              ? "text-amber-400"
+              : pct > 0
+              ? "text-red-400"
+              : "text-gray-500";
+          const scoreBar =
+            pct >= 0.66
+              ? "bg-emerald-400"
+              : pct >= 0.33
+              ? "bg-amber-400"
+              : "bg-red-400";
+          const sourceBadgeClass = (t) => {
+            const v = (t || "").toLowerCase();
+            if (v.includes("nao") || v.includes("pac") || v.includes("parliament"))
+              return "border-blue-500/40 bg-blue-500/[0.08] text-blue-300";
+            if (v.includes("contracts-finder") || v.includes("find-tender"))
+              return "border-purple-500/40 bg-purple-500/[0.08] text-purple-300";
+            if (v.includes("companies-house"))
+              return "border-amber-500/40 bg-amber-500/[0.08] text-amber-300";
+            if (v.includes("gov.uk") || v.includes("gov-uk"))
+              return "border-sky-500/40 bg-sky-500/[0.08] text-sky-300";
+            if (v.includes("court") || v.includes("inquiry"))
+              return "border-red-500/40 bg-red-500/[0.08] text-red-300";
+            return "border-gray-700 bg-gray-800/40 text-gray-400";
+          };
+          const roleColour = (r) => {
+            const v = (r || "").toLowerCase();
+            if (v === "prime")
+              return "border-red-500/40 bg-red-500/10 text-red-300";
+            if (v === "jv-partner" || v === "jv-parent")
+              return "border-orange-500/40 bg-orange-500/10 text-orange-300";
+            if (v === "subcontractor" || v === "subcontractor-technical")
+              return "border-amber-500/40 bg-amber-500/10 text-amber-300";
+            if (v === "supplier")
+              return "border-yellow-500/40 bg-yellow-500/10 text-yellow-200";
+            if (v.startsWith("consultant"))
+              return "border-purple-500/40 bg-purple-500/10 text-purple-300";
+            if (v === "auditor")
+              return "border-blue-500/40 bg-blue-500/10 text-blue-300";
+            if (v === "legal")
+              return "border-sky-500/40 bg-sky-500/10 text-sky-300";
+            if (v === "programme-partner")
+              return "border-emerald-500/40 bg-emerald-500/10 text-emerald-300";
+            if (v === "delivery-partner")
+              return "border-teal-500/40 bg-teal-500/10 text-teal-300";
+            if (v === "shareholder")
+              return "border-gray-500/40 bg-gray-500/10 text-gray-300";
+            return "border-gray-700 bg-gray-800/40 text-gray-400";
+          };
+          return (
+            <>
+              {/* Disclosure scorecard */}
+              <div className="px-6 py-4 border-t border-gray-800/40">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
+                    Money X-Ray &middot; Disclosure
+                  </div>
+                  {onNavigate && (
+                    <button
+                      onClick={() => onNavigate("moneymap")}
+                      className="text-[10px] font-mono uppercase tracking-[0.15em] text-gray-600 hover:text-white transition-colors"
+                    >
+                      View in Money Map &rarr;
+                    </button>
+                  )}
+                </div>
+                <div className="flex items-baseline gap-3 mb-2">
+                  <span
+                    className={
+                      "text-3xl font-black font-mono tabular-nums " +
+                      scoreColour
+                    }
+                  >
+                    {(pct * 100).toFixed(0)}%
+                  </span>
+                  <span className="text-gray-500 text-[11px] font-mono">
+                    {disclosedMembers.length}/{allMembers.length} members have
+                    {" "}&pound; disclosed
+                  </span>
+                </div>
+                {/* Progress bar */}
+                <div className="h-1 bg-gray-900 rounded-full overflow-hidden mb-4">
+                  <div
+                    className={"h-full " + scoreBar}
+                    style={{ width: (pct * 100).toFixed(1) + "%" }}
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+                  <div>
+                    <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono mb-1">
+                      Member-level &pound;
+                    </div>
+                    <div className="text-white text-sm font-mono font-bold tabular-nums">
+                      {disclosedTotalM > 0 ? fmt(disclosedTotalM) : "—"}
+                    </div>
+                  </div>
+                  {pvh.length > 0 && (
+                    <div>
+                      <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono mb-1">
+                        Programme &pound; (aggregate)
+                      </div>
+                      <div className="text-white text-sm font-mono font-bold tabular-nums">
+                        {fmt(pvhTotalM)}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Programme-aggregate timeline */}
+              {pvh.length > 0 && (
+                <div className="px-6 py-4 border-t border-gray-800/40">
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono mb-3">
+                    Programme Awards ({pvh.length})
+                  </div>
+                  <div className="space-y-3">
+                    {pvhSorted.map((v, i) => (
+                      <div
+                        key={i}
+                        className="pb-3 border-b border-gray-900 last:border-0 last:pb-0"
+                      >
+                        <div className="flex items-baseline justify-between gap-2 mb-0.5">
+                          <span className="text-white text-[13px] font-mono font-bold tabular-nums">
+                            {fmt((v.valueGBP || 0) / 1e6)}
+                          </span>
+                          <span className="text-gray-600 text-[10px] font-mono tabular-nums">
+                            {(v.asOfDate || "").slice(0, 10)}
+                          </span>
+                        </div>
+                        {v.label && (
+                          <div className="text-gray-300 text-[11px] font-mono mb-1">
+                            {v.label}
+                          </div>
+                        )}
+                        {v.note && (
+                          <div className="text-gray-600 text-[10px] font-mono leading-relaxed mb-1">
+                            {v.note}
+                          </div>
+                        )}
+                        {v.sourceUrl && (
+                          <a
+                            href={v.sourceUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={
+                              "inline-flex items-center gap-1 border px-1.5 py-0.5 " +
+                              "text-[9px] font-mono uppercase tracking-wider " +
+                              sourceBadgeClass(v.sourceType)
+                            }
+                          >
+                            <ExternalLink size={9} />
+                            {v.sourceType || "source"}
+                          </a>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Contractor tree: groups → members */}
+              {groups.length > 0 && (
+                <div className="px-6 py-4 border-t border-gray-800/40">
+                  <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono mb-3">
+                    Contractor Tree ({allMembers.length})
+                  </div>
+                  {groups.map((g, gi) => {
+                    const gMembers = g.members || [];
+                    const gDisclosedCount = gMembers.filter(
+                      (m) => latestValueOf(m) > 0
+                    ).length;
+                    return (
+                      <div
+                        key={gi}
+                        className="mb-4 last:mb-0 pb-3 border-b border-gray-900 last:border-0 last:pb-0"
+                      >
+                        <div className="flex items-baseline justify-between gap-2 mb-1">
+                          <div className="text-gray-200 text-[12px] font-mono font-bold flex-1">
+                            {g.groupName}
+                          </div>
+                          <div className="text-gray-600 text-[9px] font-mono whitespace-nowrap">
+                            {gDisclosedCount}/{gMembers.length}
+                          </div>
+                        </div>
+                        {g.groupAggregateValueGBP > 0 && (
+                          <div className="text-gray-500 text-[10px] font-mono mb-2">
+                            Group aggregate:{" "}
+                            <span className="text-gray-300 tabular-nums">
+                              {fmt(g.groupAggregateValueGBP / 1e6)}
+                            </span>
+                          </div>
+                        )}
+                        <div className="space-y-2 mt-2">
+                          {gMembers.map((m, mi) => {
+                            const v = latestValueOf(m);
+                            const hist = m.valueHistory || [];
+                            const histSorted = [...hist].sort((a, b) =>
+                              (b.asOfDate || "").localeCompare(a.asOfDate || "")
+                            );
+                            const latestDate = histSorted[0]?.asOfDate || "";
+                            return (
+                              <div
+                                key={mi}
+                                className="ml-2 pl-3 border-l border-gray-800/80"
+                              >
+                                <div className="flex items-start justify-between gap-2">
+                                  {onSelectSupplier ? (
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        onSelectSupplier(
+                                          supplierIdFromName(
+                                            m.name || m.memberName
+                                          ),
+                                          m.name || m.memberName
+                                        )
+                                      }
+                                      className="text-left text-gray-200 hover:text-white text-[11px] font-mono flex-1 leading-snug underline decoration-gray-700 hover:decoration-white decoration-dotted underline-offset-2"
+                                    >
+                                      {m.name || m.memberName}
+                                    </button>
+                                  ) : (
+                                    <span className="text-gray-200 text-[11px] font-mono flex-1 leading-snug">
+                                      {m.name || m.memberName}
+                                    </span>
+                                  )}
+                                  {v > 0 ? (
+                                    <span className="text-emerald-400 text-[11px] font-mono tabular-nums font-bold whitespace-nowrap">
+                                      {fmt(v / 1e6)}
+                                    </span>
+                                  ) : (
+                                    <span className="text-gray-700 text-[9px] font-mono uppercase tracking-wider whitespace-nowrap">
+                                      Undisclosed
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="flex items-center gap-1.5 flex-wrap mt-1">
+                                  {m.role && (
+                                    <span
+                                      className={
+                                        "text-[9px] font-mono uppercase tracking-wider " +
+                                        "border px-1.5 py-[1px] " +
+                                        roleColour(m.role)
+                                      }
+                                    >
+                                      {m.role}
+                                    </span>
+                                  )}
+                                  {hist.length > 0 && (
+                                    <span className="text-gray-600 text-[9px] font-mono">
+                                      {hist.length} disclosure
+                                      {hist.length > 1 ? "s" : ""}
+                                      {latestDate && (
+                                        <span className="text-gray-700">
+                                          {" · "}latest {latestDate.slice(0, 10)}
+                                        </span>
+                                      )}
+                                    </span>
+                                  )}
+                                </div>
+                                {m.sources && m.sources.length > 0 && (
+                                  <div className="flex flex-wrap gap-1 mt-1.5">
+                                    {m.sources.slice(0, 4).map((s, si) => (
+                                      <a
+                                        key={si}
+                                        href={s.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        title={s.title || s.publisher || ""}
+                                        className={
+                                          "inline-flex items-center gap-1 border px-1.5 py-[1px] " +
+                                          "text-[9px] font-mono uppercase tracking-wider " +
+                                          "hover:brightness-125 " +
+                                          sourceBadgeClass(s.type)
+                                        }
+                                      >
+                                        <ExternalLink size={8} />
+                                        {(s.type || "src").replace(
+                                          "websearch-primary",
+                                          "web"
+                                        )}
+                                      </a>
+                                    ))}
+                                    {m.sources.length > 4 && (
+                                      <span className="text-gray-700 text-[9px] font-mono">
+                                        +{m.sources.length - 4}
+                                      </span>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </>
+          );
+        })()}
 
         {/* — SOURCES — */}
         {p.sources && p.sources.length > 0 && (
@@ -4653,23 +5101,1041 @@ function ProjectDetail({ project, onClose, onNavigate }) {
 }
 
 // ============================================================================
+// SUPPLIER DETAIL DRAWER
+// ============================================================================
+// Right-side drawer that surfaces everything the site knows about a supplier:
+// total £ across tracked projects, buyer concentration (HHI), project list
+// with role + group + clickable cross-link to ProjectDetail, buyer list with
+// £ share + tier-graded sources. Opened from a supplier name in the Project
+// X-ray tree (via onSelectSupplier → supplierIdFromName).
+// Tier colour key: A=emerald, B=sky, C=amber, D=rose, unknown=gray.
+function SupplierDetail({ supplierId, supplierName, onClose, onSelectProject, onSelectBuyer, onNavigate }) {
+  const node = moneyMapData.nodes.find(
+    (n) => n.kind === "supplier" && n.id === supplierId
+  );
+
+  // Project id → node lookup for fast label resolution.
+  const projectNodeById = {};
+  for (const n of moneyMapData.nodes) {
+    if (n.kind === "project") projectNodeById[n.id] = n;
+  }
+  // Buyer id → node lookup.
+  const buyerNodeById = {};
+  for (const n of moneyMapData.nodes) {
+    if (n.kind === "buyer") buyerNodeById[n.id] = n;
+  }
+
+  // Collect edges where t === supplierId.
+  const awardEdges = supplierId
+    ? moneyMapData.edges.awards.filter((e) => e.t === supplierId)
+    : [];
+  const memberEdges = supplierId
+    ? moneyMapData.edges.projectMembers.filter((e) => e.t === supplierId)
+    : [];
+
+  // Per-buyer aggregation — already one edge per buyer in awards[].
+  const buyerRows = awardEdges
+    .map((e) => ({
+      buyerId: e.s,
+      buyerLabel: buyerNodeById[e.s]?.label || e.s,
+      totalGBP: e.totalGBP || 0,
+      count: e.count || 0,
+      sources: e.sources || [],
+      projectIds: e.projectIds || [],
+    }))
+    .sort((a, b) => b.totalGBP - a.totalGBP);
+
+  // Per-project aggregation — collapse multiple memberEdges on same project.
+  const projectMap = {};
+  for (const e of memberEdges) {
+    const pid = e.s;
+    if (!projectMap[pid]) {
+      projectMap[pid] = {
+        projectId: pid,
+        project: projectNodeById[pid],
+        totalGBP: 0,
+        entries: [],
+      };
+    }
+    projectMap[pid].totalGBP += e.totalGBP || 0;
+    projectMap[pid].entries.push({
+      groupName: e.groupName,
+      role: e.role,
+      tier: e.tier,
+      totalGBP: e.totalGBP || 0,
+    });
+  }
+  const projectRows = Object.values(projectMap).sort(
+    (a, b) => b.totalGBP - a.totalGBP
+  );
+
+  // HHI buyer concentration (0–10000; higher = more concentrated).
+  const totalBuyerGBP = buyerRows.reduce((s, r) => s + r.totalGBP, 0);
+  const hhi = totalBuyerGBP > 0
+    ? buyerRows.reduce((s, r) => {
+        const share = r.totalGBP / totalBuyerGBP;
+        return s + share * share * 10000;
+      }, 0)
+    : 0;
+  const concentrationLabel =
+    totalBuyerGBP === 0
+      ? "—"
+      : hhi >= 2500
+        ? "High"
+        : hhi >= 1500
+          ? "Moderate"
+          : "Low";
+  const concentrationColor =
+    hhi >= 2500
+      ? "text-red-400"
+      : hhi >= 1500
+        ? "text-amber-400"
+        : "text-emerald-400";
+
+  const totalGBP = node?.value || totalBuyerGBP || 0;
+  const supplierDep = node?.scores?.supplierDependence ?? null;
+
+  // Tier colour helper — mirrors X-ray.
+  const tierClass = (t) => {
+    if (t === "A") return "bg-emerald-500/10 border-emerald-500/40 text-emerald-300";
+    if (t === "B") return "bg-sky-500/10 border-sky-500/40 text-sky-300";
+    if (t === "C") return "bg-amber-500/10 border-amber-500/40 text-amber-300";
+    if (t === "D") return "bg-rose-500/10 border-rose-500/40 text-rose-300";
+    return "bg-gray-700/20 border-gray-700/40 text-gray-400";
+  };
+  const srcTierOf = (s) => (s?.grade || s?.tier || "?").toString().toUpperCase();
+
+  const displayName = node?.label || supplierName || "Supplier";
+
+  return (
+    <div
+      className="fixed inset-0 z-[60] flex justify-end"
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-black/70" />
+      <div
+        className={
+          "relative w-full max-w-[520px] h-full bg-black " +
+          "border-l border-gray-800/60 overflow-y-auto"
+        }
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* — HEADER — */}
+        <div className="px-6 pt-6 pb-4 border-b border-gray-800/40">
+          <div className="flex items-start justify-between mb-4">
+            <div className="text-[9px] uppercase tracking-[0.25em] font-mono text-gray-600">
+              Supplier Profile
+            </div>
+            <button
+              onClick={onClose}
+              className="text-gray-700 hover:text-white text-xs font-mono tracking-widest uppercase"
+            >
+              [esc]
+            </button>
+          </div>
+          <h2 className="text-2xl font-serif font-medium text-white leading-tight tracking-[-0.01em]">
+            {displayName}
+          </h2>
+          {node?.aliases && node.aliases.length > 1 && (
+            <div className="text-gray-600 text-[10px] font-mono mt-1.5 leading-snug">
+              Also known as: {node.aliases.slice(1).join(" · ")}
+            </div>
+          )}
+          {!node && (
+            <div className="text-amber-400/80 text-[10px] font-mono mt-2 leading-snug">
+              Not yet indexed in Money Map — this supplier may appear in
+              contractor records without a disclosed £ value, or the name
+              here did not slug-match a canonical entry.
+            </div>
+          )}
+        </div>
+
+        {/* — METRICS GRID — */}
+        <div className="grid grid-cols-2 gap-px bg-gray-800/40 border-b border-gray-800/40">
+          <div className="bg-black px-6 py-4">
+            <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
+              Total disclosed
+            </div>
+            <div className="text-2xl font-black font-mono tabular-nums text-white mt-1">
+              {totalGBP > 0 ? fmt(totalGBP / 1e6) : "—"}
+            </div>
+            <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
+              across tracked projects
+            </div>
+          </div>
+          <div className="bg-black px-6 py-4">
+            <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
+              Projects
+            </div>
+            <div className="text-2xl font-black font-mono tabular-nums text-white mt-1">
+              {projectRows.length}
+            </div>
+            <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
+              where this firm is a member
+            </div>
+          </div>
+          <div className="bg-black px-6 py-4">
+            <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
+              Buyers
+            </div>
+            <div className="text-2xl font-black font-mono tabular-nums text-white mt-1">
+              {buyerRows.length}
+            </div>
+            <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
+              distinct gov buyers
+            </div>
+          </div>
+          <div className="bg-black px-6 py-4">
+            <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
+              Buyer concentration
+            </div>
+            <div className={"text-2xl font-black font-mono tabular-nums mt-1 " + concentrationColor}>
+              {concentrationLabel}
+            </div>
+            <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
+              HHI {hhi.toFixed(0)}
+            </div>
+          </div>
+        </div>
+
+        {/* — TOP BUYER CARD — */}
+        {node?.topBuyer && node.topBuyer.gbp > 0 && (
+          <div className="px-6 py-4 border-b border-gray-800/40">
+            <div className="text-[9px] uppercase tracking-[0.25em] text-gray-600 font-mono mb-2">
+              Top buyer
+            </div>
+            {onSelectBuyer ? (
+              <button
+                type="button"
+                onClick={() => onSelectBuyer(node.topBuyer.id, node.topBuyer.label)}
+                className="text-left text-white text-sm font-semibold leading-snug hover:underline decoration-dotted decoration-gray-600 underline-offset-2"
+              >
+                {node.topBuyer.label}
+              </button>
+            ) : (
+              <div className="text-white text-sm font-semibold leading-snug">
+                {node.topBuyer.label}
+              </div>
+            )}
+            <div className="flex items-baseline gap-3 mt-1">
+              <span className="text-lg font-black font-mono tabular-nums text-white">
+                {fmt(node.topBuyer.gbp / 1e6)}
+              </span>
+              <span className="text-xs font-mono tabular-nums text-gray-500">
+                {(node.topBuyer.share * 100).toFixed(1)}% of total
+              </span>
+            </div>
+            {supplierDep !== null && supplierDep >= 0.5 && (
+              <div className="text-[10px] font-mono text-amber-400/80 mt-1.5 leading-snug">
+                Dependence score {(supplierDep * 100).toFixed(0)}% — this
+                supplier is materially dependent on one buyer.
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* — PROJECTS — */}
+        {projectRows.length > 0 && (
+          <div className="px-6 py-5 border-b border-gray-800/40">
+            <div className="text-[9px] uppercase tracking-[0.25em] text-gray-600 font-mono mb-3">
+              Projects ({projectRows.length})
+            </div>
+            <div className="space-y-2.5">
+              {projectRows.map((pr) => {
+                const proj = pr.project;
+                const label = proj?.label || pr.projectId;
+                const dept = proj?.department;
+                return (
+                  <div
+                    key={pr.projectId}
+                    className="border border-gray-800/60 bg-gray-900/20 rounded-sm px-3 py-2.5"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (onSelectProject && proj) {
+                            // Convert "project-123" → numeric id for lookup.
+                            const pid = parseInt(
+                              String(pr.projectId).replace(/^project-/, ""),
+                              10
+                            );
+                            onSelectProject(pid, label);
+                          }
+                        }}
+                        className="text-left text-white text-xs font-semibold leading-snug flex-1 hover:underline decoration-dotted decoration-gray-600 underline-offset-2"
+                      >
+                        {label}
+                      </button>
+                      <div className="text-[11px] font-mono tabular-nums text-gray-300 whitespace-nowrap">
+                        {pr.totalGBP > 0 ? fmt(pr.totalGBP / 1e6) : (
+                          <span className="text-gray-600 italic">Undisclosed</span>
+                        )}
+                      </div>
+                    </div>
+                    {dept && (
+                      <div className="text-[9px] uppercase tracking-[0.15em] text-gray-600 font-mono mt-1">
+                        {dept}
+                      </div>
+                    )}
+                    <div className="mt-2 space-y-1">
+                      {pr.entries.map((en, i) => (
+                        <div key={i} className="flex items-center gap-2 text-[10px] font-mono text-gray-500 leading-snug">
+                          <span className={
+                            "px-1.5 py-0.5 border rounded-sm text-[8px] uppercase tracking-[0.1em] " +
+                            tierClass(en.tier)
+                          }>
+                            {en.role || "member"}
+                          </span>
+                          <span className="flex-1 truncate">{en.groupName || "—"}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* — BUYERS — */}
+        {buyerRows.length > 0 && (
+          <div className="px-6 py-5 border-b border-gray-800/40">
+            <div className="text-[9px] uppercase tracking-[0.25em] text-gray-600 font-mono mb-3">
+              Buyers ({buyerRows.length})
+            </div>
+            <div className="space-y-2.5">
+              {buyerRows.map((br) => {
+                const share = totalBuyerGBP > 0 ? br.totalGBP / totalBuyerGBP : 0;
+                return (
+                  <div
+                    key={br.buyerId}
+                    className="border border-gray-800/60 bg-gray-900/20 rounded-sm px-3 py-2.5"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      {onSelectBuyer ? (
+                        <button
+                          type="button"
+                          onClick={() => onSelectBuyer(br.buyerId, br.buyerLabel)}
+                          className="text-left text-white text-xs font-semibold leading-snug flex-1 hover:underline decoration-dotted decoration-gray-600 underline-offset-2"
+                        >
+                          {br.buyerLabel}
+                        </button>
+                      ) : (
+                        <div className="text-white text-xs font-semibold leading-snug flex-1">
+                          {br.buyerLabel}
+                        </div>
+                      )}
+                      <div className="text-[11px] font-mono tabular-nums text-gray-300 whitespace-nowrap">
+                        {br.totalGBP > 0 ? fmt(br.totalGBP / 1e6) : (
+                          <span className="text-gray-600 italic">Undisclosed</span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 mt-1">
+                      {totalBuyerGBP > 0 && (
+                        <div className="text-[9px] uppercase tracking-[0.15em] text-gray-600 font-mono">
+                          {(share * 100).toFixed(1)}% share
+                        </div>
+                      )}
+                      <div className="text-[9px] uppercase tracking-[0.15em] text-gray-600 font-mono">
+                        {br.count} {br.count === 1 ? "award" : "awards"}
+                      </div>
+                    </div>
+                    {br.sources.length > 0 && (
+                      <div className="mt-2 flex flex-wrap gap-1">
+                        {br.sources.slice(0, 6).map((s, i) => (
+                          <a
+                            key={i}
+                            href={s.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={s.title || s.url}
+                            className={
+                              "px-1.5 py-0.5 border rounded-sm text-[8px] uppercase tracking-[0.1em] font-mono hover:opacity-80 " +
+                              tierClass(srcTierOf(s))
+                            }
+                          >
+                            {srcTierOf(s)} · {(s.type || "src").slice(0, 14)}
+                          </a>
+                        ))}
+                        {br.sources.length > 6 && (
+                          <span className="px-1.5 py-0.5 text-[8px] uppercase tracking-[0.1em] font-mono text-gray-600">
+                            +{br.sources.length - 6} more
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* — MONEY MAP CTA — */}
+        {node && onNavigate && (
+          <div className="px-6 py-4 border-b border-gray-800/40">
+            <button
+              type="button"
+              onClick={() => onNavigate("moneymap")}
+              className="text-[10px] uppercase tracking-[0.25em] font-mono text-gray-500 hover:text-white transition-colors"
+            >
+              View in Money Map →
+            </button>
+          </div>
+        )}
+
+        {/* — FOOTER RULE — */}
+        <div className="px-6 py-4">
+          <div className="text-[9px] text-gray-800 font-mono tracking-[0.15em]">
+            {supplierId || "unresolved-id"}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// BUYER DETAIL DRAWER
+// ============================================================================
+// Right-side drawer mirroring ProjectDetail / SupplierDetail for buyer nodes.
+// Surfaces: total spend, supplier count, buyer-concentration HHI, top
+// supplier card, full supplier list (clickable → SupplierDetail), and the
+// projects this buyer procures for (derived from award edges → projectIds,
+// clickable → ProjectDetail).
+function BuyerDetail({ buyerId, buyerName, onClose, onSelectSupplier, onSelectProject, onNavigate }) {
+  const node = moneyMapData.nodes.find(
+    (n) => n.kind === "buyer" && n.id === buyerId
+  );
+
+  const supplierNodeById = {};
+  const projectNodeById = {};
+  for (const n of moneyMapData.nodes) {
+    if (n.kind === "supplier") supplierNodeById[n.id] = n;
+    else if (n.kind === "project") projectNodeById[n.id] = n;
+  }
+
+  const awardEdges = buyerId
+    ? moneyMapData.edges.awards.filter((e) => e.s === buyerId)
+    : [];
+
+  // Per-supplier: one award edge per supplier in this dataset (awards[] is
+  // already collapsed by buyer-supplier pair at precompute time).
+  const supplierRows = awardEdges
+    .map((e) => ({
+      supplierId: e.t,
+      supplierLabel: supplierNodeById[e.t]?.label || e.t,
+      totalGBP: e.totalGBP || 0,
+      count: e.count || 0,
+      sources: e.sources || [],
+      projectIds: e.projectIds || [],
+    }))
+    .sort((a, b) => b.totalGBP - a.totalGBP);
+
+  // Projects this buyer procures for — union of projectIds across all edges.
+  const projectIdSet = new Set();
+  for (const e of awardEdges) {
+    for (const pid of e.projectIds || []) projectIdSet.add(pid);
+  }
+  const projectRows = Array.from(projectIdSet)
+    .map((pid) => ({
+      projectId: pid,
+      project: projectNodeById[pid],
+    }))
+    .filter((r) => r.project)
+    .sort((a, b) => (b.project.value || 0) - (a.project.value || 0));
+
+  const totalSupplierGBP = supplierRows.reduce((s, r) => s + r.totalGBP, 0);
+  const totalGBP = node?.value || totalSupplierGBP || 0;
+
+  // HHI already precomputed by build-money-map (0–1 fraction).
+  const hhiFrac = node?.scores?.buyerConcentrationHHI ?? null;
+  const hhi = hhiFrac !== null ? hhiFrac * 10000 : 0;
+  const concentrationLabel =
+    totalSupplierGBP === 0
+      ? "—"
+      : hhi >= 2500
+        ? "High"
+        : hhi >= 1500
+          ? "Moderate"
+          : "Low";
+  const concentrationColor =
+    hhi >= 2500
+      ? "text-red-400"
+      : hhi >= 1500
+        ? "text-amber-400"
+        : "text-emerald-400";
+
+  const tierClass = (t) => {
+    if (t === "A") return "bg-emerald-500/10 border-emerald-500/40 text-emerald-300";
+    if (t === "B") return "bg-sky-500/10 border-sky-500/40 text-sky-300";
+    if (t === "C") return "bg-amber-500/10 border-amber-500/40 text-amber-300";
+    if (t === "D") return "bg-rose-500/10 border-rose-500/40 text-rose-300";
+    return "bg-gray-700/20 border-gray-700/40 text-gray-400";
+  };
+  const srcTierOf = (s) => (s?.grade || s?.tier || "?").toString().toUpperCase();
+
+  const displayName = node?.label || buyerName || "Buyer";
+
+  return (
+    <div
+      className="fixed inset-0 z-[60] flex justify-end"
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-black/70" />
+      <div
+        className="relative w-full max-w-[520px] h-full bg-black border-l border-gray-800/60 overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* — HEADER — */}
+        <div className="px-6 pt-6 pb-4 border-b border-gray-800/40">
+          <div className="flex items-start justify-between mb-4">
+            <div className="text-[9px] uppercase tracking-[0.25em] font-mono text-gray-600">
+              Public Buyer
+            </div>
+            <button
+              onClick={onClose}
+              className="text-gray-700 hover:text-white text-xs font-mono tracking-widest uppercase"
+            >
+              [esc]
+            </button>
+          </div>
+          <h2 className="text-2xl font-serif font-medium text-white leading-tight tracking-[-0.01em]">
+            {displayName}
+          </h2>
+          {node?.department && node.department !== displayName && (
+            <div className="text-gray-600 text-[11px] font-mono mt-1.5">
+              {node.department}
+            </div>
+          )}
+          {!node && (
+            <div className="text-amber-400/80 text-[10px] font-mono mt-2 leading-snug">
+              Not yet indexed in Money Map.
+            </div>
+          )}
+        </div>
+
+        {/* — METRICS GRID — */}
+        <div className="grid grid-cols-2 gap-px bg-gray-800/40 border-b border-gray-800/40">
+          <div className="bg-black px-6 py-4">
+            <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
+              Total awarded
+            </div>
+            <div className="text-2xl font-black font-mono tabular-nums text-white mt-1">
+              {totalGBP > 0 ? fmt(totalGBP / 1e6) : "—"}
+            </div>
+            <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
+              in current window
+            </div>
+          </div>
+          <div className="bg-black px-6 py-4">
+            <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
+              Suppliers
+            </div>
+            <div className="text-2xl font-black font-mono tabular-nums text-white mt-1">
+              {supplierRows.length}
+            </div>
+            <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
+              {node?.scores?.supplierCountValued
+                ? node.scores.supplierCountValued + " with £ disclosed"
+                : "distinct firms"}
+            </div>
+          </div>
+          <div className="bg-black px-6 py-4">
+            <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
+              Projects served
+            </div>
+            <div className="text-2xl font-black font-mono tabular-nums text-white mt-1">
+              {projectRows.length}
+            </div>
+            <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
+              tracked megaprojects
+            </div>
+          </div>
+          <div className="bg-black px-6 py-4">
+            <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono">
+              Supplier concentration
+            </div>
+            <div className={"text-2xl font-black font-mono tabular-nums mt-1 " + concentrationColor}>
+              {concentrationLabel}
+            </div>
+            <div className="text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono mt-0.5">
+              HHI {hhi.toFixed(0)}
+            </div>
+          </div>
+        </div>
+
+        {/* — TOP SUPPLIER CARD — */}
+        {node?.topSupplier && node.topSupplier.gbp > 0 && (
+          <div className="px-6 py-4 border-b border-gray-800/40">
+            <div className="text-[9px] uppercase tracking-[0.25em] text-gray-600 font-mono mb-2">
+              Top supplier
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                if (onSelectSupplier) onSelectSupplier(node.topSupplier.id, node.topSupplier.label);
+              }}
+              className="text-left text-white text-sm font-semibold leading-snug hover:underline decoration-dotted decoration-gray-600 underline-offset-2"
+            >
+              {node.topSupplier.label}
+            </button>
+            <div className="flex items-baseline gap-3 mt-1">
+              <span className="text-lg font-black font-mono tabular-nums text-white">
+                {fmt(node.topSupplier.gbp / 1e6)}
+              </span>
+              <span className="text-xs font-mono tabular-nums text-gray-500">
+                {(node.topSupplier.share * 100).toFixed(1)}% of total
+              </span>
+            </div>
+            {node.topSupplier.share >= 0.5 && (
+              <div className="text-[10px] font-mono text-amber-400/80 mt-1.5 leading-snug">
+                This one supplier captures more than half of this buyer's
+                disclosed spend — a concentration worth scrutinising.
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* — PROJECTS — */}
+        {projectRows.length > 0 && (
+          <div className="px-6 py-5 border-b border-gray-800/40">
+            <div className="text-[9px] uppercase tracking-[0.25em] text-gray-600 font-mono mb-3">
+              Projects ({projectRows.length})
+            </div>
+            <div className="space-y-2">
+              {projectRows.map((pr) => {
+                const label = pr.project?.label || pr.projectId;
+                const dept = pr.project?.department;
+                return (
+                  <button
+                    type="button"
+                    key={pr.projectId}
+                    onClick={() => {
+                      if (!onSelectProject) return;
+                      const pidNum = parseInt(
+                        String(pr.projectId).replace(/^project-/, ""),
+                        10
+                      );
+                      onSelectProject(pidNum, label);
+                    }}
+                    className="w-full text-left border border-gray-800/60 bg-gray-900/20 hover:bg-gray-900/50 rounded-sm px-3 py-2.5 transition-colors"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="text-white text-xs font-semibold leading-snug flex-1 hover:underline decoration-dotted decoration-gray-600 underline-offset-2">
+                        {label}
+                      </div>
+                      {pr.project?.value > 0 && (
+                        <div className="text-[11px] font-mono tabular-nums text-gray-400 whitespace-nowrap">
+                          {fmt(pr.project.value)}
+                        </div>
+                      )}
+                    </div>
+                    {dept && (
+                      <div className="text-[9px] uppercase tracking-[0.15em] text-gray-600 font-mono mt-1">
+                        {dept}
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* — SUPPLIERS — */}
+        {supplierRows.length > 0 && (
+          <div className="px-6 py-5 border-b border-gray-800/40">
+            <div className="text-[9px] uppercase tracking-[0.25em] text-gray-600 font-mono mb-3">
+              Suppliers ({supplierRows.length})
+            </div>
+            <div className="space-y-2.5">
+              {supplierRows.map((sr) => {
+                const share = totalSupplierGBP > 0 ? sr.totalGBP / totalSupplierGBP : 0;
+                return (
+                  <div
+                    key={sr.supplierId}
+                    className="border border-gray-800/60 bg-gray-900/20 rounded-sm px-3 py-2.5"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (onSelectSupplier) onSelectSupplier(sr.supplierId, sr.supplierLabel);
+                        }}
+                        className="text-left text-white text-xs font-semibold leading-snug flex-1 hover:underline decoration-dotted decoration-gray-600 underline-offset-2"
+                      >
+                        {sr.supplierLabel}
+                      </button>
+                      <div className="text-[11px] font-mono tabular-nums text-gray-300 whitespace-nowrap">
+                        {sr.totalGBP > 0 ? fmt(sr.totalGBP / 1e6) : (
+                          <span className="text-gray-600 italic">Undisclosed</span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 mt-1">
+                      {totalSupplierGBP > 0 && (
+                        <div className="text-[9px] uppercase tracking-[0.15em] text-gray-600 font-mono">
+                          {(share * 100).toFixed(1)}% share
+                        </div>
+                      )}
+                      <div className="text-[9px] uppercase tracking-[0.15em] text-gray-600 font-mono">
+                        {sr.count} {sr.count === 1 ? "award" : "awards"}
+                      </div>
+                    </div>
+                    {sr.sources.length > 0 && (
+                      <div className="mt-2 flex flex-wrap gap-1">
+                        {sr.sources.slice(0, 6).map((s, i) => (
+                          <a
+                            key={i}
+                            href={s.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={s.title || s.url}
+                            className={
+                              "px-1.5 py-0.5 border rounded-sm text-[8px] uppercase tracking-[0.1em] font-mono hover:opacity-80 " +
+                              tierClass(srcTierOf(s))
+                            }
+                          >
+                            {srcTierOf(s)} · {(s.type || "src").slice(0, 14)}
+                          </a>
+                        ))}
+                        {sr.sources.length > 6 && (
+                          <span className="px-1.5 py-0.5 text-[8px] uppercase tracking-[0.1em] font-mono text-gray-600">
+                            +{sr.sources.length - 6} more
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* — MONEY MAP CTA — */}
+        {node && onNavigate && (
+          <div className="px-6 py-4 border-b border-gray-800/40">
+            <button
+              type="button"
+              onClick={() => onNavigate("moneymap")}
+              className="text-[10px] uppercase tracking-[0.25em] font-mono text-gray-500 hover:text-white transition-colors"
+            >
+              View in Money Map →
+            </button>
+          </div>
+        )}
+
+        <div className="px-6 py-4">
+          <div className="text-[9px] text-gray-800 font-mono tracking-[0.15em]">
+            {buyerId || "unresolved-id"}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// COMMAND PALETTE (cmd-K global search)
+// ============================================================================
+// Single navigation primitive across the site. Indexes:
+//   - 576 supplier nodes (from money-map.json) with their aliases
+//   - 86 buyer nodes (money-map.json)
+//   - 116 project rows (projects.json) so name / department / keywords match
+// Open via cmd/ctrl-K or the search icon in the top nav. Arrow keys navigate,
+// Enter opens the matching drawer (Supplier → SupplierDetail, Project →
+// ProjectDetail, Buyer → jump to Money Map with that entity as lens subject).
+
+// Pre-compute the search index once at module load — the underlying JSON is
+// static, so this is safe and avoids rebuilding on every keystroke.
+const SEARCH_INDEX = (() => {
+  const rows = [];
+  // Suppliers + buyers from money-map
+  try {
+    for (const n of moneyMapData.nodes || []) {
+      if (n.kind === "supplier") {
+        rows.push({
+          id: n.id,
+          kind: "supplier",
+          label: n.label,
+          aliases: n.aliases || [],
+          value: n.value || 0,
+          sub:
+            n.buyerCount
+              ? n.buyerCount + " buyer" + (n.buyerCount === 1 ? "" : "s")
+              : null,
+          search:
+            (n.label + " " + (n.aliases || []).join(" ")).toLowerCase(),
+        });
+      } else if (n.kind === "buyer") {
+        rows.push({
+          id: n.id,
+          kind: "buyer",
+          label: n.label,
+          aliases: n.aliases || [],
+          value: n.value || 0,
+          sub: "Public buyer",
+          search: n.label.toLowerCase(),
+        });
+      }
+    }
+  } catch (e) { /* ignore */ }
+  // Projects from projects.json (richer metadata than money-map project nodes)
+  try {
+    for (const p of projectsData || []) {
+      rows.push({
+        id: "project-" + p.id,
+        projectNumericId: p.id,
+        kind: "project",
+        label: p.name,
+        aliases: [],
+        value: p.latestBudget || 0,
+        sub: p.department || p.category,
+        search:
+          (p.name + " " + (p.department || "") + " " + (p.category || "")).toLowerCase(),
+      });
+    }
+  } catch (e) { /* ignore */ }
+  return rows;
+})();
+
+// Tiny fuzzy matcher. Not fzf-quality but handles the common cases:
+//   exact label match > starts-with > all-tokens-present > any-token match.
+function scoreSearchRow(row, q) {
+  if (!q) return 0;
+  const ql = q.toLowerCase().trim();
+  if (!ql) return 0;
+  const label = row.label.toLowerCase();
+  if (label === ql) return 1000;
+  if (label.startsWith(ql)) return 500 - Math.min(label.length - ql.length, 200);
+  // Token match: each whitespace-separated query token must appear somewhere
+  // in the searchable text.
+  const tokens = ql.split(/\s+/).filter(Boolean);
+  if (!tokens.length) return 0;
+  let allPresent = true;
+  let hits = 0;
+  for (const t of tokens) {
+    if (row.search.includes(t)) hits++;
+    else allPresent = false;
+  }
+  if (allPresent) {
+    // Bonus if label itself contains the full query string.
+    const substrBonus = label.includes(ql) ? 100 : 0;
+    return 200 + hits * 10 + substrBonus;
+  }
+  // Partial match — any token hits something.
+  return hits > 0 ? hits * 5 : 0;
+}
+
+function kindMeta(kind) {
+  if (kind === "supplier") return { chip: "Supplier", color: "text-sky-300 bg-sky-500/10 border-sky-500/40" };
+  if (kind === "buyer") return { chip: "Buyer", color: "text-amber-300 bg-amber-500/10 border-amber-500/40" };
+  if (kind === "project") return { chip: "Project", color: "text-emerald-300 bg-emerald-500/10 border-emerald-500/40" };
+  return { chip: kind || "?", color: "text-gray-400 bg-gray-700/20 border-gray-700/40" };
+}
+
+function CommandPalette({ open, onClose, onSelect }) {
+  const [query, setQuery] = useState("");
+  const [idx, setIdx] = useState(0);
+  const inputRef = useRef(null);
+  const listRef = useRef(null);
+
+  // Refocus input when the palette opens, reset state on close.
+  useEffect(() => {
+    if (open) {
+      setQuery("");
+      setIdx(0);
+      // next tick so the input exists
+      setTimeout(() => {
+        if (inputRef.current) inputRef.current.focus();
+      }, 0);
+    }
+  }, [open]);
+
+  const results = useMemo(() => {
+    if (!query.trim()) {
+      // Empty state: curated top picks — highest-£ suppliers + projects.
+      const curated = SEARCH_INDEX
+        .filter((r) => r.kind !== "buyer")
+        .sort((a, b) => (b.value || 0) - (a.value || 0))
+        .slice(0, 8);
+      return curated;
+    }
+    const scored = [];
+    for (const r of SEARCH_INDEX) {
+      const s = scoreSearchRow(r, query);
+      if (s > 0) scored.push({ row: r, score: s });
+    }
+    scored.sort((a, b) => b.score - a.score || (b.row.value || 0) - (a.row.value || 0));
+    return scored.slice(0, 50).map((x) => x.row);
+  }, [query]);
+
+  // Clamp index into range whenever results change.
+  useEffect(() => {
+    if (idx >= results.length) setIdx(Math.max(0, results.length - 1));
+  }, [results, idx]);
+
+  // Keep the highlighted row in view.
+  useEffect(() => {
+    if (!listRef.current) return;
+    const el = listRef.current.querySelector('[data-active="true"]');
+    if (el && el.scrollIntoView) el.scrollIntoView({ block: "nearest" });
+  }, [idx]);
+
+  if (!open) return null;
+
+  const fire = (row) => {
+    if (!row) return;
+    onSelect(row);
+  };
+
+  const onKeyDown = (e) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setIdx((i) => Math.min(i + 1, Math.max(0, results.length - 1)));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setIdx((i) => Math.max(0, i - 1));
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      fire(results[idx]);
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      onClose();
+    }
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-[70] flex items-start justify-center pt-24 px-4"
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-black/75" />
+      <div
+        className="relative w-full max-w-[640px] bg-black border border-gray-800/80 rounded-sm shadow-2xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+        onKeyDown={onKeyDown}
+      >
+        {/* — SEARCH INPUT — */}
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-800/60">
+          <Search size={16} className="text-gray-600" />
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search suppliers, projects, buyers…"
+            className="flex-1 bg-transparent text-white text-sm font-mono placeholder-gray-700 focus:outline-none"
+            aria-label="Global search"
+          />
+          <span className="text-[9px] uppercase tracking-[0.15em] font-mono text-gray-700 border border-gray-800/70 rounded-sm px-1.5 py-0.5">
+            esc
+          </span>
+        </div>
+
+        {/* — RESULTS — */}
+        <div
+          ref={listRef}
+          className="max-h-[420px] overflow-y-auto"
+        >
+          {results.length === 0 && (
+            <div className="px-4 py-6 text-center text-gray-600 text-xs font-mono">
+              No matches — try a supplier or project name.
+            </div>
+          )}
+          {!query.trim() && results.length > 0 && (
+            <div className="px-4 pt-3 pb-1 text-[9px] uppercase tracking-[0.25em] text-gray-700 font-mono">
+              Suggestions · highest value
+            </div>
+          )}
+          {results.map((r, i) => {
+            const active = i === idx;
+            const m = kindMeta(r.kind);
+            return (
+              <button
+                key={r.id}
+                type="button"
+                data-active={active ? "true" : "false"}
+                onMouseEnter={() => setIdx(i)}
+                onClick={() => fire(r)}
+                className={
+                  "w-full text-left px-4 py-2.5 flex items-center gap-3 " +
+                  "border-l-2 " +
+                  (active
+                    ? "bg-gray-900/60 border-red-500"
+                    : "border-transparent hover:bg-gray-900/30")
+                }
+              >
+                <span
+                  className={
+                    "text-[8px] uppercase tracking-[0.15em] font-mono " +
+                    "px-1.5 py-0.5 border rounded-sm whitespace-nowrap " +
+                    m.color
+                  }
+                >
+                  {m.chip}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="text-white text-xs font-semibold truncate">
+                    {r.label}
+                  </div>
+                  {r.sub && (
+                    <div className="text-[10px] font-mono text-gray-500 truncate">
+                      {r.sub}
+                    </div>
+                  )}
+                </div>
+                {r.value > 0 && (
+                  <div className="text-[11px] font-mono tabular-nums text-gray-400 whitespace-nowrap">
+                    {r.kind === "project"
+                      ? fmt(r.value)
+                      : fmt((r.value || 0) / 1e6)}
+                  </div>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* — FOOTER HINTS — */}
+        <div className="px-4 py-2 border-t border-gray-800/60 flex items-center gap-4 text-[9px] uppercase tracking-[0.15em] text-gray-700 font-mono">
+          <span>↑↓ navigate</span>
+          <span>↵ open</span>
+          <span className="flex-1"></span>
+          <span>{results.length} result{results.length === 1 ? "" : "s"}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
 // MAIN APP
 // ============================================================================
 // View ID → URL hash slug mapping (and reverse)
 const VIEW_SLUGS = {
   "overview": "",
   "wrapped": "wrapped",
+  "moneymap": "money-map",
   "birthyear": "your-lifetime",
   "projects": "budget-overruns",
   "projects.planning": "planning-failures",
   "projects.delays": "delivery-delays",
   "suppliers": "suppliers-contracts",
+  "suppliers.contractors": "contractor-research",
+  "suppliers.rankings": "supplier-rankings",
+  "suppliers.coverage": "coverage-transparency",
   "league.departments": "department-rankings",
   "transparency.scorecards": "mp-scorecards",
   "transparency.donations": "donations",
   "transparency.mppay": "mps-money",
   "transparency.mp": "mp-detail",
   "transparency.moonlighting": "moonlighting-mps",
+  "transparency.crony": "crony-contracts",
   "transparency.lobbying": "lobbying",
   "transparency.nhswaits": "nhs-waiting-times",
   "transparency.sewage": "sewage-clock",
@@ -4691,7 +6157,8 @@ const VIEW_SLUGS = {
   "foreignAid": "foreign-aid",
   "mpInterests": "mp-interests",
   "lobbying": "lobbying-register",
-  "politicalDonations": "political-donations"
+  "politicalDonations": "political-donations",
+  "methodology": "methodology"
 };
 const SLUG_TO_VIEW = Object.fromEntries(
   Object.entries(VIEW_SLUGS).map(([k, v]) => [v, k])
@@ -4699,27 +6166,127 @@ const SLUG_TO_VIEW = Object.fromEntries(
 function viewToSlug(v) { return VIEW_SLUGS[v] ?? v.replace(/\./g, "-"); }
 function slugToView(s) { return SLUG_TO_VIEW[s] ?? s; }
 
+// ============================================================================
+// ARCHIVED VIEWS — sections removed from the main site during the April 2026
+// repositioning. Hitting one of these routes renders an archive notice rather
+// than the old content. The underlying render blocks remain in this file so
+// we can restore any of them without a git revert; remove them in a later
+// cleanup pass once we're confident nothing links to them.
+// ============================================================================
+const ARCHIVED_VIEWS = new Set([
+  // Your Lifetime
+  "birthyear",
+  // Your Money
+  "economy.costOfLiving",
+  "compare.bills",
+  "compare.infrastructure",
+  "government.flow",
+  "government.taxdebt",
+  "government.civilservice",
+  "compare.defence",
+  // UK Services
+  "transparency.nhswaits",
+  "transparency.sewage",
+  "transparency.windwaste",
+  "transparency.aid",
+  "transparency.immigration",
+  // Economy
+  "economy.output",
+  "economy.production",
+  "economy.innovation",
+  "economy.markets",
+  "compare.structural",
+  // Legacy aliases
+  "foreignAid"
+]);
+
+// Human-readable label for an archived view (used in the banner)
+function archivedLabel(v) {
+  const map = {
+    "birthyear": "Your Lifetime",
+    "economy.costOfLiving": "Prices & Inflation",
+    "compare.bills": "Energy & Bills",
+    "compare.infrastructure": "Transport",
+    "government.flow": "Where Tax Goes",
+    "government.taxdebt": "Tax & Debt",
+    "government.civilservice": "Civil Service",
+    "compare.defence": "Defence",
+    "transparency.nhswaits": "NHS Waiting Times",
+    "transparency.sewage": "Sewage Clock",
+    "transparency.windwaste": "Wind Waste Clock",
+    "transparency.aid": "Foreign Aid",
+    "transparency.immigration": "Immigration",
+    "economy.output": "GDP & Output",
+    "economy.production": "Production & Trade",
+    "economy.innovation": "Innovation & R&D",
+    "economy.markets": "Markets",
+    "compare.structural": "Structural",
+    "foreignAid": "Foreign Aid"
+  };
+  return map[v] || v;
+}
+
+/* ============================================================================
+ * CiteChip — tiny hover-revealed citation copy affordance.
+ *
+ * Wrap any figure (£ value, %, count) like this:
+ *
+ *   <span className="group inline-flex items-baseline gap-1">
+ *     <span className="font-mono">{fmt(value)}</span>
+ *     <CiteChip citation="Project X — latest budget £15.8bn, projects.json, Gracchus 2026-04-21" />
+ *   </span>
+ *
+ * The chip is invisible until the parent `.group` is hovered, at which
+ * point a subtle "©" superscript appears. Clicking it copies the
+ * formatted citation string to the clipboard and briefly confirms with
+ * a check mark.
+ *
+ * Keep the citation string terse: {source name} — {finding} ({file,
+ * date}). The chip is a trust artefact, not a footnote dump.
+ * ========================================================================= */
+function CiteChip({ citation, label = "copy citation" }) {
+  const [copied, setCopied] = useState(false);
+  if (!citation) return null;
+  const onCopy = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    try {
+      navigator.clipboard?.writeText(citation);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1400);
+    } catch {
+      setCopied(false);
+    }
+  };
+  return (
+    <button
+      type="button"
+      onClick={onCopy}
+      title={label}
+      aria-label={label}
+      className={
+        "ml-1 text-[10px] font-mono align-super " +
+        "text-gray-600 hover:text-ember-400 " +
+        "opacity-0 group-hover:opacity-100 " +
+        "focus:opacity-100 transition-opacity " +
+        "leading-none select-none"
+      }
+    >
+      {copied ? "✓" : "©"}
+    </button>
+  );
+}
+
 export default function App() {
-  const [view, setViewRaw] = useState(() => {
-    if (typeof window === "undefined") return "overview";
-    // Read from pathname first (clean URLs), fall back to hash (legacy)
-    const path = window.location.pathname.slice(1); // remove leading /
-    if (path && path !== "") {
-      const fromPath = slugToView(path);
-      if (fromPath && fromPath !== path) return fromPath; // matched a known slug
-      if (SLUG_TO_VIEW[path]) return SLUG_TO_VIEW[path];
-    }
-    // Legacy hash support
-    if (window.location.hash) {
-      const slug = window.location.hash.slice(1);
-      const target = slugToView(slug);
-      // Redirect hash URL to clean URL
-      const cleanPath = "/" + (viewToSlug(target) || "");
-      window.history.replaceState(null, "", cleanPath);
-      return target || "overview";
-    }
-    return "overview";
-  });
+  // Initial render must produce the SAME DOM on server and client. The
+  // server has no `window`, so it can only render "overview" — we must
+  // do the same on the first client render too, otherwise direct
+  // navigation to e.g. /contractor-research throws a React hydration
+  // mismatch (server rendered overview, client tried to hydrate
+  // contractor-research). The useEffect below reads the URL after mount
+  // and sets the real view; users on deep links will briefly see the
+  // overview before it snaps to the right page.
+  const [view, setViewRaw] = useState("overview");
 
   // Wrap setView to update the URL with clean paths
   const setView = useCallback((v) => {
@@ -4728,6 +6295,31 @@ export default function App() {
     const newPath = slug ? "/" + slug : "/";
     if (typeof window !== "undefined" && window.location.pathname !== newPath) {
       window.history.pushState(null, "", newPath);
+    }
+  }, []);
+
+  // Read the URL once on mount (client-only) so deep links land on the
+  // right view. We can't do this in the useState initialiser without
+  // breaking SSR hydration — see the comment by the `view` state above.
+  useEffect(() => {
+    const path = window.location.pathname.slice(1);
+    if (path && path !== "") {
+      const fromPath = slugToView(path);
+      if (fromPath && fromPath !== path) {
+        setViewRaw(fromPath);
+        return;
+      }
+      if (SLUG_TO_VIEW[path]) {
+        setViewRaw(SLUG_TO_VIEW[path]);
+        return;
+      }
+    }
+    if (window.location.hash) {
+      const slug = window.location.hash.slice(1);
+      const target = slugToView(slug);
+      const cleanPath = "/" + (viewToSlug(target) || "");
+      window.history.replaceState(null, "", cleanPath);
+      if (target) setViewRaw(target);
     }
   }, []);
 
@@ -4745,6 +6337,30 @@ export default function App() {
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
+
+  // 2026-04-20 — global cmd/ctrl-K handler opens the command palette from
+  // anywhere on the site. "/" also opens when the user isn't typing into
+  // an input, for keyboard-first users.
+  useEffect(() => {
+    const onCmdK = (e) => {
+      const isMac = typeof navigator !== "undefined" && /Mac/i.test(navigator.platform || "");
+      const mod = isMac ? e.metaKey : e.ctrlKey;
+      if (mod && (e.key === "k" || e.key === "K")) {
+        e.preventDefault();
+        setCmdOpen(true);
+        return;
+      }
+      if (e.key === "/" && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        const tag = (e.target && e.target.tagName) || "";
+        const editable = e.target && e.target.isContentEditable;
+        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || editable) return;
+        e.preventDefault();
+        setCmdOpen(true);
+      }
+    };
+    window.addEventListener("keydown", onCmdK);
+    return () => window.removeEventListener("keydown", onCmdK);
+  }, []);
   const [openDropdown, setOpenDropdown] = useState(null);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -4753,20 +6369,21 @@ export default function App() {
   const [sortBy, setSortBy] = useState("overrun");
   const [sortDir, setSortDir] = useState("desc");
   const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedSupplierId, setSelectedSupplierId] = useState(null);
+  const [selectedSupplierName, setSelectedSupplierName] = useState(null);
+  const [selectedBuyerId, setSelectedBuyerId] = useState(null);
+  const [selectedBuyerName, setSelectedBuyerName] = useState(null);
+  const [cmdOpen, setCmdOpen] = useState(false);
   const [sourceProject, setSourceProject] =
     useState(null);
-  const [subscribeStatus, setSubscribeStatus] = useState(null);
 
   const [projQuickView, setProjQuickView] = useState(null);
   const [cancelledIdx, setCancelledIdx] = useState(0);
-  // Auto-cycle cancelled projects every 6 seconds when on projects view
-  useEffect(() => {
-    if (view !== "projects") return;
-    const cancelledCount = projects.filter(p => p.status === "Cancelled").length;
-    if (cancelledCount <= 1) return;
-    const timer = setInterval(() => setCancelledIdx(i => (i + 1) % cancelledCount), 6000);
-    return () => clearInterval(timer);
-  }, [view]);
+  // Auto-advance removed 2026-04-19: a cancelled-project carousel that
+  // silently cycles every 6s is both an accessibility anti-pattern and at
+  // odds with the investigative register we want the site to read in.
+  // Manual Prev/Next controls on the carousel itself are preserved — the
+  // reader chooses when to move.
   const [supQuickView, setSupQuickView] = useState(null);
   const [conQuickView, setConQuickView] = useState(null);
   const [leagueQuickView, setLeagueQuickView] = useState(null);
@@ -4781,6 +6398,35 @@ export default function App() {
   const [aidProgPage, setAidProgPage] = useState(0);
   const [aidProgSector, setAidProgSector] = useState("All");
   const [conLeagueQuickView, setConLeagueQuickView] = useState(null);
+  const [coverageSort, setCoverageSort] = useState("pct-asc");
+
+  // Name-based lookup for cross-linking non-tracker datasets
+  // (planning-approvals, delays-delivery) into the main ProjectDetail
+  // drawer. Built once from projectsData; keys are normalised names.
+  const trackerByName = useMemo(() => {
+    const _norm = (s) => {
+      if (!s) return "";
+      let out = String(s).toLowerCase();
+      out = out.replace(/\([^)]*\)/g, " ");
+      out = out.replace(/[^a-z0-9 ]+/g, " ");
+      out = out.replace(/\s+/g, " ").trim();
+      return out;
+    };
+    const map = new Map();
+    for (const p of projectsData || []) {
+      const k = _norm(p.name);
+      if (k && !map.has(k)) map.set(k, p);
+    }
+    return map;
+  }, []);
+  const findTrackerMatch = (name) => {
+    if (!name) return null;
+    let k = String(name).toLowerCase();
+    k = k.replace(/\([^)]*\)/g, " ");
+    k = k.replace(/[^a-z0-9 ]+/g, " ");
+    k = k.replace(/\s+/g, " ").trim();
+    return trackerByName.get(k) || null;
+  };
 
   // Birth Year Compare state
   const [birthYear, setBirthYear] = useState(null);
@@ -4853,36 +6499,20 @@ export default function App() {
   }, []);
 
   // Retention engine state
+  // The milestone prompt and scroll-nudge UI were removed 2026-04-19
+  // along with the dead subscribe nudge — they only set state that was
+  // then consumed by the nudge JSX. `viewsThisSession` and
+  // `lastVisitData` are still computed in case a future capture form
+  // wants to read them.
   const [viewsThisSession, setViewsThisSession] =
     useState(0);
-  const [showMilestonePrompt,
-    setShowMilestonePrompt] = useState(false);
-  const [milestonePromptDismissed,
-    setMilestonePromptDismissed] = useState(false);
   const [lastVisitData, setLastVisitData] =
     useState(null);
-  const [showScrollNudge, setShowScrollNudge] =
-    useState(false);
-  const [scrollNudgeDismissed,
-    setScrollNudgeDismissed] = useState(false);
 
-  // Track page views for milestone prompts
+  // Track page views for analytics / future capture form
   useEffect(() => {
     setViewsThisSession((v) => v + 1);
   }, [view]);
-
-  // Show milestone prompt after 3+ views
-  useEffect(() => {
-    if (
-      viewsThisSession >= 3 &&
-      !milestonePromptDismissed &&
-      subscribeStatus !== "done"
-    ) {
-      setShowMilestonePrompt(true);
-    }
-  }, [viewsThisSession,
-    milestonePromptDismissed,
-    subscribeStatus]);
 
   // "Since your last visit" tracking
   useEffect(() => {
@@ -4934,33 +6564,6 @@ export default function App() {
         "beforeunload", save
       );
   }, [viewsThisSession]);
-
-  // Scroll nudge — show after scrolling
-  // past 60% of page
-  useEffect(() => {
-    if (scrollNudgeDismissed ||
-      subscribeStatus === "done")
-      return;
-    const handleScroll = () => {
-      const pct = window.scrollY /
-        (document.body.scrollHeight -
-          window.innerHeight);
-      if (pct > 0.6 &&
-        viewsThisSession >= 2) {
-        setShowScrollNudge(true);
-      }
-    };
-    window.addEventListener(
-      "scroll", handleScroll,
-      { passive: true }
-    );
-    return () =>
-      window.removeEventListener(
-        "scroll", handleScroll
-      );
-  }, [scrollNudgeDismissed,
-    subscribeStatus,
-    viewsThisSession]);
 
   // MP Scorecards state
   const [scSearch, setScSearch] = useState("");
@@ -5020,23 +6623,36 @@ export default function App() {
   }, []);
 
   // ── Refresh metadata (fetched from /api/metadata) ──
+  // Initial state must be DETERMINISTIC across server SSR and client
+  // hydration — `new Date()` / `toLocaleString` would otherwise diverge
+  // between Node (server timezone, limited ICU) and the browser
+  // (en-GB, local timezone), tripping React hydration. We seed empty
+  // strings and populate the fallback inside a client-only effect.
   const [refreshMeta, setRefreshMeta] = useState({
-    lastUpdatedDate: new Date().toISOString().slice(0, 10),
-    lastVerifiedMonth: (() => {
-      const d = new Date();
-      return d.toLocaleString("en-GB", { month: "long" }) + " " + d.getFullYear();
-    })(),
+    lastUpdatedDate: "",
+    lastVerifiedMonth: "",
   });
 
   useEffect(() => {
+    // Compute a client-side fallback synchronously so the labels are
+    // never blank for a noticeable beat, even before /api/metadata
+    // resolves (or if it fails).
+    const d = new Date();
+    const fallback = {
+      lastUpdatedDate: d.toISOString().slice(0, 10),
+      lastVerifiedMonth:
+        d.toLocaleString("en-GB", { month: "long" }) + " " + d.getFullYear(),
+    };
+    setRefreshMeta(fallback);
+
     fetch("/api/metadata")
-      .then((r) => r.ok ? r.json() : Promise.reject(r.status))
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then((m) => {
         if (m.lastUpdatedDate) setRefreshMeta(m);
       })
       .catch((err) => {
         console.warn("[metadata] Could not fetch refresh metadata:", err);
-        // Keep the fallback — the UI still works
+        // Keep the client-side fallback set above — the UI still works
       });
   }, []);
 
@@ -5060,8 +6676,12 @@ export default function App() {
   const [mlSortCol, setMlSortCol] = useState("outsideEarnings");
   const [mlSortDir, setMlSortDir] = useState("desc");
 
-  // Sewage clock effect — ticks every second to show cumulative 2026 sewage hours
+  // Sewage clock effect — ticks every second only while the sewage
+  // view is active AND not archived. Short-circuits on other views
+  // (and on the archived-view banner) so we don't burn a 1Hz timer
+  // for a chart no one is looking at.
   useEffect(() => {
+    if (view !== "transparency.sewage" || ARCHIVED_VIEWS.has(view)) return;
     const start = new Date("2026-01-01T00:00:00Z").getTime();
     const rate = 1870000 / (365.25 * 24 * 3600 * 1000);
     const tick = () => {
@@ -5071,10 +6691,12 @@ export default function App() {
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [view]);
 
-  // Wind curtailment clock — ticks every second to show cumulative 2026 constraint costs & wasted energy
+  // Wind curtailment clock — as above, only ticks while the wind-waste
+  // view is active AND not archived.
   useEffect(() => {
+    if (view !== "transparency.windwaste" || ARCHIVED_VIEWS.has(view)) return;
     const start = new Date("2026-01-01T00:00:00Z").getTime();
     const cc = windCurtailmentData.liveClockConfig;
     const costRate = cc.annualConstraintCostGBP / (365.25 * 24 * 3600 * 1000);
@@ -5087,7 +6709,7 @@ export default function App() {
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [view]);
 
   // Political Donations view state
   const [donGovFilter, setDonGovFilter] = useState(null);
@@ -5222,6 +6844,22 @@ export default function App() {
   const [conRouteFilter, setConRouteFilter] = useState("");
   const [conViewMode, setConViewMode] = useState("department");
 
+  // Contractor research view state
+  const [contractorSearch, setContractorSearch] = useState("");
+  const [contractorDeptFilter, setContractorDeptFilter] = useState("All");
+  const [contractorRoleFilter, setContractorRoleFilter] = useState("All");
+  const [contractorStatusFilter, setContractorStatusFilter] = useState("All");
+  const [contractorCategoryFilter, setContractorCategoryFilter] = useState("All");
+  const [contractorSourceFilter, setContractorSourceFilter] = useState("All");
+  const [contractorCHOnly, setContractorCHOnly] = useState(false);
+  const [contractorHasValue, setContractorHasValue] = useState(false);
+  const [contractorSortBy, setContractorSortBy] = useState("groupValue");
+  const [contractorExpanded, setContractorExpanded] = useState(() => new Set());
+  const [contractorCompanyExpanded, setContractorCompanyExpanded] = useState(() => new Set());
+  const [contractorViewMode, setContractorViewMode] = useState("by-company");
+  const [contractorCompanySortBy, setContractorCompanySortBy] = useState("projectCount");
+  const [contractorRepeatOnly, setContractorRepeatOnly] = useState(false);
+
   // Redirect removed/merged hubs to their default child views
   useEffect(() => {
     // New parent tab redirects
@@ -5254,6 +6892,18 @@ export default function App() {
     if (view === "economy.energy") setView("compare.bills");
     if (view === "government.apd") setView("government.taxdebt");
     if (view === "suppliers.consultants") setView("suppliers");
+    // Legacy VIEW_SLUGS aliases — /lobbying-register, /political-donations,
+    // /mp-interests used to be independent URL slugs that pointed at view
+    // ids we've since consolidated. Without these redirects they would
+    // render the chrome with a blank body.
+    if (view === "lobbying") setView("transparency.lobbying");
+    if (view === "politicalDonations") setView("transparency.donations");
+    if (view === "mpInterests") setView("transparency.mp");
+    // Archived views — silently redirect to the homepage rather than
+    // rendering the old "is no longer part of Gracchus" banner.
+    // Bookmarks and legacy inbound links land gracefully. The /archive
+    // page remains available for anyone looking for provenance.
+    if (ARCHIVED_VIEWS.has(view)) setView("overview");
   }, [view]);
 
   // Scroll to top and close mobile nav whenever the view changes
@@ -5384,6 +7034,9 @@ export default function App() {
       } else if (sortBy === "budget") {
         va = a.latestBudget;
         vb = b.latestBudget;
+      } else if (sortBy === "wasted") {
+        va = wasteById[a.id]?.wastedGBP || 0;
+        vb = wasteById[b.id]?.wastedGBP || 0;
       } else {
         va = a.name;
         vb = b.name;
@@ -5738,6 +7391,13 @@ export default function App() {
     }
   };
 
+  // ============================================================================
+  // NAV — REPOSITIONED 2026-04
+  // Focus: projects, wastage, contracts, and the links between firms, MPs, and
+  // money. Previous "Your Lifetime / Your Money / UK Services / Economy" tabs
+  // have been archived — see /archive. Underlying view render blocks remain in
+  // this file but are intercepted by ARCHIVED_VIEWS below.
+  // ============================================================================
   const navItems = [
     {
       id: "overview",
@@ -5745,63 +7405,51 @@ export default function App() {
       icon: BarChart3
     },
     {
-      id: "birthyear",
-      label: "Your Lifetime",
-      icon: Gift
-    },
-    {
-      id: "yourMoney",
-      label: "Your Money",
-      icon: PoundSterling,
-      children: [
-        { id: "economy.costOfLiving", label: "Prices & Inflation" },
-        { id: "compare.bills", label: "Energy & Bills" },
-        { id: "compare.infrastructure", label: "Transport" },
-        { id: "government.flow", label: "Where Tax Goes" },
-        { id: "government.taxdebt", label: "Tax & Debt" },
-        { id: "government.civilservice", label: "Civil Service" },
-        { id: "compare.defence", label: "Defence" }
-      ]
-    },
-    {
-      id: "govAccountability",
-      label: "Government",
-      icon: Landmark,
+      // Parent id = first child's view id, so clicking the parent
+      // navigates into that view (not a phantom container id).
+      id: "projects",
+      label: "Projects",
+      icon: Building2,
       children: [
         { id: "projects", label: "Budget Overruns" },
         { id: "projects.planning", label: "Planning Failures" },
-        { id: "projects.delays", label: "Delivery Delays" },
+        { id: "projects.delays", label: "Delivery Delays" }
+      ]
+    },
+    {
+      id: "suppliers",
+      label: "Contractors",
+      icon: Briefcase,
+      children: [
         { id: "suppliers", label: "Suppliers & Contracts" },
-        { id: "league.departments", label: "Dept Rankings" },
-        { id: "transparency.scorecards", label: "MP Scorecards" },
+        { id: "suppliers.contractors", label: "Contractor Research" },
+        { id: "suppliers.rankings", label: "Supplier Rankings" },
+        { id: "suppliers.coverage", label: "Coverage Transparency" },
+        { id: "league.departments", label: "Dept Rankings" }
+      ]
+    },
+    {
+      // Parent id points to the first child's view id so clicking the
+      // parent lands on the top-of-section (Crony Contracts) rather than
+      // a phantom container id.
+      id: "transparency.crony",
+      label: "Cronyism",
+      icon: Users,
+      children: [
+        { id: "transparency.crony", label: "Crony Contracts" },
+        { id: "transparency.lobbying", label: "Lobbying" },
         { id: "transparency.donations", label: "Donations" },
         { id: "transparency.mpmoney", label: "MPs & Money" },
-        { id: "transparency.lobbying", label: "Lobbying" }
+        { id: "transparency.scorecards", label: "MP Scorecards" }
       ]
     },
     {
-      id: "ukServices",
-      label: "UK Services",
-      icon: Activity,
-      children: [
-        { id: "transparency.nhswaits", label: "NHS Waiting Times" },
-        { id: "transparency.sewage", label: "Sewage Clock" },
-        { id: "transparency.windwaste", label: "Wind Waste Clock" },
-        { id: "transparency.aid", label: "Foreign Aid" },
-        { id: "transparency.immigration", label: "Immigration" }
-      ]
-    },
-    {
-      id: "economy",
-      label: "Economy",
-      icon: Factory,
-      children: [
-        { id: "economy.output", label: "GDP & Output" },
-        { id: "economy.production", label: "Production & Trade" },
-        { id: "economy.innovation", label: "Innovation & R&D" },
-        { id: "economy.markets", label: "Markets" },
-        { id: "compare.structural", label: "Structural" }
-      ]
+      // Flagship — top-level Money Map. No children: clicking goes
+      // straight to the canvas. Promoted from a sub-tab to a category
+      // because the value of the feature is in the cross-cutting view.
+      id: "moneymap",
+      label: "Money Map",
+      icon: Share2
     }
   ];
 
@@ -5916,10 +7564,31 @@ export default function App() {
               "text-[9px] md:text-[10px] uppercase " +
               "tracking-[0.15em] text-gray-600"
             }>
-              <span>
+              <button
+                type="button"
+                onClick={() => setCmdOpen(true)}
+                className={
+                  "flex items-center gap-2 border border-gray-700 " +
+                  "hover:border-gray-500 text-gray-400 hover:text-gray-200 " +
+                  "rounded-sm px-2.5 py-1 transition-colors"
+                }
+                title="Search (⌘K / Ctrl K)"
+                aria-label="Open search"
+              >
+                <Search size={12} />
+                <span className="hidden sm:inline">Search</span>
+                <span className={
+                  "hidden md:inline-flex items-center gap-0.5 ml-1 " +
+                  "text-[9.5px] font-mono tracking-[0.08em] " +
+                  "text-gray-400 " +
+                  "border border-gray-700 rounded-sm px-1 py-[1px] " +
+                  "leading-none"
+                }>⌘K</span>
+              </button>
+              <span className="hidden md:inline">
                 Last updated: {refreshMeta.lastUpdatedDate}
               </span>
-              <span>Source: Public Records</span>
+              <span className="hidden lg:inline">Source: Public Records</span>
             </div>
           </div>
           {/* Nav strip — desktop */}
@@ -6071,705 +7740,460 @@ export default function App() {
         (view === "wrapped" ? " hidden" : "")
       }>
 
-        {/* ============ OVERVIEW ============ */}
+        {/* Archived views redirect to overview via effect above — no banner render. */}
+
+
+        {/* ============ MONEY MAP — flagship 2026-04 ============
+            Money-only MVP. Force-directed bubble canvas showing sourced
+            contract-award relationships between departments (buyers),
+            firms (suppliers), and megaprojects. Data precomputed into
+            src/data/money-map.json by scripts/build-money-map.mjs. */}
+        {view === "moneymap" && (
+          <MoneyMap
+            data={moneyMapData}
+            onBack={() => setView("overview")}
+            onOpenSupplierProfile={(supId, supLabel) => {
+              if (!supId) return;
+              setSelectedSupplierId(supId);
+              setSelectedSupplierName(supLabel);
+            }}
+            onOpenProjectProfile={(pidNum, _label) => {
+              const proj = projectsData.find((p) => p.id === pidNum);
+              if (!proj) return;
+              setSelectedProject(proj);
+            }}
+            onOpenBuyerProfile={(bid, blabel) => {
+              if (!bid) return;
+              setSelectedBuyerId(bid);
+              setSelectedBuyerName(blabel);
+            }}
+          />
+        )}
+
+        {/* ============ OVERVIEW — REPOSITIONED 2026-04 ============ */}
         {view === "overview" && (
           <div>
-            {/* ========= SINCE YOUR LAST VISIT ========= */}
-            {lastVisitData &&
-              lastVisitData.days >= 1 && (
+            {/* ========= HERO — repositioned 2026-04 =========
+                Editorial register, not product marketing. Lead with a
+                specific finding (£ overrun, project count). Red kept as
+                an accent only — no full-tile gradient. Trust strip below
+                carries the methodology marker (source grade, disclosure
+                share, citation count) so the first impression is rigour
+                rather than alarm. */}
+            <div className={
+              "border-t border-gray-800/80 " +
+              "px-2 py-10 sm:py-14"
+            }>
               <div className={
-                "border border-gray-800/40 " +
-                "bg-gray-950/60 mb-6 " +
-                "px-5 py-4 flex flex-col " +
-                "sm:flex-row items-start " +
-                "sm:items-center " +
-                "justify-between gap-3"
+                "text-[11px] font-mono tracking-[0.25em] " +
+                "text-ember-400/90 mb-5 uppercase flex items-center gap-3"
               }>
-                <div>
-                  <div className={
-                    "text-[10px] uppercase " +
-                    "tracking-[0.25em] " +
-                    "text-amber-500/80 " +
-                    "font-mono mb-1"
-                  }>
-                    Welcome back
-                  </div>
-                  <div className={
-                    "text-sm text-gray-400"
-                  }>
-                    {lastVisitData.days === 1
-                      ? "It\u2019s been a day"
-                      : "It\u2019s been " +
-                        lastVisitData.days +
-                        " days"
-                    }
-                    {" since your last visit. "}
-                    The data keeps updating
-                    {"\u2014"}here{"\u2019"}s
-                    what{"\u2019"}s changed.
-                  </div>
-                </div>
-                <div className={
-                  "flex gap-2 shrink-0 " +
-                  "w-full sm:w-auto"
-                }>
-                  <button
-                    onClick={() =>
-                      setView("birthyear")
-                    }
-                    className={
-                      "text-[10px] font-mono " +
-                      "uppercase " +
-                      "tracking-[0.1em] " +
-                      "px-4 py-2.5 border " +
-                      "border-gray-800 " +
-                      "text-gray-600 " +
-                      "hover:text-amber-400 " +
-                      "hover:border-amber-500/30 " +
-                      "transition-all " +
-                      "min-h-[44px] flex-1 " +
-                      "sm:flex-initial"
-                    }
-                  >
-                    Your Lifetime
-                  </button>
-                  <button
-                    onClick={() =>
-                      setView(
-                        "transparency.scorecards"
-                      )
-                    }
-                    className={
-                      "text-[10px] font-mono " +
-                      "uppercase " +
-                      "tracking-[0.1em] " +
-                      "px-4 py-2.5 border " +
-                      "border-gray-800 " +
-                      "text-gray-600 " +
-                      "hover:text-amber-400 " +
-                      "hover:border-amber-500/30 " +
-                      "transition-all " +
-                      "min-h-[44px] flex-1 " +
-                      "sm:flex-initial"
-                    }
-                  >
-                    MP Scorecards
-                  </button>
-                </div>
+                <span className="inline-block h-px w-8 bg-ember-500/70" />
+                UK Major Projects · Independent Tracker
               </div>
-            )}
-
-            {/* ========= WRAPPED CTA ========= */}
-            <button
-              onClick={() => setView("wrapped")}
-              className={
-                "w-full mb-6 px-5 sm:px-8 py-5 sm:py-6 " +
-                "bg-gradient-to-r from-red-950/60 via-black to-purple-950/40 " +
-                "border border-red-500/20 hover:border-red-500/40 " +
-                "transition-all group cursor-pointer text-left " +
-                "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
-              }
-            >
-              <div>
-                <div className={
-                  "text-[11px] uppercase tracking-[0.25em] " +
-                  "font-mono font-bold text-red-500 mb-1"
-                }>
-                  New: Q1 2026 Wrapped
-                </div>
-                <div className="text-base sm:text-lg text-gray-300 font-medium">
-                  Your government{"'"}s quarterly performance report is here
-                </div>
-              </div>
-              <div className={
-                "text-[11px] uppercase tracking-[0.15em] font-mono " +
-                "text-gray-600 group-hover:text-red-400 transition-colors " +
-                "flex items-center gap-1.5 whitespace-nowrap"
+              <h1 className={
+                "font-serif text-4xl sm:text-6xl font-medium " +
+                "text-gray-50 leading-[1.05] tracking-[-0.015em] mb-6 " +
+                "max-w-5xl"
               }>
-                View Wrapped {"\u2192"}
-              </div>
-            </button>
-
-            {/* ========= HERO ========= */}
-            <div className="pt-8 md:pt-12 pb-6 md:pb-8">
-              <div className={
-                "text-[12px] uppercase tracking-[0.25em] " +
-                "font-medium text-red-500 mb-4 " +
-                "flex items-center gap-2"
+                {fmt(totalOverrun)} over budget across{" "}
+                <span className="text-ember-400">
+                  {projects.length} major UK projects
+                </span>
+                {" "}&mdash; traced to the firms collecting the fees.
+              </h1>
+              <p className={
+                "text-base sm:text-lg text-gray-400 " +
+                "max-w-3xl leading-relaxed mb-8"
               }>
-                <AlertTriangle size={13} />
-                Critical Inefficiency Detected
-              </div>
-              <div className={
-                "flex flex-col lg:flex-row " +
-                "lg:items-center lg:justify-between gap-8"
-              }>
-                {/* LEFT — Main overrun headline */}
-                <div className="flex-1 min-w-0">
-                  <div className={
-                    "text-[12px] uppercase tracking-[0.2em] " +
-                    "text-gray-600 font-medium mb-3"
-                  }>
-                    Major UK Public Projects {"·"} Since 2000
-                  </div>
-                  <div className={
-                    "text-4xl sm:text-6xl md:text-8xl " +
-                    "lg:text-[120px] " +
-                    "font-black text-red-500 " +
-                    "leading-[0.85] tracking-tighter"
-                  }>
-                    {fmt(totalOverrun)}
-                  </div>
-                  <div className={
-                    "text-3xl md:text-4xl font-black " +
-                    "uppercase tracking-tight mt-2"
-                  }>
-                    Over Budget.
-                  </div>
-                  <div className={
-                    "text-gray-500 text-[14px] sm:text-[17px] mt-3 sm:mt-4 " +
-                    "leading-relaxed border-l-2 " +
-                    "border-gray-800 pl-3 sm:pl-4"
-                  }>
-                    <span>
-                      Across {projects.length} major UK
-                      projects.
-                    </span>
-                    <br />
-                    <span>
-                      Original estimate:{" "}
-                      <span className="text-gray-300 font-semibold">
-                        {fmt(totalOriginal)}
-                      </span>
-                      . Latest estimate:{" "}
-                      <span className="text-gray-300 font-semibold">
-                        {fmt(totalLatest)}
-                      </span>
-                      .
-                    </span>
-                  </div>
-                </div>
-
-                {/* RIGHT — Editorial story rail: Red Flags */}
-                <div className={
-                  "w-full lg:w-[400px] xl:w-[440px] shrink-0 mt-4 lg:mt-0"
-                }>
-                  <div className={
-                    "border border-gray-800/60 bg-gray-950/40"
-                  }>
-                    <div className={
-                      "px-5 py-3 border-b border-gray-800/60 " +
-                      "flex items-center justify-between"
-                    }>
-                      <div className={
-                        "text-[13px] uppercase tracking-[0.25em] " +
-                        "font-mono text-red-500 font-bold"
-                      }>
-                        Red Flags
-                      </div>
-                      <div className={
-                        "text-[11px] uppercase tracking-[0.15em] " +
-                        "font-mono text-gray-700"
-                      }>
-                        Editorially curated
-                      </div>
-                    </div>
-                    {[
-                      {
-                        headline: "£" + welfareTimeline.slice(-2)[0].total + "bn on welfare — more than health, defence and education combined",
-                        tag: "Welfare",
-                        view: "government",
-                        accent: "text-red-500"
-                      },
-                      {
-                        headline: "20% of UK foreign aid never leaves the country — spent hosting refugees here",
-                        tag: "Foreign Aid",
-                        view: "transparency.aid",
-                        accent: "text-amber-500"
-                      },
-                      {
-                        headline: "Productivity growth: " + econOutputData.headline.productivityYoYPct + "%. GDP up just " + econOutputData.headline.gdpGrowthQoQ + "% last quarter",
-                        tag: "Stagnation",
-                        view: "economy.output",
-                        accent: "text-red-400"
-                      },
-                      {
-                        headline: planningData.gridConnectionQueue.projectsInQueue.toLocaleString("en-GB") + " energy projects stuck in a " + Math.floor(planningData.gridConnectionQueue.averageWaitMonths / 12) + "+ year grid queue — net zero is physically impossible",
-                        tag: "Energy",
-                        view: "projects.planning",
-                        accent: "text-amber-500"
-                      },
-                      {
-                        headline: "Government borrows £" + Math.round((publicFinancesFlowData.annual.find(y => y.year === "2024-25")?.netBorrowing || 153) * 1000 / 365) + "m every single day",
-                        tag: "Public Debt",
-                        view: "government.flow",
-                        accent: "text-red-500"
-                      }
-                    ].map((story, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setView(story.view)}
-                        className={
-                          "w-full text-left px-5 py-2.5 " +
-                          "border-b border-gray-800/40 last:border-b-0 " +
-                          "hover:bg-white/[0.03] " +
-                          "transition-colors group"
-                        }
-                      >
-                        <div className={
-                          "flex items-start gap-3"
-                        }>
-                          <div className={
-                            "text-[18px] font-black text-gray-800 " +
-                            "leading-none mt-0.5 font-mono shrink-0 " +
-                            "w-5 text-right"
-                          }>
-                            {i + 1}
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <div className={
-                              "text-[11px] uppercase tracking-[0.2em] " +
-                              "font-mono mb-1 " + story.accent
-                            }>
-                              {story.tag}
-                            </div>
-                            <div className={
-                              "text-[13px] sm:text-[15px] font-bold text-gray-300 " +
-                              "leading-snug " +
-                              "group-hover:text-white transition-colors"
-                            }>
-                              {story.headline}
-                            </div>
-                          </div>
-                          <ChevronRight
-                            size={12}
-                            className={
-                              "text-gray-800 mt-1 shrink-0 " +
-                              "group-hover:text-gray-500 transition-colors"
-                            }
-                          />
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* ========= THE DAMAGE REPORT ========= */}
-            <div className="border-t border-red-900/30 pt-10 pb-6">
-              <div className="flex items-center gap-2 mb-1">
-                <ShieldAlert size={14} className="text-red-500" />
-                <div className="text-[13px] uppercase tracking-[0.3em] font-mono text-red-500 font-bold">
-                  The Damage Report
-                </div>
-              </div>
-              <div className="text-[15px] text-gray-500 mb-6 leading-relaxed">
-                How the UK compares to the rest of the world — and what it costs you.
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border border-gray-800/60">
-                {[
-                  {
-                    tag: "Rail", accent: "text-red-500",
-                    stat: "13\u00D7", statSub: "more expensive",
-                    desc: "HS2 costs \u00A3205m/km. Spain builds high-speed rail for \u00A315m/km.",
-                    view: "projects", source: "HS2 Ltd, INECO"
-                  },
-                  {
-                    tag: "Nuclear", accent: "text-red-500",
-                    stat: "7.4\u00D7", statSub: "more per GW",
-                    desc: "Hinkley Point C: \u00A313.4bn/GW. China builds reactors for \u00A31.8bn/GW.",
-                    view: "compare.bills", source: "World Bank, EDF"
-                  },
-                  {
-                    tag: "Planning", accent: "text-red-400",
-                    stat: "5\u00D7", statSub: "slower approvals",
-                    desc: "UK infrastructure takes 10 years to approve. France does it in 18\u201324 months.",
-                    view: "projects.planning", source: "Planning Inspectorate"
-                  },
-                  {
-                    tag: "Overruns", accent: "text-red-500",
-                    stat: fmt(totalOverrun), statSub: "over budget",
-                    desc: projects.filter(p => p.status === "Cancelled").length + " projects cancelled. \u00A3" + Math.round(projects.filter(p => p.status === "Cancelled").reduce((s, p) => s + (p.spentBeforeCancellation || 0), 0) / 1000) + "bn written off entirely.",
-                    view: "projects", source: "NAO, IPA"
-                  },
-                  {
-                    tag: "Consultants", accent: "text-amber-500",
-                    stat: "\u00A31.5bn", statSub: "to Big Four (2024)",
-                    desc: "Government spent \u00A31.5bn on McKinsey, Deloitte, PwC, KPMG in one year.",
-                    view: "suppliers", source: "Cabinet Office"
-                  },
-                  {
-                    tag: "Wind farms", accent: "text-amber-500",
-                    stat: "7\u201310 yrs", statSub: "to approve",
-                    desc: "Netherlands cut approval to 3\u20134 years. UK still stuck at 7\u201310.",
-                    view: "projects.planning", source: "RVO, Renewable UK"
-                  },
-                  {
-                    tag: "Planning", accent: "text-red-400",
-                    stat: "19%", statSub: "on time",
-                    desc: "Only 19% of major planning applications meet the 13-week statutory deadline.",
-                    view: "projects.planning", source: "HBF (Feb 2025)"
-                  },
-                  {
-                    tag: "Productivity", accent: "text-red-500",
-                    stat: "38%", statSub: "behind the US",
-                    desc: "UK productivity \u0024 56.50/hr. USA: $91.50/hr. The gap has widened every year since 2008.",
-                    view: "compare.structural", source: "OECD, ONS"
-                  },
-                  {
-                    tag: "Delays", accent: "text-red-400",
-                    stat: "10 yrs", statSub: "average slippage",
-                    desc: "Emergency Services Network: 10-year delay, 505% cost overrun. Still not working.",
-                    view: "projects.delays", source: "NAO, Home Office"
+                Every figure links back to a named public source &mdash;
+                NAO, PAC, departmental annual reports, Contracts Finder,
+                Find a Tender, and company filings. Graded for rigour,
+                updated continuously.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  onClick={() => setView("projects")}
+                  className={
+                    "px-5 py-2.5 bg-ember-600 hover:bg-ember-500 " +
+                    "text-white text-sm font-semibold transition"
                   }
-                ].map((card, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setView(card.view)}
-                    className="text-left px-5 py-5 border-b border-r border-gray-800/60 hover:bg-red-500/[0.03] transition-colors group"
-                  >
-                    <div className={"text-[10px] uppercase tracking-[0.2em] font-mono mb-2 " + card.accent}>
-                      {card.tag}
-                    </div>
-                    <div className="flex items-baseline gap-2 mb-1">
-                      <span className="text-2xl font-black text-white tracking-tight">{card.stat}</span>
-                      <span className="text-sm text-gray-500">{card.statSub}</span>
-                    </div>
-                    <div className="text-[13px] text-gray-500 leading-relaxed mb-3">
-                      {card.desc}
-                    </div>
-                    <div className="text-[9px] text-gray-700 font-mono uppercase tracking-wider">
-                      {card.source} {"\u2192"}
-                    </div>
-                  </button>
-                ))}
+                >
+                  Open the project tracker &rarr;
+                </button>
+                <button
+                  onClick={() => setView("suppliers.contractors")}
+                  className={
+                    "px-5 py-2.5 border border-gray-700 " +
+                    "hover:border-gray-500 text-gray-200 " +
+                    "hover:text-white text-sm transition"
+                  }
+                >
+                  Contractor research
+                </button>
               </div>
             </div>
 
-            {/* ========= LIVE BORROWING COUNTER ========= */}
-            <BorrowingCounter
-              annualBorrowingBn={
-                publicFinancesFlowData.annual.find(
-                  (y) => y.year === "2024-25"
-                )?.netBorrowing || 153
-              }
-            />
-
-            {/* ========= WIND WASTE MINI-TICKER ========= */}
-            <button onClick={() => setView("transparency.windwaste")} className="w-full border-t border-b border-cyan-900/30 py-4 my-2 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 hover:bg-cyan-950/10 transition-colors group cursor-pointer">
-              <div className="flex items-center gap-2">
-                <div className="text-[10px] uppercase tracking-[0.2em] text-cyan-600 font-mono">Wind Waste Clock</div>
+            {/* ========= COVERAGE KICKER STRIP =========
+                Thin editorial-mono row of trust metrics, sitting
+                immediately under the scare-stat hero. Answers "how
+                complete is this dataset?" at a glance, so the
+                overrun figure never reads unmoored. Five cells:
+                groups, members, % £ disclosed, source grade, last
+                verified. Dot-separated, wraps on mobile. */}
+            <div className={
+              "border-t border-b border-gray-800/80 " +
+              "bg-gray-950/40 px-2 mb-10"
+            }>
+              <div className={
+                "flex flex-wrap items-center gap-x-5 gap-y-2 " +
+                "py-3 text-[11px] font-mono text-gray-400"
+              }>
+                {(() => {
+                  // Walk the rich tree in projectContractorsData.projects —
+                  // NOT projects.json, which only carries summary counts
+                  // (contractors[] is string[], no member £ data). The
+                  // authoritative per-member values live in
+                  // project-contractors.json.
+                  let totalGroups = 0;
+                  let totalMembers = 0;
+                  let disclosedMembers = 0;
+                  (projectContractorsData?.projects || []).forEach((p) => {
+                    (p.contractors || []).forEach((g) => {
+                      totalGroups += 1;
+                      (g.members || []).forEach((m) => {
+                        totalMembers += 1;
+                        if (m.contractValueGBP != null) {
+                          disclosedMembers += 1;
+                        }
+                      });
+                    });
+                  });
+                  const pct =
+                    totalMembers > 0
+                      ? Math.round((100 * disclosedMembers) / totalMembers)
+                      : 0;
+                  const grade = sourceQualitySummary?.overallLetter;
+                  const verified = refreshMeta?.lastVerifiedMonth;
+                  const cells = [
+                    [projects.length.toLocaleString(), "projects tracked"],
+                    [totalGroups.toLocaleString(), "contractor groups"],
+                    [totalMembers.toLocaleString(), "people & firms"],
+                    [`${pct}%`, "contractor £ disclosed"],
+                  ];
+                  if (grade && grade !== "U") {
+                    cells.push([grade, "avg source grade"]);
+                  }
+                  if (verified) {
+                    cells.push([verified, "last verified"]);
+                  }
+                  const out = [];
+                  cells.forEach(([value, label], i) => {
+                    if (i > 0) {
+                      out.push(
+                        <span
+                          key={`sep-${i}`}
+                          className="text-gray-700 select-none"
+                          aria-hidden="true"
+                        >
+                          ·
+                        </span>
+                      );
+                    }
+                    out.push(
+                      <span
+                        key={label}
+                        className="flex items-baseline gap-2 whitespace-nowrap"
+                      >
+                        <span className="text-gray-100 font-semibold tabular-nums">
+                          {value}
+                        </span>
+                        <span className="text-gray-500">{label}</span>
+                      </span>
+                    );
+                  });
+                  return out;
+                })()}
               </div>
-              <div className="flex items-center gap-6 sm:gap-10">
-                <div className="text-center">
-                  <div className="text-xl sm:text-2xl font-black text-cyan-400 font-mono tracking-tight">£{curtailmentCost.toLocaleString()}</div>
-                  <div className="text-[9px] text-gray-600 uppercase tracking-wider">wasted this year</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl sm:text-2xl font-black text-amber-400 font-mono tracking-tight">{curtailmentMWh.toLocaleString()} MWh</div>
-                  <div className="text-[9px] text-gray-600 uppercase tracking-wider">clean energy thrown away</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-xl sm:text-2xl font-black text-amber-500 font-mono tracking-tight">{Math.floor(curtailmentMWh / windCurtailmentData.bitcoinComparison.mwhPerBTC).toLocaleString()} BTC</div>
-                  <div className="text-[9px] text-gray-600 uppercase tracking-wider">could've been mined</div>
-                </div>
-              </div>
-              <div className="text-[10px] text-gray-700 font-mono group-hover:text-cyan-500 transition-colors">Explore →</div>
-            </button>
+            </div>
 
-            {/* ========= DAILY HABIT: STREAK + INSIGHT ========= */}
+            {/* ========= STORY OF THE WEEK — data-picked =========
+                Replaces the 5-tile summary row that used to sit
+                here. The old row repeated the same scare-stat the
+                hero already carries ("total overrun", "total
+                wasted"); the kicker strip above now carries the
+                methodology markers (source grade, £ disclosed,
+                coverage).
+
+                The pick is deterministic: amongst tracked projects
+                with an original & latest budget on file, select the
+                one with the highest overrun % that also has at
+                least one named prime contractor with a disclosed £
+                value above MIN_PRIME_GBP. The £ gate stops us
+                leading with an 800% overrun whose only disclosed
+                prime is a £2m consultancy — the finding has to be
+                source-backed at scale to earn the top slot.
+                Ties broken by larger absolute overrun. */}
             {(() => {
-              const insights = [
-                {
-                  stat: "\u00a3" + Math.round(
-                    (publicFinancesFlowData
-                      .annual.find(
-                        (y) => y.year === "2024-25"
-                      )?.netBorrowing || 153)
-                    * 1000 / 365
-                  ) + "m",
-                  label: "borrowed today",
-                  detail: "The UK government " +
-                    "borrows this much every " +
-                    "single day to cover the " +
-                    "gap between tax receipts " +
-                    "and spending.",
-                  view: "government.flow",
-                  accent: "text-red-500"
-                },
-                {
-                  stat: "\u00a3" + Math.round(
-                    (publicFinancesData.series
-                      ? publicFinancesData.series
-                        .slice(-1)[0]
-                        .debtInterestNet
-                      : 87
-                    ) * 1000 / 365
-                  ) + "m",
-                  label: "in debt interest today",
-                  detail: "This is what the UK " +
-                    "pays every day just to " +
-                    "service existing debt " +
-                    "\u2014 before a single " +
-                    "public service is funded.",
-                  view: "government.taxdebt",
-                  accent: "text-red-500"
-                },
-                {
-                  stat: projects
-                    .filter(
-                      (p) => p.status ===
-                        "Cancelled"
-                    ).length + "",
-                  label: "major projects cancelled",
-                  detail: "Billions spent on " +
-                    "planning, procurement, " +
-                    "and early works \u2014 " +
-                    "then abandoned with zero " +
-                    "public return.",
-                  view: "projects",
-                  accent: "text-red-400"
-                },
-                {
-                  stat: econOutputData
-                    .headline
-                    .productivityYoYPct + "%",
-                  label: "productivity growth",
-                  detail: "UK productivity has " +
-                    "been stagnant since 2008. " +
-                    "The US and Germany have " +
-                    "pulled further ahead " +
-                    "every year.",
-                  view: "economy.output",
-                  accent: "text-amber-500"
-                },
-                {
-                  stat: costOfLivingData
-                    .headline.cpiPct + "%",
-                  label: "CPI inflation",
-                  detail: "Prices remain " +
-                    "elevated after the " +
-                    "2022\u201323 shock. " +
-                    "Real wages have barely " +
-                    "recovered.",
-                  view: "economy.costOfLiving",
-                  accent: "text-amber-500"
-                },
-                {
-                  stat: econOutputData
-                    .headline.nhsWaiting ||
-                    "7.31M",
-                  label: "on NHS waiting lists",
-                  detail: "Millions waiting for " +
-                    "treatment. The backlog " +
-                    "has not returned to " +
-                    "pre-pandemic levels.",
-                  view: "economy.output",
-                  accent: "text-red-500"
-                },
-                {
-                  stat: "36%",
-                  label: "of MPs have second jobs",
-                  detail: "236 of 650 MPs " +
-                    "declare outside income. " +
-                    "Total declared: \u00a39.8m " +
-                    "since July 2024.",
-                  view: "transparency.scorecards",
-                  accent: "text-amber-500"
-                },
-                {
-                  stat: planningData
-                    .gridConnectionQueue
-                    .projectsInQueue
-                    .toLocaleString("en-GB"),
-                  label: "energy projects in " +
-                    "grid queue",
-                  detail: "Thousands of " +
-                    "renewable energy projects " +
-                    "waiting years to connect " +
-                    "to the grid. Net zero " +
-                    "targets are at risk.",
-                  view: "projects.planning",
-                  accent: "text-amber-500"
-                },
-                {
-                  stat: fmt(totalOverrun),
-                  label: "total project overruns",
-                  detail: "The cumulative cost " +
-                    "overrun across all " +
-                    "major UK public " +
-                    "projects tracked by " +
-                    "Gracchus.",
-                  view: "projects",
-                  accent: "text-red-500"
-                },
-                {
-                  stat: costOfLivingData
-                    .headline
-                    .petrolPenceLitre + "p",
-                  label: "per litre of petrol",
-                  detail: "Fuel duty plus VAT " +
-                    "account for over half " +
-                    "the price at the pump. " +
-                    "Prices remain near " +
-                    "historic highs.",
-                  view: "compare.bills",
-                  accent: "text-amber-500"
-                }
-              ];
+              const MIN_PRIME_GBP = 100_000_000; // £100m
 
-              const today =
-                insights[
-                  todayInsightIdx %
-                  insights.length
-                ];
-              const tomorrow =
-                insights[
-                  (todayInsightIdx + 1) %
-                  insights.length
-                ];
+              const pcMap = new Map();
+              (projectContractorsData?.projects || []).forEach((pc) => {
+                pcMap.set(pc.projectId, pc);
+              });
+
+              const candidates = [];
+              for (const pr of projects) {
+                if (!pr.originalBudget || !pr.latestBudget) continue;
+                const overrunM = pr.latestBudget - pr.originalBudget;
+                if (overrunM <= 0) continue;
+                const overPct = (overrunM / pr.originalBudget) * 100;
+
+                const pc = pcMap.get(pr.id);
+                if (!pc) continue;
+
+                const primes = [];
+                let maxPrime = 0;
+                for (const g of (pc.contractors || [])) {
+                  for (const m of (g.members || [])) {
+                    const v = m.contractValueGBP;
+                    if (v == null) continue;
+                    primes.push({
+                      name: m.name,
+                      role: m.role,
+                      value: v,
+                    });
+                    if (v > maxPrime) maxPrime = v;
+                  }
+                }
+                if (maxPrime < MIN_PRIME_GBP) continue;
+
+                primes.sort((a, b) => (b.value || 0) - (a.value || 0));
+
+                candidates.push({
+                  project: pr,
+                  overrunM,
+                  overPct,
+                  primes: primes.slice(0, 3),
+                  primeCount: primes.length,
+                });
+              }
+
+              candidates.sort(
+                (a, b) =>
+                  b.overPct - a.overPct || b.overrunM - a.overrunM,
+              );
+              const story = candidates[0];
+              if (!story) return null;
+
+              const fmtPrime = (v) =>
+                v >= 1e9
+                  ? `£${(v / 1e9).toFixed(v >= 1e10 ? 0 : 1)}bn`
+                  : v >= 1e6
+                    ? `£${Math.round(v / 1e6)}m`
+                    : v > 0
+                      ? `£${Math.round(v / 1e3)}k`
+                      : "—";
+
+              // Trim the description to the first two sentences for
+              // the homepage — the X-ray carries the full text.
+              const leadText = story.project.description
+                ? story.project.description
+                    .split(/\.\s+/)
+                    .slice(0, 2)
+                    .join(". ")
+                    .replace(/\.$/, "") + "."
+                : "Cost has grown materially above the project's " +
+                  "original appropriation. Named contractors on the " +
+                  "disclosed list collect the fees.";
 
               return (
                 <div className={
-                  "border border-gray-800/40 " +
-                  "bg-gray-950/40 mb-4"
+                  "mb-10 -mx-3 sm:-mx-6 " +
+                  "border-t border-b border-gray-800/80 " +
+                  "bg-gradient-to-b from-gray-950 to-black"
                 }>
                   <div className={
-                    "flex flex-col sm:flex-row"
+                    "max-w-[1400px] mx-auto px-3 sm:px-6 " +
+                    "py-8 sm:py-10"
                   }>
-                    {/* Streak */}
+                    {/* Eyebrow */}
                     <div className={
-                      "flex items-center gap-3 " +
-                      "px-5 py-4 border-b " +
-                      "sm:border-b-0 " +
-                      "sm:border-r " +
-                      "border-gray-800/40 " +
-                      "shrink-0"
+                      "text-[11px] font-mono tracking-[0.25em] " +
+                      "text-ember-400/90 uppercase mb-5 " +
+                      "flex items-center gap-3 flex-wrap"
                     }>
-                      <div className={
-                        "text-2xl"
+                      <span className="inline-block h-px w-8 bg-ember-500/70" />
+                      <span>Story of the Week</span>
+                      <span className={
+                        "text-gray-600 normal-case tracking-normal " +
+                        "font-mono text-[10px]"
                       }>
-                        {streak >= 7
-                          ? "\ud83d\udd25"
-                          : streak >= 3
-                          ? "\u2b50"
-                          : "\ud83d\udcc5"}
-                      </div>
-                      <div>
-                        <div className={
-                          "text-lg font-black " +
-                          "text-white " +
-                          "leading-none"
-                        }>
-                          Day {streak}
-                        </div>
-                        <div className={
-                          "text-[10px] " +
-                          "text-gray-600 " +
-                          "font-mono uppercase " +
-                          "tracking-[0.1em]"
-                        }>
-                          {streak >= 7
-                            ? "On fire"
-                            : streak >= 3
-                            ? "Building a habit"
-                            : "Your streak"}
-                        </div>
-                      </div>
+                        · data-picked: highest overrun with disclosed primes
+                      </span>
                     </div>
 
-                    {/* Today's insight */}
-                    <button
-                      onClick={() =>
-                        setView(today.view)
-                      }
-                      className={
-                        "flex-1 text-left " +
-                        "px-5 py-4 " +
-                        "hover:bg-white/[0.02] " +
-                        "transition-colors " +
-                        "group"
-                      }
-                    >
-                      <div className={
-                        "text-[9px] uppercase " +
-                        "tracking-[0.25em] " +
-                        "text-gray-700 " +
-                        "font-mono mb-1"
-                      }>
-                        Today{"\u2019"}s number
-                      </div>
-                      <div className={
-                        "flex items-baseline " +
-                        "gap-2"
-                      }>
-                        <span className={
-                          "text-xl sm:text-2xl " +
-                          "font-black " +
-                          today.accent
-                        }>
-                          {today.stat}
-                        </span>
-                        <span className={
-                          "text-sm text-gray-400 " +
-                          "group-hover:text-gray-300 " +
-                          "transition-colors"
-                        }>
-                          {today.label}
-                        </span>
-                      </div>
-                      <div className={
-                        "text-[12px] " +
-                        "text-gray-600 mt-1 " +
-                        "leading-relaxed " +
-                        "max-w-md"
-                      }>
-                        {today.detail}
-                      </div>
-                    </button>
-
-                    {/* Tomorrow teaser */}
                     <div className={
-                      "px-5 py-4 border-t " +
-                      "sm:border-t-0 " +
-                      "sm:border-l " +
-                      "border-gray-800/40 " +
-                      "shrink-0 " +
-                      "sm:w-48 " +
-                      "flex items-center"
+                      "grid grid-cols-1 lg:grid-cols-5 " +
+                      "gap-6 lg:gap-10"
                     }>
-                      <div>
+                      {/* ── Narrative column ── */}
+                      <div className="lg:col-span-3 flex flex-col gap-4">
                         <div className={
-                          "text-[9px] uppercase " +
-                          "tracking-[0.25em] " +
-                          "text-gray-700 " +
-                          "font-mono mb-1"
+                          "text-[10px] font-mono tracking-[0.2em] " +
+                          "text-gray-500 uppercase"
                         }>
-                          Tomorrow
+                          {story.project.department || "UK government"}
                         </div>
-                        <div className={
-                          "text-lg font-black " +
-                          "text-gray-800 " +
-                          "blur-[3px] " +
-                          "select-none"
+                        <h2 className={
+                          "font-serif text-3xl sm:text-4xl " +
+                          "font-medium tracking-[-0.015em] " +
+                          "text-gray-50 leading-[1.1]"
                         }>
-                          {tomorrow.stat}
+                          {story.project.name}{" "}
+                          <span className="text-ember-400">
+                            is {Math.round(story.overPct)}% over budget.
+                          </span>
+                        </h2>
+                        <p className={
+                          "text-sm sm:text-base text-gray-300 " +
+                          "leading-relaxed max-w-2xl"
+                        }>
+                          {leadText}
+                        </p>
+                        <button
+                          onClick={() =>
+                            setSelectedProject(story.project)
+                          }
+                          className={
+                            "self-start px-5 py-2.5 bg-ember-600 " +
+                            "hover:bg-ember-500 text-white " +
+                            "text-sm font-semibold transition " +
+                            "whitespace-nowrap"
+                          }
+                        >
+                          Open the X-ray &rarr;
+                        </button>
+                      </div>
+
+                      {/* ── Fact column ── */}
+                      <div className="lg:col-span-2 flex flex-col gap-3">
+                        {/* Budget delta */}
+                        <div className={
+                          "border border-gray-800/60 bg-black/40 p-4 group"
+                        }>
+                          <div className={
+                            "text-[10px] font-mono tracking-[0.2em] " +
+                            "text-gray-500 uppercase mb-2"
+                          }>
+                            Budget &mdash; original → latest
+                          </div>
+                          <div className={
+                            "flex items-baseline gap-3 flex-wrap"
+                          }>
+                            <span className={
+                              "font-mono text-lg text-gray-400 " +
+                              "tabular-nums line-through " +
+                              "decoration-gray-700"
+                            }>
+                              {fmt(story.project.originalBudget)}
+                            </span>
+                            <span className="text-gray-600">→</span>
+                            <span className="inline-flex items-baseline">
+                              <span className={
+                                "font-mono text-lg text-gray-100 " +
+                                "tabular-nums font-semibold"
+                              }>
+                                {fmt(story.project.latestBudget)}
+                              </span>
+                              <CiteChip
+                                citation={
+                                  `${story.project.name} — original budget ` +
+                                  `${fmt(story.project.originalBudget)}, ` +
+                                  `latest budget ${fmt(story.project.latestBudget)}. ` +
+                                  `Source: projects.json (Gracchus, updated ` +
+                                  `${story.project.lastUpdated || "recently"}).`
+                                }
+                              />
+                            </span>
+                          </div>
+                          <div className={
+                            "text-xs text-red-400 font-mono " +
+                            "tabular-nums mt-1 inline-flex items-baseline"
+                          }>
+                            <span>+{fmt(story.overrunM)} overrun</span>
+                            <CiteChip
+                              citation={
+                                `${story.project.name} — overrun ` +
+                                `${fmt(story.overrunM)} ` +
+                                `(${Math.round(story.overPct)}% above ` +
+                                `original). Source: projects.json ` +
+                                `(Gracchus).`
+                              }
+                            />
+                          </div>
+                          {story.project.status ? (
+                            <div className={
+                              "text-[11px] text-gray-500 mt-1"
+                            }>
+                              Status:{" "}
+                              <b className="text-gray-300">
+                                {story.project.status}
+                              </b>
+                            </div>
+                          ) : null}
                         </div>
+
+                        {/* Primes */}
                         <div className={
-                          "text-[11px] " +
-                          "text-gray-800 " +
-                          "blur-[2px] " +
-                          "select-none"
+                          "border border-gray-800/60 bg-black/40 p-4"
                         }>
-                          {tomorrow.label}
-                        </div>
-                        <div className={
-                          "text-[10px] " +
-                          "text-gray-700 " +
-                          "font-mono mt-1"
-                        }>
-                          Come back to reveal
+                          <div className={
+                            "text-[10px] font-mono tracking-[0.2em] " +
+                            "text-gray-500 uppercase mb-3"
+                          }>
+                            Paid to deliver
+                          </div>
+                          <ul className="flex flex-col gap-2">
+                            {story.primes.map((p, i) => (
+                              <li
+                                key={(p.name || "") + i}
+                                className={
+                                  "flex items-baseline " +
+                                  "justify-between gap-3 text-xs group"
+                                }
+                              >
+                                <span className="text-gray-200 truncate">
+                                  {p.name}
+                                </span>
+                                <span className={
+                                  "font-mono text-gray-400 " +
+                                  "tabular-nums shrink-0 " +
+                                  "inline-flex items-baseline"
+                                }>
+                                  {fmtPrime(p.value)}
+                                  <CiteChip
+                                    citation={
+                                      `${story.project.name} — ${p.name} ` +
+                                      `${fmtPrime(p.value)} disclosed` +
+                                      (p.role ? ` (${p.role})` : "") +
+                                      `. Source: project-contractors.json ` +
+                                      `(Gracchus).`
+                                    }
+                                  />
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                          {story.primeCount > story.primes.length ? (
+                            <div className={
+                              "text-[11px] text-gray-500 mt-3"
+                            }>
+                              +{" "}
+                              {story.primeCount - story.primes.length}{" "}
+                              more firms with a disclosed £ in the X-ray.
+                            </div>
+                          ) : null}
                         </div>
                       </div>
                     </div>
@@ -6778,528 +8202,466 @@ export default function App() {
               );
             })()}
 
-            {/* ========= LIVE TICKER STRIP ========= */}
-            <LiveTickerStrip
-              data={[
-                {
-                  label: "CPI Inflation",
-                  value: costOfLivingData.headline.cpiPct + "%",
-                  status: parseFloat(costOfLivingData.headline.cpiPct) > 2 ? "bad" : "good"
-                },
-                {
-                  label: "Real Wages",
-                  value: (costOfLivingData.headline.realWageGrowthPct > 0 ? "+" : "") + costOfLivingData.headline.realWageGrowthPct + "%",
-                  status: costOfLivingData.headline.realWageGrowthPct >= 0 ? "good" : "bad"
-                },
-                {
-                  label: "NHS Waiting",
-                  value: econOutputData.headline.nhsWaiting || "7.31M",
-                  status: "bad"
-                },
-                {
-                  label: "Unemployment",
-                  value: econOutputData.headline.unemploymentPct + "%",
-                  status: parseFloat(econOutputData.headline.unemploymentPct) > 4.5 ? "bad" : "neutral"
-                },
-                {
-                  label: "Debt Interest",
-                  value: "£" + (publicFinancesData.series ? publicFinancesData.series.slice(-1)[0].debtInterestNet : "87") + "bn/yr",
-                  status: "bad"
-                },
-                {
-                  label: "Petrol",
-                  value: costOfLivingData.headline.petrolPenceLitre + "p/L",
-                  status: parseFloat(costOfLivingData.headline.petrolPenceLitre) > 145 ? "bad" : "neutral"
-                },
-                {
-                  label: "Wind Waste",
-                  value: "£" + (windCurtailmentData.keyStats.totalConstraintCost2025 / 1000000000).toFixed(1) + "bn/yr",
-                  status: "bad"
-                }
-              ]}
-            />
-
-            {/* ========= ISSUE AREAS — PRIMARY ENTRY POINTS ========= */}
-            <div className={
-              "border-t border-gray-800/50 pt-10 pb-6"
-            }>
+            {/* Four-pillar "What Gracchus investigates" block cut
+                2026-04-19. Reason: we're repositioning from a generic
+                UK performance tracker into a specialist on major
+                projects + the firms paid to deliver them. The pillar
+                marketing read like a SaaS product page; the entry-point
+                grid below already tells readers what's available, and
+                the methodology microcopy belongs on an /about page
+                rather than the overview. */}
+            <div className="mb-10 border-l-2 border-red-500/40 pl-5">
               <div className={
-                "text-[13px] uppercase tracking-[0.3em] " +
-                "font-medium text-gray-600 mb-6"
+                "text-[11px] font-mono tracking-[0.25em] " +
+                "text-gray-500 uppercase mb-2"
               }>
-                What Matters Right Now
+                Methodology
               </div>
-              <div className={
-                "grid grid-cols-1 sm:grid-cols-2 " +
-                "lg:grid-cols-3 gap-0 border " +
-                "border-gray-800/60"
+              <p className={
+                "text-sm sm:text-base text-gray-300 " +
+                "leading-relaxed max-w-3xl"
               }>
-                {[
-                  {
-                    id: "economy.costOfLiving",
-                    eyebrow: "Cost of Living",
-                    title: costOfLivingData.headline.cpiPct + "% inflation",
-                    desc: "Petrol " + costOfLivingData.headline.petrolPenceLitre + "p/L. Diesel " + costOfLivingData.headline.dieselPenceLitre + "p/L. Prices still elevated after the 2022\u201323 shock.",
-                    accent: "text-red-500",
-                    border: "border-red-500/40"
-                  },
-                  {
-                    id: "government.taxdebt",
-                    eyebrow: "Tax & Public Debt",
-                    title: "£" + (publicFinancesData.series ? publicFinancesData.series.slice(-1)[0].debtInterestNet : "87") + "bn interest",
-                    desc: "The UK pays more in debt interest than it spends on defence. Tax receipts can't keep up.",
-                    accent: "text-red-500",
-                    border: "border-red-500/40"
-                  },
+                Every project record is built from named public sources
+                &mdash; NAO and PAC reports, departmental annual accounts,
+                Contracts Finder / Find a Tender OCDS releases, and
+                Companies House filings. Each citation is graded A&ndash;D
+                for rigour, and contractor &pound; values are tied back
+                to the specific contract notice or transparency return
+                that disclosed them. No anonymous sources, no estimates
+                without working.
+              </p>
+            </div>
+
+            {/* ========= MONEY MAP PREVIEW STRIP — flagship =========
+                Full-bleed band between methodology and the entry grid.
+                Shows the four precomputed story cards (most concentrated
+                buyer, most dependent supplier, biggest single
+                relationship, repeat-win leader) with a headline count
+                of the underlying graph and a single CTA into the full
+                canvas. Clicking anywhere routes to view="moneymap"
+                where MoneyMap.jsx loads its own subject/lens state.
+                Data: src/data/money-map.json (precomputed by
+                scripts/build-money-map.mjs, regenerates nightly). */}
+            {(() => {
+              const cards = (moneyMapData?.storyCards || []).slice(0, 4);
+              if (cards.length === 0) return null;
+              const nodeCount =
+                (moneyMapData?.counts?.buyers || 0) +
+                (moneyMapData?.counts?.suppliers || 0);
+              const awardCount = moneyMapData?.counts?.awardEdges || 0;
+              const windowLabel = (() => {
+                const w = moneyMapData?.window;
+                if (!w?.from || !w?.to) return null;
+                const toYear = String(w.to).slice(0, 4);
+                const fromYear = String(w.from).slice(0, 4);
+                return fromYear === toYear
+                  ? fromYear
+                  : `${fromYear}–${toYear}`;
+              })();
+              return (
+                <div className={
+                  "mb-10 -mx-3 sm:-mx-6 " +
+                  "border-t border-b border-gray-800/80 " +
+                  "bg-gradient-to-b from-gray-950 to-black"
+                }>
+                  <div className="max-w-[1400px] mx-auto px-3 sm:px-6 py-8 sm:py-10">
+                    {/* Header row */}
+                    <div className={
+                      "flex flex-col sm:flex-row sm:items-end " +
+                      "justify-between gap-4 mb-6"
+                    }>
+                      <div>
+                        <div className={
+                          "text-[11px] font-mono tracking-[0.25em] " +
+                          "text-ember-400/90 uppercase mb-2 " +
+                          "flex items-center gap-3"
+                        }>
+                          <span className="inline-block h-px w-8 bg-ember-500/70" />
+                          Money Map · Flagship
+                        </div>
+                        <h2 className={
+                          "font-serif text-2xl sm:text-3xl " +
+                          "font-medium tracking-[-0.01em] " +
+                          "text-gray-50 max-w-3xl"
+                        }>
+                          Who&rsquo;s been paid whom across the UK&rsquo;s
+                          public purse.
+                        </h2>
+                        <p className={
+                          "text-sm text-gray-400 mt-2 max-w-2xl"
+                        }>
+                          A sourced canvas of{" "}
+                          <b className="text-gray-200 font-mono tabular-nums">
+                            {nodeCount.toLocaleString()}
+                          </b>{" "}
+                          entities and{" "}
+                          <b className="text-gray-200 font-mono tabular-nums">
+                            {awardCount.toLocaleString()}
+                          </b>{" "}
+                          award edges
+                          {windowLabel ? (
+                            <>
+                              {" "}across{" "}
+                              <b className="text-gray-200 font-mono">
+                                {windowLabel}
+                              </b>
+                            </>
+                          ) : null}
+                          . Every line back to a named public notice.
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setView("moneymap")}
+                        className={
+                          "shrink-0 px-5 py-2.5 bg-ember-600 " +
+                          "hover:bg-ember-500 text-white " +
+                          "text-sm font-semibold transition " +
+                          "whitespace-nowrap"
+                        }
+                      >
+                        Open the Money Map &rarr;
+                      </button>
+                    </div>
+
+                    {/* Story cards — 1/2/4 responsive */}
+                    <div className={
+                      "grid grid-cols-1 sm:grid-cols-2 " +
+                      "lg:grid-cols-4 gap-3"
+                    }>
+                      {cards.map((c, i) => (
+                        <button
+                          key={c.entityId || c.label || i}
+                          onClick={() => setView("moneymap")}
+                          className={
+                            "border border-gray-800/60 " +
+                            "hover:border-ember-500/50 " +
+                            "bg-black/40 hover:bg-black/70 " +
+                            "p-4 text-left transition group " +
+                            "flex flex-col gap-2 min-h-[150px]"
+                          }
+                        >
+                          <div className={
+                            "text-[10px] font-mono tracking-[0.18em] " +
+                            "uppercase text-gray-500 " +
+                            "group-hover:text-ember-400/90 transition-colors"
+                          }>
+                            {c.label}
+                          </div>
+                          <div className={
+                            "text-sm text-gray-100 leading-snug " +
+                            "font-medium"
+                          }>
+                            {c.headline}
+                          </div>
+                          <div className={
+                            "text-xs text-gray-500 font-mono " +
+                            "tabular-nums mt-auto inline-flex " +
+                            "items-baseline"
+                          }>
+                            <span>{c.metric}</span>
+                            <CiteChip
+                              citation={
+                                `${c.label}: ${c.headline} ` +
+                                `(${c.metric}). Source: money-map.json ` +
+                                `storyCards (Gracchus, ${
+                                  moneyMapData?.generatedAt?.slice(0, 10) ||
+                                  "precomputed"
+                                }).`
+                              }
+                            />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* ========= ENTRY-POINT GRID — 4 primary cards =========
+                Collapsed 2026-04-21 from a 9-cell sub-category grid to
+                the four top-nav categories, each carrying a *live*
+                metric. Cards mirror the top nav: Projects, Suppliers,
+                Cronyism, Money Map. The metric (£, count) is computed
+                from the same projects / moneyMap / crony / donations
+                data the underlying pages render from, so the home
+                card can never out-date the page it leads to. */}
+            <div className="mb-10">
+              <div className={
+                "text-[11px] font-mono tracking-[0.25em] " +
+                "text-gray-500 uppercase mb-4"
+              }>
+                Explore the data
+              </div>
+              {(() => {
+                // ── Shared live-metric compute (run once for all 4 cards) ──
+                // Source: project-contractors.json (rich tree). projects.json
+                // does NOT have contractorGroups — see comment on the kicker
+                // strip above.
+                let totalGroups = 0;
+                let totalMembers = 0;
+                let disclosedMembers = 0;
+                (projectContractorsData?.projects || []).forEach((p) => {
+                  (p.contractors || []).forEach((g) => {
+                    totalGroups += 1;
+                    (g.members || []).forEach((m) => {
+                      totalMembers += 1;
+                      if (m.contractValueGBP != null) {
+                        disclosedMembers += 1;
+                      }
+                    });
+                  });
+                });
+                const disclosurePct =
+                  totalMembers > 0
+                    ? Math.round((100 * disclosedMembers) / totalMembers)
+                    : 0;
+
+                // ── Cronyism: headline high-risk £ ──
+                const highRiskValue =
+                  cronyData?.summary?.totalHighRiskValue || 0;
+                const highRiskBn = highRiskValue / 1e9;
+                const cronyDisplay =
+                  highRiskBn >= 1
+                    ? `£${highRiskBn.toFixed(1)}bn`
+                    : `£${Math.round(highRiskValue / 1e6)}m`;
+
+                // ── Money Map: nodes + awards ──
+                const mapBuyers = moneyMapData?.counts?.buyers || 0;
+                const mapSuppliers = moneyMapData?.counts?.suppliers || 0;
+                const mapNodes = mapBuyers + mapSuppliers;
+                const mapAwards = moneyMapData?.counts?.awardEdges || 0;
+
+                const cards = [
                   {
                     id: "projects",
-                    eyebrow: "Waste & Overruns",
-                    title: fmt(totalOverrun) + " over budget",
-                    desc: projects.filter(p => p.status === "Cancelled").length + " projects cancelled. " + fmt(cancelledWaste) + " written off entirely.",
-                    accent: "text-red-500",
-                    border: "border-red-500/40"
+                    label: "Projects",
+                    metric: fmt(totalOverrun),
+                    metricLabel: "over budget",
+                    note: `Across ${projects.length} UK megaprojects — traced line-by-line to the firms collecting the fees.`,
                   },
                   {
                     id: "suppliers",
-                    eyebrow: "Suppliers & Contracts",
-                    title: suppliersSummary.length + " firms tracked",
-                    desc: "Who gets paid, how much, and whether the work was competitively tendered.",
-                    accent: "text-amber-500",
-                    border: "border-amber-500/30"
+                    label: "Suppliers",
+                    metric: totalGroups.toLocaleString(),
+                    metricLabel: "contractor groups",
+                    note: `${totalMembers.toLocaleString()} firms and people, ${disclosurePct}% with a disclosed £. The rest are named but the figure isn't yet public.`,
                   },
                   {
-                    id: "economy.output",
-                    eyebrow: "Economy",
-                    title: "£" + econOutputData.headline.gdpBnGbp + "bn GDP",
-                    desc: "Growth near zero. Productivity 38% behind the US. Real wages barely recovered.",
-                    accent: "text-amber-500",
-                    border: "border-amber-500/30"
+                    id: "transparency.crony",
+                    label: "Cronyism",
+                    metric: cronyDisplay,
+                    metricLabel: "high-risk contracts",
+                    note: "VIP lane · political donations · lobbying · MPs & outside money.",
                   },
                   {
-                    id: "transparency.windwaste",
-                    eyebrow: "Energy Waste",
-                    title: "£" + (windCurtailmentData.keyStats.totalConstraintCost2025 / 1000000000).toFixed(1) + "bn to switch off wind farms",
-                    desc: windCurtailmentData.keyStats.energyCurtailed2024TWh + " TWh of clean energy wasted in 2024 — up " + windCurtailmentData.keyStats.curtailmentIncrease2024Pct + "%. We pay them to stop, then pay gas plants to replace them.",
-                    accent: "text-cyan-500",
-                    border: "border-cyan-500/40"
+                    id: "moneymap",
+                    label: "Money Map",
+                    metric: mapNodes.toLocaleString(),
+                    metricLabel: `nodes · ${mapAwards.toLocaleString()} awards`,
+                    note: "Departments → firms. The live canvas of who's been paid whom.",
                   },
-                  {
-                    id: "league.departments",
-                    eyebrow: "Department Rankings",
-                    title: "MoD: 19 of 27 projects over budget",
-                    desc: "\u00A3132.5bn in defence cost overruns. Which departments deliver \u2014 and which don\u2019t.",
-                    accent: "text-red-400",
-                    border: "border-red-500/30"
-                  }
-                ].map((tile) => (
-                  <button
-                    key={tile.id}
-                    onClick={() => setView(tile.id)}
-                    className={
-                      "text-left px-5 py-6 border-b " +
-                      "border-r border-gray-800/60 " +
-                      "hover:bg-white/[0.02] " +
-                      "transition-colors group"
-                    }
-                  >
-                    <div className={
-                      "text-[12px] uppercase tracking-[0.2em] " +
-                      "font-mono mb-2 " + tile.accent
-                    }>
-                      {tile.eyebrow}
-                    </div>
-                    <div className={
-                      "border-l-2 " + tile.border + " pl-3"
-                    }>
-                      <div className={
-                        "text-xl font-black text-white " +
-                        "tracking-tight"
-                      }>
-                        {tile.title}
-                      </div>
-                      <div className={
-                        "text-[14px] text-gray-500 mt-1 " +
-                        "leading-relaxed"
-                      }>
-                        {tile.desc}
-                      </div>
-                    </div>
-                    <div className={
-                      "text-[11px] uppercase tracking-[0.15em] " +
-                      "text-gray-700 mt-4 font-mono " +
-                      "group-hover:text-gray-500 transition-colors"
-                    }>
-                      Explore {tile.eyebrow.toLowerCase()} {"\u2192"}
-                    </div>
-                  </button>
-                ))}
-              </div>
+                ];
+
+                return (
+                  <div className={
+                    "grid grid-cols-1 sm:grid-cols-2 " +
+                    "lg:grid-cols-4 gap-4"
+                  }>
+                    {cards.map((c) => (
+                      <button
+                        key={c.id}
+                        onClick={() => setView(c.id)}
+                        className={
+                          "border border-gray-800/60 " +
+                          "hover:border-ember-500/50 " +
+                          "bg-gray-950/40 hover:bg-gray-950/80 " +
+                          "p-5 text-left transition group " +
+                          "flex flex-col gap-3 min-h-[180px]"
+                        }
+                      >
+                        <div className={
+                          "text-[10px] font-mono tracking-[0.2em] " +
+                          "uppercase text-gray-500 " +
+                          "group-hover:text-ember-400/90 transition-colors"
+                        }>
+                          {c.label}
+                        </div>
+                        <div className="flex items-baseline gap-2 flex-wrap">
+                          <span className={
+                            "font-serif text-3xl sm:text-4xl " +
+                            "font-medium tracking-[-0.01em] " +
+                            "text-gray-100 tabular-nums"
+                          }>
+                            {c.metric}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            {c.metricLabel}
+                          </span>
+                        </div>
+                        <div className={
+                          "text-xs text-gray-500 leading-relaxed mt-auto"
+                        }>
+                          {c.note}
+                        </div>
+                        <div className={
+                          "text-[11px] font-mono text-gray-600 " +
+                          "group-hover:text-ember-400/80 transition-colors " +
+                          "flex items-center gap-1"
+                        }>
+                          open
+                          <span aria-hidden="true">→</span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                );
+              })()}
             </div>
 
-            {/* ========= STATE OF THE COUNTRY ========= */}
-            <div className="py-10 border-t border-gray-800/50">
-              <div className={
-                "text-[13px] uppercase tracking-[0.3em] " +
-                "font-medium text-gray-600 mb-1"
-              }>
-                State of the Country
-              </div>
-              <div className={
-                "text-[16px] text-gray-500 mb-8 leading-relaxed"
-              }>
-                Key indicators of UK performance
-              </div>
-              <div className={
-                "grid grid-cols-1 sm:grid-cols-2 " +
-                "lg:grid-cols-4 gap-0 border-t border-gray-800/60"
-              }>
-                {[
-                  {
-                    title: "Productivity",
-                    stat: "$56.50/hr",
-                    desc: "38% behind the US. Stagnant since 2008.",
-                    link: "compare.structural",
-                    accent: "border-red-500/50"
-                  },
-                  {
-                    title: "Real Wages",
-                    stat: "+14%",
-                    desc: "Growth over 23 years. US grew 38%.",
-                    link: "compare.structural",
-                    accent: "border-red-500/50"
-                  },
-                  {
-                    title: "Electricity",
-                    stat: "$0.35/kWh",
-                    desc: "Among the highest in Europe.",
-                    link: "compare.bills",
-                    accent: "border-amber-500/50"
-                  },
-                  {
-                    title: "Housing",
-                    stat: "113.7",
-                    desc: "Price-to-income. 57% less affordable since 2000.",
-                    link: "compare.structural",
-                    accent: "border-red-500/50"
-                  }
-                ].map((tile) => (
-                  <button
-                    key={tile.title}
-                    onClick={() => setView(tile.link)}
-                    className={
-                      "text-left px-5 py-6 border-b " +
-                      "border-r border-gray-800/60 " +
-                      "hover:bg-white/[0.02] transition-colors group"
-                    }
-                  >
+            {/* ========= RECENT ADDITIONS =========
+                Editorial feed of what's new on Gracchus. Drawn from
+                src/data/recent-additions.json — a human-curated JSON
+                updated when a tranche lands or a new page ships.
+                Keeps the home page feeling like an active publication
+                rather than a static dashboard. */}
+            {(() => {
+              const _entries = (recentAdditionsData.entries || []).slice(0, 8);
+              if (_entries.length === 0) return null;
+              const _typeStyles = {
+                tranche:     "text-sky-400/80 border-sky-900/40",
+                project:     "text-emerald-400/80 border-emerald-900/40",
+                disclosure:  "text-amber-400/80 border-amber-900/40",
+                coverage:    "text-amber-400/80 border-amber-900/40",
+                dataset:     "text-violet-400/80 border-violet-900/40",
+                feature:     "text-gray-300/80 border-gray-700/40"
+              };
+              const _fmtDate = (ymd) => {
+                if (!ymd) return "";
+                try {
+                  const [y, m, d] = ymd.split("-").map(Number);
+                  const months = ["Jan","Feb","Mar","Apr","May","Jun",
+                                  "Jul","Aug","Sep","Oct","Nov","Dec"];
+                  return `${d} ${months[m-1]}`;
+                } catch { return ymd; }
+              };
+              return (
+                <div className="mb-10">
+                  <div className="flex items-baseline justify-between mb-4">
                     <div className={
-                      "text-[12px] uppercase tracking-[0.2em] " +
-                      "text-gray-600 font-mono mb-2"
+                      "text-[11px] font-mono tracking-[0.25em] " +
+                      "text-gray-500 uppercase"
                     }>
-                      {tile.title}
+                      Recently added
                     </div>
                     <div className={
-                      "border-l-2 " + tile.accent + " pl-3"
+                      "text-[10px] font-mono text-gray-600 " +
+                      "tracking-wider"
                     }>
-                      <div className="text-2xl font-black text-white tracking-tight">
-                        {tile.stat}
-                      </div>
-                      <div className="text-[14px] text-gray-500 mt-1 leading-relaxed">
-                        {tile.desc}
-                      </div>
-                    </div>
-                    <div className={
-                      "text-[11px] uppercase tracking-[0.15em] " +
-                      "text-gray-700 mt-4 font-mono " +
-                      "group-hover:text-gray-500 transition-colors"
-                    }>
-                      View data {"\u2192"}
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* ========= MILESTONE SUBSCRIBE PROMPT ========= */}
-            {showMilestonePrompt &&
-              !milestonePromptDismissed &&
-              subscribeStatus !== "done" && (
-              <div className={
-                "border border-amber-500/20 " +
-                "bg-amber-500/[0.03] " +
-                "py-6 px-6 mb-6 relative"
-              }>
-                <button
-                  onClick={() => {
-                    setShowMilestonePrompt(false);
-                    setMilestonePromptDismissed(
-                      true
-                    );
-                  }}
-                  className={
-                    "absolute top-3 right-3 " +
-                    "text-gray-700 " +
-                    "hover:text-gray-400 " +
-                    "transition-colors"
-                  }
-                >
-                  <X size={14} />
-                </button>
-                <div className={
-                  "flex flex-col sm:flex-row " +
-                  "items-start sm:items-center " +
-                  "gap-4"
-                }>
-                  <div className="flex-1">
-                    <div className={
-                      "text-[10px] uppercase " +
-                      "tracking-[0.25em] " +
-                      "text-amber-500/80 " +
-                      "font-mono mb-1"
-                    }>
-                      You{"\u2019"}ve explored{" "}
-                      {viewsThisSession} pages
-                    </div>
-                    <div className={
-                      "text-lg font-bold " +
-                      "text-white mb-1"
-                    }>
-                      Get the weekly briefing
-                    </div>
-                    <div className={
-                      "text-[13px] " +
-                      "text-gray-500 " +
-                      "leading-relaxed"
-                    }>
-                      The numbers that matter,
-                      every Monday. Red flags,
-                      waste alerts, and data
-                      updates{"\u2014"}no spam.
+                      Updated {recentAdditionsData.updatedAt}
                     </div>
                   </div>
-                  <form
-                    onSubmit={async (e) => {
-                      e.preventDefault();
-                      const email =
-                        e.target.elements
-                          .msEmail?.value;
-                      if (!email) return;
-                      setSubscribeStatus(
-                        "loading"
-                      );
-                      try {
-                        const res = await fetch(
-                          "/api/subscribe",
-                          {
-                            method: "POST",
-                            headers: {
-                              "Content-Type":
-                                "application/json"
-                            },
-                            body: JSON.stringify({
-                              email
-                            })
+                  <div className={
+                    "border-t border-gray-800/60 divide-y divide-gray-800/60"
+                  }>
+                    {_entries.map((e, i) => {
+                      const clickable = Boolean(e.view);
+                      const _rowCls =
+                        "grid grid-cols-[72px_1fr] sm:grid-cols-[84px_1fr_auto] gap-3 sm:gap-5 " +
+                        "py-4 px-1 " +
+                        (clickable
+                          ? "hover:bg-gray-900/40 cursor-pointer transition-colors group"
+                          : "");
+                      const _onClick = clickable
+                        ? () => {
+                            setView(e.view);
+                            window.scrollTo({ top: 0, behavior: "smooth" });
                           }
-                        );
-                        if (res.ok) {
-                          setSubscribeStatus(
-                            "done"
-                          );
-                          setShowMilestonePrompt(
-                            false
-                          );
-                        } else {
-                          const d =
-                            await res.json();
-                          setSubscribeStatus(
-                            d.error ||
-                            "Something went wrong"
-                          );
-                        }
-                      } catch {
-                        setSubscribeStatus(
-                          "Network error"
-                        );
-                      }
-                    }}
-                    className={
-                      "flex flex-col " +
-                      "sm:flex-row gap-2 " +
-                      "shrink-0"
-                    }
-                  >
-                    <input
-                      name="msEmail"
-                      type="email"
-                      required
-                      placeholder="your@email.com"
-                      className={
-                        "bg-black/60 border " +
-                        "border-gray-800 " +
-                        "px-4 py-3 " +
-                        "text-[13px] " +
-                        "text-gray-300 " +
-                        "placeholder:text-gray-700 " +
-                        "focus:border-amber-500/50 " +
-                        "focus:outline-none " +
-                        "transition-colors " +
-                        "w-full sm:w-56 " +
-                        "min-h-[44px]"
-                      }
-                    />
-                    <button
-                      type="submit"
-                      disabled={
-                        subscribeStatus ===
-                        "loading"
-                      }
-                      className={
-                        "px-5 py-3 " +
-                        "bg-amber-600 " +
-                        "hover:bg-amber-500 " +
-                        "text-white text-[11px] " +
-                        "font-bold uppercase " +
-                        "tracking-[0.15em] " +
-                        "transition-colors " +
-                        "shrink-0 " +
-                        "disabled:opacity-50 " +
-                        "min-h-[44px]"
-                      }
-                    >
-                      {subscribeStatus ===
-                        "loading"
-                        ? "..."
-                        : "Subscribe"}
-                    </button>
-                  </form>
-                </div>
-              </div>
-            )}
-
-            {/* ========= WASTE SPOTLIGHT ========= */}
-            <WasteSpotlight
-              projects={projects}
-              onExplore={() => setView("projects")}
-              fmt={fmt}
-              onShare={handleChartShare}
-            />
-
-            {/* ========= EMAIL CAPTURE & SOCIAL CTA ========= */}
-            <div className="border-t border-gray-800/50 py-10">
-              <div className="max-w-xl mx-auto text-center">
-                <div className={
-                  "text-[12px] uppercase tracking-[0.3em] " +
-                  "text-red-500 font-mono mb-3"
-                }>
-                  Stay Informed
-                </div>
-                <div className="text-2xl font-black text-white mb-2 tracking-tight">
-                  The Gracchus Weekly Briefing
-                </div>
-                <div className="text-[14px] text-gray-500 mb-6 leading-relaxed">
-                  The most important UK data, every Monday morning.
-                  Red Flags, waste alerts, and the numbers that matter.
-                </div>
-                {subscribeStatus === "done" ? (
-                  <div className="text-emerald-400 text-[14px] font-mono py-3">
-                    You're in. First briefing lands Monday.
+                        : undefined;
+                      return (
+                        <div
+                          key={(e.date || "") + ":" + (e.title || i)}
+                          className={_rowCls}
+                          onClick={_onClick}
+                        >
+                          <div className={
+                            "text-[10px] font-mono text-gray-600 " +
+                            "uppercase tracking-[0.15em] pt-0.5"
+                          }>
+                            {_fmtDate(e.date)}
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2 flex-wrap mb-1">
+                              <span className={
+                                "inline-block px-1.5 py-0.5 border " +
+                                "text-[9px] font-mono uppercase tracking-[0.15em] " +
+                                (_typeStyles[e.type] || _typeStyles.feature)
+                              }>
+                                {e.type || "note"}
+                              </span>
+                              <h3 className={
+                                "text-[15px] font-serif font-medium " +
+                                "text-gray-100 leading-snug " +
+                                "tracking-[-0.01em] " +
+                                (clickable ? "group-hover:text-white" : "")
+                              }>
+                                {e.title}
+                              </h3>
+                              {e.metric && (
+                                <span className={
+                                  "text-[10px] font-mono text-gray-500 " +
+                                  "tabular-nums"
+                                }>
+                                  {e.metric}
+                                </span>
+                              )}
+                            </div>
+                            <p className={
+                              "text-[13px] text-gray-500 " +
+                              "leading-relaxed max-w-[700px]"
+                            }>
+                              {e.summary}
+                            </p>
+                          </div>
+                          {clickable && (
+                            <div className={
+                              "hidden sm:flex items-center " +
+                              "text-gray-700 group-hover:text-red-400 " +
+                              "transition-colors"
+                            }>
+                              <ChevronRight size={16} />
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
-                ) : (
-                  <form
-                    onSubmit={async (e) => {
-                      e.preventDefault();
-                      const email = e.target.elements.email?.value;
-                      if (!email) return;
-                      setSubscribeStatus("loading");
-                      try {
-                        const res = await fetch("/api/subscribe", {
-                          method: "POST",
-                          headers: { "Content-Type": "application/json" },
-                          body: JSON.stringify({ email }),
-                        });
-                        const data = await res.json();
-                        if (res.ok) {
-                          setSubscribeStatus("done");
-                        } else {
-                          setSubscribeStatus(data.error || "Something went wrong");
-                        }
-                      } catch {
-                        setSubscribeStatus("Network error — try again");
-                      }
-                    }}
-                    className="flex flex-col sm:flex-row gap-2 max-w-sm sm:max-w-md mx-auto"
-                  >
-                    <input
-                      name="email"
-                      type="email"
-                      required
-                      placeholder="your@email.com"
-                      className={
-                        "flex-1 bg-gray-950 border border-gray-800 " +
-                        "px-4 py-2.5 text-[14px] text-gray-300 " +
-                        "placeholder:text-gray-700 " +
-                        "focus:border-red-500/50 focus:outline-none " +
-                        "transition-colors"
-                      }
-                    />
-                    <button
-                      type="submit"
-                      disabled={subscribeStatus === "loading"}
-                      className={
-                        "px-5 py-2.5 bg-red-600 hover:bg-red-500 " +
-                        "text-white text-[12px] font-bold uppercase " +
-                        "tracking-[0.15em] transition-colors shrink-0 " +
-                        "disabled:opacity-50 disabled:cursor-not-allowed"
-                      }
-                    >
-                      {subscribeStatus === "loading" ? "..." : "Subscribe"}
-                    </button>
-                  </form>
-                )}
-                {subscribeStatus && subscribeStatus !== "done" && subscribeStatus !== "loading" && (
-                  <div className="text-red-400 text-[12px] font-mono mt-2">
-                    {subscribeStatus}
-                  </div>
-                )}
-                <div className="mt-6 flex items-center justify-center gap-4">
-                  <a
-                    href="https://x.com/GracchusHQ"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={
-                      "inline-flex items-center gap-2 " +
-                      "text-[11px] uppercase tracking-[0.15em] " +
-                      "text-gray-600 font-mono " +
-                      "hover:text-white transition-colors " +
-                      "border border-gray-800 px-4 py-2 " +
-                      "hover:border-gray-600"
-                    }
-                  >
-                    <X size={12} />
-                    Follow on X
-                  </a>
                 </div>
-              </div>
-            </div>
+              );
+            })()}
 
-            {/* ========= FOOTER ========= */}
+            {/* ========= METHODOLOGY / SOURCES ========= */}
             <div className={
-              "border-t border-gray-800/40 pt-6 pb-2 " +
-              "text-gray-600 text-[14px] leading-relaxed"
+              "border-t border-gray-800/40 pt-6 mt-4 " +
+              "text-xs text-gray-500 leading-relaxed"
             }>
-              <div>
-                <strong className="text-gray-500">
-                  Sources:
-                </strong>{" "}
-                NAO Major Projects reports;
-                IPA Annual Report;
-                Public Accounts Committee;
-                Contracts Finder;
-                ONS; OECD; World Bank; HMRC; DWP; DESNZ.
+              <div className={
+                "text-[10px] font-mono tracking-[0.2em] " +
+                "text-gray-600 uppercase mb-2"
+              }>
+                Primary sources
               </div>
-              <div className="mt-2 text-gray-700">
-                Non-partisan. Source-backed. No editorial
-                position is taken on policy decisions.
+              <div>
+                National Audit Office · Public Accounts Committee ·
+                Infrastructure and Projects Authority (GMPP) ·
+                Contracts Finder · Find a Tender · Companies House ·
+                Register of Members&#39; Financial Interests ·
+                Electoral Commission · Office of the Registrar of
+                Consultant Lobbyists · APPG Register · ACOBA · ONS.
+              </div>
+              <div className="mt-3 text-gray-600">
+                Non-partisan. Source-backed. Every number links to a
+                named public filing. No inference without evidence.
               </div>
             </div>
           </div>
@@ -7580,6 +8942,7 @@ export default function App() {
                       setSelectedProject(p);
                       setSourceProject(p);
                     }}
+                    title="Open project dossier"
                     className={
                       "min-w-[640px] grid grid-cols-12 gap-2 " +
                       "items-center " +
@@ -7612,6 +8975,54 @@ export default function App() {
                             <ShieldAlert size={11} />
                           </span>
                         )}
+                        {(() => {
+                          const w = wasteById[p.id];
+                          if (!w || w.severity === "none") return null;
+                          const activeFlags = Object.entries(w.flags || {})
+                            .filter(([, v]) => v)
+                            .map(([k]) => k);
+                          if (activeFlags.length === 0) return null;
+                          return (
+                            <span
+                              className={
+                                "flex-shrink-0 flex items-center gap-0.5"
+                              }
+                              title={
+                                w.severity.toUpperCase() + " — "
+                                + activeFlags
+                                    .map((f) => wasteFlagMeta[f]?.label || f)
+                                    .join(", ")
+                                + (w.wastedGBP > 0
+                                    ? " — £ wasted: "
+                                        + fmtWastedGBP(w.wastedGBP)
+                                    : "")
+                              }
+                            >
+                              {activeFlags.slice(0, 4).map((f) => {
+                                const meta = wasteFlagMeta[f];
+                                if (!meta) return null;
+                                return (
+                                  <span
+                                    key={f}
+                                    className={
+                                      "inline-flex items-center justify-center "
+                                      + "w-3.5 h-3.5 text-[9px] font-mono "
+                                      + "font-bold border rounded-sm "
+                                      + meta.color
+                                    }
+                                  >
+                                    {meta.chip}
+                                  </span>
+                                );
+                              })}
+                              {activeFlags.length > 4 && (
+                                <span className="text-[9px] font-mono text-gray-500">
+                                  +{activeFlags.length - 4}
+                                </span>
+                              )}
+                            </span>
+                          );
+                        })()}
                       </div>
                       <div className="text-gray-700 text-[10px] font-mono truncate">
                         {p.department}
@@ -7641,8 +9052,18 @@ export default function App() {
                         {neg ? "" : "+"}{op.toFixed(1)}%
                       </div>
                     </div>
-                    <div className="col-span-2 text-right">
+                    <div className="col-span-2 text-right flex items-center justify-end gap-2">
                       <StatusBadge status={p.status} />
+                      <span
+                        className={
+                          "text-gray-700 group-hover:text-emerald-400 " +
+                          "transition-colors flex-shrink-0"
+                        }
+                        title="Open dossier"
+                        aria-hidden="true"
+                      >
+                        <ChevronRight size={14} />
+                      </span>
                     </div>
                   </div>
                 );
@@ -8083,7 +9504,9 @@ export default function App() {
                   rows: planSorted.map(p => [p.name, p.type, p.daysInApproval, p.deadlineExtensions, p.status, p.source])
                 }}
               >
-                {planSorted.map((p, i) => (
+                {planSorted.map((p, i) => {
+                  const planTrackerMatch = findTrackerMatch(p.projectName);
+                  return (
                   <div key={p.id}>
                     <button
                       onClick={() =>
@@ -8114,9 +9537,41 @@ export default function App() {
                         <div className={
                           "text-gray-200 " +
                           "font-medium text-[13px] " +
-                          "leading-tight"
+                          "leading-tight " +
+                          "flex items-center gap-1.5"
                         }>
-                          {p.projectName}
+                          <span className="truncate">{p.projectName}</span>
+                          {planTrackerMatch && (
+                            <span
+                              role="button"
+                              tabIndex={0}
+                              title="Open project dossier"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedProject(planTrackerMatch);
+                                setSourceProject(planTrackerMatch);
+                              }}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setSelectedProject(planTrackerMatch);
+                                  setSourceProject(planTrackerMatch);
+                                }
+                              }}
+                              className={
+                                "flex-shrink-0 text-[9px] font-mono " +
+                                "uppercase tracking-[0.1em] " +
+                                "px-1.5 py-0.5 rounded-sm " +
+                                "text-emerald-400 bg-emerald-900/25 " +
+                                "border border-emerald-800/60 " +
+                                "hover:bg-emerald-900/40 hover:text-emerald-300 " +
+                                "cursor-pointer"
+                              }
+                            >
+                              {"\u2192 dossier"}
+                            </span>
+                          )}
                         </div>
                         <div className={
                           "text-[10px] text-gray-600 " +
@@ -8381,7 +9836,8 @@ export default function App() {
                       </div>
                     )}
                   </div>
-                ))}
+                  );
+                })}
               </DataTableShell>
 
 {/* Methodology */}
@@ -8720,7 +10176,9 @@ export default function App() {
                   }
                 ]}
               >
-                {delaySorted.map((p, i) => (
+                {delaySorted.map((p, i) => {
+                  const delayTrackerMatch = findTrackerMatch(p.projectName);
+                  return (
                   <div key={p.id}>
                     <button
                       onClick={() =>
@@ -8751,9 +10209,41 @@ export default function App() {
                         <div className={
                           "text-gray-200 " +
                           "font-medium text-[13px] " +
-                          "leading-tight"
+                          "leading-tight " +
+                          "flex items-center gap-1.5"
                         }>
-                          {p.projectName}
+                          <span className="truncate">{p.projectName}</span>
+                          {delayTrackerMatch && (
+                            <span
+                              role="button"
+                              tabIndex={0}
+                              title="Open project dossier"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedProject(delayTrackerMatch);
+                                setSourceProject(delayTrackerMatch);
+                              }}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setSelectedProject(delayTrackerMatch);
+                                  setSourceProject(delayTrackerMatch);
+                                }
+                              }}
+                              className={
+                                "flex-shrink-0 text-[9px] font-mono " +
+                                "uppercase tracking-[0.1em] " +
+                                "px-1.5 py-0.5 rounded-sm " +
+                                "text-emerald-400 bg-emerald-900/25 " +
+                                "border border-emerald-800/60 " +
+                                "hover:bg-emerald-900/40 hover:text-emerald-300 " +
+                                "cursor-pointer"
+                              }
+                            >
+                              {"\u2192 dossier"}
+                            </span>
+                          )}
                         </div>
                         <div className={
                           "text-[10px] text-gray-600 " +
@@ -9046,7 +10536,8 @@ export default function App() {
                       </div>
                     )}
                   </div>
-                ))}
+                  );
+                })}
               </DataTableShell>
 
 {/* Methodology */}
@@ -9963,13 +11454,14 @@ export default function App() {
             <div className="py-6 mb-4">
               <div className={
                 "text-[10px] uppercase tracking-[0.2em] " +
-                "font-medium text-gray-600 mb-2"
+                "font-mono text-gray-600 mb-2"
               }>
                 Accountability {"\u2192"} Political Finance
               </div>
               <h2 className={
-                "text-2xl md:text-3xl font-black " +
-                "uppercase tracking-tight"
+                "text-3xl md:text-4xl font-serif " +
+                "font-medium text-white " +
+                "leading-[1.1] tracking-[-0.01em]"
               }>
                 Political Donations
               </h2>
@@ -10478,10 +11970,10 @@ export default function App() {
             </div>
             {/* HEADER */}
             <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
                 {"Accountability \u203A MPs & Money"}
               </div>
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
                 {"MPs\u2019 Pay vs the Country"}
               </h2>
               <p className="text-gray-500 text-sm mt-2 max-w-2xl">
@@ -10766,7 +12258,7 @@ export default function App() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-1">
-                    <h1 className="text-2xl font-black uppercase tracking-tight">{mp.n}</h1>
+                    <h1 className="text-2xl md:text-3xl font-serif font-medium text-white leading-tight tracking-[-0.01em]">{mp.n}</h1>
                     <span
                       className="px-2 py-0.5 rounded text-xs font-medium"
                       style={{ backgroundColor: (partyColors[mp.pa] || "#6b7280") + "20", color: partyColors[mp.pa] || "#9ca3af", border: "1px solid " + (partyColors[mp.pa] || "#6b7280") + "40" }}
@@ -10877,10 +12369,10 @@ export default function App() {
               ))}
             </div>
             <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
                 Accountability → MPs & Money
               </div>
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
                 MP Accountability Tracker
               </h2>
               <p className="text-gray-500 text-sm mt-2">
@@ -11191,10 +12683,10 @@ export default function App() {
           return (
           <div className="space-y-6">
             <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
                 Accountability → Lobbying
               </div>
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
                 UK Lobbying Register
               </h2>
               <p className="text-gray-500 text-sm mt-2">
@@ -11266,7 +12758,7 @@ export default function App() {
                         <div className="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
                           <div className="flex items-start justify-between mb-4">
                             <div>
-                              <h2 className="text-xl font-black uppercase tracking-tight">{firm.n}</h2>
+                              <h2 className="text-2xl font-serif font-medium text-white leading-tight tracking-[-0.01em]">{firm.n}</h2>
                               <p className="text-sm text-gray-500 mt-1">{typeLabel(firm.t)} · Registered {firm.d}</p>
                             </div>
                             <div className="text-right">
@@ -11561,13 +13053,14 @@ export default function App() {
             <div className="py-6 mb-4">
               <div className={
                 "text-[10px] uppercase tracking-[0.2em] " +
-                "font-medium text-gray-600 mb-2"
+                "font-mono text-gray-600 mb-2"
               }>
                 Accountability &rarr; International
               </div>
               <h2 className={
-                "text-2xl md:text-3xl font-black " +
-                "uppercase tracking-tight"
+                "text-3xl md:text-4xl font-serif " +
+                "font-medium text-white " +
+                "leading-[1.1] tracking-[-0.01em]"
               }>
                 Foreign Aid (ODA)
               </h2>
@@ -12098,10 +13591,10 @@ export default function App() {
           <div className="space-y-6">
             {/* Section header */}
             <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
                 Accountability → Immigration
               </div>
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
                 Immigration & Borders
               </h2>
               <p className="text-gray-500 text-sm mt-2">
@@ -12265,8 +13758,8 @@ export default function App() {
           return (
           <div className="space-y-6">
             <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">Accountability → NHS</div>
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">NHS Waiting Times</h2>
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">Accountability → NHS</div>
+              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">NHS Waiting Times</h2>
               <p className="text-gray-500 text-sm mt-2">{nhsWaitsData.contextSentences.headline}</p>
             </div>
 
@@ -12415,8 +13908,8 @@ export default function App() {
           return (
           <div className="space-y-6">
             <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">Accountability → Environment</div>
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">The Sewage Clock</h2>
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">Accountability → Environment</div>
+              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">The Sewage Clock</h2>
               <p className="text-gray-500 text-sm mt-2">{sewageData.contextSentences.headline}</p>
             </div>
 
@@ -12548,8 +14041,8 @@ export default function App() {
           return (
           <div className="space-y-6">
             <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">Accountability → Energy</div>
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">The Wind Waste Clock</h2>
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">Accountability → Energy</div>
+              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">The Wind Waste Clock</h2>
               <p className="text-gray-500 text-sm mt-2">{wc.contextSentences.headline}</p>
             </div>
 
@@ -12756,8 +14249,8 @@ export default function App() {
               ))}
             </div>
             <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">Accountability → MPs & Money</div>
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">Moonlighting MPs</h2>
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">Accountability → MPs & Money</div>
+              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">Moonlighting MPs</h2>
               <p className="text-gray-500 text-sm mt-2">{moonlightingData.contextSentences.headline}</p>
             </div>
 
@@ -12888,9 +14381,9 @@ export default function App() {
               <div className="text-[11px] uppercase tracking-[0.2em] text-gray-600 font-mono mb-4">Related</div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {[
-                  { label: "Political Conduct", title: "Political Donations", view: "politicalDonations" },
-                  { label: "Accountability", title: "MPs' Income & Expenses", view: "mpInterests" },
-                  { label: "Political Conduct", title: "Lobbying Activity", view: "lobbying" }
+                  { label: "Political Conduct", title: "Political Donations", view: "transparency.donations" },
+                  { label: "Accountability", title: "MPs' Income & Expenses", view: "transparency.mp" },
+                  { label: "Political Conduct", title: "Lobbying Activity", view: "transparency.lobbying" }
                 ].map((r, i) => (
                   <button key={i} onClick={() => setView(r.view)} className="text-left bg-gray-900/30 border border-gray-800/40 rounded-lg px-4 py-4 hover:bg-gray-900/50 hover:border-gray-700/50 transition-all group">
                     <div className="text-[10px] uppercase tracking-[0.15em] text-red-500/70 font-mono mb-1">{r.label}</div>
@@ -13474,15 +14967,7 @@ export default function App() {
                 }
               />
               <button
-                onClick={() => {
-                  const el = document.getElementById(
-                    "crony-contracts"
-                  );
-                  if (el) el.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                  });
-                }}
+                onClick={() => setView("transparency.crony")}
                 className={
                   "group shrink-0 self-start " +
                   "lg:mt-6 " +
@@ -13565,10 +15050,10 @@ export default function App() {
 
             {/* Bar chart: annual gov spend by supplier */}
             <div className="py-2">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-1">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-1">
                 Supplier Data
               </div>
-              <h3 className="text-sm font-bold uppercase tracking-wide text-gray-300 mb-4">
+              <h3 className="text-base font-serif font-medium text-white tracking-[-0.01em] mb-4">
                 Annual Government Spend by Supplier
               </h3>
               <div style={{ height: 400 }}>
@@ -13802,10 +15287,10 @@ export default function App() {
 
             {/* Recent major contracts */}
             <div className="pt-6">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
                 Contracts
               </div>
-              <h3 className="text-sm font-bold uppercase tracking-wide text-gray-300 mb-4">
+              <h3 className="text-base font-serif font-medium text-white tracking-[-0.01em] mb-4">
                 Recent Major Contract Awards
               </h3>
               <div className="space-y-2">
@@ -13856,704 +15341,712 @@ export default function App() {
               figures are estimates based on published data.
             </div>
 
-            <div
-              id="crony-contracts"
-              className="border-t border-gray-800/40 mt-10 pt-10 scroll-mt-24"
-            >
-              <SectionHeader
-                label="Procurement Scrutiny"
-                title="Questionable Contracts"
-                accent="text-red-500"
-              />
-              <p className="text-gray-500 text-sm mb-6 -mt-4">
-                Contracts flagged by auditors, courts, or parliamentary
-                committees. Covers competitive vs non-competitive awards,
-                connection disclosures, and procurement outcomes.
-              </p>
+            {/* Crony Contracts moved to its own view (transparency.crony) on 2026-04-19.
+                See the "See Crony Contracts" CTA above the sector summary cards. */}
+          </div>
+        )}
 
-              {/* Key stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div className="border-l-2 border-gray-800 pl-4 py-3">
-                  <p className="text-gray-500 text-xs uppercase">
-                    VIP Lane Contracts
-                  </p>
-                  <p className="text-xl font-bold text-red-400">
-                    {"£"}1.7bn
-                  </p>
-                  <p className="text-gray-600 text-xs">
-                    51 companies, 115 contracts
-                  </p>
-                </div>
-                <div className="border-l-2 border-gray-800 pl-4 py-3">
-                  <p className="text-gray-500 text-xs uppercase">
-                    Unfit PPE from VIP Lane
-                  </p>
-                  <p className="text-xl font-bold text-red-400">
-                    {"£"}1bn
-                  </p>
-                  <p className="text-gray-600 text-xs">
-                    59% of VIP PPE spending
-                  </p>
-                </div>
-                <div className="border-l-2 border-gray-800 pl-4 py-3">
-                  <p className="text-gray-500 text-xs uppercase">
-                    High-Risk Contracts
-                  </p>
-                  <p className="text-xl font-bold text-amber-400">
-                    135
-                  </p>
-                  <p className="text-gray-600 text-xs">
-                    Worth {"£"}15.3bn (TI UK)
-                  </p>
-                </div>
-                <div className="border-l-2 border-gray-800 pl-4 py-3">
-                  <p className="text-gray-500 text-xs uppercase">
-                    No-Competition Awards
-                  </p>
-                  <p className="text-xl font-bold text-amber-400">
-                    {"£"}30.7bn
-                  </p>
-                  <p className="text-gray-600 text-xs">
-                    2/3 of all COVID contracts
-                  </p>
-                </div>
+        {/* ============ CRONY CONTRACTS ============
+             Promoted from an anchored sub-section of view === "suppliers"
+             (formerly #crony-contracts) into its own page so it can be
+             reached as a top-level child of the Cronyism nav tab. */}
+        {view === "transparency.crony" && (
+          <div
+            className="space-y-6"
+          >
+            <SectionHeader
+              label="Procurement Scrutiny"
+              title="Questionable Contracts"
+              accent="text-red-500"
+            />
+            <p className="text-gray-500 text-sm mb-6 -mt-4">
+              Contracts flagged by auditors, courts, or parliamentary
+              committees. Covers competitive vs non-competitive awards,
+              connection disclosures, and procurement outcomes.
+            </p>
+
+            {/* Key stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <div className="border-l-2 border-gray-800 pl-4 py-3">
+                <p className="text-gray-500 text-xs uppercase">
+                  VIP Lane Contracts
+                </p>
+                <p className="text-xl font-bold text-red-400">
+                  {"£"}1.7bn
+                </p>
+                <p className="text-gray-600 text-xs">
+                  51 companies, 115 contracts
+                </p>
               </div>
+              <div className="border-l-2 border-gray-800 pl-4 py-3">
+                <p className="text-gray-500 text-xs uppercase">
+                  Unfit PPE from VIP Lane
+                </p>
+                <p className="text-xl font-bold text-red-400">
+                  {"£"}1bn
+                </p>
+                <p className="text-gray-600 text-xs">
+                  59% of VIP PPE spending
+                </p>
+              </div>
+              <div className="border-l-2 border-gray-800 pl-4 py-3">
+                <p className="text-gray-500 text-xs uppercase">
+                  High-Risk Contracts
+                </p>
+                <p className="text-xl font-bold text-amber-400">
+                  135
+                </p>
+                <p className="text-gray-600 text-xs">
+                  Worth {"£"}15.3bn (TI UK)
+                </p>
+              </div>
+              <div className="border-l-2 border-gray-800 pl-4 py-3">
+                <p className="text-gray-500 text-xs uppercase">
+                  No-Competition Awards
+                </p>
+                <p className="text-xl font-bold text-amber-400">
+                  {"£"}30.7bn
+                </p>
+                <p className="text-gray-600 text-xs">
+                  2/3 of all COVID contracts
+                </p>
+              </div>
+            </div>
 
-              {/* Crony contracts chart + list grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-                {/* Treemap visualization */}
-                <div className={
-                  "border border-gray-800/60 " +
-                  "bg-gray-950/30 relative"
-                }>
-                  <div className="px-5 pt-5 pb-3">
-                    <h3 className={
-                      "text-[14px] font-bold " +
-                      "text-gray-300 leading-tight"
-                    }>
-                      Questionable Contracts by Value
-                    </h3>
-                    <div className={
-                      "text-[10px] text-gray-600 " +
-                      "font-mono mt-1"
-                    }>
-                      Area proportional to contract value.
-                      Hover for details.
-                    </div>
+            {/* Crony contracts chart + list grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+              {/* Treemap visualization */}
+              <div className={
+                "border border-gray-800/60 " +
+                "bg-gray-950/30 relative"
+              }>
+                <div className="px-5 pt-5 pb-3">
+                  <h3 className={
+                    "text-[14px] font-bold " +
+                    "text-gray-300 leading-tight"
+                  }>
+                    Questionable Contracts by Value
+                  </h3>
+                  <div className={
+                    "text-[10px] text-gray-600 " +
+                    "font-mono mt-1"
+                  }>
+                    Area proportional to contract value.
+                    Hover for details.
                   </div>
-                  <div className="px-3 pb-3" style={{ position: "relative" }}>
-                    <ResponsiveContainer width="100%" height={440}>
-                      <Treemap
-                        data={cronyData.contracts
-                          .filter(c => c.value > 0)
-                          .sort((a, b) => b.value - a.value)
-                          .map(c => ({
-                            name: c.company,
-                            size: c.value / 1e6,
-                            severity: c.severity,
-                            era: c.era,
-                            id: c.id,
-                            rawValue: c.value,
-                            vipLane: c.vipLane,
-                            product: c.product
-                          }))}
-                        dataKey="size"
-                        stroke="#0a0a0a"
-                        strokeWidth={3}
-                        isAnimationActive={true}
-                        animationDuration={800}
-                        animationEasing="ease-out"
-                        content={(props) => {
-                          const {
-                            x, y, width, height,
-                            name, depth
-                          } = props;
-                          if (!width || !height ||
-                            width < 2 || height < 2 ||
-                            depth !== 1) return null;
+                </div>
+                <div className="px-3 pb-3" style={{ position: "relative" }}>
+                  <ResponsiveContainer width="100%" height={440}>
+                    <Treemap
+                      data={cronyData.contracts
+                        .filter(c => c.value > 0)
+                        .sort((a, b) => b.value - a.value)
+                        .map(c => ({
+                          name: c.company,
+                          size: c.value / 1e6,
+                          severity: c.severity,
+                          era: c.era,
+                          id: c.id,
+                          rawValue: c.value,
+                          vipLane: c.vipLane,
+                          product: c.product
+                        }))}
+                      dataKey="size"
+                      stroke="#0a0a0a"
+                      strokeWidth={3}
+                      isAnimationActive={true}
+                      animationDuration={800}
+                      animationEasing="ease-out"
+                      content={(props) => {
+                        const {
+                          x, y, width, height,
+                          name, depth
+                        } = props;
+                        if (!width || !height ||
+                          width < 2 || height < 2 ||
+                          depth !== 1) return null;
 
-                          const sev = props.severity;
-                          const id = props.id;
-                          const rawVal = props.rawValue || 0;
-                          const sizeMil = props.size || 0;
-                          const era = props.era || "";
-                          const vip = props.vipLane;
-                          const product = props.product || "";
-                          const isHov = cronyHover === id;
+                        const sev = props.severity;
+                        const id = props.id;
+                        const rawVal = props.rawValue || 0;
+                        const sizeMil = props.size || 0;
+                        const era = props.era || "";
+                        const vip = props.vipLane;
+                        const product = props.product || "";
+                        const isHov = cronyHover === id;
 
-                          const baseColor =
-                            sev === "critical"
-                              ? "#dc2626"
-                              : sev === "high"
-                                ? "#d97706"
-                                : "#4b5563";
-                          const hovColor =
-                            sev === "critical"
-                              ? "#ef4444"
-                              : sev === "high"
-                                ? "#f59e0b"
-                                : "#6b7280";
-                          const fillColor = isHov
-                            ? hovColor : baseColor;
+                        const baseColor =
+                          sev === "critical"
+                            ? "#dc2626"
+                            : sev === "high"
+                              ? "#d97706"
+                              : "#4b5563";
+                        const hovColor =
+                          sev === "critical"
+                            ? "#ef4444"
+                            : sev === "high"
+                              ? "#f59e0b"
+                              : "#6b7280";
+                        const fillColor = isHov
+                          ? hovColor : baseColor;
 
-                          const maxChars = Math.max(
-                            3,
-                            Math.floor(width / 7.5)
-                          );
-                          const displayName = !name
-                            ? ""
-                            : name.length > maxChars
-                              ? name.slice(
-                                  0, maxChars - 1
-                                ) + "\u2026"
-                              : name;
+                        const maxChars = Math.max(
+                          3,
+                          Math.floor(width / 7.5)
+                        );
+                        const displayName = !name
+                          ? ""
+                          : name.length > maxChars
+                            ? name.slice(
+                                0, maxChars - 1
+                              ) + "\u2026"
+                            : name;
 
-                          const showLabel =
-                            width > 36 && height > 24;
-                          const showValue =
-                            width > 50 && height > 40;
-                          const showSev =
-                            width > 70 && height > 58;
-                          const showEra =
-                            width > 90 && height > 74;
-                          const isLarge =
-                            width > 180 && height > 100;
+                        const showLabel =
+                          width > 36 && height > 24;
+                        const showValue =
+                          width > 50 && height > 40;
+                        const showSev =
+                          width > 70 && height > 58;
+                        const showEra =
+                          width > 90 && height > 74;
+                        const isLarge =
+                          width > 180 && height > 100;
 
-                          const valStr = rawVal >= 1e9
-                            ? "\u00A3" +
-                              (rawVal / 1e9).toFixed(1) +
-                              "bn"
-                            : "\u00A3" +
-                              Math.round(
-                                rawVal / 1e6
-                              ) + "m";
+                        const valStr = rawVal >= 1e9
+                          ? "\u00A3" +
+                            (rawVal / 1e9).toFixed(1) +
+                            "bn"
+                          : "\u00A3" +
+                            Math.round(
+                              rawVal / 1e6
+                            ) + "m";
 
-                          return (
-                            <g
-                              onMouseEnter={() =>
-                                setCronyHover(id)
+                        return (
+                          <g
+                            onMouseEnter={() =>
+                              setCronyHover(id)
+                            }
+                            onMouseLeave={() =>
+                              setCronyHover(null)
+                            }
+                            style={{
+                              cursor: "pointer"
+                            }}
+                          >
+                            <rect
+                              x={x + 1.5}
+                              y={y + 1.5}
+                              width={
+                                Math.max(0, width - 3)
                               }
-                              onMouseLeave={() =>
-                                setCronyHover(null)
+                              height={
+                                Math.max(0, height - 3)
                               }
+                              rx={4}
+                              fill={fillColor}
+                              fillOpacity={
+                                isHov ? 1 : 0.82
+                              }
+                              stroke={
+                                isHov
+                                  ? "#ffffff20"
+                                  : "transparent"
+                              }
+                              strokeWidth={1}
                               style={{
-                                cursor: "pointer"
+                                transition:
+                                  "fill 0.2s, " +
+                                  "fill-opacity 0.2s, " +
+                                  "stroke 0.2s",
+                                filter: isHov
+                                  ? "brightness(1.15)"
+                                  : "none"
                               }}
-                            >
-                              <rect
+                            />
+                            {showLabel && (
+                              <foreignObject
                                 x={x + 1.5}
                                 y={y + 1.5}
                                 width={
-                                  Math.max(0, width - 3)
+                                  Math.max(
+                                    0, width - 3
+                                  )
                                 }
                                 height={
-                                  Math.max(0, height - 3)
+                                  Math.max(
+                                    0, height - 3
+                                  )
                                 }
-                                rx={4}
-                                fill={fillColor}
-                                fillOpacity={
-                                  isHov ? 1 : 0.82
-                                }
-                                stroke={
-                                  isHov
-                                    ? "#ffffff20"
-                                    : "transparent"
-                                }
-                                strokeWidth={1}
                                 style={{
-                                  transition:
-                                    "fill 0.2s, " +
-                                    "fill-opacity 0.2s, " +
-                                    "stroke 0.2s",
-                                  filter: isHov
-                                    ? "brightness(1.15)"
-                                    : "none"
+                                  pointerEvents:
+                                    "none"
                                 }}
-                              />
-                              {showLabel && (
-                                <foreignObject
-                                  x={x + 1.5}
-                                  y={y + 1.5}
-                                  width={
-                                    Math.max(
-                                      0, width - 3
-                                    )
-                                  }
-                                  height={
-                                    Math.max(
-                                      0, height - 3
-                                    )
+                              >
+                                <div
+                                  xmlns={
+                                    "http://www.w3.org" +
+                                    "/1999/xhtml"
                                   }
                                   style={{
-                                    pointerEvents:
-                                      "none"
+                                    width: "100%",
+                                    height: "100%",
+                                    padding: isLarge
+                                      ? "12px 14px"
+                                      : "6px 8px",
+                                    overflow: "hidden",
+                                    boxSizing:
+                                      "border-box",
+                                    display: "flex",
+                                    flexDirection:
+                                      "column",
+                                    justifyContent:
+                                      isLarge
+                                        ? "flex-end"
+                                        : "center"
                                   }}
                                 >
-                                  <div
-                                    xmlns={
-                                      "http://www.w3.org" +
-                                      "/1999/xhtml"
-                                    }
-                                    style={{
-                                      width: "100%",
-                                      height: "100%",
-                                      padding: isLarge
-                                        ? "12px 14px"
-                                        : "6px 8px",
-                                      overflow: "hidden",
-                                      boxSizing:
-                                        "border-box",
-                                      display: "flex",
-                                      flexDirection:
-                                        "column",
-                                      justifyContent:
-                                        isLarge
-                                          ? "flex-end"
-                                          : "center"
-                                    }}
-                                  >
-                                    <div style={{
-                                      color: "#ffffff",
-                                      fontSize: isLarge
-                                        ? 16
-                                        : width > 100
-                                          ? 13 : 11,
-                                      fontWeight: 700,
-                                      lineHeight: 1.2,
-                                      whiteSpace:
-                                        "nowrap",
-                                      overflow:
-                                        "hidden",
-                                      textOverflow:
-                                        "ellipsis",
-                                      textShadow:
-                                        "0 1px 3px " +
-                                        "rgba(0,0,0,0.5)"
-                                    }}>
-                                      {displayName}
-                                    </div>
-                                    {showValue && (
-                                      <div style={{
-                                        color:
-                                          "#ffffffcc",
-                                        fontSize:
-                                          isLarge
-                                            ? 15
-                                            : 11,
-                                        fontFamily:
-                                          "monospace",
-                                        fontWeight: 600,
-                                        lineHeight: 1.4,
-                                        marginTop: 2,
-                                        textShadow:
-                                          "0 1px 2px " +
-                                          "rgba(" +
-                                          "0,0,0,0.4)"
-                                      }}>
-                                        {valStr}
-                                      </div>
-                                    )}
-                                    {showSev && (
-                                      <div style={{
-                                        color:
-                                          "#ffffff80",
-                                        fontSize: 9,
-                                        fontFamily:
-                                          "monospace",
-                                        textTransform:
-                                          "uppercase",
-                                        letterSpacing:
-                                          "0.1em",
-                                        marginTop: 3
-                                      }}>
-                                        {sev} severity
-                                      </div>
-                                    )}
-                                    {showEra && (
-                                      <div style={{
-                                        color:
-                                          "#ffffff50",
-                                        fontSize: 9,
-                                        fontFamily:
-                                          "monospace",
-                                        textTransform:
-                                          "uppercase",
-                                        letterSpacing:
-                                          "0.08em",
-                                        marginTop: 2
-                                      }}>
-                                        {era}
-                                        {vip
-                                          ? " \u00B7 VIP"
-                                          : ""}
-                                      </div>
-                                    )}
+                                  <div style={{
+                                    color: "#ffffff",
+                                    fontSize: isLarge
+                                      ? 16
+                                      : width > 100
+                                        ? 13 : 11,
+                                    fontWeight: 700,
+                                    lineHeight: 1.2,
+                                    whiteSpace:
+                                      "nowrap",
+                                    overflow:
+                                      "hidden",
+                                    textOverflow:
+                                      "ellipsis",
+                                    textShadow:
+                                      "0 1px 3px " +
+                                      "rgba(0,0,0,0.5)"
+                                  }}>
+                                    {displayName}
                                   </div>
-                                </foreignObject>
-                              )}
-                            </g>
-                          );
-                        }}
-                      />
-                    </ResponsiveContainer>
+                                  {showValue && (
+                                    <div style={{
+                                      color:
+                                        "#ffffffcc",
+                                      fontSize:
+                                        isLarge
+                                          ? 15
+                                          : 11,
+                                      fontFamily:
+                                        "monospace",
+                                      fontWeight: 600,
+                                      lineHeight: 1.4,
+                                      marginTop: 2,
+                                      textShadow:
+                                        "0 1px 2px " +
+                                        "rgba(" +
+                                        "0,0,0,0.4)"
+                                    }}>
+                                      {valStr}
+                                    </div>
+                                  )}
+                                  {showSev && (
+                                    <div style={{
+                                      color:
+                                        "#ffffff80",
+                                      fontSize: 9,
+                                      fontFamily:
+                                        "monospace",
+                                      textTransform:
+                                        "uppercase",
+                                      letterSpacing:
+                                        "0.1em",
+                                      marginTop: 3
+                                    }}>
+                                      {sev} severity
+                                    </div>
+                                  )}
+                                  {showEra && (
+                                    <div style={{
+                                      color:
+                                        "#ffffff50",
+                                      fontSize: 9,
+                                      fontFamily:
+                                        "monospace",
+                                      textTransform:
+                                        "uppercase",
+                                      letterSpacing:
+                                        "0.08em",
+                                      marginTop: 2
+                                    }}>
+                                      {era}
+                                      {vip
+                                        ? " \u00B7 VIP"
+                                        : ""}
+                                    </div>
+                                  )}
+                                </div>
+                              </foreignObject>
+                            )}
+                          </g>
+                        );
+                      }}
+                    />
+                  </ResponsiveContainer>
 
-                    {/* Floating tooltip on hover */}
-                    {cronyHover && (() => {
-                      const c = cronyData.contracts.find(
-                        x => x.id === cronyHover
-                      );
-                      if (!c) return null;
-                      return (
-                        <div
-                          className={
-                            "absolute top-4 right-4 " +
-                            "z-20 pointer-events-none"
-                          }
-                          style={{
-                            animation:
-                              "fadeIn 0.15s ease-out"
-                          }}
-                        >
+                  {/* Floating tooltip on hover */}
+                  {cronyHover && (() => {
+                    const c = cronyData.contracts.find(
+                      x => x.id === cronyHover
+                    );
+                    if (!c) return null;
+                    return (
+                      <div
+                        className={
+                          "absolute top-4 right-4 " +
+                          "z-20 pointer-events-none"
+                        }
+                        style={{
+                          animation:
+                            "fadeIn 0.15s ease-out"
+                        }}
+                      >
+                        <div className={
+                          "bg-gray-950/95 " +
+                          "border border-gray-700/60 " +
+                          "backdrop-blur-sm " +
+                          "px-4 py-3 " +
+                          "max-w-[260px] " +
+                          "shadow-2xl"
+                        }>
                           <div className={
-                            "bg-gray-950/95 " +
-                            "border border-gray-700/60 " +
-                            "backdrop-blur-sm " +
-                            "px-4 py-3 " +
-                            "max-w-[260px] " +
-                            "shadow-2xl"
+                            "text-[13px] font-bold " +
+                            "text-white leading-tight"
                           }>
-                            <div className={
-                              "text-[13px] font-bold " +
-                              "text-white leading-tight"
+                            {c.company}
+                          </div>
+                          <div className={
+                            "text-[11px] " +
+                            "text-gray-400 " +
+                            "font-mono mt-1"
+                          }>
+                            {c.product}
+                          </div>
+                          <div className={
+                            "flex items-center " +
+                            "gap-3 mt-2"
+                          }>
+                            <span className={
+                              "text-[15px] " +
+                              "font-black text-white " +
+                              "font-mono"
                             }>
-                              {c.company}
+                              {c.value >= 1e9
+                                ? "\u00A3" +
+                                  (c.value / 1e9)
+                                    .toFixed(1) + "bn"
+                                : "\u00A3" +
+                                  Math.round(
+                                    c.value / 1e6
+                                  ) + "m"}
+                            </span>
+                            <span className={
+                              "text-[9px] " +
+                              "uppercase " +
+                              "tracking-wider " +
+                              "px-1.5 py-0.5 " +
+                              (c.severity ===
+                                "critical"
+                                ? "bg-red-500/20 " +
+                                  "text-red-400 " +
+                                  "border " +
+                                  "border-red-500/30"
+                                : c.severity ===
+                                  "high"
+                                  ? "bg-amber-500/20 " +
+                                    "text-amber-400 " +
+                                    "border border-" +
+                                    "amber-500/30"
+                                  : "bg-gray-700/40 " +
+                                    "text-gray-400 " +
+                                    "border border-" +
+                                    "gray-600/30")
+                            }>
+                              {c.severity}
+                            </span>
+                          </div>
+                          <div className={
+                            "text-[10px] " +
+                            "text-gray-600 " +
+                            "font-mono mt-2 " +
+                            "flex items-center gap-2"
+                          }>
+                            <span>
+                              {c.awardDate}
+                            </span>
+                            <span>
+                              {"\u00B7"}
+                            </span>
+                            <span>{c.era}</span>
+                            {c.vipLane && (
+                              <>
+                                <span>
+                                  {"\u00B7"}
+                                </span>
+                                <span className={
+                                  "text-red-500"
+                                }>
+                                  VIP Lane
+                                </span>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </div>
+
+                {/* Legend */}
+                <div className={
+                  "flex gap-4 px-5 pb-4 " +
+                  "justify-center"
+                }>
+                  {[
+                    {
+                      l: "Critical",
+                      c: "bg-red-600"
+                    },
+                    {
+                      l: "High",
+                      c: "bg-amber-600"
+                    },
+                    {
+                      l: "Medium",
+                      c: "bg-gray-600"
+                    }
+                  ].map(x => (
+                    <div
+                      key={x.l}
+                      className={
+                        "flex items-center " +
+                        "gap-1.5 text-[10px] " +
+                        "text-gray-500 font-mono " +
+                        "uppercase tracking-wider"
+                      }
+                    >
+                      <div className={
+                        "w-3 h-3 rounded-sm " +
+                        x.c
+                      } />
+                      {x.l}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Scrollable contracts list */}
+              <div className={
+                "border border-gray-800/60 " +
+                "bg-gray-950/30 " +
+                "flex flex-col max-h-[540px]"
+              }>
+                <div className={
+                  "px-4 py-3 border-b " +
+                  "border-gray-800/40 shrink-0"
+                }>
+                  <div className={
+                    "text-[10px] uppercase " +
+                    "tracking-[0.2em] " +
+                    "text-gray-500 font-mono"
+                  }>
+                    All Flagged Contracts
+                  </div>
+                  <div className={
+                    "text-sm font-bold " +
+                    "text-white mt-0.5"
+                  }>
+                    {cronyData.contracts.length} Contracts
+                  </div>
+                </div>
+                <div className="overflow-y-auto flex-1">
+                  {cronyData.contracts
+                    .sort((a, b) => b.value - a.value)
+                    .map((c) => (
+                    <div key={c.id}>
+                      <button
+                        onClick={() =>
+                          setCronyExpanded(
+                            cronyExpanded === c.id
+                              ? null : c.id
+                          )
+                        }
+                        className={
+                          "w-full text-left px-4 py-3 " +
+                          "border-b border-gray-800/30 " +
+                          "hover:bg-white/[0.03] " +
+                          "transition-colors " +
+                          (cronyExpanded === c.id
+                            ? "bg-white/[0.03]" : "")
+                        }
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-2">
+                              <div className={
+                                "w-2 h-2 rounded-full shrink-0 " +
+                                (c.severity === "critical"
+                                  ? "bg-red-500"
+                                  : c.severity === "high"
+                                    ? "bg-amber-500"
+                                    : "bg-gray-500")
+                              } />
+                              <span className={
+                                "text-[13px] font-medium " +
+                                "text-gray-200 truncate"
+                              }>
+                                {c.company}
+                              </span>
                             </div>
                             <div className={
-                              "text-[11px] " +
-                              "text-gray-400 " +
-                              "font-mono mt-1"
+                              "text-[10px] text-gray-600 " +
+                              "font-mono mt-0.5 ml-4"
                             }>
                               {c.product}
                             </div>
+                          </div>
+                          <div className="text-right shrink-0">
                             <div className={
-                              "flex items-center " +
-                              "gap-3 mt-2"
+                              "text-[13px] font-bold " +
+                              "text-white font-mono"
                             }>
-                              <span className={
-                                "text-[15px] " +
-                                "font-black text-white " +
-                                "font-mono"
-                              }>
-                                {c.value >= 1e9
-                                  ? "\u00A3" +
-                                    (c.value / 1e9)
-                                      .toFixed(1) + "bn"
-                                  : "\u00A3" +
-                                    Math.round(
-                                      c.value / 1e6
-                                    ) + "m"}
-                              </span>
-                              <span className={
-                                "text-[9px] " +
-                                "uppercase " +
-                                "tracking-wider " +
-                                "px-1.5 py-0.5 " +
-                                (c.severity ===
-                                  "critical"
-                                  ? "bg-red-500/20 " +
-                                    "text-red-400 " +
-                                    "border " +
-                                    "border-red-500/30"
-                                  : c.severity ===
-                                    "high"
-                                    ? "bg-amber-500/20 " +
-                                      "text-amber-400 " +
-                                      "border border-" +
-                                      "amber-500/30"
-                                    : "bg-gray-700/40 " +
-                                      "text-gray-400 " +
-                                      "border border-" +
-                                      "gray-600/30")
-                              }>
-                                {c.severity}
-                              </span>
+                              {c.value >= 1e9
+                                ? "\u00A3" + (c.value / 1e9).toFixed(1) + "bn"
+                                : "\u00A3" + Math.round(c.value / 1e6) + "m"}
                             </div>
                             <div className={
-                              "text-[10px] " +
-                              "text-gray-600 " +
-                              "font-mono mt-2 " +
-                              "flex items-center gap-2"
+                              "text-[10px] text-gray-600 " +
+                              "font-mono"
                             }>
-                              <span>
-                                {c.awardDate}
-                              </span>
-                              <span>
-                                {"\u00B7"}
-                              </span>
-                              <span>{c.era}</span>
-                              {c.vipLane && (
-                                <>
-                                  <span>
-                                    {"\u00B7"}
-                                  </span>
-                                  <span className={
-                                    "text-red-500"
-                                  }>
-                                    VIP Lane
-                                  </span>
-                                </>
-                              )}
+                              {c.awardDate}
                             </div>
                           </div>
                         </div>
-                      );
-                    })()}
-                  </div>
-
-                  {/* Legend */}
-                  <div className={
-                    "flex gap-4 px-5 pb-4 " +
-                    "justify-center"
-                  }>
-                    {[
-                      {
-                        l: "Critical",
-                        c: "bg-red-600"
-                      },
-                      {
-                        l: "High",
-                        c: "bg-amber-600"
-                      },
-                      {
-                        l: "Medium",
-                        c: "bg-gray-600"
-                      }
-                    ].map(x => (
-                      <div
-                        key={x.l}
-                        className={
-                          "flex items-center " +
-                          "gap-1.5 text-[10px] " +
-                          "text-gray-500 font-mono " +
-                          "uppercase tracking-wider"
-                        }
-                      >
-                        <div className={
-                          "w-3 h-3 rounded-sm " +
-                          x.c
-                        } />
-                        {x.l}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Scrollable contracts list */}
-                <div className={
-                  "border border-gray-800/60 " +
-                  "bg-gray-950/30 " +
-                  "flex flex-col max-h-[540px]"
-                }>
-                  <div className={
-                    "px-4 py-3 border-b " +
-                    "border-gray-800/40 shrink-0"
-                  }>
-                    <div className={
-                      "text-[10px] uppercase " +
-                      "tracking-[0.2em] " +
-                      "text-gray-500 font-mono"
-                    }>
-                      All Flagged Contracts
-                    </div>
-                    <div className={
-                      "text-sm font-bold " +
-                      "text-white mt-0.5"
-                    }>
-                      {cronyData.contracts.length} Contracts
-                    </div>
-                  </div>
-                  <div className="overflow-y-auto flex-1">
-                    {cronyData.contracts
-                      .sort((a, b) => b.value - a.value)
-                      .map((c) => (
-                      <div key={c.id}>
-                        <button
-                          onClick={() =>
-                            setCronyExpanded(
-                              cronyExpanded === c.id
-                                ? null : c.id
-                            )
-                          }
-                          className={
-                            "w-full text-left px-4 py-3 " +
-                            "border-b border-gray-800/30 " +
-                            "hover:bg-white/[0.03] " +
-                            "transition-colors " +
-                            (cronyExpanded === c.id
-                              ? "bg-white/[0.03]" : "")
-                          }
-                        >
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="min-w-0 flex-1">
-                              <div className="flex items-center gap-2">
-                                <div className={
-                                  "w-2 h-2 rounded-full shrink-0 " +
-                                  (c.severity === "critical"
-                                    ? "bg-red-500"
-                                    : c.severity === "high"
-                                      ? "bg-amber-500"
-                                      : "bg-gray-500")
-                                } />
-                                <span className={
-                                  "text-[13px] font-medium " +
-                                  "text-gray-200 truncate"
-                                }>
-                                  {c.company}
-                                </span>
-                              </div>
-                              <div className={
-                                "text-[10px] text-gray-600 " +
-                                "font-mono mt-0.5 ml-4"
-                              }>
-                                {c.product}
-                              </div>
-                            </div>
-                            <div className="text-right shrink-0">
-                              <div className={
-                                "text-[13px] font-bold " +
-                                "text-white font-mono"
-                              }>
-                                {c.value >= 1e9
-                                  ? "\u00A3" + (c.value / 1e9).toFixed(1) + "bn"
-                                  : "\u00A3" + Math.round(c.value / 1e6) + "m"}
-                              </div>
-                              <div className={
-                                "text-[10px] text-gray-600 " +
-                                "font-mono"
-                              }>
-                                {c.awardDate}
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-1 mt-1 ml-4">
-                            {c.vipLane && (
-                              <span className={
-                                "text-[9px] px-1.5 py-0.5 " +
-                                "bg-red-500/10 text-red-400 " +
-                                "border border-red-500/20 " +
-                                "uppercase tracking-wider"
-                              }>
-                                VIP Lane
-                              </span>
-                            )}
-                            {!c.competitive && (
-                              <span className={
-                                "text-[9px] px-1.5 py-0.5 " +
-                                "bg-amber-500/10 text-amber-400 " +
-                                "border border-amber-500/20 " +
-                                "uppercase tracking-wider"
-                              }>
-                                No Competition
-                              </span>
-                            )}
+                        <div className="flex items-center gap-1 mt-1 ml-4">
+                          {c.vipLane && (
                             <span className={
                               "text-[9px] px-1.5 py-0.5 " +
-                              "bg-gray-800/60 text-gray-500 " +
-                              "border border-gray-700/40 " +
+                              "bg-red-500/10 text-red-400 " +
+                              "border border-red-500/20 " +
                               "uppercase tracking-wider"
                             }>
-                              {c.era}
+                              VIP Lane
                             </span>
-                          </div>
-                        </button>
-
-                        {/* Expanded detail panel */}
-                        {cronyExpanded === c.id && (
-                          <div className={
-                            "px-4 py-4 bg-gray-900/40 " +
-                            "border-b border-gray-800/30 " +
-                            "space-y-3"
-                          }>
-                            <div>
-                              <div className={
-                                "text-[9px] uppercase " +
-                                "tracking-[0.15em] " +
-                                "text-gray-600 font-mono mb-1"
-                              }>
-                                Political Connection
-                              </div>
-                              <div className={
-                                "text-[12px] text-gray-300 " +
-                                "leading-relaxed"
-                              }>
-                                {c.connection}
-                              </div>
-                              <div className={
-                                "text-[10px] text-gray-600 " +
-                                "font-mono mt-0.5"
-                              }>
-                                Type: {c.connectionType}
-                              </div>
-                            </div>
-
-                            <div>
-                              <div className={
-                                "text-[9px] uppercase " +
-                                "tracking-[0.15em] " +
-                                "text-gray-600 font-mono mb-1"
-                              }>
-                                Outcome
-                              </div>
-                              <div className={
-                                "text-[12px] text-gray-300 " +
-                                "leading-relaxed"
-                              }>
-                                {c.outcome}
-                              </div>
-                            </div>
-
-                            <div className={
-                              "flex items-center " +
-                              "justify-between pt-2 " +
-                              "border-t border-gray-800/30"
+                          )}
+                          {!c.competitive && (
+                            <span className={
+                              "text-[9px] px-1.5 py-0.5 " +
+                              "bg-amber-500/10 text-amber-400 " +
+                              "border border-amber-500/20 " +
+                              "uppercase tracking-wider"
                             }>
-                              <div className={
-                                "text-[10px] text-gray-600 " +
-                                "font-mono"
-                              }>
-                                {c.department}
-                              </div>
-                              {c.source && (
-                                <a
-                                  href={c.source}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className={
-                                    "text-[10px] text-gray-500 " +
-                                    "hover:text-gray-300 " +
-                                    "font-mono inline-flex " +
-                                    "items-center gap-1"
-                                  }
-                                >
-                                  Source <ExternalLink size={9} />
-                                </a>
-                              )}
+                              No Competition
+                            </span>
+                          )}
+                          <span className={
+                            "text-[9px] px-1.5 py-0.5 " +
+                            "bg-gray-800/60 text-gray-500 " +
+                            "border border-gray-700/40 " +
+                            "uppercase tracking-wider"
+                          }>
+                            {c.era}
+                          </span>
+                        </div>
+                      </button>
+
+                      {/* Expanded detail panel */}
+                      {cronyExpanded === c.id && (
+                        <div className={
+                          "px-4 py-4 bg-gray-900/40 " +
+                          "border-b border-gray-800/30 " +
+                          "space-y-3"
+                        }>
+                          <div>
+                            <div className={
+                              "text-[9px] uppercase " +
+                              "tracking-[0.15em] " +
+                              "text-gray-600 font-mono mb-1"
+                            }>
+                              Political Connection
+                            </div>
+                            <div className={
+                              "text-[12px] text-gray-300 " +
+                              "leading-relaxed"
+                            }>
+                              {c.connection}
+                            </div>
+                            <div className={
+                              "text-[10px] text-gray-600 " +
+                              "font-mono mt-0.5"
+                            }>
+                              Type: {c.connectionType}
                             </div>
                           </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+
+                          <div>
+                            <div className={
+                              "text-[9px] uppercase " +
+                              "tracking-[0.15em] " +
+                              "text-gray-600 font-mono mb-1"
+                            }>
+                              Outcome
+                            </div>
+                            <div className={
+                              "text-[12px] text-gray-300 " +
+                              "leading-relaxed"
+                            }>
+                              {c.outcome}
+                            </div>
+                          </div>
+
+                          <div className={
+                            "flex items-center " +
+                            "justify-between pt-2 " +
+                            "border-t border-gray-800/30"
+                          }>
+                            <div className={
+                              "text-[10px] text-gray-600 " +
+                              "font-mono"
+                            }>
+                              {c.department}
+                            </div>
+                            {c.source && (
+                              <a
+                                href={c.source}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={
+                                  "text-[10px] text-gray-500 " +
+                                  "hover:text-gray-300 " +
+                                  "font-mono inline-flex " +
+                                  "items-center gap-1"
+                                }
+                              >
+                                Source <ExternalLink size={9} />
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
+            </div>
 
-              <div className="text-gray-500 text-xs mt-4">
-                <strong className="text-gray-400">Sources:</strong>{" "}
-                NAO Government procurement during COVID-19;
-                Transparency International UK Behind the Masks (2024);
-                Good Law Project VIP Lane investigations;
-                High Court judgments; PAC.
-              </div>
+            <div className="text-gray-500 text-xs mt-4">
+              <strong className="text-gray-400">Sources:</strong>{" "}
+              NAO Government procurement during COVID-19;
+              Transparency International UK Behind the Masks (2024);
+              Good Law Project VIP Lane investigations;
+              High Court judgments; PAC.
             </div>
           </div>
         )}
@@ -14803,10 +16296,10 @@ export default function App() {
 
             {/* Company rollups */}
             <div className="pt-6">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
                 Aggregated
               </div>
-              <h3 className="text-sm font-bold uppercase tracking-wide text-gray-300 mb-4">
+              <h3 className="text-base font-serif font-medium text-white tracking-[-0.01em] mb-4">
                 Spend by Firm
               </h3>
               <DataTableShell
@@ -14911,10 +16404,10 @@ export default function App() {
         {view === "government.civilservice" && (
           <div className="space-y-6">
             <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
                 {"Your Money \u203A Civil Service"}
               </div>
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
                 The Government Machine
               </h2>
               <p className="text-gray-500 text-sm mt-2">
@@ -15180,10 +16673,10 @@ export default function App() {
                 {/* ═══════ WHERE THE MONEY GOES — INTERACTIVE DONUT + TREEMAP ═══════ */}
                 <div className="mt-10 pt-10 border-t border-gray-800/50">
                   <div className="mb-6">
-                    <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+                    <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
                       HM Treasury PESA 2025
                     </div>
-                    <h3 className="text-xl md:text-2xl font-black uppercase tracking-tight text-white">
+                    <h3 className="text-2xl md:text-3xl font-serif font-medium text-white leading-tight tracking-[-0.01em]">
                       Where the Money Goes
                     </h3>
                     <p className="text-gray-500 text-sm mt-2">
@@ -16001,9 +17494,9 @@ export default function App() {
                 {"Tax & Spending \u203A Tax & Public Finances"}
               </div>
               <h2 className={
-                "text-2xl md:text-3xl " +
-                "font-black uppercase " +
-                "tracking-tight"
+                "text-3xl md:text-4xl font-serif " +
+                "font-medium text-white " +
+                "leading-[1.1] tracking-[-0.01em]"
               }>
                 Tax & Public Finances
               </h2>
@@ -16612,7 +18105,7 @@ export default function App() {
               {/* ── Tax Calculator ── */}
               <div className="border border-gray-800/40 p-5">
                 <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono mb-2">Interactive</div>
-                <h3 className="text-lg font-black uppercase tracking-tight mb-4">Your Tax Contribution</h3>
+                <h3 className="text-xl font-serif font-medium text-white leading-tight tracking-[-0.01em] mb-4">Your Tax Contribution</h3>
                 <div className="flex items-center gap-4 mb-6">
                   <label className="text-[11px] font-mono text-gray-500">Annual salary</label>
                   <div className="flex items-center border border-gray-700 bg-gray-900/50 px-3 py-2 flex-1 max-w-xs">
@@ -16795,10 +18288,10 @@ export default function App() {
         {view === "economy.output" && (
           <div className="space-y-6">
             <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
                 Economic Output
               </div>
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
                 Economic Output
               </h2>
               <p className="text-gray-500 text-sm mt-2">
@@ -17444,7 +18937,7 @@ export default function App() {
             {/* ── QE Timeline ── */}
             <div className="border border-gray-800/40 p-5">
               <div className="text-[9px] uppercase tracking-[0.2em] text-gray-700 font-mono mb-2">Bank of England</div>
-              <h3 className="text-base font-black uppercase tracking-tight mb-4">Quantitative Easing Timeline</h3>
+              <h3 className="text-lg font-serif font-medium text-white leading-tight tracking-[-0.01em] mb-4">Quantitative Easing Timeline</h3>
               <div className="space-y-2">
                 {moneySupplyData.qeTimeline.phases.map((p) => (
                   <div key={p.name} className="flex items-center gap-3">
@@ -17490,10 +18983,10 @@ export default function App() {
         {view === "economy.costOfLiving" && (
           <div className="space-y-6">
             <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
                 Cost of Living
               </div>
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
                 Cost of Living
               </h2>
               <p className="text-gray-500 text-sm mt-2">
@@ -18432,10 +19925,10 @@ export default function App() {
         {view === "economy.production" && (
           <div className="space-y-6">
             <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
                 Critical Industries
               </div>
-              <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
                 Domestic Production vs Imports
               </h2>
               <p className="text-gray-500 text-sm mt-2">
@@ -19311,13 +20804,14 @@ export default function App() {
             <div className="py-6 mb-4">
               <div className={
                 "text-[10px] uppercase tracking-[0.2em] " +
-                "font-medium text-gray-600 mb-2"
+                "font-mono text-gray-600 mb-2"
               }>
                 Energy Independence
               </div>
               <h2 className={
-                "text-2xl md:text-3xl font-black " +
-                "uppercase tracking-tight"
+                "text-3xl md:text-4xl font-serif " +
+                "font-medium text-white " +
+                "leading-[1.1] tracking-[-0.01em]"
               }>
                 Energy
               </h2>
@@ -19932,13 +21426,14 @@ export default function App() {
             <div className="py-6 mb-4">
               <div className={
                 "text-[10px] uppercase tracking-[0.2em] " +
-                "font-medium text-gray-600 mb-2"
+                "font-mono text-gray-600 mb-2"
               }>
                 Technology & Investment
               </div>
               <h2 className={
-                "text-2xl md:text-3xl font-black " +
-                "uppercase tracking-tight"
+                "text-3xl md:text-4xl font-serif " +
+                "font-medium text-white " +
+                "leading-[1.1] tracking-[-0.01em]"
               }>
                 Innovation
               </h2>
@@ -20333,13 +21828,13 @@ export default function App() {
             <div className="py-2 mb-2">
               <div className={
                 "text-[10px] uppercase tracking-[0.2em] " +
-                "font-medium text-gray-600 mb-2"
+                "font-mono text-gray-600 mb-2"
               }>
                 Public Investment
               </div>
               <h3 className={
-                "text-xl font-black uppercase " +
-                "tracking-tight"
+                "text-xl font-serif font-medium " +
+                "text-white leading-tight tracking-[-0.01em]"
               }>
                 Government R&D
               </h3>
@@ -20930,13 +22425,14 @@ export default function App() {
             <div className="py-6 mb-4">
               <div className={
                 "text-[10px] uppercase tracking-[0.2em] " +
-                "font-medium text-gray-600 mb-2"
+                "font-mono text-gray-600 mb-2"
               }>
                 {"Cost of Living \u203A Infrastructure"}
               </div>
               <h2 className={
-                "text-2xl md:text-3xl font-black " +
-                "uppercase tracking-tight"
+                "text-3xl md:text-4xl font-serif " +
+                "font-medium text-white " +
+                "leading-[1.1] tracking-[-0.01em]"
               }>
                 Infrastructure Costs
               </h2>
@@ -21325,13 +22821,14 @@ export default function App() {
             <div className="py-6 mb-4">
               <div className={
                 "text-[10px] uppercase tracking-[0.2em] " +
-                "font-medium text-gray-600 mb-2"
+                "font-mono text-gray-600 mb-2"
               }>
                 Compare &rsaquo; Household Bills
               </div>
               <h2 className={
-                "text-2xl md:text-3xl font-black " +
-                "uppercase tracking-tight"
+                "text-3xl md:text-4xl font-serif " +
+                "font-medium text-white " +
+                "leading-[1.1] tracking-[-0.01em]"
               }>
                 Household Electricity Prices
               </h2>
@@ -21689,13 +23186,14 @@ export default function App() {
             <div className="py-6 mb-4">
               <div className={
                 "text-[10px] uppercase tracking-[0.2em] " +
-                "font-medium text-gray-600 mb-2"
+                "font-mono text-gray-600 mb-2"
               }>
                 {"Economy \u203A Structural Performance"}
               </div>
               <h2 className={
-                "text-2xl md:text-3xl font-black " +
-                "uppercase tracking-tight"
+                "text-3xl md:text-4xl font-serif " +
+                "font-medium text-white " +
+                "leading-[1.1] tracking-[-0.01em]"
               }>
                 Structural Performance
               </h2>
@@ -21717,8 +23215,8 @@ export default function App() {
                 Metric 1
               </div>
               <h3 className={
-                "text-lg font-bold text-white " +
-                "uppercase tracking-tight mb-1"
+                "text-xl font-serif font-medium text-white " +
+                "leading-tight tracking-[-0.01em] mb-1"
               }>
                 Productivity &mdash; Output per Hour
               </h3>
@@ -21972,8 +23470,8 @@ export default function App() {
                 Metric 2
               </div>
               <h3 className={
-                "text-lg font-bold text-white " +
-                "uppercase tracking-tight mb-1"
+                "text-xl font-serif font-medium text-white " +
+                "leading-tight tracking-[-0.01em] mb-1"
               }>
                 Real Wages &mdash; Average Annual Earnings
               </h3>
@@ -22230,8 +23728,8 @@ export default function App() {
                 Metric 3
               </div>
               <h3 className={
-                "text-lg font-bold text-white " +
-                "uppercase tracking-tight mb-1"
+                "text-xl font-serif font-medium text-white " +
+                "leading-tight tracking-[-0.01em] mb-1"
               }>
                 Housing Affordability
               </h3>
@@ -22405,8 +23903,8 @@ export default function App() {
                 Metric 4
               </div>
               <h3 className={
-                "text-lg font-bold text-white " +
-                "uppercase tracking-tight mb-1"
+                "text-xl font-serif font-medium text-white " +
+                "leading-tight tracking-[-0.01em] mb-1"
               }>
                 Health System Capacity &mdash; Hospital Beds
               </h3>
@@ -22747,13 +24245,14 @@ export default function App() {
             <div className="py-6 mb-4">
               <div className={
                 "text-[10px] uppercase tracking-[0.2em] " +
-                "font-medium text-gray-600 mb-2"
+                "font-mono text-gray-600 mb-2"
               }>
                 International Comparison
               </div>
               <h2 className={
-                "text-2xl md:text-3xl font-black " +
-                "uppercase tracking-tight"
+                "text-3xl md:text-4xl font-serif " +
+                "font-medium text-white " +
+                "leading-[1.1] tracking-[-0.01em]"
               }>
                 Defence Spending
               </h2>
@@ -23162,10 +24661,10 @@ export default function App() {
           return (
             <div className="space-y-6">
               <div className="py-6 mb-4">
-                <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+                <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
                   Economy › Markets & Growth
                 </div>
-                <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+                <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
                   Markets & Growth
                 </h2>
                 <p className="text-gray-500 text-sm mt-2">
@@ -23408,10 +24907,10 @@ export default function App() {
           return (
             <div className="space-y-6">
               <div className="py-6 mb-4">
-                <div className="text-[10px] uppercase tracking-[0.2em] font-medium text-gray-600 mb-2">
+                <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
                   Government › Taxes & Charges
                 </div>
-                <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight">
+                <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
                   Air Passenger Duty
                 </h2>
                 <p className="text-gray-500 text-sm mt-2">
@@ -23615,6 +25114,2453 @@ export default function App() {
           );
         })()}
 
+
+{/* ============ CONTRACTOR RESEARCH ============ */}
+        {view === "suppliers.contractors" && (() => {
+          const data = projectContractorsData;
+          const allProjects = Array.isArray(data?.projects) ? data.projects : [];
+
+          // Project metadata lookup from projects.json (status, category, budget)
+          const projectMeta = {};
+          (Array.isArray(projectsData) ? projectsData : []).forEach(p => {
+            projectMeta[p.id] = {
+              status: p.status,
+              category: p.category,
+              subcategory: p.subcategory,
+              latestBudget: p.latestBudget,
+              originalBudget: p.originalBudget
+            };
+          });
+
+          // Role → badge colour mapping
+          const roleColour = {
+            "prime": "border-red-500/40 bg-red-500/10 text-red-300",
+            "jv-partner": "border-orange-500/40 bg-orange-500/10 text-orange-300",
+            "subcontractor": "border-amber-500/40 bg-amber-500/10 text-amber-300",
+            "supplier": "border-yellow-500/40 bg-yellow-500/10 text-yellow-200",
+            "consultant-advisory": "border-purple-500/40 bg-purple-500/10 text-purple-300",
+            "consultant-technical": "border-fuchsia-500/40 bg-fuchsia-500/10 text-fuchsia-300",
+            "auditor": "border-blue-500/40 bg-blue-500/10 text-blue-300",
+            "legal": "border-sky-500/40 bg-sky-500/10 text-sky-300",
+            "programme-partner": "border-emerald-500/40 bg-emerald-500/10 text-emerald-300",
+            "delivery-partner": "border-teal-500/40 bg-teal-500/10 text-teal-300",
+            "shareholder": "border-gray-500/40 bg-gray-500/10 text-gray-300"
+          };
+          const sourceColour = {
+            "NAO": "border-blue-500/40 bg-blue-500/[0.08] text-blue-300",
+            "nao": "border-blue-500/40 bg-blue-500/[0.08] text-blue-300",
+            "pac": "border-emerald-500/40 bg-emerald-500/[0.08] text-emerald-300",
+            "parliamentary": "border-emerald-500/40 bg-emerald-500/[0.08] text-emerald-300",
+            "hansard": "border-emerald-500/40 bg-emerald-500/[0.08] text-emerald-300",
+            "ipa": "border-blue-400/40 bg-blue-400/[0.08] text-blue-200",
+            "gov.uk": "border-sky-500/40 bg-sky-500/[0.08] text-sky-300",
+            "regulator": "border-cyan-500/40 bg-cyan-500/[0.08] text-cyan-300",
+            "court-ruling": "border-red-500/40 bg-red-500/[0.08] text-red-300",
+            "public-inquiry": "border-red-400/40 bg-red-400/[0.08] text-red-200",
+            "companies-house": "border-amber-500/40 bg-amber-500/[0.08] text-amber-300",
+            "company-announcement": "border-orange-500/40 bg-orange-500/[0.08] text-orange-300",
+            "annual-report": "border-orange-500/40 bg-orange-500/[0.08] text-orange-300",
+            "sec-filing": "border-pink-500/40 bg-pink-500/[0.08] text-pink-300",
+            "contracts-finder": "border-purple-500/40 bg-purple-500/[0.08] text-purple-300",
+            "find-tender": "border-purple-500/40 bg-purple-500/[0.08] text-purple-300",
+            "legislation": "border-fuchsia-500/40 bg-fuchsia-500/[0.08] text-fuchsia-300",
+            "websearch-primary": "border-gray-500/40 bg-gray-500/[0.08] text-gray-300"
+          };
+          const statusColour = {
+            "Cancelled": "border-red-500/40 bg-red-500/10 text-red-300",
+            "Completed": "border-emerald-500/40 bg-emerald-500/10 text-emerald-300",
+            "In Progress": "border-sky-500/40 bg-sky-500/10 text-sky-300",
+            "In Development": "border-cyan-500/40 bg-cyan-500/10 text-cyan-300",
+            "In Planning": "border-indigo-500/40 bg-indigo-500/10 text-indigo-300",
+            "Compensation Ongoing": "border-amber-500/40 bg-amber-500/10 text-amber-300"
+          };
+
+          // Aggregate stats + facet sets
+          let totalGroups = 0;
+          let totalMembers = 0;
+          let totalAggValue = 0;
+          let disclosedMemberCount = 0;
+          const deptSet = new Set();
+          const roleSet = new Set();
+          const sourceSet = new Set();
+          const categorySet = new Set();
+          const statusCounts = {};
+          allProjects.forEach(p => {
+            const meta = projectMeta[p.projectId] || {};
+            if (meta.status) statusCounts[meta.status] = (statusCounts[meta.status] || 0) + 1;
+            if (meta.category) categorySet.add(meta.category);
+            if (p.department) deptSet.add(p.department);
+            (p.contractors || []).forEach(g => {
+              totalGroups += 1;
+              if (typeof g.groupAggregateValueGBP === "number") totalAggValue += g.groupAggregateValueGBP;
+              (g.members || []).forEach(m => {
+                totalMembers += 1;
+                if (m.contractValueGBP != null) disclosedMemberCount += 1;
+                if (m.role) roleSet.add(m.role);
+                (m.sources || []).forEach(s => { if (s.type) sourceSet.add(s.type); });
+              });
+            });
+          });
+          const disclosureRatePct = totalMembers > 0 ? (100 * disclosedMemberCount / totalMembers) : 0;
+          const depts = ["All", ...Array.from(deptSet).sort()];
+          const roles = ["All", ...Array.from(roleSet).sort()];
+          const sources = ["All", ...Array.from(sourceSet).sort()];
+          const categories = ["All", ...Array.from(categorySet).sort()];
+          const statuses = ["All", ...Object.keys(statusCounts).sort()];
+
+          // Apply filters
+          const q = (contractorSearch || "").trim().toLowerCase();
+          const filtered = allProjects
+            .filter(p => {
+              const meta = projectMeta[p.projectId] || {};
+              if (contractorStatusFilter !== "All" && meta.status !== contractorStatusFilter) return false;
+              if (contractorCategoryFilter !== "All" && meta.category !== contractorCategoryFilter) return false;
+              if (contractorDeptFilter !== "All" && p.department !== contractorDeptFilter) return false;
+              return true;
+            })
+            .map(p => {
+              const groups = (p.contractors || [])
+                .map(g => {
+                  const members = (g.members || []).filter(m => {
+                    if (contractorRoleFilter !== "All" && m.role !== contractorRoleFilter) return false;
+                    if (contractorCHOnly && !m.companiesHouseNumber) return false;
+                    if (contractorHasValue && (m.contractValueGBP == null)) return false;
+                    if (contractorSourceFilter !== "All") {
+                      const hasSrc = (m.sources || []).some(s => s.type === contractorSourceFilter);
+                      if (!hasSrc) return false;
+                    }
+                    if (!q) return true;
+                    const hay = [
+                      p.projectName,
+                      p.department,
+                      p.contractingAuthority,
+                      g.groupName,
+                      m.name,
+                      m.role,
+                      m.scope,
+                      m.parent,
+                      ...(m.jvMembers || []).map(j => j.name)
+                    ].filter(Boolean).join(" ").toLowerCase();
+                    return hay.includes(q);
+                  });
+                  return { ...g, members };
+                })
+                .filter(g => g.members && g.members.length > 0);
+              return { ...p, contractors: groups };
+            })
+            .filter(p => p.contractors && p.contractors.length > 0);
+
+          // Sort
+          const sortFns = {
+            projectId: (a, b) => a.projectId - b.projectId,
+            memberCount: (a, b) => {
+              const am = a.contractors.reduce((s, g) => s + g.members.length, 0);
+              const bm = b.contractors.reduce((s, g) => s + g.members.length, 0);
+              return bm - am;
+            },
+            groupValue: (a, b) => {
+              const av = a.contractors.reduce((s, g) => s + (g.groupAggregateValueGBP || 0), 0);
+              const bv = b.contractors.reduce((s, g) => s + (g.groupAggregateValueGBP || 0), 0);
+              return bv - av;
+            },
+            budget: (a, b) => {
+              const ab = (projectMeta[a.projectId] || {}).latestBudget || 0;
+              const bb = (projectMeta[b.projectId] || {}).latestBudget || 0;
+              return bb - ab;
+            },
+            name: (a, b) => (a.projectName || "").localeCompare(b.projectName || "")
+          };
+          filtered.sort(sortFns[contractorSortBy] || sortFns.groupValue);
+
+          const fmtGBP = (v) => {
+            if (v == null || isNaN(v)) return null;
+            if (v >= 1e9) return "£" + (v / 1e9).toFixed(v >= 1e10 ? 0 : 1) + "bn";
+            if (v >= 1e6) return "£" + (v / 1e6).toFixed(v >= 1e7 ? 0 : 1) + "m";
+            if (v >= 1e3) return "£" + (v / 1e3).toFixed(0) + "k";
+            return "£" + v.toLocaleString("en-GB");
+          };
+
+          // Parent name normaliser — strips CH suffix like " (01234567)"
+          const parentName = (s) => (s || "").replace(/\s*\(\d+\)\s*$/, "").trim();
+
+          // Per-company aggregation (across filtered projects/members)
+          const companyMap = new Map();
+          filtered.forEach(p => {
+            const meta = projectMeta[p.projectId] || {};
+            p.contractors.forEach(g => {
+              g.members.forEach(m => {
+                const key = parentName(m.parent) || m.name;
+                let rec = companyMap.get(key);
+                if (!rec) {
+                  rec = {
+                    name: key,
+                    memberNames: new Set(),
+                    totalValue: 0,
+                    projectIds: new Set(),
+                    appearances: [],
+                    companiesHouseNumbers: new Set(),
+                    roles: new Set(),
+                    jurisdictions: new Set(),
+                    cancelledProjectCount: 0,
+                    cancelledValue: 0
+                  };
+                  companyMap.set(key, rec);
+                }
+                rec.memberNames.add(m.name);
+                rec.totalValue += (m.contractValueGBP || 0);
+                rec.projectIds.add(p.projectId);
+                rec.appearances.push({
+                  projectId: p.projectId,
+                  projectName: p.projectName,
+                  status: meta.status,
+                  category: meta.category,
+                  memberName: m.name,
+                  role: m.role,
+                  groupName: g.groupName,
+                  value: m.contractValueGBP,
+                  companiesHouseNumber: m.companiesHouseNumber,
+                  scope: m.scope
+                });
+                if (m.companiesHouseNumber) rec.companiesHouseNumbers.add(m.companiesHouseNumber);
+                if (m.role) rec.roles.add(m.role);
+                if (m.jurisdiction) rec.jurisdictions.add(m.jurisdiction);
+                if (meta.status === "Cancelled") {
+                  rec.cancelledProjectCount += 1;
+                  rec.cancelledValue += (m.contractValueGBP || 0);
+                }
+              });
+            });
+          });
+          const companyAggregates = Array.from(companyMap.values()).map(r => ({
+            ...r,
+            memberNames: Array.from(r.memberNames),
+            projectCount: r.projectIds.size,
+            companiesHouseNumbers: Array.from(r.companiesHouseNumbers),
+            roles: Array.from(r.roles),
+            jurisdictions: Array.from(r.jurisdictions)
+          }));
+          // Dedupe cancelled project count (multiple rows on same cancelled project count once)
+          companyAggregates.forEach(rec => {
+            const cancelledIds = new Set(rec.appearances.filter(a => a.status === "Cancelled").map(a => a.projectId));
+            rec.cancelledProjectCount = cancelledIds.size;
+          });
+          const companySortFns = {
+            totalValue: (a, b) => b.totalValue - a.totalValue,
+            projectCount: (a, b) => b.projectCount - a.projectCount || b.totalValue - a.totalValue,
+            cancelled: (a, b) => (b.cancelledProjectCount - a.cancelledProjectCount) || (b.cancelledValue - a.cancelledValue) || (b.totalValue - a.totalValue),
+            name: (a, b) => a.name.localeCompare(b.name)
+          };
+          companyAggregates.sort(companySortFns[contractorCompanySortBy] || companySortFns.totalValue);
+          const uniqueCompanyCount = companyAggregates.length;
+
+          // "Repeat offenders" = 2+ projects. Always computed; filter toggle decides whether to show only these.
+          const repeatOffenders = companyAggregates.filter(c => c.projectCount >= 2);
+          const companyList = contractorRepeatOnly ? repeatOffenders : companyAggregates;
+
+          // Leaderboard aggregates — computed from a project set that is
+          // filtered by the contextual chips (dept / status / category /
+          // role / source / CH-only / has-value) BUT NOT by the text
+          // search. Reason: clicking a card in the leaderboard sets the
+          // text search to that company's name — if the leaderboard were
+          // also filtered by that search it would instantly collapse to a
+          // single entry and the reader would be stranded with no way to
+          // pick another company. Keep the leaderboard stable.
+          const leaderboardProjects = allProjects
+            .filter(p => {
+              const meta = projectMeta[p.projectId] || {};
+              if (contractorStatusFilter !== "All" && meta.status !== contractorStatusFilter) return false;
+              if (contractorCategoryFilter !== "All" && meta.category !== contractorCategoryFilter) return false;
+              if (contractorDeptFilter !== "All" && p.department !== contractorDeptFilter) return false;
+              return true;
+            })
+            .map(p => {
+              const groups = (p.contractors || [])
+                .map(g => {
+                  const members = (g.members || []).filter(m => {
+                    if (contractorRoleFilter !== "All" && m.role !== contractorRoleFilter) return false;
+                    if (contractorCHOnly && !m.companiesHouseNumber) return false;
+                    if (contractorHasValue && (m.contractValueGBP == null)) return false;
+                    if (contractorSourceFilter !== "All") {
+                      const hasSrc = (m.sources || []).some(s => s.type === contractorSourceFilter);
+                      if (!hasSrc) return false;
+                    }
+                    return true;
+                  });
+                  return { ...g, members };
+                })
+                .filter(g => g.members && g.members.length > 0);
+              return { ...p, contractors: groups };
+            })
+            .filter(p => p.contractors && p.contractors.length > 0);
+
+          const leaderboardCompanyMap = new Map();
+          leaderboardProjects.forEach(p => {
+            const meta = projectMeta[p.projectId] || {};
+            p.contractors.forEach(g => {
+              g.members.forEach(m => {
+                const key = parentName(m.parent) || m.name;
+                let rec = leaderboardCompanyMap.get(key);
+                if (!rec) {
+                  rec = {
+                    name: key,
+                    totalValue: 0,
+                    projectIds: new Set(),
+                    cancelledProjectIds: new Set(),
+                    cancelledValue: 0,
+                  };
+                  leaderboardCompanyMap.set(key, rec);
+                }
+                rec.totalValue += (m.contractValueGBP || 0);
+                rec.projectIds.add(p.projectId);
+                if (meta.status === "Cancelled") {
+                  rec.cancelledProjectIds.add(p.projectId);
+                  rec.cancelledValue += (m.contractValueGBP || 0);
+                }
+              });
+            });
+          });
+          const leaderboardRepeats = Array.from(leaderboardCompanyMap.values())
+            .map(r => ({
+              name: r.name,
+              totalValue: r.totalValue,
+              projectCount: r.projectIds.size,
+              cancelledProjectCount: r.cancelledProjectIds.size,
+              cancelledValue: r.cancelledValue,
+            }))
+            .filter(c => c.projectCount >= 2);
+          const repeatOffenderCount = leaderboardRepeats.length;
+
+          // Top repeat offenders leaderboard (up to 8) — always by projectCount desc then totalValue desc
+          const topRepeatOffenders = leaderboardRepeats
+            .slice()
+            .sort((a, b) => (b.projectCount - a.projectCount) || (b.totalValue - a.totalValue))
+            .slice(0, 8);
+
+          // Active filter detection
+          const hasActiveFilter =
+            !!q ||
+            contractorDeptFilter !== "All" ||
+            contractorRoleFilter !== "All" ||
+            contractorStatusFilter !== "All" ||
+            contractorCategoryFilter !== "All" ||
+            contractorSourceFilter !== "All" ||
+            contractorCHOnly ||
+            contractorHasValue ||
+            contractorRepeatOnly;
+
+          // CSV export for current view
+          const downloadCSV = () => {
+            const esc = (v) => {
+              if (v == null) return "";
+              const s = String(v).replace(/"/g, '""');
+              return /[",\n]/.test(s) ? '"' + s + '"' : s;
+            };
+            let rows = [];
+            if (contractorViewMode === "by-company") {
+              rows.push(["Company", "Total disclosed £ (GBP)", "Projects", "Cancelled projects", "Cancelled £ (GBP)", "CH numbers", "Roles", "Jurisdictions", "Appearances (project / role)"].join(","));
+              companyList.forEach(c => {
+                const appearances = c.appearances.map(a => a.projectName + " / " + (a.role || "")).join(" | ");
+                rows.push([
+                  esc(c.name),
+                  esc(c.totalValue || ""),
+                  esc(c.projectCount),
+                  esc(c.cancelledProjectCount),
+                  esc(c.cancelledValue || ""),
+                  esc(c.companiesHouseNumbers.join("; ")),
+                  esc(c.roles.join("; ")),
+                  esc(c.jurisdictions.join("; ")),
+                  esc(appearances)
+                ].join(","));
+              });
+            } else {
+              rows.push(["Project ID", "Project name", "Status", "Category", "Department", "Authority", "Budget (£m)", "Group", "Member", "Parent", "Role", "CH number", "Contract value (GBP)", "Scope", "Sources"].join(","));
+              filtered.forEach(p => {
+                const meta = projectMeta[p.projectId] || {};
+                p.contractors.forEach(g => {
+                  g.members.forEach(m => {
+                    rows.push([
+                      esc(p.projectId),
+                      esc(p.projectName),
+                      esc(meta.status),
+                      esc(meta.category),
+                      esc(p.department),
+                      esc(p.contractingAuthority),
+                      esc(meta.latestBudget || ""),
+                      esc(g.groupName),
+                      esc(m.name),
+                      esc(m.parent || ""),
+                      esc(m.role),
+                      esc(m.companiesHouseNumber || ""),
+                      esc(m.contractValueGBP || ""),
+                      esc(m.scope || ""),
+                      esc((m.sources || []).map(s => s.type + ":" + s.url).join(" | "))
+                    ].join(","));
+                  });
+                });
+              });
+            }
+            const blob = new Blob([rows.join("\n")], { type: "text/csv;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "gracchus-contractors-" + contractorViewMode + "-" + new Date().toISOString().slice(0, 10) + ".csv";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          };
+
+          // Multi-expand helpers
+          const toggleExpand = (id) => {
+            const next = new Set(contractorExpanded);
+            if (next.has(id)) next.delete(id);
+            else next.add(id);
+            setContractorExpanded(next);
+          };
+          const toggleCompanyExpand = (name) => {
+            const next = new Set(contractorCompanyExpanded);
+            if (next.has(name)) next.delete(name);
+            else next.add(name);
+            setContractorCompanyExpanded(next);
+          };
+          const expandAll = () => {
+            if (contractorViewMode === "by-company") {
+              setContractorCompanyExpanded(new Set(companyList.map(c => c.name)));
+            } else {
+              setContractorExpanded(new Set(filtered.map(p => p.projectId)));
+            }
+          };
+          const collapseAll = () => {
+            if (contractorViewMode === "by-company") setContractorCompanyExpanded(new Set());
+            else setContractorExpanded(new Set());
+          };
+
+          return (
+            <div className="space-y-4">
+              <PageHeader
+                eyebrow={"Waste & Projects \u203A Who keeps getting paid?"}
+                title="The Same Names, Over and Over"
+                dataAsOf={data?.projects?.[0]?.lastUpdated ? "Apr 2026" : ""}
+                description={
+                  "A small cast of firms cycles through Britain's biggest public-money programmes — " +
+                  "winners of contracts on cancelled schemes, failed IT rollouts, cost-blown megaprojects. " +
+                  "This view collapses every contractor, JV partner, subcontractor, supplier, consultant, " +
+                  "auditor and legal adviser we can back with a primary public source (NAO, PAC, IPA, " +
+                  "Contracts Finder, Companies House, statutory inquiries, court rulings) into a single " +
+                  "leaderboard. Sort by repeat appearances. Sort by cancelled-project winnings. Ask the " +
+                  "only question that matters: who keeps getting paid, and why?"
+                }
+              />
+
+              {/* ============ REPEAT OFFENDERS HERO ============ */}
+              {topRepeatOffenders.length > 0 && (
+                <div className="border-2 border-red-500/40 bg-gradient-to-br from-red-950/40 via-red-900/10 to-transparent p-4">
+                  <div className="flex items-start justify-between gap-3 flex-wrap mb-3">
+                    <div className="min-w-0">
+                      <div className="text-[10px] uppercase tracking-[0.2em] text-red-400/90 font-mono">
+                        The Repeat Offenders
+                      </div>
+                      <div className="text-lg text-white font-light mt-1">
+                        {repeatOffenderCount} firms have been paid on 2 or more of these programmes
+                      </div>
+                      <div className="text-[11px] text-gray-400 mt-0.5">
+                        Click a company to drill in. Click the chip below to hide every one-off winner and just see the repeat list.
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setContractorViewMode("by-company");
+                        setContractorRepeatOnly(!contractorRepeatOnly);
+                        setContractorCompanySortBy("projectCount");
+                      }}
+                      className={
+                        "shrink-0 px-3 py-2 text-[11px] font-mono uppercase tracking-wider border transition " +
+                        (contractorRepeatOnly
+                          ? "border-red-400 bg-red-500/30 text-white ring-1 ring-red-400/60"
+                          : "border-red-500/60 bg-red-500/15 text-red-200 hover:bg-red-500/25")
+                      }
+                    >
+                      {contractorRepeatOnly ? "Showing repeat offenders only" : "Show repeat offenders only"}
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                    {topRepeatOffenders.map((c, ci) => {
+                      const hasCancelled = c.cancelledProjectCount > 0;
+                      return (
+                        <button
+                          key={c.name}
+                          onClick={() => {
+                            setContractorViewMode("by-company");
+                            setContractorSearch(c.name);
+                            const next = new Set(contractorCompanyExpanded);
+                            next.add(c.name);
+                            setContractorCompanyExpanded(next);
+                          }}
+                          className={
+                            "text-left border p-2.5 transition " +
+                            (hasCancelled
+                              ? "border-red-500/50 bg-red-950/40 hover:bg-red-900/50"
+                              : "border-gray-700/60 bg-black/30 hover:bg-gray-900/60")
+                          }
+                          title={"Click to drill into " + c.name}
+                        >
+                          <div className="flex items-center gap-1.5 mb-1">
+                            <span className={
+                              "text-[10px] font-mono font-bold w-5 text-center shrink-0 " +
+                              (ci < 3 ? "text-red-400" : "text-gray-500")
+                            }>
+                              #{ci + 1}
+                            </span>
+                            <span className="text-sm text-white font-medium truncate flex-1">{c.name}</span>
+                          </div>
+                          <div className="flex items-baseline justify-between gap-2 flex-wrap pl-6">
+                            <div className="flex items-baseline gap-1">
+                              <span className="text-xl text-white font-light leading-none">{c.projectCount}</span>
+                              <span className="text-[10px] text-gray-500 font-mono uppercase tracking-wider">projects</span>
+                            </div>
+                            {c.totalValue > 0 && (
+                              <div className="text-[11px] text-emerald-300 font-mono">{fmtGBP(c.totalValue)}</div>
+                            )}
+                          </div>
+                          {hasCancelled && (
+                            <div className="mt-1 pl-6 text-[10px] text-red-300 font-mono">
+                              {c.cancelledProjectCount} cancelled · {fmtGBP(c.cancelledValue) || "—"}
+                            </div>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* "Not disclosed" explainer — makes the data limitation visible */}
+              <div className="border border-amber-500/30 bg-amber-500/[0.04] p-3 flex items-start gap-3">
+                <div className="text-amber-400 text-lg leading-none shrink-0 mt-0.5">!</div>
+                <div className="min-w-0">
+                  <div className="text-[11px] uppercase tracking-wider text-amber-300/90 font-mono mb-1">
+                    What "not disclosed" means
+                  </div>
+                  <div className="text-xs text-gray-300 leading-relaxed">
+                    Only <span className="text-white font-mono">{disclosureRatePct.toFixed(1)}%</span> of the <span className="text-white font-mono">{totalMembers}</span> contractor rows below have a £ value we can back with a primary public source. <span className="text-gray-400">The other <span className="font-mono">{(100 - disclosureRatePct).toFixed(1)}%</span> were paid — often substantially — but the per-firm, per-scheme figure isn't in any source we've processed yet.</span> Framework call-offs, pooled consultancy contracts and sub-prime awards are the usual gaps. Backfilling from departmental transparency CSVs (monthly £25k+ spend) and Contracts Finder awards is in progress; FOI requests will follow for the rest.
+                  </div>
+                </div>
+              </div>
+
+              {/* Summary tiles — live with filters */}
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                <div className={"border p-3 " + (hasActiveFilter ? "border-gray-700/80 bg-gray-900/60" : "border-gray-800/60 bg-gray-900/40")}>
+                  <div className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">
+                    Projects {hasActiveFilter ? "(filtered)" : ""}
+                  </div>
+                  <div className="text-2xl text-white font-light mt-1">
+                    {filtered.length}
+                    {hasActiveFilter && <span className="text-xs text-gray-600 ml-1.5">/ {allProjects.length}</span>}
+                  </div>
+                </div>
+                <div className={"border p-3 " + (hasActiveFilter ? "border-gray-700/80 bg-gray-900/60" : "border-gray-800/60 bg-gray-900/40")}>
+                  <div className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Unique companies</div>
+                  <div className="text-2xl text-white font-light mt-1">{uniqueCompanyCount}</div>
+                </div>
+                <div className={"border p-3 " + (hasActiveFilter ? "border-gray-700/80 bg-gray-900/60" : "border-gray-800/60 bg-gray-900/40")}>
+                  <div className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Disclosed £</div>
+                  <div className="text-2xl text-emerald-300 font-light mt-1">
+                    {fmtGBP(companyAggregates.reduce((s, c) => s + c.totalValue, 0)) || "—"}
+                  </div>
+                </div>
+                <div className="border border-amber-500/30 bg-amber-500/[0.04] p-3" title="Share of contractor rows with a disclosed £ value from a primary public source. The rest were paid but the per-firm, per-scheme figure isn't public yet.">
+                  <div className="text-[10px] uppercase tracking-wider text-amber-400/80 font-mono">Disclosure rate</div>
+                  <div className="text-2xl text-amber-200 font-light mt-1">
+                    {disclosureRatePct.toFixed(1)}%
+                    <span className="text-xs text-gray-500 ml-1.5">{disclosedMemberCount}/{totalMembers}</span>
+                  </div>
+                </div>
+                <div className="border border-red-500/30 bg-red-500/[0.06] p-3">
+                  <div className="text-[10px] uppercase tracking-wider text-red-400/80 font-mono">Cancelled £ paid</div>
+                  <div className="text-2xl text-red-300 font-light mt-1">
+                    {fmtGBP(companyAggregates.reduce((s, c) => s + c.cancelledValue, 0)) || "—"}
+                  </div>
+                </div>
+                <div className="border border-red-500/30 bg-red-500/[0.06] p-3">
+                  <div className="text-[10px] uppercase tracking-wider text-red-400/80 font-mono">Cancelled projects</div>
+                  <div className="text-2xl text-red-300 font-light mt-1">{statusCounts["Cancelled"] || 0}</div>
+                </div>
+              </div>
+
+              {/* View-mode toggle + Primary-action chips */}
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="inline-flex border border-gray-800 bg-gray-900/40 p-0.5">
+                  <button
+                    onClick={() => setContractorViewMode("by-company")}
+                    className={
+                      "px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider transition " +
+                      (contractorViewMode === "by-company"
+                        ? "bg-gray-700 text-white"
+                        : "text-gray-400 hover:text-white")
+                    }
+                  >
+                    By company
+                  </button>
+                  <button
+                    onClick={() => setContractorViewMode("by-project")}
+                    className={
+                      "px-3 py-1.5 text-[11px] font-mono uppercase tracking-wider transition " +
+                      (contractorViewMode === "by-project"
+                        ? "bg-gray-700 text-white"
+                        : "text-gray-400 hover:text-white")
+                    }
+                  >
+                    By project
+                  </button>
+                </div>
+
+                {/* 2+ projects only chip (repeat-offender filter) */}
+                <button
+                  onClick={() => {
+                    setContractorViewMode("by-company");
+                    setContractorRepeatOnly(!contractorRepeatOnly);
+                  }}
+                  className={
+                    "inline-flex items-center gap-2 px-3 py-1.5 " +
+                    "text-[11px] font-mono uppercase tracking-wider border transition " +
+                    (contractorRepeatOnly
+                      ? "border-red-400 bg-red-500/25 text-white ring-1 ring-red-400/60"
+                      : "border-red-500/50 bg-red-500/10 text-red-300 hover:bg-red-500/20")
+                  }
+                  title="Show only companies that appear on 2+ projects"
+                >
+                  <span>Repeat offenders only</span>
+                  <span className="text-[10px] opacity-80">{repeatOffenderCount}</span>
+                </button>
+
+                {/* Primary action — Cancelled chip */}
+                <button
+                  onClick={() => setContractorStatusFilter(contractorStatusFilter === "Cancelled" ? "All" : "Cancelled")}
+                  className={
+                    "inline-flex items-center gap-2 px-3 py-1.5 " +
+                    "text-[11px] font-mono uppercase tracking-wider border transition " +
+                    (contractorStatusFilter === "Cancelled"
+                      ? "border-red-400 bg-red-500/25 text-white ring-1 ring-red-400/60"
+                      : "border-red-500/50 bg-red-500/10 text-red-300 hover:bg-red-500/20")
+                  }
+                  title="Filter to scrapped / cancelled programmes"
+                >
+                  <span>Cancelled — who got paid</span>
+                  <span className="text-[10px] opacity-80">{statusCounts["Cancelled"] || 0}</span>
+                </button>
+
+                {/* £ disclosed chip */}
+                <button
+                  onClick={() => setContractorHasValue(!contractorHasValue)}
+                  className={
+                    "inline-flex items-center gap-2 px-3 py-1.5 " +
+                    "text-[11px] font-mono uppercase tracking-wider border transition " +
+                    (contractorHasValue
+                      ? "border-emerald-400 bg-emerald-500/25 text-white ring-1 ring-emerald-400/60"
+                      : "border-emerald-500/50 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20")
+                  }
+                  title="Show only contractors with a disclosed public contract value"
+                >
+                  £ disclosed only
+                </button>
+
+                {/* UK-registered chip */}
+                <button
+                  onClick={() => setContractorCHOnly(!contractorCHOnly)}
+                  className={
+                    "inline-flex items-center gap-2 px-3 py-1.5 " +
+                    "text-[11px] font-mono uppercase tracking-wider border transition " +
+                    (contractorCHOnly
+                      ? "border-amber-400 bg-amber-500/25 text-white ring-1 ring-amber-400/60"
+                      : "border-amber-500/50 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20")
+                  }
+                  title="Show only UK-registered companies (with a Companies House number)"
+                >
+                  UK-registered only
+                </button>
+              </div>
+
+              {/* Secondary status chips */}
+              <div className="flex flex-wrap gap-1.5 items-center">
+                <span className="text-[10px] uppercase tracking-wider text-gray-600 font-mono mr-1">Status:</span>
+                {[
+                  { key: "All", label: "All", count: allProjects.length, cls: "border-gray-700 bg-gray-800/30 text-gray-400 hover:bg-gray-800/60" },
+                  { key: "Completed", label: "Completed", count: statusCounts["Completed"] || 0, cls: "border-emerald-500/30 bg-emerald-500/[0.06] text-emerald-400 hover:bg-emerald-500/15" },
+                  { key: "In Progress", label: "In progress", count: statusCounts["In Progress"] || 0, cls: "border-sky-500/30 bg-sky-500/[0.06] text-sky-400 hover:bg-sky-500/15" },
+                  { key: "In Development", label: "In development", count: statusCounts["In Development"] || 0, cls: "border-cyan-500/30 bg-cyan-500/[0.06] text-cyan-400 hover:bg-cyan-500/15" },
+                  { key: "In Planning", label: "In planning", count: statusCounts["In Planning"] || 0, cls: "border-indigo-500/30 bg-indigo-500/[0.06] text-indigo-400 hover:bg-indigo-500/15" },
+                  { key: "Compensation Ongoing", label: "Compensation ongoing", count: statusCounts["Compensation Ongoing"] || 0, cls: "border-amber-500/30 bg-amber-500/[0.06] text-amber-400 hover:bg-amber-500/15" }
+                ].filter(c => c.key === "All" || c.count > 0).map(c => {
+                  const active = contractorStatusFilter === c.key;
+                  return (
+                    <button
+                      key={c.key}
+                      onClick={() => setContractorStatusFilter(c.key)}
+                      className={
+                        "inline-flex items-center gap-1.5 px-2 py-0.5 " +
+                        "text-[10px] font-mono border transition " +
+                        c.cls + " " +
+                        (active ? "ring-1 ring-white/40 opacity-100" : "opacity-75")
+                      }
+                    >
+                      {c.label}
+                      <span className="text-[9px] opacity-70">{c.count}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Filter panel */}
+              <div className="border border-gray-800/60 bg-gray-900/40 p-3 space-y-2.5">
+                {/* Search — full width, min-w-0 so it shrinks on narrow
+                    viewports. The inline ✕ appears when a search is
+                    active so the reader can always get back — clicking
+                    a repeat-offender card populates this search, and
+                    without a clear affordance the UI felt like a
+                    one-way trip. */}
+                <div className="relative w-full min-w-0">
+                  <input
+                    type="text"
+                    value={contractorSearch}
+                    onChange={(e) => setContractorSearch(e.target.value)}
+                    placeholder="Search contractor, project, scope, parent company, JV member..."
+                    className={
+                      "w-full min-w-0 px-3 py-2 " +
+                      (contractorSearch ? "pr-10 " : "") +
+                      "bg-black/40 border border-gray-800 " +
+                      "text-sm text-white placeholder-gray-600 " +
+                      "focus:outline-none focus:border-gray-600"
+                    }
+                  />
+                  {contractorSearch && (
+                    <button
+                      type="button"
+                      onClick={() => setContractorSearch("")}
+                      aria-label="Clear search"
+                      title="Clear search"
+                      className={
+                        "absolute right-1.5 top-1/2 -translate-y-1/2 " +
+                        "w-7 h-7 flex items-center justify-center " +
+                        "text-gray-400 hover:text-white " +
+                        "hover:bg-gray-800/80 transition"
+                      }
+                    >
+                      &#x2715;
+                    </button>
+                  )}
+                </div>
+
+                {/* Dropdowns — 4-col grid (status moved to chips) */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 min-w-0">
+                  <label className="min-w-0 flex flex-col gap-0.5">
+                    <span className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Category</span>
+                    <select
+                      value={contractorCategoryFilter}
+                      onChange={(e) => setContractorCategoryFilter(e.target.value)}
+                      className="w-full min-w-0 px-2 py-1.5 bg-black/40 border border-gray-800 text-xs text-white focus:outline-none focus:border-gray-600"
+                    >
+                      {categories.map(c => (
+                        <option key={c} value={c}>{c === "All" ? "All categories" : c}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="min-w-0 flex flex-col gap-0.5">
+                    <span className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Department</span>
+                    <select
+                      value={contractorDeptFilter}
+                      onChange={(e) => setContractorDeptFilter(e.target.value)}
+                      className="w-full min-w-0 px-2 py-1.5 bg-black/40 border border-gray-800 text-xs text-white focus:outline-none focus:border-gray-600"
+                    >
+                      {depts.map(d => (
+                        <option key={d} value={d}>{d === "All" ? "All departments" : d}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="min-w-0 flex flex-col gap-0.5">
+                    <span className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Role</span>
+                    <select
+                      value={contractorRoleFilter}
+                      onChange={(e) => setContractorRoleFilter(e.target.value)}
+                      className="w-full min-w-0 px-2 py-1.5 bg-black/40 border border-gray-800 text-xs text-white focus:outline-none focus:border-gray-600"
+                    >
+                      {roles.map(r => (
+                        <option key={r} value={r}>{r === "All" ? "All roles" : r}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="min-w-0 flex flex-col gap-0.5">
+                    <span className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Source type</span>
+                    <select
+                      value={contractorSourceFilter}
+                      onChange={(e) => setContractorSourceFilter(e.target.value)}
+                      className="w-full min-w-0 px-2 py-1.5 bg-black/40 border border-gray-800 text-xs text-white focus:outline-none focus:border-gray-600"
+                    >
+                      {sources.map(s => (
+                        <option key={s} value={s}>{s === "All" ? "All sources" : s}</option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+
+                {/* Sort — context-sensitive */}
+                <div className="flex flex-wrap items-center gap-3 pt-1">
+                  <div className="inline-flex items-center gap-1.5 text-[11px] text-gray-400 ml-auto">
+                    <span className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Sort:</span>
+                    {contractorViewMode === "by-project" ? (
+                      <select
+                        value={contractorSortBy}
+                        onChange={(e) => setContractorSortBy(e.target.value)}
+                        className="px-2 py-1 bg-black/40 border border-gray-800 text-xs text-white focus:outline-none focus:border-gray-600"
+                      >
+                        <option value="groupValue">Aggregate contract value (largest)</option>
+                        <option value="budget">Project budget (largest)</option>
+                        <option value="memberCount">Most contractors</option>
+                        <option value="name">Project name (A–Z)</option>
+                        <option value="projectId">Project ID</option>
+                      </select>
+                    ) : (
+                      <select
+                        value={contractorCompanySortBy}
+                        onChange={(e) => setContractorCompanySortBy(e.target.value)}
+                        className="px-2 py-1 bg-black/40 border border-gray-800 text-xs text-white focus:outline-none focus:border-gray-600"
+                      >
+                        <option value="projectCount">Most projects won (repeat offenders first)</option>
+                        <option value="totalValue">Total disclosed £ (largest)</option>
+                        <option value="cancelled">Most cancelled projects</option>
+                        <option value="name">Company name (A–Z)</option>
+                      </select>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Results bar — counts, expand controls, CSV export */}
+              <div className="text-xs text-gray-500 font-mono flex flex-wrap items-center gap-3">
+                {contractorViewMode === "by-project" ? (
+                  <span>Showing {filtered.length} of {allProjects.length} projects · {uniqueCompanyCount} unique companies</span>
+                ) : (
+                  <span>
+                    Showing {companyList.length} {contractorRepeatOnly ? "repeat offenders" : "companies"} across {filtered.length} projects
+                    {!contractorRepeatOnly && repeatOffenderCount > 0 && (
+                      <span className="text-red-400/80"> · {repeatOffenderCount} appear on 2+ projects</span>
+                    )}
+                  </span>
+                )}
+                {hasActiveFilter && (
+                  <button
+                    onClick={() => {
+                      setContractorSearch("");
+                      setContractorDeptFilter("All");
+                      setContractorRoleFilter("All");
+                      setContractorStatusFilter("All");
+                      setContractorCategoryFilter("All");
+                      setContractorSourceFilter("All");
+                      setContractorCHOnly(false);
+                      setContractorHasValue(false);
+                      setContractorRepeatOnly(false);
+                    }}
+                    className="text-gray-400 hover:text-white underline"
+                  >
+                    Clear all filters
+                  </button>
+                )}
+                <div className="ml-auto flex flex-wrap items-center gap-2">
+                  <button
+                    onClick={expandAll}
+                    className="px-2 py-0.5 border border-gray-800 text-gray-400 hover:text-white hover:border-gray-600"
+                  >
+                    Expand all
+                  </button>
+                  <button
+                    onClick={collapseAll}
+                    className="px-2 py-0.5 border border-gray-800 text-gray-400 hover:text-white hover:border-gray-600"
+                  >
+                    Collapse all
+                  </button>
+                  <button
+                    onClick={downloadCSV}
+                    className="px-2 py-0.5 border border-emerald-500/40 bg-emerald-500/[0.06] text-emerald-300 hover:bg-emerald-500/15"
+                    title="Download current filtered view as CSV"
+                  >
+                    Export CSV
+                  </button>
+                </div>
+              </div>
+
+              {/* ============ BY-COMPANY VIEW ============ */}
+              {contractorViewMode === "by-company" && (
+                <div className="space-y-2">
+                  {companyList.length === 0 && (
+                    <div className="border border-gray-800/60 bg-gray-900/30 p-6 text-center text-gray-500 text-sm">
+                      No companies match these filters.
+                    </div>
+                  )}
+                  {companyList.map((c, ci) => {
+                    const isOpen = contractorCompanyExpanded.has(c.name);
+                    const primaryCH = c.companiesHouseNumbers[0];
+                    const isRepeat = c.projectCount >= 2;
+                    const isHeavyRepeat = c.projectCount >= 4;
+                    return (
+                      <div key={c.name} className={
+                        "border bg-gray-900/40 " +
+                        (c.cancelledProjectCount > 0
+                          ? "border-red-500/40"
+                          : isHeavyRepeat
+                            ? "border-red-500/25"
+                            : isRepeat
+                              ? "border-amber-500/25"
+                              : "border-gray-800/60")
+                      }>
+                        <button
+                          onClick={() => toggleCompanyExpand(c.name)}
+                          className="w-full flex items-start justify-between gap-3 px-4 py-3 hover:bg-gray-900/60 text-left"
+                        >
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className={
+                                "text-[10px] font-mono w-6 text-right shrink-0 " +
+                                (ci < 3 && contractorCompanySortBy === "projectCount" ? "text-red-400 font-bold" : "text-gray-500")
+                              }>#{ci + 1}</span>
+                              <span className="text-sm text-white font-medium">{c.name}</span>
+                              {isHeavyRepeat && (
+                                <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 border border-red-500/60 bg-red-500/20 text-red-200 font-bold">
+                                  Repeat offender · {c.projectCount}×
+                                </span>
+                              )}
+                              {!isHeavyRepeat && isRepeat && (
+                                <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 border border-amber-500/50 bg-amber-500/15 text-amber-200">
+                                  Repeat · {c.projectCount}×
+                                </span>
+                              )}
+                              {primaryCH && (
+                                <a
+                                  href={"https://find-and-update.company-information.service.gov.uk/company/" + primaryCH}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="text-[10px] font-mono text-amber-400 hover:text-amber-300 border border-amber-500/30 px-1.5 py-0.5 inline-flex items-center gap-1"
+                                >
+                                  CH {primaryCH}<ExternalLink size={9} />
+                                </a>
+                              )}
+                              {c.cancelledProjectCount > 0 && (
+                                <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 border border-red-500/40 bg-red-500/10 text-red-300">
+                                  {c.cancelledProjectCount} cancelled
+                                </span>
+                              )}
+                            </div>
+                            <div className="text-[11px] text-gray-500 mt-0.5">
+                              {c.roles.join(" · ") || "—"}
+                              {c.jurisdictions.length > 0 && (
+                                <span className="text-gray-600"> · {c.jurisdictions.join(", ")}</span>
+                              )}
+                              {c.memberNames.length > 1 && (
+                                <span className="text-gray-600"> · {c.memberNames.length} entity variants</span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-4 shrink-0 text-right">
+                            <div>
+                              <div className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Projects</div>
+                              <div className={
+                                "font-mono leading-none mt-0.5 " +
+                                (isHeavyRepeat
+                                  ? "text-2xl text-red-300 font-bold"
+                                  : isRepeat
+                                    ? "text-xl text-amber-200"
+                                    : "text-sm text-white")
+                              }>{c.projectCount}</div>
+                            </div>
+                            {c.totalValue > 0 ? (
+                              <div>
+                                <div className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Disclosed £</div>
+                                <div className="text-sm text-emerald-300 font-mono">{fmtGBP(c.totalValue)}</div>
+                              </div>
+                            ) : (
+                              <div>
+                                <div className="text-[10px] uppercase tracking-wider text-gray-600 font-mono">Disclosed £</div>
+                                <div className="text-sm text-gray-600 font-mono">not disclosed</div>
+                              </div>
+                            )}
+                            {c.cancelledValue > 0 && (
+                              <div>
+                                <div className="text-[10px] uppercase tracking-wider text-red-400/80 font-mono">From cancelled</div>
+                                <div className="text-sm text-red-300 font-mono">{fmtGBP(c.cancelledValue)}</div>
+                              </div>
+                            )}
+                            <span className="text-gray-500 text-sm">{isOpen ? "−" : "+"}</span>
+                          </div>
+                        </button>
+
+                        {isOpen && (
+                          <div className="border-t border-gray-800/60 p-3">
+                            <div className="text-[10px] uppercase tracking-wider text-gray-500 font-mono mb-2">
+                              Appearances ({c.appearances.length})
+                            </div>
+                            <div className="divide-y divide-gray-800/40">
+                              {c.appearances
+                                .slice()
+                                .sort((a, b) => (b.value || 0) - (a.value || 0))
+                                .map((a, ai) => (
+                                  <div key={ai} className="py-2 flex items-start justify-between gap-3 flex-wrap">
+                                    <div className="min-w-0 flex-1">
+                                      <div className="flex items-center gap-2 flex-wrap">
+                                        <span className="text-[10px] font-mono text-gray-500">#{a.projectId}</span>
+                                        <span className="text-sm text-white">{a.projectName}</span>
+                                        {a.status && (
+                                          <span className={
+                                            "text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 border " +
+                                            (statusColour[a.status] || "border-gray-700 bg-gray-800/60 text-gray-400")
+                                          }>
+                                            {a.status}
+                                          </span>
+                                        )}
+                                        {a.role && (
+                                          <span className={
+                                            "text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 border " +
+                                            (roleColour[a.role] || "border-gray-700 bg-gray-800/60 text-gray-400")
+                                          }>
+                                            {a.role}
+                                          </span>
+                                        )}
+                                      </div>
+                                      <div className="text-[11px] text-gray-500 mt-0.5">
+                                        {a.memberName !== c.name && <span>as {a.memberName} · </span>}
+                                        {a.groupName}
+                                      </div>
+                                      {a.scope && (
+                                        <div className="text-[11px] text-gray-500 mt-0.5 italic">{a.scope}</div>
+                                      )}
+                                    </div>
+                                    <div className="text-right shrink-0">
+                                      {a.value != null ? (
+                                        <div className="text-xs text-emerald-300 font-mono">{fmtGBP(a.value)}</div>
+                                      ) : (
+                                        <div className="text-[10px] text-gray-600 font-mono">not disclosed</div>
+                                      )}
+                                    </div>
+                                  </div>
+                                ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* ============ BY-PROJECT VIEW ============ */}
+              {contractorViewMode === "by-project" && (
+              <div className="space-y-3">
+                {filtered.length === 0 && (
+                  <div className="border border-gray-800/60 bg-gray-900/30 p-6 text-center text-gray-500 text-sm">
+                    No contractors match these filters.
+                  </div>
+                )}
+                {filtered.map(p => {
+                  const isOpen = contractorExpanded.has(p.projectId);
+                  const groupCount = p.contractors.length;
+                  const memberCount = p.contractors.reduce((s, g) => s + (g.members || []).length, 0);
+                  const meta = projectMeta[p.projectId] || {};
+                  const aggValue = p.contractors.reduce((s, g) => s + (g.groupAggregateValueGBP || 0), 0);
+                  // Overrun vs original budget (in £m → £)
+                  let overrunPct = null;
+                  if (meta.originalBudget && meta.latestBudget && meta.originalBudget > 0) {
+                    overrunPct = ((meta.latestBudget - meta.originalBudget) / meta.originalBudget) * 100;
+                  }
+                  // Top contractor by disclosed value
+                  let topContractor = null;
+                  let topVal = -1;
+                  p.contractors.forEach(g => {
+                    g.members.forEach(m => {
+                      if (m.role === "prime" || m.role === "jv-partner") {
+                        const v = m.contractValueGBP || 0;
+                        if (v > topVal) { topVal = v; topContractor = m.name; }
+                      }
+                    });
+                  });
+                  if (!topContractor) {
+                    p.contractors.forEach(g => {
+                      g.members.forEach(m => {
+                        if (!topContractor) topContractor = m.name;
+                      });
+                    });
+                  }
+                  const isCancelled = meta.status === "Cancelled";
+                  return (
+                    <div key={p.projectId} className={
+                      "border bg-gray-900/40 " +
+                      (isCancelled ? "border-red-500/30" : "border-gray-800/60")
+                    }>
+                      <button
+                        onClick={() => toggleExpand(p.projectId)}
+                        className={
+                          "w-full flex items-start justify-between gap-3 " +
+                          "px-4 py-3 hover:bg-gray-900/60 text-left"
+                        }
+                      >
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-[10px] font-mono text-gray-500">#{p.projectId}</span>
+                            <span className="text-sm text-white font-medium">{p.projectName}</span>
+                            {meta.status && (
+                              <span className={
+                                "text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 border " +
+                                (statusColour[meta.status] || "border-gray-700 bg-gray-800/60 text-gray-400")
+                              }>
+                                {meta.status}
+                              </span>
+                            )}
+                            {meta.category && (
+                              <span className="text-[10px] font-mono text-gray-500 border border-gray-800 bg-black/30 px-1.5 py-0.5">
+                                {meta.category}{meta.subcategory ? " / " + meta.subcategory : ""}
+                              </span>
+                            )}
+                          </div>
+                          <div className="text-[11px] text-gray-500 mt-0.5">
+                            {p.department}
+                            {p.contractingAuthority && p.contractingAuthority !== p.department && (
+                              <span className="text-gray-600"> · {p.contractingAuthority}</span>
+                            )}
+                            {topContractor && (
+                              <span className="text-gray-400"> · Top: {topContractor}</span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-4 shrink-0 text-right">
+                          {aggValue > 0 && (
+                            <div>
+                              <div className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Contracts</div>
+                              <div className="text-sm text-emerald-300 font-mono">{fmtGBP(aggValue)}</div>
+                            </div>
+                          )}
+                          {meta.latestBudget != null && (
+                            <div>
+                              <div className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Budget</div>
+                              <div className="text-sm text-white font-mono">{fmtGBP(meta.latestBudget * 1e6)}</div>
+                            </div>
+                          )}
+                          {overrunPct != null && overrunPct !== 0 && (
+                            <div>
+                              <div className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Overrun</div>
+                              <div className={"text-sm font-mono " + (overrunPct > 0 ? "text-red-300" : "text-emerald-300")}>
+                                {overrunPct > 0 ? "+" : ""}{overrunPct.toFixed(0)}%
+                              </div>
+                            </div>
+                          )}
+                          <div>
+                            <div className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Rows</div>
+                            <div className="text-sm text-gray-400 font-mono">{memberCount}</div>
+                          </div>
+                          {(() => {
+                            const sq = sourceQualityById[p.projectId];
+                            if (!sq || !sq.letter || sq.letter === "U") return null;
+                            const col = sourceGradeColors[sq.letter] || sourceGradeColors.U;
+                            return (
+                              <div
+                                title={`Source quality ${sq.letter} (${sq.score != null ? sq.score.toFixed(2) : "—"}) — weighted mean grade across £${sq.weightedValueGBP.toLocaleString()} of tracked value${sq.corroborationRatio != null ? ` · ${Math.round(sq.corroborationRatio * 100)}% has ≥1 primary corroboration` : ""}`}
+                              >
+                                <div className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Sources</div>
+                                <div className={
+                                  "text-sm font-mono font-bold px-1.5 py-0 border inline-block " +
+                                  col.text + " " + col.border + " " + col.bg
+                                }>
+                                  {sq.letter}
+                                </div>
+                              </div>
+                            );
+                          })()}
+                          <span className="text-gray-500 text-sm">{isOpen ? "−" : "+"}</span>
+                        </div>
+                      </button>
+
+                      {isOpen && (
+                        <div className="border-t border-gray-800/60 p-4 space-y-4">
+                          {p.researchNote && (
+                            <div className="text-[11px] text-gray-400 leading-relaxed italic border-l-2 border-gray-700 pl-3">
+                              {p.researchNote}
+                            </div>
+                          )}
+                          {Array.isArray(p.projectValueHistory) && p.projectValueHistory.length > 0 && (
+                            <div className="border border-amber-600/30 bg-amber-950/20 p-3">
+                              <div className="text-[10px] uppercase tracking-wider text-amber-400/80 font-mono mb-2">
+                                Programme-level totals
+                              </div>
+                              <div className="space-y-2">
+                                {p.projectValueHistory.map((pvh, pvhi) => (
+                                  <div key={pvhi} className="flex items-start justify-between gap-3 flex-wrap text-[11px] leading-snug">
+                                    <div className="min-w-0">
+                                      {pvh.label && (
+                                        <div className="text-white">{pvh.label}</div>
+                                      )}
+                                      {pvh.note && (
+                                        <div className="text-gray-500 text-[10px]">{pvh.note}</div>
+                                      )}
+                                      {pvh.sourceUrl && (
+                                        <a
+                                          href={pvh.sourceUrl}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className={
+                                            "inline-flex items-center gap-1 text-[10px] font-mono mt-1 px-1.5 py-0.5 border " +
+                                            (sourceColour[pvh.sourceType] || "border-gray-700 bg-gray-800/40 text-gray-400") +
+                                            " hover:opacity-80"
+                                          }
+                                        >
+                                          {pvh.sourceType || "source"}<ExternalLink size={9} />
+                                        </a>
+                                      )}
+                                    </div>
+                                    <div className="text-right shrink-0">
+                                      <div className="text-sm text-emerald-300 font-mono flex items-baseline justify-end gap-1.5">
+                                        <span>{fmtGBP(pvh.valueGBP)}</span>
+                                        {pvh.grade && (
+                                          <span
+                                            className={
+                                              "text-[9px] font-bold px-1 border " +
+                                              (sourceGradeColors[pvh.grade] || sourceGradeColors.U).text + " " +
+                                              (sourceGradeColors[pvh.grade] || sourceGradeColors.U).border + " " +
+                                              (sourceGradeColors[pvh.grade] || sourceGradeColors.U).bg
+                                            }
+                                            title={`Grade ${pvh.grade}: ${sourceGradeLabel[pvh.grade] || "ungraded"}${pvh.gradeRationale ? ` — ${pvh.gradeRationale}` : ""}`}
+                                          >
+                                            {pvh.grade}
+                                          </span>
+                                        )}
+                                      </div>
+                                      {pvh.asOfDate && (
+                                        <div className="text-[10px] text-gray-500 font-mono">as of {pvh.asOfDate}</div>
+                                      )}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          {p.contractors.map((g, gi) => (
+                            <div key={gi} className="border border-gray-800/50 bg-black/20">
+                              <div className="px-3 py-2 border-b border-gray-800/50 flex items-start justify-between gap-3 flex-wrap">
+                                <div className="min-w-0">
+                                  <div className="text-[11px] uppercase tracking-wider text-gray-500 font-mono">
+                                    Contract group
+                                  </div>
+                                  <div className="text-sm text-white mt-0.5">{g.groupName}</div>
+                                  {g.groupValueNote && (
+                                    <div className="text-[11px] text-gray-500 mt-1">{g.groupValueNote}</div>
+                                  )}
+                                </div>
+                                {g.groupAggregateValueGBP != null && (
+                                  <div className="text-right shrink-0">
+                                    <div className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Aggregate</div>
+                                    <div className="text-sm text-emerald-300 font-mono">{fmtGBP(g.groupAggregateValueGBP)}</div>
+                                  </div>
+                                )}
+                              </div>
+                              <div className="divide-y divide-gray-800/40">
+                                {(g.members || []).map((m, mi) => (
+                                  <div key={mi} className="px-3 py-3 space-y-1.5">
+                                    <div className="flex items-start justify-between gap-3 flex-wrap">
+                                      <div className="min-w-0">
+                                        <div className="flex items-center gap-2 flex-wrap">
+                                          <span className="text-sm text-white">{m.name}</span>
+                                          {m.role && (
+                                            <span className={
+                                              "text-[10px] font-mono uppercase tracking-wider " +
+                                              "px-1.5 py-0.5 border " + (roleColour[m.role] || "border-gray-700 bg-gray-800/60 text-gray-400")
+                                            }>
+                                              {m.role}
+                                            </span>
+                                          )}
+                                          {m.companiesHouseNumber && (
+                                            <a
+                                              href={"https://find-and-update.company-information.service.gov.uk/company/" + m.companiesHouseNumber}
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              className="text-[10px] font-mono text-gray-500 hover:text-white inline-flex items-center gap-1"
+                                            >
+                                              CH {m.companiesHouseNumber}<ExternalLink size={10} />
+                                            </a>
+                                          )}
+                                          {m.jurisdiction && !m.companiesHouseNumber && (
+                                            <span className="text-[10px] font-mono text-gray-600">{m.jurisdiction}</span>
+                                          )}
+                                        </div>
+                                        {m.parent && (
+                                          <div className="text-[11px] text-gray-500 mt-0.5">Parent: {m.parent}</div>
+                                        )}
+                                      </div>
+                                      {m.contractValueGBP != null && (
+                                        <div className="text-right shrink-0">
+                                          <div className="text-xs text-emerald-300 font-mono">{fmtGBP(m.contractValueGBP)}</div>
+                                          {m.contractValueNote && (
+                                            <div className="text-[10px] text-gray-600 max-w-[220px]">{m.contractValueNote}</div>
+                                          )}
+                                          {Array.isArray(m.valueHistory) && m.valueHistory.length > 0 && (
+                                            <details className="group mt-1 text-left">
+                                              <summary className="list-none cursor-pointer text-[10px] font-mono text-amber-400/80 hover:text-amber-300 inline-flex items-center gap-1 select-none">
+                                                <span className="inline-block transition-transform group-open:rotate-90">▸</span>
+                                                {m.valueHistory.length === 1 ? "Source trail" : `Source trail · ${m.valueHistory.length} datapoints`}
+                                              </summary>
+                                              <div className="mt-1.5 border-l-2 border-amber-500/30 pl-2 space-y-1.5 max-w-[260px]">
+                                                {m.valueHistory.map((vh, vhi) => (
+                                                  <div key={vhi} className="text-[10px] leading-snug">
+                                                    <div className="font-mono text-emerald-300/90 flex items-baseline gap-1">
+                                                      <span>{fmtGBP(vh.valueGBP)}</span>
+                                                      {vh.asOfDate && (
+                                                        <span className="text-gray-500"> · {vh.asOfDate}</span>
+                                                      )}
+                                                      {vh.grade && (
+                                                        <span
+                                                          className={
+                                                            "ml-auto text-[8.5px] font-bold px-1 border " +
+                                                            (sourceGradeColors[vh.grade] || sourceGradeColors.U).text + " " +
+                                                            (sourceGradeColors[vh.grade] || sourceGradeColors.U).border + " " +
+                                                            (sourceGradeColors[vh.grade] || sourceGradeColors.U).bg
+                                                          }
+                                                          title={`Grade ${vh.grade}: ${sourceGradeLabel[vh.grade] || "ungraded"}${vh.gradeRationale ? ` — ${vh.gradeRationale}` : ""}`}
+                                                        >
+                                                          {vh.grade}
+                                                        </span>
+                                                      )}
+                                                    </div>
+                                                    {vh.note && (
+                                                      <div className="text-gray-500">{vh.note}</div>
+                                                    )}
+                                                    <div className="flex flex-wrap gap-1 mt-0.5">
+                                                      {vh.sourceUrl && (
+                                                        <a
+                                                          href={vh.sourceUrl}
+                                                          target="_blank"
+                                                          rel="noopener noreferrer"
+                                                          className={
+                                                            "inline-flex items-center gap-1 text-[9px] font-mono px-1 py-0 border " +
+                                                            (sourceColour[vh.sourceType] || "border-gray-700 bg-gray-800/40 text-gray-400") +
+                                                            " hover:opacity-80"
+                                                          }
+                                                          title={vh.sourceType || "source"}
+                                                        >
+                                                          {vh.sourceType || "source"}<ExternalLink size={8} />
+                                                        </a>
+                                                      )}
+                                                      {Array.isArray(vh.corroboratingUrls) && vh.corroboratingUrls.map((u, ui) => (
+                                                        <a
+                                                          key={ui}
+                                                          href={u}
+                                                          target="_blank"
+                                                          rel="noopener noreferrer"
+                                                          className="inline-flex items-center gap-1 text-[9px] font-mono px-1 py-0 border border-gray-700 bg-gray-800/30 text-gray-500 hover:text-gray-300"
+                                                          title="corroborating source"
+                                                        >
+                                                          ref<ExternalLink size={8} />
+                                                        </a>
+                                                      ))}
+                                                    </div>
+                                                  </div>
+                                                ))}
+                                              </div>
+                                            </details>
+                                          )}
+                                        </div>
+                                      )}
+                                    </div>
+                                    {m.scope && (
+                                      <div className="text-[12px] text-gray-400 leading-relaxed">{m.scope}</div>
+                                    )}
+                                    {(m.jvMembers && m.jvMembers.length > 0) && (
+                                      <div className="text-[11px] text-gray-500">
+                                        <span className="text-gray-600">JV members: </span>
+                                        {m.jvMembers.map((j, ji) => (
+                                          <span key={ji}>
+                                            {ji > 0 && " · "}
+                                            {j.companiesHouseNumber ? (
+                                              <a
+                                                href={"https://find-and-update.company-information.service.gov.uk/company/" + j.companiesHouseNumber}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-gray-400 hover:text-white"
+                                              >
+                                                {j.name}
+                                              </a>
+                                            ) : (
+                                              <span>{j.name}</span>
+                                            )}
+                                            {j.jurisdiction && !j.companiesHouseNumber && (
+                                              <span className="text-gray-600"> ({j.jurisdiction})</span>
+                                            )}
+                                          </span>
+                                        ))}
+                                      </div>
+                                    )}
+                                    {(m.sources && m.sources.length > 0) && (
+                                      <div className="flex flex-wrap gap-1.5 pt-1">
+                                        {m.sources.map((s, si) => (
+                                          <a
+                                            key={si}
+                                            href={s.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className={
+                                              "inline-flex items-center gap-1 text-[10px] font-mono " +
+                                              "px-1.5 py-0.5 border " + (sourceColour[s.type] || "border-gray-700 bg-gray-800/40 text-gray-400") +
+                                              " hover:opacity-80"
+                                            }
+                                            title={s.title}
+                                          >
+                                            {s.type}<ExternalLink size={9} />
+                                          </a>
+                                        ))}
+                                      </div>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+
+                          {/* Project-level sources */}
+                          {p.primarySources && p.primarySources.length > 0 && (
+                            <div className="pt-2 border-t border-gray-800/40">
+                              <div className="text-[10px] uppercase tracking-wider text-gray-500 font-mono mb-1.5">
+                                Project sources
+                              </div>
+                              <div className="flex flex-wrap gap-1.5">
+                                {p.primarySources.map((s, si) => (
+                                  <a
+                                    key={si}
+                                    href={s.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={
+                                      "inline-flex items-center gap-1 text-[10px] font-mono " +
+                                      "px-1.5 py-0.5 border " + (sourceColour[s.type] || "border-gray-700 bg-gray-800/40 text-gray-400") +
+                                      " hover:opacity-80"
+                                    }
+                                    title={s.title}
+                                  >
+                                    {s.type}<ExternalLink size={9} />
+                                  </a>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              )}
+
+              {/* Footer note */}
+              <div className="text-[10px] text-gray-600 leading-relaxed pt-2">
+                Data is hand-compiled from primary public sources. Where a contractor tier cannot be backed by a primary citation, it is omitted. CH = Companies House registration.
+              </div>
+            </div>
+          );
+        })()}
+
+{/* ============ SUPPLIER RANKINGS ============ */}
+        {view === "suppliers.rankings" && (() => {
+          const rk = (moneyMapData && moneyMapData.rankings) || {};
+          const offenders = Array.isArray(rk.topRepeatOffenders)
+            ? rk.topRepeatOffenders : [];
+          const dependent = Array.isArray(rk.topDependentSuppliers)
+            ? rk.topDependentSuppliers : [];
+          const concentratedBuyers = Array.isArray(rk.topBuyersByHHI)
+            ? rk.topBuyersByHHI : [];
+
+          const fmtGBP = (n) => {
+            if (!Number.isFinite(n) || n === 0) return "Undisclosed";
+            if (n >= 1e9) return "\u00a3" + (n / 1e9).toFixed(2) + "bn";
+            if (n >= 1e6) return "\u00a3" + (n / 1e6).toFixed(0) + "m";
+            if (n >= 1e3) return "\u00a3" + (n / 1e3).toFixed(0) + "k";
+            return "\u00a3" + n.toFixed(0);
+          };
+          const openSupplierProfile = (row) => {
+            if (!row || !row.id) return;
+            setSelectedSupplierId(row.id);
+            setSelectedSupplierName(row.label || "");
+          };
+          const openBuyerProfile = (row) => {
+            if (!row || !row.id) return;
+            setSelectedBuyerId(row.id);
+            setSelectedBuyerName(row.label || "");
+          };
+
+          return (
+            <div className="space-y-6">
+              <PageHeader
+                eyebrow={"Contractors \u203A Rankings"}
+                title="Supplier Rankings"
+                dataAsOf="Apr 2026"
+                description={
+                  "Three league tables. Suppliers who win across many " +
+                  "buyers, suppliers dangerously dependent on one buyer, " +
+                  "and buyers whose spend is concentrated in very few " +
+                  "hands. All figures from the £ disclosed in project " +
+                  "contracts we have source-cited."
+                }
+              />
+
+              {/* --- Repeat Offenders --- */}
+              <section className="border border-gray-800/60">
+                <div className={
+                  "px-4 py-3 border-b border-gray-800/60 " +
+                  "bg-white/[0.02]"
+                }>
+                  <div className={
+                    "text-[10px] font-mono uppercase " +
+                    "tracking-[0.15em] text-amber-500"
+                  }>
+                    Ranking 1 / 3
+                  </div>
+                  <h3 className={
+                    "text-white font-serif text-lg " +
+                    "mt-0.5 leading-tight"
+                  }>
+                    Repeat Offenders
+                  </h3>
+                  <p className={
+                    "text-gray-500 text-[12px] mt-1 " +
+                    "leading-snug"
+                  }>
+                    Suppliers who appear across the most tracked
+                    projects and buyers. Score blends breadth
+                    (buyer count, award count), money scale, and
+                    tier A (delivery-critical) share.
+                  </p>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <div className={
+                    "min-w-[720px] grid grid-cols-12 gap-2 " +
+                    "px-4 py-2 border-b border-gray-900 " +
+                    "text-[10px] font-mono uppercase " +
+                    "tracking-[0.1em] text-gray-600"
+                  }>
+                    <div className="col-span-1">#</div>
+                    <div className="col-span-4">Supplier</div>
+                    <div className="col-span-1 text-right">Buyers</div>
+                    <div className="col-span-1 text-right">Awards</div>
+                    <div className="col-span-2 text-right">Total {"\u00a3"}</div>
+                    <div className="col-span-3">Top buyer</div>
+                  </div>
+                  {offenders.length === 0 && (
+                    <div className={
+                      "px-4 py-6 text-[12px] " +
+                      "text-gray-600 text-center"
+                    }>
+                      No ranking data available.
+                    </div>
+                  )}
+                  {offenders.map((s, i) => (
+                    <button
+                      key={s.id}
+                      onClick={() => openSupplierProfile(s)}
+                      className={
+                        "min-w-[720px] w-full grid grid-cols-12 " +
+                        "gap-2 px-4 py-2.5 " +
+                        "border-b border-gray-900/50 " +
+                        "text-left items-center " +
+                        "hover:bg-white/[0.03] " +
+                        "transition-colors group"
+                      }
+                      title="Open supplier profile"
+                    >
+                      <div className={
+                        "col-span-1 text-gray-700 " +
+                        "font-mono text-[11px]"
+                      }>
+                        {i + 1}
+                      </div>
+                      <div className="col-span-4 min-w-0">
+                        <div className={
+                          "text-gray-200 text-[13px] " +
+                          "truncate " +
+                          "group-hover:text-white"
+                        }>
+                          {s.label}
+                        </div>
+                        {s.tierAShare != null && s.tierAShare > 0 && (
+                          <div className={
+                            "text-[10px] text-emerald-500 " +
+                            "font-mono mt-0.5"
+                          }>
+                            {Math.round(s.tierAShare * 100)}% tier A
+                          </div>
+                        )}
+                      </div>
+                      <div className={
+                        "col-span-1 text-right " +
+                        "font-mono text-[12px] text-white"
+                      }>
+                        {s.buyerCount || 0}
+                      </div>
+                      <div className={
+                        "col-span-1 text-right " +
+                        "font-mono text-[12px] text-white"
+                      }>
+                        {s.awardCount || 0}
+                      </div>
+                      <div className={
+                        "col-span-2 text-right " +
+                        "font-mono text-[12px] text-gray-300"
+                      }>
+                        {fmtGBP(s.totalGBP || 0)}
+                      </div>
+                      <div className={
+                        "col-span-3 text-[11px] " +
+                        "text-gray-500 truncate flex " +
+                        "items-center gap-1.5"
+                      }>
+                        <span className="truncate">
+                          {s.topBuyer || "\u2014"}
+                        </span>
+                        <ChevronRight
+                          size={13}
+                          className={
+                            "flex-shrink-0 text-gray-700 " +
+                            "group-hover:text-emerald-400 " +
+                            "transition-colors"
+                          }
+                        />
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </section>
+
+              {/* --- Dependent Suppliers --- */}
+              <section className="border border-gray-800/60">
+                <div className={
+                  "px-4 py-3 border-b border-gray-800/60 " +
+                  "bg-white/[0.02]"
+                }>
+                  <div className={
+                    "text-[10px] font-mono uppercase " +
+                    "tracking-[0.15em] text-rose-400"
+                  }>
+                    Ranking 2 / 3
+                  </div>
+                  <h3 className={
+                    "text-white font-serif text-lg " +
+                    "mt-0.5 leading-tight"
+                  }>
+                    Buyer-Dependent Suppliers
+                  </h3>
+                  <p className={
+                    "text-gray-500 text-[12px] mt-1 " +
+                    "leading-snug"
+                  }>
+                    Suppliers whose tracked revenue is dominated by
+                    a single buyer. Dependence = share of the
+                    supplier&apos;s tracked £ coming from its top
+                    buyer. 1.00 = 100% single-buyer reliance.
+                  </p>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <div className={
+                    "min-w-[720px] grid grid-cols-12 gap-2 " +
+                    "px-4 py-2 border-b border-gray-900 " +
+                    "text-[10px] font-mono uppercase " +
+                    "tracking-[0.1em] text-gray-600"
+                  }>
+                    <div className="col-span-1">#</div>
+                    <div className="col-span-4">Supplier</div>
+                    <div className="col-span-2 text-right">Dependence</div>
+                    <div className="col-span-2 text-right">Total {"\u00a3"}</div>
+                    <div className="col-span-3">Top buyer</div>
+                  </div>
+                  {dependent.length === 0 && (
+                    <div className={
+                      "px-4 py-6 text-[12px] " +
+                      "text-gray-600 text-center"
+                    }>
+                      No ranking data available.
+                    </div>
+                  )}
+                  {dependent.map((s, i) => (
+                    <button
+                      key={s.id}
+                      onClick={() => openSupplierProfile(s)}
+                      className={
+                        "min-w-[720px] w-full grid grid-cols-12 " +
+                        "gap-2 px-4 py-2.5 " +
+                        "border-b border-gray-900/50 " +
+                        "text-left items-center " +
+                        "hover:bg-white/[0.03] " +
+                        "transition-colors group"
+                      }
+                      title="Open supplier profile"
+                    >
+                      <div className={
+                        "col-span-1 text-gray-700 " +
+                        "font-mono text-[11px]"
+                      }>
+                        {i + 1}
+                      </div>
+                      <div className="col-span-4 min-w-0">
+                        <div className={
+                          "text-gray-200 text-[13px] " +
+                          "truncate " +
+                          "group-hover:text-white"
+                        }>
+                          {s.label}
+                        </div>
+                      </div>
+                      <div className={
+                        "col-span-2 text-right " +
+                        "font-mono"
+                      }>
+                        <span className={
+                          "text-[13px] font-bold " +
+                          (s.dependence >= 0.9
+                            ? "text-rose-400"
+                            : s.dependence >= 0.7
+                              ? "text-amber-400"
+                              : "text-gray-300")
+                        }>
+                          {(s.dependence != null
+                            ? (s.dependence * 100).toFixed(0)
+                            : "\u2014")}
+                          {s.dependence != null ? "%" : ""}
+                        </span>
+                      </div>
+                      <div className={
+                        "col-span-2 text-right " +
+                        "font-mono text-[12px] text-gray-300"
+                      }>
+                        {fmtGBP(s.totalGBP || 0)}
+                      </div>
+                      <div className={
+                        "col-span-3 text-[11px] " +
+                        "text-gray-500 truncate flex " +
+                        "items-center gap-1.5"
+                      }>
+                        <span className="truncate">
+                          {s.topBuyer || "\u2014"}
+                        </span>
+                        <ChevronRight
+                          size={13}
+                          className={
+                            "flex-shrink-0 text-gray-700 " +
+                            "group-hover:text-emerald-400 " +
+                            "transition-colors"
+                          }
+                        />
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </section>
+
+              {/* --- Concentrated Buyers --- */}
+              <section className="border border-gray-800/60">
+                <div className={
+                  "px-4 py-3 border-b border-gray-800/60 " +
+                  "bg-white/[0.02]"
+                }>
+                  <div className={
+                    "text-[10px] font-mono uppercase " +
+                    "tracking-[0.15em] text-sky-400"
+                  }>
+                    Ranking 3 / 3
+                  </div>
+                  <h3 className={
+                    "text-white font-serif text-lg " +
+                    "mt-0.5 leading-tight"
+                  }>
+                    Concentrated Buyers
+                  </h3>
+                  <p className={
+                    "text-gray-500 text-[12px] mt-1 " +
+                    "leading-snug"
+                  }>
+                    Buyers whose tracked spend is concentrated in
+                    very few suppliers. HHI is a market-
+                    concentration index: 0.25 (2,500) and above is
+                    considered highly concentrated; 1.00 means a
+                    single supplier wins everything.
+                  </p>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <div className={
+                    "min-w-[720px] grid grid-cols-12 gap-2 " +
+                    "px-4 py-2 border-b border-gray-900 " +
+                    "text-[10px] font-mono uppercase " +
+                    "tracking-[0.1em] text-gray-600"
+                  }>
+                    <div className="col-span-1">#</div>
+                    <div className="col-span-5">Buyer</div>
+                    <div className="col-span-2 text-right">HHI</div>
+                    <div className="col-span-1 text-right">Suppliers</div>
+                    <div className="col-span-3 text-right">Total {"\u00a3"}</div>
+                  </div>
+                  {concentratedBuyers.length === 0 && (
+                    <div className={
+                      "px-4 py-6 text-[12px] " +
+                      "text-gray-600 text-center"
+                    }>
+                      No ranking data available.
+                    </div>
+                  )}
+                  {concentratedBuyers.map((b, i) => {
+                    const hhi = b.hhi != null ? b.hhi : 0;
+                    const hhiScaled = Math.round(hhi * 10000);
+                    const hhiColor =
+                      hhiScaled >= 2500
+                        ? "text-rose-400"
+                        : hhiScaled >= 1500
+                          ? "text-amber-400"
+                          : "text-gray-300";
+                    const hhiBand =
+                      hhiScaled >= 2500
+                        ? "High"
+                        : hhiScaled >= 1500
+                          ? "Moderate"
+                          : "Low";
+                    return (
+                      <button
+                        key={b.id}
+                        onClick={() => openBuyerProfile(b)}
+                        className={
+                          "min-w-[720px] w-full grid grid-cols-12 " +
+                          "gap-2 px-4 py-2.5 " +
+                          "border-b border-gray-900/50 " +
+                          "text-left items-center " +
+                          "hover:bg-white/[0.03] " +
+                          "transition-colors group"
+                        }
+                        title="Open buyer profile"
+                      >
+                        <div className={
+                          "col-span-1 text-gray-700 " +
+                          "font-mono text-[11px]"
+                        }>
+                          {i + 1}
+                        </div>
+                        <div className="col-span-5 min-w-0">
+                          <div className={
+                            "text-gray-200 text-[13px] " +
+                            "truncate " +
+                            "group-hover:text-white"
+                          }>
+                            {b.label}
+                          </div>
+                        </div>
+                        <div className={
+                          "col-span-2 text-right " +
+                          "font-mono"
+                        }>
+                          <span className={
+                            "text-[13px] font-bold " + hhiColor
+                          }>
+                            {hhiScaled.toLocaleString("en-GB")}
+                          </span>
+                          <div className={
+                            "text-[10px] font-mono " +
+                            "text-gray-600"
+                          }>
+                            {hhiBand}
+                          </div>
+                        </div>
+                        <div className={
+                          "col-span-1 text-right " +
+                          "font-mono text-[12px] text-white"
+                        }>
+                          {b.supplierCount || 0}
+                        </div>
+                        <div className={
+                          "col-span-3 text-right " +
+                          "font-mono text-[12px] " +
+                          "text-gray-300 flex items-center " +
+                          "justify-end gap-1.5"
+                        }>
+                          <span>
+                            {fmtGBP(b.totalGBP || 0)}
+                          </span>
+                          <ChevronRight
+                            size={13}
+                            className={
+                              "flex-shrink-0 text-gray-700 " +
+                              "group-hover:text-emerald-400 " +
+                              "transition-colors"
+                            }
+                          />
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+
+              {/* Methodology */}
+              <div className={
+                "text-[10px] text-gray-700 " +
+                "font-mono leading-relaxed " +
+                "border-t border-gray-800/40 pt-4"
+              }>
+                <span className="text-gray-500">
+                  Methodology:
+                </span>{" "}
+                Rankings computed from the{" "}
+                {(moneyMapData.counts && moneyMapData.counts.awards) || 0}{" "}
+                disclosed buyer &rarr; supplier awards in the
+                Money Map dataset.{" "}
+                <span className="text-gray-500">
+                  Caveat:
+                </span>{" "}
+                dependence and HHI are computed only on
+                source-cited £. A supplier that looks
+                &ldquo;single-buyer dependent&rdquo; may simply
+                have undisclosed work elsewhere that has not yet
+                surfaced through our backfill pipeline.{" "}
+                <span className="text-gray-500">
+                  Updated:
+                </span>{" "}
+                {new Date(moneyMapData.generatedAt)
+                  .toLocaleDateString("en-GB", {
+                    month: "short", year: "numeric"
+                  })}.
+              </div>
+            </div>
+          );
+        })()}
+
+{/* ============ COVERAGE TRANSPARENCY ============ */}
+        {view === "suppliers.coverage" && (() => {
+          const pms = (moneyMapData.edges
+            && moneyMapData.edges.projectMembers) || [];
+          const projectNodes = (moneyMapData.nodes || []).filter(
+            (n) => n.kind === "project"
+          );
+          const projectNodeById = new Map();
+          for (const n of projectNodes) projectNodeById.set(n.id, n);
+
+          // Build per-tier + overall disclosure stats
+          const TIERS = ["A", "B", "C", "D"];
+          const tierStats = {};
+          for (const t of TIERS) {
+            tierStats[t] = { count: 0, disclosed: 0, gbp: 0 };
+          }
+          let overall = { count: 0, disclosed: 0, gbp: 0 };
+          const byProject = new Map();
+          for (const e of pms) {
+            const t = TIERS.includes(e.tier) ? e.tier : "D";
+            const v = e.totalGBP || 0;
+            const isDisclosed = v > 0;
+            tierStats[t].count += 1;
+            tierStats[t].gbp += v;
+            if (isDisclosed) tierStats[t].disclosed += 1;
+            overall.count += 1;
+            overall.gbp += v;
+            if (isDisclosed) overall.disclosed += 1;
+            const k = e.s;
+            if (!byProject.has(k)) {
+              byProject.set(k, { count: 0, disclosed: 0, gbp: 0 });
+            }
+            const p = byProject.get(k);
+            p.count += 1;
+            p.gbp += v;
+            if (isDisclosed) p.disclosed += 1;
+          }
+
+          // Rows for per-project coverage grid
+          const projectRows = [];
+          for (const n of projectNodes) {
+            const p = byProject.get(n.id) || {
+              count: 0, disclosed: 0, gbp: 0
+            };
+            projectRows.push({
+              id: n.id,
+              label: n.label,
+              department: n.department || "",
+              members: p.count,
+              disclosed: p.disclosed,
+              gbp: p.gbp,
+              pct: p.count > 0 ? p.disclosed / p.count : 0,
+              projNumericId: (() => {
+                const m = /^project-(\d+)$/.exec(n.id);
+                return m ? parseInt(m[1], 10) : null;
+              })(),
+            });
+          }
+
+          const [sortKey, sortDir] = (() => {
+            switch (coverageSort) {
+              case "pct-asc": return ["pct", "asc"];
+              case "pct-desc": return ["pct", "desc"];
+              case "members-desc": return ["members", "desc"];
+              case "gbp-desc": return ["gbp", "desc"];
+              case "name": return ["label", "asc"];
+              default: return ["pct", "asc"];
+            }
+          })();
+          projectRows.sort((a, b) => {
+            if (sortKey === "label") {
+              return a.label.localeCompare(b.label);
+            }
+            const diff = (a[sortKey] || 0) - (b[sortKey] || 0);
+            if (sortKey === "pct") {
+              // tiebreak: bigger projects first
+              if (diff === 0) return b.members - a.members;
+            }
+            return sortDir === "desc" ? -diff : diff;
+          });
+
+          const overallPct = overall.count > 0
+            ? overall.disclosed / overall.count : 0;
+          const undisclosedCount = overall.count - overall.disclosed;
+
+          const openProject = (numId, label) => {
+            if (numId == null) return;
+            const proj = (Array.isArray(projectsData)
+              ? projectsData : []).find((p) => p.id === numId);
+            if (proj) {
+              setSelectedProject(proj);
+              setSourceProject(proj);
+            }
+          };
+
+          return (
+            <div className="space-y-6">
+              <PageHeader
+                eyebrow={"Contractors \u203A Transparency"}
+                title="Coverage Transparency"
+                dataAsOf="Apr 2026"
+                description={
+                  "What portion of our tracked contractor roster " +
+                  "has a £ figure attached to a public source. " +
+                  "This page is how we hold ourselves accountable: " +
+                  "every gap here is a known unknown we're still " +
+                  "trying to close."
+                }
+              />
+
+              {/* Headline coverage tile */}
+              <div className={
+                "grid grid-cols-1 md:grid-cols-4 " +
+                "gap-0 border border-gray-800/60"
+              }>
+                <div className={
+                  "p-5 border-b md:border-b-0 md:border-r " +
+                  "border-gray-800/60 md:col-span-2"
+                }>
+                  <div className={
+                    "text-[10px] font-mono uppercase " +
+                    "tracking-[0.15em] text-gray-600"
+                  }>
+                    Roster Coverage
+                  </div>
+                  <div className={
+                    "text-white text-4xl font-serif " +
+                    "mt-1 tabular-nums"
+                  }>
+                    {(overallPct * 100).toFixed(1)}%
+                  </div>
+                  <div className={
+                    "text-gray-500 text-[12px] mt-1"
+                  }>
+                    {overall.disclosed.toLocaleString("en-GB")}
+                    {" of "}
+                    {overall.count.toLocaleString("en-GB")}
+                    {" contractor relationships carry a "}
+                    source-cited £ figure.
+                  </div>
+                  {/* Progress bar */}
+                  <div className={
+                    "mt-3 h-2 w-full bg-gray-900 " +
+                    "border border-gray-800/60 " +
+                    "overflow-hidden"
+                  }>
+                    <div
+                      className="h-full bg-emerald-500"
+                      style={{
+                        width: (overallPct * 100).toFixed(1) + "%"
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className={
+                  "p-5 border-b md:border-b-0 md:border-r " +
+                  "border-gray-800/60"
+                }>
+                  <div className={
+                    "text-[10px] font-mono uppercase " +
+                    "tracking-[0.15em] text-gray-600"
+                  }>
+                    Disclosed £
+                  </div>
+                  <div className={
+                    "text-white text-2xl font-serif " +
+                    "mt-1 tabular-nums"
+                  }>
+                    {"\u00a3"}
+                    {(overall.gbp / 1e9).toFixed(1)}
+                    {"bn"}
+                  </div>
+                  <div className={
+                    "text-gray-500 text-[12px] mt-1"
+                  }>
+                    total £ backed by a citeable source.
+                  </div>
+                </div>
+                <div className="p-5">
+                  <div className={
+                    "text-[10px] font-mono uppercase " +
+                    "tracking-[0.15em] text-gray-600"
+                  }>
+                    Undisclosed
+                  </div>
+                  <div className={
+                    "text-rose-400 text-2xl font-serif " +
+                    "mt-1 tabular-nums"
+                  }>
+                    {undisclosedCount.toLocaleString("en-GB")}
+                  </div>
+                  <div className={
+                    "text-gray-500 text-[12px] mt-1"
+                  }>
+                    contractor rows still waiting on a £.
+                  </div>
+                </div>
+              </div>
+
+              {/* Tier breakdown */}
+              <section className="border border-gray-800/60">
+                <div className={
+                  "px-4 py-3 border-b border-gray-800/60 " +
+                  "bg-white/[0.02]"
+                }>
+                  <h3 className={
+                    "text-white font-serif text-lg " +
+                    "leading-tight"
+                  }>
+                    Coverage by tier
+                  </h3>
+                  <p className={
+                    "text-gray-500 text-[12px] mt-1 " +
+                    "leading-snug"
+                  }>
+                    Tier reflects each contractor&apos;s role on
+                    the project. <span className="text-emerald-400">A</span>{" "}
+                    is delivery-critical (prime, joint venture,
+                    programme partner).{" "}
+                    <span className="text-sky-400">B</span> is major
+                    subcontractor or consultant.{" "}
+                    <span className="text-amber-400">C</span> is
+                    legal, audit, or advisory.{" "}
+                    <span className="text-rose-400">D</span> is a
+                    miscellaneous fringe role.
+                  </p>
+                </div>
+
+                <div>
+                  {TIERS.map((t) => {
+                    const s = tierStats[t];
+                    const pct = s.count > 0
+                      ? (s.disclosed / s.count) : 0;
+                    const colorClass =
+                      t === "A" ? "text-emerald-400"
+                      : t === "B" ? "text-sky-400"
+                      : t === "C" ? "text-amber-400"
+                      : "text-rose-400";
+                    const barColor =
+                      t === "A" ? "bg-emerald-500"
+                      : t === "B" ? "bg-sky-500"
+                      : t === "C" ? "bg-amber-500"
+                      : "bg-rose-500";
+                    return (
+                      <div
+                        key={t}
+                        className={
+                          "grid grid-cols-12 gap-2 px-4 " +
+                          "py-3 border-b " +
+                          "border-gray-900/50 items-center"
+                        }
+                      >
+                        <div className={
+                          "col-span-1 font-serif " +
+                          "text-2xl " + colorClass
+                        }>
+                          {t}
+                        </div>
+                        <div className="col-span-4">
+                          <div className={
+                            "text-[11px] font-mono " +
+                            "text-gray-500 uppercase " +
+                            "tracking-[0.1em]"
+                          }>
+                            {t === "A" ? "Delivery-critical"
+                              : t === "B" ? "Major sub / consultant"
+                              : t === "C" ? "Legal / audit / advisory"
+                              : "Fringe"}
+                          </div>
+                          <div className={
+                            "text-white text-[13px] " +
+                            "font-mono mt-0.5 tabular-nums"
+                          }>
+                            {s.disclosed.toLocaleString("en-GB")}
+                            {" of "}
+                            {s.count.toLocaleString("en-GB")}
+                            {" disclosed"}
+                          </div>
+                        </div>
+                        <div className="col-span-4">
+                          <div className={
+                            "h-2 w-full bg-gray-900 " +
+                            "border border-gray-800/60 " +
+                            "overflow-hidden"
+                          }>
+                            <div
+                              className={"h-full " + barColor}
+                              style={{
+                                width: (pct * 100).toFixed(1)
+                                  + "%"
+                              }}
+                            />
+                          </div>
+                        </div>
+                        <div className={
+                          "col-span-1 text-right " +
+                          "font-mono text-sm text-white " +
+                          "tabular-nums"
+                        }>
+                          {(pct * 100).toFixed(0)}%
+                        </div>
+                        <div className={
+                          "col-span-2 text-right " +
+                          "font-mono text-[12px] text-gray-400"
+                        }>
+                          {"\u00a3"}
+                          {(s.gbp / 1e9).toFixed(2)}
+                          {"bn"}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+
+              {/* Per-project grid */}
+              <section className="border border-gray-800/60">
+                <div className={
+                  "px-4 py-3 border-b border-gray-800/60 " +
+                  "bg-white/[0.02] " +
+                  "flex items-start justify-between " +
+                  "gap-3 flex-wrap"
+                }>
+                  <div>
+                    <h3 className={
+                      "text-white font-serif text-lg " +
+                      "leading-tight"
+                    }>
+                      Per-project coverage
+                    </h3>
+                    <p className={
+                      "text-gray-500 text-[12px] mt-1 " +
+                      "leading-snug"
+                    }>
+                      Where our source-cited £ coverage stops on
+                      each tracked project. Click a row to open
+                      the project dossier.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <label className={
+                      "text-[10px] font-mono uppercase " +
+                      "tracking-[0.1em] text-gray-600"
+                    }>
+                      Sort
+                    </label>
+                    <select
+                      value={coverageSort}
+                      onChange={(e) =>
+                        setCoverageSort(e.target.value)
+                      }
+                      className={
+                        "bg-gray-950 border " +
+                        "border-gray-800 text-[11px] " +
+                        "font-mono text-gray-300 " +
+                        "px-2 py-1 rounded-sm"
+                      }
+                    >
+                      <option value="pct-asc">
+                        Coverage (lowest first)
+                      </option>
+                      <option value="pct-desc">
+                        Coverage (highest first)
+                      </option>
+                      <option value="members-desc">
+                        Member count
+                      </option>
+                      <option value="gbp-desc">
+                        Disclosed £
+                      </option>
+                      <option value="name">
+                        Name (A{"\u2013"}Z)
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <div className={
+                    "min-w-[640px] grid grid-cols-12 gap-2 " +
+                    "px-4 py-2 border-b border-gray-900 " +
+                    "text-[10px] font-mono uppercase " +
+                    "tracking-[0.1em] text-gray-600"
+                  }>
+                    <div className="col-span-5">Project</div>
+                    <div className="col-span-2 text-right">Members</div>
+                    <div className="col-span-2 text-right">Disclosed</div>
+                    <div className="col-span-2 text-right">Coverage</div>
+                    <div className="col-span-1"></div>
+                  </div>
+                  {projectRows.map((row) => {
+                    const pct = row.pct;
+                    const pctColor =
+                      pct >= 0.75 ? "text-emerald-400"
+                      : pct >= 0.4 ? "text-amber-400"
+                      : pct > 0 ? "text-rose-400"
+                      : "text-gray-600";
+                    const barColor =
+                      pct >= 0.75 ? "bg-emerald-500"
+                      : pct >= 0.4 ? "bg-amber-500"
+                      : pct > 0 ? "bg-rose-500"
+                      : "bg-gray-800";
+                    return (
+                      <button
+                        key={row.id}
+                        onClick={() => openProject(
+                          row.projNumericId, row.label
+                        )}
+                        className={
+                          "min-w-[640px] w-full grid " +
+                          "grid-cols-12 gap-2 px-4 py-2 " +
+                          "border-b border-gray-900/50 " +
+                          "text-left items-center " +
+                          "hover:bg-white/[0.03] " +
+                          "transition-colors group"
+                        }
+                        title="Open project dossier"
+                      >
+                        <div className="col-span-5 min-w-0">
+                          <div className={
+                            "text-gray-200 text-[13px] " +
+                            "truncate " +
+                            "group-hover:text-white"
+                          }>
+                            {row.label}
+                          </div>
+                          {row.department && (
+                            <div className={
+                              "text-[10px] " +
+                              "text-gray-600 font-mono " +
+                              "truncate mt-0.5"
+                            }>
+                              {row.department}
+                            </div>
+                          )}
+                        </div>
+                        <div className={
+                          "col-span-2 text-right " +
+                          "font-mono text-[12px] text-white"
+                        }>
+                          {row.members}
+                        </div>
+                        <div className={
+                          "col-span-2 text-right " +
+                          "font-mono text-[12px] " +
+                          "text-gray-300"
+                        }>
+                          {row.disclosed}
+                        </div>
+                        <div className="col-span-2">
+                          <div className={
+                            "flex items-center gap-2 justify-end"
+                          }>
+                            <div className={
+                              "flex-1 max-w-[80px] h-1.5 " +
+                              "bg-gray-900 border " +
+                              "border-gray-800/60 " +
+                              "overflow-hidden"
+                            }>
+                              <div
+                                className={"h-full " + barColor}
+                                style={{
+                                  width: (pct * 100).toFixed(1)
+                                    + "%"
+                                }}
+                              />
+                            </div>
+                            <span className={
+                              "font-mono text-[12px] " +
+                              "tabular-nums w-[34px] text-right "
+                              + pctColor
+                            }>
+                              {(pct * 100).toFixed(0) + "%"}
+                            </span>
+                          </div>
+                        </div>
+                        <div className={
+                          "col-span-1 text-right " +
+                          "text-gray-700 " +
+                          "group-hover:text-emerald-400 " +
+                          "transition-colors"
+                        }>
+                          <ChevronRight size={13} />
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+
+              {/* Methodology */}
+              <div className={
+                "text-[10px] text-gray-700 " +
+                "font-mono leading-relaxed " +
+                "border-t border-gray-800/40 pt-4 space-y-2"
+              }>
+                <div>
+                  <span className="text-gray-500">
+                    Methodology:
+                  </span>{" "}
+                  A contractor relationship counts as
+                  &ldquo;disclosed&rdquo; when our dataset has
+                  both a £ figure and at least one public source
+                  pinned to it (Contracts Finder, Find a Tender,
+                  department CSV, NAO report, or a source
+                  graded B or higher in our internal rubric).
+                </div>
+                <div>
+                  <span className="text-gray-500">
+                    Caveat:
+                  </span>{" "}
+                  A row marked &ldquo;undisclosed&rdquo; does not
+                  mean the contract is secret or improper. It
+                  simply means we have not yet found a public
+                  £ figure we can cite. Many of these are active
+                  OCDS pipeline candidates.
+                </div>
+                <div>
+                  <span className="text-gray-500">
+                    Updated:
+                  </span>{" "}
+                  {new Date(moneyMapData.generatedAt)
+                    .toLocaleDateString("en-GB", {
+                      month: "short", year: "numeric",
+                      day: "numeric"
+                    })}.
+                </div>
+              </div>
+            </div>
+          );
+        })()}
 
 {/* ============ LEAGUE TABLES — LANDING ============ */}
 
@@ -25699,6 +29645,358 @@ export default function App() {
           );
         })()}
 
+        {/* ============================================================ */}
+        {/* METHODOLOGY — editorial one-pager. How Gracchus sources,      */}
+        {/* grades, and reasons about the data. Linked from the footer.  */}
+        {/* ============================================================ */}
+        {view === "methodology" && (() => {
+          // Compute live coverage stats from projectsData so the page
+          // always reflects the current dataset.
+          let _totalMembers = 0;
+          let _disclosedMembers = 0;
+          (projectsData || []).forEach(p => {
+            (p.contractors || []).forEach(c => {
+              (c.members || []).forEach(m => {
+                _totalMembers += 1;
+                if (m.contractValueGBP != null) _disclosedMembers += 1;
+              });
+              if (c.role === "prime" && c.members == null) {
+                _totalMembers += 1;
+                if (c.contractValueGBP != null) _disclosedMembers += 1;
+              }
+            });
+          });
+          const _coveragePct = _totalMembers > 0
+            ? (100 * _disclosedMembers / _totalMembers)
+            : 0;
+          const _projectCount = (projectsData || []).length;
+
+          return (
+            <div className="space-y-8 max-w-[820px]">
+              <PageHeader
+                eyebrow="About &middot; Methodology"
+                title="How we source, grade, and reason about the data"
+                description={
+                  "Gracchus is source-backed, non-partisan, and open about what it doesn\u2019t know. " +
+                  "This page explains where every figure on the site comes from, how we test and " +
+                  "score the sources, and the specific things we do not claim."
+                }
+                dataAsOf={refreshMeta?.lastVerifiedMonth}
+              />
+
+              {/* 1. Sourcing */}
+              <section>
+                <div className={
+                  "text-[10px] uppercase " +
+                  "tracking-[0.2em] font-mono " +
+                  "text-gray-600 mb-2"
+                }>
+                  01 &middot; Sourcing
+                </div>
+                <h3 className={
+                  "text-2xl font-serif font-medium " +
+                  "text-white leading-tight tracking-[-0.01em] mb-3"
+                }>
+                  Every number is tied to a named public document.
+                </h3>
+                <p className="text-gray-400 text-[15px] leading-relaxed mb-3">
+                  The {_projectCount.toLocaleString()} projects tracked
+                  across Gracchus are built from public filings only:
+                  National Audit Office reports, Major Project Reports
+                  from the Infrastructure and Projects Authority,
+                  departmental Annual Reports and Accounts, the
+                  Contracts Finder and Find a Tender services, monthly
+                  departmental spend CSVs (&gt;£25,000), parliamentary
+                  select committee evidence, ONS and OBR releases, and
+                  the Electoral Commission register of donations.
+                </p>
+                <p className="text-gray-400 text-[15px] leading-relaxed mb-3">
+                  Every edge in the Money Map, every £ in a project
+                  dossier, and every line of the Supplier Rankings
+                  points back to at least one specific document,
+                  captured on the day we verified it. If we cannot
+                  name a source, we do not publish the number.
+                </p>
+                <MethodologyNote title="What we use">
+                  NAO value-for-money studies &middot; IPA Major
+                  Project Reports &middot; OCDS (Contracts Finder +
+                  Find a Tender) &middot; departmental transparency
+                  CSVs &middot; HM Treasury PESA &middot; ONS &amp; OBR
+                  statistical bulletins &middot; Electoral Commission
+                  data &middot; Register of Members&rsquo; Financial
+                  Interests.
+                </MethodologyNote>
+              </section>
+
+              {/* 2. Source grading */}
+              <section>
+                <div className={
+                  "text-[10px] uppercase " +
+                  "tracking-[0.2em] font-mono " +
+                  "text-gray-600 mb-2"
+                }>
+                  02 &middot; Source grading
+                </div>
+                <h3 className={
+                  "text-2xl font-serif font-medium " +
+                  "text-white leading-tight tracking-[-0.01em] mb-3"
+                }>
+                  Not all documents are equal. We say so plainly.
+                </h3>
+                <p className="text-gray-400 text-[15px] leading-relaxed mb-4">
+                  Every edge in the Money Map carries a letter grade
+                  A through D reflecting how firmly the underlying
+                  document ties the supplier to the contract. The
+                  overall page grade you see on Money Map is a
+                  weighted average across all edges in the current
+                  view window.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="border-l-2 border-emerald-600/50 pl-4 py-2">
+                    <div className={
+                      "text-[10px] uppercase tracking-[0.2em] " +
+                      "font-mono text-emerald-500 mb-1"
+                    }>
+                      Tier A
+                    </div>
+                    <div className="text-gray-300 text-[13px] leading-relaxed">
+                      Contract award notice with a named supplier and
+                      a figure &mdash; OCDS release, direct
+                      departmental award. Unambiguous.
+                    </div>
+                  </div>
+                  <div className="border-l-2 border-sky-600/50 pl-4 py-2">
+                    <div className={
+                      "text-[10px] uppercase tracking-[0.2em] " +
+                      "font-mono text-sky-500 mb-1"
+                    }>
+                      Tier B
+                    </div>
+                    <div className="text-gray-300 text-[13px] leading-relaxed">
+                      NAO, IPA, or Annual Report naming the supplier
+                      and the programme. Figure may be aggregated
+                      across years.
+                    </div>
+                  </div>
+                  <div className="border-l-2 border-amber-600/50 pl-4 py-2">
+                    <div className={
+                      "text-[10px] uppercase tracking-[0.2em] " +
+                      "font-mono text-amber-500 mb-1"
+                    }>
+                      Tier C
+                    </div>
+                    <div className="text-gray-300 text-[13px] leading-relaxed">
+                      Transparency CSV row matching on supplier name
+                      plus description keywords. Strong but
+                      heuristic.
+                    </div>
+                  </div>
+                  <div className="border-l-2 border-gray-600/50 pl-4 py-2">
+                    <div className={
+                      "text-[10px] uppercase tracking-[0.2em] " +
+                      "font-mono text-gray-500 mb-1"
+                    }>
+                      Tier D
+                    </div>
+                    <div className="text-gray-300 text-[13px] leading-relaxed">
+                      Press reports, FOI responses, or committee
+                      evidence. We label these clearly and exclude
+                      them from headline £ totals by default.
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* 3. Name normalisation */}
+              <section>
+                <div className={
+                  "text-[10px] uppercase " +
+                  "tracking-[0.2em] font-mono " +
+                  "text-gray-600 mb-2"
+                }>
+                  03 &middot; Name normalisation
+                </div>
+                <h3 className={
+                  "text-2xl font-serif font-medium " +
+                  "text-white leading-tight tracking-[-0.01em] mb-3"
+                }>
+                  &ldquo;Serco Group plc&rdquo; and &ldquo;SERCO LTD&rdquo; are
+                  the same company.
+                </h3>
+                <p className="text-gray-400 text-[15px] leading-relaxed mb-3">
+                  Suppliers are matched across documents using a
+                  collapse rule: lowercase, strip legal suffixes
+                  (ltd, plc, limited, group), drop parenthetical
+                  subsidiaries, collapse whitespace, then compare
+                  tokens. Near-miss pairs &mdash; one edit apart,
+                  or sharing &ge;70&#37; of tokens &mdash; are flagged
+                  for human review before they are merged.
+                </p>
+                <p className="text-gray-400 text-[15px] leading-relaxed">
+                  The same rule is applied to project names when
+                  linking non-tracker datasets (planning approvals,
+                  delivery delays) back to a project dossier. We
+                  never merge two entities silently &mdash; every
+                  alias is recorded on the entity&rsquo;s own page.
+                </p>
+              </section>
+
+              {/* 4. Disclosure & coverage */}
+              <section>
+                <div className={
+                  "text-[10px] uppercase " +
+                  "tracking-[0.2em] font-mono " +
+                  "text-gray-600 mb-2"
+                }>
+                  04 &middot; Disclosure &amp; coverage
+                </div>
+                <h3 className={
+                  "text-2xl font-serif font-medium " +
+                  "text-white leading-tight tracking-[-0.01em] mb-3"
+                }>
+                  What we don&rsquo;t know, and why.
+                </h3>
+                <p className="text-gray-400 text-[15px] leading-relaxed mb-3">
+                  Across the {_projectCount.toLocaleString()} projects
+                  we track, {_disclosedMembers.toLocaleString()} of
+                  {" "}{_totalMembers.toLocaleString()} supplier
+                  positions have a public £ figure attached &mdash; a
+                  disclosure rate of{" "}
+                  <b className="text-white font-mono tabular-nums">
+                    {_coveragePct.toFixed(1)}%
+                  </b>.
+                  The rest are named suppliers whose exact contract
+                  values have not been published. We mark these
+                  <span className="mx-1 px-1 rounded bg-amber-950/40 text-amber-400 text-[12px] font-mono">
+                    Undisclosed
+                  </span>
+                  rather than hiding them or assigning £0.
+                </p>
+                <p className="text-gray-400 text-[15px] leading-relaxed">
+                  A dedicated Coverage Transparency page shows
+                  per-project disclosure, broken down by tier, so
+                  readers can see exactly where the gaps are. Every
+                  tranche of new matching (roughly weekly) is
+                  appended to that page, not overwritten &mdash; so
+                  the audit trail of what we learned and when is
+                  visible to anyone.
+                </p>
+              </section>
+
+              {/* 5. Cross-linking & repeat-win scoring */}
+              <section>
+                <div className={
+                  "text-[10px] uppercase " +
+                  "tracking-[0.2em] font-mono " +
+                  "text-gray-600 mb-2"
+                }>
+                  05 &middot; Cross-linking &amp; scoring
+                </div>
+                <h3 className={
+                  "text-2xl font-serif font-medium " +
+                  "text-white leading-tight tracking-[-0.01em] mb-3"
+                }>
+                  The Money Map is an edge list, not an accusation.
+                </h3>
+                <p className="text-gray-400 text-[15px] leading-relaxed mb-3">
+                  Buyer concentration is measured with the
+                  Herfindahl-Hirschman Index computed over
+                  £-bearing suppliers only. A buyer with a single
+                  supplier scores 10,000; one spreading work evenly
+                  over twenty suppliers scores 500. We call 2,500+
+                  <span className="text-red-400 mx-1">High</span>,
+                  1,500&ndash;2,499
+                  <span className="text-amber-400 mx-1">Moderate</span>,
+                  and below 1,500
+                  <span className="text-gray-400 mx-1">Low</span>.
+                </p>
+                <p className="text-gray-400 text-[15px] leading-relaxed mb-3">
+                  Repeat-win rate compares the number of contracts
+                  a supplier won from a given buyer against the
+                  number a random-allocation baseline would predict,
+                  given the buyer&rsquo;s total award count and the
+                  supplier&rsquo;s market share in that category.
+                  Pairs with fewer than three overlapping awards are
+                  excluded. High repeat-win rates merit attention
+                  &mdash; they do not, by themselves, prove
+                  wrongdoing.
+                </p>
+                <p className="text-gray-400 text-[15px] leading-relaxed">
+                  The Repeat Offenders ranking folds repeat-win rate
+                  together with multi-buyer breadth, award count,
+                  source tier, and £ volume into a single cartel-risk
+                  score. Weights are published alongside the ranking
+                  and have not changed since launch.
+                </p>
+              </section>
+
+              {/* 6. What we don't claim */}
+              <section>
+                <div className={
+                  "text-[10px] uppercase " +
+                  "tracking-[0.2em] font-mono " +
+                  "text-gray-600 mb-2"
+                }>
+                  06 &middot; What we don&rsquo;t claim
+                </div>
+                <h3 className={
+                  "text-2xl font-serif font-medium " +
+                  "text-white leading-tight tracking-[-0.01em] mb-3"
+                }>
+                  The limits of this work.
+                </h3>
+                <ul className="space-y-3 text-gray-400 text-[15px] leading-relaxed">
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    An edge between two nodes means a named
+                    document links them. It does not imply either
+                    party acted improperly.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    Subcontractor chains are not visible. We show
+                    prime contracts and named consortium members
+                    only &mdash; anything below that is outside the
+                    public record.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    Totals labelled &ldquo;disclosed&rdquo; are
+                    strict lower bounds, not estimates. The true
+                    figure is at least this large; we do not
+                    extrapolate.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    Year-on-year comparisons use CPI-adjusted
+                    real-terms figures where the underlying source
+                    permits. Nominal figures are labelled as such.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    We do not take commercial data feeds, sponsored
+                    content, or paid placements. Every figure
+                    visible here is reproducible from public
+                    documents a reader can download themselves.
+                  </li>
+                </ul>
+              </section>
+
+              {/* Footer note */}
+              <section className="border-t border-gray-800/60 pt-6 mt-4">
+                <p className="text-gray-500 text-[13px] leading-relaxed">
+                  Corrections, suggestions, or a dataset we should be
+                  watching? Use the feedback link in the site footer.
+                  Data verified{" "}
+                  <b className="text-gray-300 font-mono">
+                    {refreshMeta?.lastVerifiedMonth || "recently"}
+                  </b>.
+                </p>
+              </section>
+            </div>
+          );
+        })()}
+
       </main>
 
       {/* FOOTER */}
@@ -25711,17 +30009,35 @@ export default function App() {
           "justify-between gap-4"
         }>
           <div>
-            <a
-              href="/about"
-              className={
-                "text-gray-500 text-[13px] " +
-                "hover:text-gray-300 transition-colors " +
-                "underline underline-offset-4 " +
-                "decoration-gray-800 hover:decoration-gray-600"
-              }
-            >
-              About Gracchus
-            </a>
+            <div className="flex items-center gap-4 flex-wrap">
+              <a
+                href="/about"
+                className={
+                  "text-gray-500 text-[13px] " +
+                  "hover:text-gray-300 transition-colors " +
+                  "underline underline-offset-4 " +
+                  "decoration-gray-800 hover:decoration-gray-600"
+                }
+              >
+                About Gracchus
+              </a>
+              <a
+                href="#methodology"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setView("methodology");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className={
+                  "text-gray-500 text-[13px] " +
+                  "hover:text-gray-300 transition-colors " +
+                  "underline underline-offset-4 " +
+                  "decoration-gray-800 hover:decoration-gray-600"
+                }
+              >
+                Methodology
+              </a>
+            </div>
             <div className={
               "text-gray-600 text-xs mt-1 " +
               "leading-relaxed"
@@ -25858,114 +30174,101 @@ export default function App() {
             setSelectedProject(null);
             setView(viewId);
           }}
+          onSelectSupplier={(supId, supName) => {
+            if (!supId) return;
+            setSelectedSupplierId(supId);
+            setSelectedSupplierName(supName);
+          }}
         />
       )}
 
-      {/* ========= FLOATING SCROLL NUDGE ========= */}
-      {showScrollNudge &&
-        !scrollNudgeDismissed &&
-        subscribeStatus !== "done" && (
-        <div
-          className={
-            "fixed bottom-0 left-0 right-0 " +
-            "z-[80] pointer-events-none"
-          }
-        >
-          <div
-            className={
-              "max-w-xl mx-auto px-3 sm:px-4 " +
-              "pb-3 sm:pb-4 " +
-              "pointer-events-auto"
-            }
-          >
-            <div
-              className={
-                "bg-[#0a0a0a] border " +
-                "border-gray-800/60 " +
-                "backdrop-blur-sm " +
-                "px-4 sm:px-5 py-3 " +
-                "flex items-center " +
-                "gap-3 sm:gap-4 " +
-                "shadow-2xl shadow-black/50"
-              }
-              style={{
-                animation:
-                  "slideUp 0.4s ease-out"
-              }}
-            >
-              <div className="flex-1 min-w-0">
-                <div
-                  className={
-                    "text-[10px] uppercase " +
-                    "tracking-[0.2em] " +
-                    "text-amber-500/80 " +
-                    "font-mono mb-0.5"
-                  }
-                >
-                  Stay informed
-                </div>
-                <div
-                  className={
-                    "text-[12px] sm:text-[13px] " +
-                    "text-gray-400 " +
-                    "leading-snug"
-                  }
-                >
-                  Weekly UK spending data
-                  <span className="hidden sm:inline">
-                    {" "}&amp; accountability
-                  </span>
-                </div>
-              </div>
-              <button
-                onClick={() => {
-                  setScrollNudgeDismissed(true);
-                  const el =
-                    document.getElementById(
-                      "subscribe-section"
-                    );
-                  if (el) {
-                    el.scrollIntoView({
-                      behavior: "smooth"
-                    });
-                  }
-                }}
-                className={
-                  "text-[10px] font-mono " +
-                  "uppercase tracking-[0.12em] " +
-                  "px-3 sm:px-4 py-2.5 border " +
-                  "border-amber-500/50 " +
-                  "text-amber-500 " +
-                  "hover:bg-amber-500/10 " +
-                  "hover:border-amber-500 " +
-                  "transition-all " +
-                  "whitespace-nowrap flex-shrink-0 " +
-                  "min-h-[44px] flex " +
-                  "items-center"
-                }
-              >
-                Subscribe
-              </button>
-              <button
-                onClick={() =>
-                  setScrollNudgeDismissed(true)
-                }
-                className={
-                  "text-gray-700 " +
-                  "hover:text-gray-400 " +
-                  "transition-colors " +
-                  "flex-shrink-0 p-2 " +
-                  "-mr-2 min-h-[44px] " +
-                  "min-w-[44px] flex " +
-                  "items-center justify-center"
-                }
-              >
-                <X size={14} />
-              </button>
-            </div>
-          </div>
-        </div>
+      {selectedSupplierId && (
+        <SupplierDetail
+          supplierId={selectedSupplierId}
+          supplierName={selectedSupplierName}
+          onClose={() => {
+            setSelectedSupplierId(null);
+            setSelectedSupplierName(null);
+          }}
+          onSelectProject={(projId, projLabel) => {
+            // Resolve numeric project id to the full project object from
+            // projectsData so ProjectDetail gets the same shape it usually
+            // does (budget fields, dates, etc).
+            const proj = projectsData.find((p) => p.id === projId);
+            if (!proj) return;
+            setSelectedSupplierId(null);
+            setSelectedSupplierName(null);
+            setSelectedProject(proj);
+          }}
+          onSelectBuyer={(buyerId, buyerLabel) => {
+            setSelectedSupplierId(null);
+            setSelectedSupplierName(null);
+            setSelectedBuyerId(buyerId);
+            setSelectedBuyerName(buyerLabel);
+          }}
+          onNavigate={(viewId) => {
+            setSelectedSupplierId(null);
+            setSelectedSupplierName(null);
+            setView(viewId);
+          }}
+        />
       )}
+
+      <CommandPalette
+        open={cmdOpen}
+        onClose={() => setCmdOpen(false)}
+        onSelect={(row) => {
+          setCmdOpen(false);
+          if (row.kind === "supplier") {
+            setSelectedSupplierId(row.id);
+            setSelectedSupplierName(row.label);
+          } else if (row.kind === "project") {
+            const proj = projectsData.find((p) => p.id === row.projectNumericId);
+            if (proj) setSelectedProject(proj);
+          } else if (row.kind === "buyer") {
+            setSelectedBuyerId(row.id);
+            setSelectedBuyerName(row.label);
+          }
+        }}
+      />
+
+      {selectedBuyerId && (
+        <BuyerDetail
+          buyerId={selectedBuyerId}
+          buyerName={selectedBuyerName}
+          onClose={() => {
+            setSelectedBuyerId(null);
+            setSelectedBuyerName(null);
+          }}
+          onSelectSupplier={(supId, supName) => {
+            setSelectedBuyerId(null);
+            setSelectedBuyerName(null);
+            setSelectedSupplierId(supId);
+            setSelectedSupplierName(supName);
+          }}
+          onSelectProject={(projId, _label) => {
+            const proj = projectsData.find((p) => p.id === projId);
+            if (!proj) return;
+            setSelectedBuyerId(null);
+            setSelectedBuyerName(null);
+            setSelectedProject(proj);
+          }}
+          onNavigate={(viewId) => {
+            setSelectedBuyerId(null);
+            setSelectedBuyerName(null);
+            setView(viewId);
+          }}
+        />
+      )}
+
+
+      {/* Floating subscribe nudge removed 2026-04-19. The "Subscribe"
+           button pointed at getElementById("subscribe-section") but no
+           such section exists in this component, and setSubscribeStatus
+           was never called anywhere — the nudge was a ghost CTA
+           promising a newsletter signup the site can't deliver yet.
+           Re-introduce only when there's a real capture form to
+           anchor to. */}
     </div>
   );
 }
