@@ -5,6 +5,23 @@ module.exports = {
   ],
   theme: {
     extend: {
+      // Calibrated typography scale — FT-ish register for older-eye
+      // comfort. Base body lifts 16→17px, sm utility copy 14→15px, lg
+      // editorial prose 18→19px. xs bumps 12→13px so small labels stay
+      // legible without becoming shouty. Line-heights tuned per size:
+      // tighter for display, looser for body. Putting fontSize in
+      // `extend` replaces Tailwind's default scale for these keys while
+      // keeping the rest of the framework's utilities intact.
+      fontSize: {
+        xs: ['13px', { lineHeight: '1.5' }],
+        sm: ['15px', { lineHeight: '1.55' }],
+        base: ['17px', { lineHeight: '1.6' }],
+        lg: ['19px', { lineHeight: '1.55' }],
+        xl: ['22px', { lineHeight: '1.45' }],
+        '2xl': ['26px', { lineHeight: '1.35' }],
+        '3xl': ['32px', { lineHeight: '1.25' }],
+        '4xl': ['40px', { lineHeight: '1.2' }],
+      },
       fontFamily: {
         // Editorial serif for display headings (H1/H2). Loaded via
         // next/font/google in src/app/layout.js and exposed as the

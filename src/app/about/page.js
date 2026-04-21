@@ -29,7 +29,7 @@ export default function AboutPage() {
           About
         </h1>
 
-        <div className="space-y-6 text-[15px] leading-relaxed text-gray-400">
+        <div className="space-y-6 text-[17px] leading-relaxed text-gray-400">
           <p>
             Gracchus is a non-partisan, source-backed audit of UK government
             performance. We track public spending, project delivery,

@@ -1999,7 +1999,7 @@ function MoneyMapStyles() {
         letter-spacing: 0.14em;
       }
       .mm-card-headline {
-        font-family: var(--mm-serif); font-size: 15px;
+        font-family: var(--mm-serif); font-size: 17px;
         line-height: 1.3; margin: 7px 0 8px; color: #f4f4f5;
       }
       .mm-card-metric {
@@ -2068,7 +2068,7 @@ function MoneyMapStyles() {
         color: var(--mm-fg-mute); font-family: var(--mm-mono);
         font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em;
       }
-      .mm-v { color: var(--mm-fg); font-family: var(--mm-mono); font-size: 12px; }
+      .mm-v { color: var(--mm-fg); font-family: var(--mm-mono); font-size: 14px; }
 
       .mm-below {
         max-width: 1440px; margin: 0 auto;
@@ -2089,17 +2089,17 @@ function MoneyMapStyles() {
         transition: background .12s;
       }
       .mm-rank-row:hover { background: rgba(255,255,255,0.02); }
-      .mm-rank-n    { font-family: var(--mm-mono); font-size: 11px; color: var(--mm-fg-mute); }
+      .mm-rank-n    { font-family: var(--mm-mono); font-size: 13px; color: var(--mm-fg-mute); }
       .mm-rank-name { color: var(--mm-fg); }
       .mm-rank-val  { font-family: var(--mm-mono); color: #f4f4f5; }
-      .mm-rank-meta { font-family: var(--mm-mono); font-size: 11px; color: var(--mm-fg-mute); }
+      .mm-rank-meta { font-family: var(--mm-mono); font-size: 13px; color: var(--mm-fg-mute); }
 
       /* Repeat-offenders feature ranking */
       .mm-below-feature { grid-template-columns: 1fr; }
       .mm-below-full { padding: 28px 32px; }
       .mm-feature-h { margin-bottom: 6px !important; }
       .mm-feature-sub {
-        font-size: 12.5px; color: var(--mm-fg-dim); line-height: 1.55;
+        font-size: 14px; color: var(--mm-fg-dim); line-height: 1.55;
         max-width: 820px; margin: 0 0 18px 0;
       }
       .mm-feature-empty {
@@ -2228,9 +2228,9 @@ function MoneyMapStyles() {
         padding: 11px 0; border-bottom: 1px solid var(--mm-border);
         align-items: baseline;
       }
-      .mm-score-k { font-size: 13px; color: var(--mm-fg); }
+      .mm-score-k { font-size: 14px; color: var(--mm-fg); }
       .mm-score-v {
-        font-family: var(--mm-mono); font-size: 13.5px;
+        font-family: var(--mm-mono); font-size: 14px;
         color: #f4f4f5; font-weight: 500;
       }
       .mm-score-hint {
@@ -2241,9 +2241,9 @@ function MoneyMapStyles() {
         padding: 13px 0; border-bottom: 1px solid var(--mm-border);
         display: grid; grid-template-columns: 1fr auto; gap: 4px 10px;
       }
-      .mm-edge-title { font-size: 13px; color: var(--mm-fg); }
+      .mm-edge-title { font-size: 14px; color: var(--mm-fg); }
       .mm-edge-amount {
-        font-family: var(--mm-mono); font-size: 13px;
+        font-family: var(--mm-mono); font-size: 14px;
         color: #f4f4f5; text-align: right; font-weight: 500;
       }
       .mm-edge-amount-undisclosed {
@@ -2266,7 +2266,7 @@ function MoneyMapStyles() {
         color: #9ca3af; margin-bottom: 8px;
       }
       .mm-why-undisclosed-body {
-        font-size: 12px; color: var(--mm-fg-dim); line-height: 1.55;
+        font-size: 14px; color: var(--mm-fg-dim); line-height: 1.55;
       }
       .mm-why-undisclosed-body ul {
         margin: 6px 0 0 0; padding-left: 18px;
@@ -2392,7 +2392,7 @@ function MoneyMapStyles() {
         color: var(--mm-fg-mute); margin-bottom: 10px;
       }
       .mm-canvas-empty-body {
-        font-family: var(--mm-serif); font-size: 15.5px;
+        font-family: var(--mm-serif); font-size: 17px;
         color: #f4f4f5; line-height: 1.45; margin: 0 0 16px;
       }
       .mm-canvas-empty-actions {

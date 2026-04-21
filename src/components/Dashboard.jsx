@@ -2206,7 +2206,7 @@ function PageHeader({
       </div>
       {description && (
         <p className={
-          "text-gray-400 text-[15px] mt-3 " +
+          "text-gray-400 text-[17px] mt-3 " +
           "leading-relaxed max-w-[820px]"
         }>
           {description}
@@ -4775,7 +4775,7 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
           }>
             Briefing
           </div>
-          <p className="text-gray-400 text-[12px] font-mono leading-relaxed">
+          <p className="text-gray-400 text-base font-mono leading-relaxed">
             {p.description}
           </p>
         </div>
@@ -8812,7 +8812,7 @@ export default function App() {
                           </span>
                         </div>
                         <div className={
-                          "text-xs text-gray-500 leading-relaxed mt-auto"
+                          "text-sm text-gray-500 leading-relaxed mt-auto"
                         }>
                           {c.note}
                         </div>
@@ -8929,7 +8929,7 @@ export default function App() {
                               )}
                             </div>
                             <p className={
-                              "text-[13px] text-gray-500 " +
+                              "text-[15px] text-gray-500 " +
                               "leading-relaxed max-w-[700px]"
                             }>
                               {e.summary}
@@ -27566,7 +27566,7 @@ export default function App() {
                     {(overallPct * 100).toFixed(1)}%
                   </div>
                   <div className={
-                    "text-gray-500 text-[12px] mt-1"
+                    "text-gray-500 text-sm mt-1"
                   }>
                     {overall.disclosed.toLocaleString("en-GB")}
                     {" of "}
@@ -27607,7 +27607,7 @@ export default function App() {
                     {"bn"}
                   </div>
                   <div className={
-                    "text-gray-500 text-[12px] mt-1"
+                    "text-gray-500 text-sm mt-1"
                   }>
                     total £ backed by a citeable source.
                   </div>
@@ -27626,7 +27626,7 @@ export default function App() {
                     {undisclosedCount.toLocaleString("en-GB")}
                   </div>
                   <div className={
-                    "text-gray-500 text-[12px] mt-1"
+                    "text-gray-500 text-sm mt-1"
                   }>
                     contractor rows still waiting on a £.
                   </div>
@@ -27646,7 +27646,7 @@ export default function App() {
                     Coverage by tier
                   </h3>
                   <p className={
-                    "text-gray-500 text-[12px] mt-1 " +
+                    "text-gray-500 text-sm mt-1 " +
                     "leading-snug"
                   }>
                     Tier reflects each contractor&apos;s role on
@@ -27854,7 +27854,7 @@ export default function App() {
                       >
                         <div className="col-span-5 min-w-0">
                           <div className={
-                            "text-gray-200 text-[13px] " +
+                            "text-gray-200 text-sm " +
                             "truncate " +
                             "group-hover:text-white"
                           }>
@@ -27872,14 +27872,15 @@ export default function App() {
                         </div>
                         <div className={
                           "col-span-2 text-right " +
-                          "font-mono text-[12px] text-white"
+                          "font-mono text-[13px] text-white " +
+                          "tabular-nums"
                         }>
                           {row.members}
                         </div>
                         <div className={
                           "col-span-2 text-right " +
-                          "font-mono text-[12px] " +
-                          "text-gray-300"
+                          "font-mono text-[13px] " +
+                          "text-gray-300 tabular-nums"
                         }>
                           {row.disclosed}
                         </div>
@@ -27902,7 +27903,7 @@ export default function App() {
                               />
                             </div>
                             <span className={
-                              "font-mono text-[12px] " +
+                              "font-mono text-[13px] " +
                               "tabular-nums w-[34px] text-right "
                               + pctColor
                             }>
@@ -29712,8 +29713,8 @@ export default function App() {
                     you were born?
                   </h1>
                   <p className={
-                    "text-gray-500 text-sm " +
-                    "sm:text-base max-w-lg mb-8"
+                    "text-gray-500 text-base " +
+                    "sm:text-lg max-w-lg mb-8"
                   }>
                     Enter your birth year to see
                     how UK government debt, housing,
@@ -30103,7 +30104,7 @@ export default function App() {
                 }>
                   Every number is tied to a named public document.
                 </h3>
-                <p className="text-gray-400 text-[15px] leading-relaxed mb-3">
+                <p className="text-gray-400 text-[17px] leading-relaxed mb-3">
                   The {_projectCount.toLocaleString()} projects tracked
                   across Gracchus are built from public filings only:
                   National Audit Office reports, Major Project Reports
@@ -30114,7 +30115,7 @@ export default function App() {
                   select committee evidence, ONS and OBR releases, and
                   the Electoral Commission register of donations.
                 </p>
-                <p className="text-gray-400 text-[15px] leading-relaxed mb-3">
+                <p className="text-gray-400 text-[17px] leading-relaxed mb-3">
                   Every edge in the Money Map, every £ in a project
                   dossier, and every line of the Supplier Rankings
                   points back to at least one specific document,
@@ -30147,7 +30148,7 @@ export default function App() {
                 }>
                   Not all documents are equal. We say so plainly.
                 </h3>
-                <p className="text-gray-400 text-[15px] leading-relaxed mb-4">
+                <p className="text-gray-400 text-[17px] leading-relaxed mb-4">
                   Every edge in the Money Map carries a letter grade
                   A through D reflecting how firmly the underlying
                   document ties the supplier to the contract. The
@@ -30163,7 +30164,7 @@ export default function App() {
                     }>
                       Tier A
                     </div>
-                    <div className="text-gray-300 text-[13px] leading-relaxed">
+                    <div className="text-gray-300 text-[15px] leading-relaxed">
                       Contract award notice with a named supplier and
                       a figure &mdash; OCDS release, direct
                       departmental award. Unambiguous.
@@ -30176,7 +30177,7 @@ export default function App() {
                     }>
                       Tier B
                     </div>
-                    <div className="text-gray-300 text-[13px] leading-relaxed">
+                    <div className="text-gray-300 text-[15px] leading-relaxed">
                       NAO, IPA, or Annual Report naming the supplier
                       and the programme. Figure may be aggregated
                       across years.
@@ -30189,7 +30190,7 @@ export default function App() {
                     }>
                       Tier C
                     </div>
-                    <div className="text-gray-300 text-[13px] leading-relaxed">
+                    <div className="text-gray-300 text-[15px] leading-relaxed">
                       Transparency CSV row matching on supplier name
                       plus description keywords. Strong but
                       heuristic.
@@ -30202,7 +30203,7 @@ export default function App() {
                     }>
                       Tier D
                     </div>
-                    <div className="text-gray-300 text-[13px] leading-relaxed">
+                    <div className="text-gray-300 text-[15px] leading-relaxed">
                       Press reports, FOI responses, or committee
                       evidence. We label these clearly and exclude
                       them from headline £ totals by default.
@@ -30227,7 +30228,7 @@ export default function App() {
                   &ldquo;Serco Group plc&rdquo; and &ldquo;SERCO LTD&rdquo; are
                   the same company.
                 </h3>
-                <p className="text-gray-400 text-[15px] leading-relaxed mb-3">
+                <p className="text-gray-400 text-[17px] leading-relaxed mb-3">
                   Suppliers are matched across documents using a
                   collapse rule: lowercase, strip legal suffixes
                   (ltd, plc, limited, group), drop parenthetical
@@ -30236,7 +30237,7 @@ export default function App() {
                   or sharing &ge;70&#37; of tokens &mdash; are flagged
                   for human review before they are merged.
                 </p>
-                <p className="text-gray-400 text-[15px] leading-relaxed">
+                <p className="text-gray-400 text-[17px] leading-relaxed">
                   The same rule is applied to project names when
                   linking non-tracker datasets (planning approvals,
                   delivery delays) back to a project dossier. We
@@ -30260,7 +30261,7 @@ export default function App() {
                 }>
                   What we don&rsquo;t know, and why.
                 </h3>
-                <p className="text-gray-400 text-[15px] leading-relaxed mb-3">
+                <p className="text-gray-400 text-[17px] leading-relaxed mb-3">
                   Across the {_projectCount.toLocaleString()} projects
                   we track, {_disclosedMembers.toLocaleString()} of
                   {" "}{_totalMembers.toLocaleString()} supplier
@@ -30276,7 +30277,7 @@ export default function App() {
                   </span>
                   rather than hiding them or assigning £0.
                 </p>
-                <p className="text-gray-400 text-[15px] leading-relaxed">
+                <p className="text-gray-400 text-[17px] leading-relaxed">
                   A dedicated Coverage Transparency page shows
                   per-project disclosure, broken down by tier, so
                   readers can see exactly where the gaps are. Every
@@ -30302,7 +30303,7 @@ export default function App() {
                 }>
                   The Money Map is an edge list, not an accusation.
                 </h3>
-                <p className="text-gray-400 text-[15px] leading-relaxed mb-3">
+                <p className="text-gray-400 text-[17px] leading-relaxed mb-3">
                   Buyer concentration is measured with the
                   Herfindahl-Hirschman Index computed over
                   £-bearing suppliers only. A buyer with a single
@@ -30314,7 +30315,7 @@ export default function App() {
                   and below 1,500
                   <span className="text-gray-400 mx-1">Low</span>.
                 </p>
-                <p className="text-gray-400 text-[15px] leading-relaxed mb-3">
+                <p className="text-gray-400 text-[17px] leading-relaxed mb-3">
                   Repeat-win rate compares the number of contracts
                   a supplier won from a given buyer against the
                   number a random-allocation baseline would predict,
@@ -30325,7 +30326,7 @@ export default function App() {
                   &mdash; they do not, by themselves, prove
                   wrongdoing.
                 </p>
-                <p className="text-gray-400 text-[15px] leading-relaxed">
+                <p className="text-gray-400 text-[17px] leading-relaxed">
                   The Repeat Offenders ranking folds repeat-win rate
                   together with multi-buyer breadth, award count,
                   source tier, and £ volume into a single cartel-risk
@@ -30349,7 +30350,7 @@ export default function App() {
                 }>
                   The limits of this work.
                 </h3>
-                <ul className="space-y-3 text-gray-400 text-[15px] leading-relaxed">
+                <ul className="space-y-3 text-gray-400 text-[17px] leading-relaxed">
                   <li className="pl-5 relative">
                     <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
                     An edge between two nodes means a named
