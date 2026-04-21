@@ -57,14 +57,37 @@ export function checkOrigin(request) {
   const allowed = getAllowedOrigins();
   if (allowed.has(origin)) return null;
 
-  // Also allow any *.vercel.app preview — these are project-scoped and harmless
-  // for CSRF because no user's gracchus.ai session cookie is valid on them.
+  // Parse origin once for the remaining host-based checks.
+  let originHost = null;
   try {
-    const host = new URL(origin).host;
-    if (host.endsWith(".vercel.app")) return null;
+    originHost = new URL(origin).host;
   } catch {
-    // fall through to Forbidden
+    // Malformed Origin — fall through to Forbidden below.
   }
 
+  if (originHost) {
+    // Same-origin bypass: if the Origin's host matches the request's own
+    // Host header, this is a same-origin request by definition — CSRF is
+    // about cross-origin forgery, not requests back to the same site. This
+    // lets the app run under any custom domain (gracchus.com, a vanity
+    // alias, a future rebrand) without a code change. An attacker who
+    // tries to CSRF from evil.com still gets rejected because their Origin
+    // host and our Host header disagree.
+    const selfHost = request.headers.get("host");
+    if (selfHost && originHost === selfHost) return null;
+
+    // Vercel preview URLs (*.vercel.app) are project-scoped and can't
+    // carry a gracchus.ai session cookie, so they're harmless for CSRF.
+    if (originHost.endsWith(".vercel.app")) return null;
+
+    // Any subdomain of gracchus.ai — staging, preview, alias — is ours.
+    if (originHost === "gracchus.ai" || originHost.endsWith(".gracchus.ai")) {
+      return null;
+    }
+  }
+
+  // Log the rejection in prod logs so a bad origin surfaces on Vercel
+  // rather than being invisible to the user ("Forbidden" with no detail).
+  console.warn("[origin-check] rejected origin:", origin, "host:", request.headers.get("host"));
   return Response.json({ error: "Forbidden" }, { status: 403 });
 }
