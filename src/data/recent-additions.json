@@ -1,0 +1,80 @@
+{
+  "$comment": "Human-curated feed of notable additions to Gracchus. Append newest-first. Types: tranche | project | disclosure | coverage | dataset | feature. `view` is a Dashboard view id (matches VIEW_SLUGS keys); omit to render without a CTA.",
+  "updatedAt": "2026-04-21",
+  "entries": [
+    {
+      "date": "2026-04-21",
+      "type": "feature",
+      "title": "Citation chip on every headline figure",
+      "summary": "Hover any figure on the home page, in a project dossier, or in a supplier profile \u2014 a small \u00a9 appears, click to copy a terse citation (finding, source file, access date). The whole tracker is now quotable without re-keying.",
+      "metric": "hover \u2192 copy"
+    },
+    {
+      "date": "2026-04-21",
+      "type": "feature",
+      "title": "Story of the Week \u2014 Universal Credit IT, 618% over",
+      "summary": "The home page now leads with a data-picked story: the tracked UK megaproject with the worst overrun % and a disclosed prime above \u00a3100m. Current pick: Universal Credit IT (\u00a32.2bn \u2192 \u00a315.8bn) \u2014 primes IBM, Accenture, DXC.",
+      "view": "projects",
+      "metric": "618% over"
+    },
+    {
+      "date": "2026-04-21",
+      "type": "feature",
+      "title": "Methodology page",
+      "summary": "An editorial one-pager explaining how Gracchus sources, grades, and reasons about the data \u2014 plus what we don\u2019t claim.",
+      "view": "methodology"
+    },
+    {
+      "date": "2026-04-20",
+      "type": "tranche",
+      "title": "Tranche 11 \u2014 OCDS re-match",
+      "summary": "Re-ran the OCDS matcher against the grown cache. Fresh contract notices from Contracts Finder and Find a Tender folded into existing project dossiers.",
+      "view": "moneymap",
+      "metric": "OCDS re-run"
+    },
+    {
+      "date": "2026-04-20",
+      "type": "coverage",
+      "title": "Supplier \u00a3 disclosure at 25.5%",
+      "summary": "Across all tracker projects, 236 of 924 named supplier positions now have a public \u00a3 figure attached \u2014 up from 21% pre-tranche-8.",
+      "view": "suppliers.coverage",
+      "metric": "25.5% coverage"
+    },
+    {
+      "date": "2026-04-20",
+      "type": "feature",
+      "title": "Supplier Rankings",
+      "summary": "League tables of repeat offenders, single-buyer dependencies, and buyer concentration. Every row traces back to the contracts behind it.",
+      "view": "suppliers.rankings"
+    },
+    {
+      "date": "2026-04-19",
+      "type": "feature",
+      "title": "Coverage Transparency page",
+      "summary": "Per-project disclosure broken down by source tier. Readers can see exactly where the remaining gaps are and how we plan to close them.",
+      "view": "suppliers.coverage"
+    },
+    {
+      "date": "2026-04-18",
+      "type": "tranche",
+      "title": "Tranche 10 \u2014 description-gated dept-CSV match",
+      "summary": "Dept-CSV matcher now gated on shared description tokens to avoid supplier-name collisions. Unlocked \u00a31.30bn of previously-dropped candidates.",
+      "view": "suppliers.coverage",
+      "metric": "+\u00a31.30bn unlocked"
+    },
+    {
+      "date": "2026-04-17",
+      "type": "dataset",
+      "title": "Department spend CSVs \u2014 MoJ, DHSC, Cabinet Office",
+      "summary": "Added monthly transparency CSVs for six more central departments. Backfilled to January 2022 where the publisher\u2019s archive allows.",
+      "view": "suppliers.coverage"
+    },
+    {
+      "date": "2026-04-15",
+      "type": "feature",
+      "title": "Money Map \u2014 Lens mode",
+      "summary": "Click any entity to pivot the graph into an ego-network of its 1\u20132 hop neighbourhood. Makes cross-department concentration visible in one glance.",
+      "view": "moneymap"
+    }
+  ]
+}
