@@ -5,6 +5,14 @@
     {
       "date": "2026-04-21",
       "type": "feature",
+      "title": "Money Map polish pass \u2014 13 upgrades before ship",
+      "summary": "Shareable URLs (view/lens/tier/min/q), sticky filter bar, export-current-view-as-PNG, dashed strokes on undisclosed-\u00a3 bubbles, HHI/dependence qualitative bands (US DoJ guidelines), hover tooltips on every bubble, drawer focus trap + ARIA, collapsible mobile rails, repeat-offenders \u2192 supplier profile cross-link, weekly-rotating story cards, empty-canvas overlay with reset CTAs, discoverable Min \u00a3 cycler, and a shared useDrawerFocus hook.",
+      "view": "moneymap",
+      "metric": "13 ship-blockers cleared"
+    },
+    {
+      "date": "2026-04-21",
+      "type": "feature",
       "title": "Drawer accessibility \u2014 focus trap, Esc close, empty states",
       "summary": "Project, Supplier, and Buyer dossier drawers now trap focus, return it to the thing you opened them from, and close on Escape. Unresolved links render a terse 'unavailable' panel instead of crashing. Skip-to-content link wired for keyboard users.",
       "metric": "a11y pass"
