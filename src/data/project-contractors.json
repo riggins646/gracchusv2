@@ -713,7 +713,23 @@
                   "grade": "B",
                   "gradeRationale": "sourceType tokens: company-announcement=B → B"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 710493.51,
+                  "asOfDate": "2014-12-31",
+                  "note": "Sum of 7 gov.uk transparency payments published by Department For Transport during 2014 (max single row £229,254). Project-identifying tokens observed in rows: high, hs2, speed. Sample descriptions: HS2 Rual South. Application num 13004537 date 4th Feb 14 LWM Cont 222 - Atkins Lot 1 Country South Design; Task 263 Speed Flow Review NETWORK SERVICES DIRECTORATE Contractors Costs; Severe Weather Climate Change and High Winds work done in January 2014 CMR Invoice @ 7,417.6 NETWORK SERVICES DIRECTORATE Contractors Costs.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/dft-spending-over-25000-for-april-2014",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": [
+                    "https://www.gov.uk/government/publications/dft-spending-over-25000-for-february-2014",
+                    "https://www.gov.uk/government/publications/dft-spending-over-25000-for-january-2014",
+                    "https://www.gov.uk/government/publications/dft-spending-over-25000-for-may-2014"
+                  ]
+                }
+              ],
+              "contractValueGBP": 710493.51,
+              "contractValueNote": "Sum of 7 gov.uk transparency payments published by Department For Transport during 2014 (max single row £229,254). Project-identifying tokens observed in rows: high, hs2, speed. Sample descriptions: HS2 Rual South. Application num 13004537 date 4th Feb 14 LWM Cont 222 - Atkins Lot 1 Country South Design; Task 263 Speed Flow Review NETWORK SERVICES DIRECTORATE Contractors Costs; Severe Weather Climate Change and High Winds work done in January 2014 CMR Invoice @ 7,417.6 NETWORK SERVICES DIRECTORATE Contractors Costs."
             },
             {
               "name": "Bechtel Limited",
@@ -797,7 +813,19 @@
                   "grade": "B",
                   "gradeRationale": "sourceType tokens: company-announcement=B → B"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 550000.0,
+                  "asOfDate": "2024-07-16",
+                  "note": "OCDS award notice. Buyer: HS2. Tender: CFO Consultancy Support. Supplier as named in notice: Arcadis.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/615e1d0b-6197-4d4f-97ec-6ac1099ee2c2-768525",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 550000.0,
+              "contractValueNote": "OCDS award notice. Buyer: HS2. Tender: CFO Consultancy Support. Supplier as named in notice: Arcadis."
             }
           ]
         },
@@ -844,7 +872,27 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 2000000.0,
+                  "asOfDate": "2023-11-06",
+                  "note": "OCDS award notice. Buyer: HS2. Tender: Land Referencing Support Services. Supplier as named in notice: Mott Macdonald Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/94ee5f27-fd05-424a-a9c1-4d8108669241-703170",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 43743.75,
+                  "asOfDate": "2025-01-06",
+                  "note": "OCDS award notice. Buyer: DfTc - Department for Transport. Tender: AWARD of Transport Analysis Guidance (TAG) High-level Guidance. Supplier as named in notice: Mott MacDonald Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/5f44b4d3-b738-474c-9e6b-659f4d6b4395-817877",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 43743.75,
+              "contractValueNote": "OCDS award notice. Buyer: HS2. Tender: Land Referencing Support Services. Supplier as named in notice: Mott Macdonald Limited."
             }
           ]
         },
@@ -911,7 +959,19 @@
                   "grade": "C",
                   "gradeRationale": "sourceType tokens: project-press=C → C"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 32465418.0,
+                  "asOfDate": "2024-09-12",
+                  "note": "OCDS award notice. Buyer: HS2. Tender: Post Excavation Services. Supplier as named in notice: Headland Archaeology (UK) Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/58c843c7-ac9a-4cea-8dcd-20600b8d3a06-785282",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 32465418.0,
+              "contractValueNote": "OCDS award notice. Buyer: HS2. Tender: Post Excavation Services. Supplier as named in notice: Headland Archaeology (UK) Ltd."
             },
             {
               "name": "Wessex Archaeology Limited",
@@ -1518,7 +1578,7 @@
       "projectName": "Post Office Horizon IT",
       "department": "Post Office Limited / Department for Business and Trade (sole shareholder)",
       "contractingAuthority": "Post Office Limited",
-      "lastUpdated": "2026-04-17",
+      "lastUpdated": "2026-04-20",
       "researchNote": "Horizon was originally procured in 1996 via an ICL Pathway bid (ICL then 80% owned by Fujitsu; ICL fully absorbed into Fujitsu in 2001). Contractors below cover: (i) the Horizon IT system supplier, (ii) the attempted in-house replacement (NBIT / Subpostmaster Platform Programme), (iii) law firms with named roles in the prosecutions and inquiry evidence, (iv) the statutory auditors, and (v) the independent investigator engaged by Post Office 2012-2015. Deeper tier (Horizon sub-suppliers, individual prosecution counsel, compensation-scheme administrators) to be added in follow-up pass.",
       "contractors": [
         {
@@ -1893,6 +1953,16 @@
           "title": "Post Office Horizon IT scandal: Progress of compensation",
           "publisher": "House of Lords Library",
           "url": "https://lordslibrary.parliament.uk/post-office-horizon-it-scandal-progress-of-compensation/"
+        }
+      ],
+      "projectValueHistory": [
+        {
+          "valueGBP": 40000000.0,
+          "asOfDate": "2024-12-20",
+          "label": "IT Capabilities Framework",
+          "note": "OCDS award notice. Buyer: Post Office. Tender: IT Capabilities Framework. 2 named suppliers share the framework envelope — per-supplier shares not disclosed in notice. Suppliers: Accenture (UK) Limited, Coforge U.K. Limited.",
+          "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/3f7c765b-6558-47bb-ab68-ba9011b11532-829556",
+          "sourceType": "contracts-finder"
         }
       ]
     },
@@ -2316,7 +2386,57 @@
                   "grade": "C",
                   "gradeRationale": "sourceType tokens: industry-confirmation=C → C"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 727500.0,
+                  "asOfDate": "2023-09-07",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: Provision of AmCam Handheld Monitors. Supplier as named in notice: Cavendish Nuclear.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/4734efbd-9edd-4863-99fa-1ff00545c2fb-687055",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": [
+                    "https://www.contractsfinder.service.gov.uk/Notice/f7bf26fc-c1a3-42f9-aa46-15d25e182f3d-687054"
+                  ]
+                },
+                {
+                  "valueGBP": 10240000.0,
+                  "asOfDate": "2024-04-05",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: Radiometrics & Associated Services Lot 3 - Radiometrics Characterisation Services. Supplier as named in notice: Cavendish Nuclear.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/78c8e4a4-6761-41d7-b9dd-84bd134746d3-747862",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": [
+                    "https://www.contractsfinder.service.gov.uk/Notice/a5ddc018-bab2-4c8d-a3dc-a08451d5a63e-747860"
+                  ]
+                },
+                {
+                  "valueGBP": 6340000.0,
+                  "asOfDate": "2024-05-21",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: Radiometrics & Associated Services - Lot 2 - Portable Radiation Protection Instrumentation. Supplier as named in notice: Cavendish Nuclear.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/d902134b-ce4c-4f19-934b-99a52a152bc4-760398",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 33200000.0,
+                  "asOfDate": "2024-05-29",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: Radiometrics & Associated Services - Lot 1 - Installed Radiological Protection Instrumentation. Supplier as named in notice: Cavendish Nuclear.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/5d85639f-945d-42e4-bb2e-931369ea1ad3-760390",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": [
+                    "https://www.contractsfinder.service.gov.uk/Notice/6c9bfd5a-a373-431a-a896-0cd9a6c177a3-760388"
+                  ]
+                },
+                {
+                  "valueGBP": 254476.67,
+                  "asOfDate": "2024-09-17",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: Box Encapsulation Plant (BEP) Radiometric Equipment. Supplier as named in notice: Cavendish Nuclear.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/d841a5f2-972d-4994-a817-582cacb62201-790708",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 254476.67,
+              "contractValueNote": "OCDS award notice. Buyer: Sellafield Ltd. Tender: Radiometrics & Associated Services - Lot 1 - Installed Radiological Protection Instrumentation. Supplier as named in notice: Cavendish Nuclear."
             },
             {
               "name": "The Decommissioning Alliance II",
@@ -2459,6 +2579,128 @@
               ],
               "valueHistory": [
                 {
+                  "valueGBP": 63629.03,
+                  "asOfDate": "2023-11-27",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: DDP00710 - RAHF Op 5&6 MFU design and procurement. Supplier as named in notice: Nexus Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/b700e9bf-59e0-4abc-a211-6cf3c62448cb-701931",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": [
+                    "https://www.contractsfinder.service.gov.uk/Notice/4cb92594-72d6-4881-b8ac-6eca163e01d6-701930"
+                  ]
+                },
+                {
+                  "valueGBP": 564343.3,
+                  "asOfDate": "2024-01-15",
+                  "note": "OCDS award notice. Buyer: Sellafield. Tender: DDP00687 - Misc Demo. Supplier as named in notice: Nexus Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/a6f6483e-8920-458e-8edc-b509fedc4603-714064",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 1223608.83,
+                  "asOfDate": "2024-01-31",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: DDP00714 - Soft Strip, Waste Clearance & Decommissioning Site Support. Supplier as named in notice: Nexus Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/e83215d9-740b-4e63-91de-016568e5625b-718770",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 637500.77,
+                  "asOfDate": "2024-02-06",
+                  "note": "OCDS award notice. Buyer: Sellafield. Tender: DDP00723 - Misc Demo. Supplier as named in notice: Nexus Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/e5516246-d0af-4b8e-8f09-a0e70f68bfed-720687",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 162178.81,
+                  "asOfDate": "2024-02-08",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: DDP00719 - WAGR Service Backout. Supplier as named in notice: Nexus Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/7707d617-abbb-4ded-96f1-1e6eac67b348-721527",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 783321.91,
+                  "asOfDate": "2024-03-01",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: DDP00729 - RAHF Core Management Team. Supplier as named in notice: Nexus Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/835831c7-9a1f-4ffb-a186-6d43a6d132bd-728094",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 1187842.82,
+                  "asOfDate": "2024-04-25",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: DDP00741 - RAHF Op 5 & 6 Decommissioning (Main Works). Supplier as named in notice: Nexus Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/25ebb12c-6f10-4c89-b20d-ce8cb70939b8-744358",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 397156.85,
+                  "asOfDate": "2024-05-07",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: DDP00745 - RAD WAGR Enabling works and ECI. Supplier as named in notice: Nexus Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/9fb75e40-5725-47a5-9c76-32845bd31072-748546",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 110384.31,
+                  "asOfDate": "2024-05-07",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: DDP00730 - RAHF Fire Alarm Optioneering. Supplier as named in notice: Nexus Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/4dc2973c-b916-44f0-9a83-00b2f31bf9e1-748496",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 67246.97,
+                  "asOfDate": "2024-10-11",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: DDP00764 RAD Calder R4 short BH enabling works. Supplier as named in notice: Nexus Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/c3510163-0c7e-4b13-a77f-aa108173ee52-793445",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 199870.0,
+                  "asOfDate": "2024-10-25",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: DDP00767 - C0176 Demolition. Supplier as named in notice: The NEXUS Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/931264a4-4cd0-4bda-987a-9284ef6957d5-797123",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 187146.27,
+                  "asOfDate": "2024-12-11",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: DDP00772 - C0845 Demolition. Supplier as named in notice: The NEXUS Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/44b987a6-3638-494e-914e-61c41c0c686c-810029",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 1477423.84,
+                  "asOfDate": "2025-01-23",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: DDP00754 - B52 PIE ILW - Phase 2A Prelim Design. Supplier as named in notice: Nexus Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/804530e7-eb7b-4960-b0ec-7e5236db0e32-819625",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 4647534.89,
+                  "asOfDate": "2025-01-30",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: DDP00746 - RAD WAGR Main Demolition. Supplier as named in notice: Nexus Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/90de19a5-e2de-49c5-a80e-a7e2d10a5e18-822173",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 75040.37,
+                  "asOfDate": "2025-03-05",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: DDP00777 - B1188 Demolition. Supplier as named in notice: The NEXUS Decommissioning Alliance.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/1b244ee6-b5b8-4095-a13b-05c2a4676c2c-831991",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
                   "valueGBP": 84000.0,
                   "asOfDate": "2025-06-11",
                   "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: DDP00783 - F113 Demolition. Supplier as named in notice: The NEXUS Decommissioning Alliance.",
@@ -2498,7 +2740,19 @@
                   "grade": "C",
                   "gradeRationale": "sourceType tokens: industry-confirmation=C → C"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 500000.0,
+                  "asOfDate": "2024-10-15",
+                  "note": "OCDS award notice. Buyer: Sellafield Ltd. Tender: Enterprise Asset Management Programme. Supplier as named in notice: PA Consulting Services Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/1bed1548-fa27-446e-97cf-166878438d5f-801639",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 500000.0,
+              "contractValueNote": "OCDS award notice. Buyer: Sellafield Ltd. Tender: Enterprise Asset Management Programme. Supplier as named in notice: PA Consulting Services Limited."
             },
             {
               "name": "Avingtrans plc (via Hayward Tyler / Metalcraft subsidiaries)",
@@ -2576,7 +2830,29 @@
                   "grade": "B",
                   "gradeRationale": "sourceType tokens: company-announcement=B → B"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 6985374.84,
+                  "asOfDate": "2024-12-31",
+                  "note": "Sum of 5 gov.uk transparency payments published by Department For Energy Security And Net Zero during 2024 (max single row £6,589,628). Project-identifying tokens observed in rows: decommissioning. Sample descriptions: Desnz - Net Zero - Nnl Facilities-technical Advice / Services & Support Desnz - Net Zero, Nuclear & International - Desnz - Nuclear Power And Decommissioning Technical Advice / Services & Support; Desnz - Medical Radioisotope Innovation Programme-capital Grants To Public Corporations (Pcs) Desnz - Net Zero, Nuclear & International - Desnz - Nuclear Power And Decommissioning Capital Grants To Pu; Desnz - Net Zero - Nnl Facilities-capital Grants To Central Government Desnz - Net Zero, Nuclear & International - Desnz - Nuclear Power And Decommissioning Capital Grants To Central Government.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/desnz-spending-over-25000-april-2024",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": [
+                    "https://www.gov.uk/government/publications/desnz-spending-over-25000-august-2024"
+                  ]
+                },
+                {
+                  "valueGBP": 550000.0,
+                  "asOfDate": "2025-12-31",
+                  "note": "Sum of 1 gov.uk transparency payments published by Department For Energy Security And Net Zero during 2025 (max single row £550,000). Project-identifying tokens observed in rows: decommissioning. Sample descriptions: Desnz - Net Zero - Nnl Facilities-capital Grants To Central Government Desnz - Net Zero, Nuclear & International - Desnz - Nuclear Power And Decommissioning Capital Grants To Central Government.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/desnz-spending-over-25000-april-2025",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 550000.0,
+              "contractValueNote": "Sum of 1 gov.uk transparency payments published by Department For Energy Security And Net Zero during 2025 (max single row £550,000). Project-identifying tokens observed in rows: decommissioning. Sample descriptions: Desnz - Net Zero - Nnl Facilities-capital Grants To Central Government Desnz - Net Zero, Nuclear & International - Desnz - Nuclear Power And Decommissioning Capital Grants To Central Government."
             }
           ]
         }
@@ -5257,7 +5533,21 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 85000000.0,
+                  "asOfDate": "2025-02-21",
+                  "note": "OCDS award notice. Buyer: Home Office. Tender: Migration and Borders Transformation Portfolio (MBTP) Technical Architecture Services. Supplier as named in notice: PA Consulting Services Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/274f22b2-05ee-4fdc-911e-1f669a067a3c-834956",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": [
+                    "https://www.contractsfinder.service.gov.uk/Notice/274f22b2-05ee-4fdc-911e-1f669a067a3c-834954"
+                  ]
+                }
+              ],
+              "contractValueGBP": 85000000.0,
+              "contractValueNote": "OCDS award notice. Buyer: Home Office. Tender: Migration and Borders Transformation Portfolio (MBTP) Technical Architecture Services. Supplier as named in notice: PA Consulting Services Ltd."
             },
             {
               "name": "Capgemini UK plc",
@@ -7621,7 +7911,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: lockheedmartin.com"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 220000000.0,
+                  "asOfDate": null,
+                  "note": "OCDS award notice. Buyer: Defence Equipment and Support. Tender: Lightning Air System National Capability Enterprise 28-32. Supplier as named in notice: Lockheed Martin UK Ltd.",
+                  "sourceUrl": "https://www.find-tender.service.gov.uk/Notice/070660-2025",
+                  "sourceType": "find-tender",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 220000000.0,
+              "contractValueNote": "OCDS award notice. Buyer: Defence Equipment and Support. Tender: Lightning Air System National Capability Enterprise 28-32. Supplier as named in notice: Lockheed Martin UK Ltd."
             }
           ]
         },
@@ -8429,7 +8731,21 @@
                   "grade": "B",
                   "gradeRationale": "sourceType tokens: company-announcement=B → B"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 2500000.0,
+                  "asOfDate": "2024-09-09",
+                  "note": "OCDS award notice. Buyer: Ministry of Defence. Tender: 712801452-DGM/2022-Contract Award Notice. Supplier as named in notice: General Dynamics Ordnance and Tactical Systems Canada Inc.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/83ae75b7-24c1-4ba1-b802-b80458e7bb0f-795608",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": [
+                    "https://www.contractsfinder.service.gov.uk/Notice/83ae75b7-24c1-4ba1-b802-b80458e7bb0f-795589"
+                  ]
+                }
+              ],
+              "contractValueGBP": 2500000.0,
+              "contractValueNote": "OCDS award notice. Buyer: Ministry of Defence. Tender: 712801452-DGM/2022-Contract Award Notice. Supplier as named in notice: General Dynamics Ordnance and Tactical Systems Canada Inc."
             }
           ]
         }
@@ -9192,7 +9508,19 @@
                   "grade": "B",
                   "gradeRationale": "sourceType tokens: company-announcement=B → B"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 2750131.32,
+                  "asOfDate": "2024-12-31",
+                  "note": "Sum of 2 gov.uk transparency payments published by Department For Energy Security And Net Zero during 2024 (max single row £1,980,398). Project-identifying tokens observed in rows: nuclear. Sample descriptions: Desnz - Future Nuclear Enabling Fund-capital Grants To Private Sector - Companies Desnz - Net Zero, Nuclear & International - Desnz - New Nuclear Strategy And Fusion Energy And Advanced Nuclear Techno.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/desnz-spending-over-25000-august-2024",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 2750131.32,
+              "contractValueNote": "Sum of 2 gov.uk transparency payments published by Department For Energy Security And Net Zero during 2024 (max single row £1,980,398). Project-identifying tokens observed in rows: nuclear. Sample descriptions: Desnz - Future Nuclear Enabling Fund-capital Grants To Private Sector - Companies Desnz - Net Zero, Nuclear & International - Desnz - New Nuclear Strategy And Fusion Energy And Advanced Nuclear Techno."
             },
             {
               "name": "Holtec Britain Limited",
@@ -9216,7 +9544,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 3042622.19,
+                  "asOfDate": "2024-12-31",
+                  "note": "Sum of 1 gov.uk transparency payments published by Department For Energy Security And Net Zero during 2024 (max single row £3,042,622). Project-identifying tokens observed in rows: nuclear. Sample descriptions: Desnz - Future Nuclear Enabling Fund-capital Grants To Private Sector - Companies Desnz - Net Zero, Nuclear & International - Desnz - New Nuclear Strategy And Fusion Energy And Advanced Nuclear Techno.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/desnz-spending-over-25000-august-2024",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 3042622.19,
+              "contractValueNote": "Sum of 1 gov.uk transparency payments published by Department For Energy Security And Net Zero during 2024 (max single row £3,042,622). Project-identifying tokens observed in rows: nuclear. Sample descriptions: Desnz - Future Nuclear Enabling Fund-capital Grants To Private Sector - Companies Desnz - Net Zero, Nuclear & International - Desnz - New Nuclear Strategy And Fusion Energy And Advanced Nuclear Techno."
             },
             {
               "name": "Westinghouse Electric Company UK Limited",
@@ -9597,7 +9937,37 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 819194.0,
+                  "asOfDate": "2023-12-31",
+                  "note": "Sum of 1 gov.uk transparency payments published by Department For Energy Security And Net Zero during 2023 (max single row £819,194). Project-identifying tokens observed in rows: capture, carbon. Sample descriptions: Energy Infrastructure - Hydrogen and Industrial Carbon Capture Grant-In-Aid to Arms Length Bodies.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/desnz-spending-over-25000-august-2023",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 3899216.75,
+                  "asOfDate": "2024-12-31",
+                  "note": "Sum of 8 gov.uk transparency payments published by Department For Energy Security And Net Zero during 2024 (max single row £1,815,677). Project-identifying tokens observed in rows: capture, carbon. Sample descriptions: Desnz - Low Carbon Contracts Company Non Budget-grant-in-aid To Arms Length Bodies Desnz - Energy Infrastructure - Desnz - Renewable Electricity Directorate Grant-in-aid To Arms Length Bodies; Desnz - Low Carbon Contracts Company Non Budget-grant-in-aid To Arms Length Bodies Desnz - Energy Infrastructure - Desnz - Hydrogen And Industrial Carbon Capture Grant-in-aid To Arms Length Bodies.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/desnz-spending-over-25000-april-2024",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": [
+                    "https://www.gov.uk/government/publications/desnz-spending-over-25000-august-2024"
+                  ]
+                },
+                {
+                  "valueGBP": 1449299.55,
+                  "asOfDate": "2025-12-31",
+                  "note": "Sum of 5 gov.uk transparency payments published by Department For Energy Security And Net Zero during 2025 (max single row £647,694). Project-identifying tokens observed in rows: capture, carbon. Sample descriptions: Desnz - Low Carbon Contracts Company Non Budget-grant-in-aid To Arms Length Bodies Desnz - Energy Infrastructure - Desnz - Renewable Electricity Directorate Grant-in-aid To Arms Length Bodies; Desnz - Low Carbon Contracts Company Non Budget-grant-in-aid To Arms Length Bodies Desnz - Major Decarbonisation Projects - Desnz - Hydrogen And Industrial Carbon Capture Grant-in-aid To Arms Length B.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/desnz-spending-over-25000-april-2025",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 1449299.55,
+              "contractValueNote": "Sum of 8 gov.uk transparency payments published by Department For Energy Security And Net Zero during 2024 (max single row £1,815,677). Project-identifying tokens observed in rows: capture, carbon. Sample descriptions: Desnz - Low Carbon Contracts Company Non Budget-grant-in-aid To Arms Length Bodies Desnz - Energy Infrastructure - Desnz - Renewable Electricity Directorate Grant-in-aid To Arms Length Bodies; Desnz - Low Carbon Contracts Company Non Budget-grant-in-aid To Arms Length Bodies Desnz - Energy Infrastructure - Desnz - Hydrogen And Industrial Carbon Capture Grant-in-aid To Arms Length Bodies."
             },
             {
               "name": "North Sea Transition Authority",
@@ -10369,9 +10739,23 @@
                   "corroboratingUrls": [],
                   "grade": "U",
                   "gradeRationale": "gap — FOI required (placeholder)"
+                },
+                {
+                  "valueGBP": 2000000.0,
+                  "asOfDate": "2024-03-12",
+                  "note": "OCDS award notice. Buyer: Department for Work and Pensions. Tender: Delivering third party requirements using UC data. Supplier as named in notice: Capgemini.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/74ee1a61-b40b-480a-976f-2b89062a0fde-745675",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": [
+                    "https://www.contractsfinder.service.gov.uk/Notice/74ee1a61-b40b-480a-976f-2b89062a0fde-745671",
+                    "https://www.contractsfinder.service.gov.uk/Notice/74ee1a61-b40b-480a-976f-2b89062a0fde-745670",
+                    "https://www.contractsfinder.service.gov.uk/Notice/74ee1a61-b40b-480a-976f-2b89062a0fde-742572",
+                    "https://www.contractsfinder.service.gov.uk/Notice/74ee1a61-b40b-480a-976f-2b89062a0fde-742567",
+                    "https://www.contractsfinder.service.gov.uk/Notice/74ee1a61-b40b-480a-976f-2b89062a0fde-741268"
+                  ]
                 }
               ],
-              "contractValueGBP": null,
+              "contractValueGBP": 2000000.0,
               "contractValueNote": "Part of the £1.12bn Application Deployment Services quartet (Accenture, HP, IBM, Capgemini). A separate Capgemini UC-adjacent business-applications deal is £10m/yr for seven years (c. £70m). Individual UC allocation to Capgemini not disclosed in open press — candidate for FOI to DfT/DWP."
             },
             {
@@ -10700,7 +11084,19 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 44000000.0,
+                  "asOfDate": "2024-08-01",
+                  "note": "OCDS award notice. Buyer: Government Digital Service. Tender: WP2192 Capability Delivery Partner. Supplier as named in notice: Deloitte.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/308c0f0c-2934-4de1-8ee7-c30cb23c16c8-779159",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 44000000.0,
+              "contractValueNote": "OCDS award notice. Buyer: Government Digital Service. Tender: WP2192 Capability Delivery Partner. Supplier as named in notice: Deloitte."
             },
             {
               "name": "PA Consulting Services Limited",
@@ -10716,7 +11112,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-and-update.company-information.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 19000000.0,
+                  "asOfDate": "2024-04-10",
+                  "note": "OCDS award notice. Buyer: Government Digital Service. Tender: Capability Delivery Partner - User Centred Design. Supplier as named in notice: PA Consulting Services Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/01764490-1f55-4fed-8ea9-420ff38cf5a1-749763",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 19000000.0,
+              "contractValueNote": "OCDS award notice. Buyer: Government Digital Service. Tender: Capability Delivery Partner - User Centred Design. Supplier as named in notice: PA Consulting Services Ltd."
             }
           ]
         }
@@ -11058,7 +11466,27 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 739316.0,
+                  "asOfDate": "2022-01-19",
+                  "note": "OCDS award notice. Buyer: Ministry of Justice. Tender: Cloud Migration Services for HMPPS Digital Prisons. Supplier as named in notice: Kainos Software Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/da3d370a-8881-4325-93a4-dd1092a71e2c-701232",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 26700000.0,
+                  "asOfDate": "2024-09-02",
+                  "note": "OCDS award notice. Buyer: Ministry of Justice. Tender: Managed Service for DTS Platform Operations. Supplier as named in notice: Kainos Software Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/aa69d194-54b4-4c17-8e10-0607d8e81161-794843",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 26700000.0,
+              "contractValueNote": "OCDS award notice. Buyer: Ministry of Justice. Tender: Managed Service for DTS Platform Operations. Supplier as named in notice: Kainos Software Limited."
             },
             {
               "name": "Atos IT Services UK Limited",
@@ -11104,7 +11532,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-and-update.company-information.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 1728221.0,
+                  "asOfDate": "2024-08-01",
+                  "note": "OCDS award notice. Buyer: Ministry of Justice. Tender: LAA CCMS DevOps Managed Service 2024. Supplier as named in notice: Capgemini UK plc.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/225b8e0b-5c09-4a50-967e-e0e73169377d-778085",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 1728221.0,
+              "contractValueNote": "OCDS award notice. Buyer: Ministry of Justice. Tender: LAA CCMS DevOps Managed Service 2024. Supplier as named in notice: Capgemini UK plc."
             },
             {
               "name": "Sopra Steria Limited",
@@ -11400,7 +11840,35 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 584039.43,
+                  "asOfDate": "2014-12-31",
+                  "note": "Sum of 7 gov.uk transparency payments published by Ministry Of Defence during 2014 (max single row £145,770). Sample descriptions: Information technology services Defence Equipment + Support IT and communication services; Equipment support non-project costs Land Forces Design services and minor equipment purchases; Intangible fiscal asset  - in year capital addition Defence Equipment + Support Development costs for military equipment.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/mod-spending-over-25000-january-to-december-2014",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 5557172.86,
+                  "asOfDate": "2015-12-31",
+                  "note": "Sum of 8 gov.uk transparency payments published by Ministry Of Defence during 2015 (max single row £4,491,493). Sample descriptions: Information technology services JFC IT and communication services; Intangible fiscal asset  - in year capital addition JFC Development costs for military equipment; IT Services -internal costs Defence Equipment + Support IT and communication services.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/mod-spending-over-25000-january-to-december-2015",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 5435985.68,
+                  "asOfDate": "2015-12-31",
+                  "note": "Sum of 7 gov.uk transparency payments published by Ministry Of Defence during 2015 (max single row £4,491,493). Project-identifying tokens observed in rows: defence, information. Sample descriptions: Information technology services JFC IT and communication services; IT Services -internal costs Defence Equipment + Support IT and communication services.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/mod-spending-over-25000-january-to-december-2015",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 5435985.68,
+              "contractValueNote": "Sum of 8 gov.uk transparency payments published by Ministry Of Defence during 2015 (max single row £4,491,493). Sample descriptions: Information technology services JFC IT and communication services; Intangible fiscal asset  - in year capital addition JFC Development costs for military equipment; IT Services -internal costs Defence Equipment + Support IT and communication services."
             },
             {
               "name": "General Dynamics United Kingdom Limited",
@@ -11424,7 +11892,21 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 13200.0,
+                  "asOfDate": "2024-04-01",
+                  "note": "OCDS award notice. Buyer: MINISTRY OF DEFENCE. Tender: Provision of Defence Information Management Portal. Supplier as named in notice: General Dynamics UK Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/cfe803c8-3747-4c70-b519-9740b23d9233-739649",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": [
+                    "https://www.contractsfinder.service.gov.uk/Notice/cfe803c8-3747-4c70-b519-9740b23d9233-739643"
+                  ]
+                }
+              ],
+              "contractValueGBP": 13200.0,
+              "contractValueNote": "OCDS award notice. Buyer: MINISTRY OF DEFENCE. Tender: Provision of Defence Information Management Portal. Supplier as named in notice: General Dynamics UK Limited."
             },
             {
               "name": "EADS Defence and Security Systems Limited (later Airbus Defence and Space Limited)",
@@ -12138,7 +12620,27 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-and-update.company-information.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 128700.0,
+                  "asOfDate": "2024-04-22",
+                  "note": "OCDS award notice. Buyer: DfTc - Department for Transport. Tender: THRE0022 Northern Powerhouse Rail Carbon Mitigation Opportunities. Supplier as named in notice: OVE ARUP & PARTNERS LIMITED.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/a3c33032-1abc-4e10-9b95-2f046d630bd1-753216",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 6000000.0,
+                  "asOfDate": "2024-10-30",
+                  "note": "OCDS award notice. Buyer: DfTc - Department for Transport. Tender: THRE0047 - Strategic Enhancements Technical and Commercial Advisors. Supplier as named in notice: Ove Arup & Partners Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/0c875ab7-005d-49d7-9d45-9eb894ecc58d-803202",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 6000000.0,
+              "contractValueNote": "OCDS award notice. Buyer: DfTc - Department for Transport. Tender: THRE0047 - Strategic Enhancements Technical and Commercial Advisors. Supplier as named in notice: Ove Arup & Partners Ltd."
             },
             {
               "name": "Atkins Limited (AtkinsRéalis UK)",
@@ -12366,7 +12868,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-and-update.company-information.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 106574.0,
+                  "asOfDate": "2025-04-16",
+                  "note": "OCDS award notice. Buyer: National Highways. Tender: ITEP0945 Land and Property Case Management Tool. Supplier as named in notice: Jacobs UK Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/5840b5c1-c581-4b75-95b2-79af7ea42eb0-843015",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 106574.0,
+              "contractValueNote": "OCDS award notice. Buyer: National Highways. Tender: ITEP0945 Land and Property Case Management Tool. Supplier as named in notice: Jacobs UK Limited."
             },
             {
               "name": "COWI UK Limited",
@@ -12487,7 +13001,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-tender.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 1344687196.0,
+                  "asOfDate": "2023-12-15",
+                  "note": "OCDS award notice. Buyer: National Highways. Tender: Lower Thames Crossing Tunnels and Approaches. Supplier as named in notice: Bouygues Travaux Publics.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/eecce123-5ffd-4aa3-8464-5fd03d90e266-722375",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 1344687196.0,
+              "contractValueNote": "OCDS award notice. Buyer: National Highways. Tender: Lower Thames Crossing Tunnels and Approaches. Supplier as named in notice: Bouygues Travaux Publics."
             },
             {
               "name": "VINCI Construction UK Limited",
@@ -12688,7 +13214,27 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-and-update.company-information.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 5800000.0,
+                  "asOfDate": null,
+                  "note": "OCDS award notice. Buyer: NETWORK RAIL INFRASTRUCTURE LIMITED. Tender: Transpennine Route Upgrade Programme – York Electrical Control Room Relocation. Supplier as named in notice: SIEMENS MOBILITY LIMITED.",
+                  "sourceUrl": "https://www.find-tender.service.gov.uk/Notice/077381-2025",
+                  "sourceType": "find-tender",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 5108483.69,
+                  "asOfDate": "2025-12-16",
+                  "note": "OCDS award notice. Buyer: NETWORK RAIL INFRASTRUCTURE LIMITED. Tender: Transpennine Route Upgrade Programme – York Electrical Control Room Relocation. Supplier as named in notice: SIEMENS MOBILITY LIMITED.",
+                  "sourceUrl": "https://www.find-tender.service.gov.uk/Notice/084443-2025",
+                  "sourceType": "find-tender",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 5108483.69,
+              "contractValueNote": "OCDS award notice. Buyer: NETWORK RAIL INFRASTRUCTURE LIMITED. Tender: Transpennine Route Upgrade Programme – York Electrical Control Room Relocation. Supplier as named in notice: SIEMENS MOBILITY LIMITED."
             }
           ]
         },
@@ -13068,7 +13614,27 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-and-update.company-information.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 71750.5,
+                  "asOfDate": "2022-12-22",
+                  "note": "OCDS award notice. Buyer: EAST WEST RAILWAY COMPANY LIMITED. Tender: Primary Research Partner - Customer Relationships. Supplier as named in notice: Aecom.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/8c717163-cf9f-4f4c-84ee-15d16a4c422b-632561",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 253766.0,
+                  "asOfDate": "2024-01-02",
+                  "note": "OCDS award notice. Buyer: EA. Tender: CSF-CPSF Trans Framework North west (Bis) - Aecom. Supplier as named in notice: AECOM Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/0f6096b6-920b-4217-903e-5a13b6d8e1cf-715330",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 253766.0,
+              "contractValueNote": "OCDS award notice. Buyer: EA. Tender: CSF-CPSF Trans Framework North west (Bis) - Aecom. Supplier as named in notice: AECOM Ltd."
             },
             {
               "name": "Mott MacDonald Limited",
@@ -13084,7 +13650,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-and-update.company-information.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 2500000.0,
+                  "asOfDate": "2024-10-18",
+                  "note": "OCDS award notice. Buyer: EAST WEST RAILWAY COMPANY LIMITED. Tender: Local Opportunity Planning (Phase 2). Supplier as named in notice: MOTT MACDONALD LIMITED.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/095a2490-a55d-4b41-8720-005c5ea15adf-797110",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 2500000.0,
+              "contractValueNote": "OCDS award notice. Buyer: EAST WEST RAILWAY COMPANY LIMITED. Tender: Local Opportunity Planning (Phase 2). Supplier as named in notice: MOTT MACDONALD LIMITED."
             }
           ]
         },
@@ -13114,7 +13692,29 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: contractsfinder.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 196431.67,
+                  "asOfDate": "2023-08-14",
+                  "note": "OCDS award notice. Buyer: DfTc - Department for Transport. Tender: Evaluation of PAYG ticketing in the South East. Supplier as named in notice: Ove Arup and Partners Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/ef0afb28-6d59-4958-bad7-d6db831357cc-780361",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 1500000.0,
+                  "asOfDate": "2024-08-29",
+                  "note": "OCDS award notice. Buyer: EA. Tender: Mids - CDF Lot 1 -  Pre Soc Scope Development & Small Tasks - Arup. Supplier as named in notice: Ove Arup & Partners Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/2fe14806-243e-4a87-a241-06660d3d55da-781271",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": [
+                    "https://www.contractsfinder.service.gov.uk/Notice/e1bccaf9-867d-46e6-8218-cd4904a6570e-781270"
+                  ]
+                }
+              ],
+              "contractValueGBP": 1500000.0,
+              "contractValueNote": "OCDS award notice. Buyer: EA. Tender: Mids - CDF Lot 1 -  Pre Soc Scope Development & Small Tasks - Arup. Supplier as named in notice: Ove Arup & Partners Ltd."
             },
             {
               "name": "Jacobs U.K. Limited",
@@ -13130,7 +13730,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-and-update.company-information.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 186423.0,
+                  "asOfDate": "2024-01-03",
+                  "note": "OCDS award notice. Buyer: EA. Tender: Leigh East - Modelling. Supplier as named in notice: Jacobs UK Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/427bd7c8-0144-476b-bfbd-f5afa03da9c6-713863",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 186423.0,
+              "contractValueNote": "OCDS award notice. Buyer: EA. Tender: Leigh East - Modelling. Supplier as named in notice: Jacobs UK Ltd."
             }
           ]
         }
@@ -13297,7 +13909,19 @@
                   "grade": "B",
                   "gradeRationale": "sourceType tokens: company-announcement=B → B"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 3000000.0,
+                  "asOfDate": "2024-08-14",
+                  "note": "OCDS award notice. Buyer: MINISTRY OF DEFENCE. Tender: Appivate-WP2-Application Software and Data Delivery. Supplier as named in notice: PA CONSULTING GROUP HOLDINGS LIMITED.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/807d1577-11e4-49fc-9f55-10003a54ef06-786302",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 3000000.0,
+              "contractValueNote": "OCDS award notice. Buyer: MINISTRY OF DEFENCE. Tender: Appivate-WP2-Application Software and Data Delivery. Supplier as named in notice: PA CONSULTING GROUP HOLDINGS LIMITED."
             }
           ]
         },
@@ -13549,7 +14173,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-and-update.company-information.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 1159920.0,
+                  "asOfDate": "2024-04-26",
+                  "note": "OCDS award notice. Buyer: Ministry of Defence. Tender: HAS Service Management Wrap (TUPE). Supplier as named in notice: BAE Systems (Operations) Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/3ac6d407-e87d-4eee-aadf-ccd8de58d97e-764694",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 1159920.0,
+              "contractValueNote": "OCDS award notice. Buyer: Ministry of Defence. Tender: HAS Service Management Wrap (TUPE). Supplier as named in notice: BAE Systems (Operations) Limited."
             }
           ]
         },
@@ -13671,7 +14307,27 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-and-update.company-information.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 3800000.0,
+                  "asOfDate": null,
+                  "note": "OCDS award notice. Buyer: Ministry of Defence. Tender: IRM25/7700 - The Repair of Terrier Suspension Components & CR2 Gas charging equipment. Supplier as named in notice: Horstman Defence Systems Limited.",
+                  "sourceUrl": "https://www.find-tender.service.gov.uk/Notice/076284-2025",
+                  "sourceType": "find-tender",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 1700000.0,
+                  "asOfDate": "2024-02-26",
+                  "note": "OCDS award notice. Buyer: Ministry of Defence. Tender: IRM22/7594 The Supply of Military Spares - CF. Supplier as named in notice: Horstman Defence Systems ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/c91e9756-af42-4bb6-a0d7-a07239ad05d9-731606",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 1700000.0,
+              "contractValueNote": "OCDS award notice. Buyer: Ministry of Defence. Tender: IRM25/7700 - The Repair of Terrier Suspension Components & CR2 Gas charging equipment. Supplier as named in notice: Horstman Defence Systems Limited."
             }
           ]
         }
@@ -14854,7 +15510,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-and-update.company-information.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 285275277.0,
+                  "asOfDate": "2024-09-25",
+                  "note": "OCDS award notice. Buyer: Ministry of Defence. Tender: RECODE - In Service Support for Combat Management Systems (CMS), Shared Infrastructure (SI) and Networks - Contract Awarded. Supplier as named in notice: BAE Systems Surface Ships Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/1bebb074-cc1c-4b9c-997c-7d3adc4ee974-788977",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 285275277.0,
+              "contractValueNote": "OCDS award notice. Buyer: Ministry of Defence. Tender: RECODE - In Service Support for Combat Management Systems (CMS), Shared Infrastructure (SI) and Networks - Contract Awarded. Supplier as named in notice: BAE Systems Surface Ships Limited."
             }
           ]
         },
@@ -15884,7 +16552,51 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-and-update.company-information.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 1024686.96,
+                  "asOfDate": "2020-12-31",
+                  "note": "Sum of 9 gov.uk transparency payments published by Ministry Of Justice during 2020 (max single row £300,964). Project-identifying tokens observed in rows: petp. Sample descriptions: Professional services PETP PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/her-majestys-prison-probation-service-spending-over-25000-2020",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 765505.1,
+                  "asOfDate": "2022-12-31",
+                  "note": "Sum of 4 gov.uk transparency payments published by Ministry Of Justice during 2022 (max single row £375,514). Project-identifying tokens observed in rows: petp, places. Sample descriptions: Property related charges 3k Places Programme PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees; Property related charges PETP PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees; Property related charges PETP PPE - POA & AUC (OWNED) - COST - ADDITIONS.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2022",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 928181.71,
+                  "asOfDate": "2023-12-31",
+                  "note": "Sum of 3 gov.uk transparency payments published by Ministry Of Justice during 2023 (max single row £581,904). Project-identifying tokens observed in rows: petp, places. Sample descriptions: Property related charges PETP PPE - POA & AUC (OWNED) - COST - ADDITIONS; Property related charges PETP PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees; Property related charges 3k Places Programme PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2023",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 1629613.86,
+                  "asOfDate": "2024-12-31",
+                  "note": "Sum of 9 gov.uk transparency payments published by Ministry Of Justice during 2024 (max single row £483,870). Project-identifying tokens observed in rows: petp, places. Sample descriptions: Property related charges PETP PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees; Property related charges 2k Places PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees; Property related charges 3k Places Programme PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2024",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 540783.84,
+                  "asOfDate": "2025-12-31",
+                  "note": "Sum of 2 gov.uk transparency payments published by Ministry Of Justice during 2025 (max single row £478,416). Project-identifying tokens observed in rows: places. Sample descriptions: Property related charges 2k Places PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2025",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 540783.84,
+              "contractValueNote": "Sum of 9 gov.uk transparency payments published by Ministry Of Justice during 2024 (max single row £483,870). Project-identifying tokens observed in rows: petp, places. Sample descriptions: Property related charges PETP PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees; Property related charges 2k Places PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees; Property related charges 3k Places Programme PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees."
             }
           ]
         },
@@ -15944,7 +16656,59 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 2474835.57,
+                  "asOfDate": "2020-12-31",
+                  "note": "Sum of 5 gov.uk transparency payments published by Ministry Of Justice during 2020 (max single row £2,188,467). Project-identifying tokens observed in rows: prisons. Sample descriptions: Prisons and detention centres operated by an external provider Oakwood EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/her-majestys-prison-probation-service-spending-over-25000-2020",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 2809675.27,
+                  "asOfDate": "2021-12-31",
+                  "note": "Sum of 9 gov.uk transparency payments published by Ministry Of Justice during 2021 (max single row £2,250,394). Project-identifying tokens observed in rows: prisons. Sample descriptions: Prisons and detention centres operated by an external provider Oakwood EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/her-majestys-prison-probation-service-spending-over-25000-2021",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 6786250.03,
+                  "asOfDate": "2022-12-31",
+                  "note": "Sum of 7 gov.uk transparency payments published by Ministry Of Justice during 2022 (max single row £4,032,376). Project-identifying tokens observed in rows: prisons. Sample descriptions: Prisons and detention centres operated by an external provider Oakwood EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons; Prisons and detention centres operated by an external provider Infrastructure Services - Networks EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons; Prisons and detention centres operated by an external provider Five Wells EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2022",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 2907987.62,
+                  "asOfDate": "2023-12-31",
+                  "note": "Sum of 6 gov.uk transparency payments published by Ministry Of Justice during 2023 (max single row £2,552,865). Project-identifying tokens observed in rows: prisons. Sample descriptions: Prisons and detention centres operated by an external provider Oakwood EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons; Prisons and detention centres operated by an external provider Parc EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2023",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 11759558.06,
+                  "asOfDate": "2024-12-31",
+                  "note": "Sum of 11 gov.uk transparency payments published by Ministry Of Justice during 2024 (max single row £4,611,770). Project-identifying tokens observed in rows: prisons. Sample descriptions: Prisons and detention centres operated by an external provider Oakwood EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons; Prisons and detention centres operated by an external provider Parc EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons; Prisons and detention centres operated by an external provider Five Wells EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2024",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 12729058.95,
+                  "asOfDate": "2025-12-31",
+                  "note": "Sum of 12 gov.uk transparency payments published by Ministry Of Justice during 2025 (max single row £5,063,457). Project-identifying tokens observed in rows: prisons. Sample descriptions: Prisons and detention centres operated by an external provider Oakwood EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons; Prisons and detention centres operated by an external provider Five Wells EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons; Prisons and detention centres operated by an external provider Parc EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2025",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 12729058.95,
+              "contractValueNote": "Sum of 12 gov.uk transparency payments published by Ministry Of Justice during 2025 (max single row £5,063,457). Project-identifying tokens observed in rows: prisons. Sample descriptions: Prisons and detention centres operated by an external provider Oakwood EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons; Prisons and detention centres operated by an external provider Five Wells EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons; Prisons and detention centres operated by an external provider Parc EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons."
             },
             {
               "name": "Pick Everard",
@@ -16034,7 +16798,51 @@
                   "grade": "B",
                   "gradeRationale": "sourceType tokens: company-announcement=B → B"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 7514923.72,
+                  "asOfDate": "2021-12-31",
+                  "note": "Sum of 1 gov.uk transparency payments published by Ministry Of Justice during 2021 (max single row £7,514,924). Project-identifying tokens observed in rows: petp. Sample descriptions: Property related charges PETP PPE - POA & AUC (OWNED) - COST - ADDITIONS.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/her-majestys-prison-probation-service-spending-over-25000-2021",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 16649584.15,
+                  "asOfDate": "2022-12-31",
+                  "note": "Sum of 1 gov.uk transparency payments published by Ministry Of Justice during 2022 (max single row £16,649,584). Project-identifying tokens observed in rows: petp. Sample descriptions: Property related charges PETP PPE - POA & AUC (OWNED) - COST - ADDITIONS.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2022",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 4898092.15,
+                  "asOfDate": "2023-12-31",
+                  "note": "Sum of 1 gov.uk transparency payments published by Ministry Of Justice during 2023 (max single row £4,898,092). Project-identifying tokens observed in rows: petp. Sample descriptions: Property related charges PETP PPE - POA & AUC (OWNED) - COST - ADDITIONS.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2023",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 3113022.59,
+                  "asOfDate": "2024-12-31",
+                  "note": "Sum of 1 gov.uk transparency payments published by Ministry Of Justice during 2024 (max single row £3,113,023). Project-identifying tokens observed in rows: petp. Sample descriptions: Property related charges PETP PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2024",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 5609145.64,
+                  "asOfDate": "2025-12-31",
+                  "note": "Sum of 1 gov.uk transparency payments published by Ministry Of Justice during 2025 (max single row £5,609,146). Project-identifying tokens observed in rows: petp. Sample descriptions: Property related charges PETP PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2025",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 5609145.64,
+              "contractValueNote": "Sum of 1 gov.uk transparency payments published by Ministry Of Justice during 2022 (max single row £16,649,584). Project-identifying tokens observed in rows: petp. Sample descriptions: Property related charges PETP PPE - POA & AUC (OWNED) - COST - ADDITIONS."
             },
             {
               "name": "Serco Limited",
@@ -16163,7 +16971,19 @@
                   "grade": "B",
                   "gradeRationale": "sourceType tokens: company-announcement=B → B"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 846813.84,
+                  "asOfDate": "2025-12-31",
+                  "note": "Sum of 1 gov.uk transparency payments published by Ministry Of Justice during 2025 (max single row £846,814). Project-identifying tokens observed in rows: prisons. Sample descriptions: Prisons and detention centres operated by an external provider Millsike EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2025",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 846813.84,
+              "contractValueNote": "Sum of 1 gov.uk transparency payments published by Ministry Of Justice during 2025 (max single row £846,814). Project-identifying tokens observed in rows: prisons. Sample descriptions: Prisons and detention centres operated by an external provider Millsike EXP - PURCHASE OF GOODS/SERVICES - OTHER - Contracted out operation of prisons."
             },
             {
               "name": "Pick Everard",
@@ -16263,7 +17083,29 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: laingorourke.com"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 1823037.28,
+                  "asOfDate": "2020-12-31",
+                  "note": "Sum of 9 gov.uk transparency payments published by Ministry Of Justice during 2020 (max single row £533,980). Project-identifying tokens observed in rows: expansion. Sample descriptions: Buildings improvements, expansion, maintenance and repairs MoJ Estates PPE - POA & AUC (OWNED) - COST - ADDITIONS; Buildings improvements, expansion, maintenance and repairs Birmingham (Corporation St) - Magistrates PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS; Buildings improvements, expansion, maintenance and repairs Plymouth Combined  Court - Shared Costs PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS; Buildings improvements, expansion, maintenance and repairs Wolverhampton Combined Court - Shared Costs PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/her-majestys-prison-probation-service-spending-over-25000-2020",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": [
+                    "https://www.gov.uk/government/publications/hmcts-spending-over-25000-2020"
+                  ]
+                },
+                {
+                  "valueGBP": 3335244.0,
+                  "asOfDate": "2024-06-28",
+                  "note": "OCDS award notice. Buyer: Ministry of Justice. Tender: HMP Wymott - Installation of Temporary Accommodation - BPRN 615/23/10008. Supplier as named in notice: ISG Construction Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/65ed18a4-c347-4430-8ab8-86f98dc4410a-787354",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 3335244.0,
+              "contractValueNote": "OCDS award notice. Buyer: Ministry of Justice. Tender: HMP Wymott - Installation of Temporary Accommodation - BPRN 615/23/10008. Supplier as named in notice: ISG Construction Ltd."
             },
             {
               "name": "Kier Construction Limited",
@@ -16328,7 +17170,27 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: assets.publishing.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 518976.98,
+                  "asOfDate": "2024-12-31",
+                  "note": "Sum of 4 gov.uk transparency payments published by Ministry Of Justice during 2024 (max single row £151,631). Project-identifying tokens observed in rows: places. Sample descriptions: Property related charges 2k Places PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees; Property related charges 3k Places Programme PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2024",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 2016293.76,
+                  "asOfDate": "2025-12-31",
+                  "note": "Sum of 8 gov.uk transparency payments published by Ministry Of Justice during 2025 (max single row £347,812). Project-identifying tokens observed in rows: places. Sample descriptions: Property related charges 2k Places PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/hm-prison-and-probation-service-spending-over-25000-2025",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 2016293.76,
+              "contractValueNote": "Sum of 8 gov.uk transparency payments published by Ministry Of Justice during 2025 (max single row £347,812). Project-identifying tokens observed in rows: places. Sample descriptions: Property related charges 2k Places PPE - POA & AUC (OWNED) - COST - ADDITIONS - BUILDINGS - Professional fees."
             },
             {
               "name": "Wates Construction Limited",
@@ -16582,7 +17444,27 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 570024.0,
+                  "asOfDate": "2024-02-19",
+                  "note": "OCDS award notice. Buyer: HS2. Tender: NPR Liverpool to West Yorkshire Strategic Scheme - Engineering & Environmental Services. Supplier as named in notice: WSP UK Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/ba731a80-c7d9-451f-a105-142ff707884d-734185",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 180000.0,
+                  "asOfDate": "2024-11-15",
+                  "note": "OCDS award notice. Buyer: HS2. Tender: Contract Award Notice for Phase 2b Eastern Leg Land Referencing Services. Supplier as named in notice: Mott Macdonald Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/50d28836-79f7-4d81-a838-82f6fc98092b-805077",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 180000.0,
+              "contractValueNote": "OCDS award notice. Buyer: HS2. Tender: NPR Liverpool to West Yorkshire Strategic Scheme - Engineering & Environmental Services. Supplier as named in notice: WSP UK Limited."
             },
             {
               "name": "Arup Group Limited",
@@ -18180,7 +19062,19 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 20000.0,
+                  "asOfDate": "2023-11-20",
+                  "note": "OCDS award notice. Buyer: DfTc - Department for Transport. Tender: Channel Tunnel Interpreter. Supplier as named in notice: Ove Arup and Partners Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/bc055729-535b-4a61-bc46-bfb5608d7bc9-706379",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 20000.0,
+              "contractValueNote": "OCDS award notice. Buyer: DfTc - Department for Transport. Tender: Channel Tunnel Interpreter. Supplier as named in notice: Ove Arup and Partners Limited."
             },
             {
               "name": "Halcrow Group Limited (subsequently CH2M / Jacobs)",
@@ -18514,7 +19408,19 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 2718412.0,
+                  "asOfDate": null,
+                  "note": "OCDS award notice. Buyer: London Underground Limited. Tender: Overhauling of internal doors of Jubilee line Rolling Stock. Supplier as named in notice: ALSTOM TRANSPORT UK LIMITED.",
+                  "sourceUrl": "https://www.find-tender.service.gov.uk/Notice/017732-2026",
+                  "sourceType": "find-tender",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 2718412.0,
+              "contractValueNote": "OCDS award notice. Buyer: London Underground Limited. Tender: Overhauling of internal doors of Jubilee line Rolling Stock. Supplier as named in notice: ALSTOM TRANSPORT UK LIMITED."
             },
             {
               "name": "Westinghouse Signal Limited (subsequently Invensys Rail)",
@@ -18623,7 +19529,19 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: committees.parliament.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 130000.0,
+                  "asOfDate": "2023-11-13",
+                  "note": "OCDS award notice. Buyer: National Highways. Tender: License Keys for WinTester, MOTE and WinDev-SIM. Supplier as named in notice: Costain Integrated Technology Solutions Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/56fc1b0e-36c0-4814-a6fe-4ae6f5c71518-716123",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 130000.0,
+              "contractValueNote": "OCDS award notice. Buyer: National Highways. Tender: License Keys for WinTester, MOTE and WinDev-SIM. Supplier as named in notice: Costain Integrated Technology Solutions Ltd."
             },
             {
               "name": "Balfour Beatty Group Limited",
@@ -19616,7 +20534,19 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 5164587.36,
+                  "asOfDate": "2024-11-29",
+                  "note": "OCDS award notice. Buyer: UK Parliament. Tender: Programme Project Controls Team. Supplier as named in notice: AECOM.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/403a8bed-d94a-4f1f-976d-2161543fa718-820893",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 5164587.36,
+              "contractValueNote": "OCDS award notice. Buyer: UK Parliament. Tender: Programme Project Controls Team. Supplier as named in notice: AECOM."
             },
             {
               "name": "Arup Group Limited",
@@ -19632,7 +20562,27 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 19500.0,
+                  "asOfDate": "2024-08-16",
+                  "note": "OCDS award notice. Buyer: Houses of Parliament. Tender: Energy Model Design on a Building Scale. Supplier as named in notice: Ove Arup.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/bc160655-5d4a-4d89-a543-130499d72a7f-791877",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 5285031.31,
+                  "asOfDate": "2025-02-14",
+                  "note": "OCDS award notice. Buyer: UK Parliament. Tender: MEPFS MDS 1062 Priority Works for the Mechanical, Electrical, Public Health. Supplier as named in notice: Ove Arup & Partners Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/f71bbeb2-5b68-49bb-a1d5-ac7c7018b16c-829278",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 5285031.31,
+              "contractValueNote": "OCDS award notice. Buyer: UK Parliament. Tender: MEPFS MDS 1062 Priority Works for the Mechanical, Electrical, Public Health. Supplier as named in notice: Ove Arup & Partners Limited."
             },
             {
               "name": "Mace Limited",
@@ -19875,7 +20825,19 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 60000.0,
+                  "asOfDate": "2024-12-20",
+                  "note": "OCDS award notice. Buyer: British Business Bank plc. Tender: GB-Sheffield: UK Business Angels Market Survey 2025. Supplier as named in notice: Pricewaterhousecoopers LLP.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/0883ff9e-b582-4684-8c5c-39e3be098ccc-823507",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 60000.0,
+              "contractValueNote": "OCDS award notice. Buyer: British Business Bank plc. Tender: GB-Sheffield: UK Business Angels Market Survey 2025. Supplier as named in notice: Pricewaterhousecoopers LLP."
             },
             {
               "name": "EY UK (Ernst & Young LLP)",
@@ -19891,7 +20853,45 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 4438800.0,
+                  "asOfDate": "2023-12-15",
+                  "note": "OCDS award notice. Buyer: British Business Bank. Tender: GB-Sheffield: Covid Scheme Lender Audit & Assurance. Supplier as named in notice: Ernst & Young LLP.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/81ddae55-9f8a-47f2-980b-0a7ea6c0ad49-756178",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 2000000.0,
+                  "asOfDate": "2023-12-18",
+                  "note": "OCDS award notice. Buyer: British Business Bank. Tender: Opening up the investment pipeline of the BBB. Supplier as named in notice: Ernst & Young LLP.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/1b1cab9e-2c31-4e0d-a1d9-f23c7b3ffa7a-717804",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": [
+                    "https://www.contractsfinder.service.gov.uk/Notice/c606cc81-dce1-4f47-8b0e-94822449aeba-717783"
+                  ]
+                },
+                {
+                  "valueGBP": 27000.0,
+                  "asOfDate": "2024-05-14",
+                  "note": "OCDS award notice. Buyer: British Business Bank. Tender: GB-Sheffield: HMRC SAO Tax Controls Testing. Supplier as named in notice: Ernst & Young LLP.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/11006a07-a858-473b-a23d-be7ccb729f00-774598",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 271500.0,
+                  "asOfDate": "2024-09-12",
+                  "note": "OCDS award notice. Buyer: British Business Bank. Tender: GB-Sheffield: Tax Computations & Accountancy Services. Supplier as named in notice: Ernst & Young LLC.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/4281be2d-865a-42cd-91e4-12ecce70c092-819066",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 271500.0,
+              "contractValueNote": "OCDS award notice. Buyer: British Business Bank. Tender: GB-Sheffield: Covid Scheme Lender Audit & Assurance. Supplier as named in notice: Ernst & Young LLP."
             },
             {
               "name": "National Investigation Service (NATIS) — Mercia Police (Police Crime Commissioner — West Mercia)",
@@ -20318,7 +21318,19 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 8000000.0,
+                  "asOfDate": null,
+                  "note": "OCDS award notice. Buyer: Defence Equipment and Support. Tender: 715777452 - Elmer Radio and Avionic Communication Equipment: UK5 - Transparency Notice. Supplier as named in notice: Leonardo UK.",
+                  "sourceUrl": "https://www.find-tender.service.gov.uk/Notice/014685-2026",
+                  "sourceType": "find-tender",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 8000000.0,
+              "contractValueNote": "OCDS award notice. Buyer: Defence Equipment and Support. Tender: 715777452 - Elmer Radio and Avionic Communication Equipment: UK5 - Transparency Notice. Supplier as named in notice: Leonardo UK."
             }
           ]
         }
@@ -20435,7 +21447,19 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 240600000.0,
+                  "asOfDate": "2025-12-17",
+                  "note": "OCDS award notice. Buyer: Ministry of Defence. Tender: MOD Palantir Enterprise Agreement. Supplier as named in notice: PALANTIR TECHNOLOGIES UK, LTD..",
+                  "sourceUrl": "https://www.find-tender.service.gov.uk/Notice/083874-2025",
+                  "sourceType": "find-tender",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 240600000.0,
+              "contractValueNote": "OCDS award notice. Buyer: Ministry of Defence. Tender: MOD Palantir Enterprise Agreement. Supplier as named in notice: PALANTIR TECHNOLOGIES UK, LTD.."
             },
             {
               "name": "Roke Manor Research Limited (Chemring Group)",
@@ -20605,7 +21629,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-and-update.company-information.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 734337.92,
+                  "asOfDate": "2023-12-31",
+                  "note": "Sum of 5 gov.uk transparency payments published by Ministry Of Defence during 2023 (max single row £376,292). Sample descriptions: Research+Development Expend Defence Nuclear Organisation Research+Development Expend; Research+Development Expend Defence Equipment and Support Research+Development Expend.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/mod-spending-over-25000-january-2023",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 734337.92,
+              "contractValueNote": "Sum of 5 gov.uk transparency payments published by Ministry Of Defence during 2023 (max single row £376,292). Sample descriptions: Research+Development Expend Defence Nuclear Organisation Research+Development Expend; Research+Development Expend Defence Equipment and Support Research+Development Expend."
             }
           ]
         }
@@ -20992,7 +22028,35 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 17043000.0,
+                  "asOfDate": "2023-11-13",
+                  "note": "OCDS award notice. Buyer: Building Digital UK. Tender: GIS Programme - Regional Supplier Contract - Oxfordshire 13.01. Supplier as named in notice: Gigaclear Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/4d2431cd-d952-4745-a037-ec9efbda40e0-706940",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 11242000.0,
+                  "asOfDate": "2023-11-13",
+                  "note": "OCDS award notice. Buyer: Building Digital UK. Tender: GIS Programme - Regional Supplier Contract - Oxfordshire 13.02. Supplier as named in notice: Gigaclear Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/e0e0ce81-7be6-4e00-bb9e-55142fd215da-706944",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 9400000.0,
+                  "asOfDate": "2023-11-13",
+                  "note": "OCDS award notice. Buyer: Building Digital UK. Tender: GIS Programme - Regional Supplier Contract - Oxfordshire 13.02. Supplier as named in notice: Gigaclear Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/a85bfb12-ab21-48ac-9030-0193fac5cb13-789001",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 9400000.0,
+              "contractValueNote": "OCDS award notice. Buyer: Building Digital UK. Tender: GIS Programme - Regional Supplier Contract - Oxfordshire 13.01. Supplier as named in notice: Gigaclear Ltd."
             },
             {
               "name": "Fibrus Networks Limited",
@@ -23050,7 +24114,69 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: ey.com"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 1158750.0,
+                  "asOfDate": "2022-10-03",
+                  "note": "OCDS award notice. Buyer: Department for Education. Tender: Engaging SMEs in the apprenticeship market. Supplier as named in notice: N/A.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/ab52a542-3db0-4acd-82c1-03a7916d1366-715006",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 1662199.6,
+                  "asOfDate": "2023-10-13",
+                  "note": "OCDS award notice. Buyer: Department For Education. Tender: Inspire Special Free School - PCSA  (con_23076). Supplier as named in notice: ISG Construction Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/65523903-910e-4336-a9f3-3c61c7729249-692225",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 1090962.76,
+                  "asOfDate": "2023-10-17",
+                  "note": "OCDS award notice. Buyer: Department For Education. Tender: Tees Valley LA Special - PCSA (con_23075). Supplier as named in notice: ISG Construction Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/3ca3b48f-7460-46ef-b029-644c5f9c6e77-692212",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 940286.08,
+                  "asOfDate": "2024-02-15",
+                  "note": "OCDS award notice. Buyer: Department For Education. Tender: Tang Hall Primary Academy - PCSA (con_24452). Supplier as named in notice: ISG Construction Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/fb8e7ba5-6d91-4d75-947d-141f3c355278-728442",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 9989110.22,
+                  "asOfDate": "2024-03-12",
+                  "note": "OCDS award notice. Buyer: Department For Education. Tender: Hempland Primary School - Main Works (JCT D&B Contract) (con_25177). Supplier as named in notice: ISG Construction Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/5f11e9b7-02f6-44a3-b754-6a6c67e2b925-735533",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 12772621.78,
+                  "asOfDate": "2024-03-15",
+                  "note": "OCDS award notice. Buyer: Department For Education. Tender: St Michael's Church of England Academy - Main Works (con_25232). Supplier as named in notice: ISG Construction Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/fcc2acd1-90c7-433a-8636-70cd2ef337e1-739831",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 13873683.0,
+                  "asOfDate": "2024-07-31",
+                  "note": "OCDS award notice. Buyer: Department for Education. Tender: Con_25833 Sheffield Renovation & Essential Maintenance. Supplier as named in notice: ISG CONSTRUCTION LIMITED.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/cd21b556-be08-431c-9183-a79bcfe44ab3-780053",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": [
+                    "https://www.contractsfinder.service.gov.uk/Notice/cd21b556-be08-431c-9183-a79bcfe44ab3-780038"
+                  ]
+                }
+              ],
+              "contractValueGBP": 13873683.0,
+              "contractValueNote": "OCDS award notice. Buyer: Department for Education. Tender: Con_25833 Sheffield Renovation & Essential Maintenance. Supplier as named in notice: ISG CONSTRUCTION LIMITED."
             }
           ]
         },
@@ -23072,7 +24198,35 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 4066552.32,
+                  "asOfDate": "2023-11-22",
+                  "note": "OCDS award notice. Buyer: Department For Education. Tender: Bromfords School - Main Works (con_25946). Supplier as named in notice: The McAvoy Group Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/a0b804c5-86f5-4e4d-955a-8f3b7a409afc-785393",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 6343577.47,
+                  "asOfDate": "2024-07-23",
+                  "note": "OCDS award notice. Buyer: Department For Education. Tender: Parks Primary School - Main Works (con_25807). Supplier as named in notice: The McAvoy Group Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/79ba91dd-3854-42c4-9253-e0f30e2964b1-777401",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 5390151.92,
+                  "asOfDate": "2024-07-23",
+                  "note": "OCDS award notice. Buyer: Department For Education. Tender: Hockley Primary School - Main Works (con_25804). Supplier as named in notice: The McAvoy Group Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/36c2b88e-8df8-4fc6-81c6-adef91867f0c-777385",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 5390151.92,
+              "contractValueNote": "OCDS award notice. Buyer: Department For Education. Tender: Parks Primary School - Main Works (con_25807). Supplier as named in notice: The McAvoy Group Limited."
             },
             {
               "name": "Caledonian Modular Limited (in administration, 2022)",
@@ -23298,7 +24452,21 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 1016900.56,
+                  "asOfDate": "2017-12-31",
+                  "note": "Sum of 15 gov.uk transparency payments published by Department For Transport during 2017 (max single row £116,302). Project-identifying tokens observed in rows: improvement. Sample descriptions: Road Improvement Scheme 1 Schemes OPERATIONS DIRECTORATE TA Cost AUC - Programme; Road Improvement Scheme 1 Schemes MAJOR PROJECTS TA Cost AUC - Programme; Road Improvement Strategy 1 Schemes OPERATIONS DIRECTORATE TA Cost AUC - Programme; Road Improvement Strategy 1 Schemes MAJOR PROJECTS TA Cost AUC - Programme.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/dft-spending-over-25000-august-2017",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": [
+                    "https://www.gov.uk/government/publications/dft-spending-over-25000-july-2017"
+                  ]
+                }
+              ],
+              "contractValueGBP": 1016900.56,
+              "contractValueNote": "Sum of 15 gov.uk transparency payments published by Department For Transport during 2017 (max single row £116,302). Project-identifying tokens observed in rows: improvement. Sample descriptions: Road Improvement Scheme 1 Schemes OPERATIONS DIRECTORATE TA Cost AUC - Programme; Road Improvement Scheme 1 Schemes MAJOR PROJECTS TA Cost AUC - Programme; Road Improvement Strategy 1 Schemes OPERATIONS DIRECTORATE TA Cost AUC - Programme; Road Improvement Strategy 1 Schemes MAJOR PROJECTS TA Cost AUC - Programme."
             }
           ]
         }
@@ -23789,7 +24957,19 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: committees.parliament.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 4087782.05,
+                  "asOfDate": "2025-03-05",
+                  "note": "OCDS award notice. Buyer: Home Office. Tender: Asylum Seeker Interview Spaces - Surge Provision. Supplier as named in notice: Corporate Travel Management (North) Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/1d8659dd-e18a-41f3-b532-3aa07dc4eddc-835265",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 4087782.05,
+              "contractValueNote": "OCDS award notice. Buyer: Home Office. Tender: Asylum Seeker Interview Spaces - Surge Provision. Supplier as named in notice: Corporate Travel Management (North) Limited."
             }
           ]
         },
@@ -24147,7 +25327,19 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 2370734.41,
+                  "asOfDate": "2023-10-26",
+                  "note": "OCDS award notice. Buyer: Ministry of Defence. Tender: Fountain Lake Jetty TSP CAN. Supplier as named in notice: Jacobs UK Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/1e2072fa-52c6-47bb-bb15-51914f6244ef-693887",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 2370734.41,
+              "contractValueNote": "OCDS award notice. Buyer: Ministry of Defence. Tender: Fountain Lake Jetty TSP CAN. Supplier as named in notice: Jacobs UK Limited."
             }
           ]
         }
@@ -24484,7 +25676,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: contractsfinder.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 124588.13,
+                  "asOfDate": "2025-04-15",
+                  "note": "OCDS award notice. Buyer: National Highways. Tender: T0660 Route Strategies WP 2 - Route Strategy Programme Oversight, Engagement and Comms. Supplier as named in notice: Costain Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/a1c48189-d919-4033-abe7-cbac5a7adcc0-840651",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 124588.13,
+              "contractValueNote": "OCDS award notice. Buyer: National Highways. Tender: T0660 Route Strategies WP 2 - Route Strategy Programme Oversight, Engagement and Comms. Supplier as named in notice: Costain Limited."
             },
             {
               "name": "VINCI Construction Grands Projets",
@@ -25077,7 +26281,101 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: contractsfinder.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 148642.77,
+                  "asOfDate": "2023-11-13",
+                  "note": "OCDS award notice. Buyer: Nuclear Waste Services. Tender: ESC-L2-TO339 Criticality Assessment. Supplier as named in notice: Jacobs U.K. Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/3f06e81d-e933-46f1-9d24-16eea14e535f-701519",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 26116.08,
+                  "asOfDate": "2023-11-24",
+                  "note": "OCDS award notice. Buyer: Nuclear Waste Services. Tender: ESC-L2-TO344 Support on Management of Uncertainties. Supplier as named in notice: Jacobs U.K. Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/9f5de893-893a-4ce3-9d2f-de4a5645482c-701619",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 10968.49,
+                  "asOfDate": "2024-01-22",
+                  "note": "OCDS award notice. Buyer: Nuclear Waste Services. Tender: TO350 - C-14 Release to Groundwater. Supplier as named in notice: Jacobs U.K. Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/02541904-581b-4dbc-8318-f1982339d573-716009",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 350000.0,
+                  "asOfDate": "2024-03-08",
+                  "note": "OCDS award notice. Buyer: LLWR. Tender: Characterisation of Oldbury Fuel Element Debris.. Supplier as named in notice: Jacobs U.K. Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/e96de005-6efb-43d5-bd63-e594bd4e80fb-730537",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 450000.0,
+                  "asOfDate": "2024-03-28",
+                  "note": "OCDS award notice. Buyer: Nuclear Waste Services. Tender: RWM400-029 FECD of SC Boreholes. Supplier as named in notice: Jacobs U.K. Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/ea3788d2-0232-4dc1-af1c-9a6a5c725e49-739663",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 71678.74,
+                  "asOfDate": "2024-04-08",
+                  "note": "OCDS award notice. Buyer: Nuclear Waste Services. Tender: TO316C - Solubility. Supplier as named in notice: Jacobs U.K. Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/743913ba-2d71-43b2-96c1-ddccadb38fee-739008",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 416112.86,
+                  "asOfDate": "2024-06-07",
+                  "note": "OCDS award notice. Buyer: Nuclear Waste Services. Tender: GoldSim Vault Model Development & Assessment - TV1. Supplier as named in notice: Jacobs U.K. Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/32e75ec5-c63f-4b39-9377-612956db7417-792949",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": [
+                    "https://www.contractsfinder.service.gov.uk/Notice/8a72188f-39a7-4219-8c55-3999f8c79401-792921"
+                  ]
+                },
+                {
+                  "valueGBP": 145860.0,
+                  "asOfDate": "2024-06-25",
+                  "note": "OCDS award notice. Buyer: Nuclear Waste Services. Tender: ESC-L2-TO325 Integrated Assessment of Gas Generation. Supplier as named in notice: Jacobs U.K. Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/53613da4-71bc-4ecb-ab41-ea85bb199390-779541",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 49518.02,
+                  "asOfDate": "2024-08-19",
+                  "note": "OCDS award notice. Buyer: Nuclear Waste Services. Tender: TO385 Copeland Site Descriptive Model (SDM). Supplier as named in notice: Jacobs U.K. Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/1fdc7987-1c47-41fd-aab5-51bacfe08cab-779547",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 206096.0,
+                  "asOfDate": "2024-10-14",
+                  "note": "OCDS award notice. Buyer: Nuclear Waste Services. Tender: TO357 Phase 2 Human Intrusion. Supplier as named in notice: Jacobs U.K. Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/b19eeaaa-6147-48e3-a36e-b481c26fa06d-801884",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 511847.48,
+                  "asOfDate": "2024-10-25",
+                  "note": "OCDS award notice. Buyer: Nuclear Waste Services. Tender: 2025 UK Radioactive Waste Inventory. Supplier as named in notice: Jacobs U.K. Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/35838cf1-c802-4096-ba73-2da5d4d69abb-798506",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 511847.48,
+              "contractValueNote": "OCDS award notice. Buyer: Nuclear Waste Services. Tender: 2025 UK Radioactive Waste Inventory. Supplier as named in notice: Jacobs U.K. Limited."
             },
             {
               "name": "AECOM Limited",
@@ -25803,7 +27101,27 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: contractsfinder.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 100000.0,
+                  "asOfDate": "2023-10-16",
+                  "note": "OCDS award notice. Buyer: Nottingham City Council. Tender: CPU 6626 U22s Ticketing Scheme Reimbursement. Supplier as named in notice: Tramlink Nottingham Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/c94dd62d-97b3-49c5-816e-4c14ef5b5cf2-693228",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 60000.0,
+                  "asOfDate": "2024-05-01",
+                  "note": "OCDS award notice. Buyer: Nottingham City Council. Tender: CPU 7131 Renewal of subscription to industry body for light rail in the UK. Supplier as named in notice: Tram UK Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/fc51621c-216a-4629-a117-d4e613191364-769596",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 60000.0,
+              "contractValueNote": "OCDS award notice. Buyer: Nottingham City Council. Tender: CPU 7131 Renewal of subscription to industry body for light rail in the UK. Supplier as named in notice: Tram UK Ltd."
             }
           ]
         }
@@ -26603,7 +27921,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: contractsfinder.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 600000.0,
+                  "asOfDate": "2024-08-01",
+                  "note": "OCDS award notice. Buyer: DfTc - Department for Transport. Tender: THRE0039 - Major Rail Project Analysis (MRPA) Modelling and appraisal call-off contract. Supplier as named in notice: Mott MacDonald.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/794cacfd-b2cf-4ad2-b741-89d1218dfebb-773905",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 600000.0,
+              "contractValueNote": "OCDS award notice. Buyer: DfTc - Department for Transport. Tender: THRE0039 - Major Rail Project Analysis (MRPA) Modelling and appraisal call-off contract. Supplier as named in notice: Mott MacDonald."
             },
             {
               "name": "Jacobs UK Limited (legacy CH2M Hill)",
@@ -26618,7 +27948,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: contractsfinder.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 706250.0,
+                  "asOfDate": "2025-01-10",
+                  "note": "OCDS award notice. Buyer: DfTc - Department for Transport. Tender: THRE0020 - Transport Construction and Infrastructure Demand. Supplier as named in notice: Jacobs UK Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/84e5413d-4777-4030-be05-49be7835dacc-818328",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 706250.0,
+              "contractValueNote": "OCDS award notice. Buyer: DfTc - Department for Transport. Tender: THRE0020 - Transport Construction and Infrastructure Demand. Supplier as named in notice: Jacobs UK Limited."
             },
             {
               "name": "Steer Davies Gleave Limited (Steer)",
@@ -27000,7 +28342,19 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: committees.parliament.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 4594359.0,
+                  "asOfDate": "2024-01-08",
+                  "note": "OCDS award notice. Buyer: Department of Health and Social Care. Tender: DHSC: SRE: Digital Strategy. Supplier as named in notice: PA CONSULTING SERVICES LIMITED.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/9fb00b7d-b2dd-4672-acf4-25aae7e2f4f8-712653",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 4594359.0,
+              "contractValueNote": "OCDS award notice. Buyer: Department of Health and Social Care. Tender: DHSC: SRE: Digital Strategy. Supplier as named in notice: PA CONSULTING SERVICES LIMITED."
             },
             {
               "name": "Accenture (UK) Limited",
@@ -27016,7 +28370,29 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: contractsfinder.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 380000.0,
+                  "asOfDate": "2023-09-29",
+                  "note": "OCDS award notice. Buyer: NHS England. Tender: User Research and Supporting the Digital needs of Community Healthcare Providers. Supplier as named in notice: ACCENTURE (UK) LIMITED.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/f91e7e56-f94b-42e2-a411-636f717e48f2-691996",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 49286241.0,
+                  "asOfDate": "2024-08-14",
+                  "note": "OCDS award notice. Buyer: NHS England. Tender: Digital UEC Continuous Iterations Delivery. Supplier as named in notice: ACCENTURE (UK) LIMITED.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/5b0b6092-bcb3-4730-aca8-58a64858c2ca-779024",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": [
+                    "https://www.contractsfinder.service.gov.uk/Notice/205cca48-d534-429b-8abd-8fee3d98c72f-782929"
+                  ]
+                }
+              ],
+              "contractValueGBP": 49286241.0,
+              "contractValueNote": "OCDS award notice. Buyer: NHS England. Tender: Digital UEC Continuous Iterations Delivery. Supplier as named in notice: ACCENTURE (UK) LIMITED."
             },
             {
               "name": "PricewaterhouseCoopers LLP",
@@ -27062,7 +28438,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: contractsfinder.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 270663.0,
+                  "asOfDate": "2020-05-14",
+                  "note": "OCDS award notice. Buyer: NHS England. Tender: Contract variation to increase the scope of development work and number of \"sprints\". Supplier as named in notice: CARNALL FARRAR LTD.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/2e772abf-4b9d-477e-801e-4a325493ca70-732374",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 270663.0,
+              "contractValueNote": "OCDS award notice. Buyer: NHS England. Tender: Contract variation to increase the scope of development work and number of \"sprints\". Supplier as named in notice: CARNALL FARRAR LTD."
             }
           ]
         },
@@ -27317,7 +28705,19 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: nao.org.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 15000000.0,
+                  "asOfDate": "2024-11-07",
+                  "note": "OCDS award notice. Buyer: Home Office. Tender: Law Enforcement (LECN) Software Defined Wide Area Network (SD-WAN) continuity. Supplier as named in notice: Fujitsu Services Ltd.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/c10e0f79-8b68-4b90-9eca-f5a34c419278-806902",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 15000000.0,
+              "contractValueNote": "OCDS award notice. Buyer: Home Office. Tender: Law Enforcement (LECN) Software Defined Wide Area Network (SD-WAN) continuity. Supplier as named in notice: Fujitsu Services Ltd."
             },
             {
               "name": "BT Plc (BT Police Services)",
@@ -27332,7 +28732,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: contractsfinder.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 13841092.0,
+                  "asOfDate": "2024-02-05",
+                  "note": "OCDS award notice. Buyer: Home Office. Tender: EUC Hardware & Peripherals. Supplier as named in notice: BT Plc.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/2e95420b-775c-4399-818d-570a4d3fee21-826194",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 13841092.0,
+              "contractValueNote": "OCDS award notice. Buyer: Home Office. Tender: EUC Hardware & Peripherals. Supplier as named in notice: BT Plc."
             }
           ]
         }
@@ -27486,7 +28898,27 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: nationalgrid.com"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 50000.0,
+                  "asOfDate": "2024-03-11",
+                  "note": "OCDS award notice. Buyer: Ofgem. Tender: SF-6 Evaluation Lifecycle. Supplier as named in notice: Atkins.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/677393a4-5688-432b-8cee-e7ec9c85e6a8-736160",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 40000.0,
+                  "asOfDate": "2024-03-11",
+                  "note": "OCDS award notice. Buyer: Ofgem. Tender: Heat Flexibility Technical Capacity Review. Supplier as named in notice: Atkins.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/021af70e-36bb-4627-92a0-d9440d789fc2-736152",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 40000.0,
+              "contractValueNote": "OCDS award notice. Buyer: Ofgem. Tender: SF-6 Evaluation Lifecycle. Supplier as named in notice: Atkins."
             }
           ]
         },
@@ -27626,7 +29058,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: find-tender.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 119998.0,
+                  "asOfDate": "2023-10-20",
+                  "note": "OCDS award notice. Buyer: Ofgem. Tender: NARM Policy Support 2023. Supplier as named in notice: Wsp Uk Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/92d9c043-6f00-4338-89fb-84aaf7666527-701770",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 119998.0,
+              "contractValueNote": "OCDS award notice. Buyer: Ofgem. Tender: NARM Policy Support 2023. Supplier as named in notice: Wsp Uk Limited."
             },
             {
               "name": "Mott MacDonald Limited",
@@ -28535,7 +29979,19 @@
                   "grade": "B",
                   "gradeRationale": "B-domain: contractsfinder.service.gov.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 79500.0,
+                  "asOfDate": "2024-10-07",
+                  "note": "OCDS award notice. Buyer: UK Research and Innovation. Tender: GB-London: UKRI-4306 LMS Heat Decarbonisation Study. Supplier as named in notice: Ove Arup & Partners Limited.",
+                  "sourceUrl": "https://www.contractsfinder.service.gov.uk/Notice/0794b6d8-d505-49c9-b324-474ef7b67229-791947",
+                  "sourceType": "contracts-finder",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 79500.0,
+              "contractValueNote": "OCDS award notice. Buyer: UK Research and Innovation. Tender: GB-London: UKRI-4306 LMS Heat Decarbonisation Study. Supplier as named in notice: Ove Arup & Partners Limited."
             }
           ]
         }
@@ -28722,7 +30178,47 @@
                   "grade": "A",
                   "gradeRationale": "A-domain: supremecourt.uk"
                 }
-              ]
+              ],
+              "valueHistory": [
+                {
+                  "valueGBP": 1156056.0,
+                  "asOfDate": "2014-12-31",
+                  "note": "Sum of 2 gov.uk transparency payments published by Department For Transport during 2014 (max single row £578,028). Project-identifying tokens observed in rows: heathrow. Sample descriptions: HEX Depot relocation Sept13 - Feb14 LWM Advance Works- Geotech investigations etc.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/dft-spending-over-25000-for-may-2014",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                },
+                {
+                  "valueGBP": 631647.8,
+                  "asOfDate": "2015-12-31",
+                  "note": "Sum of 6 gov.uk transparency payments published by Department For Transport during 2015 (max single row £303,207). Project-identifying tokens observed in rows: heathrow. Sample descriptions: # Aviation Secondments; Appl'n nr 02 Phase One, On-Network Works Professional services.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/dft-spending-over-25000-august-2015",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": [
+                    "https://www.gov.uk/government/publications/dft-spending-over-25000-july-2015"
+                  ]
+                },
+                {
+                  "valueGBP": 1104409.05,
+                  "asOfDate": "2018-12-31",
+                  "note": "Sum of 2 gov.uk transparency payments published by Department For Transport during 2018 (max single row £714,880). Project-identifying tokens observed in rows: heathrow. Sample descriptions: Oct 17 to Dec 17 Payment Not assigned Not assigned; Interim Payment for AFP12 Not assigned Civil Contract.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/dft-spending-over-25000-april-2018",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": [
+                    "https://www.gov.uk/government/publications/dft-spending-over-25000-january-2018"
+                  ]
+                },
+                {
+                  "valueGBP": 1053417.65,
+                  "asOfDate": "2019-12-31",
+                  "note": "Sum of 3 gov.uk transparency payments published by Department For Transport during 2019 (max single row £420,949). Project-identifying tokens observed in rows: heathrow. Sample descriptions: HAL/HEOC Support AUC - Phase 1 Phase 1.",
+                  "sourceUrl": "https://www.gov.uk/government/publications/dft-spending-over-25000-july-2019",
+                  "sourceType": "gov.uk transparency CSV",
+                  "corroboratingUrls": []
+                }
+              ],
+              "contractValueGBP": 1053417.65,
+              "contractValueNote": "Sum of 2 gov.uk transparency payments published by Department For Transport during 2014 (max single row £578,028). Project-identifying tokens observed in rows: heathrow. Sample descriptions: HEX Depot relocation Sept13 - Feb14 LWM Advance Works- Geotech investigations etc."
             }
           ]
         },

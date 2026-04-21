@@ -1,6 +1,6 @@
 {
   "schemaVersion": "money-map.v1",
-  "generatedAt": "2026-04-19T22:46:51.402Z",
+  "generatedAt": "2026-04-20T10:01:52.554Z",
   "window": {
     "from": "2022-01",
     "to": "2026-04"
@@ -22,19 +22,19 @@
       "label": "High Speed Two (HS2) Limited",
       "department": "Department for Transport",
       "authority": "High Speed Two (HS2) Limited",
-      "value": 18486075000,
+      "value": 18520024655.26,
       "supplierCount": 26,
       "scores": {
-        "buyerConcentrationHHI": 0.173,
+        "buyerConcentrationHHI": 0.172,
         "supplierCount": 26,
-        "supplierCountValued": 12,
-        "totalGBP": 18486075000
+        "supplierCountValued": 17,
+        "totalGBP": 18520024655.26
       },
       "topSupplier": {
         "id": "supplier-balfour-beatty-vinci-bbv-joint-venture",
         "label": "Balfour Beatty VINCI (BBV) Joint Venture",
         "gbp": 5000000000,
-        "share": 0.2704738566731986
+        "share": 0.2699780423121584
       }
     },
     {
@@ -85,19 +85,19 @@
       "label": "Sellafield Ltd",
       "department": "Department for Energy Security and Net Zero (via NDA)",
       "authority": "Sellafield Ltd (subsidiary of the Nuclear Decommissioning Authority)",
-      "value": 7491314.91,
+      "value": 8795791.58,
       "supplierCount": 16,
       "scores": {
-        "buyerConcentrationHHI": 0.41,
+        "buyerConcentrationHHI": 0.305,
         "supplierCount": 16,
-        "supplierCountValued": 6,
-        "totalGBP": 7491314.91
+        "supplierCountValued": 9,
+        "totalGBP": 8795791.58
       },
       "topSupplier": {
         "id": "supplier-avingtrans",
         "label": "Avingtrans plc",
         "gbp": 4400000,
-        "share": 0.5873468213339332
+        "share": 0.5002392291791888
       }
     },
     {
@@ -127,19 +127,19 @@
       "label": "Home Office — Emergency Services Mobile Communications Programme",
       "department": "Home Office",
       "authority": "Home Office — Emergency Services Mobile Communications Programme (ESMCP)",
-      "value": 4007000000,
+      "value": 4011087782.05,
       "supplierCount": 14,
       "scores": {
-        "buyerConcentrationHHI": 0.426,
+        "buyerConcentrationHHI": 0.425,
         "supplierCount": 14,
-        "supplierCountValued": 5,
-        "totalGBP": 4007000000
+        "supplierCountValued": 6,
+        "totalGBP": 4011087782.05
       },
       "topSupplier": {
         "id": "supplier-ee",
         "label": "EE Limited",
         "gbp": 2200000000,
-        "share": 0.5490391814324931
+        "share": 0.5484796443112538
       }
     },
     {
@@ -211,19 +211,19 @@
       "label": "Ministry of Defence",
       "department": "Ministry of Defence",
       "authority": "Ministry of Defence (Defence Equipment and Support)",
-      "value": 47584000000,
+      "value": 47837470734.41,
       "supplierCount": 49,
       "scores": {
-        "buyerConcentrationHHI": 0.509,
+        "buyerConcentrationHHI": 0.503,
         "supplierCount": 49,
-        "supplierCountValued": 8,
-        "totalGBP": 47584000000
+        "supplierCountValued": 12,
+        "totalGBP": 47837470734.41
       },
       "topSupplier": {
         "id": "supplier-bae-systems",
         "label": "BAE Systems plc",
         "gbp": 32489000000,
-        "share": 0.6827715198386012
+        "share": 0.6791537993381058
       }
     },
     {
@@ -232,19 +232,19 @@
       "label": "UK Border Agency",
       "department": "Home Office",
       "authority": "UK Border Agency (later UK Visas and Immigration / Border Force — Home Office)",
-      "value": 964000000,
+      "value": 1049000000,
       "supplierCount": 5,
       "scores": {
-        "buyerConcentrationHHI": 0.941,
+        "buyerConcentrationHHI": 0.801,
         "supplierCount": 5,
-        "supplierCountValued": 3,
-        "totalGBP": 964000000
+        "supplierCountValued": 4,
+        "totalGBP": 1049000000
       },
       "topSupplier": {
         "id": "supplier-raytheon-systems",
         "label": "Raytheon Systems Limited",
         "gbp": 935000000,
-        "share": 0.9699170124481328
+        "share": 0.8913250714966635
       }
     },
     {
@@ -316,13 +316,19 @@
       "label": "Ministry of Defence (Defence Equipment and Support) — procured through the US F-35 Joint Program Office",
       "department": "Ministry of Defence",
       "authority": "Ministry of Defence (Defence Equipment and Support) — procured through the US F-35 Joint Program Office",
-      "value": 0,
+      "value": 220000000,
       "supplierCount": 11,
       "scores": {
-        "buyerConcentrationHHI": 0,
+        "buyerConcentrationHHI": 1,
         "supplierCount": 11,
-        "supplierCountValued": 0,
-        "totalGBP": 0
+        "supplierCountValued": 1,
+        "totalGBP": 220000000
+      },
+      "topSupplier": {
+        "id": "supplier-lockheed-martin-corporation",
+        "label": "Lockheed Martin Corporation",
+        "gbp": 220000000,
+        "share": 1
       }
     },
     {
@@ -415,13 +421,19 @@
       "label": "Great British Nuclear",
       "department": "Department for Energy Security and Net Zero (DESNZ)",
       "authority": "Great British Nuclear (Great British Energy — Nuclear)",
-      "value": 0,
+      "value": 5792753.51,
       "supplierCount": 8,
       "scores": {
-        "buyerConcentrationHHI": 0,
+        "buyerConcentrationHHI": 0.501,
         "supplierCount": 8,
-        "supplierCountValued": 0,
-        "totalGBP": 0
+        "supplierCountValued": 2,
+        "totalGBP": 5792753.51
+      },
+      "topSupplier": {
+        "id": "supplier-holtec-britain",
+        "label": "Holtec Britain Limited",
+        "gbp": 3042622.19,
+        "share": 0.5252462727349847
       }
     },
     {
@@ -430,13 +442,19 @@
       "label": "DESNZ",
       "department": "Department for Energy Security and Net Zero (DESNZ)",
       "authority": "DESNZ (commercial counterparty via Low Carbon Contracts Company)",
-      "value": 0,
+      "value": 1449299.55,
       "supplierCount": 11,
       "scores": {
-        "buyerConcentrationHHI": 0,
+        "buyerConcentrationHHI": 1,
         "supplierCount": 11,
-        "supplierCountValued": 0,
-        "totalGBP": 0
+        "supplierCountValued": 1,
+        "totalGBP": 1449299.55
+      },
+      "topSupplier": {
+        "id": "supplier-low-carbon-contracts-company",
+        "label": "Low Carbon Contracts Company Limited",
+        "gbp": 1449299.55,
+        "share": 1
       }
     },
     {
@@ -487,19 +505,19 @@
       "label": "DWP",
       "department": "Department for Work and Pensions (DWP)",
       "authority": "DWP",
-      "value": 1341000000,
+      "value": 1343000000,
       "supplierCount": 11,
       "scores": {
-        "buyerConcentrationHHI": 0.348,
+        "buyerConcentrationHHI": 0.347,
         "supplierCount": 11,
-        "supplierCountValued": 3,
-        "totalGBP": 1341000000
+        "supplierCountValued": 4,
+        "totalGBP": 1343000000
       },
       "topSupplier": {
         "id": "supplier-ibm-united-kingdom",
         "label": "IBM United Kingdom Limited",
         "gbp": 525000000,
-        "share": 0.39149888143176736
+        "share": 0.39091586001489204
       }
     },
     {
@@ -508,13 +526,19 @@
       "label": "Cabinet Office / GDS",
       "department": "Cabinet Office — Government Digital Service (GDS)",
       "authority": "Cabinet Office / GDS",
-      "value": 0,
+      "value": 63000000,
       "supplierCount": 10,
       "scores": {
-        "buyerConcentrationHHI": 0,
+        "buyerConcentrationHHI": 0.579,
         "supplierCount": 10,
-        "supplierCountValued": 0,
-        "totalGBP": 0
+        "supplierCountValued": 2,
+        "totalGBP": 63000000
+      },
+      "topSupplier": {
+        "id": "supplier-deloitte-mcs",
+        "label": "Deloitte MCS Limited",
+        "gbp": 44000000,
+        "share": 0.6984126984126984
       }
     },
     {
@@ -538,19 +562,19 @@
       "label": "HMCTS",
       "department": "Ministry of Justice (MoJ) / HM Courts & Tribunals Service (HMCTS)",
       "authority": "HMCTS",
-      "value": 114357473.29,
+      "value": 142785694.29000002,
       "supplierCount": 9,
       "scores": {
-        "buyerConcentrationHHI": 0.792,
+        "buyerConcentrationHHI": 0.543,
         "supplierCount": 9,
-        "supplierCountValued": 3,
-        "totalGBP": 114357473.29
+        "supplierCountValued": 5,
+        "totalGBP": 142785694.29000002
       },
       "topSupplier": {
         "id": "supplier-cgi-it",
         "label": "CGI IT UK Limited",
         "gbp": 101002891.04,
-        "share": 0.8832207299986944
+        "share": 0.7073740233027934
       }
     },
     {
@@ -559,19 +583,19 @@
       "label": "MOD",
       "department": "Ministry of Defence (MOD)",
       "authority": "MOD",
-      "value": 97623545.47,
+      "value": 103072731.15,
       "supplierCount": 7,
       "scores": {
-        "buyerConcentrationHHI": 0.682,
+        "buyerConcentrationHHI": 0.615,
         "supplierCount": 7,
-        "supplierCountValued": 3,
-        "totalGBP": 97623545.47
+        "supplierCountValued": 5,
+        "totalGBP": 103072731.15
       },
       "topSupplier": {
         "id": "supplier-eads-defence-and-security-systems",
         "label": "EADS Defence and Security Systems Limited",
         "gbp": 79139489.47,
-        "share": 0.8106598576090416
+        "share": 0.7678023914475463
       }
     },
     {
@@ -601,13 +625,19 @@
       "label": "DfT / Transport for the North",
       "department": "Department for Transport (DfT)",
       "authority": "DfT / Transport for the North (TfN, statutory sub-national transport body)",
-      "value": 0,
+      "value": 6000000,
       "supplierCount": 9,
       "scores": {
-        "buyerConcentrationHHI": 0,
+        "buyerConcentrationHHI": 1,
         "supplierCount": 9,
-        "supplierCountValued": 0,
-        "totalGBP": 0
+        "supplierCountValued": 1,
+        "totalGBP": 6000000
+      },
+      "topSupplier": {
+        "id": "supplier-arup-group",
+        "label": "Arup Group Limited",
+        "gbp": 6000000,
+        "share": 1
       }
     },
     {
@@ -616,19 +646,19 @@
       "label": "National Highways Limited",
       "department": "Department for Transport (DfT)",
       "authority": "National Highways Limited",
-      "value": 531610037.98,
+      "value": 1876528396.1100004,
       "supplierCount": 24,
       "scores": {
-        "buyerConcentrationHHI": 0.998,
+        "buyerConcentrationHHI": 0.594,
         "supplierCount": 24,
-        "supplierCountValued": 5,
-        "totalGBP": 531610037.98
+        "supplierCountValued": 8,
+        "totalGBP": 1876528396.1100004
       },
       "topSupplier": {
-        "id": "supplier-skanska-construction",
-        "label": "Skanska Construction UK Limited",
-        "gbp": 531000000,
-        "share": 0.9988524709158653
+        "id": "supplier-bouygues-travaux-publics",
+        "label": "Bouygues Travaux Publics",
+        "gbp": 1344687196,
+        "share": 0.7165823862764374
       }
     },
     {
@@ -637,19 +667,19 @@
       "label": "Network Rail Infrastructure Limited",
       "department": "Department for Transport (DfT)",
       "authority": "Network Rail Infrastructure Limited",
-      "value": 50000,
+      "value": 5158483.69,
       "supplierCount": 22,
       "scores": {
-        "buyerConcentrationHHI": 1,
+        "buyerConcentrationHHI": 0.981,
         "supplierCount": 22,
-        "supplierCountValued": 1,
-        "totalGBP": 50000
+        "supplierCountValued": 2,
+        "totalGBP": 5158483.69
       },
       "topSupplier": {
-        "id": "supplier-arup-group",
-        "label": "Arup Group Limited",
-        "gbp": 50000,
-        "share": 1
+        "id": "supplier-siemens-mobility",
+        "label": "Siemens Mobility Limited",
+        "gbp": 5108483.69,
+        "share": 0.9903072292160334
       }
     },
     {
@@ -658,13 +688,19 @@
       "label": "East West Railway Company Limited / Network Rail",
       "department": "Department for Transport (DfT)",
       "authority": "East West Railway Company Limited / Network Rail",
-      "value": 0,
+      "value": 4440189,
       "supplierCount": 11,
       "scores": {
-        "buyerConcentrationHHI": 0,
+        "buyerConcentrationHHI": 0.436,
         "supplierCount": 11,
-        "supplierCountValued": 0,
-        "totalGBP": 0
+        "supplierCountValued": 4,
+        "totalGBP": 4440189
+      },
+      "topSupplier": {
+        "id": "supplier-mott-macdonald",
+        "label": "Mott MacDonald Limited",
+        "gbp": 2500000,
+        "share": 0.5630390958583069
       }
     },
     {
@@ -673,19 +709,19 @@
       "label": "MOD / GCAP International Government Organisation",
       "department": "Ministry of Defence (MOD)",
       "authority": "MOD / GCAP International Government Organisation (GIGO)",
-      "value": 2686000000,
+      "value": 2689000000,
       "supplierCount": 11,
       "scores": {
-        "buyerConcentrationHHI": 0.62,
+        "buyerConcentrationHHI": 0.618,
         "supplierCount": 11,
-        "supplierCountValued": 2,
-        "totalGBP": 2686000000
+        "supplierCountValued": 3,
+        "totalGBP": 2689000000
       },
       "topSupplier": {
         "id": "supplier-rolls-royce",
         "label": "Rolls-Royce plc",
         "gbp": 2000000000,
-        "share": 0.7446016381236039
+        "share": 0.7437709185570844
       }
     },
     {
@@ -694,19 +730,19 @@
       "label": "MOD / Defence Equipment & Support",
       "department": "Ministry of Defence (MOD)",
       "authority": "MOD / Defence Equipment & Support (DE&S)",
-      "value": 14256421280,
+      "value": 14544556477,
       "supplierCount": 36,
       "scores": {
-        "buyerConcentrationHHI": 0.565,
+        "buyerConcentrationHHI": 0.543,
         "supplierCount": 36,
-        "supplierCountValued": 6,
-        "totalGBP": 14256421280
+        "supplierCountValued": 9,
+        "totalGBP": 14544556477
       },
       "topSupplier": {
         "id": "supplier-airtanker",
         "label": "AirTanker Limited",
         "gbp": 10500000000,
-        "share": 0.73651022186965
+        "share": 0.7219195729071664
       }
     },
     {
@@ -787,19 +823,19 @@
       "label": "NHS England",
       "department": "Department of Health and Social Care",
       "authority": "NHS England (and individual NHS Trusts as client bodies)",
-      "value": 358500000,
+      "value": 412651263,
       "supplierCount": 30,
       "scores": {
-        "buyerConcentrationHHI": 0.852,
+        "buyerConcentrationHHI": 0.678,
         "supplierCount": 30,
-        "supplierCountValued": 3,
-        "totalGBP": 358500000
+        "supplierCountValued": 4,
+        "totalGBP": 412651263
       },
       "topSupplier": {
         "id": "supplier-palantir-technologies",
         "label": "Palantir Technologies UK Limited",
-        "gbp": 330000000,
-        "share": 0.9205020920502092
+        "gbp": 334594359,
+        "share": 0.8108405062606097
       }
     },
     {
@@ -823,19 +859,19 @@
       "label": "Ministry of Justice / HMPPS",
       "department": "Ministry of Justice",
       "authority": "Ministry of Justice / HMPPS (His Majesty's Prison and Probation Service)",
-      "value": 572496946.0666667,
+      "value": 597574286.0966666,
       "supplierCount": 13,
       "scores": {
-        "buyerConcentrationHHI": 0.623,
+        "buyerConcentrationHHI": 0.572,
         "supplierCount": 13,
-        "supplierCountValued": 3,
-        "totalGBP": 572496946.0666667
+        "supplierCountValued": 9,
+        "totalGBP": 597574286.0966666
       },
       "topSupplier": {
         "id": "supplier-kier-construction",
         "label": "Kier Construction Limited",
         "gbp": 442166666.6666667,
-        "share": 0.7723476425587374
+        "share": 0.7399358991078469
       }
     },
     {
@@ -940,13 +976,19 @@
       "label": "London & Continental Railways Limited (LCR) — original private-sector concessionaire (1996); subsequently nationalised into LCR (DfT). Sale of 30-year concession completed November 2010.",
       "department": "Department for Transport (formerly Department of the Environment, Transport and the Regions).",
       "authority": "London & Continental Railways Limited (LCR) — original private-sector concessionaire (1996); subsequently nationalised into LCR (DfT). Sale of 30-year concession completed November 2010.",
-      "value": 0,
+      "value": 20000,
       "supplierCount": 8,
       "scores": {
-        "buyerConcentrationHHI": 0,
+        "buyerConcentrationHHI": 1,
         "supplierCount": 8,
-        "supplierCountValued": 0,
-        "totalGBP": 0
+        "supplierCountValued": 1,
+        "totalGBP": 20000
+      },
+      "topSupplier": {
+        "id": "supplier-ove-arup-partners-international",
+        "label": "Ove Arup & Partners International Limited",
+        "gbp": 20000,
+        "share": 1
       }
     },
     {
@@ -955,19 +997,19 @@
       "label": "London Underground Limited — now part of Transport for London.",
       "department": "Department for Transport (via London Regional Transport / London Underground Limited).",
       "authority": "London Underground Limited — now part of Transport for London.",
-      "value": 8292172,
+      "value": 11010584,
       "supplierCount": 11,
       "scores": {
-        "buyerConcentrationHHI": 0.973,
+        "buyerConcentrationHHI": 0.613,
         "supplierCount": 11,
-        "supplierCountValued": 2,
-        "totalGBP": 8292172
+        "supplierCountValued": 3,
+        "totalGBP": 11010584
       },
       "topSupplier": {
         "id": "supplier-costain",
         "label": "Costain Limited",
         "gbp": 8179672,
-        "share": 0.9864329876418386
+        "share": 0.7428917485212411
       }
     },
     {
@@ -976,19 +1018,19 @@
       "label": "National Highways Limited (formerly Highways England Company Limited, originally Highways Agency).",
       "department": "Department for Transport (delivered by Highways England, from August 2021 National Highways).",
       "authority": "National Highways Limited (formerly Highways England Company Limited, originally Highways Agency).",
-      "value": 8192160.62,
+      "value": 8322160.62,
       "supplierCount": 10,
       "scores": {
-        "buyerConcentrationHHI": 0.954,
+        "buyerConcentrationHHI": 0.925,
         "supplierCount": 10,
-        "supplierCountValued": 2,
-        "totalGBP": 8192160.62
+        "supplierCountValued": 3,
+        "totalGBP": 8322160.62
       },
       "topSupplier": {
         "id": "supplier-ove-arup-partners-international",
         "label": "Ove Arup & Partners International Limited",
         "gbp": 7999470.3,
-        "share": 0.9764786936025676
+        "share": 0.9612251751997548
       }
     },
     {
@@ -1054,13 +1096,19 @@
       "label": "R&R Client Board — formerly Houses of Parliament Restoration and Renewal Sponsor Body (abolished 1 January 2023 under the Parliamentary Works Sponsor Body (Abolition) Regulations 2022); current delivery via the Strategic Estates team and R&R Delivery Authority Limited.",
       "department": "Parliament (Corporate Officers of the House of Commons and House of Lords).",
       "authority": "R&R Client Board — formerly Houses of Parliament Restoration and Renewal Sponsor Body (abolished 1 January 2023 under the Parliamentary Works Sponsor Body (Abolition) Regulations 2022); current delivery via the Strategic Estates team and R&R Delivery Authority Limited.",
-      "value": 0,
+      "value": 10449618.67,
       "supplierCount": 6,
       "scores": {
-        "buyerConcentrationHHI": 0,
+        "buyerConcentrationHHI": 0.5,
         "supplierCount": 6,
-        "supplierCountValued": 0,
-        "totalGBP": 0
+        "supplierCountValued": 2,
+        "totalGBP": 10449618.67
+      },
+      "topSupplier": {
+        "id": "supplier-arup-group",
+        "label": "Arup Group Limited",
+        "gbp": 5285031.31,
+        "share": 0.5057630787210343
       }
     },
     {
@@ -1069,13 +1117,19 @@
       "label": "British Business Bank plc (BBB) — 100% government-owned (UK Government Investments shareholder).",
       "department": "HM Treasury / Department for Business & Trade (delivered via the British Business Bank).",
       "authority": "British Business Bank plc (BBB) — 100% government-owned (UK Government Investments shareholder).",
-      "value": 0,
+      "value": 331500,
       "supplierCount": 10,
       "scores": {
-        "buyerConcentrationHHI": 0,
+        "buyerConcentrationHHI": 0.704,
         "supplierCount": 10,
-        "supplierCountValued": 0,
-        "totalGBP": 0
+        "supplierCountValued": 2,
+        "totalGBP": 331500
+      },
+      "topSupplier": {
+        "id": "supplier-ey",
+        "label": "EY UK",
+        "gbp": 271500,
+        "share": 0.8190045248868778
       }
     },
     {
@@ -1105,13 +1159,19 @@
       "label": "Atomic Weapons Establishment plc (AWE plc) — wholly owned by the Secretary of State for Defence since July 2021 (previously operated under a Government-Owned/Contractor-Operated model by AWE Management Limited).",
       "department": "Ministry of Defence (Defence Nuclear Organisation).",
       "authority": "Atomic Weapons Establishment plc (AWE plc) — wholly owned by the Secretary of State for Defence since July 2021 (previously operated under a Government-Owned/Contractor-Operated model by AWE Management Limited).",
-      "value": 0,
+      "value": 734337.92,
       "supplierCount": 6,
       "scores": {
-        "buyerConcentrationHHI": 0,
+        "buyerConcentrationHHI": 1,
         "supplierCount": 6,
-        "supplierCountValued": 0,
-        "totalGBP": 0
+        "supplierCountValued": 1,
+        "totalGBP": 734337.92
+      },
+      "topSupplier": {
+        "id": "supplier-awe",
+        "label": "AWE plc",
+        "gbp": 734337.92,
+        "share": 1
       }
     },
     {
@@ -1135,13 +1195,19 @@
       "label": "Building Digital UK (BDUK) — an executive agency of DSIT.",
       "department": "Department for Science, Innovation and Technology (formerly DCMS).",
       "authority": "Building Digital UK (BDUK) — an executive agency of DSIT.",
-      "value": 0,
+      "value": 9400000,
       "supplierCount": 6,
       "scores": {
-        "buyerConcentrationHHI": 0,
+        "buyerConcentrationHHI": 1,
         "supplierCount": 6,
-        "supplierCountValued": 0,
-        "totalGBP": 0
+        "supplierCountValued": 1,
+        "totalGBP": 9400000
+      },
+      "topSupplier": {
+        "id": "supplier-gigaclear",
+        "label": "Gigaclear plc",
+        "gbp": 9400000,
+        "share": 1
       }
     },
     {
@@ -1180,19 +1246,19 @@
       "label": "Department for Education (delivering through the Education and Skills Funding Agency).",
       "department": "Department for Education.",
       "authority": "Department for Education (delivering through the Education and Skills Funding Agency).",
-      "value": 99133323.41,
+      "value": 118397158.33,
       "supplierCount": 13,
       "scores": {
-        "buyerConcentrationHHI": 0.341,
+        "buyerConcentrationHHI": 0.255,
         "supplierCount": 13,
-        "supplierCountValued": 10,
-        "totalGBP": 99133323.41
+        "supplierCountValued": 12,
+        "totalGBP": 118397158.33
       },
       "topSupplier": {
         "id": "supplier-bouygues",
         "label": "Bouygues UK Limited",
         "gbp": 51351562,
-        "share": 0.5180050484902835
+        "share": 0.4337229264985519
       }
     },
     {
@@ -1201,19 +1267,19 @@
       "label": "Highways England Company Limited (now National Highways Limited).",
       "department": "Department for Transport (delivered by Highways England, now National Highways).",
       "authority": "Highways England Company Limited (now National Highways Limited).",
-      "value": 123765,
+      "value": 1140665.56,
       "supplierCount": 6,
       "scores": {
-        "buyerConcentrationHHI": 1,
+        "buyerConcentrationHHI": 0.807,
         "supplierCount": 6,
-        "supplierCountValued": 1,
-        "totalGBP": 123765
+        "supplierCountValued": 2,
+        "totalGBP": 1140665.56
       },
       "topSupplier": {
-        "id": "supplier-jacobs-u-k",
-        "label": "Jacobs U.K. Limited",
-        "gbp": 123765,
-        "share": 1
+        "id": "supplier-aecom",
+        "label": "AECOM Limited",
+        "gbp": 1016900.56,
+        "share": 0.8914975569175596
       }
     },
     {
@@ -1315,19 +1381,19 @@
       "label": "Nuclear Waste Services (NWS) — a subsidiary of the Nuclear Decommissioning Authority, formed January 2022 by merging Radioactive Waste Management Limited with LLWR Limited.",
       "department": "Department for Energy Security and Net Zero (via the Nuclear Decommissioning Authority).",
       "authority": "Nuclear Waste Services (NWS) — a subsidiary of the Nuclear Decommissioning Authority, formed January 2022 by merging Radioactive Waste Management Limited with LLWR Limited.",
-      "value": 14206689.03,
+      "value": 14718536.51,
       "supplierCount": 5,
       "scores": {
-        "buyerConcentrationHHI": 0.971,
+        "buyerConcentrationHHI": 0.906,
         "supplierCount": 5,
-        "supplierCountValued": 3,
-        "totalGBP": 14206689.03
+        "supplierCountValued": 4,
+        "totalGBP": 14718536.51
       },
       "topSupplier": {
         "id": "supplier-aecom",
         "label": "AECOM Limited",
         "gbp": 14000000,
-        "share": 0.9854512878008705
+        "share": 0.9511815247723974
       }
     },
     {
@@ -1366,19 +1432,19 @@
       "label": "Nottingham City Council.",
       "department": "Department for Transport (PFI grant); delivered by Nottingham City Council.",
       "authority": "Nottingham City Council.",
-      "value": 300048091.52,
+      "value": 300108091.52,
       "supplierCount": 8,
       "scores": {
-        "buyerConcentrationHHI": 1,
+        "buyerConcentrationHHI": 0.999,
         "supplierCount": 8,
-        "supplierCountValued": 2,
-        "totalGBP": 300048091.52
+        "supplierCountValued": 3,
+        "totalGBP": 300108091.52
       },
       "topSupplier": {
         "id": "supplier-alstom-transport",
         "label": "Alstom Transport UK Limited",
         "gbp": 300000000,
-        "share": 0.9998397206269289
+        "share": 0.9996398247063166
       }
     },
     {
@@ -1453,19 +1519,19 @@
       "label": "Transport for London (via Crossrail 2 Limited).",
       "department": "Joint sponsors: Transport for London and Department for Transport (Network Rail).",
       "authority": "Transport for London (via Crossrail 2 Limited).",
-      "value": 1000000,
+      "value": 2306250,
       "supplierCount": 6,
       "scores": {
-        "buyerConcentrationHHI": 1,
+        "buyerConcentrationHHI": 0.349,
         "supplierCount": 6,
-        "supplierCountValued": 1,
-        "totalGBP": 1000000
+        "supplierCountValued": 3,
+        "totalGBP": 2306250
       },
       "topSupplier": {
         "id": "supplier-weston-williamson-partners",
         "label": "Weston Williamson + Partners",
         "gbp": 1000000,
-        "share": 1
+        "share": 0.43360433604336046
       }
     },
     {
@@ -1474,19 +1540,19 @@
       "label": "Secretary of State for the Home Department (Home Office).",
       "department": "Home Office (programme delivered with Police Digital Service and National Police Chiefs' Council).",
       "authority": "Secretary of State for the Home Department (Home Office).",
-      "value": 975000,
+      "value": 29816092,
       "supplierCount": 6,
       "scores": {
-        "buyerConcentrationHHI": 1,
+        "buyerConcentrationHHI": 0.47,
         "supplierCount": 6,
-        "supplierCountValued": 1,
-        "totalGBP": 975000
+        "supplierCountValued": 3,
+        "totalGBP": 29816092
       },
       "topSupplier": {
-        "id": "supplier-pa-consulting-services",
-        "label": "PA Consulting Services Limited",
-        "gbp": 975000,
-        "share": 1
+        "id": "supplier-fujitsu-services",
+        "label": "Fujitsu Services Limited",
+        "gbp": 15000000,
+        "share": 0.5030840393167555
       }
     },
     {
@@ -1495,13 +1561,19 @@
       "label": "National Grid Electricity Transmission plc (lead); SP Transmission plc and Scottish Hydro Electric Transmission plc for Scottish projects.",
       "department": "Ofgem (regulator) with National Grid Electricity Transmission, SP Transmission and SSEN Transmission as regulated delivery entities.",
       "authority": "National Grid Electricity Transmission plc (lead); SP Transmission plc and Scottish Hydro Electric Transmission plc for Scottish projects.",
-      "value": 0,
+      "value": 159998,
       "supplierCount": 16,
       "scores": {
-        "buyerConcentrationHHI": 0,
+        "buyerConcentrationHHI": 0.625,
         "supplierCount": 16,
-        "supplierCountValued": 0,
-        "totalGBP": 0
+        "supplierCountValued": 2,
+        "totalGBP": 159998
+      },
+      "topSupplier": {
+        "id": "supplier-wsp",
+        "label": "WSP UK Limited",
+        "gbp": 119998,
+        "share": 0.749996874960937
       }
     },
     {
@@ -1567,13 +1639,19 @@
       "label": "Diamond Light Source Limited (joint venture: STFC 86% / Wellcome Trust 14%).",
       "department": "UKRI — Science and Technology Facilities Council (STFC).",
       "authority": "Diamond Light Source Limited (joint venture: STFC 86% / Wellcome Trust 14%).",
-      "value": 0,
+      "value": 79500,
       "supplierCount": 5,
       "scores": {
-        "buyerConcentrationHHI": 0,
+        "buyerConcentrationHHI": 1,
         "supplierCount": 5,
-        "supplierCountValued": 0,
-        "totalGBP": 0
+        "supplierCountValued": 1,
+        "totalGBP": 79500
+      },
+      "topSupplier": {
+        "id": "supplier-arup-group",
+        "label": "Arup Group Limited",
+        "gbp": 79500,
+        "share": 1
       }
     },
     {
@@ -1597,13 +1675,19 @@
       "label": "Heathrow Airport Limited (privately owned infrastructure operator).",
       "department": "Department for Transport (via the Airports National Policy Statement). Scheme itself is privately promoted by Heathrow Airport Limited.",
       "authority": "Heathrow Airport Limited (privately owned infrastructure operator).",
-      "value": 0,
+      "value": 1053417.65,
       "supplierCount": 7,
       "scores": {
-        "buyerConcentrationHHI": 0,
+        "buyerConcentrationHHI": 1,
         "supplierCount": 7,
-        "supplierCountValued": 0,
-        "totalGBP": 0
+        "supplierCountValued": 1,
+        "totalGBP": 1053417.65
+      },
+      "topSupplier": {
+        "id": "supplier-heathrow-airport",
+        "label": "Heathrow Airport Limited",
+        "gbp": 1053417.65,
+        "share": 1
       }
     },
     {
@@ -1824,18 +1908,18 @@
       "aliases": [
         "CH2M / Atkins / SENER Joint Venture"
       ],
-      "value": 0,
+      "value": 710493.51,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 710493.51
       },
       "topBuyer": {
         "id": "buyer-high-speed-two-hs2",
         "label": "High Speed Two (HS2) Limited",
-        "gbp": 0,
-        "share": 0
+        "gbp": 710493.51,
+        "share": 1
       }
     },
     {
@@ -1866,18 +1950,18 @@
       "aliases": [
         "ASC Joint Venture"
       ],
-      "value": 0,
+      "value": 550000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 550000
       },
       "topBuyer": {
         "id": "buyer-high-speed-two-hs2",
         "label": "High Speed Two (HS2) Limited",
-        "gbp": 0,
-        "share": 0
+        "gbp": 550000,
+        "share": 1
       }
     },
     {
@@ -1929,18 +2013,18 @@
       "aliases": [
         "Mott MacDonald + Weston Williamson + Partners + Rogers Stirk Harbour + Partners"
       ],
-      "value": 0,
+      "value": 43743.75,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 43743.75
       },
       "topBuyer": {
         "id": "buyer-high-speed-two-hs2",
         "label": "High Speed Two (HS2) Limited",
-        "gbp": 0,
-        "share": 0
+        "gbp": 43743.75,
+        "share": 1
       }
     },
     {
@@ -1971,18 +2055,18 @@
       "aliases": [
         "MOLA Headland Infrastructure"
       ],
-      "value": 0,
+      "value": 32465418,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 32465418
       },
       "topBuyer": {
         "id": "buyer-high-speed-two-hs2",
         "label": "High Speed Two (HS2) Limited",
-        "gbp": 0,
-        "share": 0
+        "gbp": 32465418,
+        "share": 1
       }
     },
     {
@@ -2161,18 +2245,18 @@
       "aliases": [
         "Accenture (UK) Limited"
       ],
-      "value": 605000000,
+      "value": 654286241,
       "buyerCount": 9,
       "scores": {
-        "supplierDependence": 0.826,
+        "supplierDependence": 0.764,
         "buyerCount": 9,
-        "totalGBP": 605000000
+        "totalGBP": 654286241
       },
       "topBuyer": {
         "id": "buyer-dwp",
         "label": "DWP",
         "gbp": 500000000,
-        "share": 0.8264462809917356
+        "share": 0.7641915245471286
       }
     },
     {
@@ -2203,18 +2287,18 @@
       "aliases": [
         "PA Consulting Services Limited"
       ],
-      "value": 43146700,
+      "value": 62146700,
       "buyerCount": 4,
       "scores": {
-        "supplierDependence": 0.695,
+        "supplierDependence": 0.483,
         "buyerCount": 4,
-        "totalGBP": 43146700
+        "totalGBP": 62146700
       },
       "topBuyer": {
         "id": "buyer-department-of-health-and-social-care",
         "label": "Department of Health and Social Care",
         "gbp": 30000000,
-        "share": 0.6953023058542136
+        "share": 0.4827287691864572
       }
     },
     {
@@ -2245,18 +2329,18 @@
       "aliases": [
         "Fujitsu Services Limited"
       ],
-      "value": 3396000000,
+      "value": 3416435985.68,
       "buyerCount": 6,
       "scores": {
-        "supplierDependence": 0.736,
+        "supplierDependence": 0.732,
         "buyerCount": 6,
-        "totalGBP": 3396000000
+        "totalGBP": 3416435985.68
       },
       "topBuyer": {
         "id": "buyer-post-office",
         "label": "Post Office Limited",
         "gbp": 2500000000,
-        "share": 0.7361601884570083
+        "share": 0.7317567226427647
       }
     },
     {
@@ -2500,18 +2584,18 @@
       "aliases": [
         "Costain Limited"
       ],
-      "value": 558179672,
+      "value": 558434260.13,
       "buyerCount": 7,
       "scores": {
         "supplierDependence": 0.985,
         "buyerCount": 7,
-        "totalGBP": 558179672
+        "totalGBP": 558434260.13
       },
       "topBuyer": {
         "id": "buyer-network-rail-infrastructure-limited-dft",
         "label": "Network Rail Infrastructure Limited / DfT",
         "gbp": 550000000,
-        "share": 0.9853458081504624
+        "share": 0.9848965926122861
       }
     },
     {
@@ -2584,18 +2668,18 @@
       "aliases": [
         "Nuclear Decommissioning Solutions — joint venture of Altrad Babcock, Cavendish Nuclear and Shepley Engineers"
       ],
-      "value": 0,
+      "value": 254476.67,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 254476.67
       },
       "topBuyer": {
         "id": "buyer-sellafield",
         "label": "Sellafield Ltd",
-        "gbp": 0,
-        "share": 0
+        "gbp": 254476.67,
+        "share": 1
       }
     },
     {
@@ -2647,18 +2731,18 @@
       "aliases": [
         "Balfour Beatty Kilpatrick Limited"
       ],
-      "value": 0,
+      "value": 500000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 500000
       },
       "topBuyer": {
         "id": "buyer-sellafield",
         "label": "Sellafield Ltd",
-        "gbp": 0,
-        "share": 0
+        "gbp": 500000,
+        "share": 1
       }
     },
     {
@@ -2731,18 +2815,18 @@
       "aliases": [
         "United Kingdom National Nuclear Laboratory (UKNNL)"
       ],
-      "value": 0,
+      "value": 550000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 550000
       },
       "topBuyer": {
         "id": "buyer-sellafield",
         "label": "Sellafield Ltd",
-        "gbp": 0,
-        "share": 0
+        "gbp": 550000,
+        "share": 1
       }
     },
     {
@@ -3860,18 +3944,18 @@
         "Jacobs UK Limited (legacy CH2M Hill)",
         "Jacobs UK Limited (incorporating legacy Jacobs Gibb / Babtie Group)"
       ],
-      "value": 149152.68,
+      "value": 855402.6799999999,
       "buyerCount": 8,
       "scores": {
-        "supplierDependence": 1,
+        "supplierDependence": 0.826,
         "buyerCount": 8,
-        "totalGBP": 149152.68
+        "totalGBP": 855402.6799999999
       },
       "topBuyer": {
-        "id": "buyer-national-highways",
-        "label": "National Highways Limited",
-        "gbp": 149152.68,
-        "share": 1
+        "id": "buyer-transport-for-london-via-crossrail-2-limited",
+        "label": "Transport for London (via Crossrail 2 Limited).",
+        "gbp": 706250,
+        "share": 0.8256345420849045
       }
     },
     {
@@ -3925,18 +4009,18 @@
       "aliases": [
         "Mott MacDonald Limited"
       ],
-      "value": 112089.46,
+      "value": 3212089.46,
       "buyerCount": 13,
       "scores": {
-        "supplierDependence": 1,
+        "supplierDependence": 0.778,
         "buyerCount": 13,
-        "totalGBP": 112089.46
+        "totalGBP": 3212089.46
       },
       "topBuyer": {
-        "id": "buyer-national-highways",
-        "label": "National Highways Limited",
-        "gbp": 112089.46,
-        "share": 1
+        "id": "buyer-east-west-railway-company-limited-network-rail",
+        "label": "East West Railway Company Limited / Network Rail",
+        "gbp": 2500000,
+        "share": 0.7783095804560811
       }
     },
     {
@@ -3989,18 +4073,18 @@
         "Mitie Care & Custody (Mitie Group plc)",
         "Mitie Care & Custody Limited"
       ],
-      "value": 0,
+      "value": 846813.84,
       "buyerCount": 2,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 2,
-        "totalGBP": 0
+        "totalGBP": 846813.84
       },
       "topBuyer": {
-        "id": "buyer-home-office",
-        "label": "Home Office — Emergency Services Mobile Communications Programme",
-        "gbp": 0,
-        "share": 0
+        "id": "buyer-ministry-of-justice-hmpps",
+        "label": "Ministry of Justice / HMPPS",
+        "gbp": 846813.84,
+        "share": 1
       }
     },
     {
@@ -4036,18 +4120,18 @@
         "BAE Systems plc (BAE Systems Maritime — Naval Ships, Glasgow)",
         "BAE Systems plc (Typhoon — Warton / Samlesbury)"
       ],
-      "value": 36489000000,
+      "value": 36490159920,
       "buyerCount": 6,
       "scores": {
         "supplierDependence": 0.89,
         "buyerCount": 6,
-        "totalGBP": 36489000000
+        "totalGBP": 36490159920
       },
       "topBuyer": {
         "id": "buyer-ministry-of-defence",
         "label": "Ministry of Defence",
         "gbp": 32489000000,
-        "share": 0.8903779221135136
+        "share": 0.8903496194927062
       }
     },
     {
@@ -4184,18 +4268,18 @@
       "aliases": [
         "Detica (Detica Limited, part of BAE Systems Applied Intelligence)"
       ],
-      "value": 0,
+      "value": 85000000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 85000000
       },
       "topBuyer": {
         "id": "buyer-uk-border-agency",
         "label": "UK Border Agency",
-        "gbp": 0,
-        "share": 0
+        "gbp": 85000000,
+        "share": 1
       }
     },
     {
@@ -4205,18 +4289,18 @@
       "aliases": [
         "Capgemini UK plc"
       ],
-      "value": 9500000,
+      "value": 13228221,
       "buyerCount": 5,
       "scores": {
-        "supplierDependence": 1,
+        "supplierDependence": 0.718,
         "buyerCount": 5,
-        "totalGBP": 9500000
+        "totalGBP": 13228221
       },
       "topBuyer": {
         "id": "buyer-uk-border-agency",
         "label": "UK Border Agency",
         "gbp": 9500000,
-        "share": 1
+        "share": 0.718161572897822
       }
     },
     {
@@ -5155,18 +5239,18 @@
       "aliases": [
         "Lockheed Martin Corporation (F-35 prime)"
       ],
-      "value": 0,
+      "value": 220000000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 220000000
       },
       "topBuyer": {
         "id": "buyer-ministry-of-defence-defence-equipment-and-support-procured-t",
         "label": "Ministry of Defence (Defence Equipment and Support) — procured through the US F-35 Joint Program Office",
-        "gbp": 0,
-        "share": 0
+        "gbp": 220000000,
+        "share": 1
       }
     },
     {
@@ -5642,18 +5726,18 @@
       "aliases": [
         "General Dynamics UK Limited"
       ],
-      "value": 0,
+      "value": 2500000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 2500000
       },
       "topBuyer": {
         "id": "buyer-ministry-of-defence",
         "label": "Ministry of Defence",
-        "gbp": 0,
-        "share": 0
+        "gbp": 2500000,
+        "share": 1
       }
     },
     {
@@ -5915,18 +5999,18 @@
       "aliases": [
         "Bouygues Travaux Publics (UK branch)"
       ],
-      "value": 0,
+      "value": 1344687196,
       "buyerCount": 2,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 2,
-        "totalGBP": 0
+        "totalGBP": 1344687196
       },
       "topBuyer": {
-        "id": "buyer-sizewell-c",
-        "label": "Sizewell C Limited",
-        "gbp": 0,
-        "share": 0
+        "id": "buyer-national-highways",
+        "label": "National Highways Limited",
+        "gbp": 1344687196,
+        "share": 1
       }
     },
     {
@@ -6001,18 +6085,18 @@
         "Jacobs U.K. Limited (CH2M Hill United Kingdom Limited)",
         "Jacobs U.K. Limited (CH2M Hill)"
       ],
-      "value": 123765,
+      "value": 3299343.89,
       "buyerCount": 14,
       "scores": {
-        "supplierDependence": 1,
+        "supplierDependence": 0.719,
         "buyerCount": 14,
-        "totalGBP": 123765
+        "totalGBP": 3299343.89
       },
       "topBuyer": {
-        "id": "buyer-highways-england-company-limited-now-national-highways-limit",
-        "label": "Highways England Company Limited (now National Highways Limited).",
-        "gbp": 123765,
-        "share": 1
+        "id": "buyer-ministry-of-defence",
+        "label": "Ministry of Defence",
+        "gbp": 2370734.41,
+        "share": 0.7185472290977223
       }
     },
     {
@@ -6085,18 +6169,18 @@
       "aliases": [
         "GE-Hitachi Nuclear Energy Americas LLC"
       ],
-      "value": 0,
+      "value": 2750131.32,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 2750131.32
       },
       "topBuyer": {
         "id": "buyer-great-british-nuclear",
         "label": "Great British Nuclear",
-        "gbp": 0,
-        "share": 0
+        "gbp": 2750131.32,
+        "share": 1
       }
     },
     {
@@ -6106,18 +6190,18 @@
       "aliases": [
         "Holtec Britain Limited"
       ],
-      "value": 0,
+      "value": 3042622.19,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 3042622.19
       },
       "topBuyer": {
         "id": "buyer-great-british-nuclear",
         "label": "Great British Nuclear",
-        "gbp": 0,
-        "share": 0
+        "gbp": 3042622.19,
+        "share": 1
       }
     },
     {
@@ -6401,18 +6485,18 @@
       "aliases": [
         "Low Carbon Contracts Company Limited (LCCC)"
       ],
-      "value": 0,
+      "value": 1449299.55,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 1449299.55
       },
       "topBuyer": {
         "id": "buyer-desnz",
         "label": "DESNZ",
-        "gbp": 0,
-        "share": 0
+        "gbp": 1449299.55,
+        "share": 1
       }
     },
     {
@@ -6863,18 +6947,18 @@
       "aliases": [
         "Kainos Software Limited"
       ],
-      "value": 0,
+      "value": 26700000,
       "buyerCount": 4,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 4,
-        "totalGBP": 0
+        "totalGBP": 26700000
       },
       "topBuyer": {
-        "id": "buyer-dwp",
-        "label": "DWP",
-        "gbp": 0,
-        "share": 0
+        "id": "buyer-hmcts",
+        "label": "HMCTS",
+        "gbp": 26700000,
+        "share": 1
       }
     },
     {
@@ -7052,18 +7136,18 @@
       "aliases": [
         "Deloitte MCS Limited"
       ],
-      "value": 0,
+      "value": 44000000,
       "buyerCount": 2,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 2,
-        "totalGBP": 0
+        "totalGBP": 44000000
       },
       "topBuyer": {
         "id": "buyer-cabinet-office-gds",
         "label": "Cabinet Office / GDS",
-        "gbp": 0,
-        "share": 0
+        "gbp": 44000000,
+        "share": 1
       }
     },
     {
@@ -7178,18 +7262,18 @@
       "aliases": [
         "General Dynamics United Kingdom Limited"
       ],
-      "value": 330000000,
+      "value": 330013200,
       "buyerCount": 2,
       "scores": {
         "supplierDependence": 1,
         "buyerCount": 2,
-        "totalGBP": 330000000
+        "totalGBP": 330013200
       },
       "topBuyer": {
         "id": "buyer-ministry-of-defence",
         "label": "Ministry of Defence",
         "gbp": 330000000,
-        "share": 1
+        "share": 0.999960001599936
       }
     },
     {
@@ -7262,18 +7346,18 @@
       "aliases": [
         "Siemens Mobility Limited"
       ],
-      "value": 1600000000,
+      "value": 1605108483.69,
       "buyerCount": 2,
       "scores": {
-        "supplierDependence": 1,
+        "supplierDependence": 0.997,
         "buyerCount": 2,
-        "totalGBP": 1600000000
+        "totalGBP": 1605108483.69
       },
       "topBuyer": {
         "id": "buyer-network-rail-infrastructure-limited-dft",
         "label": "Network Rail Infrastructure Limited / DfT",
         "gbp": 1600000000,
-        "share": 1
+        "share": 0.9968173592365196
       }
     },
     {
@@ -7389,18 +7473,18 @@
       "aliases": [
         "WSP UK Limited"
       ],
-      "value": 192690.32,
+      "value": 312688.32,
       "buyerCount": 8,
       "scores": {
-        "supplierDependence": 1,
+        "supplierDependence": 0.616,
         "buyerCount": 8,
-        "totalGBP": 192690.32
+        "totalGBP": 312688.32
       },
       "topBuyer": {
         "id": "buyer-national-highways-limited-formerly-highways-england-company-",
         "label": "National Highways Limited (formerly Highways England Company Limited, originally Highways Agency).",
         "gbp": 192690.32,
-        "share": 1
+        "share": 0.6162376643937324
       }
     },
     {
@@ -7494,18 +7578,18 @@
       "aliases": [
         "Arup Group Limited"
       ],
-      "value": 322609.18,
+      "value": 13187140.489999998,
       "buyerCount": 15,
       "scores": {
-        "supplierDependence": 0.618,
+        "supplierDependence": 0.455,
         "buyerCount": 15,
-        "totalGBP": 322609.18
+        "totalGBP": 13187140.489999998
       },
       "topBuyer": {
-        "id": "buyer-national-highways",
-        "label": "National Highways Limited",
-        "gbp": 199409.18,
-        "share": 0.61811378089117
+        "id": "buyer-dft-transport-for-the-north",
+        "label": "DfT / Transport for the North",
+        "gbp": 6000000,
+        "share": 0.4549887069565906
       }
     },
     {
@@ -7814,18 +7898,18 @@
       "aliases": [
         "AECOM Limited"
       ],
-      "value": 14000000,
+      "value": 20435253.92,
       "buyerCount": 9,
       "scores": {
-        "supplierDependence": 1,
+        "supplierDependence": 0.685,
         "buyerCount": 9,
-        "totalGBP": 14000000
+        "totalGBP": 20435253.92
       },
       "topBuyer": {
         "id": "buyer-nuclear-waste-services-nws",
         "label": "Nuclear Waste Services (NWS) — a subsidiary of the Nuclear Decommissioning Authority, formed January 2022 by merging Radioactive Waste Management Limited with LLWR Limited.",
         "gbp": 14000000,
-        "share": 1
+        "share": 0.6850905819329305
       }
     },
     {
@@ -7962,18 +8046,18 @@
       "aliases": [
         "Japan Aircraft Industrial Enhancement Co., Ltd (JAIEC)"
       ],
-      "value": 0,
+      "value": 3000000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 3000000
       },
       "topBuyer": {
         "id": "buyer-mod-gcap-international-government-organisation",
         "label": "MOD / GCAP International Government Organisation",
-        "gbp": 0,
-        "share": 0
+        "gbp": 3000000,
+        "share": 1
       }
     },
     {
@@ -8130,18 +8214,18 @@
       "aliases": [
         "Horstman Group Limited"
       ],
-      "value": 0,
+      "value": 1700000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 1700000
       },
       "topBuyer": {
         "id": "buyer-mod-defence-equipment-support",
         "label": "MOD / Defence Equipment & Support",
-        "gbp": 0,
-        "share": 0
+        "gbp": 1700000,
+        "share": 1
       }
     },
     {
@@ -8216,18 +8300,18 @@
         "BT plc",
         "BT Plc (BT Police Services)"
       ],
-      "value": 0,
+      "value": 13841092,
       "buyerCount": 2,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 2,
-        "totalGBP": 0
+        "totalGBP": 13841092
       },
       "topBuyer": {
-        "id": "buyer-mod-uk-space-command",
-        "label": "MOD / UK Space Command",
-        "gbp": 0,
-        "share": 0
+        "id": "buyer-secretary-of-state-for-the-home-department-home-office",
+        "label": "Secretary of State for the Home Department (Home Office).",
+        "gbp": 13841092,
+        "share": 1
       }
     },
     {
@@ -8616,18 +8700,18 @@
       "aliases": [
         "BAE Systems Surface Ships Limited"
       ],
-      "value": 0,
+      "value": 285275277,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 285275277
       },
       "topBuyer": {
         "id": "buyer-mod-defence-equipment-support",
         "label": "MOD / Defence Equipment & Support",
-        "gbp": 0,
-        "share": 0
+        "gbp": 285275277,
+        "share": 1
       }
     },
     {
@@ -8995,18 +9079,18 @@
       "aliases": [
         "Laing O'Rourke Delivery Limited"
       ],
-      "value": 0,
+      "value": 2016293.76,
       "buyerCount": 2,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 2,
-        "totalGBP": 0
+        "totalGBP": 2016293.76
       },
       "topBuyer": {
-        "id": "buyer-nhs-england",
-        "label": "NHS England",
-        "gbp": 0,
-        "share": 0
+        "id": "buyer-ministry-of-justice-hmpps",
+        "label": "Ministry of Justice / HMPPS",
+        "gbp": 2016293.76,
+        "share": 1
       }
     },
     {
@@ -9249,18 +9333,18 @@
       "aliases": [
         "Mace Limited"
       ],
-      "value": 0,
+      "value": 540783.84,
       "buyerCount": 2,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 2,
-        "totalGBP": 0
+        "totalGBP": 540783.84
       },
       "topBuyer": {
         "id": "buyer-ministry-of-justice-hmpps",
         "label": "Ministry of Justice / HMPPS",
-        "gbp": 0,
-        "share": 0
+        "gbp": 540783.84,
+        "share": 1
       }
     },
     {
@@ -9270,18 +9354,18 @@
       "aliases": [
         "G4S Care and Justice Services (UK) Limited"
       ],
-      "value": 0,
+      "value": 12729058.95,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 12729058.95
       },
       "topBuyer": {
         "id": "buyer-ministry-of-justice-hmpps",
         "label": "Ministry of Justice / HMPPS",
-        "gbp": 0,
-        "share": 0
+        "gbp": 12729058.95,
+        "share": 1
       }
     },
     {
@@ -9375,18 +9459,18 @@
       "aliases": [
         "Lendlease Construction (Europe) Limited"
       ],
-      "value": 190000000,
+      "value": 195609145.64,
       "buyerCount": 3,
       "scores": {
-        "supplierDependence": 1,
+        "supplierDependence": 0.971,
         "buyerCount": 3,
-        "totalGBP": 190000000
+        "totalGBP": 195609145.64
       },
       "topBuyer": {
         "id": "buyer-manchester-city-council",
         "label": "Manchester City Council.",
         "gbp": 190000000,
-        "share": 1
+        "share": 0.9713247270640245
       }
     },
     {
@@ -9397,18 +9481,18 @@
         "ISG Construction Limited",
         "ISG Construction Limited (in administration, September 2024)"
       ],
-      "value": 0,
+      "value": 17208927,
       "buyerCount": 2,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 0.806,
         "buyerCount": 2,
-        "totalGBP": 0
+        "totalGBP": 17208927
       },
       "topBuyer": {
-        "id": "buyer-ministry-of-justice-hmpps",
-        "label": "Ministry of Justice / HMPPS",
-        "gbp": 0,
-        "share": 0
+        "id": "buyer-department-for-education-delivering-through-the-education-an",
+        "label": "Department for Education (delivering through the Education and Skills Funding Agency).",
+        "gbp": 13873683,
+        "share": 0.8061910542127351
       }
     },
     {
@@ -9481,18 +9565,18 @@
       "aliases": [
         "MWJV — Mott MacDonald / WSP Joint Venture"
       ],
-      "value": 0,
+      "value": 180000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 180000
       },
       "topBuyer": {
         "id": "buyer-high-speed-two-hs2",
         "label": "High Speed Two (HS2) Limited",
-        "gbp": 0,
-        "share": 0
+        "gbp": 180000,
+        "share": 1
       }
     },
     {
@@ -10366,18 +10450,18 @@
       "aliases": [
         "Ove Arup & Partners International Limited"
       ],
-      "value": 8111970.3,
+      "value": 8131970.3,
       "buyerCount": 4,
       "scores": {
-        "supplierDependence": 0.986,
+        "supplierDependence": 0.984,
         "buyerCount": 4,
-        "totalGBP": 8111970.3
+        "totalGBP": 8131970.3
       },
       "topBuyer": {
         "id": "buyer-national-highways-limited-formerly-highways-england-company-",
         "label": "National Highways Limited (formerly Highways England Company Limited, originally Highways Agency).",
         "gbp": 7999470.3,
-        "share": 0.9861316060291789
+        "share": 0.9837062857939852
       }
     },
     {
@@ -10536,18 +10620,18 @@
       "aliases": [
         "GEC-Alsthom Metro-Cammell (subsequently Alstom Transport)"
       ],
-      "value": 0,
+      "value": 2718412,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 2718412
       },
       "topBuyer": {
         "id": "buyer-london-underground",
         "label": "London Underground Limited — now part of Transport for London.",
-        "gbp": 0,
-        "share": 0
+        "gbp": 2718412,
+        "share": 1
       }
     },
     {
@@ -11104,18 +11188,18 @@
       "aliases": [
         "PwC UK (PricewaterhouseCoopers LLP)"
       ],
-      "value": 0,
+      "value": 60000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 60000
       },
       "topBuyer": {
         "id": "buyer-british-business-bank-plc-bbb-100-government",
         "label": "British Business Bank plc (BBB) — 100% government-owned (UK Government Investments shareholder).",
-        "gbp": 0,
-        "share": 0
+        "gbp": 60000,
+        "share": 1
       }
     },
     {
@@ -11125,18 +11209,18 @@
       "aliases": [
         "EY UK (Ernst & Young LLP)"
       ],
-      "value": 0,
+      "value": 271500,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 271500
       },
       "topBuyer": {
         "id": "buyer-british-business-bank-plc-bbb-100-government",
         "label": "British Business Bank plc (BBB) — 100% government-owned (UK Government Investments shareholder).",
-        "gbp": 0,
-        "share": 0
+        "gbp": 271500,
+        "share": 1
       }
     },
     {
@@ -11230,18 +11314,18 @@
       "aliases": [
         "Leonardo MW Limited (formerly AgustaWestland)"
       ],
-      "value": 0,
+      "value": 8000000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 8000000
       },
       "topBuyer": {
         "id": "buyer-ministry-of-defence",
         "label": "Ministry of Defence",
-        "gbp": 0,
-        "share": 0
+        "gbp": 8000000,
+        "share": 1
       }
     },
     {
@@ -11251,18 +11335,18 @@
       "aliases": [
         "PA Consulting Group Limited"
       ],
-      "value": 0,
+      "value": 240600000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 240600000
       },
       "topBuyer": {
         "id": "buyer-ministry-of-defence",
         "label": "Ministry of Defence",
-        "gbp": 0,
-        "share": 0
+        "gbp": 240600000,
+        "share": 1
       }
     },
     {
@@ -11335,18 +11419,18 @@
       "aliases": [
         "AWE plc"
       ],
-      "value": 0,
+      "value": 734337.92,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 734337.92
       },
       "topBuyer": {
         "id": "buyer-atomic-weapons-establishment-plc-awe-plc-wholly-owned-by-the",
         "label": "Atomic Weapons Establishment plc (AWE plc) — wholly owned by the Secretary of State for Defence since July 2021 (previously operated under a Government-Owned/Contractor-Operated model by AWE Management Limited).",
-        "gbp": 0,
-        "share": 0
+        "gbp": 734337.92,
+        "share": 1
       }
     },
     {
@@ -11356,17 +11440,17 @@
       "aliases": [
         "Palantir Technologies UK Limited"
       ],
-      "value": 330000000,
+      "value": 334594359,
       "buyerCount": 1,
       "scores": {
         "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 330000000
+        "totalGBP": 334594359
       },
       "topBuyer": {
         "id": "buyer-nhs-england",
         "label": "NHS England",
-        "gbp": 330000000,
+        "gbp": 334594359,
         "share": 1
       }
     },
@@ -11461,18 +11545,18 @@
       "aliases": [
         "Gigaclear plc"
       ],
-      "value": 0,
+      "value": 9400000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 9400000
       },
       "topBuyer": {
         "id": "buyer-building-digital-uk-bduk",
         "label": "Building Digital UK (BDUK) — an executive agency of DSIT.",
-        "gbp": 0,
-        "share": 0
+        "gbp": 9400000,
+        "share": 1
       }
     },
     {
@@ -11902,18 +11986,18 @@
       "aliases": [
         "The McAvoy Group Limited"
       ],
-      "value": 0,
+      "value": 5390151.92,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 5390151.92
       },
       "topBuyer": {
         "id": "buyer-department-for-education-delivering-through-the-education-an",
         "label": "Department for Education (delivering through the Education and Skills Funding Agency).",
-        "gbp": 0,
-        "share": 0
+        "gbp": 5390151.92,
+        "share": 1
       }
     },
     {
@@ -12049,18 +12133,18 @@
       "aliases": [
         "Corporate Travel Management (North) Limited (CTM)"
       ],
-      "value": 0,
+      "value": 4087782.05,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 4087782.05
       },
       "topBuyer": {
         "id": "buyer-home-office",
         "label": "Home Office — Emergency Services Mobile Communications Programme",
-        "gbp": 0,
-        "share": 0
+        "gbp": 4087782.05,
+        "share": 1
       }
     },
     {
@@ -12742,18 +12826,18 @@
       "aliases": [
         "Tramlink Nottingham Operations Limited"
       ],
-      "value": 0,
+      "value": 60000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 60000
       },
       "topBuyer": {
         "id": "buyer-nottingham-city-council",
         "label": "Nottingham City Council.",
-        "gbp": 0,
-        "share": 0
+        "gbp": 60000,
+        "share": 1
       }
     },
     {
@@ -13162,18 +13246,18 @@
       "aliases": [
         "Carnall Farrar Limited"
       ],
-      "value": 0,
+      "value": 270663,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 270663
       },
       "topBuyer": {
         "id": "buyer-nhs-england",
         "label": "NHS England",
-        "gbp": 0,
-        "share": 0
+        "gbp": 270663,
+        "share": 1
       }
     },
     {
@@ -13288,18 +13372,18 @@
       "aliases": [
         "Linxon UK Limited (ABB / Atkins JV)"
       ],
-      "value": 0,
+      "value": 40000,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 40000
       },
       "topBuyer": {
         "id": "buyer-national-grid-electricity-transmission-plc-lead-sp-transmiss",
         "label": "National Grid Electricity Transmission plc (lead); SP Transmission plc and Scottish Hydro Electric Transmission plc for Scottish projects.",
-        "gbp": 0,
-        "share": 0
+        "gbp": 40000,
+        "share": 1
       }
     },
     {
@@ -13729,18 +13813,18 @@
       "aliases": [
         "Heathrow Airport Limited"
       ],
-      "value": 0,
+      "value": 1053417.65,
       "buyerCount": 1,
       "scores": {
-        "supplierDependence": 0,
+        "supplierDependence": 1,
         "buyerCount": 1,
-        "totalGBP": 0
+        "totalGBP": 1053417.65
       },
       "topBuyer": {
         "id": "buyer-heathrow-airport-limited-privately-owned-infrastructure-oper",
         "label": "Heathrow Airport Limited (privately owned infrastructure operator).",
-        "gbp": 0,
-        "share": 0
+        "gbp": 1053417.65,
+        "share": 1
       }
     },
     {
@@ -15031,7 +15115,7 @@
         "unsourced": false,
         "tier": "A",
         "scope": "Construction Partner for London Euston HS2 terminal station (Stage One signed Mar 2019; programme reset and paused following HS2 Euston inte",
-        "repeatWinRate": 4.85
+        "repeatWinRate": 4.93
       },
       {
         "id": "edge-6",
@@ -15170,7 +15254,7 @@
         "kind": "award",
         "s": "buyer-high-speed-two-hs2",
         "t": "supplier-ch2m-atkins-sener-joint-venture",
-        "totalGBP": 0,
+        "totalGBP": 710493.51,
         "count": 1,
         "projectIds": [
           "project-1"
@@ -15261,7 +15345,7 @@
         "kind": "award",
         "s": "buyer-high-speed-two-hs2",
         "t": "supplier-asc-joint-venture",
-        "totalGBP": 0,
+        "totalGBP": 550000,
         "count": 1,
         "projectIds": [
           "project-1"
@@ -15336,7 +15420,7 @@
         "kind": "award",
         "s": "buyer-high-speed-two-hs2",
         "t": "supplier-mott-macdonald-weston-williamson-partners-rogers-stirk-harbo",
-        "totalGBP": 0,
+        "totalGBP": 43743.75,
         "count": 1,
         "projectIds": [
           "project-1"
@@ -15394,7 +15478,7 @@
         "kind": "award",
         "s": "buyer-high-speed-two-hs2",
         "t": "supplier-mola-headland-infrastructure",
-        "totalGBP": 0,
+        "totalGBP": 32465418,
         "count": 1,
         "projectIds": [
           "project-1"
@@ -16315,7 +16399,7 @@
         "kind": "award",
         "s": "buyer-sellafield",
         "t": "supplier-nuclear-decommissioning-solutions",
-        "totalGBP": 0,
+        "totalGBP": 254476.67,
         "count": 1,
         "projectIds": [
           "project-67"
@@ -16398,7 +16482,7 @@
         "kind": "award",
         "s": "buyer-sellafield",
         "t": "supplier-balfour-beatty-kilpatrick",
-        "totalGBP": 0,
+        "totalGBP": 500000,
         "count": 1,
         "projectIds": [
           "project-67"
@@ -16498,7 +16582,7 @@
         "kind": "award",
         "s": "buyer-sellafield",
         "t": "supplier-united-kingdom-national-nuclear-laboratory",
-        "totalGBP": 0,
+        "totalGBP": 550000,
         "count": 1,
         "projectIds": [
           "project-67"
@@ -18476,7 +18560,7 @@
         "unsourced": false,
         "tier": "A",
         "scope": "Prime contractor for design, conversion (recycling the existing Nimrod MR2 fuselages), production, systems integration and certification of ",
-        "repeatWinRate": 0.37
+        "repeatWinRate": 0.38
       },
       {
         "id": "edge-118",
@@ -18544,7 +18628,7 @@
         "unsourced": false,
         "tier": "A",
         "scope": "Supply of four BR710 turbofan engines per aircraft (84 engines total planned; fewer delivered). BR710 was a derivative of the business-jet e",
-        "repeatWinRate": 3.68
+        "repeatWinRate": 3.74
       },
       {
         "id": "edge-119",
@@ -18645,7 +18729,7 @@
         "unsourced": false,
         "tier": "A",
         "scope": "Searchwater 2000MR maritime surveillance radar — the principal radar fit for the MRA4, derived from the MR2's Searchwater and subsequently a",
-        "repeatWinRate": 2.24
+        "repeatWinRate": 2.27
       },
       {
         "id": "edge-121",
@@ -18825,7 +18909,7 @@
         "kind": "award",
         "s": "buyer-uk-border-agency",
         "t": "supplier-detica",
-        "totalGBP": 0,
+        "totalGBP": 85000000,
         "count": 1,
         "projectIds": [
           "project-24"
@@ -19057,7 +19141,7 @@
         "unsourced": false,
         "tier": "A",
         "scope": "Original LSP for the London cluster (c.£996m, later contract variations). Scope: NHS Care Records Service rollout across London Strategic He",
-        "repeatWinRate": 23.33
+        "repeatWinRate": 23.72
       },
       {
         "id": "edge-133",
@@ -19589,7 +19673,7 @@
         "unsourced": false,
         "tier": "A",
         "scope": "ACA partner — final assembly at Rosyth dockyard (the only UK facility big enough to integrate the six blocks into a single hull), Appledore ",
-        "repeatWinRate": 4.37
+        "repeatWinRate": 4.44
       },
       {
         "id": "edge-150",
@@ -19876,7 +19960,7 @@
         "unsourced": false,
         "tier": "A",
         "scope": "Combat Management System (CMS) integrator for both carriers — the central data and decision-support environment pulling radar, sensor and we",
-        "repeatWinRate": 18.2
+        "repeatWinRate": 18.5
       },
       {
         "id": "edge-159",
@@ -19995,7 +20079,7 @@
         "unsourced": false,
         "tier": "A",
         "scope": "Missiles (Aster 15 and Aster 30 surface-to-air) supplied via the PAAMS programme. Trinational collaboration with MBDA France and Leonardo.",
-        "repeatWinRate": 0.48
+        "repeatWinRate": 0.49
       },
       {
         "id": "edge-162",
@@ -20187,7 +20271,7 @@
         "unsourced": false,
         "tier": "A",
         "scope": "Pressurised Water Reactor Two (PWR2) nuclear steam-raising plant and reactor core (Core H) for all seven Astute-class boats. Designed and ma",
-        "repeatWinRate": 0.41
+        "repeatWinRate": 0.42
       },
       {
         "id": "edge-168",
@@ -20436,7 +20520,7 @@
         "kind": "award",
         "s": "buyer-ministry-of-defence-defence-equipment-and-support-procured-t",
         "t": "supplier-lockheed-martin-corporation",
-        "totalGBP": 0,
+        "totalGBP": 220000000,
         "count": 1,
         "projectIds": [
           "project-43"
@@ -21340,7 +21424,7 @@
         "kind": "award",
         "s": "buyer-ministry-of-defence",
         "t": "supplier-general-dynamics",
-        "totalGBP": 0,
+        "totalGBP": 2500000,
         "count": 1,
         "projectIds": [
           "project-90"
@@ -22160,7 +22244,7 @@
         "kind": "award",
         "s": "buyer-great-british-nuclear",
         "t": "supplier-ge-hitachi-nuclear-energy-americas",
-        "totalGBP": 0,
+        "totalGBP": 2750131.32,
         "count": 1,
         "projectIds": [
           "project-34"
@@ -22193,7 +22277,7 @@
         "kind": "award",
         "s": "buyer-great-british-nuclear",
         "t": "supplier-holtec-britain",
-        "totalGBP": 0,
+        "totalGBP": 3042622.19,
         "count": 1,
         "projectIds": [
           "project-34"
@@ -22599,7 +22683,7 @@
         "kind": "award",
         "s": "buyer-desnz",
         "t": "supplier-low-carbon-contracts-company",
-        "totalGBP": 0,
+        "totalGBP": 1449299.55,
         "count": 1,
         "projectIds": [
           "project-35"
@@ -23294,7 +23378,7 @@
         "kind": "award",
         "s": "buyer-dwp",
         "t": "supplier-capgemini-uk",
-        "totalGBP": 0,
+        "totalGBP": 2000000,
         "count": 1,
         "projectIds": [
           "project-7"
@@ -23701,7 +23785,7 @@
         "kind": "award",
         "s": "buyer-cabinet-office-gds",
         "t": "supplier-deloitte-mcs",
-        "totalGBP": 0,
+        "totalGBP": 44000000,
         "count": 1,
         "projectIds": [
           "project-53"
@@ -23734,7 +23818,7 @@
         "kind": "award",
         "s": "buyer-cabinet-office-gds",
         "t": "supplier-pa-consulting-services",
-        "totalGBP": 0,
+        "totalGBP": 19000000,
         "count": 1,
         "projectIds": [
           "project-53"
@@ -24033,7 +24117,7 @@
         "kind": "award",
         "s": "buyer-hmcts",
         "t": "supplier-kainos-software",
-        "totalGBP": 0,
+        "totalGBP": 26700000,
         "count": 1,
         "projectIds": [
           "project-100"
@@ -24107,7 +24191,7 @@
         "kind": "award",
         "s": "buyer-hmcts",
         "t": "supplier-capgemini-uk",
-        "totalGBP": 0,
+        "totalGBP": 1728221,
         "count": 1,
         "projectIds": [
           "project-100"
@@ -24339,7 +24423,7 @@
         "kind": "award",
         "s": "buyer-mod",
         "t": "supplier-fujitsu-services",
-        "totalGBP": 0,
+        "totalGBP": 5435985.68,
         "count": 1,
         "projectIds": [
           "project-99"
@@ -24372,7 +24456,7 @@
         "kind": "award",
         "s": "buyer-mod",
         "t": "supplier-general-dynamics-united-kingdom",
-        "totalGBP": 0,
+        "totalGBP": 13200,
         "count": 1,
         "projectIds": [
           "project-99"
@@ -24579,7 +24663,7 @@
         "unsourced": false,
         "tier": "A",
         "scope": "Manufacture and whole-life maintenance of 115 Class 700 Desiro City eight- and twelve-car EMUs. Built at Krefeld-Uerdingen; depot operations",
-        "repeatWinRate": 10.47
+        "repeatWinRate": 10.61
       },
       {
         "id": "edge-319",
@@ -25085,7 +25169,7 @@
         "kind": "award",
         "s": "buyer-dft-transport-for-the-north",
         "t": "supplier-arup-group",
-        "totalGBP": 0,
+        "totalGBP": 6000000,
         "count": 1,
         "projectIds": [
           "project-23"
@@ -25301,7 +25385,7 @@
         "kind": "award",
         "s": "buyer-national-highways",
         "t": "supplier-jacobs-u-k",
-        "totalGBP": 0,
+        "totalGBP": 106574,
         "count": 2,
         "projectIds": [
           "project-26",
@@ -25395,7 +25479,7 @@
         "unsourced": false,
         "tier": "B",
         "scope": "Shortlisted tenderer (BAM Nuttall + Ferrovial Construction UK JV) for Package A — Roads North of the Thames.",
-        "repeatWinRate": 26.31
+        "repeatWinRate": 26.75
       },
       {
         "id": "edge-349",
@@ -25479,14 +25563,14 @@
         "unsourced": false,
         "tier": "B",
         "scope": "JV partner on shortlisted bid for Package B (Roads South of the Thames).",
-        "repeatWinRate": 14.57
+        "repeatWinRate": 14.81
       },
       {
         "id": "edge-352",
         "kind": "award",
         "s": "buyer-national-highways",
         "t": "supplier-bouygues-travaux-publics",
-        "totalGBP": 0,
+        "totalGBP": 1344687196,
         "count": 1,
         "projectIds": [
           "project-26"
@@ -25705,7 +25789,7 @@
         "kind": "award",
         "s": "buyer-network-rail-infrastructure",
         "t": "supplier-siemens-mobility",
-        "totalGBP": 0,
+        "totalGBP": 5108483.69,
         "count": 2,
         "projectIds": [
           "project-59",
@@ -25732,7 +25816,7 @@
         "unsourced": false,
         "tier": "B",
         "scope": "Signalling and systems partner on TRU East.",
-        "repeatWinRate": 7.25
+        "repeatWinRate": 7.35
       },
       {
         "id": "edge-360",
@@ -26138,7 +26222,7 @@
         "kind": "award",
         "s": "buyer-east-west-railway-company-limited-network-rail",
         "t": "supplier-aecom",
-        "totalGBP": 0,
+        "totalGBP": 253766,
         "count": 1,
         "projectIds": [
           "project-60"
@@ -26163,7 +26247,7 @@
         "kind": "award",
         "s": "buyer-east-west-railway-company-limited-network-rail",
         "t": "supplier-mott-macdonald",
-        "totalGBP": 0,
+        "totalGBP": 2500000,
         "count": 1,
         "projectIds": [
           "project-60"
@@ -26188,7 +26272,7 @@
         "kind": "award",
         "s": "buyer-east-west-railway-company-limited-network-rail",
         "t": "supplier-arup-group",
-        "totalGBP": 0,
+        "totalGBP": 1500000,
         "count": 1,
         "projectIds": [
           "project-60"
@@ -26221,7 +26305,7 @@
         "kind": "award",
         "s": "buyer-east-west-railway-company-limited-network-rail",
         "t": "supplier-jacobs-u-k",
-        "totalGBP": 0,
+        "totalGBP": 186423,
         "count": 1,
         "projectIds": [
           "project-60"
@@ -26362,7 +26446,7 @@
         "kind": "award",
         "s": "buyer-mod-gcap-international-government-organisation",
         "t": "supplier-japan-aircraft-industrial-enhancement-co",
-        "totalGBP": 0,
+        "totalGBP": 3000000,
         "count": 1,
         "projectIds": [
           "project-31"
@@ -26611,7 +26695,7 @@
         "kind": "award",
         "s": "buyer-mod-defence-equipment-support",
         "t": "supplier-bae-systems",
-        "totalGBP": 0,
+        "totalGBP": 1159920,
         "count": 1,
         "projectIds": [
           "project-44"
@@ -26705,7 +26789,7 @@
         "unsourced": false,
         "tier": "B",
         "scope": "Optronics / sight systems integration including commander's independent sight and thermal imaging.",
-        "repeatWinRate": 3.27
+        "repeatWinRate": 3.33
       },
       {
         "id": "edge-394",
@@ -26795,7 +26879,7 @@
         "kind": "award",
         "s": "buyer-mod-defence-equipment-support",
         "t": "supplier-horstman-group",
-        "totalGBP": 0,
+        "totalGBP": 1700000,
         "count": 1,
         "projectIds": [
           "project-44"
@@ -27803,7 +27887,7 @@
         "unsourced": false,
         "tier": "B",
         "scope": "Prime contractor for Type 31 — five ships at Rosyth using the Arrowhead 140 design. First-of-class HMS Venturer launched.",
-        "repeatWinRate": 4.26
+        "repeatWinRate": 4.33
       },
       {
         "id": "edge-435",
@@ -27885,7 +27969,7 @@
         "kind": "award",
         "s": "buyer-mod-defence-equipment-support",
         "t": "supplier-bae-systems-surface-ships",
-        "totalGBP": 0,
+        "totalGBP": 285275277,
         "count": 1,
         "projectIds": [
           "project-41"
@@ -28469,7 +28553,7 @@
         "unsourced": false,
         "tier": "A",
         "scope": "H2A Framework place. Also a P22 framework incumbent.",
-        "repeatWinRate": 26.76
+        "repeatWinRate": 27.21
       },
       {
         "id": "edge-459",
@@ -28883,7 +28967,7 @@
         "kind": "award",
         "s": "buyer-ministry-of-justice-hmpps",
         "t": "supplier-mace",
-        "totalGBP": 0,
+        "totalGBP": 540783.84,
         "count": 1,
         "projectIds": [
           "project-51"
@@ -28975,14 +29059,14 @@
         "unsourced": false,
         "tier": "B",
         "scope": "Main works contractor £253m; Category C resettlement prison, 1,680 places.",
-        "repeatWinRate": 58.96
+        "repeatWinRate": 59.94
       },
       {
         "id": "edge-474",
         "kind": "award",
         "s": "buyer-ministry-of-justice-hmpps",
         "t": "supplier-g4s-care-and-justice-services-uk",
-        "totalGBP": 0,
+        "totalGBP": 12729058.95,
         "count": 1,
         "projectIds": [
           "project-51"
@@ -29147,7 +29231,7 @@
         "kind": "award",
         "s": "buyer-ministry-of-justice-hmpps",
         "t": "supplier-lendlease-construction-europe",
-        "totalGBP": 0,
+        "totalGBP": 5609145.64,
         "count": 1,
         "projectIds": [
           "project-51"
@@ -29214,7 +29298,7 @@
         "kind": "award",
         "s": "buyer-ministry-of-justice-hmpps",
         "t": "supplier-mitie-care-custody",
-        "totalGBP": 0,
+        "totalGBP": 846813.84,
         "count": 1,
         "projectIds": [
           "project-51"
@@ -29239,7 +29323,7 @@
         "kind": "award",
         "s": "buyer-ministry-of-justice-hmpps",
         "t": "supplier-isg-construction",
-        "totalGBP": 0,
+        "totalGBP": 3335244,
         "count": 1,
         "projectIds": [
           "project-71"
@@ -29264,7 +29348,7 @@
         "kind": "award",
         "s": "buyer-ministry-of-justice-hmpps",
         "t": "supplier-laing-o-rourke-delivery",
-        "totalGBP": 0,
+        "totalGBP": 2016293.76,
         "count": 2,
         "projectIds": [
           "project-71"
@@ -29412,7 +29496,7 @@
         "kind": "award",
         "s": "buyer-high-speed-two-hs2",
         "t": "supplier-mwjv-mott-macdonald-wsp-joint-venture",
-        "totalGBP": 0,
+        "totalGBP": 180000,
         "count": 1,
         "projectIds": [
           "project-115"
@@ -30996,7 +31080,7 @@
         "kind": "award",
         "s": "buyer-london-continental-railways-limited-lcr-original-private-sec",
         "t": "supplier-ove-arup-partners-international",
-        "totalGBP": 0,
+        "totalGBP": 20000,
         "count": 1,
         "projectIds": [
           "project-19"
@@ -31354,7 +31438,7 @@
         "kind": "award",
         "s": "buyer-london-underground",
         "t": "supplier-gec-alsthom-metro-cammell",
-        "totalGBP": 0,
+        "totalGBP": 2718412,
         "count": 1,
         "projectIds": [
           "project-20"
@@ -31437,7 +31521,7 @@
         "kind": "award",
         "s": "buyer-national-highways-limited-formerly-highways-england-company-",
         "t": "supplier-costain",
-        "totalGBP": 0,
+        "totalGBP": 130000,
         "count": 1,
         "projectIds": [
           "project-15"
@@ -32314,7 +32398,7 @@
         "kind": "award",
         "s": "buyer-r-r-client-board",
         "t": "supplier-aecom",
-        "totalGBP": 0,
+        "totalGBP": 5164587.36,
         "count": 1,
         "projectIds": [
           "project-61"
@@ -32339,7 +32423,7 @@
         "kind": "award",
         "s": "buyer-r-r-client-board",
         "t": "supplier-arup-group",
-        "totalGBP": 0,
+        "totalGBP": 5285031.31,
         "count": 1,
         "projectIds": [
           "project-61"
@@ -32605,7 +32689,7 @@
         "kind": "award",
         "s": "buyer-british-business-bank-plc-bbb-100-government",
         "t": "supplier-pwc",
-        "totalGBP": 0,
+        "totalGBP": 60000,
         "count": 1,
         "projectIds": [
           "project-117"
@@ -32630,7 +32714,7 @@
         "kind": "award",
         "s": "buyer-british-business-bank-plc-bbb-100-government",
         "t": "supplier-ey",
-        "totalGBP": 0,
+        "totalGBP": 271500,
         "count": 1,
         "projectIds": [
           "project-117"
@@ -32846,7 +32930,7 @@
         "kind": "award",
         "s": "buyer-ministry-of-defence",
         "t": "supplier-leonardo-mw",
-        "totalGBP": 0,
+        "totalGBP": 8000000,
         "count": 1,
         "projectIds": [
           "project-89"
@@ -32897,14 +32981,14 @@
         "unsourced": false,
         "tier": "A",
         "scope": "Original Evolve to Open (EvO) contractor; also Bowman incumbent supplier. EvO scope significantly descoped 2020.",
-        "repeatWinRate": 11.72
+        "repeatWinRate": 11.91
       },
       {
         "id": "edge-616",
         "kind": "award",
         "s": "buyer-ministry-of-defence",
         "t": "supplier-pa-consulting-group",
-        "totalGBP": 0,
+        "totalGBP": 240600000,
         "count": 1,
         "projectIds": [
           "project-94"
@@ -33087,7 +33171,7 @@
         "kind": "award",
         "s": "buyer-atomic-weapons-establishment-plc-awe-plc-wholly-owned-by-the",
         "t": "supplier-awe",
-        "totalGBP": 0,
+        "totalGBP": 734337.92,
         "count": 1,
         "projectIds": [
           "project-78"
@@ -33120,7 +33204,7 @@
         "kind": "award",
         "s": "buyer-nhs-england",
         "t": "supplier-palantir-technologies",
-        "totalGBP": 330000000,
+        "totalGBP": 334594359,
         "count": 2,
         "projectIds": [
           "project-47",
@@ -33171,14 +33255,14 @@
         "unsourced": false,
         "tier": "A",
         "scope": "Lead contractor — supplies Foundry/Gotham-derived platform as the FDP core; operational integrator.",
-        "repeatWinRate": 24.05
+        "repeatWinRate": 24.12
       },
       {
         "id": "edge-625",
         "kind": "award",
         "s": "buyer-nhs-england",
         "t": "supplier-accenture-uk",
-        "totalGBP": 5500000,
+        "totalGBP": 54786241,
         "count": 2,
         "projectIds": [
           "project-47",
@@ -33205,7 +33289,7 @@
         "unsourced": false,
         "tier": "B",
         "scope": "Delivery partner — system integration, deployment and change management across trusts.",
-        "repeatWinRate": 13.12
+        "repeatWinRate": 12.33
       },
       {
         "id": "edge-626",
@@ -33429,7 +33513,7 @@
         "kind": "award",
         "s": "buyer-building-digital-uk-bduk",
         "t": "supplier-gigaclear",
-        "totalGBP": 0,
+        "totalGBP": 9400000,
         "count": 1,
         "projectIds": [
           "project-68"
@@ -34228,7 +34312,7 @@
         "kind": "award",
         "s": "buyer-department-for-education-delivering-through-the-education-an",
         "t": "supplier-isg-construction",
-        "totalGBP": 0,
+        "totalGBP": 13873683,
         "count": 1,
         "projectIds": [
           "project-52"
@@ -34261,7 +34345,7 @@
         "kind": "award",
         "s": "buyer-department-for-education-delivering-through-the-education-an",
         "t": "supplier-the-mcavoy-group",
-        "totalGBP": 0,
+        "totalGBP": 5390151.92,
         "count": 1,
         "projectIds": [
           "project-52"
@@ -34461,7 +34545,7 @@
         "kind": "award",
         "s": "buyer-highways-england-company-limited-now-national-highways-limit",
         "t": "supplier-aecom",
-        "totalGBP": 0,
+        "totalGBP": 1016900.56,
         "count": 1,
         "projectIds": [
           "project-14"
@@ -34844,7 +34928,7 @@
         "kind": "award",
         "s": "buyer-home-office",
         "t": "supplier-corporate-travel-management-north",
-        "totalGBP": 0,
+        "totalGBP": 4087782.05,
         "count": 1,
         "projectIds": [
           "project-109"
@@ -35210,7 +35294,7 @@
         "kind": "award",
         "s": "buyer-ministry-of-defence",
         "t": "supplier-jacobs-u-k",
-        "totalGBP": 0,
+        "totalGBP": 2370734.41,
         "count": 1,
         "projectIds": [
           "project-84"
@@ -35479,7 +35563,7 @@
         "kind": "award",
         "s": "buyer-national-highways",
         "t": "supplier-costain",
-        "totalGBP": 0,
+        "totalGBP": 124588.13,
         "count": 2,
         "projectIds": [
           "project-21",
@@ -35506,7 +35590,7 @@
         "unsourced": false,
         "tier": "B",
         "scope": "ECI consortium member — tunnelling and civils lead.",
-        "repeatWinRate": 13.86
+        "repeatWinRate": 14.08
       },
       {
         "id": "edge-712",
@@ -35931,7 +36015,7 @@
         "kind": "award",
         "s": "buyer-nuclear-waste-services-nws",
         "t": "supplier-jacobs-u-k",
-        "totalGBP": 0,
+        "totalGBP": 511847.48,
         "count": 1,
         "projectIds": [
           "project-101"
@@ -36521,7 +36605,7 @@
         "kind": "award",
         "s": "buyer-nottingham-city-council",
         "t": "supplier-tramlink-nottingham-operations",
-        "totalGBP": 0,
+        "totalGBP": 60000,
         "count": 1,
         "projectIds": [
           "project-98"
@@ -37269,7 +37353,7 @@
         "kind": "award",
         "s": "buyer-transport-for-london-via-crossrail-2-limited",
         "t": "supplier-mott-macdonald",
-        "totalGBP": 0,
+        "totalGBP": 600000,
         "count": 1,
         "projectIds": [
           "project-97"
@@ -37294,7 +37378,7 @@
         "kind": "award",
         "s": "buyer-transport-for-london-via-crossrail-2-limited",
         "t": "supplier-jacobs",
-        "totalGBP": 0,
+        "totalGBP": 706250,
         "count": 1,
         "projectIds": [
           "project-97"
@@ -37577,7 +37661,7 @@
         "kind": "award",
         "s": "buyer-nhs-england",
         "t": "supplier-carnall-farrar",
-        "totalGBP": 0,
+        "totalGBP": 270663,
         "count": 1,
         "projectIds": [
           "project-70"
@@ -37827,7 +37911,7 @@
         "kind": "award",
         "s": "buyer-secretary-of-state-for-the-home-department-home-office",
         "t": "supplier-fujitsu-services",
-        "totalGBP": 0,
+        "totalGBP": 15000000,
         "count": 1,
         "projectIds": [
           "project-57"
@@ -37852,7 +37936,7 @@
         "kind": "award",
         "s": "buyer-secretary-of-state-for-the-home-department-home-office",
         "t": "supplier-bt",
-        "totalGBP": 0,
+        "totalGBP": 13841092,
         "count": 1,
         "projectIds": [
           "project-57"
@@ -38010,7 +38094,7 @@
         "kind": "award",
         "s": "buyer-national-grid-electricity-transmission-plc-lead-sp-transmiss",
         "t": "supplier-linxon",
-        "totalGBP": 0,
+        "totalGBP": 40000,
         "count": 1,
         "projectIds": [
           "project-37"
@@ -38218,7 +38302,7 @@
         "kind": "award",
         "s": "buyer-national-grid-electricity-transmission-plc-lead-sp-transmiss",
         "t": "supplier-wsp",
-        "totalGBP": 0,
+        "totalGBP": 119998,
         "count": 1,
         "projectIds": [
           "project-37"
@@ -38710,7 +38794,7 @@
         "kind": "award",
         "s": "buyer-diamond-light-source-limited-joint-venture-stfc-86-wellcome-",
         "t": "supplier-arup-group",
-        "totalGBP": 0,
+        "totalGBP": 79500,
         "count": 1,
         "projectIds": [
           "project-83"
@@ -38818,7 +38902,7 @@
         "kind": "award",
         "s": "buyer-heathrow-airport-limited-privately-owned-infrastructure-oper",
         "t": "supplier-heathrow-airport",
-        "totalGBP": 0,
+        "totalGBP": 1053417.65,
         "count": 1,
         "projectIds": [
           "project-32"
@@ -39111,7 +39195,7 @@
         "kind": "project-member",
         "s": "project-1",
         "t": "supplier-ch2m-atkins-sener-joint-venture",
-        "totalGBP": 0,
+        "totalGBP": 710493.51,
         "groupName": "Engineering / Development Partners",
         "role": "delivery-partner",
         "tier": "B"
@@ -39131,7 +39215,7 @@
         "kind": "project-member",
         "s": "project-1",
         "t": "supplier-asc-joint-venture",
-        "totalGBP": 0,
+        "totalGBP": 550000,
         "groupName": "Detailed Design (sub to Main Works Civils)",
         "role": "subcontractor-technical",
         "tier": "B"
@@ -39161,7 +39245,7 @@
         "kind": "project-member",
         "s": "project-1",
         "t": "supplier-mott-macdonald-weston-williamson-partners-rogers-stirk-harbo",
-        "totalGBP": 0,
+        "totalGBP": 43743.75,
         "groupName": "Station Architecture & Design",
         "role": "consultant-technical",
         "tier": "B"
@@ -39181,7 +39265,7 @@
         "kind": "project-member",
         "s": "project-1",
         "t": "supplier-mola-headland-infrastructure",
-        "totalGBP": 0,
+        "totalGBP": 32465418,
         "groupName": "Archaeology",
         "role": "subcontractor-technical",
         "tier": "C"
@@ -39481,7 +39565,7 @@
         "kind": "project-member",
         "s": "project-67",
         "t": "supplier-nuclear-decommissioning-solutions",
-        "totalGBP": 0,
+        "totalGBP": 254476.67,
         "groupName": "Decommissioning and Nuclear Waste Partnership (DNWP) — 15-year risk-reduction framework (awarded October 2025)",
         "role": "jv-partner",
         "tier": "B"
@@ -39511,7 +39595,7 @@
         "kind": "project-member",
         "s": "project-67",
         "t": "supplier-balfour-beatty-kilpatrick",
-        "totalGBP": 0,
+        "totalGBP": 500000,
         "groupName": "Tier-2 / sub-framework suppliers confirmed against PPP projects",
         "role": "subcontractor",
         "tier": "C"
@@ -39551,7 +39635,7 @@
         "kind": "project-member",
         "s": "project-67",
         "t": "supplier-united-kingdom-national-nuclear-laboratory",
-        "totalGBP": 0,
+        "totalGBP": 550000,
         "groupName": "Site-wide research, operations & assurance partner",
         "role": "consultant-technical",
         "tier": "B"
@@ -40271,7 +40355,7 @@
         "kind": "project-member",
         "s": "project-24",
         "t": "supplier-detica",
-        "totalGBP": 0,
+        "totalGBP": 85000000,
         "groupName": "Trusted Borders consortium — original prime and named members",
         "role": "jv-partner",
         "tier": "A"
@@ -41021,7 +41105,7 @@
         "kind": "project-member",
         "s": "project-43",
         "t": "supplier-lockheed-martin-corporation",
-        "totalGBP": 0,
+        "totalGBP": 220000000,
         "groupName": "Airframe prime",
         "role": "prime",
         "tier": "A"
@@ -41341,7 +41425,7 @@
         "kind": "project-member",
         "s": "project-90",
         "t": "supplier-general-dynamics",
-        "totalGBP": 0,
+        "totalGBP": 2500000,
         "groupName": "Ground segment and user terminals",
         "role": "supplier",
         "tier": "B"
@@ -41621,7 +41705,7 @@
         "kind": "project-member",
         "s": "project-34",
         "t": "supplier-ge-hitachi-nuclear-energy-americas",
-        "totalGBP": 0,
+        "totalGBP": 2750131.32,
         "groupName": "SMR Phase B vendors — October 2024 shortlist",
         "role": "prime",
         "tier": "B"
@@ -41631,7 +41715,7 @@
         "kind": "project-member",
         "s": "project-34",
         "t": "supplier-holtec-britain",
-        "totalGBP": 0,
+        "totalGBP": 3042622.19,
         "groupName": "SMR Phase B vendors — October 2024 shortlist",
         "role": "prime",
         "tier": "B"
@@ -41771,7 +41855,7 @@
         "kind": "project-member",
         "s": "project-35",
         "t": "supplier-low-carbon-contracts-company",
-        "totalGBP": 0,
+        "totalGBP": 1449299.55,
         "groupName": "Licensing and regulatory counterparties",
         "role": "programme-partner",
         "tier": "B"
@@ -42001,7 +42085,7 @@
         "kind": "project-member",
         "s": "project-7",
         "t": "supplier-capgemini-uk",
-        "totalGBP": 0,
+        "totalGBP": 2000000,
         "groupName": "Digital Service rebuild capacity suppliers (post-2014)",
         "role": "subcontractor",
         "tier": "B"
@@ -42151,7 +42235,7 @@
         "kind": "project-member",
         "s": "project-53",
         "t": "supplier-deloitte-mcs",
-        "totalGBP": 0,
+        "totalGBP": 44000000,
         "groupName": "Digital delivery capacity providers",
         "role": "consultant-advisory",
         "tier": "A"
@@ -42161,7 +42245,7 @@
         "kind": "project-member",
         "s": "project-53",
         "t": "supplier-pa-consulting-services",
-        "totalGBP": 0,
+        "totalGBP": 19000000,
         "groupName": "Digital delivery capacity providers",
         "role": "consultant-advisory",
         "tier": "B"
@@ -42271,7 +42355,7 @@
         "kind": "project-member",
         "s": "project-100",
         "t": "supplier-kainos-software",
-        "totalGBP": 0,
+        "totalGBP": 26700000,
         "groupName": "Criminal-justice common platform prime",
         "role": "prime",
         "tier": "A"
@@ -42291,7 +42375,7 @@
         "kind": "project-member",
         "s": "project-100",
         "t": "supplier-capgemini-uk",
-        "totalGBP": 0,
+        "totalGBP": 1728221,
         "groupName": "Civil, family and tribunals online-service suppliers",
         "role": "subcontractor",
         "tier": "B"
@@ -42371,7 +42455,7 @@
         "kind": "project-member",
         "s": "project-99",
         "t": "supplier-fujitsu-services",
-        "totalGBP": 0,
+        "totalGBP": 5435985.68,
         "groupName": "ATLAS Consortium (prime JV)",
         "role": "jv-partner",
         "tier": "A"
@@ -42381,7 +42465,7 @@
         "kind": "project-member",
         "s": "project-99",
         "t": "supplier-general-dynamics-united-kingdom",
-        "totalGBP": 0,
+        "totalGBP": 13200,
         "groupName": "ATLAS Consortium (prime JV)",
         "role": "jv-partner",
         "tier": "A"
@@ -42631,7 +42715,7 @@
         "kind": "project-member",
         "s": "project-23",
         "t": "supplier-arup-group",
-        "totalGBP": 0,
+        "totalGBP": 6000000,
         "groupName": "Outline business case and engineering design",
         "role": "consultant-technical",
         "tier": "B"
@@ -42711,7 +42795,7 @@
         "kind": "project-member",
         "s": "project-26",
         "t": "supplier-jacobs-u-k",
-        "totalGBP": 0,
+        "totalGBP": 106574,
         "groupName": "Integration and delivery partner",
         "role": "jv-partner",
         "tier": "B"
@@ -42771,7 +42855,7 @@
         "kind": "project-member",
         "s": "project-26",
         "t": "supplier-bouygues-travaux-publics",
-        "totalGBP": 0,
+        "totalGBP": 1344687196,
         "groupName": "Main-works packages under competitive dialogue",
         "role": "prime",
         "tier": "B"
@@ -42841,7 +42925,7 @@
         "kind": "project-member",
         "s": "project-59",
         "t": "supplier-siemens-mobility",
-        "totalGBP": 0,
+        "totalGBP": 5108483.69,
         "groupName": "TRU East Alliance (Leeds–York)",
         "role": "jv-partner",
         "tier": "B"
@@ -42991,7 +43075,7 @@
         "kind": "project-member",
         "s": "project-60",
         "t": "supplier-aecom",
-        "totalGBP": 0,
+        "totalGBP": 253766,
         "groupName": "CS2 central section civils (Bletchley–Bedford)",
         "role": "consultant-technical",
         "tier": "B"
@@ -43001,7 +43085,7 @@
         "kind": "project-member",
         "s": "project-60",
         "t": "supplier-mott-macdonald",
-        "totalGBP": 0,
+        "totalGBP": 2500000,
         "groupName": "CS2 central section civils (Bletchley–Bedford)",
         "role": "consultant-technical",
         "tier": "B"
@@ -43011,7 +43095,7 @@
         "kind": "project-member",
         "s": "project-60",
         "t": "supplier-arup-group",
-        "totalGBP": 0,
+        "totalGBP": 1500000,
         "groupName": "CS3 route development and design (Bedford–Cambridge)",
         "role": "consultant-technical",
         "tier": "B"
@@ -43021,7 +43105,7 @@
         "kind": "project-member",
         "s": "project-60",
         "t": "supplier-jacobs-u-k",
-        "totalGBP": 0,
+        "totalGBP": 186423,
         "groupName": "CS3 route development and design (Bedford–Cambridge)",
         "role": "consultant-technical",
         "tier": "B"
@@ -43071,7 +43155,7 @@
         "kind": "project-member",
         "s": "project-31",
         "t": "supplier-japan-aircraft-industrial-enhancement-co",
-        "totalGBP": 0,
+        "totalGBP": 3000000,
         "groupName": "Edgewing — industrial JV prime",
         "role": "jv-parent",
         "tier": "B"
@@ -43161,7 +43245,7 @@
         "kind": "project-member",
         "s": "project-44",
         "t": "supplier-bae-systems",
-        "totalGBP": 0,
+        "totalGBP": 1159920,
         "groupName": "Prime contractor and joint venture",
         "role": "jv-parent",
         "tier": "B"
@@ -43221,7 +43305,7 @@
         "kind": "project-member",
         "s": "project-44",
         "t": "supplier-horstman-group",
-        "totalGBP": 0,
+        "totalGBP": 1700000,
         "groupName": "Subsystem suppliers",
         "role": "supplier",
         "tier": "B"
@@ -43641,7 +43725,7 @@
         "kind": "project-member",
         "s": "project-41",
         "t": "supplier-bae-systems-surface-ships",
-        "totalGBP": 0,
+        "totalGBP": 285275277,
         "groupName": "Combat systems and sensors",
         "role": "subcontractor",
         "tier": "B"
@@ -44011,7 +44095,7 @@
         "kind": "project-member",
         "s": "project-51",
         "t": "supplier-mace",
-        "totalGBP": 0,
+        "totalGBP": 540783.84,
         "groupName": "Programme-level delivery partner",
         "role": "delivery-partner",
         "tier": "B"
@@ -44031,7 +44115,7 @@
         "kind": "project-member",
         "s": "project-51",
         "t": "supplier-g4s-care-and-justice-services-uk",
-        "totalGBP": 0,
+        "totalGBP": 12729058.95,
         "groupName": "HMP Five Wells (Wellingborough) — opened March 2022",
         "role": "prime",
         "tier": "B"
@@ -44081,7 +44165,7 @@
         "kind": "project-member",
         "s": "project-51",
         "t": "supplier-lendlease-construction-europe",
-        "totalGBP": 0,
+        "totalGBP": 5609145.64,
         "groupName": "HMP Fosse Way (Glen Parva, Leicestershire) — opened May 2023",
         "role": "prime",
         "tier": "B"
@@ -44101,7 +44185,7 @@
         "kind": "project-member",
         "s": "project-51",
         "t": "supplier-mitie-care-custody",
-        "totalGBP": 0,
+        "totalGBP": 846813.84,
         "groupName": "HMP Millsike (East Yorkshire, adjacent to HMP Full Sutton) — opened 2025",
         "role": "prime",
         "tier": "B"
@@ -44111,7 +44195,7 @@
         "kind": "project-member",
         "s": "project-71",
         "t": "supplier-isg-construction",
-        "totalGBP": 0,
+        "totalGBP": 3335244,
         "groupName": "Alliance 4 New Prisons (A4NP) — £1bn framework award 2021",
         "role": "prime",
         "tier": "B"
@@ -44131,7 +44215,7 @@
         "kind": "project-member",
         "s": "project-71",
         "t": "supplier-laing-o-rourke-delivery",
-        "totalGBP": 0,
+        "totalGBP": 2016293.76,
         "groupName": "Alliance 4 New Prisons (A4NP) — £1bn framework award 2021",
         "role": "prime",
         "tier": "B"
@@ -44181,7 +44265,7 @@
         "kind": "project-member",
         "s": "project-115",
         "t": "supplier-mwjv-mott-macdonald-wsp-joint-venture",
-        "totalGBP": 0,
+        "totalGBP": 180000,
         "groupName": "Phase 2b design and environmental services — February 2017 awards",
         "role": "consultant-technical",
         "tier": "B"
@@ -44741,7 +44825,7 @@
         "kind": "project-member",
         "s": "project-19",
         "t": "supplier-ove-arup-partners-international",
-        "totalGBP": 0,
+        "totalGBP": 20000,
         "groupName": "Project Management & Engineering (Rail Link Engineering consortium)",
         "role": "consultant-technical",
         "tier": "A"
@@ -44881,7 +44965,7 @@
         "kind": "project-member",
         "s": "project-20",
         "t": "supplier-gec-alsthom-metro-cammell",
-        "totalGBP": 0,
+        "totalGBP": 2718412,
         "groupName": "Systems & Rolling Stock",
         "role": "prime",
         "tier": "A"
@@ -44911,7 +44995,7 @@
         "kind": "project-member",
         "s": "project-15",
         "t": "supplier-costain",
-        "totalGBP": 0,
+        "totalGBP": 130000,
         "groupName": "SMP Alliance (ALR scheme delivery, 2020–)",
         "role": "delivery-partner",
         "tier": "A"
@@ -45281,7 +45365,7 @@
         "kind": "project-member",
         "s": "project-61",
         "t": "supplier-aecom",
-        "totalGBP": 0,
+        "totalGBP": 5164587.36,
         "groupName": "Strategic Design Services Partner",
         "role": "consultant-technical",
         "tier": "A"
@@ -45291,7 +45375,7 @@
         "kind": "project-member",
         "s": "project-61",
         "t": "supplier-arup-group",
-        "totalGBP": 0,
+        "totalGBP": 5285031.31,
         "groupName": "Strategic Design Services Partner",
         "role": "consultant-technical",
         "tier": "A"
@@ -45391,7 +45475,7 @@
         "kind": "project-member",
         "s": "project-117",
         "t": "supplier-pwc",
-        "totalGBP": 0,
+        "totalGBP": 60000,
         "groupName": "Debt Recovery & Anti-Fraud Contractors",
         "role": "consultant-advisory",
         "tier": "A"
@@ -45401,7 +45485,7 @@
         "kind": "project-member",
         "s": "project-117",
         "t": "supplier-ey",
-        "totalGBP": 0,
+        "totalGBP": 271500,
         "groupName": "Debt Recovery & Anti-Fraud Contractors",
         "role": "consultant-advisory",
         "tier": "A"
@@ -45511,7 +45595,7 @@
         "kind": "project-member",
         "s": "project-89",
         "t": "supplier-leonardo-mw",
-        "totalGBP": 0,
+        "totalGBP": 8000000,
         "groupName": "Prime Integrator & Mission System",
         "role": "subcontractor",
         "tier": "A"
@@ -45531,7 +45615,7 @@
         "kind": "project-member",
         "s": "project-94",
         "t": "supplier-pa-consulting-group",
-        "totalGBP": 0,
+        "totalGBP": 240600000,
         "groupName": "Technology Advisors (LEAP)",
         "role": "consultant-advisory",
         "tier": "A"
@@ -45601,7 +45685,7 @@
         "kind": "project-member",
         "s": "project-78",
         "t": "supplier-awe",
-        "totalGBP": 0,
+        "totalGBP": 734337.92,
         "groupName": "Operating Company (post-2021)",
         "role": "delivery-partner",
         "tier": "B"
@@ -45711,7 +45795,7 @@
         "kind": "project-member",
         "s": "project-68",
         "t": "supplier-gigaclear",
-        "totalGBP": 0,
+        "totalGBP": 9400000,
         "groupName": "Regional / Local Gigabit Suppliers (Project Gigabit contract winners)",
         "role": "prime",
         "tier": "B"
@@ -46021,7 +46105,7 @@
         "kind": "project-member",
         "s": "project-52",
         "t": "supplier-isg-construction",
-        "totalGBP": 0,
+        "totalGBP": 13873683,
         "groupName": "DfE Construction Framework — Principal Contractors (Lots 1, 2, 3)",
         "role": "prime",
         "tier": "B"
@@ -46031,7 +46115,7 @@
         "kind": "project-member",
         "s": "project-52",
         "t": "supplier-the-mcavoy-group",
-        "totalGBP": 0,
+        "totalGBP": 5390151.92,
         "groupName": "DfE MMC (Modern Methods of Construction) Framework",
         "role": "prime",
         "tier": "B"
@@ -46111,7 +46195,7 @@
         "kind": "project-member",
         "s": "project-14",
         "t": "supplier-aecom",
-        "totalGBP": 0,
+        "totalGBP": 1016900.56,
         "groupName": "A14 Integrated Delivery Team (IDT)",
         "role": "consultant-technical",
         "tier": "A"
@@ -46261,7 +46345,7 @@
         "kind": "project-member",
         "s": "project-109",
         "t": "supplier-corporate-travel-management-north",
-        "totalGBP": 0,
+        "totalGBP": 4087782.05,
         "groupName": "Accommodation Services Operator",
         "role": "prime",
         "tier": "A"
@@ -46401,7 +46485,7 @@
         "kind": "project-member",
         "s": "project-84",
         "t": "supplier-jacobs-u-k",
-        "totalGBP": 0,
+        "totalGBP": 2370734.41,
         "groupName": "Major Infrastructure Construction",
         "role": "consultant-technical",
         "tier": "A"
@@ -46511,7 +46595,7 @@
         "kind": "project-member",
         "s": "project-21",
         "t": "supplier-costain",
-        "totalGBP": 0,
+        "totalGBP": 124588.13,
         "groupName": "Main Works Contractor Consortium (award on hold)",
         "role": "jv-partner",
         "tier": "B"
@@ -46711,7 +46795,7 @@
         "kind": "project-member",
         "s": "project-101",
         "t": "supplier-jacobs-u-k",
-        "totalGBP": 0,
+        "totalGBP": 511847.48,
         "groupName": "Technical Services Framework Partners",
         "role": "consultant-technical",
         "tier": "B"
@@ -46931,7 +47015,7 @@
         "kind": "project-member",
         "s": "project-98",
         "t": "supplier-tramlink-nottingham-operations",
-        "totalGBP": 0,
+        "totalGBP": 60000,
         "groupName": "Operator",
         "role": "delivery-partner",
         "tier": "B"
@@ -47211,7 +47295,7 @@
         "kind": "project-member",
         "s": "project-97",
         "t": "supplier-mott-macdonald",
-        "totalGBP": 0,
+        "totalGBP": 600000,
         "groupName": "Development-phase Integrated Design Team",
         "role": "consultant-technical",
         "tier": "B"
@@ -47221,7 +47305,7 @@
         "kind": "project-member",
         "s": "project-97",
         "t": "supplier-jacobs",
-        "totalGBP": 0,
+        "totalGBP": 706250,
         "groupName": "Development-phase Integrated Design Team",
         "role": "consultant-technical",
         "tier": "B"
@@ -47351,7 +47435,7 @@
         "kind": "project-member",
         "s": "project-70",
         "t": "supplier-palantir-technologies",
-        "totalGBP": 0,
+        "totalGBP": 4594359,
         "groupName": "Federated Data Platform (FDP) — Prime and Partner Consortium",
         "role": "prime",
         "tier": "A"
@@ -47361,7 +47445,7 @@
         "kind": "project-member",
         "s": "project-70",
         "t": "supplier-accenture-uk",
-        "totalGBP": 0,
+        "totalGBP": 49286241,
         "groupName": "Federated Data Platform (FDP) — Prime and Partner Consortium",
         "role": "subcontractor",
         "tier": "B"
@@ -47391,7 +47475,7 @@
         "kind": "project-member",
         "s": "project-70",
         "t": "supplier-carnall-farrar",
-        "totalGBP": 0,
+        "totalGBP": 270663,
         "groupName": "Federated Data Platform (FDP) — Prime and Partner Consortium",
         "role": "consultant-advisory",
         "tier": "B"
@@ -47481,7 +47565,7 @@
         "kind": "project-member",
         "s": "project-57",
         "t": "supplier-fujitsu-services",
-        "totalGBP": 0,
+        "totalGBP": 15000000,
         "groupName": "Legacy Systems — Being Decommissioned",
         "role": "supplier",
         "tier": "A"
@@ -47491,7 +47575,7 @@
         "kind": "project-member",
         "s": "project-57",
         "t": "supplier-bt",
-        "totalGBP": 0,
+        "totalGBP": 13841092,
         "groupName": "Legacy Systems — Being Decommissioned",
         "role": "supplier",
         "tier": "B"
@@ -47551,7 +47635,7 @@
         "kind": "project-member",
         "s": "project-37",
         "t": "supplier-linxon",
-        "totalGBP": 0,
+        "totalGBP": 40000,
         "groupName": "Tier-1 Civils and Overhead Line Construction Framework (NGET, 2024)",
         "role": "prime",
         "tier": "B"
@@ -47631,7 +47715,7 @@
         "kind": "project-member",
         "s": "project-37",
         "t": "supplier-wsp",
-        "totalGBP": 0,
+        "totalGBP": 119998,
         "groupName": "Programme-wide Design and Environmental Consultants",
         "role": "consultant-technical",
         "tier": "B"
@@ -47911,7 +47995,7 @@
         "kind": "project-member",
         "s": "project-83",
         "t": "supplier-arup-group",
-        "totalGBP": 0,
+        "totalGBP": 79500,
         "groupName": "Principal Design and Engineering Consultants",
         "role": "consultant-technical",
         "tier": "B"
@@ -47951,7 +48035,7 @@
         "kind": "project-member",
         "s": "project-32",
         "t": "supplier-heathrow-airport",
-        "totalGBP": 0,
+        "totalGBP": 1053417.65,
         "groupName": "Scheme promoter and ownership consortium",
         "role": "prime",
         "tier": "A"
@@ -48035,6 +48119,7 @@
     "buyer-dhsc-ppe-procurement-cell",
     "buyer-department-of-health-and-social-care",
     "buyer-network-rail-infrastructure-limited-dft",
+    "buyer-national-highways",
     "buyer-ministry-of-defence-defence-equipment-and-support",
     "buyer-dwp",
     "buyer-crossrail-limited-subsidiary-of-transport-for-london-co",
@@ -48043,7 +48128,6 @@
     "buyer-ministry-of-defence-defence-equipment-support",
     "buyer-ministry-of-justice-hmpps",
     "buyer-london-underground-limited-transport-for-london",
-    "buyer-national-highways",
     "buyer-the-francis-crick-institute-limited-charitable-company",
     "buyer-wembley-national-stadium-limited-wnsl-subsidiary-of-the-foot",
     "buyer-nhs-england",
@@ -48051,12 +48135,15 @@
     "buyer-nottingham-city-council",
     "buyer-transport-scotland-network-rail-delivery-under-sponsorship-a",
     "buyer-royal-liverpool-and-broadgreen-university-hospitals-nhs-trus",
+    "buyer-ministry-of-defence-defence-equipment-and-support-procured-t",
     "buyer-transport-scotland-part-of-the-scottish-government",
     "buyer-manchester-city-council",
     "buyer-hmcts",
     "buyer-department-for-education-delivering-through-the-education-an",
     "buyer-mod",
+    "buyer-cabinet-office-gds",
     "buyer-beis",
+    "buyer-secretary-of-state-for-the-home-department-home-office",
     "supplier-bae-systems",
     "supplier-airtanker",
     "supplier-rolls-royce-submarines",
@@ -48083,6 +48170,7 @@
     "supplier-bt-british-telecommunications-plc",
     "supplier-siemens-mobility",
     "supplier-ge-steam-power",
+    "supplier-bouygues-travaux-publics",
     "supplier-babcock-rosyth",
     "supplier-balfour-beatty-vinci-systra-bbvs-joint-venture",
     "supplier-bombardier-transportation",
@@ -48095,10 +48183,6 @@
     "supplier-edgewing",
     "supplier-serco",
     "supplier-unispace-global",
-    "supplier-lockheed-martin-uk-ampthill",
-    "supplier-accenture-uk",
-    "supplier-dragados",
-    "supplier-costain",
     "project-1",
     "project-2",
     "project-4",
@@ -48106,21 +48190,21 @@
     "project-6",
     "project-7",
     "project-13",
-    "project-14",
     "project-16",
     "project-17",
     "project-18",
-    "project-20",
     "project-22",
     "project-24",
-    "project-25"
+    "project-25",
+    "project-26",
+    "project-27"
   ],
   "storyCards": [
     {
       "label": "Most concentrated buyer",
-      "entityId": "buyer-uk-border-agency",
-      "headline": "Raytheon Systems Limited takes 97% of UK Border Agency's £1.0bn.",
-      "metric": "HHI 0.94 · 5 suppliers"
+      "entityId": "buyer-defence-equipment-support-de-s-mod",
+      "headline": "General Dynamics Land Systems-UK takes 91% of Defence Equipment & Support (DE&S), MOD's £6.0bn.",
+      "metric": "HHI 0.83 · 14 suppliers"
     },
     {
       "label": "Most dependent supplier",
@@ -48132,7 +48216,7 @@
       "label": "Repeat-win leader",
       "entityId": "supplier-kier-construction",
       "headline": "Kier Construction Limited has been awarded 4 contracts from Ministry of Justice / HMPPS.",
-      "metric": "Repeat-win rate 58.96× expected · £0.44bn"
+      "metric": "Repeat-win rate 59.94× expected · £0.44bn"
     },
     {
       "label": "Biggest single relationship",
@@ -48144,25 +48228,11 @@
   "rankings": {
     "topBuyersByHHI": [
       {
-        "id": "buyer-national-highways",
-        "label": "National Highways Limited",
-        "hhi": 0.998,
-        "supplierCount": 5,
-        "totalGBP": 531610037.98
-      },
-      {
-        "id": "buyer-uk-border-agency",
-        "label": "UK Border Agency",
-        "hhi": 0.941,
+        "id": "buyer-nottingham-city-council",
+        "label": "Nottingham City Council.",
+        "hhi": 0.999,
         "supplierCount": 3,
-        "totalGBP": 964000000
-      },
-      {
-        "id": "buyer-nhs-england",
-        "label": "NHS England",
-        "hhi": 0.852,
-        "supplierCount": 3,
-        "totalGBP": 358500000
+        "totalGBP": 300108091.52
       },
       {
         "id": "buyer-defence-equipment-support-de-s-mod",
@@ -48172,11 +48242,25 @@
         "totalGBP": 6025000001
       },
       {
+        "id": "buyer-uk-border-agency",
+        "label": "UK Border Agency",
+        "hhi": 0.801,
+        "supplierCount": 4,
+        "totalGBP": 1049000000
+      },
+      {
         "id": "buyer-post-office",
         "label": "Post Office Limited",
         "hhi": 0.8,
         "supplierCount": 8,
         "totalGBP": 2802140000
+      },
+      {
+        "id": "buyer-nhs-england",
+        "label": "NHS England",
+        "hhi": 0.678,
+        "supplierCount": 4,
+        "totalGBP": 412651263
       },
       {
         "id": "buyer-crossrail-limited-subsidiary-of-transport-for-london-co",
@@ -48186,32 +48270,32 @@
         "totalGBP": 1240000000
       },
       {
+        "id": "buyer-mod-gcap-international-government-organisation",
+        "label": "MOD / GCAP International Government Organisation",
+        "hhi": 0.618,
+        "supplierCount": 3,
+        "totalGBP": 2689000000
+      },
+      {
+        "id": "buyer-national-highways",
+        "label": "National Highways Limited",
+        "hhi": 0.594,
+        "supplierCount": 8,
+        "totalGBP": 1876528396.1100004
+      },
+      {
         "id": "buyer-ministry-of-justice-hmpps",
         "label": "Ministry of Justice / HMPPS",
-        "hhi": 0.623,
-        "supplierCount": 3,
-        "totalGBP": 572496946.0666667
+        "hhi": 0.572,
+        "supplierCount": 9,
+        "totalGBP": 597574286.0966666
       },
       {
         "id": "buyer-mod-defence-equipment-support",
         "label": "MOD / Defence Equipment & Support",
-        "hhi": 0.565,
-        "supplierCount": 6,
-        "totalGBP": 14256421280
-      },
-      {
-        "id": "buyer-ministry-of-defence",
-        "label": "Ministry of Defence",
-        "hhi": 0.509,
-        "supplierCount": 8,
-        "totalGBP": 47584000000
-      },
-      {
-        "id": "buyer-home-office",
-        "label": "Home Office — Emergency Services Mobile Communications Programme",
-        "hhi": 0.426,
-        "supplierCount": 5,
-        "totalGBP": 4007000000
+        "hhi": 0.543,
+        "supplierCount": 9,
+        "totalGBP": 14544556477
       }
     ],
     "topDependentSuppliers": [
@@ -48284,6 +48368,248 @@
         "dependence": 1,
         "topBuyer": "DHSC — PPE Procurement Cell",
         "totalGBP": 779000000
+      }
+    ],
+    "topRepeatOffenders": [
+      {
+        "id": "supplier-fujitsu-services",
+        "label": "Fujitsu Services Limited",
+        "score": 24.17,
+        "buyerCount": 6,
+        "awardCount": 6,
+        "totalGBP": 3416435985.68,
+        "secondBuyerGBP": 896000000,
+        "maxRepeatWinRate": 0,
+        "tierAShare": 1,
+        "topBuyer": "Post Office Limited"
+      },
+      {
+        "id": "supplier-bae-systems",
+        "label": "BAE Systems plc",
+        "score": 22.03,
+        "buyerCount": 6,
+        "awardCount": 12,
+        "totalGBP": 36490159920,
+        "secondBuyerGBP": 4000000000,
+        "maxRepeatWinRate": 0.38,
+        "tierAShare": 0.33,
+        "topBuyer": "Ministry of Defence"
+      },
+      {
+        "id": "supplier-accenture-uk",
+        "label": "Accenture (UK) Limited",
+        "score": 21.41,
+        "buyerCount": 9,
+        "awardCount": 10,
+        "totalGBP": 654286241,
+        "secondBuyerGBP": 54786241,
+        "maxRepeatWinRate": 12.33,
+        "tierAShare": 0.67,
+        "topBuyer": "DWP"
+      },
+      {
+        "id": "supplier-kier-construction",
+        "label": "Kier Construction Limited",
+        "score": 20.5,
+        "buyerCount": 5,
+        "awardCount": 10,
+        "totalGBP": 444911709.18666667,
+        "secondBuyerGBP": 2745042.52,
+        "maxRepeatWinRate": 59.94,
+        "tierAShare": 0.8,
+        "topBuyer": "Ministry of Justice / HMPPS"
+      },
+      {
+        "id": "supplier-thales",
+        "label": "Thales UK",
+        "score": 19.46,
+        "buyerCount": 6,
+        "awardCount": 11,
+        "totalGBP": 3458403701.12,
+        "secondBuyerGBP": 425000000,
+        "maxRepeatWinRate": 3.33,
+        "tierAShare": 0.33,
+        "topBuyer": "MOD / Submarine Delivery Agency"
+      },
+      {
+        "id": "supplier-ibm-united-kingdom",
+        "label": "IBM United Kingdom Limited",
+        "score": 18.24,
+        "buyerCount": 6,
+        "awardCount": 6,
+        "totalGBP": 1933000000,
+        "secondBuyerGBP": 525000000,
+        "maxRepeatWinRate": 0,
+        "tierAShare": 0.5,
+        "topBuyer": "Home Office — Emergency Services Mobile Communications Programme"
+      },
+      {
+        "id": "supplier-rolls-royce-submarines",
+        "label": "Rolls-Royce Submarines Limited",
+        "score": 18.08,
+        "buyerCount": 2,
+        "awardCount": 3,
+        "totalGBP": 9450000000,
+        "secondBuyerGBP": 450000000,
+        "maxRepeatWinRate": 0.42,
+        "tierAShare": 0.5,
+        "topBuyer": "Ministry of Defence"
+      },
+      {
+        "id": "supplier-costain",
+        "label": "Costain Limited",
+        "score": 17.76,
+        "buyerCount": 7,
+        "awardCount": 8,
+        "totalGBP": 558434260.13,
+        "secondBuyerGBP": 8179672,
+        "maxRepeatWinRate": 14.08,
+        "tierAShare": 0.57,
+        "topBuyer": "Network Rail Infrastructure Limited / DfT"
+      },
+      {
+        "id": "supplier-babcock-international-group",
+        "label": "Babcock International Group plc",
+        "score": 17.69,
+        "buyerCount": 4,
+        "awardCount": 8,
+        "totalGBP": 1771000000,
+        "secondBuyerGBP": 400000000,
+        "maxRepeatWinRate": 4.44,
+        "tierAShare": 0.25,
+        "topBuyer": "MOD / Defence Equipment & Support"
+      },
+      {
+        "id": "supplier-laing-o-rourke-construction",
+        "label": "Laing O'Rourke Construction Limited",
+        "score": 17.15,
+        "buyerCount": 9,
+        "awardCount": 9,
+        "totalGBP": 743000000,
+        "secondBuyerGBP": 293000000,
+        "maxRepeatWinRate": 0,
+        "tierAShare": 0.44,
+        "topBuyer": "The Francis Crick Institute Limited (charitable company) — founded by MRC, Cancer Research UK, Wellcome Trust, UCL, Imperial College London and King's College London."
+      },
+      {
+        "id": "supplier-rolls-royce",
+        "label": "Rolls-Royce plc",
+        "score": 15.93,
+        "buyerCount": 7,
+        "awardCount": 10,
+        "totalGBP": 2100000000,
+        "secondBuyerGBP": 100000000,
+        "maxRepeatWinRate": 3.74,
+        "tierAShare": 0.14,
+        "topBuyer": "MOD / GCAP International Government Organisation"
+      },
+      {
+        "id": "supplier-siemens-mobility",
+        "label": "Siemens Mobility Limited",
+        "score": 15.05,
+        "buyerCount": 2,
+        "awardCount": 4,
+        "totalGBP": 1605108483.69,
+        "secondBuyerGBP": 5108483.69,
+        "maxRepeatWinRate": 10.61,
+        "tierAShare": 0.5,
+        "topBuyer": "Network Rail Infrastructure Limited / DfT"
+      },
+      {
+        "id": "supplier-general-dynamics-united-kingdom",
+        "label": "General Dynamics United Kingdom Limited",
+        "score": 14.52,
+        "buyerCount": 2,
+        "awardCount": 3,
+        "totalGBP": 330013200,
+        "secondBuyerGBP": 13200,
+        "maxRepeatWinRate": 11.91,
+        "tierAShare": 1,
+        "topBuyer": "Ministry of Defence"
+      },
+      {
+        "id": "supplier-bam-nuttall",
+        "label": "BAM Nuttall Limited",
+        "score": 14.27,
+        "buyerCount": 8,
+        "awardCount": 9,
+        "totalGBP": 294000000,
+        "secondBuyerGBP": 0,
+        "maxRepeatWinRate": 26.75,
+        "tierAShare": 0.38,
+        "topBuyer": "Transport Scotland (Network Rail delivery under sponsorship agreement)."
+      },
+      {
+        "id": "supplier-the-boeing-company",
+        "label": "The Boeing Company",
+        "score": 13.37,
+        "buyerCount": 2,
+        "awardCount": 2,
+        "totalGBP": 3010000000,
+        "secondBuyerGBP": 1500000000,
+        "maxRepeatWinRate": 0,
+        "tierAShare": 0,
+        "topBuyer": "MOD / Defence Equipment & Support"
+      },
+      {
+        "id": "supplier-rheinmetall-bae-systems-land",
+        "label": "Rheinmetall BAE Systems Land Limited",
+        "score": 12.91,
+        "buyerCount": 2,
+        "awardCount": 2,
+        "totalGBP": 3600000000,
+        "secondBuyerGBP": 800000000,
+        "maxRepeatWinRate": 0,
+        "tierAShare": 0,
+        "topBuyer": "Ministry of Defence (Defence Equipment and Support), through OCCAR"
+      },
+      {
+        "id": "supplier-serco",
+        "label": "Serco Limited",
+        "score": 12.73,
+        "buyerCount": 2,
+        "awardCount": 2,
+        "totalGBP": 680200000,
+        "secondBuyerGBP": 57200000,
+        "maxRepeatWinRate": 0,
+        "tierAShare": 0.5,
+        "topBuyer": "Department of Health and Social Care"
+      },
+      {
+        "id": "supplier-lockheed-martin",
+        "label": "Lockheed Martin UK",
+        "score": 12.26,
+        "buyerCount": 3,
+        "awardCount": 6,
+        "totalGBP": 425000001,
+        "secondBuyerGBP": 1,
+        "maxRepeatWinRate": 18.5,
+        "tierAShare": 0.33,
+        "topBuyer": "Ministry of Defence"
+      },
+      {
+        "id": "supplier-mbda",
+        "label": "MBDA UK Limited",
+        "score": 11.84,
+        "buyerCount": 4,
+        "awardCount": 5,
+        "totalGBP": 8000000000,
+        "secondBuyerGBP": 0,
+        "maxRepeatWinRate": 0.49,
+        "tierAShare": 0.5,
+        "topBuyer": "NETMA (NATO Eurofighter and Tornado Management Agency) on behalf of UK MoD and partner nations"
+      },
+      {
+        "id": "supplier-skanska-construction",
+        "label": "Skanska Construction UK Limited",
+        "score": 11.77,
+        "buyerCount": 4,
+        "awardCount": 5,
+        "totalGBP": 531000000,
+        "secondBuyerGBP": 0,
+        "maxRepeatWinRate": 14.81,
+        "tierAShare": 0.25,
+        "topBuyer": "National Highways Limited"
       }
     ]
   },
