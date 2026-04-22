@@ -2,7 +2,7 @@
   "metadata": {
     "title": "UK Infrastructure Planning & Approval Delays",
     "description": "Major UK projects tracked through planning, DCO, grid connection, and regulatory approval stages. All dates and durations sourced from official records.",
-    "lastUpdated": "2026-04-13",
+    "lastUpdated": "2026-04-22",
     "methodology": "Approval durations measured from formal application submission to final decision date. Grid connection data from Ofgem queue statistics. Only projects with verifiable official records included.",
     "sources": [
       "National Infrastructure Planning (PINS)",
@@ -401,6 +401,26 @@
       "capacityMW": 800,
       "sourceName": "DESNZ / PINS",
       "sourceUrl": "https://www.edf-powersolutions.uk/news-and-views/major-milestone-as-government-grants-development-consent-order-for-springwell-solar-farm/",
+      "sourceConfidence": "very_high"
+    },
+    {
+      "id": "outer-dowsing",
+      "projectName": "Outer Dowsing Offshore Wind Farm",
+      "category": "Energy",
+      "approvalType": "DCO",
+      "responsibleBody": "Secretary of State for DESNZ",
+      "submissionDate": "2024-03-19",
+      "originalDecisionDeadline": "2025-10-10",
+      "actualDecisionDate": "2026-02-10",
+      "daysInApproval": 693,
+      "deadlineExtensions": 1,
+      "approvalStatus": "Approved",
+      "causeCategory": "Government decision delay",
+      "causeDetail": "1.5GW offshore wind farm ~54km off Lincolnshire coast; joint venture GTR4 Limited (Corio Generation, TotalEnergies, Gulf Energy Development). Application accepted for examination 16 April 2024; ExA recommendation to SoS 10 July 2025; decision delayed ~4 months past statutory deadline. Decision made on behalf of Energy Secretary by Lord Whitehead. Up to 100 turbines; first power expected 2030; construction could begin 2027. Contributes to UK 50GW-by-2030 offshore wind target.",
+      "estimatedCostM": null,
+      "capacityMW": 1500,
+      "sourceName": "DESNZ / PINS",
+      "sourceUrl": "https://www.gov.uk/government/news/outer-dowsing-offshore-wind-generating-station-development-consent-decision-announced",
       "sourceConfidence": "very_high"
     }
   ],
