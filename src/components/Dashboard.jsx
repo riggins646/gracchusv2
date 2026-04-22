@@ -1963,7 +1963,7 @@ function TableHeader({
 }) {
   return (
     <div className={
-      "min-w-[640px] grid grid-cols-12 gap-2 " +
+      "md:min-w-[640px] grid grid-cols-12 gap-2 " +
       "px-4 py-3 border-b border-gray-800/40 " +
       "text-[9px] uppercase tracking-[0.15em] " +
       "text-gray-600 font-mono"
@@ -2009,7 +2009,7 @@ function TotalsFooter({ cells }) {
   if (!cells || cells.length === 0) return null;
   return (
     <div className={
-      "min-w-[640px] grid grid-cols-12 gap-2 " +
+      "md:min-w-[640px] grid grid-cols-12 gap-2 " +
       "px-4 py-2.5 text-xs font-mono " +
       "border-t border-gray-700/60 " +
       "bg-white/[0.02]"
@@ -9274,7 +9274,7 @@ export default function App() {
                     }}
                     title="Open project dossier"
                     className={
-                      "min-w-[640px] grid grid-cols-12 gap-2 " +
+                      "md:min-w-[640px] grid grid-cols-12 gap-2 " +
                       "items-center " +
                       "px-1 py-1.5 cursor-pointer " +
                       "border-b border-gray-900/60 " +
@@ -14612,7 +14612,7 @@ export default function App() {
 
             <ChartCard chartId="mps-table" title="Top Outside Earners" subtitle="Click column headers to sort" accentColor="#f59e0b" onShare={handleChartShare} explainData={sortedEarners.map(mp => mp.name + ": £" + (mp.outsideEarnings / 1000).toFixed(0) + "k").join("; ")}>
               <div className="overflow-x-auto -mx-2">
-                <table className="w-full text-sm min-w-[640px]">
+                <table className="w-full text-sm md:min-w-[640px]">
                   <thead>
                     <tr className="border-b border-gray-800">
                       <th className="text-left px-3 py-2 text-[10px] uppercase tracking-wider text-gray-500 font-semibold">Name</th>
@@ -15554,7 +15554,7 @@ export default function App() {
                   return (
                     <div
                       key={s.name}
-                      className="min-w-[640px] grid grid-cols-12 gap-2 items-center px-4 py-3 border-b border-gray-800/20 hover:bg-white/[0.02]"
+                      className="md:min-w-[640px] grid grid-cols-12 gap-2 items-center px-4 py-3 border-b border-gray-800/20 hover:bg-white/[0.02]"
                     >
                       <div className="col-span-1 text-gray-700 text-xs font-mono">
                         {i + 1}
@@ -16619,7 +16619,7 @@ export default function App() {
               {conFiltered.map((c) => (
                 <div
                   key={c.id}
-                  className="min-w-[640px] grid grid-cols-12 gap-2 px-3 py-1.5 items-center border-b border-gray-900/60 hover:bg-white/[0.03] text-xs font-mono"
+                  className="md:min-w-[640px] grid grid-cols-12 gap-2 px-3 py-1.5 items-center border-b border-gray-900/60 hover:bg-white/[0.03] text-xs font-mono"
                 >
                   <div className="col-span-2 text-gray-300 truncate">
                     {c.normalizedCompanyName}
@@ -16721,7 +16721,7 @@ export default function App() {
                 {conCompanyRollups.map((r) => (
                   <div
                     key={r.name}
-                    className="min-w-[640px] grid grid-cols-12 gap-2 px-3 py-2 items-center border-b border-gray-900/60 hover:bg-white/[0.03] text-xs font-mono"
+                    className="md:min-w-[640px] grid grid-cols-12 gap-2 px-3 py-2 items-center border-b border-gray-900/60 hover:bg-white/[0.03] text-xs font-mono"
                   >
                     <div className="col-span-3 text-white font-medium">
                       {r.name}
@@ -27020,7 +27020,7 @@ export default function App() {
 
                 <div className="overflow-x-auto">
                   <div className={
-                    "min-w-[720px] grid grid-cols-12 gap-2 " +
+                    "md:min-w-[720px] grid grid-cols-12 gap-2 " +
                     "px-4 py-2 border-b border-gray-900 " +
                     "text-[10px] font-mono uppercase " +
                     "tracking-[0.1em] text-gray-600"
@@ -27045,7 +27045,7 @@ export default function App() {
                       key={s.id}
                       onClick={() => openSupplierProfile(s)}
                       className={
-                        "min-w-[720px] w-full grid grid-cols-12 " +
+                        "md:min-w-[720px] w-full grid grid-cols-12 " +
                         "gap-2 px-4 py-2.5 " +
                         "border-b border-gray-900/50 " +
                         "text-left items-center " +
@@ -27160,7 +27160,7 @@ export default function App() {
 
                 <div className="overflow-x-auto">
                   <div className={
-                    "min-w-[720px] grid grid-cols-12 gap-2 " +
+                    "md:min-w-[720px] grid grid-cols-12 gap-2 " +
                     "px-4 py-2 border-b border-gray-900 " +
                     "text-[10px] font-mono uppercase " +
                     "tracking-[0.1em] text-gray-600"
@@ -27184,7 +27184,7 @@ export default function App() {
                       key={s.id}
                       onClick={() => openSupplierProfile(s)}
                       className={
-                        "min-w-[720px] w-full grid grid-cols-12 " +
+                        "md:min-w-[720px] w-full grid grid-cols-12 " +
                         "gap-2 px-4 py-2.5 " +
                         "border-b border-gray-900/50 " +
                         "text-left items-center " +
@@ -27297,7 +27297,7 @@ export default function App() {
 
                 <div className="overflow-x-auto">
                   <div className={
-                    "min-w-[720px] grid grid-cols-12 gap-2 " +
+                    "md:min-w-[720px] grid grid-cols-12 gap-2 " +
                     "px-4 py-2 border-b border-gray-900 " +
                     "text-[10px] font-mono uppercase " +
                     "tracking-[0.1em] text-gray-600"
@@ -27336,7 +27336,7 @@ export default function App() {
                         key={b.id}
                         onClick={() => openBuyerProfile(b)}
                         className={
-                          "min-w-[720px] w-full grid grid-cols-12 " +
+                          "md:min-w-[720px] w-full grid grid-cols-12 " +
                           "gap-2 px-4 py-2.5 " +
                           "border-b border-gray-900/50 " +
                           "text-left items-center " +
@@ -27823,9 +27823,9 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="overflow-x-auto">
+                <div className="md:overflow-x-auto">
                   <div className={
-                    "min-w-[640px] grid grid-cols-12 gap-2 " +
+                    "hidden md:grid md:min-w-[640px] grid-cols-12 gap-2 " +
                     "px-4 py-2 border-b border-gray-900 " +
                     "text-[10px] font-mono uppercase " +
                     "tracking-[0.1em] text-gray-600"
@@ -27855,19 +27855,20 @@ export default function App() {
                           row.projNumericId, row.label
                         )}
                         className={
-                          "min-w-[640px] w-full grid " +
-                          "grid-cols-12 gap-2 px-4 py-2 " +
+                          "w-full flex flex-col gap-1 " +
+                          "md:grid md:grid-cols-12 md:gap-2 md:min-w-[640px] " +
+                          "px-4 py-3 md:py-2 " +
                           "border-b border-gray-900/50 " +
-                          "text-left items-center " +
+                          "text-left md:items-center " +
                           "hover:bg-white/[0.03] " +
                           "transition-colors group"
                         }
                         title="Open project dossier"
                       >
-                        <div className="col-span-5 min-w-0">
+                        <div className="md:col-span-5 min-w-0">
                           <div className={
-                            "text-gray-200 text-sm " +
-                            "truncate " +
+                            "text-gray-200 text-base md:text-sm " +
+                            "md:truncate font-semibold md:font-normal " +
                             "group-hover:text-white"
                           }>
                             {row.label}
@@ -27876,30 +27877,33 @@ export default function App() {
                             <div className={
                               "text-[10px] " +
                               "text-gray-600 font-mono " +
-                              "truncate mt-0.5"
+                              "md:truncate mt-0.5"
                             }>
                               {row.department}
                             </div>
                           )}
                         </div>
                         <div className={
-                          "col-span-2 text-right " +
+                          "md:col-span-2 md:text-right " +
                           "font-mono text-[13px] text-white " +
                           "tabular-nums"
                         }>
+                          <span className="md:hidden text-[11px] uppercase tracking-wider text-gray-400 mr-2">Members</span>
                           {row.members}
                         </div>
                         <div className={
-                          "col-span-2 text-right " +
+                          "md:col-span-2 md:text-right " +
                           "font-mono text-[13px] " +
                           "text-gray-300 tabular-nums"
                         }>
+                          <span className="md:hidden text-[11px] uppercase tracking-wider text-gray-400 mr-2">Disclosed</span>
                           {row.disclosed}
                         </div>
-                        <div className="col-span-2">
+                        <div className="md:col-span-2">
                           <div className={
-                            "flex items-center gap-2 justify-end"
+                            "flex items-center gap-2 md:justify-end"
                           }>
+                            <span className="md:hidden text-[11px] uppercase tracking-wider text-gray-400 mr-1">Coverage</span>
                             <div className={
                               "flex-1 max-w-[80px] h-1.5 " +
                               "bg-gray-900 border " +
@@ -27924,7 +27928,7 @@ export default function App() {
                           </div>
                         </div>
                         <div className={
-                          "col-span-1 text-right " +
+                          "hidden md:block md:col-span-1 md:text-right " +
                           "text-gray-700 " +
                           "group-hover:text-emerald-400 " +
                           "transition-colors"
@@ -28201,7 +28205,7 @@ export default function App() {
                         )
                       }
                       className={
-                        "w-full min-w-[640px] grid grid-cols-12 " +
+                        "w-full md:min-w-[640px] grid grid-cols-12 " +
                         "gap-2 px-4 py-3 " +
                         "border-b border-gray-800/30 " +
                         "text-left " +
@@ -28940,7 +28944,7 @@ export default function App() {
                           )
                         }
                         className={
-                          "w-full min-w-[640px] grid grid-cols-12 " +
+                          "w-full md:min-w-[640px] grid grid-cols-12 " +
                           "gap-2 px-4 py-3 " +
                           "border-b border-gray-800/30 " +
                           "text-left " +
@@ -29359,7 +29363,7 @@ export default function App() {
                           )
                         }
                         className={
-                          "w-full min-w-[640px] " +
+                          "w-full md:min-w-[640px] " +
                           "grid grid-cols-12 " +
                           "gap-2 px-4 py-3 " +
                           "border-b border-gray-800/30 " +
