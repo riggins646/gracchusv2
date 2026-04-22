@@ -8,6 +8,19 @@ body {
 }
 
 /* ================================================
+   MOBILE OVERRIDES
+   Prevent iOS Safari from zooming when a form field
+   is focused — triggered by any input whose computed
+   font-size is <16px. Applying globally at ≤767px
+   avoids the need to audit every input class.
+   ================================================ */
+@media (max-width: 767px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* ================================================
    A11Y — visible keyboard-focus indicators
    Every browser-default focus ring was a11y-poor
    against the pure-black background (very thin,
@@ -208,18 +221,20 @@ table tbody td,
 
 /* --- Chart responsive helpers --- */
 @media (max-width: 480px) {
-  /* Tighten chart card padding on small phones */
+  /* Tighten chart card padding on small phones — but keep a readable
+     11px floor on axis ticks so numbers aren't squinting-small on phones. */
   .recharts-wrapper {
-    font-size: 9px;
+    font-size: 11px;
   }
+  .recharts-cartesian-axis-tick text,
   .recharts-cartesian-axis-tick-value {
-    font-size: 8px !important;
+    font-size: 11px !important;
   }
   .recharts-legend-item-text {
-    font-size: 9px !important;
+    font-size: 11px !important;
   }
   .recharts-tooltip-wrapper {
-    font-size: 10px !important;
+    font-size: 12px !important;
   }
 }
 

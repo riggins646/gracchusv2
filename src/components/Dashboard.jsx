@@ -1159,6 +1159,14 @@ function ChartCard({
     return () => document.removeEventListener("keydown", onKey);
   }, [drawer]);
 
+  // Body scroll-lock while the Explain/Fix slide-over is open.
+  useEffect(() => {
+    if (!drawer) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, [drawer]);
+
   // Premium loading: even for cached responses, show the loading state
   // briefly (300–700ms) so it always feels like AI is working.
   const premiumDelay = () => new Promise(r => setTimeout(r, 300 + Math.random() * 400));
@@ -1569,7 +1577,7 @@ function ChartCard({
                 <button
                   onClick={closeDrawer}
                   className={
-                    "w-8 h-8 rounded-lg flex items-center justify-center " +
+                    "min-w-[44px] min-h-[44px] rounded-lg flex items-center justify-center " +
                     "text-gray-500 hover:text-white " +
                     "hover:bg-gray-800 transition-all ml-3 mt-0.5"
                   }
@@ -4530,9 +4538,11 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
             </div>
             <button
               onClick={onClose}
+              aria-label="Close project dossier"
               className={
                 "text-gray-700 hover:text-white text-xs " +
-                "font-mono tracking-widest uppercase"
+                "font-mono tracking-widest uppercase " +
+                "min-w-[44px] min-h-[44px] inline-flex items-center justify-center"
               }
             >
               [esc]
@@ -5342,7 +5352,8 @@ function SupplierDetail({ supplierId, supplierName, onClose, onSelectProject, on
             </div>
             <button
               onClick={onClose}
-              className="text-gray-700 hover:text-white text-xs font-mono tracking-widest uppercase"
+              aria-label="Close drawer"
+              className="text-gray-700 hover:text-white text-xs font-mono tracking-widest uppercase min-w-[44px] min-h-[44px] inline-flex items-center justify-center"
             >
               [esc]
             </button>
@@ -5779,7 +5790,8 @@ function BuyerDetail({ buyerId, buyerName, onClose, onSelectSupplier, onSelectPr
             </div>
             <button
               onClick={onClose}
-              className="text-gray-700 hover:text-white text-xs font-mono tracking-widest uppercase"
+              aria-label="Close drawer"
+              className="text-gray-700 hover:text-white text-xs font-mono tracking-widest uppercase min-w-[44px] min-h-[44px] inline-flex items-center justify-center"
             >
               [esc]
             </button>

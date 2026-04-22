@@ -131,7 +131,7 @@ export function DataFreshness({
 
           {validationResult && validationResult !== "pass" && (
             <div
-              className={`px-2 py-0.5 rounded text-[10px] font-mono ${
+              className={`px-2 py-0.5 rounded text-xs font-mono ${
                 validationResult === "fail"
                   ? "bg-red-900/30 text-red-400 border border-red-800/50"
                   : "bg-yellow-900/30 text-yellow-400 border border-yellow-800/50"
@@ -176,7 +176,7 @@ function FreshnessBadge({ status, daysSince }) {
 
   return (
     <span
-      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded border text-[10px] font-mono ${cfg.className}`}
+      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded border text-xs font-mono ${cfg.className}`}
     >
       <Icon size={10} />
       {cfg.text}
@@ -241,7 +241,7 @@ export function DataPipelineStatus({ registry, dataFiles }) {
     <div className="overflow-x-auto">
       <table className="w-full text-xs">
         <thead>
-          <tr className="border-b border-gray-800 text-gray-500 font-mono uppercase tracking-wider text-[10px]">
+          <tr className="border-b border-gray-800 text-gray-500 font-mono uppercase tracking-wider text-xs">
             <th className="py-2 px-3 text-left">Dataset</th>
             <th className="py-2 px-3 text-left">Source</th>
             <th className="py-2 px-3 text-center">Type</th>
@@ -262,7 +262,7 @@ export function DataPipelineStatus({ registry, dataFiles }) {
               </td>
               <td className="py-2 px-3 text-center">
                 <span
-                  className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${
+                  className={`px-1.5 py-0.5 rounded text-xs font-mono ${
                     d.sourceType === "api"
                       ? "bg-blue-900/30 text-blue-400"
                       : d.sourceType === "csv_feed"
@@ -280,7 +280,7 @@ export function DataPipelineStatus({ registry, dataFiles }) {
               </td>
               <td className="py-2 px-3 text-center">
                 <span
-                  className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${
+                  className={`px-1.5 py-0.5 rounded text-xs font-mono ${
                     d.migration === "automated"
                       ? "bg-emerald-900/30 text-emerald-400"
                       : d.migration === "planned"

@@ -330,7 +330,7 @@ function ShareModal({ slide, theme, onClose }) {
           </button>
         </div>
         <div className="p-4">
-          <img src={imgSrc} alt="Share card" className="w-full aspect-square border border-gray-800/40 mb-4" />
+          <img src={imgSrc} alt="Share card" loading="lazy" decoding="async" className="w-full aspect-square border border-gray-800/40 mb-4" />
           {saveHint && (
             <div className="text-center text-[12px] text-amber-400 font-mono uppercase tracking-wider mb-3 animate-pulse">
               Long-press the image above to save to your camera roll

@@ -204,6 +204,15 @@ export default function MoneyMap({
   const [query, setQuery] = useState(() => urlInit.q || "");
   const [selection, setSelection] = useState(null);   // { kind, id } | null
 
+  /* Body scroll-lock while the drawer is open so mobile users don't get
+     the background scrolling behind the overlay. No-op on desktop. */
+  useEffect(() => {
+    if (!selection) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, [selection]);
+
   /* Sync state → URL on any change. Uses replaceState so we don't
      pollute the browser's Back/Forward stack while a user tweaks
      filters — they can still press Back to leave the Money Map. */
@@ -2493,6 +2502,31 @@ function MoneyMapStyles() {
         /* Mobile rails visible, slotted between canvas and rankings */
         .mm-mobile-rails { display: block; border-top: 1px solid var(--mm-border); }
         .mm-canvas-actions { top: 8px; right: 8px; }
+      }
+
+      /* Sub-480px tightening: 44px tap targets on chips, smaller canvas,
+         legend wraps, repeat-offender row stacks, drawer close enlarged. */
+      @media (max-width: 480px) {
+        .mm-chip, .mm-filters button, .mm-canvas-action, .mm-canvas-empty-btn {
+          min-height: 44px;
+          padding: 10px 14px;
+          font-size: 14px;
+        }
+        .mm-cy { height: 360px; }
+        .mm-canvas-wrap { min-height: 360px; }
+        .mm-legend-row { flex-wrap: wrap; gap: 6px; }
+        .mm-legend-line { font-size: 12px; }
+        .mm-ro-row {
+          grid-template-columns: 28px 1fr auto;
+          row-gap: 4px;
+        }
+        .mm-ro-bits {
+          grid-column: 2 / -1;
+          font-size: 12px;
+          justify-content: flex-start;
+        }
+        .mm-d-close { min-width: 44px; min-height: 44px; }
+        .mm-drawer { width: min(92vw, 420px); }
       }
     `}</style>
   );
