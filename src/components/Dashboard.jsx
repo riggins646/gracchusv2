@@ -73,9 +73,27 @@ import projectWasteData from "../data/project-waste.json";
 import projectSourceQuality from "../data/project-source-quality.json";
 import moneyMapData from "../data/money-map.json";
 import recentAdditionsData from "../data/recent-additions.json";
-import MoneyMap from "./MoneyMap";
+import dynamic from "next/dynamic";
+// Lazy-loaded to keep initial TTI snappy on mobile 4G — MoneyMap pulls
+// d3-* modules and the heavy money-map canvas. Wrapped is only opened
+// from Share buttons, so it pays for itself to defer.
+const MoneyMap = dynamic(() => import("./MoneyMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[480px] grid place-items-center text-sm text-gray-400">
+      Loading Money Map…
+    </div>
+  ),
+});
 import { encodeShareId, buildContextLine, shareFmtAmt, renderCardToCanvas, renderTrendCard, renderChartShareCard, renderCancelledProjectCard, renderSewageFinesCard } from "../lib/share-utils";
-import Wrapped from "./Wrapped";
+const Wrapped = dynamic(() => import("./Wrapped"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[240px] grid place-items-center text-sm text-gray-400">
+      Loading…
+    </div>
+  ),
+});
 import { sortRows, searchRows, processTableData, fmtMillions, fmtCompact, fmtCurrency, fmtPct, getUniqueValues, SORT_PRESETS } from "../lib/table-utils";
 
 const projects = projectsData;
