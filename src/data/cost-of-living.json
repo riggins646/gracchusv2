@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Cost of Living",
-    "lastUpdated": "2026-04-21",
+    "lastUpdated": "2026-04-22",
     "description": "UK cost of living indicators: inflation, wages, housing, energy, food and transport."
   },
   "headline": {
@@ -855,7 +855,7 @@
     "currentPrice": {
       "petrolPence": 157.6,
       "dieselPence": 191.2,
-      "lastUpdated": "2026-04-21",
+      "lastUpdated": "2026-04-22",
       "sourceName": "DESNZ Weekly Road Fuel Prices",
       "sourceUrl": "https://www.gov.uk/government/statistics/weekly-road-fuel-prices",
       "sourceConfidence": "high",
@@ -1083,6 +1083,11 @@
           "m": "21 Apr 2026",
           "v": 158.0,
           "freq": "daily"
+        },
+        {
+          "m": "22 Apr 2026",
+          "v": 157.6,
+          "freq": "daily"
         }
       ]
     },
@@ -1306,6 +1311,11 @@
         {
           "m": "21 Apr 2026",
           "v": 192.1,
+          "freq": "daily"
+        },
+        {
+          "m": "22 Apr 2026",
+          "v": 191.2,
           "freq": "daily"
         }
       ]
