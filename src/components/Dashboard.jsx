@@ -4795,7 +4795,9 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
           </div>
         )}
 
-        {/* — BRIEFING — */}
+        {/* — BRIEFING —
+            Audit rec #94: max-w-prose (65ch) so briefing lines
+            don't stretch across the full drawer width. */}
         <div className="px-6 py-4 border-t border-gray-800/40">
           <div className={
             "text-[9px] uppercase tracking-[0.2em] " +
@@ -4803,7 +4805,7 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
           }>
             Briefing
           </div>
-          <p className="text-gray-400 text-base font-mono leading-relaxed">
+          <p className="text-gray-400 text-base font-mono leading-relaxed max-w-prose">
             {p.description}
           </p>
         </div>
@@ -7821,7 +7823,10 @@ export default function App() {
                 aria-label="Open search"
               >
                 <Search size={12} />
-                <span className="hidden sm:inline">Search</span>
+                {/* Audit rec #94: 'Search' label on mobile
+                    (viewers don't know ⌘K), glyph on desktop. */}
+                <span className="md:hidden">Search</span>
+                <span className="hidden md:inline">Search</span>
                 <span className={
                   "hidden md:inline-flex items-center gap-0.5 ml-1 " +
                   "text-[9.5px] font-mono tracking-[0.08em] " +
@@ -8203,6 +8208,43 @@ export default function App() {
                   return out;
                 })()}
               </div>
+            </div>
+
+            {/* ========= TRUST STRIP — audit rec #94 =========
+                Thin institutional identifier between the coverage
+                kicker and Story of the Week. Says what we are in six
+                dot-separated cells. About + Methodology open their
+                existing internal views via setView; the app isn't
+                route-based for those, so we don't use &lt;Link&gt;. */}
+            <div className={
+              "flex flex-wrap items-center justify-center " +
+              "gap-x-6 gap-y-2 text-xs text-gray-400 " +
+              "uppercase tracking-wider mb-8 px-2"
+            }>
+              <span>Independent</span>
+              <span aria-hidden="true">·</span>
+              <span>Reader-funded</span>
+              <span aria-hidden="true">·</span>
+              <span>No ads</span>
+              <span aria-hidden="true">·</span>
+              <a
+                href="/about"
+                className="underline decoration-dotted hover:text-amber-400"
+              >
+                About &rarr;
+              </a>
+              <span aria-hidden="true">·</span>
+              <a
+                href="#methodology"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setView("methodology");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="underline decoration-dotted hover:text-amber-400"
+              >
+                Methodology &rarr;
+              </a>
             </div>
 
             {/* ========= STORY OF THE WEEK — data-picked =========
@@ -29748,12 +29790,27 @@ export default function App() {
                   </h1>
                   <p className={
                     "text-gray-500 text-base " +
-                    "sm:text-lg max-w-lg mb-8"
+                    "sm:text-lg max-w-lg mb-6"
                   }>
                     Enter your birth year to see
                     how UK government debt, housing,
                     energy, and spending have shifted
                     across your lifetime.
+                  </p>
+
+                  {/* Institutional value-prop — audit rec #94.
+                      Sits above the Birthyear interactive so first-
+                      time visitors grasp the product in &lt;5s. */}
+                  <p className={
+                    "text-base sm:text-lg " +
+                    "max-w-[60ch] text-gray-300 " +
+                    "leading-relaxed mb-8"
+                  }>
+                    Gracchus tracks every major UK
+                    government project &mdash; what was
+                    promised, what was spent, who got the
+                    money. Independent. Citation-ready.
+                    Free.
                   </p>
 
                   {/* Birth year input */}
@@ -30111,7 +30168,10 @@ export default function App() {
           const _projectCount = (projectsData || []).length;
 
           return (
-            <div className="space-y-8 max-w-[820px]">
+            // Audit rec #94 — max-w-prose (65ch) for long-form
+            // reading rhythm. Previously max-w-[820px] which sat
+            // a little wider than FT/Bloomberg editorial width.
+            <div className="space-y-8 max-w-prose mx-auto">
               <PageHeader
                 eyebrow="About &middot; Methodology"
                 title="How we source, grade, and reason about the data"
@@ -30475,6 +30535,30 @@ export default function App() {
                 }
               >
                 Methodology
+              </a>
+              {/* Audit rec #94 — corrections + contact mailtos.
+                  Placeholder addresses; Tim will swap for real. */}
+              <a
+                href="mailto:corrections@gracchus.ai"
+                className={
+                  "text-gray-500 text-[13px] " +
+                  "hover:text-gray-300 transition-colors " +
+                  "underline underline-offset-4 " +
+                  "decoration-gray-800 hover:decoration-gray-600"
+                }
+              >
+                Corrections
+              </a>
+              <a
+                href="mailto:hello@gracchus.ai"
+                className={
+                  "text-gray-500 text-[13px] " +
+                  "hover:text-gray-300 transition-colors " +
+                  "underline underline-offset-4 " +
+                  "decoration-gray-800 hover:decoration-gray-600"
+                }
+              >
+                Contact
               </a>
             </div>
             <div className={

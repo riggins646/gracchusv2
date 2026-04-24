@@ -7,7 +7,9 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-gray-300">
-      <div className="max-w-xl mx-auto px-6 py-24">
+      {/* Audit rec #94 — max-w-prose (65ch) for consistent
+          editorial reading width across Gracchus. */}
+      <div className="max-w-prose mx-auto px-6 py-24">
         {/* Logo / title */}
         <a
           href="/"
