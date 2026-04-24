@@ -24,6 +24,8 @@ import {
 let _sessionToken = null;
 
 import CiteChip from "./CiteChip";
+import Toast from "./Toast";
+import { ToastProvider, useToast } from "../lib/useToast";
 import useDrawerFocus from "../lib/useDrawerFocus";
 import projectsData from "../data/projects.json";
 import civilServiceData from "../data/civil-service.json";
@@ -6511,7 +6513,32 @@ function archivedLabel(v) {
 /* useDrawerFocus extracted to src/lib/useDrawerFocus.js so Money Map's
    drawer can share the same focus-trap behaviour. Imported at top. */
 
+// ToastHost — renders the single global Toast node, reading
+// context from ToastProvider. Lives inside App so it's within the
+// provider tree. Audit rec #95.
+function ToastHost() {
+  const { toast, dismiss } = useToast();
+  return (
+    <Toast
+      message={toast.message}
+      visible={toast.visible}
+      onDismiss={dismiss}
+    />
+  );
+}
+
+// Outer App — wraps AppInner in ToastProvider so the citation-copy
+// toast (and future share-link toast) have a single global host.
 export default function App() {
+  return (
+    <ToastProvider>
+      <AppInner />
+      <ToastHost />
+    </ToastProvider>
+  );
+}
+
+function AppInner() {
   // Initial render must produce the SAME DOM on server and client. The
   // server has no `window`, so it can only render "overview" — we must
   // do the same on the first client render too, otherwise direct

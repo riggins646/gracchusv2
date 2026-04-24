@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useToast } from "../lib/useToast";
 
 /**
  * CiteChip — tiny hover-revealed citation copy affordance.
@@ -27,12 +28,26 @@ import { useState } from "react";
  */
 export default function CiteChip({ citation, label = "copy citation" }) {
   const [copied, setCopied] = useState(false);
+  // Audit rec #95 — wire copy through the global toast so mobile
+  // users get an aria-live confirmation + a 10ms haptic. Hook is
+  // safe to call when no provider is mounted (useToast returns a
+  // no-op show()).
+  const { show } = useToast();
   if (!citation) return null;
   const onCopy = (e) => {
     e.stopPropagation();
     e.preventDefault();
     try {
-      navigator.clipboard?.writeText(citation);
+      const writer = navigator.clipboard?.writeText(citation);
+      // writeText returns a Promise — show the toast on resolve so
+      // the confirmation doesn't fire if the clipboard API is
+      // blocked (e.g. insecure origin). Fall back to synchronous
+      // path for older browsers that may not return a thenable.
+      if (writer && typeof writer.then === "function") {
+        writer.then(() => show("Citation copied")).catch(() => {});
+      } else {
+        show("Citation copied");
+      }
       setCopied(true);
       setTimeout(() => setCopied(false), 1400);
     } catch {
