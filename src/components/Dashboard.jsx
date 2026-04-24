@@ -26,6 +26,7 @@ let _sessionToken = null;
 import CiteChip from "./CiteChip";
 import Toast from "./Toast";
 import ShareChips from "./ShareChips";
+import StickySubscribe from "./StickySubscribe";
 import { ToastProvider, useToast } from "../lib/useToast";
 import useDrawerFocus from "../lib/useDrawerFocus";
 import projectsData from "../data/projects.json";
@@ -5253,6 +5254,12 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
           </div>
         </div>
       </div>
+      {/* Audit rec #97: sticky subscribe CTA mounted inside the
+          ProjectDetail drawer so it only shows on dossier views and
+          disappears when the drawer closes. Internally gated by
+          60s-dwell OR 50% scroll, and localStorage-remembered
+          dismissal. */}
+      <StickySubscribe />
     </div>
   );
 }
