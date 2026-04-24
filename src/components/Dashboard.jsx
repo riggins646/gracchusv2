@@ -27,6 +27,7 @@ import CiteChip from "./CiteChip";
 import Toast from "./Toast";
 import ShareChips from "./ShareChips";
 import StickySubscribe from "./StickySubscribe";
+import ConnectedIndividuals from "./ConnectedIndividuals";
 import { ToastProvider, useToast } from "../lib/useToast";
 import useDrawerFocus from "../lib/useDrawerFocus";
 import projectsData from "../data/projects.json";
@@ -5269,6 +5270,12 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
           </div>
         )}
 
+        {/* Connected individuals (task #102) — renders when any connection's
+            counterparty.id matches this project's id. */}
+        <div className="px-6">
+          <ConnectedIndividuals projectId={p.id} />
+        </div>
+
         {/* — FOOTER RULE — */}
         <div className="px-6 py-4 border-t border-gray-800/40">
           <div className={
@@ -5730,6 +5737,16 @@ function SupplierDetail({ supplierId, supplierName, onClose, onSelectProject, on
           </div>
         )}
 
+        {/* Connected individuals (task #102) — matches on supplierId,
+            plus a name-based fallback for adjacent firms (e.g. Infosys
+            if opened via an un-canonicalised node). */}
+        <div className="px-6">
+          <ConnectedIndividuals
+            supplierId={supplierId}
+            adjacentFirmName={node?.label || supplierName}
+          />
+        </div>
+
         {/* — MONEY MAP CTA — */}
         {node && onNavigate && (
           <div className="px-6 py-4 border-b border-gray-800/40">
@@ -6144,6 +6161,11 @@ function BuyerDetail({ buyerId, buyerName, onClose, onSelectSupplier, onSelectPr
             </div>
           </div>
         )}
+
+        {/* Connected individuals (task #102) — buyer-scoped. */}
+        <div className="px-6">
+          <ConnectedIndividuals buyerId={buyerId} />
+        </div>
 
         {/* — MONEY MAP CTA — */}
         {node && onNavigate && (

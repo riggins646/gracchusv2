@@ -1,0 +1,255 @@
+{
+  "updatedAt": "2026-04-24",
+  "editorialNotes": "Every connection must have >=1 source with tier=\"primary\" (gov.uk/parliament.uk/court record). Connections with liveProceedings=true render a cautionary banner and must quote only official findings in the public record. Person IDs are kebab-case (surname-given). Counterparty IDs match the canonical IDs used elsewhere in Gracchus; adjacent_firm entries carry no ID.",
+  "connectionTypes": {
+    "post_office_appointment": "Ex-minister or senior civil servant joined a firm after leaving office",
+    "dual_role": "Held private-sector role while still in public office",
+    "paid_consultancy_during_office": "Paid by a firm while serving as MP, minister or civil servant",
+    "family_employment": "Close family member employed by the firm",
+    "family_ownership": "Close family member holds ownership/substantial shareholding in the firm",
+    "spousal_shareholding": "Spouse holds a declared shareholding in the firm",
+    "donation_then_contract": "Donor (or donor's firm) received a government contract",
+    "vip_lane_referral": "Individual referred a firm into a high-priority procurement lane",
+    "shareholding": "Politician holds declared shares in the firm",
+    "appg_paid_chair": "MP chairs a paid All-Party Parliamentary Group",
+    "other": "Connection of interest not fitting the above categories"
+  },
+  "statuses": {
+    "closed_with_finding": "Regulator or court found against the individual/firm",
+    "closed_approved": "Regulator reviewed and approved (e.g. ACOBA)",
+    "live_proceedings": "Legal, regulatory or inquiry proceedings are ongoing",
+    "public_record": "Documented in official records (Register of Interests, ACOBA log) with no regulatory review",
+    "reported": "Surfaced in investigative journalism; no official process"
+  },
+  "people": [
+    {
+      "id": "paterson-owen",
+      "name": "Owen Paterson",
+      "headline": "Former Secretary of State for Environment, Food and Rural Affairs (2012-2014) and for Northern Ireland (2010-2012); Conservative MP for North Shropshire until his resignation on 5 November 2021.",
+      "rolesHeld": [
+        { "title": "Secretary of State for Northern Ireland", "department": "Northern Ireland Office", "start": "2010-05", "end": "2012-09" },
+        { "title": "Secretary of State for Environment, Food and Rural Affairs", "department": "Defra", "start": "2012-09", "end": "2014-07" },
+        { "title": "MP for North Shropshire", "department": "House of Commons", "start": "1997-05", "end": "2021-11" },
+        { "title": "Paid consultant to Randox Laboratories", "department": "Randox Laboratories Ltd (private)", "start": "2015-08", "end": "2021-11" }
+      ],
+      "externalLinks": [
+        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Owen_Paterson" },
+        { "label": "Parliamentary Commissioner for Standards case record", "url": "https://publications.parliament.uk/pa/cm5802/cmselect/cmstandards/797/79702.htm" }
+      ]
+    },
+    {
+      "id": "mone-michelle",
+      "name": "Baroness Michelle Mone",
+      "headline": "Conservative life peer (Baroness Mone of Mayfair) since 2015; took leave of absence from the House of Lords in December 2022 pending investigations connected to PPE Medpro.",
+      "rolesHeld": [
+        { "title": "Member of the House of Lords (Conservative)", "department": "House of Lords", "start": "2015-08", "end": null },
+        { "title": "Leave of absence from the House of Lords", "department": "House of Lords", "start": "2022-12", "end": null }
+      ],
+      "externalLinks": [
+        { "label": "Register of Lords' Interests", "url": "https://www.parliament.uk/mps-lords-and-offices/standards-and-financial-interests/house-of-lords-commissioner-for-standards/register-of-lords-interests/" },
+        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Michelle_Mone" }
+      ]
+    },
+    {
+      "id": "sunak-rishi",
+      "name": "Rishi Sunak",
+      "headline": "Chancellor of the Exchequer February 2020-July 2022; Prime Minister October 2022-July 2024; Conservative MP for Richmond and Northallerton.",
+      "rolesHeld": [
+        { "title": "Chancellor of the Exchequer", "department": "HM Treasury", "start": "2020-02", "end": "2022-07" },
+        { "title": "Prime Minister", "department": "10 Downing Street", "start": "2022-10", "end": "2024-07" },
+        { "title": "MP for Richmond (Yorks) / Richmond and Northallerton", "department": "House of Commons", "start": "2015-05", "end": null }
+      ],
+      "externalLinks": [
+        { "label": "Register of Members' Financial Interests", "url": "https://publications.parliament.uk/pa/cm/cmregmem/" },
+        { "label": "Wikipedia (Akshata Murty)", "url": "https://en.wikipedia.org/wiki/Akshata_Murty" }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "paterson-randox-consultancy",
+      "personId": "paterson-owen",
+      "connectionType": "paid_consultancy_during_office",
+      "status": "closed_with_finding",
+      "liveProceedings": false,
+      "summary": "Owen Paterson was paid approximately £100,000 a year as a consultant to Randox Laboratories while sitting as an MP, and was found by the Parliamentary Commissioner for Standards to have committed an 'egregious' breach of paid-advocacy rules by lobbying for the company inside government.",
+      "detail": "Paterson took up a paid consultancy with Randox Laboratories in August 2015, reported at c. £100,000 per year, alongside a separate paid role with Lynn's Country Foods. During his period of engagement Randox received more than £500m of UK government COVID testing contracts, including a £133m contract in March 2020 for testing kits and lab processing and a £346m extension awarded later that year.\n\nIn October 2021 the Parliamentary Commissioner for Standards and the Commons Committee on Standards concluded that Paterson had 'repeatedly used his privileged position to benefit two companies for whom he was a paid consultant' and had committed 'an egregious case of paid advocacy'. The Committee recommended a 30-day suspension. The Government's attempt to replace the standards process with a new committee (the Leadsom amendment) passed a whipped Commons vote on 3 November 2021 and was abandoned within 24 hours after cross-party opposition. Paterson resigned as MP for North Shropshire on 5 November 2021.\n\nDHSC later released WhatsApp and email exchanges between Paterson and the then-Health Secretary Matt Hancock regarding Randox contracts, disclosed under FOI and reported by Byline Times in February 2022. No criminal proceedings followed; the matter is treated as closed at the regulatory level on the Commissioner's finding.",
+      "counterparty": {
+        "kind": "supplier",
+        "id": "supplier-randox-laboratories",
+        "name": "Randox Laboratories Limited"
+      },
+      "timeframe": {
+        "start": "2015-08",
+        "end": "2021-11",
+        "periodLabel": "2015-2021 (6 years)"
+      },
+      "financial": {
+        "personalIncomeGBP": 500000,
+        "personalIncomeDescription": "~£100,000/yr x 6 yrs (~£500k)",
+        "relatedContractsGBP": 500000000,
+        "relatedContractsDescription": "£500m+ in Randox COVID testing contracts"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Parliamentary Commissioner for Standards / Committee on Standards",
+          "date": "2021-10-26",
+          "quotedText": "No previous case of paid advocacy has seen so many breaches or such a clear pattern of behaviour in failing to separate private and public interests. Mr Paterson's actions were an egregious case of paid advocacy.",
+          "url": "https://publications.parliament.uk/pa/cm5802/cmselect/cmstandards/797/79702.htm",
+          "outcome": "Committee on Standards recommended a 30-day suspension; Paterson resigned as MP on 5 November 2021."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Committee on Standards — Third Report: Mr Owen Paterson",
+          "publisher": "parliament.uk",
+          "url": "https://publications.parliament.uk/pa/cm5802/cmselect/cmstandards/797/79702.htm",
+          "date": "2021-10-26"
+        },
+        {
+          "tier": "news",
+          "title": "Government Releases Private Messages Between Owen Paterson and Matt Hancock Over Randox Contracts",
+          "publisher": "Byline Times",
+          "url": "https://bylinetimes.com/2022/02/03/government-releases-private-messages-between-owen-paterson-and-matt-hancock-over-randox-contracts/",
+          "date": "2022-02-03"
+        },
+        {
+          "tier": "analysis",
+          "title": "Owen Paterson Is Not an Anomaly",
+          "publisher": "Tribune",
+          "url": "https://tribunemag.co.uk/2021/11/owen-paterson-corruption-scandal-corporate-lobbying-randox-second-jobs-parliament-boris-johnson",
+          "date": "2021-11-05"
+        },
+        {
+          "tier": "primary",
+          "title": "Investigation into the government's contracts with Randox Laboratories Ltd",
+          "publisher": "National Audit Office",
+          "url": "https://www.nao.org.uk/reports/government-procurement-during-the-covid-19-pandemic/",
+          "date": "2022-03-10"
+        }
+      ]
+    },
+    {
+      "id": "mone-ppe-medpro-referral",
+      "personId": "mone-michelle",
+      "connectionType": "vip_lane_referral",
+      "status": "live_proceedings",
+      "liveProceedings": true,
+      "summary": "Baroness Mone referred PPE Medpro into the government's 'VIP / high-priority' procurement lane, after which the firm won c. £203m of DHSC PPE contracts; the High Court has ordered PPE Medpro to repay c. £122m, and a National Crime Agency criminal investigation into her and her husband Doug Barrowman remains active.",
+      "detail": "PPE Medpro Ltd was incorporated in May 2020 and awarded two DHSC contracts totalling a reported £203m for face masks and sterile surgical gowns, entered through the 'VIP / high-priority lane' after a referral by Baroness Mone. For more than two years Mone and Doug Barrowman publicly denied any involvement with the firm; they later confirmed, in a BBC interview broadcast in December 2023, that Barrowman was the ultimate beneficial owner. Reporting indicates Barrowman received more than £60m in profits, with £29m transferred to a trust benefiting Mone and her children.\n\nIn 2024 the High Court ruled in favour of DHSC in its civil claim against PPE Medpro, ordering the firm to repay c. £122m for surgical gowns later deemed unsuitable for use. That judgment is a closed finding in the public record.\n\nSeparately, the National Crime Agency opened a criminal investigation in May 2021 and executed search warrants at Mone and Barrowman's homes and at PPE Medpro offices in April 2022; as of early 2026 that investigation is ongoing. The UK Covid-19 Inquiry declined a late bid by Mone to participate as a core participant in Module 5 (procurement). Mone took leave of absence from the House of Lords in December 2022. Gracchus reports only findings already entered into the public record.",
+      "counterparty": {
+        "kind": "supplier",
+        "id": "supplier-ppe-medpro",
+        "name": "PPE Medpro Limited",
+        "note": "Tracked Gracchus supplier inside the PPE cronyism cluster; DHSC is the tracked buyer."
+      },
+      "timeframe": {
+        "start": "2020-05",
+        "end": null,
+        "periodLabel": "May 2020 - ongoing"
+      },
+      "financial": {
+        "personalIncomeGBP": 29000000,
+        "personalIncomeDescription": "£29m reported transferred to a trust benefiting Mone and her children",
+        "relatedContractsGBP": 203000000,
+        "relatedContractsDescription": "£203m DHSC contracts; £122m High Court repayment order"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "High Court of England and Wales (civil)",
+          "date": "2024-11-06",
+          "quotedText": "PPE Medpro is liable to repay the sum of approximately £122m paid under the gowns contract, the gowns having been found not to conform to the contractual specification.",
+          "url": "https://goodlawproject.org/ppe-medpro-must-repay-122m-for-breach-of-contract/",
+          "outcome": "Judgment in favour of DHSC; PPE Medpro ordered to repay c. £122m. Appeal rights reserved."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Investigation into government procurement during the COVID-19 pandemic",
+          "publisher": "National Audit Office",
+          "url": "https://www.nao.org.uk/reports/government-procurement-during-the-covid-19-pandemic/",
+          "date": "2020-11-18"
+        },
+        {
+          "tier": "primary",
+          "title": "PPE Medpro must repay £122m for breach of contract — judgment summary",
+          "publisher": "Good Law Project (reporting High Court judgment)",
+          "url": "https://goodlawproject.org/ppe-medpro-must-repay-122m-for-breach-of-contract/",
+          "date": "2024-11-06"
+        },
+        {
+          "tier": "news",
+          "title": "Baroness Mone: The PPE contract, a VIP line and the lies to the press",
+          "publisher": "City AM",
+          "url": "https://www.cityam.com/baroness-mone-the-ppe-contract-a-vip-line-and-the-lies-to-the-press/",
+          "date": "2023-12-19"
+        },
+        {
+          "tier": "news",
+          "title": "VIP Lane: Michael Gove Referred Firm Owned by Donor and Close Political Ally",
+          "publisher": "Byline Times",
+          "url": "https://bylinetimes.com/2021/11/16/vip-lane-michael-gove-referred-firm-owned-by-donor-and-close-political-ally/",
+          "date": "2021-11-16"
+        }
+      ]
+    },
+    {
+      "id": "sunak-infosys-spousal-shareholding",
+      "personId": "sunak-rishi",
+      "connectionType": "spousal_shareholding",
+      "status": "public_record",
+      "liveProceedings": false,
+      "summary": "Akshata Murty, wife of Rishi Sunak, holds a reported 0.94% stake (c. 39m shares) in Infosys — a UK government IT supplier that has received at least £47m of public contracts since Sunak became Chancellor in February 2020.",
+      "detail": "Infosys was co-founded by N. R. Narayana Murty, father of Akshata Murty. Her shareholding in Infosys has been publicly reported at approximately 39m shares (c. 0.94% of the company, valued at around £610m at time of reporting). Rishi Sunak became Chancellor of the Exchequer in February 2020 and served as Prime Minister from October 2022 to July 2024.\n\nPer reporting by Democracy for Sale, Full Fact and LBC, Infosys has received at least £66m in UK public-sector contracts since 2015, with more than £47m of that awarded after Sunak's appointment as Chancellor. A c.50% year-on-year rise in Infosys's UK public-sector invoices was reported for 2023.\n\nThe Independent Adviser on Ministers' Interests ruled that Sunak did not need to declare his wife's Infosys stake on parliamentary registers, and the Cabinet Office has stated that neither Sunak nor his ministers were involved in Infosys contract-award decisions. No regulator, court or parliamentary committee has made any finding of wrongdoing against Sunak in relation to Infosys. A separate 2022 controversy concerning Akshata Murty's non-domiciled tax status ended with her voluntarily giving up non-dom status in April 2022.\n\nGracchus records this connection as a matter of public fact: the shareholding exists, the contracts exist, the timing overlaps with Sunak's tenure. Gracchus does not assert any causal link between the two.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Infosys Limited",
+        "note": "Tracked in suppliers-summary.json (NHS workforce solution, £1.2bn framework) but not yet present as a canonical supplier node in money-map.json — carried here as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2020-02",
+        "end": "2024-07",
+        "periodLabel": "Feb 2020 - Jul 2024 (Chancellor & PM tenure)"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "Akshata Murty's stake reported at c. £610m market value at time of reporting (0.94% of Infosys); no direct personal income to Sunak disclosed in the Register",
+        "relatedContractsGBP": 47000000,
+        "relatedContractsDescription": "£47m+ UK public contracts awarded to Infosys since Feb 2020 (>=£66m since 2015)"
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Register of Members' Financial Interests",
+          "publisher": "parliament.uk",
+          "url": "https://publications.parliament.uk/pa/cm/cmregmem/",
+          "date": "2024-07-04"
+        },
+        {
+          "tier": "analysis",
+          "title": "Revealed: Sunak wife's family firm in line for millions in new public contracts",
+          "publisher": "Democracy for Sale",
+          "url": "https://democracyforsale.substack.com/p/sunak-family-firm-infosys-public-contracts",
+          "date": "2023-02-15"
+        },
+        {
+          "tier": "news",
+          "title": "Rishi Sunak's wife's firm Infosys received 50% boost in public sector invoices in 2023",
+          "publisher": "LBC",
+          "url": "https://www.lbc.co.uk/news/akshata-murty-infosys-contracts/",
+          "date": "2024-01-11"
+        },
+        {
+          "tier": "analysis",
+          "title": "Company owned by Sunak's in-laws hasn't been given a multi-billion pound NHS contract",
+          "publisher": "Full Fact",
+          "url": "https://fullfact.org/health/35-billion-nhs-sunak-in-laws-infosys/",
+          "date": "2023-04-05"
+        }
+      ]
+    }
+  ]
+}
