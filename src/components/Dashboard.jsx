@@ -7815,10 +7815,10 @@ function AppInner() {
         "bg-black sticky top-0 z-40"
       }>
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
-          {/* Top bar: brand + meta — stacks to two rows on mobile */}
+          {/* Top bar: brand left, search right — single row at every breakpoint */}
           <div className={
-            "flex flex-col md:flex-row md:items-center md:justify-between " +
-            "py-3 md:py-3 gap-2 md:gap-0"
+            "flex flex-row items-center justify-between " +
+            "py-3 gap-3"
           }>
             <div className="flex items-center gap-2.5">
               <img
