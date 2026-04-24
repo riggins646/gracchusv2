@@ -21,6 +21,16 @@ const nextConfig = {
 
   // ── Security Headers ──────────────────────────────────────────────
   async headers() {
+    // Next.js dev mode (Fast Refresh, React Refresh runtime, HMR) requires
+    // 'unsafe-eval' and a websocket connect-src. Production stays locked down.
+    const isDev = process.env.NODE_ENV !== "production";
+    const cspScriptSrc = isDev
+      ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
+      : "script-src 'self' 'unsafe-inline'";
+    const cspConnectSrc = isDev
+      ? "connect-src 'self' ws: wss:"
+      : "connect-src 'self'";
+
     return [
       {
         // Apply to all routes
@@ -51,16 +61,17 @@ const nextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=(), interest-cohort=()",
           },
-          // Content Security Policy — tight policy for a data dashboard
+          // Content Security Policy — tight policy for a data dashboard.
+          // In dev we relax script-src/connect-src so Fast Refresh + HMR work.
           {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline'",
+              cspScriptSrc,
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob:",
               "font-src 'self'",
-              "connect-src 'self'",
+              cspConnectSrc,
               "frame-ancestors 'none'",
               "base-uri 'self'",
               "form-action 'self'",

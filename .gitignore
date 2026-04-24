@@ -4,3 +4,10 @@ node_modules/
 .env
 .env.local
 .vercel-deploy-hook
+
+# Raw OCDS scrape cache — regenerable via scrape-cf-fts.py; 100+MB per month.
+# Keep the scraper and matcher in source control, not the cached JSONL.
+scripts/cache/cf-fts-releases/
+scripts/cache/cf-fts-state/
+# Built lookups are re-derivable; don't version.
+scripts/cache/project-buyer-index.json

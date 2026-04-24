@@ -12,14 +12,22 @@
  */
 
 // CRON_SECRET is the signing key for session tokens.
-// In development only, falls back to a random string.
+//
+// In development, the fallback MUST be deterministic. Next.js compiles
+// each API route into its own server module — /api/token runs on the
+// edge runtime and /api/explain + /api/fix run on the node runtime,
+// which are two distinct isolates. A random-per-module fallback meant
+// the token route and the verify route each generated a *different*
+// secret on startup, so every local AI request 401'd "Unauthorized".
+// A fixed dev string is safe because it's never used in production
+// (we log + refuse to use it if NODE_ENV === "production").
 // NEVER use ANTHROPIC_API_KEY as a signing secret — different rotation schedules.
 const SECRET = (typeof process !== "undefined" ? process.env.CRON_SECRET : null)
   || (() => {
     if (typeof process !== "undefined" && process.env.NODE_ENV === "production") {
       console.error("[session-token] CRITICAL: CRON_SECRET not set in production");
     }
-    return "dev-only-" + Math.random().toString(36).slice(2);
+    return "dev-only-shared-secret-do-not-use-in-production";
   })();
 
 const TOKEN_TTL = 10 * 60 * 1000; // 10 minutes
