@@ -29,9 +29,10 @@ import { zoom as d3zoom, zoomIdentity } from "d3-zoom";
 import { drag as d3drag } from "d3-drag";
 import { color as d3color } from "d3-color";
 import "d3-transition"; // side-effect — attaches .transition() to selections
-import { X, ArrowLeft, ExternalLink, Download, ChevronDown, SlidersHorizontal } from "lucide-react";
+import { X, ArrowLeft, ExternalLink, Download, ChevronDown, SlidersHorizontal, AlertTriangle, Users } from "lucide-react";
 import CiteChip from "./CiteChip";
 import useDrawerFocus from "../lib/useDrawerFocus";
+import individualConnectionsData from "../data/individual-connections.json";
 
 /* ---------- constants ---------- */
 const TYPE_COLOUR = {
@@ -292,7 +293,7 @@ function MoneyMapFlowsTab({ flows, onSelectSupplier }) {
   );
 }
 
-function MoneyMapDepartmentsTab({ departments, onSelectBuyer, onSelectSupplier }) {
+function MoneyMapDepartmentsTab({ departments, onSelectBuyer, onSelectSupplier, connectionsByBuyer }) {
   if (!departments || departments.length === 0) {
     return (
       <div className="mm-explorer-empty">
@@ -307,7 +308,9 @@ function MoneyMapDepartmentsTab({ departments, onSelectBuyer, onSelectSupplier }
       id="mm-panel-departments"
       aria-labelledby="mm-tab-departments"
     >
-      {departments.map((d) => (
+      {departments.map((d) => {
+        const connCount = (connectionsByBuyer && connectionsByBuyer.get(d.id)) || 0;
+        return (
         <div
           key={d.id}
           className="mm-dept-card"
@@ -330,6 +333,12 @@ function MoneyMapDepartmentsTab({ departments, onSelectBuyer, onSelectSupplier }
             {d.supplierCount} supplier{d.supplierCount === 1 ? "" : "s"}
             {d.projectCount > 0 && ` across ${d.projectCount} project${d.projectCount === 1 ? "" : "s"}`}
           </div>
+          {connCount > 0 && (
+            <div className="mm-story-badge" aria-label={`${connCount} connection stor${connCount === 1 ? "y" : "ies"}`}>
+              <Users size={11} aria-hidden="true" />
+              <span>{connCount} stor{connCount === 1 ? "y" : "ies"}</span>
+            </div>
+          )}
           {d.topSuppliers && d.topSuppliers.length > 0 && (
             <div className="mm-dept-chips">
               {d.topSuppliers.slice(0, 3).map((s) => (
@@ -355,12 +364,13 @@ function MoneyMapDepartmentsTab({ departments, onSelectBuyer, onSelectSupplier }
             </div>
           )}
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
 
-function MoneyMapSuppliersTab({ suppliers, onSelectSupplier, onSelectBuyer }) {
+function MoneyMapSuppliersTab({ suppliers, onSelectSupplier, onSelectBuyer, connectionsBySupplier }) {
   if (!suppliers || suppliers.length === 0) {
     return (
       <div className="mm-explorer-empty">
@@ -378,6 +388,7 @@ function MoneyMapSuppliersTab({ suppliers, onSelectSupplier, onSelectBuyer }) {
       {suppliers.map((s) => {
         const concentration = s.topBuyerShare || 0;
         const isConcentrated = concentration >= 0.7;
+        const connCount = (connectionsBySupplier && connectionsBySupplier.get(s.id)) || 0;
         return (
           <div
             key={s.id}
@@ -401,6 +412,12 @@ function MoneyMapSuppliersTab({ suppliers, onSelectSupplier, onSelectBuyer }) {
               {s.projectCount > 0 && `${s.projectCount} project${s.projectCount === 1 ? "" : "s"} · `}
               {s.buyerCount} department{s.buyerCount === 1 ? "" : "s"}
             </div>
+            {connCount > 0 && (
+              <div className="mm-story-badge" aria-label={`${connCount} connection stor${connCount === 1 ? "y" : "ies"}`}>
+                <Users size={11} aria-hidden="true" />
+                <span>{connCount} stor{connCount === 1 ? "y" : "ies"}</span>
+              </div>
+            )}
             {s.topBuyers && s.topBuyers.length > 0 && (
               <div className="mm-supp-chips">
                 {s.topBuyers.slice(0, 3).map((b) => (
@@ -433,6 +450,187 @@ function MoneyMapSuppliersTab({ suppliers, onSelectSupplier, onSelectBuyer }) {
           </div>
         );
       })}
+    </div>
+  );
+}
+
+/* =========================================================================
+ *  MOBILE STORIES TAB (task #104)
+ * =========================================================================
+ *  Person-connection stories were buried inside individual supplier/buyer
+ *  drawers (see ConnectedIndividuals). On mobile a reader rarely digs
+ *  that deep on the first session — so Stories becomes the DEFAULT front-
+ *  and-centre surface: large editorial cards, one per viewport, with the
+ *  headline (person), summary, the regulator's own words as a blockquote,
+ *  the £ figures, and a tappable pill that deep-links to the counterparty
+ *  drawer. Source chips inherit the ConnectedIndividuals colour system so
+ *  a reader who jumps between drawer + tab feels continuity.
+ *
+ *  Deliberate choices:
+ *   - Vertical scroll (no carousel) — swipe conflicts are a mess on narrow
+ *     viewports. Each card roughly fills the viewport.
+ *   - Card chassis is a <button> so the whole surface is tappable; internal
+ *     chip/link buttons use stopPropagation to avoid bubbling.
+ *   - Regulator quote uses <blockquote> + <cite> for correct semantics.
+ *   - Live-proceedings banner renders first in reading order.
+ * ========================================================================= */
+
+const CONN_EYEBROW = {
+  paid_consultancy_during_office: "PAID CONSULTANCY",
+  post_office_appointment: "REVOLVING DOOR",
+  dual_role: "DUAL ROLE",
+  family_employment: "FAMILY EMPLOYMENT",
+  family_ownership: "SPOUSAL INTEREST",
+  spousal_shareholding: "SPOUSAL INTEREST",
+  donation_then_contract: "DONOR \u2192 CONTRACT",
+  vip_lane_referral: "VIP LANE REFERRAL",
+  shareholding: "SHAREHOLDING",
+  appg_paid_chair: "APPG INTEREST",
+  other: "CONNECTION",
+};
+
+function MoneyMapStoriesTab({ connections, peopleById, onOpen }) {
+  if (!connections || connections.length === 0) {
+    return (
+      <div
+        className="mm-explorer-empty"
+        role="tabpanel"
+        id="mm-panel-stories"
+        aria-labelledby="mm-tab-stories"
+      >
+        No connection stories yet.
+      </div>
+    );
+  }
+  return (
+    <div
+      className="mm-story-list"
+      role="tabpanel"
+      id="mm-panel-stories"
+      aria-labelledby="mm-tab-stories"
+    >
+      {connections.map((c) => {
+        const person = peopleById[c.personId];
+        const eyebrowLabel = CONN_EYEBROW[c.connectionType] || "CONNECTION";
+        const period = c.timeframe?.periodLabel || "";
+        const eyebrow = period
+          ? `${eyebrowLabel} \u00B7 ${period}`
+          : eyebrowLabel;
+        const finding = c.regulatoryFindings && c.regulatoryFindings[0];
+        const cpId = c.counterparty?.id || null;
+        const cpName = c.counterparty?.name || "";
+        const hasTarget = !!cpId;
+        const handleCardClick = () => {
+          if (hasTarget) onOpen(cpId);
+        };
+        return (
+          <article key={c.id} className="mm-story-card-wrap">
+            <button
+              type="button"
+              className={"mm-story-card" + (hasTarget ? "" : " mm-story-card-inert")}
+              onClick={handleCardClick}
+              aria-label={person ? `Open details for ${person.name}` : "Open story"}
+            >
+              {c.liveProceedings && (
+                <div className="mm-story-live" role="status">
+                  <AlertTriangle size={13} aria-hidden="true" />
+                  <span>LIVE PROCEEDINGS</span>
+                </div>
+              )}
+              <div className="mm-story-body">
+                <div className="mm-story-eyebrow">{eyebrow}</div>
+                {person?.name && (
+                  <h3 className="mm-story-name">{person.name}</h3>
+                )}
+                {c.summary && (
+                  <p className="mm-story-summary">{c.summary}</p>
+                )}
+                {finding && (
+                  <blockquote className="mm-story-quote">
+                    <p className="mm-story-quote-text">
+                      &ldquo;{finding.quotedText}&rdquo;
+                    </p>
+                    <cite className="mm-story-quote-cite">
+                      &mdash; {finding.body}
+                      {finding.date ? `, ${fmtDate(finding.date)}` : ""}
+                    </cite>
+                  </blockquote>
+                )}
+                {(c.financial?.personalIncomeDescription ||
+                  c.financial?.relatedContractsDescription) && (
+                  <dl className="mm-story-figures">
+                    {c.financial?.personalIncomeDescription && (
+                      <div className="mm-story-fig-row">
+                        <dt>Personal</dt>
+                        <dd>{c.financial.personalIncomeDescription}</dd>
+                      </div>
+                    )}
+                    {c.financial?.relatedContractsDescription && (
+                      <div className="mm-story-fig-row">
+                        <dt>Contracts</dt>
+                        <dd>{c.financial.relatedContractsDescription}</dd>
+                      </div>
+                    )}
+                  </dl>
+                )}
+                {cpName && (
+                  <div className="mm-story-cp-row">
+                    <span
+                      className={"mm-story-cp-pill" + (hasTarget ? "" : " mm-story-cp-pill-inert")}
+                      role={hasTarget ? "button" : undefined}
+                      tabIndex={hasTarget ? 0 : undefined}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (hasTarget) onOpen(cpId);
+                      }}
+                      onKeyDown={(e) => {
+                        if (!hasTarget) return;
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          onOpen(cpId);
+                        }
+                      }}
+                      aria-label={hasTarget ? `Open ${cpName}` : undefined}
+                    >
+                      <span className="mm-story-cp-arrow" aria-hidden="true">&rarr;</span>
+                      <span className="mm-story-cp-name">{cpName}</span>
+                    </span>
+                  </div>
+                )}
+                {c.sources && c.sources.length > 0 && (
+                  <div className="mm-story-sources">
+                    {c.sources.map((s, i) => (
+                      <a
+                        key={i}
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className={
+                          "mm-story-src mm-story-src-" +
+                          (s.tier === "primary"
+                            ? "primary"
+                            : s.tier === "news"
+                            ? "news"
+                            : "analysis")
+                        }
+                        title={s.publisher + (s.date ? ` \u00B7 ${s.date}` : "")}
+                      >
+                        {s.publisher}
+                        <ExternalLink size={9} aria-hidden="true" />
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </button>
+          </article>
+        );
+      })}
+      <div className="mm-story-footer" aria-hidden="true">
+        &mdash;&mdash;&mdash; More stories under active research. &mdash;&mdash;&mdash;
+      </div>
     </div>
   );
 }
@@ -644,7 +842,7 @@ export default function MoneyMap({
      answers the question readers actually ask first ("what's the
      biggest money movement right now?"). Filter sheet is a bottom
      sheet so the tab bar stays uncluttered. */
-  const [mobileTab, setMobileTab] = useState("flows");
+  const [mobileTab, setMobileTab] = useState("stories");
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   /* Body scroll-lock while the drawer is open so mobile users don't get
@@ -844,6 +1042,40 @@ export default function MoneyMap({
     }
     return n;
   }, [tierFilter, minGBP, query, viewMode, lensSubjectId, data.featuredIds]);
+
+  /* ---------- individual-connection lookups (task #104) ----------
+     Bundle the full connection list and its person index once, and
+     derive two {counterpartyId -> count} maps so the Suppliers and
+     Departments mobile tabs can show a "N stories" discovery badge
+     without re-filtering the JSON per row. Adjacent-firm connections
+     (no id) are not counted in either map — they only surface in the
+     Stories tab itself. */
+  const storyConnections = useMemo(() => {
+    return (individualConnectionsData?.connections || []).slice();
+  }, []);
+  const storyPeopleById = useMemo(() => {
+    const m = {};
+    for (const p of (individualConnectionsData?.people || [])) m[p.id] = p;
+    return m;
+  }, []);
+  const connectionsBySupplier = useMemo(() => {
+    const m = new Map();
+    for (const c of storyConnections) {
+      if (c.counterparty?.kind === "supplier" && c.counterparty?.id) {
+        m.set(c.counterparty.id, (m.get(c.counterparty.id) || 0) + 1);
+      }
+    }
+    return m;
+  }, [storyConnections]);
+  const connectionsByBuyer = useMemo(() => {
+    const m = new Map();
+    for (const c of storyConnections) {
+      if (c.counterparty?.kind === "buyer" && c.counterparty?.id) {
+        m.set(c.counterparty.id, (m.get(c.counterparty.id) || 0) + 1);
+      }
+    }
+    return m;
+  }, [storyConnections]);
 
   /* ---------- rotating Story Cards ----------
      Same pattern as Story of the Week on the home page: take the full
@@ -1666,7 +1898,7 @@ export default function MoneyMap({
               role="tablist"
               aria-label="Money Explorer views"
               onKeyDown={(e) => {
-                const order = ["flows", "departments", "suppliers"];
+                const order = ["stories", "flows", "departments", "suppliers"];
                 const idx = order.indexOf(mobileTab);
                 if (e.key === "ArrowRight") {
                   e.preventDefault();
@@ -1683,6 +1915,18 @@ export default function MoneyMap({
                 }
               }}
             >
+              <button
+                type="button"
+                id="mm-tab-stories"
+                role="tab"
+                aria-selected={mobileTab === "stories"}
+                aria-controls="mm-panel-stories"
+                tabIndex={mobileTab === "stories" ? 0 : -1}
+                className={"mm-tab" + (mobileTab === "stories" ? " mm-tab-active" : "")}
+                onClick={() => setMobileTab("stories")}
+              >
+                Stories
+              </button>
               <button
                 type="button"
                 id="mm-tab-flows"
@@ -1721,6 +1965,13 @@ export default function MoneyMap({
               </button>
             </div>
 
+            {mobileTab === "stories" && (
+              <MoneyMapStoriesTab
+                connections={storyConnections}
+                peopleById={storyPeopleById}
+                onOpen={(id) => setSelection({ kind: "node", id })}
+              />
+            )}
             {mobileTab === "flows" && (
               <MoneyMapFlowsTab
                 flows={topFlows}
@@ -1732,6 +1983,7 @@ export default function MoneyMap({
                 departments={topDepartments}
                 onSelectBuyer={(id) => setSelection({ kind: "node", id })}
                 onSelectSupplier={(id) => setSelection({ kind: "node", id })}
+                connectionsByBuyer={connectionsByBuyer}
               />
             )}
             {mobileTab === "suppliers" && (
@@ -1739,6 +1991,7 @@ export default function MoneyMap({
                 suppliers={topSuppliers}
                 onSelectSupplier={(id) => setSelection({ kind: "node", id })}
                 onSelectBuyer={(id) => setSelection({ kind: "node", id })}
+                connectionsBySupplier={connectionsBySupplier}
               />
             )}
           </section>
@@ -3861,6 +4114,241 @@ function MoneyMapStyles() {
         font-size: 13px;
         color: #9ca3af;
         line-height: 1.4;
+      }
+
+      /* ----------------------------------------------------
+         Task #104 — Stories tab (editorial-weight cards)
+         ---------------------------------------------------- */
+      .mm-story-list {
+        padding: 0 0 28px;
+        background:
+          radial-gradient(1200px 400px at 10% -10%, rgba(251, 191, 36, 0.04), transparent 60%),
+          var(--mm-bg);
+      }
+      .mm-story-card-wrap {
+        padding: 14px 14px 0;
+      }
+      .mm-story-card-wrap:last-of-type { padding-bottom: 6px; }
+      .mm-story-card {
+        display: block; width: 100%;
+        text-align: left;
+        background: linear-gradient(180deg, #0a0a0f 0%, #060608 100%);
+        border: 1px solid var(--mm-border-2);
+        border-radius: 12px;
+        padding: 0;
+        color: inherit;
+        cursor: pointer;
+        min-height: 60vh;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.02);
+        transition: border-color 140ms, transform 140ms;
+      }
+      .mm-story-card:hover {
+        border-color: #3a3a46;
+      }
+      .mm-story-card:active {
+        transform: translateY(1px);
+      }
+      .mm-story-card:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 2px;
+      }
+      .mm-story-card-inert { cursor: default; }
+      .mm-story-card-inert:active { transform: none; }
+
+      .mm-story-live {
+        display: flex; align-items: center; gap: 8px;
+        padding: 9px 16px;
+        background: rgba(251, 191, 36, 0.10);
+        border-bottom: 1px solid rgba(251, 191, 36, 0.25);
+        color: #fbbf24;
+        font-family: var(--mm-mono);
+        font-size: 10.5px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .mm-story-body {
+        padding: 22px 20px 24px;
+      }
+      .mm-story-eyebrow {
+        font-family: var(--mm-mono);
+        font-size: 10.5px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--mm-fg-mute);
+        margin-bottom: 14px;
+      }
+      .mm-story-name {
+        font-family: var(--mm-serif);
+        font-size: 30px;
+        line-height: 1.1;
+        font-weight: 500;
+        color: #f8fafc;
+        margin: 0 0 14px;
+        letter-spacing: -0.005em;
+      }
+      .mm-story-summary {
+        font-size: 17px;
+        line-height: 1.55;
+        color: #d8dbe3;
+        margin: 0 0 18px;
+      }
+      .mm-story-quote {
+        margin: 0 0 18px;
+        padding: 12px 14px;
+        border-left: 3px solid #fbbf24;
+        background: rgba(251, 191, 36, 0.05);
+        border-radius: 0 6px 6px 0;
+      }
+      .mm-story-quote-text {
+        font-family: var(--mm-serif);
+        font-size: 15px;
+        line-height: 1.5;
+        color: #e5e7eb;
+        font-style: italic;
+        margin: 0 0 6px;
+      }
+      .mm-story-quote-cite {
+        display: block;
+        font-family: var(--mm-mono);
+        font-size: 11px;
+        color: #9ca3af;
+        letter-spacing: 0.04em;
+        font-style: normal;
+      }
+      .mm-story-figures {
+        margin: 0 0 16px;
+        padding: 10px 12px;
+        background: rgba(0,0,0,0.35);
+        border: 1px solid var(--mm-border);
+        border-radius: 6px;
+      }
+      .mm-story-fig-row {
+        display: flex; align-items: baseline; gap: 10px;
+        font-size: 12.5px;
+        line-height: 1.55;
+      }
+      .mm-story-fig-row + .mm-story-fig-row { margin-top: 2px; }
+      .mm-story-fig-row dt {
+        font-family: var(--mm-mono);
+        font-size: 10.5px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--mm-fg-mute);
+        min-width: 64px;
+      }
+      .mm-story-fig-row dd {
+        margin: 0;
+        font-family: var(--mm-mono);
+        font-variant-numeric: tabular-nums;
+        color: #d8dbe3;
+      }
+      .mm-story-cp-row {
+        margin: 0 0 18px;
+      }
+      .mm-story-cp-pill {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 8px 14px 8px 12px;
+        min-height: 40px;
+        max-width: 100%;
+        background: #0f0f15;
+        border: 1px solid #3a3a46;
+        border-radius: 999px;
+        color: var(--mm-fg);
+        font-size: 13.5px;
+        font-family: var(--mm-sans);
+        cursor: pointer;
+        transition: border-color 120ms, background 120ms;
+      }
+      .mm-story-cp-pill:hover {
+        border-color: #fbbf24;
+        background: #15151c;
+      }
+      .mm-story-cp-pill:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 2px;
+      }
+      .mm-story-cp-pill-inert { cursor: default; }
+      .mm-story-cp-arrow {
+        color: #fbbf24;
+        font-weight: 600;
+      }
+      .mm-story-cp-name {
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        max-width: 240px;
+      }
+      .mm-story-sources {
+        display: flex; flex-wrap: wrap; gap: 6px;
+        padding-top: 14px;
+        border-top: 1px solid var(--mm-border);
+      }
+      .mm-story-src {
+        display: inline-flex; align-items: center; gap: 4px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        border: 1px solid var(--mm-border-2);
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-family: var(--mm-sans);
+        font-weight: 500;
+        text-decoration: none;
+        transition: background 120ms, border-color 120ms;
+      }
+      .mm-story-src-primary {
+        border-color: rgba(16, 185, 129, 0.4);
+        background: rgba(16, 185, 129, 0.06);
+        color: #6ee7b7;
+      }
+      .mm-story-src-primary:hover {
+        background: rgba(16, 185, 129, 0.12);
+      }
+      .mm-story-src-news {
+        border-color: var(--mm-border-2);
+        background: rgba(255,255,255,0.02);
+        color: #d1d5db;
+      }
+      .mm-story-src-news:hover {
+        background: rgba(255,255,255,0.06);
+      }
+      .mm-story-src-analysis {
+        border-color: rgba(167, 139, 250, 0.35);
+        background: rgba(167, 139, 250, 0.05);
+        color: #c4b5fd;
+      }
+      .mm-story-src-analysis:hover {
+        background: rgba(167, 139, 250, 0.12);
+      }
+      .mm-story-src:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 1px;
+      }
+
+      .mm-story-footer {
+        margin-top: 20px;
+        padding: 10px 16px;
+        text-align: center;
+        font-family: var(--mm-mono);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        color: var(--mm-fg-mute);
+      }
+
+      /* Story discovery badge on Suppliers + Departments cards */
+      .mm-story-badge {
+        display: inline-flex; align-items: center; gap: 5px;
+        margin-top: 8px;
+        padding: 3px 8px;
+        border: 1px solid rgba(251, 191, 36, 0.35);
+        background: rgba(251, 191, 36, 0.06);
+        border-radius: 999px;
+        color: #fbbf24;
+        font-family: var(--mm-mono);
+        font-size: 10.5px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        font-weight: 500;
       }
     `}</style>
   );
