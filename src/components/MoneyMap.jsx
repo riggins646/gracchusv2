@@ -157,6 +157,74 @@ function fmtDate(iso) {
 }
 
 /* =========================================================================
+ *  MOBILE LIST VIEW (audit rec #98)
+ * =========================================================================
+ *  At <md, a force-directed graph is cognitively hostile on a 375px
+ *  viewport — tap targets are tiny, the canvas fights the page scroll,
+ *  and readers can't tell which bubble links to which. This component
+ *  replaces the canvas with a top-20 suppliers list: supplier name,
+ *  total £, project/department count, top buyer. Tapping a row opens
+ *  the same SupplierDetail drawer as a canvas bubble click.
+ * ========================================================================= */
+function MoneyMapMobileList({ rows, onSelectSupplier }) {
+  if (!rows || rows.length === 0) {
+    return (
+      <section className="mm-mobile-list mm-mobile-list-empty">
+        No suppliers meet the £ threshold in the current data.
+      </section>
+    );
+  }
+  return (
+    <section className="mm-mobile-list" aria-label="Top suppliers list">
+      <div className="mm-mobile-list-h">
+        Top suppliers by total £{" "}
+        <span className="mm-mobile-list-hint">
+          tap a row for supplier details
+        </span>
+      </div>
+      {rows.map((r) => {
+        const secondary = [];
+        if (r.projectCount > 0) {
+          secondary.push(
+            `${r.projectCount} project${r.projectCount === 1 ? "" : "s"}`
+          );
+        }
+        if (r.deptCount > 0) {
+          secondary.push(
+            `${r.deptCount} department${r.deptCount === 1 ? "" : "s"}`
+          );
+        } else if (r.buyerCount > 0) {
+          secondary.push(
+            `${r.buyerCount} buyer${r.buyerCount === 1 ? "" : "s"}`
+          );
+        }
+        if (r.topBuyer) secondary.push(`${r.topBuyer} top buyer`);
+        return (
+          <button
+            type="button"
+            key={r.id}
+            className="mm-mobile-list-row"
+            onClick={() => onSelectSupplier(r.id)}
+          >
+            <div className="mm-mobile-list-row-top">
+              <span className="mm-mobile-list-name">{r.label}</span>
+              <span className="mm-mobile-list-amount">
+                {fmtGBP(r.totalGBP)}
+              </span>
+            </div>
+            {secondary.length > 0 && (
+              <div className="mm-mobile-list-sub">
+                {secondary.join(" · ")}
+              </div>
+            )}
+          </button>
+        );
+      })}
+    </section>
+  );
+}
+
+/* =========================================================================
  *  MAIN COMPONENT
  * ========================================================================= */
 
@@ -204,6 +272,25 @@ export default function MoneyMap({
   const [query, setQuery] = useState(() => urlInit.q || "");
   const [selection, setSelection] = useState(null);   // { kind, id } | null
 
+  /* ---------- mobile layout mode (audit rec #98) ----------
+     At <md (767px and below), the force-directed graph is cognitively
+     hostile — tap targets are tiny, gestures collide with the page
+     scroll, and a reader can't tell which bubble connects to which.
+     Default to a top-suppliers LIST view on those widths; desktop
+     default stays "canvas". The layout mode is orthogonal to
+     viewMode (lens/network) — a reader can still toggle lens-vs-
+     network while inside the list view, since the list is derived
+     from the same edge set.
+     SSR-safe: matchMedia only runs on the client, so we seed
+     "canvas" initially and re-seed in a useEffect after mount. */
+  const [layoutMode, setLayoutMode] = useState("canvas");
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      setLayoutMode("list");
+    }
+  }, []);
+
   /* Body scroll-lock while the drawer is open so mobile users don't get
      the background scrolling behind the overlay. No-op on desktop. */
   useEffect(() => {
@@ -235,6 +322,47 @@ export default function MoneyMap({
   const lensSubjectNode = viewMode === "lens" && lensSubjectId
     ? nodesById.get(lensSubjectId)
     : null;
+
+  /* ---------- top suppliers derivation (audit rec #98) ----------
+     For the mobile list view, precompute the top 20 suppliers by
+     total £ along with project count, department count, and their
+     top buyer. Derived from award edges (kind=award, s=buyer,
+     t=supplier) so it naturally stays in sync with the dataset and
+     doesn't need its own precompute step. */
+  const topSuppliers = useMemo(() => {
+    const projByS = new Map();   // supplierId -> Set(projectId)
+    const buyersByS = new Map(); // supplierId -> Set(buyerId)
+    const deptsByS = new Map();  // supplierId -> Set(deptName)
+    for (const e of (data.edges || [])) {
+      if (!e || e.kind !== "award") continue;
+      const s = e.s, t = e.t;
+      if (typeof s !== "string" || typeof t !== "string") continue;
+      if (!s.startsWith("buyer-") || !t.startsWith("supplier-")) continue;
+      if (!projByS.has(t)) projByS.set(t, new Set());
+      if (!buyersByS.has(t)) buyersByS.set(t, new Set());
+      if (!deptsByS.has(t)) deptsByS.set(t, new Set());
+      for (const pid of (e.projectIds || [])) projByS.get(t).add(pid);
+      buyersByS.get(t).add(s);
+      const buyer = nodesById.get(s);
+      if (buyer && buyer.department) deptsByS.get(t).add(buyer.department);
+    }
+    const out = [];
+    for (const n of (data.nodes || [])) {
+      if (n.kind !== "supplier") continue;
+      if (!(n.value > 0)) continue;
+      out.push({
+        id: n.id,
+        label: n.label,
+        totalGBP: n.value,
+        projectCount: (projByS.get(n.id) || new Set()).size,
+        deptCount: (deptsByS.get(n.id) || new Set()).size,
+        buyerCount: (buyersByS.get(n.id) || new Set()).size || n.buyerCount || 0,
+        topBuyer: n.topBuyer?.label || null,
+      });
+    }
+    out.sort((a, b) => b.totalGBP - a.totalGBP);
+    return out.slice(0, 20);
+  }, [data.edges, data.nodes, nodesById]);
 
   /* ---------- rotating Story Cards ----------
      Same pattern as Story of the Week on the home page: take the full
@@ -997,8 +1125,45 @@ export default function MoneyMap({
         </span>
       </section>
 
+      {/* ==================================================
+          LAYOUT TOGGLE — audit rec #98
+          Default: canvas on desktop, list at <md. Readers can
+          always cross over ("Show canvas view →" / "Show list
+          view →"). Button wording flips to match current state.
+          ================================================== */}
+      <section className="mm-filters mm-filters-layout">
+        {layoutMode === "list" ? (
+          <button
+            type="button"
+            className="mm-layout-toggle"
+            onClick={() => setLayoutMode("canvas")}
+          >
+            Show canvas view &rarr;
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="mm-layout-toggle mm-layout-toggle-mobile"
+            onClick={() => setLayoutMode("list")}
+            aria-label="Show top-suppliers list instead of canvas"
+          >
+            Show list view &rarr;
+          </button>
+        )}
+      </section>
+
+      {layoutMode === "list" ? (
+        <MoneyMapMobileList
+          rows={topSuppliers}
+          onSelectSupplier={(id) => setSelection({ kind: "node", id })}
+        />
+      ) : null}
+
       {/* Main grid */}
-      <section className="mm-main">
+      <section
+        className="mm-main"
+        style={layoutMode === "list" ? { display: "none" } : undefined}
+      >
         {/* LEFT — story cards (desktop rail) */}
         <aside className="mm-col mm-col-left">
           <div className="mm-rail-h">Story cards · this week</div>
@@ -2527,6 +2692,111 @@ function MoneyMapStyles() {
         }
         .mm-d-close { min-width: 44px; min-height: 44px; }
         .mm-drawer { width: min(92vw, 420px); }
+      }
+
+      /* ----------------------------------------------------
+         Audit rec #98 — mobile list view (MoneyMapMobileList)
+         ---------------------------------------------------- */
+      .mm-filters-layout {
+        justify-content: flex-end;
+      }
+      .mm-layout-toggle {
+        padding: 8px 12px;
+        min-height: 44px;
+        font-family: var(--mm-mono);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--mm-fg-dim);
+        background: transparent;
+        border: 1px solid var(--mm-border);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: color 120ms, border-color 120ms;
+      }
+      .mm-layout-toggle:hover,
+      .mm-layout-toggle:focus-visible {
+        color: var(--mm-fg);
+        border-color: var(--mm-border-2);
+      }
+      /* Desktop: the "show list view" toggle is a small convenience
+         but not the default — hide it at ≥768px to keep the filter
+         bar uncluttered for readers who want the canvas. */
+      @media (min-width: 768px) {
+        .mm-layout-toggle-mobile { display: none; }
+      }
+      .mm-mobile-list {
+        padding: 12px 8px 20px;
+      }
+      .mm-mobile-list-empty {
+        padding: 32px 16px;
+        color: var(--mm-fg-dim);
+        font-size: 14px;
+        text-align: center;
+      }
+      .mm-mobile-list-h {
+        font-family: var(--mm-mono);
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--mm-fg-dim);
+        padding: 8px 8px 14px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 8px;
+      }
+      .mm-mobile-list-hint {
+        color: #6b7280;
+        font-size: 10px;
+        text-transform: none;
+        letter-spacing: 0;
+      }
+      .mm-mobile-list-row {
+        display: block;
+        width: 100%;
+        min-height: 64px;
+        text-align: left;
+        padding: 12px 12px;
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid var(--mm-border);
+        color: inherit;
+        cursor: pointer;
+        transition: background-color 120ms;
+      }
+      .mm-mobile-list-row:hover,
+      .mm-mobile-list-row:focus-visible {
+        background: rgba(251, 191, 36, 0.04);
+      }
+      .mm-mobile-list-row:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: -2px;
+      }
+      .mm-mobile-list-row-top {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .mm-mobile-list-name {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--mm-fg);
+        line-height: 1.25;
+      }
+      .mm-mobile-list-amount {
+        font-family: var(--mm-mono);
+        font-variant-numeric: tabular-nums;
+        font-size: 16px;
+        color: var(--mm-fg);
+        white-space: nowrap;
+      }
+      .mm-mobile-list-sub {
+        margin-top: 4px;
+        font-size: 13px;
+        color: #9ca3af;
+        line-height: 1.4;
       }
     `}</style>
   );
