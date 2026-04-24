@@ -486,6 +486,8 @@ const CONN_EYEBROW = {
   vip_lane_referral: "VIP LANE REFERRAL",
   shareholding: "SHAREHOLDING",
   appg_paid_chair: "APPG INTEREST",
+  personal_connection_then_contract: "PERSONAL CONTRACT",
+  outside_earnings_during_office: "OUTSIDE EARNINGS",
   other: "CONNECTION",
 };
 

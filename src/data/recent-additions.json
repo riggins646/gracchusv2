@@ -1,7 +1,15 @@
 {
   "$comment": "Human-curated feed of notable additions to Gracchus. Append newest-first. Types: tranche | project | disclosure | coverage | dataset | feature. `view` is a Dashboard view id (matches VIEW_SLUGS keys); omit to render without a CTA.",
-  "updatedAt": "2026-04-21",
+  "updatedAt": "2026-04-24",
   "entries": [
+    {
+      "date": "2026-04-24",
+      "type": "coverage",
+      "title": "Four more connection stories \u2014 Cameron, Crothers, Bourne, Cox",
+      "summary": "Second-wave individual-connection records from the revolving-door research brief. Cameron\u2019s Greensill lobbying, Crothers\u2019s dual civil-service / Greensill role, Alex Bourne\u2019s Hancock-linked PPE contract, and Geoffrey Cox\u2019s outside legal earnings. Sourced to Parliamentary records, Treasury Committee / PACAC findings, and investigative reporting where applicable.",
+      "view": "moneymap",
+      "metric": "7 connection stories live"
+    },
     {
       "date": "2026-04-21",
       "type": "feature",

@@ -12,6 +12,8 @@
     "vip_lane_referral": "Individual referred a firm into a high-priority procurement lane",
     "shareholding": "Politician holds declared shares in the firm",
     "appg_paid_chair": "MP chairs a paid All-Party Parliamentary Group",
+    "personal_connection_then_contract": "Contract awarded to a firm linked to a minister's personal connection (neighbour, friend, associate) without competitive tender",
+    "outside_earnings_during_office": "Substantial outside income earned by an MP during their time in Parliament, declared in the Register of Members' Financial Interests",
     "other": "Connection of interest not fitting the above categories"
   },
   "statuses": {
@@ -62,6 +64,62 @@
       "externalLinks": [
         { "label": "Register of Members' Financial Interests", "url": "https://publications.parliament.uk/pa/cm/cmregmem/" },
         { "label": "Wikipedia (Akshata Murty)", "url": "https://en.wikipedia.org/wiki/Akshata_Murty" }
+      ]
+    },
+    {
+      "id": "cameron-david",
+      "name": "David Cameron",
+      "headline": "Prime Minister May 2010-July 2016; Conservative MP for Witney 1997-2016; Foreign Secretary November 2023-July 2024 as Baron Cameron of Chipping Norton.",
+      "rolesHeld": [
+        { "title": "Prime Minister", "department": "10 Downing Street", "start": "2010-05", "end": "2016-07" },
+        { "title": "MP for Witney", "department": "House of Commons", "start": "2001-06", "end": "2016-09" },
+        { "title": "Part-time adviser to Greensill Capital", "department": "Greensill Capital (private)", "start": "2018-08", "end": "2021-03" },
+        { "title": "Secretary of State for Foreign, Commonwealth and Development Affairs", "department": "FCDO", "start": "2023-11", "end": "2024-07" }
+      ],
+      "externalLinks": [
+        { "label": "Treasury Committee - Lessons from Greensill Capital (HC 151)", "url": "https://publications.parliament.uk/pa/cm5802/cmselect/cmtreasy/151/15106.htm" },
+        { "label": "PACAC - Propriety of Governance in Light of Greensill", "url": "https://publications.parliament.uk/pa/cm5803/cmselect/cmpubadm/888/report.html" }
+      ]
+    },
+    {
+      "id": "crothers-bill",
+      "name": "Bill Crothers",
+      "headline": "Government Chief Commercial Officer at the Cabinet Office 2012-2015; took up a paid advisory role with Greensill Capital in 2015 while still serving as a civil servant.",
+      "rolesHeld": [
+        { "title": "Government Chief Commercial Officer", "department": "Cabinet Office / Crown Commercial Service", "start": "2012-01", "end": "2015-11" },
+        { "title": "Paid adviser to Greensill Capital", "department": "Greensill Capital (private)", "start": "2015-09", "end": "2016-11" },
+        { "title": "Director, Greensill Capital", "department": "Greensill Capital (private)", "start": "2016-08", "end": "2021-03" }
+      ],
+      "externalLinks": [
+        { "label": "ACOBA record - Bill Crothers", "url": "https://www.gov.uk/government/publications/crothers-bill-government-chief-commercial-officer-cabinet-office-acoba-recommendation" },
+        { "label": "PACAC - Propriety of Governance in Light of Greensill", "url": "https://publications.parliament.uk/pa/cm5803/cmselect/cmpubadm/888/report.html" }
+      ]
+    },
+    {
+      "id": "bourne-alex",
+      "name": "Alex Bourne",
+      "headline": "Former landlord of the Cock Inn in Little Thurlow, Matt Hancock's West Suffolk constituency; ran Hinpack, a plastics manufacturer that was contracted to produce specimen collection tubes and funnels for COVID-19 testing after he contacted Hancock via WhatsApp.",
+      "rolesHeld": [
+        { "title": "Landlord, the Cock Inn, Little Thurlow (West Suffolk)", "department": "Private", "start": "2010-01", "end": "2020-01" },
+        { "title": "Director, Hinpack Ltd (plastics manufacturer)", "department": "Hinpack Ltd (private)", "start": "2020-01", "end": null }
+      ],
+      "externalLinks": [
+        { "label": "Controversies regarding COVID-19 contracts in the United Kingdom (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Controversies_regarding_COVID-19_contracts_in_the_United_Kingdom" },
+        { "label": "Matt Hancock (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Matt_Hancock" }
+      ]
+    },
+    {
+      "id": "cox-geoffrey",
+      "name": "Sir Geoffrey Cox KC",
+      "headline": "Conservative MP for Torridge and West Devon (later Torridge and Tavistock) since 2005; Attorney General for England and Wales 2018-2020; practising barrister with substantial outside legal earnings declared in the Register of Members' Financial Interests.",
+      "rolesHeld": [
+        { "title": "MP for Torridge and West Devon / Torridge and Tavistock", "department": "House of Commons", "start": "2005-05", "end": null },
+        { "title": "Attorney General for England and Wales", "department": "Attorney General's Office", "start": "2018-07", "end": "2020-02" },
+        { "title": "Practising barrister (Withers LLP and others)", "department": "Private practice", "start": "2005-05", "end": null }
+      ],
+      "externalLinks": [
+        { "label": "Register of Interests - Sir Geoffrey Cox", "url": "https://members.parliament.uk/member/1508/registeredinterests" },
+        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Geoffrey_Cox_(British_politician)" }
       ]
     }
   ],
@@ -248,6 +306,232 @@
           "publisher": "Full Fact",
           "url": "https://fullfact.org/health/35-billion-nhs-sunak-in-laws-infosys/",
           "date": "2023-04-05"
+        }
+      ]
+    },
+    {
+      "id": "cameron-greensill-adviser",
+      "personId": "cameron-david",
+      "connectionType": "post_office_appointment",
+      "status": "closed_with_finding",
+      "liveProceedings": false,
+      "summary": "David Cameron took a part-time advisory role at Greensill Capital in 2018, more than two years after leaving Downing Street, and in 2020 lobbied HM Treasury and DHSC ministers and officials on Greensill's behalf; the Commons Treasury Committee concluded he showed 'a significant lack of judgement' but had not broken the rules, because the two-year ACOBA cooling-off period had already expired.",
+      "detail": "Cameron resigned as Prime Minister in July 2016 and took up a part-time advisory role with Greensill Capital in August 2018 - more than two years after leaving office. Because more than two years had elapsed between his resignation and the appointment, ACOBA's business-appointment rules did not apply and no ACOBA advice was sought or required. Reporting indicates he held share options in Greensill with a nominal value in the tens of millions of pounds.\n\nDuring the COVID-19 pandemic in spring 2020 Cameron lobbied HM Treasury, including the then-Chancellor Rishi Sunak, and DHSC for Greensill to be granted access to the Covid Corporate Financing Facility (CCFF). The requests were declined. Text messages, emails and call records were later disclosed under pressure from the Treasury Committee.\n\nThe Commons Treasury Committee's July 2021 report Lessons from Greensill Capital concluded that Cameron had not broken lobbying rules as they stood, but that the rules had 'insufficient strength' and that his use of informal lobbying routes showed 'a significant lack of judgement'. The Public Administration and Constitutional Affairs Committee and the Boardman Review reached related findings on the wider governance picture.\n\nGreensill Capital is not among Gracchus's 116 core tracker projects; the lobbying target was HM Treasury's CCFF scheme and DHSC, both tracked departments. Gracchus carries this as an adjacent-firm connection.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Greensill Capital",
+        "note": "Not a Gracchus-tracked prime supplier. The lobbying targeted HM Treasury (CCFF) and DHSC - both tracked departments. Carried as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2018-08",
+        "end": "2021-03",
+        "periodLabel": "Aug 2018 - Mar 2021 (adviser role until Greensill collapse)"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "Share options reported with a nominal value in the tens of millions of pounds; precise realisation value disputed / undisclosed after Greensill's 2021 collapse",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government contracts awarded; 2020 lobbying for access to the Covid Corporate Financing Facility was declined"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Commons Treasury Committee",
+          "date": "2021-07-20",
+          "quotedText": "Mr Cameron's engagement with HM Treasury during the COVID-19 pandemic on behalf of Greensill Capital showed a significant lack of judgement, particularly in his use of less formal means to lobby Government.",
+          "url": "https://publications.parliament.uk/pa/cm5802/cmselect/cmtreasy/151/15106.htm",
+          "outcome": "Committee concluded Cameron had not broken lobbying rules, but that the rules themselves had 'insufficient strength'."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Lessons from Greensill Capital (HC 151)",
+          "publisher": "Commons Treasury Committee",
+          "url": "https://publications.parliament.uk/pa/cm5802/cmselect/cmtreasy/151/15106.htm",
+          "date": "2021-07-20"
+        },
+        {
+          "tier": "primary",
+          "title": "Propriety of Governance in Light of Greensill",
+          "publisher": "Public Administration and Constitutional Affairs Committee",
+          "url": "https://publications.parliament.uk/pa/cm5803/cmselect/cmpubadm/888/report.html",
+          "date": "2022-03-17"
+        },
+        {
+          "tier": "analysis",
+          "title": "Cameron's role at Greensill Capital has called the UK's lobbying regulations into question",
+          "publisher": "Institute for Government",
+          "url": "https://www.instituteforgovernment.org.uk/article/comment/camerons-role-greensill-capital-has-called-uks-lobbying-regulations-question",
+          "date": "2021-04-15"
+        },
+        {
+          "tier": "news",
+          "title": "Cameron exploited lobbying loophole to discuss $1bn China fund with Treasury",
+          "publisher": "Bureau of Investigative Journalism",
+          "url": "https://www.thebureauinvestigates.com/stories/2021-04-24/cameron-exploited-lobbying-loophole-to-discuss-1bn-china-fund-with-treasury",
+          "date": "2021-04-24"
+        }
+      ]
+    },
+    {
+      "id": "crothers-greensill-dual-role",
+      "personId": "crothers-bill",
+      "connectionType": "dual_role",
+      "status": "closed_with_finding",
+      "liveProceedings": false,
+      "summary": "Bill Crothers, the Government's Chief Commercial Officer at the Cabinet Office, took up a paid advisory role with Greensill Capital in September 2015 while still a serving civil servant, without declaring the arrangement to the civil service ethics arrangements or seeking ACOBA advice on his post-Crown-service plans; PACAC later found 'too little consideration appears to have been paid to the potential reputational risk'.",
+      "detail": "Crothers joined the Cabinet Office as Government Chief Commercial Officer in 2012, with a salary reported up to c. £149,000 per year, and was closely involved in bringing Lex Greensill into government as a 'crown representative'. In September 2015, while still employed in the civil service, Crothers took up a paid advisory role with Greensill Capital. He left the civil service in November 2015 and became a director of Greensill Capital in August 2016.\n\nThe Public Administration and Constitutional Affairs Committee's report Propriety of Governance in Light of Greensill found that Crothers had not declared the Greensill role to civil-service ethics arrangements at the time, and had not sought ACOBA's advice on his post-Crown-service role. The Committee concluded that there were 'no obvious conflicts' at the point he was hired by Greensill - because Greensill had limited UK public-sector contracts at that time - but that 'too little consideration appears to have been paid to the potential reputational risk'.\n\nCrothers's Crown Commercial Service role had oversight of the supplier base tracked by Gracchus (Serco, Capita, Atos, Fujitsu, Mitie, G4S and others). The revelation of his dual employment triggered the Boardman Review of civil-service dual employment. Greensill Capital collapsed in March 2021. Gracchus carries this as an adjacent-firm connection.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Greensill Capital",
+        "note": "Not a Gracchus-tracked prime supplier. Crothers's Crown Commercial Service role nonetheless had oversight of the supplier base tracked by Gracchus. Carried as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2015-09",
+        "end": "2021-03",
+        "periodLabel": "Sep 2015 - Mar 2021 (dual role from Sep-Nov 2015; director to Greensill collapse)"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "Civil service salary reported up to c. £149,000 p.a.; Greensill advisory / director remuneration not publicly disclosed",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No direct UK government contracts awarded to Greensill during Crothers's Crown-service period of overlap"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Public Administration and Constitutional Affairs Committee",
+          "date": "2022-03-17",
+          "quotedText": "Too little consideration appears to have been paid to the potential reputational risk of a senior civil servant taking up a paid private-sector role while still in Crown service.",
+          "url": "https://publications.parliament.uk/pa/cm5803/cmselect/cmpubadm/888/report.html",
+          "outcome": "No breach finding on the point at which Crothers was hired by Greensill, because Greensill had limited UK public-sector contracts at that time; dual-employment arrangement triggered the Boardman Review."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Propriety of Governance in Light of Greensill",
+          "publisher": "Public Administration and Constitutional Affairs Committee",
+          "url": "https://publications.parliament.uk/pa/cm5803/cmselect/cmpubadm/888/report.html",
+          "date": "2022-03-17"
+        },
+        {
+          "tier": "primary",
+          "title": "ACOBA recommendation - Bill Crothers, Government Chief Commercial Officer, Cabinet Office",
+          "publisher": "gov.uk (ACOBA)",
+          "url": "https://www.gov.uk/government/publications/crothers-bill-government-chief-commercial-officer-cabinet-office-acoba-recommendation",
+          "date": "2016-08-01"
+        },
+        {
+          "tier": "news",
+          "title": "Former Whitehall CPO Bill Crothers part of Greensill inquiry",
+          "publisher": "Chartered Institute of Procurement & Supply",
+          "url": "https://www.cips.org/supply-management/news/2021/april/former-whitehall-cpo-bill-crothers-part-of-greensill-inquiry/",
+          "date": "2021-04-15"
+        }
+      ]
+    },
+    {
+      "id": "bourne-hinpack-ppe",
+      "personId": "bourne-alex",
+      "connectionType": "personal_connection_then_contract",
+      "status": "reported",
+      "liveProceedings": false,
+      "summary": "Alex Bourne, the former landlord of Matt Hancock's local pub in the Health Secretary's West Suffolk constituency, secured a contract through his plastics firm Hinpack to supply specimen collection tubes and funnels for NHS COVID-19 testing - a reported ~£30m of DHSC-funded work - after contacting Hancock directly via WhatsApp; Hinpack had no prior PPE or diagnostics manufacturing record.",
+      "detail": "Alex Bourne was the landlord of the Cock Inn in Little Thurlow, in Matt Hancock's West Suffolk constituency. In spring 2020 Bourne contacted Hancock via WhatsApp to offer his plastics firm Hinpack's services for the pandemic response. Hinpack had no prior record of manufacturing medical or diagnostic products.\n\nHinpack went on to partner with a diagnostics supplier to produce specimen collection tubes and funnels for COVID-19 testing, in work that was reported by the Guardian and Good Law Project as amounting to roughly £30m of DHSC-funded contract value. The contract was not awarded through open competitive tender.\n\nBoth Hancock and Bourne have publicly stated that Hancock was not personally involved in awarding the contract, and that Hancock told Bourne to apply through the Government's online PPE portal. No regulator, court or parliamentary committee has made a finding of rule-breaking by either individual. Gracchus records this connection because of the public-interest pattern - a direct personal approach to a Secretary of State leading to procurement access - and not because of any proven wrongdoing. DHSC is the tracked buyer; Hinpack is carried as an adjacent firm.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Hinpack / Alex Bourne",
+        "note": "Matt Hancock's former neighbour, no prior PPE manufacturing record; received ~£30m in DHSC PPE contracts during COVID-19. DHSC (buyer-department-of-health-and-social-care) is the tracked buyer."
+      },
+      "timeframe": {
+        "start": "2020-03",
+        "end": "2020-12",
+        "periodLabel": "Mar 2020 - Dec 2020 (COVID-19 procurement window)"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "Personal income to Bourne not publicly disclosed",
+        "relatedContractsGBP": 30000000,
+        "relatedContractsDescription": "~£30m reported DHSC-funded contract value for specimen tubes and funnels"
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "news",
+          "title": "Controversies regarding COVID-19 contracts in the United Kingdom",
+          "publisher": "Wikipedia (with links to Guardian and Sunday Times original reporting)",
+          "url": "https://en.wikipedia.org/wiki/Controversies_regarding_COVID-19_contracts_in_the_United_Kingdom",
+          "date": "2024-01-01"
+        },
+        {
+          "tier": "news",
+          "title": "Matt Hancock - biographical entry",
+          "publisher": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Matt_Hancock",
+          "date": "2024-01-01"
+        },
+        {
+          "tier": "primary",
+          "title": "Investigation into government procurement during the COVID-19 pandemic",
+          "publisher": "National Audit Office",
+          "url": "https://www.nao.org.uk/reports/government-procurement-during-the-covid-19-pandemic/",
+          "date": "2020-11-18"
+        }
+      ]
+    },
+    {
+      "id": "cox-outside-earnings-bvi",
+      "personId": "cox-geoffrey",
+      "connectionType": "outside_earnings_during_office",
+      "status": "public_record",
+      "liveProceedings": false,
+      "summary": "Geoffrey Cox earned more than £6m from outside legal work during his time as Conservative MP for Torridge and West Devon - including more than £800,000 from Withers LLP for advising the Government of the British Virgin Islands in an inquiry set up by the UK Foreign Office to investigate alleged corruption in the BVI - all declared in the Register of Members' Financial Interests.",
+      "detail": "Cox has practised at the Bar throughout his time as an MP, most prominently through Withers LLP. His outside earnings, declared in the Register of Members' Financial Interests, have consistently placed him among the highest-earning MPs of his era. Reporting by ITV News, The Week and Byline Times, drawing on the Register, put his outside earnings since the 2019 general election at more than £2m; wider reporting on his earnings across his time in Parliament places the total above £6m.\n\nHis largest single engagement has been advising the Government of the British Virgin Islands in connection with an inquiry set up by the UK Foreign Office to investigate alleged corruption in the BVI. Withers LLP's engagement with the BVI government was reported at a rate of £468,000 per year for 48 hours of work per month, with more than £150,000 specifically for BVI inquiry work and more than £800,000 in aggregate from Withers LLP over the period.\n\nIn 2016 the Standards Committee found Cox had committed a 'serious breach' of Commons rules by failing to register c. £400,000 of outside earnings (eleven payments) within the 28-day window. No subsequent breach finding has been made against Cox in relation to the BVI work specifically, and no finding of paid advocacy has been made. Cox maintains that the work does not breach any rules.\n\nGracchus records this connection as a matter of public fact: the earnings exist, they are declared in the Register, and they include work for a jurisdiction that was the subject of a UK-government-initiated inquiry. Gracchus does not assert any causal link to tracked Gracchus suppliers - there is none - and the record is carried as adjacent.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Caribbean legal work",
+        "note": "Outside legal earnings from BVI inquiry work while MP for Torridge & West Devon. Withers LLP was the route-of-payment; the end client for the largest engagement was the Government of the British Virgin Islands. No UK supplier contract link."
+      },
+      "timeframe": {
+        "start": "2019-12",
+        "end": null,
+        "periodLabel": "Dec 2019 - ongoing (outside earnings during current Parliament)"
+      },
+      "financial": {
+        "personalIncomeGBP": 6000000,
+        "personalIncomeDescription": "£6m+ declared in the Register of Members' Financial Interests across his time in Parliament; >£2m in the 2019-2024 Parliament alone",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government supplier contract link"
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Register of Interests for Sir Geoffrey Cox",
+          "publisher": "parliament.uk",
+          "url": "https://members.parliament.uk/member/1508/registeredinterests",
+          "date": "2024-07-04"
+        },
+        {
+          "tier": "news",
+          "title": "Conservative Barrister Geoffrey Cox Lambasted for Earning Millions",
+          "publisher": "Byline Times",
+          "url": "https://bylinetimes.com/2024/07/26/geoffrey-cox-second-jobs/",
+          "date": "2024-07-26"
+        },
+        {
+          "tier": "news",
+          "title": "Labour calls for investigation into MP Geoffrey Cox's job advising the British Virgin Islands",
+          "publisher": "ITV News",
+          "url": "https://www.itv.com/news/2021-11-09/call-for-probe-into-mps-400000-income-job-advising-caribbean-islands",
+          "date": "2021-11-09"
+        },
+        {
+          "tier": "analysis",
+          "title": "Geoffrey Cox and the British Virgin Islands: the backstory",
+          "publisher": "The Week",
+          "url": "https://theweek.com/news/politics/954744/geoffrey-cox-and-the-british-virgin-islands-the-backstory",
+          "date": "2021-11-09"
         }
       ]
     }

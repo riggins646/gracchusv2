@@ -14,6 +14,8 @@ const CONN_TYPE_LABEL = {
   spousal_shareholding: "Spousal shareholding",
   shareholding: "Shareholding",
   appg_paid_chair: "APPG paid chair",
+  personal_connection_then_contract: "Personal connection \u2192 contract",
+  outside_earnings_during_office: "Outside earnings during office",
   other: "Connection of interest",
 };
 
