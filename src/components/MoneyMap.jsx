@@ -29,7 +29,7 @@ import { zoom as d3zoom, zoomIdentity } from "d3-zoom";
 import { drag as d3drag } from "d3-drag";
 import { color as d3color } from "d3-color";
 import "d3-transition"; // side-effect — attaches .transition() to selections
-import { X, ArrowLeft, ExternalLink, Download, ChevronDown } from "lucide-react";
+import { X, ArrowLeft, ExternalLink, Download, ChevronDown, SlidersHorizontal } from "lucide-react";
 import CiteChip from "./CiteChip";
 import useDrawerFocus from "../lib/useDrawerFocus";
 
@@ -225,6 +225,352 @@ function MoneyMapMobileList({ rows, onSelectSupplier }) {
 }
 
 /* =========================================================================
+ *  MOBILE EXPLORER — 3-TAB SURFACE (Flows / Departments / Suppliers)
+ * =========================================================================
+ *  Task #100 — replaces the single "top suppliers list" fallback with a
+ *  proper 3-tab explorer so the mobile Money Map has a reason to exist
+ *  beyond "look at the top suppliers". A d3-force graph is cognitively
+ *  hostile on a 375px viewport; readers get a lot more out of three
+ *  ranked lists they can actually tap.
+ *
+ *  All three tabs hand off to the same drawer system via setSelection —
+ *  no separate drawer machinery. Chips inside cards use stopPropagation
+ *  so a reader can tap a supplier name inside a department card and
+ *  land in the supplier drawer without opening the department drawer
+ *  first.
+ * ========================================================================= */
+
+function MoneyMapFlowsTab({ flows, onSelectSupplier }) {
+  if (!flows || flows.length === 0) {
+    return (
+      <div className="mm-explorer-empty">
+        No money flows meet the £ threshold in current filters.
+      </div>
+    );
+  }
+  return (
+    <div
+      className="mm-explorer-list"
+      role="tabpanel"
+      id="mm-panel-flows"
+      aria-labelledby="mm-tab-flows"
+    >
+      {flows.map((f) => (
+        <button
+          type="button"
+          key={f.id}
+          className="mm-flow-card"
+          onClick={() => onSelectSupplier(f.supplierId)}
+          aria-label={`${f.buyerLabel} to ${f.supplierLabel} · ${fmtGBP(f.totalGBP)} · open supplier details`}
+        >
+          <div className="mm-flow-card-main">
+            <span className="mm-flow-dept">{f.buyerLabel}</span>
+            <span className="mm-flow-arrow" aria-hidden="true">&rarr;</span>
+            <span className="mm-flow-supplier">{f.supplierLabel}</span>
+          </div>
+          <div className="mm-flow-card-meta">
+            <span className="mm-flow-amt">{fmtGBPOrUndisclosed(f.totalGBP)}</span>
+            {f.projectCount > 0 && (
+              <>
+                <span className="mm-flow-sep" aria-hidden="true">&middot;</span>
+                <span>{f.projectCount} project{f.projectCount === 1 ? "" : "s"}</span>
+              </>
+            )}
+            {f.yearRange && (
+              <>
+                <span className="mm-flow-sep" aria-hidden="true">&middot;</span>
+                <span>{f.yearRange}</span>
+              </>
+            )}
+          </div>
+          {f.department && (
+            <div className="mm-flow-card-tag">{f.department}</div>
+          )}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function MoneyMapDepartmentsTab({ departments, onSelectBuyer, onSelectSupplier }) {
+  if (!departments || departments.length === 0) {
+    return (
+      <div className="mm-explorer-empty">
+        No departments match the current filters.
+      </div>
+    );
+  }
+  return (
+    <div
+      className="mm-explorer-list"
+      role="tabpanel"
+      id="mm-panel-departments"
+      aria-labelledby="mm-tab-departments"
+    >
+      {departments.map((d) => (
+        <div
+          key={d.id}
+          className="mm-dept-card"
+          role="button"
+          tabIndex={0}
+          onClick={() => onSelectBuyer(d.id)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              onSelectBuyer(d.id);
+            }
+          }}
+          aria-label={`${d.label} · ${fmtGBP(d.totalGBP)} · open department details`}
+        >
+          <div className="mm-dept-card-top">
+            <span className="mm-dept-name">{d.label}</span>
+            <span className="mm-dept-amt">{fmtGBPOrUndisclosed(d.totalGBP)}</span>
+          </div>
+          <div className="mm-dept-card-sub">
+            {d.supplierCount} supplier{d.supplierCount === 1 ? "" : "s"}
+            {d.projectCount > 0 && ` across ${d.projectCount} project${d.projectCount === 1 ? "" : "s"}`}
+          </div>
+          {d.topSuppliers && d.topSuppliers.length > 0 && (
+            <div className="mm-dept-chips">
+              {d.topSuppliers.slice(0, 3).map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  className="mm-inline-chip"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSelectSupplier(s.id);
+                  }}
+                  aria-label={`View ${s.label} supplier details`}
+                >
+                  <span className="mm-chip-name">{s.label}</span>
+                  <span className="mm-chip-amt">{fmtGBP(s.gbp)}</span>
+                </button>
+              ))}
+              {d.supplierCount > 3 && (
+                <span className="mm-inline-chip mm-inline-chip-more">
+                  +{d.supplierCount - 3} more
+                </span>
+              )}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function MoneyMapSuppliersTab({ suppliers, onSelectSupplier, onSelectBuyer }) {
+  if (!suppliers || suppliers.length === 0) {
+    return (
+      <div className="mm-explorer-empty">
+        No suppliers meet the £ threshold in the current data.
+      </div>
+    );
+  }
+  return (
+    <div
+      className="mm-explorer-list"
+      role="tabpanel"
+      id="mm-panel-suppliers"
+      aria-labelledby="mm-tab-suppliers"
+    >
+      {suppliers.map((s) => {
+        const concentration = s.topBuyerShare || 0;
+        const isConcentrated = concentration >= 0.7;
+        return (
+          <div
+            key={s.id}
+            className="mm-supp-card"
+            role="button"
+            tabIndex={0}
+            onClick={() => onSelectSupplier(s.id)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onSelectSupplier(s.id);
+              }
+            }}
+            aria-label={`${s.label} · ${fmtGBP(s.totalGBP)} · open supplier details`}
+          >
+            <div className="mm-supp-card-top">
+              <span className="mm-supp-name">{s.label}</span>
+              <span className="mm-supp-amt">{fmtGBPOrUndisclosed(s.totalGBP)}</span>
+            </div>
+            <div className="mm-supp-card-sub">
+              {s.projectCount > 0 && `${s.projectCount} project${s.projectCount === 1 ? "" : "s"} · `}
+              {s.buyerCount} department{s.buyerCount === 1 ? "" : "s"}
+            </div>
+            {s.topBuyers && s.topBuyers.length > 0 && (
+              <div className="mm-supp-chips">
+                {s.topBuyers.slice(0, 3).map((b) => (
+                  <button
+                    key={b.id}
+                    type="button"
+                    className="mm-inline-chip"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelectBuyer(b.id);
+                    }}
+                    aria-label={`View ${b.label} department details`}
+                  >
+                    <span className="mm-chip-name">{b.label}</span>
+                    <span className="mm-chip-amt">{fmtGBP(b.gbp)}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+            <div className={"mm-supp-dep " + (isConcentrated ? "mm-supp-dep-hot" : "mm-supp-dep-cool")}>
+              <span className="mm-supp-dep-dot" aria-hidden="true" />
+              {isConcentrated && s.topBuyerLabel ? (
+                <>
+                  {Math.round(concentration * 100)}% dependent on {s.topBuyerLabel}
+                </>
+              ) : (
+                <>Diversified across {s.buyerCount} dept{s.buyerCount === 1 ? "" : "s"}</>
+              )}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function MoneyMapFiltersSheet({
+  open, onClose,
+  tierFilter, setTierFilter,
+  minGBP, setMinGBP,
+  query, setQuery,
+  viewMode, lensSubjectNode, resetLens,
+}) {
+  const sheetRef = useDrawerFocus(onClose);
+  if (!open) return null;
+  return (
+    <>
+      <div
+        className="mm-sheet-backdrop"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <aside
+        ref={sheetRef}
+        tabIndex={-1}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Money Map filters"
+        className="mm-sheet"
+      >
+        <div className="mm-sheet-handle" aria-hidden="true" />
+        <div className="mm-sheet-head">
+          <span className="mm-sheet-title">Filters</span>
+          <button
+            type="button"
+            className="mm-sheet-close"
+            onClick={onClose}
+            aria-label="Close filters"
+          >
+            <X size={16} aria-hidden="true" />
+          </button>
+        </div>
+
+        <div className="mm-sheet-body">
+          <div className="mm-sheet-group">
+            <label className="mm-sheet-label" htmlFor="mm-sheet-search">Search</label>
+            <div className="mm-sheet-search-wrap">
+              <input
+                id="mm-sheet-search"
+                className="mm-sheet-search"
+                type="text"
+                placeholder={
+                  viewMode === "lens"
+                    ? "Narrow the ego network…"
+                    : "Supplier, department or project…"
+                }
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              {query && (
+                <button
+                  type="button"
+                  onClick={() => setQuery("")}
+                  aria-label="Clear search"
+                  className="mm-sheet-search-clear"
+                >
+                  &times;
+                </button>
+              )}
+            </div>
+          </div>
+
+          <div className="mm-sheet-group">
+            <div className="mm-sheet-label">Evidence tier</div>
+            <div className="mm-sheet-row">
+              <button
+                type="button"
+                className={"mm-sheet-chip" + (tierFilter === "AB" ? " mm-sheet-chip-active" : "")}
+                onClick={() => setTierFilter("AB")}
+              >
+                A + B
+              </button>
+              <button
+                type="button"
+                className={"mm-sheet-chip" + (tierFilter === "ABCD" ? " mm-sheet-chip-active" : "")}
+                onClick={() => setTierFilter("ABCD")}
+              >
+                Include softer (C/D)
+              </button>
+            </div>
+          </div>
+
+          <div className="mm-sheet-group">
+            <div className="mm-sheet-label">Min £ threshold</div>
+            <div className="mm-sheet-row">
+              {MIN_GBP_STEPS.map((step) => (
+                <button
+                  key={step}
+                  type="button"
+                  className={"mm-sheet-chip" + (minGBP === step ? " mm-sheet-chip-active" : "")}
+                  onClick={() => setMinGBP(step)}
+                >
+                  {fmtGBP(step)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {viewMode === "lens" && lensSubjectNode && (
+            <div className="mm-sheet-group">
+              <div className="mm-sheet-label">Lens subject</div>
+              <div className="mm-sheet-lens">
+                <span className="mm-sheet-lens-name">{lensSubjectNode.label}</span>
+                <button
+                  type="button"
+                  className="mm-sheet-chip"
+                  onClick={resetLens}
+                >
+                  Clear lens
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="mm-sheet-foot">
+          <button
+            type="button"
+            className="mm-sheet-apply"
+            onClick={onClose}
+          >
+            Done
+          </button>
+        </div>
+      </aside>
+    </>
+  );
+}
+
+/* =========================================================================
  *  MAIN COMPONENT
  * ========================================================================= */
 
@@ -291,6 +637,16 @@ export default function MoneyMap({
     }
   }, []);
 
+  /* ---------- mobile explorer state (task #100) ----------
+     On mobile the "list" layoutMode now renders a 3-tab explorer
+     (Flows / Departments / Suppliers) instead of the single
+     top-suppliers list we had before. Default tab is Flows — it
+     answers the question readers actually ask first ("what's the
+     biggest money movement right now?"). Filter sheet is a bottom
+     sheet so the tab bar stays uncluttered. */
+  const [mobileTab, setMobileTab] = useState("flows");
+  const [filtersOpen, setFiltersOpen] = useState(false);
+
   /* Body scroll-lock while the drawer is open so mobile users don't get
      the background scrolling behind the overlay. No-op on desktop. */
   useEffect(() => {
@@ -333,7 +689,9 @@ export default function MoneyMap({
     const projByS = new Map();   // supplierId -> Set(projectId)
     const buyersByS = new Map(); // supplierId -> Set(buyerId)
     const deptsByS = new Map();  // supplierId -> Set(deptName)
-    for (const e of (data.edges || [])) {
+    const gbpBySBuyer = new Map(); // supplierId -> Map(buyerId -> gbp)
+    const awards = (data.edges && data.edges.awards) ? data.edges.awards : [];
+    for (const e of awards) {
       if (!e || e.kind !== "award") continue;
       const s = e.s, t = e.t;
       if (typeof s !== "string" || typeof t !== "string") continue;
@@ -341,15 +699,30 @@ export default function MoneyMap({
       if (!projByS.has(t)) projByS.set(t, new Set());
       if (!buyersByS.has(t)) buyersByS.set(t, new Set());
       if (!deptsByS.has(t)) deptsByS.set(t, new Set());
+      if (!gbpBySBuyer.has(t)) gbpBySBuyer.set(t, new Map());
       for (const pid of (e.projectIds || [])) projByS.get(t).add(pid);
       buyersByS.get(t).add(s);
       const buyer = nodesById.get(s);
       if (buyer && buyer.department) deptsByS.get(t).add(buyer.department);
+      const gbpMap = gbpBySBuyer.get(t);
+      gbpMap.set(s, (gbpMap.get(s) || 0) + (e.totalGBP || 0));
     }
     const out = [];
     for (const n of (data.nodes || [])) {
       if (n.kind !== "supplier") continue;
       if (!(n.value > 0)) continue;
+      // Top-3 buyers by £, for inline chips + concentration
+      const gbpMap = gbpBySBuyer.get(n.id) || new Map();
+      const sortedBuyers = Array.from(gbpMap.entries())
+        .sort((a, b) => b[1] - a[1])
+        .map(([bid, gbp]) => {
+          const bNode = nodesById.get(bid);
+          return { id: bid, label: bNode ? bNode.label : bid, gbp };
+        });
+      const totalBuyerGBP = sortedBuyers.reduce((acc, b) => acc + (b.gbp || 0), 0);
+      const topBuyerShare = totalBuyerGBP > 0 && sortedBuyers.length > 0
+        ? (sortedBuyers[0].gbp / totalBuyerGBP)
+        : 0;
       out.push({
         id: n.id,
         label: n.label,
@@ -357,12 +730,120 @@ export default function MoneyMap({
         projectCount: (projByS.get(n.id) || new Set()).size,
         deptCount: (deptsByS.get(n.id) || new Set()).size,
         buyerCount: (buyersByS.get(n.id) || new Set()).size || n.buyerCount || 0,
-        topBuyer: n.topBuyer?.label || null,
+        topBuyer: n.topBuyer?.label || (sortedBuyers[0]?.label || null),
+        topBuyerLabel: sortedBuyers[0]?.label || null,
+        topBuyerShare,
+        topBuyers: sortedBuyers.slice(0, 3),
       });
     }
     out.sort((a, b) => b.totalGBP - a.totalGBP);
     return out.slice(0, 20);
   }, [data.edges, data.nodes, nodesById]);
+
+  /* ---------- top departments derivation (task #100) ----------
+     Aggregates award edges by source (buyer). Each dept row tracks
+     total £, distinct supplier count, distinct project count, and
+     the top 3 suppliers by £ for inline chips. */
+  const topDepartments = useMemo(() => {
+    const byBuyer = new Map(); // buyerId -> { gbp, suppliers:Map(tId->gbp), projects:Set }
+    const awards = (data.edges && data.edges.awards) ? data.edges.awards : [];
+    for (const e of awards) {
+      if (!e || e.kind !== "award") continue;
+      if (typeof e.s !== "string" || typeof e.t !== "string") continue;
+      if (!e.s.startsWith("buyer-") || !e.t.startsWith("supplier-")) continue;
+      if (!byBuyer.has(e.s)) {
+        byBuyer.set(e.s, { gbp: 0, suppliers: new Map(), projects: new Set() });
+      }
+      const bucket = byBuyer.get(e.s);
+      bucket.gbp += (e.totalGBP || 0);
+      bucket.suppliers.set(e.t, (bucket.suppliers.get(e.t) || 0) + (e.totalGBP || 0));
+      for (const pid of (e.projectIds || [])) bucket.projects.add(pid);
+    }
+    const out = [];
+    for (const [buyerId, bucket] of byBuyer.entries()) {
+      const n = nodesById.get(buyerId);
+      if (!n) continue;
+      const topSuppliersList = Array.from(bucket.suppliers.entries())
+        .sort((a, b) => b[1] - a[1])
+        .map(([sid, gbp]) => {
+          const sNode = nodesById.get(sid);
+          return { id: sid, label: sNode ? sNode.label : sid, gbp };
+        });
+      out.push({
+        id: buyerId,
+        label: n.label,
+        department: n.department || null,
+        totalGBP: bucket.gbp || n.value || 0,
+        supplierCount: bucket.suppliers.size,
+        projectCount: bucket.projects.size,
+        topSuppliers: topSuppliersList,
+      });
+    }
+    out.sort((a, b) => (b.totalGBP || 0) - (a.totalGBP || 0));
+    return out.slice(0, 20);
+  }, [data.edges, nodesById]);
+
+  /* ---------- top flows derivation (task #100) ----------
+     Each entry is one (buyer → supplier) edge with rollup metadata:
+     £ total, project count, year range extracted from source dates.
+     The precompute already emits one award edge per (buyer, supplier)
+     pair so we can use rows directly. If the data ever gets split
+     per-contract we'd need to re-group here. */
+  const topFlows = useMemo(() => {
+    const awards = (data.edges && data.edges.awards) ? data.edges.awards : [];
+    const out = [];
+    for (const e of awards) {
+      if (!e || e.kind !== "award") continue;
+      const buyer = nodesById.get(e.s);
+      const supplier = nodesById.get(e.t);
+      if (!buyer || !supplier) continue;
+      if (!(e.totalGBP > 0)) continue;
+      // Year range from source dates (if any)
+      const years = [];
+      for (const src of (e.sources || [])) {
+        if (src && src.date) {
+          const y = parseInt(String(src.date).slice(0, 4), 10);
+          if (!isNaN(y)) years.push(y);
+        }
+      }
+      let yearRange = null;
+      if (years.length > 0) {
+        const lo = Math.min(...years);
+        const hi = Math.max(...years);
+        yearRange = lo === hi ? String(lo) : `${lo}–${hi}`;
+      }
+      out.push({
+        id: e.id,
+        buyerId: e.s,
+        supplierId: e.t,
+        buyerLabel: buyer.label,
+        supplierLabel: supplier.label,
+        department: buyer.department || null,
+        totalGBP: e.totalGBP || 0,
+        projectCount: (e.projectIds || []).length,
+        yearRange,
+      });
+    }
+    out.sort((a, b) => b.totalGBP - a.totalGBP);
+    return out.slice(0, 30);
+  }, [data.edges, nodesById]);
+
+  /* ---------- active-filter badge count (task #100) ----------
+     Tier A+B and Min £ 1m are defaults — any deviation counts as
+     an active filter. Search string and non-default lens subject
+     each contribute one too. Purely cosmetic: drives the "(N)"
+     badge on the mobile Filters button. */
+  const activeFilterCount = useMemo(() => {
+    let n = 0;
+    if (tierFilter !== "AB") n += 1;
+    if (minGBP !== 1_000_000) n += 1;
+    if (query && query.trim().length > 0) n += 1;
+    if (viewMode === "lens") {
+      const defaultLens = (data.featuredIds && data.featuredIds[0]) || null;
+      if (lensSubjectId && lensSubjectId !== defaultLens) n += 1;
+    }
+    return n;
+  }, [tierFilter, minGBP, query, viewMode, lensSubjectId, data.featuredIds]);
 
   /* ---------- rotating Story Cards ----------
      Same pattern as Story of the Week on the home page: take the full
@@ -1126,12 +1607,14 @@ export default function MoneyMap({
       </section>
 
       {/* ==================================================
-          LAYOUT TOGGLE — audit rec #98
-          Default: canvas on desktop, list at <md. Readers can
-          always cross over ("Show canvas view →" / "Show list
-          view →"). Button wording flips to match current state.
+          LAYOUT TOGGLE — audit rec #98 / task #100
+          Default: canvas on desktop, mobile-explorer at <md.
+          On mobile we no longer expose "canvas" — d3-force
+          graphs don't work on 375px viewports. Desktop keeps
+          the optional list toggle for readers who prefer rows
+          over bubbles.
           ================================================== */}
-      <section className="mm-filters mm-filters-layout">
+      <section className="mm-filters mm-filters-layout mm-filters-layout-desktop">
         {layoutMode === "list" ? (
           <button
             type="button"
@@ -1143,7 +1626,7 @@ export default function MoneyMap({
         ) : (
           <button
             type="button"
-            className="mm-layout-toggle mm-layout-toggle-mobile"
+            className="mm-layout-toggle"
             onClick={() => setLayoutMode("list")}
             aria-label="Show top-suppliers list instead of canvas"
           >
@@ -1152,11 +1635,138 @@ export default function MoneyMap({
         )}
       </section>
 
+      {/* ==================================================
+          MOBILE EXPLORER — task #100
+          3-tab surface replacing the old top-suppliers list.
+          Only rendered in list mode; desktop list mode (when a
+          user manually toggles canvas → list above) still uses
+          the legacy MoneyMapMobileList since these card layouts
+          assume a single narrow column.
+          ================================================== */}
       {layoutMode === "list" ? (
-        <MoneyMapMobileList
-          rows={topSuppliers}
-          onSelectSupplier={(id) => setSelection({ kind: "node", id })}
-        />
+        <>
+          <section className="mm-explorer mm-explorer-mobile" aria-label="Money Explorer">
+            <div className="mm-explorer-header">
+              <button
+                type="button"
+                className="mm-filters-btn"
+                onClick={() => setFiltersOpen(true)}
+                aria-label={`Open filters${activeFilterCount > 0 ? ` (${activeFilterCount} active)` : ""}`}
+              >
+                <SlidersHorizontal size={14} aria-hidden="true" />
+                <span>Filters</span>
+                {activeFilterCount > 0 && (
+                  <span className="mm-filters-badge">{activeFilterCount}</span>
+                )}
+              </button>
+              <span className="mm-explorer-title">Money Explorer</span>
+            </div>
+            <div
+              className="mm-tabbar"
+              role="tablist"
+              aria-label="Money Explorer views"
+              onKeyDown={(e) => {
+                const order = ["flows", "departments", "suppliers"];
+                const idx = order.indexOf(mobileTab);
+                if (e.key === "ArrowRight") {
+                  e.preventDefault();
+                  setMobileTab(order[(idx + 1) % order.length]);
+                } else if (e.key === "ArrowLeft") {
+                  e.preventDefault();
+                  setMobileTab(order[(idx - 1 + order.length) % order.length]);
+                } else if (e.key === "Home") {
+                  e.preventDefault();
+                  setMobileTab(order[0]);
+                } else if (e.key === "End") {
+                  e.preventDefault();
+                  setMobileTab(order[order.length - 1]);
+                }
+              }}
+            >
+              <button
+                type="button"
+                id="mm-tab-flows"
+                role="tab"
+                aria-selected={mobileTab === "flows"}
+                aria-controls="mm-panel-flows"
+                tabIndex={mobileTab === "flows" ? 0 : -1}
+                className={"mm-tab" + (mobileTab === "flows" ? " mm-tab-active" : "")}
+                onClick={() => setMobileTab("flows")}
+              >
+                Flows
+              </button>
+              <button
+                type="button"
+                id="mm-tab-departments"
+                role="tab"
+                aria-selected={mobileTab === "departments"}
+                aria-controls="mm-panel-departments"
+                tabIndex={mobileTab === "departments" ? 0 : -1}
+                className={"mm-tab" + (mobileTab === "departments" ? " mm-tab-active" : "")}
+                onClick={() => setMobileTab("departments")}
+              >
+                Departments
+              </button>
+              <button
+                type="button"
+                id="mm-tab-suppliers"
+                role="tab"
+                aria-selected={mobileTab === "suppliers"}
+                aria-controls="mm-panel-suppliers"
+                tabIndex={mobileTab === "suppliers" ? 0 : -1}
+                className={"mm-tab" + (mobileTab === "suppliers" ? " mm-tab-active" : "")}
+                onClick={() => setMobileTab("suppliers")}
+              >
+                Suppliers
+              </button>
+            </div>
+
+            {mobileTab === "flows" && (
+              <MoneyMapFlowsTab
+                flows={topFlows}
+                onSelectSupplier={(id) => setSelection({ kind: "node", id })}
+              />
+            )}
+            {mobileTab === "departments" && (
+              <MoneyMapDepartmentsTab
+                departments={topDepartments}
+                onSelectBuyer={(id) => setSelection({ kind: "node", id })}
+                onSelectSupplier={(id) => setSelection({ kind: "node", id })}
+              />
+            )}
+            {mobileTab === "suppliers" && (
+              <MoneyMapSuppliersTab
+                suppliers={topSuppliers}
+                onSelectSupplier={(id) => setSelection({ kind: "node", id })}
+                onSelectBuyer={(id) => setSelection({ kind: "node", id })}
+              />
+            )}
+          </section>
+
+          {/* Desktop-only fallback: MoneyMapMobileList kept for users who
+              manually toggle canvas → list at ≥md. Mobile hides this
+              via CSS so only one list renders per viewport. */}
+          <div className="mm-explorer-desktop-fallback">
+            <MoneyMapMobileList
+              rows={topSuppliers}
+              onSelectSupplier={(id) => setSelection({ kind: "node", id })}
+            />
+          </div>
+
+          <MoneyMapFiltersSheet
+            open={filtersOpen}
+            onClose={() => setFiltersOpen(false)}
+            tierFilter={tierFilter}
+            setTierFilter={setTierFilter}
+            minGBP={minGBP}
+            setMinGBP={setMinGBP}
+            query={query}
+            setQuery={setQuery}
+            viewMode={viewMode}
+            lensSubjectNode={lensSubjectNode}
+            resetLens={resetLens}
+          />
+        </>
       ) : null}
 
       {/* Main grid */}
@@ -2724,6 +3334,460 @@ function MoneyMapStyles() {
          bar uncluttered for readers who want the canvas. */
       @media (min-width: 768px) {
         .mm-layout-toggle-mobile { display: none; }
+      }
+      /* Task #100 — desktop-only layout toggle. Canvas is not a mobile
+         experience (d3-force on 375px is hostile) so we hide the whole
+         toggle on mobile and route readers to the tabbed explorer. */
+      @media (max-width: 767px) {
+        .mm-filters-layout-desktop { display: none; }
+      }
+      /* The legacy MoneyMapMobileList is still used as the fallback on
+         desktop when a user manually flips to list mode. On mobile the
+         new explorer supersedes it. */
+      @media (max-width: 767px) {
+        .mm-explorer-desktop-fallback { display: none; }
+      }
+
+      /* ----------------------------------------------------
+         Task #100 — mobile 3-tab Explorer
+         ---------------------------------------------------- */
+      .mm-explorer {
+        max-width: 1440px; margin: 0 auto;
+        background: var(--mm-bg);
+      }
+      .mm-explorer-header {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 12px;
+        padding: 12px 16px 10px;
+        border-bottom: 1px solid var(--mm-border);
+      }
+      .mm-explorer-title {
+        font-family: var(--mm-mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--mm-fg-mute);
+      }
+      .mm-filters-btn {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 8px 12px; min-height: 40px;
+        background: var(--mm-bg-2); border: 1px solid var(--mm-border-2);
+        border-radius: 999px;
+        color: var(--mm-fg); font-size: 13px;
+        font-family: var(--mm-sans);
+        cursor: pointer;
+        transition: border-color 120ms, background 120ms;
+      }
+      .mm-filters-btn:hover,
+      .mm-filters-btn:focus-visible {
+        border-color: #4a4a56;
+        background: #15151c;
+      }
+      .mm-filters-btn:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 2px;
+      }
+      .mm-filters-badge {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-width: 18px; height: 18px; padding: 0 5px;
+        border-radius: 999px;
+        background: #fbbf24; color: #111;
+        font-family: var(--mm-mono);
+        font-variant-numeric: tabular-nums;
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1;
+      }
+      .mm-tabbar {
+        display: flex; align-items: stretch;
+        border-bottom: 1px solid var(--mm-border);
+        background: rgba(6,6,8,0.96);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 30;
+      }
+      .mm-tab {
+        flex: 1 1 0;
+        min-height: 48px;
+        background: transparent;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        color: var(--mm-fg-dim);
+        font-family: var(--mm-sans);
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+        cursor: pointer;
+        transition: color 120ms, border-color 120ms;
+      }
+      .mm-tab:hover { color: var(--mm-fg); }
+      .mm-tab-active {
+        color: var(--mm-fg);
+        border-bottom-color: #fbbf24;
+        font-weight: 600;
+      }
+      .mm-tab:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: -2px;
+      }
+
+      .mm-explorer-list {
+        padding: 8px 0 28px;
+      }
+      .mm-explorer-empty {
+        padding: 40px 20px;
+        color: var(--mm-fg-dim);
+        font-size: 14px;
+        text-align: center;
+      }
+
+      /* Flows tab — cards */
+      .mm-flow-card {
+        display: block; width: 100%;
+        text-align: left;
+        padding: 12px 16px;
+        min-height: 72px;
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid var(--mm-border);
+        color: inherit;
+        cursor: pointer;
+        transition: background-color 120ms;
+      }
+      .mm-flow-card:hover,
+      .mm-flow-card:focus-visible {
+        background: rgba(251, 191, 36, 0.04);
+      }
+      .mm-flow-card:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: -2px;
+      }
+      .mm-flow-card-main {
+        display: flex; align-items: baseline; flex-wrap: wrap;
+        gap: 6px;
+        line-height: 1.35;
+      }
+      .mm-flow-dept {
+        font-family: var(--mm-mono);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--mm-fg-mute);
+      }
+      .mm-flow-arrow {
+        color: var(--mm-fg-mute);
+        font-size: 13px;
+        margin: 0 2px;
+      }
+      .mm-flow-supplier {
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--mm-fg);
+      }
+      .mm-flow-card-meta {
+        margin-top: 4px;
+        display: flex; align-items: baseline; flex-wrap: wrap;
+        gap: 4px;
+        font-size: 13px;
+        color: #9ca3af;
+      }
+      .mm-flow-amt {
+        font-family: var(--mm-mono);
+        font-variant-numeric: tabular-nums;
+        color: var(--mm-fg);
+        font-weight: 500;
+      }
+      .mm-flow-sep { color: var(--mm-fg-mute); }
+      .mm-flow-card-tag {
+        margin-top: 6px;
+        display: inline-block;
+        font-family: var(--mm-mono);
+        font-size: 10.5px;
+        color: var(--mm-fg-mute);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 3px 7px;
+        border: 1px solid var(--mm-border);
+        border-radius: 3px;
+      }
+
+      /* Departments + Suppliers — shared card chassis */
+      .mm-dept-card,
+      .mm-supp-card {
+        display: block;
+        padding: 14px 16px;
+        min-height: 96px;
+        border-bottom: 1px solid var(--mm-border);
+        cursor: pointer;
+        transition: background-color 120ms;
+      }
+      .mm-dept-card:hover,
+      .mm-dept-card:focus-visible,
+      .mm-supp-card:hover,
+      .mm-supp-card:focus-visible {
+        background: rgba(251, 191, 36, 0.04);
+      }
+      .mm-dept-card:focus-visible,
+      .mm-supp-card:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: -2px;
+      }
+      .mm-dept-card-top,
+      .mm-supp-card-top {
+        display: flex; align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .mm-dept-name,
+      .mm-supp-name {
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--mm-fg);
+        line-height: 1.3;
+      }
+      .mm-dept-amt,
+      .mm-supp-amt {
+        font-family: var(--mm-mono);
+        font-variant-numeric: tabular-nums;
+        font-size: 16px;
+        color: var(--mm-fg);
+        white-space: nowrap;
+        font-weight: 500;
+      }
+      .mm-dept-card-sub,
+      .mm-supp-card-sub {
+        margin-top: 4px;
+        font-size: 13px;
+        color: #9ca3af;
+        line-height: 1.4;
+      }
+
+      /* Inline supplier / buyer chips inside cards */
+      .mm-dept-chips,
+      .mm-supp-chips {
+        margin-top: 10px;
+        display: flex; flex-wrap: wrap; gap: 6px;
+      }
+      .mm-inline-chip {
+        display: inline-flex; align-items: baseline; gap: 6px;
+        padding: 5px 10px;
+        border: 1px solid var(--mm-border-2);
+        border-radius: 999px;
+        background: #0b0b0f;
+        color: var(--mm-fg);
+        font-size: 12px;
+        font-family: var(--mm-sans);
+        cursor: pointer;
+        max-width: 100%;
+        transition: border-color 120ms, background 120ms;
+      }
+      .mm-inline-chip:hover,
+      .mm-inline-chip:focus-visible {
+        border-color: #4a4a56;
+        background: #15151c;
+      }
+      .mm-inline-chip:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 1px;
+      }
+      .mm-inline-chip-more {
+        color: var(--mm-fg-mute);
+        cursor: default;
+      }
+      .mm-chip-name {
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        max-width: 180px;
+      }
+      .mm-chip-amt {
+        font-family: var(--mm-mono);
+        font-variant-numeric: tabular-nums;
+        color: var(--mm-fg-dim);
+        font-size: 11.5px;
+      }
+
+      /* Supplier dependency indicator */
+      .mm-supp-dep {
+        margin-top: 10px;
+        display: flex; align-items: center; gap: 7px;
+        font-size: 12.5px;
+      }
+      .mm-supp-dep-dot {
+        display: inline-block;
+        width: 8px; height: 8px; border-radius: 50%;
+      }
+      .mm-supp-dep-hot { color: #fca5a5; }
+      .mm-supp-dep-hot .mm-supp-dep-dot {
+        background: #ef4444;
+        box-shadow: 0 0 6px rgba(239,68,68,0.6);
+      }
+      .mm-supp-dep-cool { color: var(--mm-fg-mute); }
+      .mm-supp-dep-cool .mm-supp-dep-dot {
+        background: #4a4a56;
+      }
+
+      /* ----------------------------------------------------
+         Task #100 — filter bottom sheet
+         ---------------------------------------------------- */
+      .mm-sheet-backdrop {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.55);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        z-index: 49;
+      }
+      .mm-sheet {
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        max-height: 80vh;
+        overflow-y: auto;
+        background: var(--mm-panel);
+        border-top: 1px solid var(--mm-border);
+        border-radius: 16px 16px 0 0;
+        box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+        padding: 8px 0 0;
+        z-index: 50;
+        color: var(--mm-fg);
+      }
+      .mm-sheet-handle {
+        width: 40px; height: 4px;
+        margin: 4px auto 10px;
+        border-radius: 2px;
+        background: var(--mm-border-2);
+      }
+      .mm-sheet-head {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 18px 10px;
+        border-bottom: 1px solid var(--mm-border);
+      }
+      .mm-sheet-title {
+        font-family: var(--mm-serif);
+        font-size: 18px;
+        color: var(--mm-fg);
+      }
+      .mm-sheet-close {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 36px; height: 36px;
+        background: transparent;
+        border: 1px solid var(--mm-border);
+        border-radius: 999px;
+        color: var(--mm-fg-dim);
+        cursor: pointer;
+      }
+      .mm-sheet-close:hover,
+      .mm-sheet-close:focus-visible {
+        color: var(--mm-fg); border-color: var(--mm-border-2);
+      }
+      .mm-sheet-body {
+        padding: 14px 18px 8px;
+      }
+      .mm-sheet-group { margin-bottom: 18px; }
+      .mm-sheet-label {
+        display: block;
+        font-family: var(--mm-mono);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--mm-fg-mute);
+        margin-bottom: 8px;
+      }
+      .mm-sheet-search-wrap {
+        position: relative;
+        display: flex; align-items: center;
+      }
+      .mm-sheet-search {
+        flex: 1 1 auto;
+        width: 100%;
+        min-height: 44px;
+        padding: 10px 36px 10px 12px;
+        background: var(--mm-bg-2);
+        border: 1px solid var(--mm-border-2);
+        border-radius: 8px;
+        color: var(--mm-fg);
+        font-size: 15px;
+        font-family: var(--mm-sans);
+      }
+      .mm-sheet-search:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 1px;
+        border-color: #4a4a56;
+      }
+      .mm-sheet-search-clear {
+        position: absolute;
+        right: 6px; top: 50%;
+        transform: translateY(-50%);
+        background: transparent; border: 0;
+        color: var(--mm-fg-mute);
+        font-size: 18px;
+        width: 28px; height: 28px;
+        cursor: pointer;
+      }
+      .mm-sheet-row {
+        display: flex; flex-wrap: wrap; gap: 8px;
+      }
+      .mm-sheet-chip {
+        display: inline-flex; align-items: center;
+        padding: 8px 14px;
+        min-height: 40px;
+        background: var(--mm-bg-2);
+        border: 1px solid var(--mm-border-2);
+        border-radius: 999px;
+        color: var(--mm-fg-dim);
+        font-size: 13px;
+        font-family: var(--mm-sans);
+        cursor: pointer;
+        font-variant-numeric: tabular-nums;
+        transition: all 120ms;
+      }
+      .mm-sheet-chip:hover,
+      .mm-sheet-chip:focus-visible {
+        border-color: #4a4a56;
+        color: var(--mm-fg);
+      }
+      .mm-sheet-chip:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 1px;
+      }
+      .mm-sheet-chip-active {
+        background: #15151c;
+        border-color: #fbbf24;
+        color: var(--mm-fg);
+      }
+      .mm-sheet-lens {
+        display: flex; align-items: center; gap: 10px;
+        flex-wrap: wrap;
+      }
+      .mm-sheet-lens-name {
+        font-family: var(--mm-serif);
+        font-size: 14.5px;
+        color: var(--mm-fg);
+      }
+      .mm-sheet-foot {
+        position: sticky; bottom: 0;
+        padding: 12px 18px 16px;
+        background: var(--mm-panel);
+        border-top: 1px solid var(--mm-border);
+      }
+      .mm-sheet-apply {
+        width: 100%;
+        min-height: 44px;
+        background: #fbbf24;
+        border: 0;
+        border-radius: 8px;
+        color: #111;
+        font-family: var(--mm-sans);
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .mm-sheet-apply:hover,
+      .mm-sheet-apply:focus-visible {
+        background: #fcd34d;
+      }
+      .mm-sheet-apply:focus-visible {
+        outline: 2px solid #111;
+        outline-offset: 2px;
       }
       .mm-mobile-list {
         padding: 12px 8px 20px;
