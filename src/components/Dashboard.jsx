@@ -12289,8 +12289,8 @@ function AppInner() {
                  " · Top " + dd.metadata.recordsIncluded.toLocaleString() + " by value from " + dd.metadata.totalRecords.toLocaleString() + " total"}
               </div>
 
-              {/* Table */}
-              <div className="overflow-x-auto">
+              {/* Table (desktop) */}
+              <div className="hidden md:block overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-gray-800">
@@ -12347,6 +12347,57 @@ function AppInner() {
                     ))}
                   </tbody>
                 </table>
+              </div>
+
+              {/* Mobile: card list */}
+              <div className="md:hidden space-y-2">
+                {pageData.map((d, i) => (
+                  <button
+                    key={d.ecRef + "-" + i}
+                    onClick={() => setSelectedDonation(d)}
+                    className="block w-full text-left p-3 bg-gray-900/40 border border-gray-800 rounded-lg hover:border-gray-700 transition-colors"
+                  >
+                    <div className="text-base font-semibold text-gray-100 break-words pr-2">
+                      {d.donor}
+                    </div>
+                    <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                      <span className={
+                        "inline-block px-1.5 py-0.5 rounded text-[10px] font-medium " +
+                        (d.donorStatus === "Individual" ? "bg-blue-500/10 text-blue-400" :
+                         d.donorStatus === "Company" ? "bg-purple-500/10 text-purple-400" :
+                         d.donorStatus === "Trade Union" ? "bg-orange-500/10 text-orange-400" :
+                         "bg-gray-500/10 text-gray-400")
+                      }>
+                        {d.donorStatus}
+                      </span>
+                      <span className="inline-block px-1.5 py-0.5 rounded text-[10px] font-medium" style={{
+                        backgroundColor: (PARTY_COLOURS[d.party] || "#6b7280") + "22",
+                        color: PARTY_COLOURS[d.party] || "#9ca3af",
+                      }}>
+                        {d.party}
+                      </span>
+                      {d.entity !== d.party && d.entity && (
+                        <span className="text-gray-500 text-[10px] truncate max-w-[180px]">{d.entity.length > 30 ? d.entity.substring(0, 28) + "\u2026" : d.entity}</span>
+                      )}
+                    </div>
+                    <div className="flex flex-wrap gap-x-4 gap-y-2 mt-2.5 text-xs">
+                      <div>
+                        <span className="text-[10px] uppercase tracking-wider text-gray-500 block">Value</span>
+                        <span className="font-mono font-medium text-gray-200 tabular-nums">{fmtFull(d.value)}</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] uppercase tracking-wider text-gray-500 block">Date</span>
+                        <span className="font-mono text-gray-300 tabular-nums">{d.accepted || "\u2014"}</span>
+                      </div>
+                      {d.companyReg && (
+                        <div>
+                          <span className="text-[10px] uppercase tracking-wider text-gray-500 block">Company</span>
+                          <span className="font-mono text-gray-400 tabular-nums">{d.companyReg}</span>
+                        </div>
+                      )}
+                    </div>
+                  </button>
+                ))}
               </div>
 
               {/* Pagination */}
@@ -13313,7 +13364,8 @@ function AppInner() {
                 ) : (
                   /* === Lobbyist Table === */
                   <div>
-                    <div className="overflow-x-auto">
+                    {/* Desktop table */}
+                    <div className="hidden md:block overflow-x-auto">
                       <table className="w-full text-sm">
                         <thead>
                           <tr className="border-b border-gray-800">
@@ -13346,6 +13398,35 @@ function AppInner() {
                         </tbody>
                       </table>
                     </div>
+
+                    {/* Mobile: card list */}
+                    <div className="md:hidden space-y-2">
+                      {paged.map((l, i) => (
+                        <button
+                          key={i}
+                          onClick={() => setSelectedFirm(l)}
+                          className="block w-full text-left p-3 bg-gray-900/40 border border-gray-800 rounded-lg hover:border-gray-700 transition-colors"
+                        >
+                          <div className="text-base font-semibold text-gray-100 break-words pr-2">{l.n}</div>
+                          {l.cls && l.cls.length > 0 && (
+                            <div className="text-xs text-gray-500 mt-1 break-words">{l.cls.slice(0, 3).join(", ")}{l.cls.length > 3 ? " +" + (l.cls.length - 3) + " more" : ""}</div>
+                          )}
+                          <div className="flex flex-wrap items-center gap-1.5 mt-2">
+                            <span className={"text-[10px] px-2 py-0.5 rounded-full " + (l.t === "C" ? "bg-blue-900/30 text-blue-400" : l.t === "P" ? "bg-purple-900/30 text-purple-400" : "bg-gray-800 text-gray-400")}>{typeLabel(l.t)}</span>
+                          </div>
+                          <div className="flex flex-wrap gap-x-4 gap-y-2 mt-2.5 text-xs">
+                            <div>
+                              <span className="text-[10px] uppercase tracking-wider text-gray-500 block">Registered</span>
+                              <span className="font-mono text-gray-300 tabular-nums">{l.d}</span>
+                            </div>
+                            <div>
+                              <span className="text-[10px] uppercase tracking-wider text-gray-500 block">Clients</span>
+                              <span className="font-mono font-bold text-gray-200 tabular-nums">{l.cl}</span>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
                     {/* Pagination */}
                     {totalPages > 1 && (
                       <div className="flex items-center justify-between mt-4">
@@ -13371,7 +13452,8 @@ function AppInner() {
                     Clients declared by registered consultant lobbyists in Q4 2025 (Oct–Dec). {summ.clientsWithMultipleLobbyists} clients use multiple lobbying firms.
                   </p>
                 </div>
-                <div className="overflow-x-auto">
+                {/* Desktop table */}
+                <div className="hidden md:block overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-gray-800">
@@ -13393,6 +13475,26 @@ function AppInner() {
                     </tbody>
                   </table>
                 </div>
+
+                {/* Mobile: card list */}
+                <div className="md:hidden space-y-2">
+                  {topClients.slice(0, 50).map((c, i) => (
+                    <div
+                      key={i}
+                      className="relative p-3 bg-gray-900/40 border border-gray-800 rounded-lg"
+                    >
+                      <span className="absolute top-2 right-3 text-[10px] font-mono text-gray-600 tabular-nums">#{i + 1}</span>
+                      <div className="text-base font-semibold text-gray-100 break-words pr-10">{c.n}</div>
+                      {c.ls && c.ls.length > 0 && (
+                        <div className="text-xs text-gray-500 mt-1 break-words">{(c.ls || []).slice(0, 3).join(", ")}{c.ls.length > 3 ? " +" + (c.ls.length - 3) + " more" : ""}</div>
+                      )}
+                      <div className="mt-2.5">
+                        <span className="text-[10px] uppercase tracking-wider text-gray-500 block">Lobbyists</span>
+                        <span className="font-mono font-bold text-gray-200 tabular-nums">{c.lc}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
 
@@ -13409,7 +13511,8 @@ function AppInner() {
                     MPs must declare family members engaged in lobbying under Category 1 of the Register of Members' Financial Interests. This covers spouses, partners, and close family members employed by lobbying firms or engaged in third-party advocacy.
                   </p>
                 </div>
-                <div className="overflow-x-auto">
+                {/* Desktop table */}
+                <div className="hidden md:block overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-gray-800">
@@ -13431,6 +13534,30 @@ function AppInner() {
                     </tbody>
                   </table>
                 </div>
+
+                {/* Mobile: card list */}
+                <div className="md:hidden space-y-2">
+                  {mpFamilyLobby.map((mp, i) => (
+                    <div
+                      key={i}
+                      className="p-3 bg-gray-900/40 border border-gray-800 rounded-lg"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0 flex-1">
+                          <div className="text-base font-semibold text-gray-100 break-words">{mp.n}</div>
+                          <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                            <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: (mp.pc || "#6b7280") + "22", color: mp.pc || "#9ca3af" }}>{mp.pa || mp.p}</span>
+                            {mp.c && <span className="text-xs text-gray-400 break-words">{mp.c}</span>}
+                          </div>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <span className="text-[10px] uppercase tracking-wider text-gray-500 block">Links</span>
+                          <span className="text-amber-400 font-mono font-bold text-lg tabular-nums">{mp.fmC}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
 
@@ -13445,10 +13572,45 @@ function AppInner() {
                   shareSubline="Ministerial meetings with outside organisations"
                 >
                   <ResponsiveContainer width="100%" height={340}>
-                    <BarChart data={deptData} layout="vertical" margin={{ top: 5, right: 30, left: 140, bottom: 0 }}>
+                    <BarChart
+                      data={deptData}
+                      layout="vertical"
+                      margin={isMobile
+                        ? { top: 5, right: 12, left: 0, bottom: 0 }
+                        : { top: 5, right: 30, left: 140, bottom: 0 }}
+                    >
                       <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
-                      <XAxis type="number" stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 11 }} />
-                      <YAxis type="category" dataKey="department" stroke="#6b7280" tick={{ fill: "#d1d5db", fontSize: 10 }} width={135} />
+                      <XAxis type="number" stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: isMobile ? 10 : 11 }} />
+                      <YAxis
+                        type="category"
+                        dataKey="department"
+                        stroke="#6b7280"
+                        tick={{ fill: "#d1d5db", fontSize: 10 }}
+                        width={isMobile ? 90 : 135}
+                        interval={0}
+                        tickFormatter={(name) => {
+                          if (!name) return name;
+                          // Abbreviate long department names so bars still
+                          // get enough horizontal space on a 375px iPhone.
+                          const abbr = {
+                            "Department for Business, Energy & Industrial Strategy": "BEIS",
+                            "Department for Transport": "DfT",
+                            "Department of Health and Social Care": "DHSC",
+                            "Department for Environment, Food & Rural Affairs": "Defra",
+                            "Department for Work and Pensions": "DWP",
+                            "Department for Education": "DfE",
+                            "Department for International Trade": "DIT",
+                            "Ministry of Defence": "MoD",
+                            "Ministry of Justice": "MoJ",
+                            "Home Office": "Home Office",
+                            "HM Treasury": "HM Treasury",
+                            "Cabinet Office": "Cabinet Office",
+                          };
+                          if (abbr[name]) return abbr[name];
+                          if (!isMobile) return name;
+                          return name.length > 14 ? name.substring(0, 13) + "\u2026" : name;
+                        }}
+                      />
                       <Tooltip contentStyle={{ backgroundColor: "#111827", border: "1px solid #374151", borderRadius: 8 }} formatter={(v) => [v.toLocaleString() + " meetings", "Published"]} />
                       <Bar dataKey="approxMeetings" radius={[0, 4, 4, 0]} fill="#6b7280" fillOpacity={0.7} animationDuration={800} animationEasing="ease-out" />
                     </BarChart>
