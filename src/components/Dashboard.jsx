@@ -10671,8 +10671,10 @@ function AppInner() {
                         )
                       }
                       className={
-                        "w-full grid grid-cols-12 " +
-                        "gap-2 px-4 py-3 border-b " +
+                        "w-full flex flex-col gap-y-2 " +
+                        "md:grid md:grid-cols-12 " +
+                        "md:gap-2 md:gap-y-0 " +
+                        "px-4 py-3 border-b " +
                         "border-gray-800/30 " +
                         "text-left " +
                         "hover:bg-white/[0.02] " +
@@ -10682,138 +10684,154 @@ function AppInner() {
                           ? "bg-white/[0.02]" : "")
                       }
                     >
-                      <div className={
-                        "col-span-1 text-gray-600 " +
-                        "font-mono text-xs"
-                      }>
-                        {i + 1}
-                      </div>
-                      <div className="col-span-3">
+                      {/* Rank + name — inline on mobile, grid cells on desktop */}
+                      <div className="flex items-baseline gap-2 md:contents">
                         <div className={
-                          "text-gray-200 " +
-                          "font-medium text-[13px] " +
-                          "leading-tight " +
-                          "flex items-center gap-1.5"
+                          "md:col-span-1 text-gray-600 " +
+                          "font-mono text-xs shrink-0"
                         }>
-                          <span className="truncate">{p.projectName}</span>
-                          {delayTrackerMatch && (
-                            <span
-                              role="button"
-                              tabIndex={0}
-                              title="Open project dossier"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setSelectedProject(delayTrackerMatch);
-                                setSourceProject(delayTrackerMatch);
-                              }}
-                              onKeyDown={(e) => {
-                                if (e.key === "Enter" || e.key === " ") {
-                                  e.preventDefault();
+                          {i + 1}<span className="md:hidden">.</span>
+                        </div>
+                        <div className="md:col-span-3 min-w-0 flex-1">
+                          <div className={
+                            "text-gray-200 " +
+                            "font-medium text-[13px] " +
+                            "leading-tight " +
+                            "flex items-center gap-1.5"
+                          }>
+                            <span className="truncate">{p.projectName}</span>
+                            {delayTrackerMatch && (
+                              <span
+                                role="button"
+                                tabIndex={0}
+                                title="Open project dossier"
+                                onClick={(e) => {
                                   e.stopPropagation();
                                   setSelectedProject(delayTrackerMatch);
                                   setSourceProject(delayTrackerMatch);
+                                }}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    setSelectedProject(delayTrackerMatch);
+                                    setSourceProject(delayTrackerMatch);
+                                  }
+                                }}
+                                className={
+                                  "flex-shrink-0 text-[9px] font-mono " +
+                                  "uppercase tracking-[0.1em] " +
+                                  "px-1.5 py-0.5 rounded-sm " +
+                                  "text-emerald-400 bg-emerald-900/25 " +
+                                  "border border-emerald-800/60 " +
+                                  "hover:bg-emerald-900/40 hover:text-emerald-300 " +
+                                  "cursor-pointer"
                                 }
-                              }}
-                              className={
-                                "flex-shrink-0 text-[9px] font-mono " +
-                                "uppercase tracking-[0.1em] " +
-                                "px-1.5 py-0.5 rounded-sm " +
-                                "text-emerald-400 bg-emerald-900/25 " +
-                                "border border-emerald-800/60 " +
-                                "hover:bg-emerald-900/40 hover:text-emerald-300 " +
-                                "cursor-pointer"
-                              }
-                            >
-                              {"\u2192 dossier"}
+                              >
+                                {"\u2192 dossier"}
+                              </span>
+                            )}
+                          </div>
+                          <div className={
+                            "text-[10px] text-gray-600 " +
+                            "mt-0.5"
+                          }>
+                            {p.department}
+                          </div>
+                        </div>
+                      </div>
+                      {/* Metrics strip — wraps as labelled chips on mobile,
+                          rejoins the 12-col grid on desktop via md:contents. */}
+                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 pl-6 md:pl-0 md:contents">
+                        <div className={
+                          "md:col-span-2 md:text-right " +
+                          "font-mono flex items-baseline md:block gap-1"
+                        }>
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">Delay</span>
+                          {p.delayYears ? (
+                            <span className="flex items-baseline gap-1 md:block">
+                              <span className={
+                                "text-red-400 " +
+                                "font-bold text-sm tabular-nums"
+                              }>
+                                +{p.delayYears}y
+                              </span>
+                              <span className={
+                                "text-[10px] " +
+                                "text-gray-600 tabular-nums md:block"
+                              }>
+                                {p.delayDays
+                                  ? p.delayDays
+                                      .toLocaleString(
+                                        "en-GB"
+                                      ) + " days"
+                                  : ""}
+                              </span>
+                            </span>
+                          ) : (
+                            <span className={
+                              "text-gray-600 text-xs"
+                            }>
+                              n/a
                             </span>
                           )}
                         </div>
                         <div className={
-                          "text-[10px] text-gray-600 " +
-                          "mt-0.5"
+                          "md:col-span-1 md:text-right " +
+                          "font-mono text-xs flex items-baseline md:block gap-1 tabular-nums"
                         }>
-                          {p.department}
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">Slip</span>
+                          <span>
+                            {p.delayPct
+                              ? "+" + p.delayPct + "%"
+                              : "\u2014"}
+                          </span>
                         </div>
-                      </div>
-                      <div className={
-                        "col-span-2 text-right " +
-                        "font-mono"
-                      }>
-                        {p.delayYears ? (
-                          <div>
-                            <span className={
-                              "text-red-400 " +
-                              "font-bold text-sm"
-                            }>
-                              +{p.delayYears}y
-                            </span>
+                        <div className={
+                          "md:col-span-1 md:text-right " +
+                          "font-mono text-xs flex items-baseline md:block gap-1 tabular-nums"
+                        }>
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">Rev.</span>
+                          <span>{p.revisedDeadlines ?? "\u2014"}</span>
+                        </div>
+                        <div className={
+                          "md:col-span-1 md:text-right " +
+                          "font-mono text-xs flex items-baseline md:block gap-1 tabular-nums"
+                        }>
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">£/Day</span>
+                          <span>
+                            {p.extraCostPerDelayDayM
+                              ? "£" +
+                                p.extraCostPerDelayDayM
+                                  .toFixed(1) + "m"
+                              : "\u2014"}
+                          </span>
+                        </div>
+                        <div className={
+                          "md:col-span-3 text-[11px] " +
+                          "text-gray-500 leading-snug w-full md:w-auto"
+                        }>
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono block">Cause</span>
+                          <div className={
+                            "text-gray-400 " +
+                            "font-medium"
+                          }>
+                            {p.primaryDelayCause}
+                          </div>
+                          {p.costGrowthM ? (
                             <div className={
                               "text-[10px] " +
-                              "text-gray-600"
+                              "text-gray-600 mt-0.5 tabular-nums"
                             }>
-                              {p.delayDays
-                                ? p.delayDays
-                                    .toLocaleString(
-                                      "en-GB"
-                                    ) + " days"
-                                : ""}
+                              Cost growth: {"£"}
+                              {p.costGrowthM >= 1000
+                                ? (p.costGrowthM / 1000)
+                                    .toFixed(1) + "bn"
+                                : p.costGrowthM + "m"}
+                              {" "}(+{p.costGrowthPct}%)
                             </div>
-                          </div>
-                        ) : (
-                          <span className={
-                            "text-gray-600 text-xs"
-                          }>
-                            n/a
-                          </span>
-                        )}
-                      </div>
-                      <div className={
-                        "col-span-1 text-right " +
-                        "font-mono text-xs"
-                      }>
-                        {p.delayPct
-                          ? "+" + p.delayPct + "%"
-                          : "\u2014"}
-                      </div>
-                      <div className={
-                        "col-span-1 text-right " +
-                        "font-mono text-xs"
-                      }>
-                        {p.revisedDeadlines ?? "\u2014"}
-                      </div>
-                      <div className={
-                        "col-span-1 text-right " +
-                        "font-mono text-xs"
-                      }>
-                        {p.extraCostPerDelayDayM
-                          ? "£" +
-                            p.extraCostPerDelayDayM
-                              .toFixed(1) + "m"
-                          : "\u2014"}
-                      </div>
-                      <div className={
-                        "col-span-3 text-[11px] " +
-                        "text-gray-500 leading-snug"
-                      }>
-                        <div className={
-                          "text-gray-400 " +
-                          "font-medium"
-                        }>
-                          {p.primaryDelayCause}
+                          ) : null}
                         </div>
-                        {p.costGrowthM ? (
-                          <div className={
-                            "text-[10px] " +
-                            "text-gray-600 mt-0.5"
-                          }>
-                            Cost growth: {"£"}
-                            {p.costGrowthM >= 1000
-                              ? (p.costGrowthM / 1000)
-                                  .toFixed(1) + "bn"
-                              : p.costGrowthM + "m"}
-                            {" "}(+{p.costGrowthPct}%)
-                          </div>
-                        ) : null}
                       </div>
                     </button>
 
@@ -28424,131 +28442,155 @@ function AppInner() {
                         )
                       }
                       className={
-                        "w-full md:min-w-[640px] grid grid-cols-12 " +
-                        "gap-2 px-4 py-3 " +
+                        "w-full md:min-w-[640px] " +
+                        "flex flex-col gap-y-2 " +
+                        "md:grid md:grid-cols-12 " +
+                        "md:gap-2 md:gap-y-0 " +
+                        "px-4 py-3 " +
                         "border-b border-gray-800/30 " +
                         "text-left " +
                         "hover:bg-white/[0.02] " +
                         "transition-colors " +
-                        "items-center " +
+                        "items-start md:items-center " +
                         (leagueExpanded === d.dept
                           ? "bg-white/[0.02]" : "")
                       }
                     >
-                      <div className={
-                        "col-span-1 text-gray-600 " +
-                        "text-sm font-mono"
-                      }>
-                        {rank + 1}
-                      </div>
-                      <div className={
-                        "col-span-3 text-sm " +
-                        "font-semibold text-gray-200 " +
-                        "truncate"
-                      }>
-                        {d.dept}
-                      </div>
-                      <div className={
-                        "col-span-1 text-right"
-                      }>
-                        <span className={
-                          "text-sm font-black " +
-                          "font-mono " +
-                          (d.score >= 60
-                            ? "text-red-500"
-                            : d.score >= 35
-                              ? "text-amber-500"
-                              : "text-gray-400")
-                        }>
-                          {d.score}
-                        </span>
-                      </div>
-                      <div className={
-                        "col-span-1 text-right " +
-                        "text-xs text-gray-500 " +
-                        "font-mono"
-                      }>
-                        {fmt(d.totalLatest)}
-                      </div>
-                      <div className={
-                        "col-span-1 text-right " +
-                        "text-xs font-mono " +
-                        (d.totalOverrun > 0
-                          ? "text-red-400"
-                          : "text-gray-500")
-                      }>
-                        {d.totalOverrun > 0
-                          ? "+" + fmt(d.totalOverrun)
-                          : "\u2014"}
-                      </div>
-                      <div className={
-                        "col-span-1 text-right " +
-                        "text-xs font-mono " +
-                        (d.overrunPct > 50
-                          ? "text-red-400"
-                          : d.overrunPct > 20
-                            ? "text-amber-400"
-                            : "text-gray-500")
-                      }>
-                        {d.overrunPct > 0
-                          ? "+" + d.overrunPct
-                            .toFixed(0) + "%"
-                          : "\u2014"}
-                      </div>
-                      <div className={
-                        "col-span-1 text-right " +
-                        "text-xs font-mono " +
-                        (d.cancelledSpend > 0
-                          ? "text-red-400"
-                          : "text-gray-600")
-                      }>
-                        {d.cancelledSpend > 0
-                          ? fmt(d.cancelledSpend)
-                          : "\u2014"}
-                      </div>
-                      <div className={
-                        "col-span-1 text-right " +
-                        "text-xs text-gray-400 " +
-                        "font-mono"
-                      }>
-                        {d.projectCount}
-                      </div>
-                      <div className={
-                        "col-span-2 text-right"
-                      }>
+                      {/* Rank + dept name — inline on mobile, separate grid cells on desktop */}
+                      <div className="flex items-baseline gap-2 md:contents">
                         <div className={
-                          "flex items-center " +
-                          "justify-end gap-2"
+                          "md:col-span-1 text-gray-600 " +
+                          "text-sm font-mono shrink-0"
+                        }>
+                          {rank + 1}<span className="md:hidden">.</span>
+                        </div>
+                        <div className={
+                          "md:col-span-3 text-sm " +
+                          "font-semibold text-gray-200 " +
+                          "truncate min-w-0 flex-1"
+                        }>
+                          {d.dept}
+                        </div>
+                      </div>
+                      {/* Metrics — labelled chips on mobile (wraps as a strip),
+                          grid cells on desktop via md:contents. */}
+                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 pl-6 md:pl-0 md:contents">
+                        <div className={
+                          "md:col-span-1 md:text-right " +
+                          "flex items-baseline md:block gap-1"
+                        }>
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">Score</span>
+                          <span className={
+                            "text-sm font-black " +
+                            "font-mono tabular-nums " +
+                            (d.score >= 60
+                              ? "text-red-500"
+                              : d.score >= 35
+                                ? "text-amber-500"
+                                : "text-gray-400")
+                          }>
+                            {d.score}
+                          </span>
+                        </div>
+                        <div className={
+                          "md:col-span-1 md:text-right " +
+                          "text-xs text-gray-500 " +
+                          "font-mono flex items-baseline md:block gap-1 tabular-nums"
+                        }>
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">Spend</span>
+                          <span>{fmt(d.totalLatest)}</span>
+                        </div>
+                        <div className={
+                          "md:col-span-1 md:text-right " +
+                          "text-xs font-mono flex items-baseline md:block gap-1 tabular-nums " +
+                          (d.totalOverrun > 0
+                            ? "text-red-400"
+                            : "text-gray-500")
+                        }>
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">Overrun</span>
+                          <span>
+                            {d.totalOverrun > 0
+                              ? "+" + fmt(d.totalOverrun)
+                              : "\u2014"}
+                          </span>
+                        </div>
+                        <div className={
+                          "md:col-span-1 md:text-right " +
+                          "text-xs font-mono flex items-baseline md:block gap-1 tabular-nums " +
+                          (d.overrunPct > 50
+                            ? "text-red-400"
+                            : d.overrunPct > 20
+                              ? "text-amber-400"
+                              : "text-gray-500")
+                        }>
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">Ovr %</span>
+                          <span>
+                            {d.overrunPct > 0
+                              ? "+" + d.overrunPct
+                                .toFixed(0) + "%"
+                              : "\u2014"}
+                          </span>
+                        </div>
+                        <div className={
+                          "md:col-span-1 md:text-right " +
+                          "text-xs font-mono flex items-baseline md:block gap-1 tabular-nums " +
+                          (d.cancelledSpend > 0
+                            ? "text-red-400"
+                            : "text-gray-600")
+                        }>
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">Wasted</span>
+                          <span>
+                            {d.cancelledSpend > 0
+                              ? fmt(d.cancelledSpend)
+                              : "\u2014"}
+                          </span>
+                        </div>
+                        <div className={
+                          "md:col-span-1 md:text-right " +
+                          "text-xs text-gray-400 " +
+                          "font-mono flex items-baseline md:block gap-1 tabular-nums"
+                        }>
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">Proj</span>
+                          <span>{d.projectCount}</span>
+                        </div>
+                        <div className={
+                          "md:col-span-2 md:text-right w-full md:w-auto"
                         }>
                           <div className={
-                            "w-16 h-1.5 bg-gray-800 " +
-                            "rounded-full overflow-hidden"
+                            "flex items-center " +
+                            "gap-2 md:justify-end"
                           }>
-                            <div
-                              className={
-                                "h-full rounded-full " +
-                                (d.pctOverBudget >= 75
-                                  ? "bg-red-500"
-                                  : d.pctOverBudget >= 50
-                                    ? "bg-amber-500"
-                                    : "bg-gray-500")
-                              }
-                              style={{
-                                width: Math.min(
-                                  d.pctOverBudget, 100
-                                ) + "%"
-                              }}
-                            />
+                            <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">% Over Budget</span>
+                            <div className={
+                              "w-16 h-1.5 bg-gray-800 " +
+                              "rounded-full overflow-hidden"
+                            }>
+                              <div
+                                className={
+                                  "h-full rounded-full " +
+                                  (d.pctOverBudget >= 75
+                                    ? "bg-red-500"
+                                    : d.pctOverBudget >= 50
+                                      ? "bg-amber-500"
+                                      : "bg-gray-500")
+                                }
+                                style={{
+                                  width: Math.min(
+                                    d.pctOverBudget, 100
+                                  ) + "%"
+                                }}
+                              />
+                            </div>
+                            <span className={
+                              "text-xs font-mono tabular-nums " +
+                              (d.pctOverBudget >= 75
+                                ? "text-red-400"
+                                : "text-gray-400")
+                            }>
+                              {d.pctOverBudget
+                                .toFixed(0)}%
+                            </span>
                           </div>
-                          <span className={
-                            "text-xs font-mono " +
-                            (d.pctOverBudget >= 75
-                              ? "text-red-400"
-                              : "text-gray-400")
-                          }>
-                            {d.pctOverBudget
-                              .toFixed(0)}%
-                          </span>
                         </div>
                       </div>
                     </button>
