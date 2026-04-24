@@ -357,6 +357,30 @@ function fmtRange(data, dateKey) {
 
 // REUSABLE COMPONENTS
 // ============================================================================
+
+// useIsMobile — single matchMedia subscriber shared across the app so every
+// Recharts <YAxis> / flex row / card can reflow at the same breakpoint.
+// SSR returns false on the first render (server has no window); the
+// useEffect snaps to the real value after mount, matching the same
+// server-equals-first-client-render pattern the view-router uses at AppInner.
+function useIsMobile(query = "(max-width: 767px)") {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const mq = window.matchMedia(query);
+    const handler = () => setIsMobile(mq.matches);
+    handler();
+    if (mq.addEventListener) {
+      mq.addEventListener("change", handler);
+      return () => mq.removeEventListener("change", handler);
+    }
+    // Safari <14 fallback
+    mq.addListener(handler);
+    return () => mq.removeListener(handler);
+  }, [query]);
+  return isMobile;
+}
+
 function StatusBadge({ status }) {
   const c = statusColors[status] || {
     bg: "bg-gray-800", text: "text-gray-400", dot: "bg-gray-400"
@@ -6573,6 +6597,11 @@ function AppInner() {
   // overview before it snaps to the right page.
   const [view, setViewRaw] = useState("overview");
 
+  // Shared mobile breakpoint — used by Recharts bar charts, ranking rows,
+  // and repeat-offender cards to reflow at <md. SSR returns false so
+  // the server and first client render agree; snaps true after mount.
+  const isMobile = useIsMobile();
+
   // Wrap setView to update the URL with clean paths
   const setView = useCallback((v) => {
     setViewRaw(v);
@@ -9385,17 +9414,22 @@ function AppInner() {
                     }}
                     title="Open project dossier"
                     className={
-                      "md:min-w-[640px] grid grid-cols-12 gap-2 " +
-                      "items-center " +
+                      "md:min-w-[640px] flex flex-col gap-1 " +
+                      "md:grid md:grid-cols-12 md:gap-2 " +
+                      "md:items-center " +
                       "px-1 py-1.5 cursor-pointer " +
                       "border-b border-gray-900/60 " +
                       "hover:bg-white/[0.03] group"
                     }
                   >
-                    <div className="col-span-1 text-gray-800 text-[11px] font-mono">
-                      {i + 1}
-                    </div>
-                    <div className="col-span-4 min-w-0">
+                    {/* Mobile: rank + name inline. Desktop: each in its
+                        own grid cell (md:contents pulls children back
+                        into the grid). */}
+                    <div className="flex items-baseline gap-2 md:contents">
+                      <div className="md:col-span-1 text-gray-800 text-[11px] font-mono shrink-0">
+                        {i + 1}<span className="md:hidden">.</span>
+                      </div>
+                      <div className="md:col-span-4 min-w-0 flex-1">
                       <div className={
                         "text-gray-300 text-[12px] " +
                         "font-mono truncate " +
@@ -9468,43 +9502,51 @@ function AppInner() {
                       <div className="text-gray-700 text-[10px] font-mono truncate">
                         {p.department}
                       </div>
-                    </div>
-                    <div className="col-span-1">
-                      <span className="text-[9px] uppercase tracking-[0.1em] text-gray-700 font-mono">
-                        {p.category}
-                      </span>
-                    </div>
-                    <div className="col-span-2 text-right font-mono">
-                      <div className="text-gray-700 text-[11px] line-through decoration-gray-800">
-                        {fmt(p.originalBudget)}
-                      </div>
-                      <div className="text-gray-400 text-[12px]">
-                        {fmt(p.latestBudget)}
                       </div>
                     </div>
-                    <div className={
-                      "col-span-2 text-right font-mono " +
-                      "px-1.5 py-0.5 -mx-1.5 rounded-sm " + ovBg
-                    }>
-                      <div className={"text-[13px] font-bold tabular-nums " + ovColor}>
-                        {neg ? "" : "+"}{fmt(Math.abs(ov))}
+                    {/* Metrics row — wraps below name on mobile, rejoins
+                        the grid on desktop via md:contents. Fixes the
+                        +£91bn +202% / "In Progress" overlap that Tim
+                        caught on device. */}
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 pl-6 md:pl-0 md:contents">
+                      <div className="md:col-span-1">
+                        <span className="text-[9px] uppercase tracking-[0.1em] text-gray-700 font-mono">
+                          {p.category}
+                        </span>
                       </div>
-                      <div className={"text-[10px] tabular-nums " + ovColor}>
-                        {neg ? "" : "+"}{op.toFixed(1)}%
+                      <div className="md:col-span-2 md:text-right font-mono">
+                        <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-600 font-mono mr-1">Budget</span>
+                        <span className="text-gray-700 text-[11px] line-through decoration-gray-800 md:block">
+                          {fmt(p.originalBudget)}
+                        </span>
+                        <span className="text-gray-400 text-[12px] md:block ml-1 md:ml-0">
+                          {fmt(p.latestBudget)}
+                        </span>
                       </div>
-                    </div>
-                    <div className="col-span-2 text-right flex items-center justify-end gap-2">
-                      <StatusBadge status={p.status} />
-                      <span
-                        className={
-                          "text-gray-700 group-hover:text-emerald-400 " +
-                          "transition-colors flex-shrink-0"
-                        }
-                        title="Open dossier"
-                        aria-hidden="true"
-                      >
-                        <ChevronRight size={14} />
-                      </span>
+                      <div className={
+                        "md:col-span-2 md:text-right font-mono " +
+                        "md:px-1.5 md:py-0.5 md:-mx-1.5 md:rounded-sm " + ovBg
+                      }>
+                        <span className={"text-[13px] font-bold tabular-nums md:block " + ovColor}>
+                          {neg ? "" : "+"}{fmt(Math.abs(ov))}
+                        </span>
+                        <span className={"text-[10px] tabular-nums md:block ml-1 md:ml-0 " + ovColor}>
+                          {neg ? "" : "+"}{op.toFixed(1)}%
+                        </span>
+                      </div>
+                      <div className="md:col-span-2 md:text-right flex items-center md:justify-end gap-2 ml-auto md:ml-0">
+                        <StatusBadge status={p.status} />
+                        <span
+                          className={
+                            "text-gray-700 group-hover:text-emerald-400 " +
+                            "transition-colors flex-shrink-0"
+                          }
+                          title="Open dossier"
+                          aria-hidden="true"
+                        >
+                          <ChevronRight size={14} />
+                        </span>
+                      </div>
                     </div>
                   </div>
                 );
@@ -12043,7 +12085,7 @@ function AppInner() {
               shareSubline="Political donations by party, per seat won"
               accentColor="#0087DC"
             >
-              <ResponsiveContainer width="100%" height={Math.max(280, dd.byParty.length * 32)}>
+              <ResponsiveContainer width="100%" height={isMobile ? Math.max(340, dd.byParty.length * 30) : Math.max(280, dd.byParty.length * 32)}>
                 <BarChart
                   data={(() => {
                     if (govFilter) {
@@ -12058,11 +12100,38 @@ function AppInner() {
                     return dd.byParty;
                   })()}
                   layout="vertical"
-                  margin={{ top: 5, right: 30, left: 120, bottom: 0 }}
+                  margin={isMobile
+                    ? { top: 5, right: 12, left: 0, bottom: 0 }
+                    : { top: 5, right: 30, left: 120, bottom: 0 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
-                  <XAxis type="number" stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: 11 }} tickFormatter={v => "£" + (v / 1e6).toFixed(0) + "m"} />
-                  <YAxis type="category" dataKey="name" stroke="#6b7280" tick={{ fill: "#d1d5db", fontSize: 11 }} width={115} />
+                  <XAxis type="number" stroke="#6b7280" tick={{ fill: "#9ca3af", fontSize: isMobile ? 10 : 11 }} tickFormatter={v => "£" + (v / 1e6).toFixed(0) + "m"} />
+                  <YAxis
+                    type="category"
+                    dataKey="name"
+                    stroke="#6b7280"
+                    tick={{ fill: "#d1d5db", fontSize: isMobile ? 10 : 11 }}
+                    width={isMobile ? 86 : 115}
+                    interval={0}
+                    tickFormatter={(name) => {
+                      if (!isMobile) return name;
+                      // Abbreviate long party names so bars still get
+                      // >40% of horizontal real estate on a 375px iPhone.
+                      const abbr = {
+                        "Liberal Democrats": "Lib Dems",
+                        "Co-operative": "Co-op",
+                        "Plaid Cymru": "Plaid",
+                        "Scottish National Party": "SNP",
+                        "Democratic Unionist Party": "DUP",
+                        "Ulster Unionist Party": "UUP",
+                        "Social Democratic & Labour Party": "SDLP",
+                        "Alliance": "Alliance",
+                        "Green": "Green"
+                      };
+                      if (abbr[name]) return abbr[name];
+                      return name && name.length > 12 ? name.slice(0, 11) + "\u2026" : name;
+                    }}
+                  />
                   <Tooltip
                     contentStyle={{ backgroundColor: "#111827", border: "1px solid #374151", borderRadius: 8, color: "#f3f4f6" }}
                     labelStyle={{ color: "#f3f4f6", fontWeight: 600 }}
@@ -15497,7 +15566,7 @@ function AppInner() {
               <h3 className="text-base font-serif font-medium text-white tracking-[-0.01em] mb-4">
                 Annual Government Spend by Supplier
               </h3>
-              <div style={{ height: 400 }}>
+              <div style={{ height: isMobile ? 460 : 400 }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     data={suppliersSummary
@@ -15514,23 +15583,58 @@ function AppInner() {
                         sector: s.sector
                       }))}
                     layout="vertical"
-                    margin={{
-                      left: 120,
-                      right: 20,
-                      top: 5,
-                      bottom: 5
-                    }}
+                    margin={isMobile
+                      ? { left: 0, right: 12, top: 5, bottom: 5 }
+                      : { left: 120, right: 20, top: 5, bottom: 5 }}
                   >
                     <XAxis
                       type="number"
-                      tick={{ fill: "#9ca3af", fontSize: 11 }}
+                      tick={{ fill: "#9ca3af", fontSize: isMobile ? 10 : 11 }}
                       tickFormatter={(v) => fmt(v)}
                     />
                     <YAxis
                       type="category"
                       dataKey="name"
-                      tick={{ fill: "#d1d5db", fontSize: 11 }}
-                      width={110}
+                      tick={{ fill: "#d1d5db", fontSize: isMobile ? 10 : 11 }}
+                      width={isMobile ? 90 : 110}
+                      interval={0}
+                      tickFormatter={(name) => {
+                        if (!isMobile) return name;
+                        // Abbreviate supplier names so bars get enough
+                        // horizontal real estate at 375px. "Babcock
+                        // International", "Balfour Beatty" etc were
+                        // eating ~45% of chart width.
+                        const abbr = {
+                          "Babcock International": "Babcock",
+                          "Babcock International Group": "Babcock",
+                          "Balfour Beatty": "Balfour B.",
+                          "General Dynamics": "Gen. Dyn.",
+                          "General Dynamics UK": "Gen. Dyn.",
+                          "Rolls-Royce": "Rolls-Royce",
+                          "BAE Systems": "BAE Systems",
+                          "Lockheed Martin": "Lockheed M.",
+                          "Lockheed Martin UK": "Lockheed M.",
+                          "Thales": "Thales",
+                          "Thales UK": "Thales",
+                          "Leidos": "Leidos",
+                          "Leonardo UK": "Leonardo",
+                          "MBDA UK": "MBDA",
+                          "Atkins": "Atkins",
+                          "AtkinsRéalis": "Atkins",
+                          "Mott MacDonald": "Mott M.",
+                          "Arup Group": "Arup",
+                          "Arup Group Limited": "Arup",
+                          "Capgemini": "Capgemini",
+                          "Fujitsu": "Fujitsu",
+                          "Accenture": "Accenture",
+                          "Serco": "Serco",
+                          "Mitie": "Mitie",
+                          "G4S": "G4S",
+                          "Kier": "Kier"
+                        };
+                        if (abbr[name]) return abbr[name];
+                        return name && name.length > 12 ? name.slice(0, 11) + "\u2026" : name;
+                      }}
                     />
                     <Tooltip
                       contentStyle={{
@@ -15665,61 +15769,61 @@ function AppInner() {
                   return (
                     <div
                       key={s.name}
-                      className="md:min-w-[640px] grid grid-cols-12 gap-2 items-center px-4 py-3 border-b border-gray-800/20 hover:bg-white/[0.02]"
+                      className="md:min-w-[640px] flex flex-col gap-2 md:grid md:grid-cols-12 md:gap-2 md:items-center px-4 py-3 border-b border-gray-800/20 hover:bg-white/[0.02]"
                     >
-                      <div className="col-span-1 text-gray-700 text-xs font-mono">
-                        {i + 1}
-                      </div>
-                      <div className="col-span-3">
-                        <div className="text-white text-sm font-medium">
-                          {s.name}
-                          {s.strategicSupplier && (
-                            <span className="ml-1.5 text-[10px] px-1.5 py-0.5 rounded bg-gray-800/50 text-gray-400">
-                              Strategic
-                            </span>
-                          )}
-                        </div>
-                        <div className="text-gray-600 text-xs truncate">
-                          {s.departments
-                            .slice(0, 2)
-                            .join(", ")}
-                          {s.departments.length > 2
-                            ? " +" +
-                              (s.departments.length - 2)
-                            : ""}
-                        </div>
-                      </div>
-                      <div className="col-span-2 text-right text-white text-sm font-medium">
-                        {fmt(
-                          Math.round(
-                            s.annualGovSpend / 1e6
-                          )
-                        )}
-                      </div>
-                      <div className="col-span-2 text-right text-gray-400 text-sm">
-                        {s.contractCount > 0
-                          ? s.contractCount
-                          : "-"}
-                      </div>
-                      <div className="col-span-2 text-right text-gray-400 text-sm">
-                        {s.totalValue > 0
-                          ? fmt(
-                              Math.round(
-                                s.totalValue / 1e6
-                              )
-                            )
-                          : "-"}
-                      </div>
-                      <div className="col-span-2 text-right">
-                        <span
-                          className={
-                            "text-[10px] uppercase tracking-[0.1em] " +
-                            (secColor[s.sector] ||
-                              "text-gray-500")
-                          }
-                        >
-                          {s.sector}
+                      {/* Name row — takes full width on mobile, cols 1-4 on desktop */}
+                      <div className="flex items-baseline gap-2 md:contents">
+                        <span className="md:col-span-1 text-gray-500 text-xs font-mono md:text-gray-700 shrink-0">
+                          {i + 1}
+                          <span className="md:hidden">.</span>
                         </span>
+                        <div className="md:col-span-3 min-w-0 flex-1">
+                          <div className="text-white text-sm font-medium flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
+                            <span>{s.name}</span>
+                            {s.strategicSupplier && (
+                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-gray-800/50 text-gray-400 whitespace-nowrap">
+                                Strategic
+                              </span>
+                            )}
+                          </div>
+                          <div className="text-gray-600 text-xs truncate">
+                            {s.departments
+                              .slice(0, 2)
+                              .join(", ")}
+                            {s.departments.length > 2
+                              ? " +" +
+                                (s.departments.length - 2)
+                              : ""}
+                          </div>
+                        </div>
+                      </div>
+                      {/* Metrics — stacked-with-labels on mobile, grid cells on desktop.
+                          md:contents collapses this wrapper so its children
+                          participate directly in the parent grid at >=md. */}
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-1 pl-6 md:pl-0 md:contents">
+                        <div className="md:col-span-2 md:text-right md:text-sm text-white font-medium tabular-nums flex flex-col md:block">
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">Annual spend</span>
+                          <span>{fmt(Math.round(s.annualGovSpend / 1e6))}</span>
+                        </div>
+                        <div className="md:col-span-2 md:text-right md:text-sm text-gray-400 tabular-nums flex flex-col md:block">
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">Contracts</span>
+                          <span>{s.contractCount > 0 ? s.contractCount : "-"}</span>
+                        </div>
+                        <div className="md:col-span-2 md:text-right md:text-sm text-gray-400 tabular-nums flex flex-col md:block">
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">Total value</span>
+                          <span>{s.totalValue > 0 ? fmt(Math.round(s.totalValue / 1e6)) : "-"}</span>
+                        </div>
+                        <div className="md:col-span-2 md:text-right flex flex-col md:block">
+                          <span className="md:hidden text-[9px] uppercase tracking-wider text-gray-500 font-mono">Sector</span>
+                          <span
+                            className={
+                              "text-[10px] uppercase tracking-[0.1em] " +
+                              (secColor[s.sector] || "text-gray-500")
+                            }
+                          >
+                            {s.sector}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   );
@@ -26494,15 +26598,15 @@ function AppInner() {
                       }>
                         <button
                           onClick={() => toggleCompanyExpand(c.name)}
-                          className="w-full flex items-start justify-between gap-3 px-4 py-3 hover:bg-gray-900/60 text-left"
+                          className="w-full flex flex-col md:flex-row md:items-start md:justify-between gap-3 px-4 py-3 hover:bg-gray-900/60 text-left"
                         >
-                          <div className="min-w-0 flex-1">
+                          <div className="min-w-0 flex-1 w-full">
                             <div className="flex items-center gap-2 flex-wrap">
                               <span className={
                                 "text-[10px] font-mono w-6 text-right shrink-0 " +
                                 (ci < 3 && contractorCompanySortBy === "projectCount" ? "text-red-400 font-bold" : "text-gray-500")
                               }>#{ci + 1}</span>
-                              <span className="text-sm text-white font-medium">{c.name}</span>
+                              <span className="text-sm text-white font-medium break-words">{c.name}</span>
                               {isHeavyRepeat && (
                                 <span className="text-[10px] font-mono uppercase tracking-wider px-1.5 py-0.5 border border-red-500/60 bg-red-500/20 text-red-200 font-bold">
                                   Repeat offender · {c.projectCount}×
@@ -26540,7 +26644,11 @@ function AppInner() {
                               )}
                             </div>
                           </div>
-                          <div className="flex items-center gap-4 shrink-0 text-right">
+                          {/* Metrics: horizontal strip below the name on mobile,
+                              right-aligned inline on desktop. This is the
+                              fix for the dead-space-on-right repeat-offender
+                              cards that Tim caught on device. */}
+                          <div className="flex items-center gap-4 shrink-0 md:text-right pl-6 md:pl-0 flex-wrap md:flex-nowrap">
                             <div>
                               <div className="text-[10px] uppercase tracking-wider text-gray-500 font-mono">Projects</div>
                               <div className={
@@ -26569,7 +26677,7 @@ function AppInner() {
                                 <div className="text-sm text-red-300 font-mono">{fmtGBP(c.cancelledValue)}</div>
                               </div>
                             )}
-                            <span className="text-gray-500 text-sm">{isOpen ? "−" : "+"}</span>
+                            <span className="text-gray-500 text-sm ml-auto md:ml-0">{isOpen ? "−" : "+"}</span>
                           </div>
                         </button>
 
