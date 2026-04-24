@@ -25,6 +25,7 @@ let _sessionToken = null;
 
 import CiteChip from "./CiteChip";
 import Toast from "./Toast";
+import ShareChips from "./ShareChips";
 import { ToastProvider, useToast } from "../lib/useToast";
 import useDrawerFocus from "../lib/useDrawerFocus";
 import projectsData from "../data/projects.json";
@@ -4796,6 +4797,22 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
             )}
           </div>
         )}
+
+        {/* — SHARE CHIPS —
+            Audit rec #96: under the lede / overrun stat, above the
+            Briefing prose, so a reader who's just finished the top of
+            the dossier has one-tap share to X / LinkedIn / WhatsApp.
+            Caption = project name + 120-char slice of description. */}
+        <div className="px-6 pt-2 pb-1">
+          <ShareChips
+            title={p.name}
+            summary={
+              p.description
+                ? p.description.slice(0, 120).replace(/\s+\S*$/, "")
+                : undefined
+            }
+          />
+        </div>
 
         {/* — BRIEFING —
             Audit rec #94: max-w-prose (65ch) so briefing lines
