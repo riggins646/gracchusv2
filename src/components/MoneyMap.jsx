@@ -637,6 +637,110 @@ function MoneyMapStoriesTab({ connections, peopleById, onOpen }) {
   );
 }
 
+/* =========================================================================
+ * MoneyMapStoriesStrip — DESKTOP (md+) horizontal-scrolling story feed
+ * Sits above the Money Map canvas on desktop so the editorial hook is the
+ * first thing a reader sees. Mobile has its own full-screen Stories tab.
+ * Compact card: serif name text-2xl, 360px wide, 260px min-height.
+ * Taps open the existing drawer via onOpen(counterpartyId).
+ * ========================================================================= */
+function MoneyMapStoriesStrip({ connections, peopleById, onOpen }) {
+  if (!connections || connections.length === 0) return null;
+  return (
+    <section className="mm-story-strip-wrap" aria-label="Featured connection stories">
+      <div className="mm-story-strip-header">
+        <span className="mm-story-strip-eyebrow">
+          Stories &middot; Who&rsquo;s connected to the money
+        </span>
+        <span className="mm-story-strip-count">
+          {connections.length} live &middot; more under research &rarr;
+        </span>
+      </div>
+      <div className="mm-story-strip-scroll">
+        {connections.map((c) => {
+          const person = peopleById[c.personId];
+          const eyebrowLabel = CONN_EYEBROW[c.connectionType] || "CONNECTION";
+          const period = c.timeframe?.periodLabel || "";
+          const eyebrow = period
+            ? `${eyebrowLabel} \u00B7 ${period}`
+            : eyebrowLabel;
+          const finding = c.regulatoryFindings && c.regulatoryFindings[0];
+          const cpId = c.counterparty?.id || null;
+          const cpName = c.counterparty?.name || "";
+          const hasTarget = !!cpId;
+          const fig = c.financial?.relatedContractsDescription
+            || c.financial?.personalIncomeDescription
+            || "";
+          return (
+            <button
+              type="button"
+              key={c.id}
+              className={"mm-story-strip-card" + (hasTarget ? "" : " mm-story-strip-card-inert")}
+              onClick={() => { if (hasTarget) onOpen(cpId); }}
+              aria-label={person ? `Open details for ${person.name}` : "Open story"}
+            >
+              {c.liveProceedings && (
+                <div className="mm-story-strip-live" role="status">
+                  <AlertTriangle size={11} aria-hidden="true" />
+                  <span>LIVE PROCEEDINGS</span>
+                </div>
+              )}
+              <div className="mm-story-strip-eyebrow-card">{eyebrow}</div>
+              {person?.name && (
+                <h3 className="mm-story-strip-name">{person.name}</h3>
+              )}
+              {c.summary && (
+                <p className="mm-story-strip-summary">{c.summary}</p>
+              )}
+              {finding && (
+                <blockquote className="mm-story-strip-quote">
+                  &ldquo;{finding.quotedText}&rdquo;
+                  <cite className="mm-story-strip-quote-cite">
+                    &mdash; {finding.body}
+                  </cite>
+                </blockquote>
+              )}
+              {fig && (
+                <div className="mm-story-strip-figures">{fig}</div>
+              )}
+              {cpName && (
+                <span className="mm-story-strip-cp">
+                  <span aria-hidden="true">&rarr;</span>
+                  <span>{cpName}</span>
+                </span>
+              )}
+              {c.sources && c.sources.length > 0 && (
+                <div className="mm-story-strip-sources">
+                  {c.sources.slice(0, 3).map((s, i) => (
+                    <a
+                      key={i}
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className={
+                        "mm-story-src mm-story-src-" +
+                        (s.tier === "primary" ? "primary" : s.tier === "news" ? "news" : "analysis")
+                      }
+                      title={s.publisher + (s.date ? ` \u00B7 ${s.date}` : "")}
+                    >
+                      {s.publisher}
+                      <ExternalLink size={9} aria-hidden="true" />
+                    </a>
+                  ))}
+                </div>
+              )}
+            </button>
+          );
+        })}
+        <div className="mm-story-strip-endcap" aria-hidden="true">
+          More stories under active research.
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function MoneyMapFiltersSheet({
   open, onClose,
   tierFilter, setTierFilter,
@@ -1748,6 +1852,17 @@ export default function MoneyMap({
           An edge between two entities means we found a named public document linking them &mdash; it does not imply any party acted improperly.
         </div>
       </section>
+
+      {/* Desktop-only Stories strip — surfaces the editorial hook above
+          the canvas. Mobile has its own full-screen Stories tab inside
+          the 3-tab Explorer and must NOT also render this strip. */}
+      <div className="hidden md:block">
+        <MoneyMapStoriesStrip
+          connections={storyConnections}
+          peopleById={storyPeopleById}
+          onOpen={(id) => setSelection({ kind: "node", id })}
+        />
+      </div>
 
       {/* Mode toggle — Lens (ego network) vs Network (firehose) */}
       <section className="mm-filters mm-filters-modes">
@@ -4351,6 +4466,190 @@ function MoneyMapStyles() {
         letter-spacing: 0.06em;
         text-transform: uppercase;
         font-weight: 500;
+      }
+
+      /* =========================================================
+         Desktop Stories strip — horizontal scroll above the canvas
+         ========================================================= */
+      .mm-story-strip-wrap {
+        padding: 18px 0 10px 0;
+        border-bottom: 1px solid var(--mm-border);
+        margin-bottom: 12px;
+      }
+      .mm-story-strip-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 0 4px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+      }
+      .mm-story-strip-eyebrow {
+        font-family: var(--mm-mono);
+        font-size: 10.5px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #e5e7eb;
+      }
+      .mm-story-strip-count {
+        font-family: var(--mm-mono);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        color: var(--mm-fg-mute);
+      }
+      .mm-story-strip-scroll {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 4px;
+        padding: 4px 4px 12px 4px;
+        scrollbar-width: thin;
+      }
+      .mm-story-strip-scroll::-webkit-scrollbar {
+        height: 6px;
+      }
+      .mm-story-strip-scroll::-webkit-scrollbar-thumb {
+        background: var(--mm-border);
+        border-radius: 3px;
+      }
+      .mm-story-strip-card {
+        flex: 0 0 360px;
+        scroll-snap-align: start;
+        min-height: 260px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 16px;
+        border: 1px solid var(--mm-border);
+        border-radius: 10px;
+        background: linear-gradient(180deg, rgba(20,22,28,0.85), rgba(11,12,16,0.92));
+        color: inherit;
+        text-align: left;
+        font: inherit;
+        cursor: pointer;
+        transition: border-color 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+      }
+      .mm-story-strip-card:hover {
+        border-color: rgba(251, 191, 36, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+      }
+      .mm-story-strip-card:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 2px;
+      }
+      .mm-story-strip-card-inert {
+        cursor: default;
+      }
+      .mm-story-strip-card-inert:hover {
+        transform: none;
+        box-shadow: none;
+        border-color: var(--mm-border);
+      }
+      .mm-story-strip-live {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 8px;
+        border: 1px solid rgba(245, 158, 11, 0.5);
+        background: rgba(245, 158, 11, 0.08);
+        color: #fbbf24;
+        border-radius: 4px;
+        font-family: var(--mm-mono);
+        font-size: 9px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        width: fit-content;
+      }
+      .mm-story-strip-eyebrow-card {
+        font-family: var(--mm-mono);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--mm-fg-mute);
+      }
+      .mm-story-strip-name {
+        font-family: var(--mm-serif);
+        font-size: 22px;
+        font-weight: 500;
+        color: #fff;
+        letter-spacing: -0.01em;
+        line-height: 1.1;
+        margin: 0;
+      }
+      .mm-story-strip-summary {
+        font-size: 14px;
+        line-height: 1.5;
+        color: #d8dbe3;
+        margin: 0;
+      }
+      .mm-story-strip-quote {
+        font-family: var(--mm-serif);
+        font-style: italic;
+        font-size: 13px;
+        color: #fcd34d;
+        line-height: 1.4;
+        border-left: 2px solid rgba(251, 191, 36, 0.5);
+        padding-left: 10px;
+        margin: 0;
+      }
+      .mm-story-strip-quote-cite {
+        display: block;
+        font-family: var(--mm-mono);
+        font-style: normal;
+        font-size: 10px;
+        color: var(--mm-fg-mute);
+        letter-spacing: 0.06em;
+        margin-top: 4px;
+      }
+      .mm-story-strip-figures {
+        font-family: var(--mm-mono);
+        font-variant-numeric: tabular-nums;
+        font-size: 12px;
+        color: #cbd5e1;
+      }
+      .mm-story-strip-cp {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 10px;
+        border: 1px solid var(--mm-border);
+        border-radius: 100px;
+        font-size: 12px;
+        color: #e2e8f0;
+        background: rgba(255,255,255,0.02);
+        width: fit-content;
+      }
+      .mm-story-strip-card:hover .mm-story-strip-cp {
+        border-color: rgba(251, 191, 36, 0.4);
+        color: #fbbf24;
+      }
+      .mm-story-strip-sources {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: auto;
+        padding-top: 10px;
+        border-top: 1px solid var(--mm-border);
+      }
+      .mm-story-strip-endcap {
+        flex: 0 0 220px;
+        scroll-snap-align: end;
+        min-height: 260px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px dashed var(--mm-border);
+        border-radius: 10px;
+        font-family: var(--mm-mono);
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--mm-fg-mute);
+        text-align: center;
+        padding: 16px;
       }
     `}</style>
   );
