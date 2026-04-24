@@ -95,6 +95,60 @@ export default function AboutPage() {
           </div>
         </div>
 
+        {/* How Gracchus works — click-through to standards + corrections */}
+        <div className="mt-16 pt-8 border-t border-gray-800/60">
+          <div
+            className={
+              "text-[11px] uppercase tracking-[0.25em] " +
+              "font-mono text-gray-600 mb-5"
+            }
+          >
+            How Gracchus works
+          </div>
+          <div className="space-y-5">
+            <a
+              href="/standards"
+              className={
+                "block group"
+              }
+            >
+              <div
+                className={
+                  "text-[15px] text-gray-300 " +
+                  "group-hover:text-white transition-colors " +
+                  "underline underline-offset-4 " +
+                  "decoration-gray-700 group-hover:decoration-gray-400"
+                }
+              >
+                Editorial standards &rarr;
+              </div>
+              <div className="text-[13px] text-gray-500 mt-1 leading-relaxed no-underline">
+                How sources are graded. What &ldquo;undisclosed&rdquo; and &ldquo;adjacent&rdquo; mean. Why live proceedings get reported cautiously.
+              </div>
+            </a>
+            <a
+              href="/corrections"
+              className={
+                "block group"
+              }
+            >
+              <div
+                className={
+                  "text-[15px] text-gray-300 " +
+                  "group-hover:text-white transition-colors " +
+                  "underline underline-offset-4 " +
+                  "decoration-gray-700 group-hover:decoration-gray-400"
+                }
+              >
+                Corrections &rarr;
+              </div>
+              <div className="text-[13px] text-gray-500 mt-1 leading-relaxed no-underline">
+                Found a mistake? Here&rsquo;s how the process works.
+              </div>
+            </a>
+          </div>
+        </div>
+
         {/* Tiny footer */}
         <div
           className={
