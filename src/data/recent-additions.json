@@ -4,6 +4,14 @@
   "entries": [
     {
       "date": "2026-04-24",
+      "type": "feature",
+      "title": "Money Map v2 \u2014 people on the canvas",
+      "summary": "The Money Map canvas now includes 19 people as a new node kind, wired from the connection records. Each person is linked to their counterparty (supplier or buyer) and the departments they served in. Click a person bubble to open a profile drawer with their roles, their connections, and the underlying source documents. Phase 2 will add political parties and donations as further node kinds.",
+      "view": "moneymap",
+      "metric": "+19 person nodes"
+    },
+    {
+      "date": "2026-04-24",
       "type": "coverage",
       "title": "Connection catalogue expanded \u2014 12 more stories",
       "summary": "The Money Map Stories tab now spans Osborne (BlackRock), Clegg (Meta), Javid (JP Morgan), Hammond, Patel, May, Harding/Penrose (NHS Test & Trace), Zahawi (Balshore), Meller (PPE VIP lane), Uniserve, and Benton (lobbying suspension). Mix of regulator findings, ACOBA-approved appointments, and public-record entries. Sourced to gov.uk, parliament.uk, court records, and investigative journalism.",

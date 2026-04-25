@@ -39,6 +39,15 @@ const TYPE_COLOUR = {
   supplier: "#94a3b8",
   buyer:    "#60a5fa",
   project:  "#a78bfa",
+  /* v2 Phase 1 — people on the canvas. Amber to match the source-grade
+     dot in the hero and the Stories card accent: the visual language
+     across the surface is "amber means an editorially-curated entity
+     of public interest, not a money flow". */
+  person:        "#fbbf24",
+  /* Adjacent firms (Greensill, BlackRock, Meta, JP Morgan etc.) appear
+     as desaturated context — they're not Gracchus-tracked entities so
+     they shouldn't read with the same weight as a real supplier. */
+  adjacent_firm: "#525561",
 };
 
 const TIER_STYLE = {
@@ -51,8 +60,56 @@ const TIER_STYLE = {
 const WIDTH = 1200;
 const HEIGHT = 720;
 
-const CLUSTER_CX = { buyer: 520, supplier: 700, project: 600 };
-const CLUSTER_CY = { buyer: 320, supplier: 380, project: 500 };
+const CLUSTER_CX = { buyer: 520, supplier: 700, project: 600, person: 360, adjacent_firm: 820 };
+const CLUSTER_CY = { buyer: 320, supplier: 380, project: 500, person: 200, adjacent_firm: 540 };
+
+/* ---------- v2 Phase 1: people layer ----------
+   Map common rolesHeld[] department strings onto the canonical buyer ids
+   they ought to render an edge to. Anything not in this table is silently
+   skipped (HM Treasury, House of Commons / Lords, 10 Downing Street, FCO,
+   private-sector roles, etc. — they're either not tracked as Gracchus
+   buyer nodes or they're not departments at all). The matcher is exact
+   on the strings that appear in individual-connections.json and tolerant
+   of the few common aliases. Keep keys lowercase for the comparator. */
+const DEPT_TO_BUYER_ID = {
+  "defra": "buyer-desnz",  // n/a — Defra not yet a tracked buyer; placeholder
+  "department for environment, food and rural affairs": "buyer-desnz", // n/a
+  "cabinet office": "buyer-cabinet-office",
+  "cabinet office / crown commercial service": "buyer-cabinet-office",
+  "dhsc": "buyer-department-of-health-and-social-care",
+  "department of health and social care": "buyer-department-of-health-and-social-care",
+  "ministry of defence": "buyer-ministry-of-defence",
+  "mod": "buyer-ministry-of-defence",
+  "home office": "buyer-home-office",
+  "department for education": "buyer-department-for-education-delivering-through-the-education-an",
+};
+/* Defra is not on the tracked buyer list yet — entries above resolve to
+   null at lookup time and are skipped. The map stays in the file for
+   when the precompute starts emitting a Defra node so we don't have to
+   rewire. */
+const TRACKED_BUYER_IDS_FOR_DEPTS = new Set([
+  "buyer-cabinet-office",
+  "buyer-department-of-health-and-social-care",
+  "buyer-ministry-of-defence",
+  "buyer-home-office",
+  "buyer-department-for-education-delivering-through-the-education-an",
+]);
+
+function deptToBuyerId(dept) {
+  if (!dept) return null;
+  const k = String(dept).toLowerCase().trim();
+  const mapped = DEPT_TO_BUYER_ID[k];
+  if (!mapped) return null;
+  if (!TRACKED_BUYER_IDS_FOR_DEPTS.has(mapped)) return null;
+  return mapped;
+}
+
+function adjacentSlug(name) {
+  return "adjacent:" + String(name || "unnamed")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
 
 /* Min-£ filter steps. Exposed as a constant so the cycler chip and the
    (future) URL deeplink parser agree on the allowed set. */
@@ -494,7 +551,7 @@ const CONN_EYEBROW = {
   other: "CONNECTION",
 };
 
-function MoneyMapStoriesTab({ connections, peopleById, onOpen }) {
+function MoneyMapStoriesTab({ connections, peopleById, onOpen, onOpenPerson }) {
   if (!connections || connections.length === 0) {
     return (
       <div
@@ -546,6 +603,19 @@ function MoneyMapStoriesTab({ connections, peopleById, onOpen }) {
                 <div className="mm-story-eyebrow">{eyebrow}</div>
                 {person?.name && (
                   <h3 className="mm-story-name">{person.name}</h3>
+                )}
+                {onOpenPerson && person?.id && (
+                  <button
+                    type="button"
+                    className="mm-story-person-link"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenPerson("person:" + person.id);
+                    }}
+                    aria-label={`Open person profile for ${person.name}`}
+                  >
+                    View person profile &rarr;
+                  </button>
                 )}
                 {c.summary && (
                   <p className="mm-story-summary">{c.summary}</p>
@@ -647,7 +717,7 @@ function MoneyMapStoriesTab({ connections, peopleById, onOpen }) {
  * Compact card: serif name text-2xl, 360px wide, 260px min-height.
  * Taps open the existing drawer via onOpen(counterpartyId).
  * ========================================================================= */
-function MoneyMapStoriesStrip({ connections, peopleById, onOpen }) {
+function MoneyMapStoriesStrip({ connections, peopleById, onOpen, onOpenPerson }) {
   if (!connections || connections.length === 0) return null;
   return (
     <section className="mm-story-strip-wrap" aria-label="Featured connection stories">
@@ -691,6 +761,19 @@ function MoneyMapStoriesStrip({ connections, peopleById, onOpen }) {
               <div className="mm-story-strip-eyebrow-card">{eyebrow}</div>
               {person?.name && (
                 <h3 className="mm-story-strip-name">{person.name}</h3>
+              )}
+              {onOpenPerson && person?.id && (
+                <button
+                  type="button"
+                  className="mm-story-person-link"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onOpenPerson("person:" + person.id);
+                  }}
+                  aria-label={`Open person profile for ${person.name}`}
+                >
+                  View person profile &rarr;
+                </button>
               )}
               {c.summary && (
                 <p className="mm-story-strip-summary">{c.summary}</p>
@@ -971,11 +1054,158 @@ export default function MoneyMap({
   }, [viewMode, lensSubjectId, tierFilter, minGBP, query]);
 
   // ---------- derived ----------
+
+  /* ---------- v2 Phase 1: augment graph with people + their edges ----------
+     We do NOT mutate money-map.json. Instead, derive extra nodes (one per
+     person, plus synthetic adjacent_firm nodes for off-graph counterparties)
+     and extra edges (person → counterparty + person → buyer-they-served-at)
+     in-memory. The augmented set is merged into nodesById and the edge
+     pipeline downstream so people materialise in lens, network, search,
+     and the drawer.
+
+     Edges produced here carry:
+       - kind: "personConnection" | "served_at"
+       - relational: true  (so the £-threshold filter knows to bypass them)
+       - tier: "B"         (so the A+B evidence filter keeps them)
+       - totalGBP: 0       (they're relationships, not money flows)
+   */
+  const peopleAugment = useMemo(() => {
+    const people = (individualConnectionsData?.people || []);
+    const conns  = (individualConnectionsData?.connections || []);
+    const trackedNodeIds = new Set((data.nodes || []).map((n) => n.id));
+
+    const extraNodes = [];
+    const extraAwards = [];        // injected into edges.awards stream
+    const personEdges = [];        // separate stream — fully relational
+    const adjacentSeen = new Set();
+
+    /* Find a person's "current/most-recent" department from rolesHeld[].
+       Prefer end:null (currently held) over the latest end-date. */
+    function currentDept(person) {
+      const roles = person.rolesHeld || [];
+      if (roles.length === 0) return null;
+      const live = roles.find((r) => r && r.end == null);
+      if (live && live.department) return live.department;
+      // fall back to the role with the latest end date
+      const sorted = roles.slice().sort((a, b) => {
+        const ae = a.end || a.start || "";
+        const be = b.end || b.start || "";
+        return be.localeCompare(ae);
+      });
+      return sorted[0]?.department || null;
+    }
+
+    // 1) person nodes
+    for (const p of people) {
+      extraNodes.push({
+        id: "person:" + p.id,
+        kind: "person",
+        label: p.name,
+        value: 1,
+        sources: [],
+        department: currentDept(p),
+        headline: p.headline,
+        externalLinks: p.externalLinks || [],
+        rolesHeld: p.rolesHeld || [],
+      });
+    }
+
+    // 2) connection edges (person → counterparty)
+    for (const c of conns) {
+      const personNodeId = "person:" + c.personId;
+      const cp = c.counterparty || {};
+      const baseEdge = {
+        s: personNodeId,
+        totalGBP: 0,
+        relational: true,
+        tier: "B",
+        connectionId: c.id,
+        sources: c.sources || [],
+        scope: c.summary || "",
+      };
+
+      if ((cp.kind === "supplier" || cp.kind === "buyer") && cp.id && trackedNodeIds.has(cp.id)) {
+        personEdges.push({
+          ...baseEdge,
+          id: `personEdge:${c.id}:cp`,
+          kind: "personConnection",
+          t: cp.id,
+        });
+      } else if (cp.kind === "adjacent_firm" || (cp.kind && cp.id && !trackedNodeIds.has(cp.id))) {
+        // synth node for adjacent firms (and any counterparty whose id
+        // isn't in money-map.json — defensive)
+        const slug = adjacentSlug(cp.name || cp.id || "unknown");
+        if (!adjacentSeen.has(slug)) {
+          adjacentSeen.add(slug);
+          extraNodes.push({
+            id: slug,
+            kind: "adjacent_firm",
+            label: cp.name || "Adjacent firm",
+            value: 0.5,
+            sources: [],
+            department: null,
+            note: cp.note || null,
+            dimmed: true,
+          });
+        }
+        personEdges.push({
+          ...baseEdge,
+          id: `personEdge:${c.id}:cp`,
+          kind: "personConnection",
+          t: slug,
+        });
+      }
+
+      // 3) "served at" edges per dept the person held a role in
+      const seenForPerson = new Set();
+      const person = people.find((pp) => pp.id === c.personId);
+      if (person) {
+        for (const role of (person.rolesHeld || [])) {
+          const buyerId = deptToBuyerId(role.department);
+          if (!buyerId) continue;
+          if (!trackedNodeIds.has(buyerId)) continue;
+          const key = personNodeId + "→" + buyerId;
+          if (seenForPerson.has(key)) continue;
+          seenForPerson.add(key);
+          personEdges.push({
+            id: `personEdge:${person.id}:served:${buyerId}`,
+            kind: "served_at",
+            s: personNodeId,
+            t: buyerId,
+            totalGBP: 0,
+            relational: true,
+            tier: "B",
+            scope: role.title ? `Role: ${role.title}` : "Served at department",
+            sources: [],
+          });
+        }
+      }
+    }
+
+    // 3b) De-dupe served_at across multiple connection records for the
+    //     same person — easier to do as a final pass than guard upfront.
+    const seenIds = new Set();
+    const dedupPersonEdges = [];
+    for (const e of personEdges) {
+      if (seenIds.has(e.id)) continue;
+      seenIds.add(e.id);
+      dedupPersonEdges.push(e);
+    }
+
+    return {
+      nodes: extraNodes,
+      edges: dedupPersonEdges,
+      personIds: new Set(extraNodes.filter((n) => n.kind === "person").map((n) => n.id)),
+      adjacentIds: new Set(extraNodes.filter((n) => n.kind === "adjacent_firm").map((n) => n.id)),
+    };
+  }, [data.nodes]);
+
   const nodesById = useMemo(() => {
     const m = new Map();
     for (const n of data.nodes) m.set(n.id, n);
+    for (const n of peopleAugment.nodes) m.set(n.id, n);
     return m;
-  }, [data.nodes]);
+  }, [data.nodes, peopleAugment.nodes]);
 
   const featuredSet = useMemo(
     () => new Set(data.featuredIds || []),
@@ -1223,6 +1453,14 @@ export default function MoneyMap({
       ? new Set(["A", "B"])
       : new Set(["A", "B", "C", "D"]);
 
+    /* Person edges are relational, not money flows — they always pass the
+       Min £ chip filter (which is meaningful only for awards). They still
+       respect the Tier A+B filter via tier:"B" being in `allowed`. */
+    const allPersonEdges = (peopleAugment.edges || []).filter((e) => {
+      if (!allowed.has(e.tier)) return false;
+      return nodesById.has(e.s) && nodesById.has(e.t);
+    });
+
     /* ---------------- LENS mode ---------------- */
     if (viewMode === "lens" && lensSubjectId && nodesById.has(lensSubjectId)) {
       const allAwards = (data.edges?.awards || []).filter((e) => {
@@ -1234,7 +1472,7 @@ export default function MoneyMap({
         if (!allowed.has(e.tier)) return false;
         return nodesById.has(e.s) && nodesById.has(e.t);
       });
-      const all = [...allAwards, ...allMembers];
+      const all = [...allAwards, ...allMembers, ...allPersonEdges];
 
       // Hop 1 — direct neighbours of the subject
       const hop1 = new Set([lensSubjectId]);
@@ -1267,8 +1505,11 @@ export default function MoneyMap({
       const projectMembers = allMembers.filter(
         (e) => nodeSet.has(e.s) && nodeSet.has(e.t)
       );
+      const personEdges = allPersonEdges.filter(
+        (e) => nodeSet.has(e.s) && nodeSet.has(e.t)
+      );
       return {
-        awards, projectMembers, reachable: nodeSet,
+        awards, projectMembers, personEdges, reachable: nodeSet,
         hop1, subject: lensSubjectId,
       };
     }
@@ -1305,8 +1546,19 @@ export default function MoneyMap({
     // Promote featured projects whose supplier appears in awards
     projectMembers.forEach((e) => { reachable.add(e.s); reachable.add(e.t); });
 
-    return { awards, projectMembers, reachable, hop1: null, subject: null };
-  }, [data.edges, tierFilter, minGBP, q, featuredSet, nodesById, viewMode, lensSubjectId]);
+    /* Person edges in NETWORK mode: include those whose counterparty
+       (supplier or buyer) is on the current canvas, plus their served-at
+       buyers if reachable. The corresponding person + adjacent_firm
+       endpoints get pulled into `reachable` so the bubbles render. */
+    const personEdges = allPersonEdges.filter((e) => {
+      // Person endpoint always passes; check the OTHER endpoint
+      const other = e.s.startsWith("person:") ? e.t : e.s;
+      return reachable.has(other);
+    });
+    personEdges.forEach((e) => { reachable.add(e.s); reachable.add(e.t); });
+
+    return { awards, projectMembers, personEdges, reachable, hop1: null, subject: null };
+  }, [data.edges, tierFilter, minGBP, q, featuredSet, nodesById, viewMode, lensSubjectId, peopleAugment.edges]);
 
   const visibleNodes = useMemo(() => {
     const arr = [];
@@ -1321,6 +1573,7 @@ export default function MoneyMap({
     return [
       ...filteredEdges.awards.map((e) => ({ ...e, _kind: "award" })),
       ...filteredEdges.projectMembers.map((e) => ({ ...e, _kind: "project" })),
+      ...((filteredEdges.personEdges || []).map((e) => ({ ...e, _kind: "person" }))),
     ];
   }, [filteredEdges]);
 
@@ -1331,7 +1584,8 @@ export default function MoneyMap({
           node: null,
           edge:
             (data.edges?.awards || []).find((x) => x.id === selection.id) ||
-            (data.edges?.projectMembers || []).find((x) => x.id === selection.id),
+            (data.edges?.projectMembers || []).find((x) => x.id === selection.id) ||
+            (peopleAugment.edges || []).find((x) => x.id === selection.id),
         }
     : null;
 
@@ -1382,14 +1636,19 @@ export default function MoneyMap({
     const nodeG  = root.append("g").attr("class", "mm-nodes");
     const labelG = root.append("g").attr("class", "mm-labels");
 
-    /* ---------- size ---------- */
+    /* ---------- size ----------
+       Person + adjacent_firm bubbles use a smaller fixed radius so they
+       read as "annotation, not entity" against the £-scaled supplier /
+       buyer / project bubbles. */
     const maxValue = visibleNodes.reduce((m, n) => Math.max(m, n.value || 0), 1);
     const radius = scaleSqrt().domain([0, maxValue]).range([14, 72]);
-    const nodeData = visibleNodes.map((n) => ({
-      ...n,
-      r: radius(Math.max(1, n.value || 1)),
-      type: n.kind,
-    }));
+    const nodeData = visibleNodes.map((n) => {
+      let r;
+      if (n.kind === "person") r = 11;
+      else if (n.kind === "adjacent_firm") r = 9;
+      else r = radius(Math.max(1, n.value || 1));
+      return { ...n, r, type: n.kind };
+    });
     const nodeIdSet = new Set(nodeData.map((n) => n.id));
 
     const linkData = visibleEdges
@@ -1417,19 +1676,33 @@ export default function MoneyMap({
       .velocityDecay(0.35);
     simRef.current = sim;
 
-    /* ---------- edges ---------- */
+    /* ---------- edges ----------
+       Person/relational edges get a distinct visual treatment: thinner,
+       amber-tinted, dashed. They're not money flows, so the £-derived
+       width formula doesn't apply. */
     const linkSel = edgeG.selectAll("line")
       .data(linkData, (d) => d.id)
       .enter().append("line")
         .attr("class", "mm-edge-line")
-        .attr("stroke", (d) => TIER_STYLE[d.tier]?.colour || "#8a8a94")
-        .attr("stroke-opacity", (d) => TIER_STYLE[d.tier]?.opacity || 0.4)
+        .attr("stroke", (d) =>
+          d._kind === "person"
+            ? "#fbbf24"
+            : (TIER_STYLE[d.tier]?.colour || "#8a8a94")
+        )
+        .attr("stroke-opacity", (d) =>
+          d._kind === "person"
+            ? 0.45
+            : (TIER_STYLE[d.tier]?.opacity || 0.4)
+        )
         .attr("stroke-width", (d) => {
+          if (d._kind === "person") return 1.1;
           const base = TIER_STYLE[d.tier]?.width || 1;
           const amt = Math.min(5.5, 1 + Math.sqrt((d.totalGBP || 0) / 1e9) * 1.4);
           return base * amt;
         })
-        .attr("stroke-dasharray", (d) => TIER_STYLE[d.tier]?.dash)
+        .attr("stroke-dasharray", (d) =>
+          d._kind === "person" ? "4 3" : TIER_STYLE[d.tier]?.dash
+        )
         .attr("stroke-linecap", "round")
         .attr("pointer-events", "stroke")
         .style("cursor", "pointer")
@@ -1481,34 +1754,81 @@ export default function MoneyMap({
     nodeSel.append("circle")
       .attr("class", "mm-halo")
       .attr("r", (d) => d.r + 10)
-      .attr("fill", (d) => TYPE_COLOUR[d.type])
-      .attr("fill-opacity", (d) =>
-        viewMode === "lens" && d.id === lensSubjectId ? 0.20 : 0.08
-      )
+      .attr("fill", (d) => TYPE_COLOUR[d.type] || "#525561")
+      .attr("fill-opacity", (d) => {
+        if (d.type === "adjacent_firm") return 0.04;
+        if (viewMode === "lens" && d.id === lensSubjectId) return 0.20;
+        if (d.type === "person") return 0.16;
+        return 0.08;
+      })
       .attr("filter", "url(#mm-glow)");
 
     // Main bubble. Nodes whose £ value is zero/undisclosed get a dashed
     // outer stroke — same visual language as Tier C/D edges — so readers
     // can see at-a-glance which bubbles don't yet have a public £ figure.
     // Non-undisclosed bubbles keep the solid hairline stroke.
+    //
+    // v2 Phase 1 — Person nodes get an amber ring + solid amber inner dot
+    // (rendered below) and a stronger outline to read distinctly from
+    // money-flow bubbles. Adjacent-firm nodes get a dashed outline + low
+    // opacity so they read as "context, not first-class entity".
     nodeSel.append("circle")
       .attr("class", "mm-main-bubble")
       .attr("r", (d) => d.r)
       .attr("fill", (d) => `url(#mm-grad-${d.type})`)
-      .attr("stroke", (d) =>
-        isUndisclosed(d.value)
+      .attr("opacity", (d) => d.type === "adjacent_firm" ? 0.55 : 1)
+      .attr("stroke", (d) => {
+        if (d.type === "person") return "#fbbf24";
+        if (d.type === "adjacent_firm") return "rgba(180,180,190,0.6)";
+        return isUndisclosed(d.value)
           ? "rgba(245,245,245,0.55)"
-          : d3color(TYPE_COLOUR[d.type]).brighter(0.4).formatHex()
-      )
-      .attr("stroke-opacity", (d) => isUndisclosed(d.value) ? 0.85 : 0.5)
-      .attr("stroke-width", (d) => isUndisclosed(d.value) ? 1.2 : 1)
-      .attr("stroke-dasharray", (d) => isUndisclosed(d.value) ? "3 3" : null);
+          : d3color(TYPE_COLOUR[d.type] || "#525561").brighter(0.4).formatHex();
+      })
+      .attr("stroke-opacity", (d) => {
+        if (d.type === "person") return 0.95;
+        if (d.type === "adjacent_firm") return 0.6;
+        return isUndisclosed(d.value) ? 0.85 : 0.5;
+      })
+      .attr("stroke-width", (d) => {
+        if (d.type === "person") return 1.8;
+        return isUndisclosed(d.value) ? 1.2 : 1;
+      })
+      .attr("stroke-dasharray", (d) => {
+        if (d.type === "person") return null;
+        if (d.type === "adjacent_firm") return "3 3";
+        return isUndisclosed(d.value) ? "3 3" : null;
+      });
+
+    // Person inner dot — the "ringed amber" treatment that makes a person
+    // bubble read as a person at a glance even at low zoom levels. Skipped
+    // for non-person kinds so existing supplier/buyer/project bubbles look
+    // unchanged.
+    nodeSel
+      .filter((d) => d.type === "person")
+      .append("circle")
+        .attr("class", "mm-person-dot")
+        .attr("r", (d) => Math.max(3, d.r * 0.35))
+        .attr("fill", "#fbbf24")
+        .attr("fill-opacity", 0.9)
+        .attr("pointer-events", "none");
 
     // Native hover tooltip — the cheapest UX win on this canvas. Gives
     // "BAE Systems · supplier · £3.2bn · 14 relationships" on hover
     // without a click, which massively speeds up graph exploration.
     nodeSel.append("title").text((d) => {
-      const kind = d.type === "buyer" ? "department" : d.type;
+      const kind =
+        d.type === "buyer" ? "department" :
+        d.type === "person" ? "person" :
+        d.type === "adjacent_firm" ? "adjacent firm" :
+        d.type;
+      if (d.type === "person" || d.type === "adjacent_firm") {
+        const rels = (peopleAugment.edges || [])
+          .filter((e) => e.s === d.id || e.t === d.id).length;
+        const head = d.type === "person" ? (d.headline || "") : (d.note || "");
+        return `${d.label}\n${kind} · ${rels} relationship${rels === 1 ? "" : "s"}` +
+               (head ? `\n${head}` : "") +
+               `\n(click for details)`;
+      }
       const connections = (data.edges?.awards || [])
         .concat(data.edges?.projectMembers || [])
         .filter((e) => e.s === d.id || e.t === d.id).length;
@@ -1628,10 +1948,15 @@ export default function MoneyMap({
         if (e.s === selection.id) neighbourIds.add(e.t);
         if (e.t === selection.id) neighbourIds.add(e.s);
       });
+      (peopleAugment.edges || []).forEach((e) => {
+        if (e.s === selection.id) neighbourIds.add(e.t);
+        if (e.t === selection.id) neighbourIds.add(e.s);
+      });
     } else {
       const edge =
         (data.edges?.awards || []).find((x) => x.id === selection.id) ||
-        (data.edges?.projectMembers || []).find((x) => x.id === selection.id);
+        (data.edges?.projectMembers || []).find((x) => x.id === selection.id) ||
+        (peopleAugment.edges || []).find((x) => x.id === selection.id);
       if (edge) { neighbourIds.add(edge.s); neighbourIds.add(edge.t); }
     }
     svg.selectAll(".mm-bubble").attr("opacity", function(d) { return neighbourIds.has(d.id) ? 1 : 0.18; });
@@ -1852,7 +2177,8 @@ export default function MoneyMap({
         </p>
         <div className="mm-disclaimer">
           <b>Lines show sourced relationships, not wrongdoing.</b>{" "}
-          An edge between two entities means we found a named public document linking them &mdash; it does not imply any party acted improperly.
+          An edge between two entities means we found a named public document linking them &mdash; it does not imply any party acted improperly.{" "}
+          <b>Amber nodes are people whose role connects them to one or more entities below</b> &mdash; see Stories for the full evidence trail.
         </div>
       </section>
 
@@ -1864,6 +2190,7 @@ export default function MoneyMap({
           connections={storyConnections}
           peopleById={storyPeopleById}
           onOpen={(id) => setSelection({ kind: "node", id })}
+          onOpenPerson={(id) => setSelection({ kind: "node", id })}
         />
       </div>
 
@@ -2090,6 +2417,7 @@ export default function MoneyMap({
                 connections={storyConnections}
                 peopleById={storyPeopleById}
                 onOpen={(id) => setSelection({ kind: "node", id })}
+                onOpenPerson={(id) => setSelection({ kind: "node", id })}
               />
             )}
             {mobileTab === "flows" && (
@@ -2275,6 +2603,7 @@ export default function MoneyMap({
             <LegendRow colour={TYPE_COLOUR.supplier}>Supplier</LegendRow>
             <LegendRow colour={TYPE_COLOUR.buyer}>Department · buyer</LegendRow>
             <LegendRow colour={TYPE_COLOUR.project}>Project</LegendRow>
+            <LegendRow colour={TYPE_COLOUR.person}>Person · relational</LegendRow>
           </div>
 
           <div className="mm-legend-group">
@@ -2283,6 +2612,14 @@ export default function MoneyMap({
             <TierLegend tier="B">Tier B — transparency return</TierLegend>
             <TierLegend tier="C">Tier C — declared interest</TierLegend>
             <TierLegend tier="D" faint>Tier D — circumstantial (opt-in)</TierLegend>
+            <div className="mm-legend-row" style={{ opacity: 0.85 }}>
+              <span className="mm-legend-line">
+                <svg width="26" height="6">
+                  <line x1="0" y1="3" x2="26" y2="3" stroke="#fbbf24" strokeWidth="1.4" strokeDasharray="4 3" />
+                </svg>
+              </span>
+              Amber dashed — relationship, not money flow
+            </div>
           </div>
 
           <div className="mm-legend-group">
@@ -2525,6 +2862,10 @@ export default function MoneyMap({
           onOpenSupplierProfile={onOpenSupplierProfile}
           onOpenProjectProfile={onOpenProjectProfile}
           onOpenBuyerProfile={onOpenBuyerProfile}
+          onOpenNode={(id) => setSelection({ kind: "node", id })}
+          personEdges={peopleAugment.edges}
+          storyConnections={storyConnections}
+          storyPeopleById={storyPeopleById}
         />
       )}
     </div>
@@ -2588,6 +2929,104 @@ function MetaRow({ k, v }) {
   );
 }
 
+/* =========================================================================
+ *  PersonDetail — drawer for a person bubble.
+ *  Re-uses MoneyMapStoriesTab to render that person's connection cards
+ *  (so the cards look identical to the Stories strip). Adds a roles table
+ *  + external links. Closes on Escape via the shared drawer ref.
+ * ========================================================================= */
+function PersonDetail({
+  drawerRef,
+  node,
+  connections,
+  peopleById,
+  onClose,
+  onOpen,
+}) {
+  const roles = node.rolesHeld || [];
+  const links = node.externalLinks || [];
+  return (
+    <aside
+      ref={drawerRef}
+      tabIndex={-1}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Person profile: ${node.label}`}
+      className="mm-drawer mm-drawer-open mm-drawer-person"
+    >
+      <div className="mm-d-head">
+        <button className="mm-d-close" aria-label="Close drawer" onClick={onClose}>x</button>
+        <div className="mm-eyebrow-row">
+          <span className="mm-eyebrow">Person</span>
+          <span className="mm-tier-badge mm-tier-A" style={{ background: "#3b2a06", color: "#fbbf24", borderColor: "#7a5b15" }}>
+            {connections.length} connection{connections.length === 1 ? "" : "s"}
+          </span>
+        </div>
+        <div className="mm-entity-name" style={{ fontFamily: "var(--mm-serif)" }}>
+          {node.label}
+        </div>
+        {node.headline && (
+          <div className="mm-entity-sub" style={{ marginTop: 6 }}>
+            {node.headline}
+          </div>
+        )}
+      </div>
+      <div className="mm-d-body">
+        {roles.length > 0 && (
+          <>
+            <div className="mm-d-section-h">Roles held</div>
+            <div className="mm-person-roles">
+              {roles.map((r, i) => {
+                const period = (r.start || "?") + " - " + (r.end || "present");
+                return (
+                  <div key={i} className="mm-person-role-row">
+                    <div className="mm-person-role-title">{r.title}</div>
+                    <div className="mm-person-role-meta">
+                      {r.department || ""}
+                      <span className="mm-person-role-period"> {period}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
+
+        <div className="mm-d-section-h" style={{ marginTop: 18 }}>
+          Connections {connections.length > 0 ? `(${connections.length})` : ""}
+        </div>
+        {connections.length === 0 ? (
+          <div style={{ fontSize: 12, color: "#6b7280" }}>
+            No connection records yet for this person.
+          </div>
+        ) : (
+          <MoneyMapStoriesTab
+            connections={connections}
+            peopleById={peopleById}
+            onOpen={onOpen}
+          />
+        )}
+
+        {links.length > 0 && (
+          <>
+            <div className="mm-d-section-h" style={{ marginTop: 14 }}>External links</div>
+            <ul className="mm-person-links">
+              {links.map((l, i) => (
+                <li key={i}>
+                  <a href={l.url} target="_blank" rel="noopener noreferrer">
+                    {l.label}
+                    <ExternalLink size={11} aria-hidden="true" style={{ marginLeft: 4, display: "inline-block", verticalAlign: "-1px" }} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+    </aside>
+  );
+}
+
 function Drawer({
   selection,
   nodesById,
@@ -2599,10 +3038,33 @@ function Drawer({
   onOpenSupplierProfile,
   onOpenProjectProfile,
   onOpenBuyerProfile,
+  onOpenNode,
+  personEdges,
+  storyConnections,
+  storyPeopleById,
 }) {
   const drawerRef = useDrawerFocus(onClose);
   const node = selection.node;
   const edge = selection.edge;
+
+  /* v2 Phase 1 — when the selection is a Person node, render PersonDetail
+     instead of the standard money-map drawer. Re-uses the Stories card
+     component for the connection panel so the editorial pattern matches
+     what the reader sees in the Stories strip / tab. */
+  if (node && node.kind === "person") {
+    const personId = node.id.replace(/^person:/, "");
+    const myConns = (storyConnections || []).filter((c) => c.personId === personId);
+    return (
+      <PersonDetail
+        drawerRef={drawerRef}
+        node={node}
+        connections={myConns}
+        peopleById={storyPeopleById || {}}
+        onClose={onClose}
+        onOpen={onOpenNode || (() => {})}
+      />
+    );
+  }
 
   if (node) {
     const isSubject = viewMode === "lens" && lensSubjectId === node.id;
@@ -3379,6 +3841,58 @@ function MoneyMapStyles() {
         color: var(--mm-fg-mute); margin: 22px 0 10px;
       }
       .mm-d-section-h:first-child { margin-top: 0; }
+
+      /* v2 Phase 1 — PersonDetail drawer styles */
+      .mm-drawer-person .mm-d-head {
+        border-left: 2px solid #fbbf24;
+        padding-left: 14px;
+      }
+      .mm-person-roles {
+        display: flex; flex-direction: column; gap: 6px;
+      }
+      .mm-person-role-row {
+        padding: 8px 10px;
+        background: #0a0a0d;
+        border: 1px solid var(--mm-border);
+        border-radius: 4px;
+      }
+      .mm-person-role-title {
+        font-size: 13px; color: var(--mm-fg);
+      }
+      .mm-person-role-meta {
+        margin-top: 2px;
+        font-family: var(--mm-mono); font-size: 11px;
+        color: var(--mm-fg-mute);
+      }
+      .mm-person-role-period {
+        margin-left: 8px; opacity: 0.85;
+      }
+      .mm-person-links {
+        list-style: none; padding: 0; margin: 0;
+        display: flex; flex-direction: column; gap: 6px;
+      }
+      .mm-person-links a {
+        font-size: 12.5px; color: #fbbf24; text-decoration: none;
+        display: inline-flex; align-items: center;
+      }
+      .mm-person-links a:hover { text-decoration: underline; }
+
+      /* Per-card "View person profile" link surfaced inside Stories cards */
+      .mm-story-person-link {
+        display: inline-flex; align-items: center; gap: 4px;
+        margin-top: 6px;
+        font-family: var(--mm-mono); font-size: 10.5px;
+        text-transform: uppercase; letter-spacing: 0.14em;
+        color: #fbbf24; background: transparent;
+        border: 1px dashed rgba(251,191,36,0.35);
+        border-radius: 999px;
+        padding: 3px 9px;
+        cursor: pointer;
+      }
+      .mm-story-person-link:hover {
+        background: rgba(251,191,36,0.08);
+        border-color: rgba(251,191,36,0.6);
+      }
 
       .mm-score-row {
         display: grid; grid-template-columns: 1fr auto;
