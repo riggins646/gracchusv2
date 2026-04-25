@@ -14,6 +14,9 @@
     "appg_paid_chair": "MP chairs a paid All-Party Parliamentary Group",
     "personal_connection_then_contract": "Contract awarded to a firm linked to a minister's personal connection (neighbour, friend, associate) without competitive tender",
     "outside_earnings_during_office": "Substantial outside income earned by an MP during their time in Parliament, declared in the Register of Members' Financial Interests",
+    "spousal_political_role": "Spouse holds a separate political or public-policy role that overlaps with the individual's appointment",
+    "family_trust_arrangement": "Family-linked trust or offshore vehicle holds shares in a firm of public-interest significance",
+    "cash_for_access": "Member offered to lobby or share information in exchange for paid retainers (regulator-confirmed)",
     "other": "Connection of interest not fitting the above categories"
   },
   "statuses": {
@@ -120,6 +123,181 @@
       "externalLinks": [
         { "label": "Register of Interests - Sir Geoffrey Cox", "url": "https://members.parliament.uk/member/1508/registeredinterests" },
         { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Geoffrey_Cox_(British_politician)" }
+      ]
+    },
+    {
+      "id": "osborne-george",
+      "name": "George Osborne",
+      "headline": "Chancellor of the Exchequer May 2010-July 2016; Conservative MP for Tatton until April 2017; subsequently editor of the Evening Standard (2017-2020) and senior adviser to BlackRock Investment Institute.",
+      "rolesHeld": [
+        { "title": "Chancellor of the Exchequer", "department": "HM Treasury", "start": "2010-05", "end": "2016-07" },
+        { "title": "MP for Tatton", "department": "House of Commons", "start": "2001-06", "end": "2017-05" },
+        { "title": "Senior adviser, BlackRock Investment Institute", "department": "BlackRock (private)", "start": "2017-02", "end": "2021-01" },
+        { "title": "Editor, Evening Standard", "department": "ESI Media (private)", "start": "2017-05", "end": "2020-06" },
+        { "title": "Adviser, Coinbase", "department": "Coinbase (private)", "start": "2024-01", "end": null }
+      ],
+      "externalLinks": [
+        { "label": "ACOBA recommendation - George Osborne", "url": "https://www.gov.uk/government/publications/osborne-george-chancellor-of-the-exchequer-hm-treasury-acoba-recommendation" },
+        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/George_Osborne" }
+      ]
+    },
+    {
+      "id": "clegg-nick",
+      "name": "Sir Nick Clegg",
+      "headline": "Deputy Prime Minister 2010-2015; Liberal Democrat leader 2007-2015; MP for Sheffield Hallam 2005-2017; subsequently VP and President of Global Affairs at Meta Platforms (Facebook).",
+      "rolesHeld": [
+        { "title": "Deputy Prime Minister", "department": "Cabinet Office", "start": "2010-05", "end": "2015-05" },
+        { "title": "MP for Sheffield Hallam", "department": "House of Commons", "start": "2005-05", "end": "2017-06" },
+        { "title": "VP Global Affairs and Communications, Facebook", "department": "Meta Platforms (private)", "start": "2018-10", "end": "2022-02" },
+        { "title": "President, Global Affairs, Meta", "department": "Meta Platforms (private)", "start": "2022-02", "end": "2025-01" }
+      ],
+      "externalLinks": [
+        { "label": "DCMS Committee correspondence with Facebook", "url": "https://committees.parliament.uk/committee/378/digital-culture-media-and-sport-committee/news/103466/facebook-correspondence-17-19/" },
+        { "label": "Britannica", "url": "https://www.britannica.com/biography/Nick-Clegg" }
+      ]
+    },
+    {
+      "id": "javid-sajid",
+      "name": "Sajid Javid",
+      "headline": "Conservative MP for Bromsgrove 2010-2024; Chancellor of the Exchequer July 2019-February 2020; Secretary of State for Health and Social Care June 2021-July 2022; pre-politics career at JP Morgan and Deutsche Bank.",
+      "rolesHeld": [
+        { "title": "Chancellor of the Exchequer", "department": "HM Treasury", "start": "2019-07", "end": "2020-02" },
+        { "title": "Secretary of State for Health and Social Care", "department": "DHSC", "start": "2021-06", "end": "2022-07" },
+        { "title": "MP for Bromsgrove", "department": "House of Commons", "start": "2010-05", "end": "2024-05" },
+        { "title": "Senior adviser, JP Morgan EMEA advisory council", "department": "JP Morgan (private)", "start": "2020-08", "end": null }
+      ],
+      "externalLinks": [
+        { "label": "ACOBA advice - Sajid Javid", "url": "https://www.gov.uk/government/publications/javid-sajid-chancellor-of-the-exchequer-hm-treasury-acoba-advice" },
+        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Sajid_Javid" }
+      ]
+    },
+    {
+      "id": "hammond-philip",
+      "name": "Lord (Philip) Hammond of Runnymede",
+      "headline": "Conservative MP for Runnymede and Weybridge 1997-2019; Defence Secretary 2011-2014; Foreign Secretary 2014-2016; Chancellor of the Exchequer July 2016-July 2019; created life peer in 2020.",
+      "rolesHeld": [
+        { "title": "Secretary of State for Defence", "department": "Ministry of Defence", "start": "2011-10", "end": "2014-07" },
+        { "title": "Secretary of State for Foreign and Commonwealth Affairs", "department": "FCO", "start": "2014-07", "end": "2016-07" },
+        { "title": "Chancellor of the Exchequer", "department": "HM Treasury", "start": "2016-07", "end": "2019-07" },
+        { "title": "Adviser, OakNorth Bank", "department": "OakNorth (private)", "start": "2019-12", "end": null },
+        { "title": "Member of the House of Lords", "department": "House of Lords", "start": "2020-09", "end": null }
+      ],
+      "externalLinks": [
+        { "label": "ACOBA correspondence - Hammond / OakNorth", "url": "https://www.gov.uk/government/publications/hammond-philip-chancellor-of-the-exchequer-hm-treasury-acoba-advice/correspondence-between-acoba-and-philip-hammond-regarding-oaknorth" },
+        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Philip_Hammond" }
+      ]
+    },
+    {
+      "id": "patel-priti",
+      "name": "Dame Priti Patel",
+      "headline": "Conservative MP for Witham since 2010; Secretary of State for International Development 2016-2017 (resigned over undisclosed Israel meetings); Home Secretary July 2019-September 2022.",
+      "rolesHeld": [
+        { "title": "Secretary of State for International Development", "department": "DfID", "start": "2016-07", "end": "2017-11" },
+        { "title": "Home Secretary", "department": "Home Office", "start": "2019-07", "end": "2022-09" },
+        { "title": "MP for Witham", "department": "House of Commons", "start": "2010-05", "end": null },
+        { "title": "Strategic adviser, Viasat Inc.", "department": "Viasat (private)", "start": "2019-01", "end": null }
+      ],
+      "externalLinks": [
+        { "label": "ACOBA record - Priti Patel", "url": "https://www.gov.uk/government/publications/patel-priti-secretary-of-state-the-department-for-international-development-acoba-advice" },
+        { "label": "Monckton Chambers - Upper Tribunal disclosure ruling", "url": "https://www.monckton.com/former-home-secretarys-compliance-with-the-ministerial-code-upper-tribunal-orders-disclosure-of-information/" }
+      ]
+    },
+    {
+      "id": "lee-laurence",
+      "name": "Laurence Lee",
+      "headline": "Former Second Permanent Secretary at the Ministry of Defence; took up a paid geo-strategic adviser role with Palantir Technologies UK after leaving the civil service.",
+      "rolesHeld": [
+        { "title": "Second Permanent Secretary", "department": "Ministry of Defence", "start": "2018-01", "end": "2023-01" },
+        { "title": "Geo-strategic adviser, Palantir Technologies UK", "department": "Palantir (private)", "start": "2023-06", "end": null }
+      ],
+      "externalLinks": [
+        { "label": "Action on Armed Violence - From Whitehall to weapon factories", "url": "https://aoav.org.uk/2025/from-whitehall-to-weapon-factories-the-revolving-door-between-the-uk-government-and-britains-defence-industry-examined/" },
+        { "label": "Declassified UK - Britain's revolving door syndrome", "url": "https://www.declassifieduk.org/britains-revolving-door-syndrome/" }
+      ]
+    },
+    {
+      "id": "may-theresa",
+      "name": "Baroness May of Maidenhead",
+      "headline": "Home Secretary 2010-2016; Prime Minister July 2016-July 2019; Conservative MP for Maidenhead 1997-2024; created life peer in 2024.",
+      "rolesHeld": [
+        { "title": "Home Secretary", "department": "Home Office", "start": "2010-05", "end": "2016-07" },
+        { "title": "Prime Minister", "department": "10 Downing Street", "start": "2016-07", "end": "2019-07" },
+        { "title": "MP for Maidenhead", "department": "House of Commons", "start": "1997-05", "end": "2024-05" },
+        { "title": "Speaker, Washington Speakers Bureau (and other engagements)", "department": "Washington Speakers Bureau (private)", "start": "2019-12", "end": null },
+        { "title": "Member of the House of Lords", "department": "House of Lords", "start": "2024-08", "end": null }
+      ],
+      "externalLinks": [
+        { "label": "Register of Interests - Baroness May of Maidenhead", "url": "https://members.parliament.uk/member/8/registeredinterests" },
+        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Theresa_May" }
+      ]
+    },
+    {
+      "id": "harding-dido",
+      "name": "Baroness Dido Harding",
+      "headline": "Conservative life peer (Baroness Harding of Winscombe) since 2014; former CEO of TalkTalk; appointed by Health Secretary Matt Hancock in May 2020 to lead NHS Test & Trace and the National Institute for Health Protection. Married to Conservative MP and Anti-Corruption Champion John Penrose.",
+      "rolesHeld": [
+        { "title": "Member of the House of Lords (Conservative)", "department": "House of Lords", "start": "2014-08", "end": null },
+        { "title": "Executive Chair, NHS Test and Trace", "department": "DHSC", "start": "2020-05", "end": "2021-05" },
+        { "title": "Interim Chair, National Institute for Health Protection", "department": "DHSC", "start": "2020-08", "end": "2021-05" }
+      ],
+      "externalLinks": [
+        { "label": "Register of Lords' Interests", "url": "https://www.parliament.uk/mps-lords-and-offices/standards-and-financial-interests/house-of-lords-commissioner-for-standards/register-of-lords-interests/" },
+        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Dido_Harding" }
+      ]
+    },
+    {
+      "id": "zahawi-nadhim",
+      "name": "Nadhim Zahawi",
+      "headline": "Conservative MP for Stratford-on-Avon 2010-2024; Vaccines Minister 2020-2021; Secretary of State for Education 2021-2022; Chancellor of the Exchequer July-September 2022; Minister without Portfolio and Conservative Party Chairman October 2022-January 2023; co-founder of YouGov.",
+      "rolesHeld": [
+        { "title": "Co-founder and Chief Executive, YouGov plc", "department": "YouGov (private)", "start": "2000-05", "end": "2010-05" },
+        { "title": "MP for Stratford-on-Avon", "department": "House of Commons", "start": "2010-05", "end": "2024-05" },
+        { "title": "Parliamentary Under-Secretary of State (Vaccine Deployment)", "department": "DHSC", "start": "2020-11", "end": "2021-09" },
+        { "title": "Secretary of State for Education", "department": "Department for Education", "start": "2021-09", "end": "2022-07" },
+        { "title": "Chancellor of the Exchequer", "department": "HM Treasury", "start": "2022-07", "end": "2022-09" },
+        { "title": "Minister without Portfolio / Conservative Party Chairman", "department": "Cabinet Office", "start": "2022-10", "end": "2023-01" }
+      ],
+      "externalLinks": [
+        { "label": "Independent Adviser on Ministers' Interests - Magnus report on Nadhim Zahawi", "url": "https://www.gov.uk/government/publications/independent-advisers-report-on-the-rt-hon-nadhim-zahawi-mp" },
+        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Nadhim_Zahawi" }
+      ]
+    },
+    {
+      "id": "meller-david",
+      "name": "David Meller",
+      "headline": "Conservative donor (reported >£63,000 donated to the Conservative Party since 2009); former co-owner of Meller Designs Ltd; former trustee of Policy Exchange.",
+      "rolesHeld": [
+        { "title": "Co-owner / director, Meller Designs Ltd", "department": "Meller Designs (private)", "start": "1999-01", "end": null },
+        { "title": "Trustee, Policy Exchange", "department": "Policy Exchange (private)", "start": "2010-01", "end": "2020-01" }
+      ],
+      "externalLinks": [
+        { "label": "Good Law Project - LEAKED: Conservative politicians who referred companies to the PPE 'VIP lane'", "url": "https://goodlawproject.org/conservative-politicians-vip-lane/" },
+        { "label": "openDemocracy - Record profits for Tory donor's firm that won huge PPE contracts", "url": "https://www.opendemocracy.net/en/dark-money-investigations/record-profits-tory-donors-firm-won-huge-ppe-contracts/" }
+      ]
+    },
+    {
+      "id": "liddell-iain",
+      "name": "Iain Liddell",
+      "headline": "Owner and Group Managing Director of Uniserve Group, an Essex-based logistics firm; reported contributor to Brexit-aligned think tank Prosperity UK.",
+      "rolesHeld": [
+        { "title": "Owner / Group Managing Director, Uniserve Group", "department": "Uniserve (private)", "start": "1984-01", "end": null }
+      ],
+      "externalLinks": [
+        { "label": "Good Law Project - REVEALED: Profits jumped 500% at Uniserve", "url": "https://goodlawproject.org/update/uniserve-profits-500-vip-contracts/" },
+        { "label": "ITV News - The company given £800m of Covid PPE contracts by Government without open tender", "url": "https://www.itv.com/news/2020-12-18/revealed-the-company-given-800m-of-covid-ppe-contracts-by-government-without-open-tender" }
+      ]
+    },
+    {
+      "id": "benton-scott",
+      "name": "Scott Benton",
+      "headline": "Conservative MP for Blackpool South 2019-2024; chair of the All-Party Parliamentary Group on Betting and Gaming; resigned as MP on 25 March 2024 after the Commons Standards Committee recommended a 35-day suspension for an 'extremely serious breach' of the rules.",
+      "rolesHeld": [
+        { "title": "MP for Blackpool South", "department": "House of Commons", "start": "2019-12", "end": "2024-03" },
+        { "title": "Chair, APPG on Betting and Gaming", "department": "House of Commons", "start": "2020-01", "end": "2024-03" }
+      ],
+      "externalLinks": [
+        { "label": "Commons Standards Committee", "url": "https://committees.parliament.uk/committee/290/committee-on-standards/" },
+        { "label": "Wikipedia (Scott Benton)", "url": "https://en.wikipedia.org/wiki/Scott_Benton_(politician)" }
       ]
     }
   ],
@@ -532,6 +710,688 @@
           "publisher": "The Week",
           "url": "https://theweek.com/news/politics/954744/geoffrey-cox-and-the-british-virgin-islands-the-backstory",
           "date": "2021-11-09"
+        }
+      ]
+    },
+    {
+      "id": "osborne-blackrock-adviser",
+      "personId": "osborne-george",
+      "connectionType": "post_office_appointment",
+      "status": "closed_approved",
+      "liveProceedings": false,
+      "summary": "George Osborne joined BlackRock Investment Institute as a senior adviser in February 2017, reported at c. £650,000 a year for one day a week, less than seven months after leaving the Treasury; ACOBA approved the appointment subject to conditions.",
+      "detail": "Osborne resigned as Chancellor in July 2016 and was appointed senior adviser to the BlackRock Investment Institute in February 2017, on terms reported at approximately £650,000 per year for one day's work per week. He held the role concurrently with the editorship of the Evening Standard (2017-2020) and, until his resignation as MP for Tatton in April 2017, with his seat in the Commons. He has subsequently taken further private-sector engagements including an advisory role with Coinbase and roles with Robey Warshaw, Santander and the Hoover Institution.\n\nThe Advisory Committee on Business Appointments (ACOBA) approved the BlackRock appointment subject to conditions including a lobbying ban. ACOBA's letter recorded that during Osborne's time as Chancellor 'there were no specific policy decisions ... that would have affected BlackRock', and that the Permanent Secretary to HM Treasury had 'no concerns' about the move. The Committee nonetheless attached the standard cooling-off and lobbying restrictions.\n\nNo regulator or court has made any finding of rule-breaking. Standards campaigners (Spotlight on Corruption, Transparency International UK) have used the case as illustrative of ACOBA's approval-with-conditions posture on high-profile City appointments by ex-Chancellors. BlackRock is a large counterparty to HM Treasury and the Bank of England in the UK gilt market but is not a Gracchus-tracked prime supplier; the connection is carried as adjacent.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "BlackRock",
+        "note": "Largest holder of UK gilts and a commercial counterparty to HM Treasury and the Bank of England; not a Gracchus-tracked prime supplier. Carried as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2017-02",
+        "end": "2021-01",
+        "periodLabel": "Feb 2017 - Jan 2021 (BlackRock adviser)"
+      },
+      "financial": {
+        "personalIncomeGBP": 2600000,
+        "personalIncomeDescription": "Reported c. £650,000 p.a. for one day a week (c. £2.6m gross over four years)",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government contracts awarded; BlackRock is a commercial counterparty to HMT / Bank of England in the gilt market"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Advisory Committee on Business Appointments (ACOBA)",
+          "date": "2017-04-19",
+          "quotedText": "There were no specific policy decisions taken when you were Chancellor that would have affected BlackRock; and the Permanent Secretary to HM Treasury had no concerns about the appointment.",
+          "url": "https://www.gov.uk/government/publications/osborne-george-chancellor-of-the-exchequer-hm-treasury-acoba-recommendation",
+          "outcome": "Approved subject to standard conditions including a two-year lobbying ban."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "ACOBA recommendation - George Osborne, Chancellor of the Exchequer, HM Treasury",
+          "publisher": "gov.uk (ACOBA)",
+          "url": "https://www.gov.uk/government/publications/osborne-george-chancellor-of-the-exchequer-hm-treasury-acoba-recommendation",
+          "date": "2017-04-19"
+        },
+        {
+          "tier": "analysis",
+          "title": "George Osborne - profile and post-office appointments",
+          "publisher": "Powerbase",
+          "url": "https://powerbase.info/index.php/George_Osborne",
+          "date": "2024-01-01"
+        },
+        {
+          "tier": "news",
+          "title": "Coinbase brings in former UK Chancellor George Osborne as an advisor",
+          "publisher": "The Block",
+          "url": "https://www.theblock.co/post/275324/coinbase-george-osborne",
+          "date": "2024-01-01"
+        }
+      ]
+    },
+    {
+      "id": "clegg-meta-global-affairs",
+      "personId": "clegg-nick",
+      "connectionType": "post_office_appointment",
+      "status": "closed_approved",
+      "liveProceedings": false,
+      "summary": "Nick Clegg joined Facebook as Vice-President of Global Affairs and Communications in October 2018, more than three years after leaving the Cabinet Office; he was promoted to President of Global Affairs in 2022 and stepped down in January 2025.",
+      "detail": "Clegg was Deputy Prime Minister from May 2010 to May 2015 and continued as MP for Sheffield Hallam until losing the seat in June 2017. In October 2018 he joined Facebook (now Meta Platforms) as Vice-President of Global Affairs and Communications, becoming its most senior non-US public-affairs executive. He was promoted to President, Global Affairs in February 2022, and stepped down in January 2025, replaced by Joel Kaplan.\n\nThe two-year ACOBA cooling-off period after Clegg's departure from government in 2015 had elapsed by the time of the Facebook appointment, so no ACOBA advice was sought or required. No regulator has made any finding of rule-breaking against him. The DCMS Select Committee separately sought answers from Clegg's office in 2019 over conflicting evidence Facebook had given about third-party data access; that exchange is on the public record.\n\nMeta is not a Gracchus-tracked prime supplier on the core 116 projects, but DCMS, the Home Office and Cabinet Office have had direct regulatory and policy engagement with the firm during the Online Safety Bill / Act period (2019-2023) and through the Digital Markets, Competition and Consumers Act. Gracchus carries this as a matter of public-interest record: a former Cabinet-level UK figure leading a US tech platform's engagement with the UK regulator.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Meta Platforms (Facebook)",
+        "note": "Not a Gracchus-tracked prime supplier. DCMS, Home Office and Cabinet Office have had direct regulatory engagement with the firm. Carried as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2018-10",
+        "end": "2025-01",
+        "periodLabel": "Oct 2018 - Jan 2025 (Meta Global Affairs)"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "Total compensation not publicly disclosed; reported in mid-eight-figure range across stock and salary at the President level",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government contracts awarded; engagement is regulatory / policy not procurement"
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "DCMS Committee correspondence with Facebook",
+          "publisher": "parliament.uk",
+          "url": "https://committees.parliament.uk/committee/378/digital-culture-media-and-sport-committee/news/103466/facebook-correspondence-17-19/",
+          "date": "2019-04-01"
+        },
+        {
+          "tier": "news",
+          "title": "Meta is replacing head of global affairs ahead of Trump inauguration",
+          "publisher": "CNBC",
+          "url": "https://www.cnbc.com/2025/01/02/meta-is-replacing-head-of-global-affairs-ahead-of-trump-inauguration.html",
+          "date": "2025-01-02"
+        },
+        {
+          "tier": "analysis",
+          "title": "Nick Clegg - biographical entry",
+          "publisher": "Britannica",
+          "url": "https://www.britannica.com/biography/Nick-Clegg",
+          "date": "2024-01-01"
+        }
+      ]
+    },
+    {
+      "id": "javid-jpmorgan-emea-adviser",
+      "personId": "javid-sajid",
+      "connectionType": "post_office_appointment",
+      "status": "closed_approved",
+      "liveProceedings": false,
+      "summary": "Sajid Javid joined JP Morgan's EMEA advisory council as a senior adviser in August 2020, approximately six months after resigning as Chancellor of the Exchequer and while still serving as MP for Bromsgrove; ACOBA approved subject to conditions and warned that his 'privileged access to information' meant the role carried 'potential risks'.",
+      "detail": "Javid resigned as Chancellor of the Exchequer in February 2020 over a dispute with Downing Street about his special advisers. In August 2020 he was appointed senior adviser to JP Morgan's EMEA advisory council, while continuing to sit as MP for Bromsgrove. He had previously worked at JP Morgan in the 1990s, before entering politics. He returned to government as Secretary of State for Health and Social Care from June 2021 to July 2022.\n\nThe Advisory Committee on Business Appointments approved the appointment subject to conditions, including that he should not take up the role until six months after his last day in government and that he should not lobby the UK government on behalf of JP Morgan for two years. ACOBA's letter explicitly noted that Javid's 'privileged access to information' as a former Chancellor meant the role carried 'potential risks'.\n\nJP Morgan is not a Gracchus-tracked prime contractor on the core 116 projects but sits within HM Treasury / Debt Management Office / Bank of England counterparty universe and acted as adviser on COVID-era financial instruments. No regulator or court has made any finding of rule-breaking. Standards-reform campaigners (Positive Money, Spotlight on Corruption) have cited the case as among the shortest intervals between a UK Chancellor's office and a senior global-bank adviser role.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "JP Morgan",
+        "note": "Not a Gracchus-tracked prime contractor; sits within HM Treasury / DMO / BoE counterparty universe. Carried as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2020-08",
+        "end": null,
+        "periodLabel": "Aug 2020 - ongoing (JPM EMEA adviser)"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "Remuneration not publicly disclosed",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government contracts awarded; JP Morgan is a financial-services counterparty to HM Treasury / DMO / BoE"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Advisory Committee on Business Appointments (ACOBA)",
+          "date": "2020-08-18",
+          "quotedText": "The role carries potential risks given your privileged access to information as Chancellor of the Exchequer. The Committee therefore advises that you should not take up the appointment until six months after your last day in government and should not lobby the UK government on behalf of JP Morgan for two years.",
+          "url": "https://www.gov.uk/government/publications/javid-sajid-chancellor-of-the-exchequer-hm-treasury-acoba-advice",
+          "outcome": "Approved subject to a six-month delay before take-up and a two-year lobbying ban."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "ACOBA advice - Sajid Javid, Chancellor of the Exchequer, HM Treasury",
+          "publisher": "gov.uk (ACOBA)",
+          "url": "https://www.gov.uk/government/publications/javid-sajid-chancellor-of-the-exchequer-hm-treasury-acoba-advice",
+          "date": "2020-08-18"
+        },
+        {
+          "tier": "news",
+          "title": "Former Chancellor takes job at banking giant JP Morgan while remaining as MP for Bromsgrove",
+          "publisher": "ITV News Central",
+          "url": "https://www.itv.com/news/central/2020-08-18/former-chancellor-takes-job-at-banking-giant-jp-morgan-while-remaining-as-mp-for-bromsgrove",
+          "date": "2020-08-18"
+        },
+        {
+          "tier": "analysis",
+          "title": "The revolving door between government & finance must slam shut",
+          "publisher": "Positive Money",
+          "url": "https://positivemoney.org/2020/08/the-revolving-door-between-government-finance-must-slam-shut/",
+          "date": "2020-08-20"
+        }
+      ]
+    },
+    {
+      "id": "hammond-oaknorth-acoba-finding",
+      "personId": "hammond-philip",
+      "connectionType": "post_office_appointment",
+      "status": "closed_with_finding",
+      "liveProceedings": false,
+      "summary": "ACOBA found that Philip Hammond had taken an 'unwise step' and acted in a way that was 'not acceptable' when, in July 2020, he emailed an OakNorth Bank proposal directly to the Treasury's second most-senior official within the two-year lobbying-ban window attached to his post-Chancellor adviser role.",
+      "detail": "Hammond left office as Chancellor of the Exchequer in July 2019. He took up a paid adviser role with OakNorth Bank in late 2019. As a condition of the appointment, ACOBA had imposed the standard two-year ban on lobbying ministers and officials of the UK government on behalf of OakNorth.\n\nIn July 2020 Hammond emailed a proposal from OakNorth - pitching a 'financial toolkit' for the COVID-19 economic response - directly to the Treasury's second most-senior official. ACOBA wrote to Hammond stating that 'there is a reasonable concern that the access you had to a senior Treasury official ... was only made available to OakNorth as a direct result of your time as Chancellor', that the contact represented 'an unwise step', and that his conduct was 'not acceptable'. Hammond is reported to have attempted to block ACOBA from publishing the ruling and to have considered seeking a legal injunction; the Committee conceded the breach was not 'blatant and deliberate'.\n\nOakNorth is not a Gracchus-tracked prime contractor; the connection is to HM Treasury, which sits within the departmental perimeter Gracchus tracks. Standards campaigners (openDemocracy, Spotlight on Corruption) have treated the case as the limit-case of ACOBA's enforcement capability - one of the handful of public ACOBA findings naming a former Cabinet minister as having broken the lobbying rules attached to a post-office appointment.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "OakNorth Bank",
+        "note": "Not a Gracchus-tracked prime contractor. The lobbying contact was directed at HM Treasury, a tracked department in the wider Gracchus perimeter. Carried as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2019-12",
+        "end": "2021-07",
+        "periodLabel": "Dec 2019 - Jul 2021 (within ACOBA's two-year lobbying-ban window)"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "Remuneration from OakNorth not publicly disclosed",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "OakNorth's COVID-response 'financial toolkit' proposal was not adopted by HM Treasury"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Advisory Committee on Business Appointments (ACOBA)",
+          "date": "2021-08-12",
+          "quotedText": "There is a reasonable concern that the access you had to a senior Treasury official ... was only made available to OakNorth as a direct result of your time as Chancellor. This was an unwise step and your conduct on this occasion was not acceptable.",
+          "url": "https://www.gov.uk/government/publications/hammond-philip-chancellor-of-the-exchequer-hm-treasury-acoba-advice/correspondence-between-acoba-and-philip-hammond-regarding-oaknorth",
+          "outcome": "Public letter published by ACOBA finding the conduct 'not acceptable' but not 'blatant and deliberate'. No further sanction available to ACOBA."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Correspondence between ACOBA and Philip Hammond regarding OakNorth",
+          "publisher": "gov.uk (ACOBA)",
+          "url": "https://www.gov.uk/government/publications/hammond-philip-chancellor-of-the-exchequer-hm-treasury-acoba-advice/correspondence-between-acoba-and-philip-hammond-regarding-oaknorth",
+          "date": "2021-08-12"
+        },
+        {
+          "tier": "news",
+          "title": "Philip Hammond rebuked over bank lobbying allegations",
+          "publisher": "openDemocracy",
+          "url": "https://www.opendemocracy.net/en/dark-money-investigations/philip-hammond-rebuked-over-bank-lobbying-allegations/",
+          "date": "2021-08-12"
+        },
+        {
+          "tier": "news",
+          "title": "Ex-chancellor Philip Hammond accused of lobbying the Treasury by watchdog",
+          "publisher": "City AM",
+          "url": "https://www.cityam.com/ex-chancellor-philip-hammond-accused-of-lobbying-the-treasury-by-watchdog/",
+          "date": "2021-08-12"
+        }
+      ]
+    },
+    {
+      "id": "patel-viasat-acoba-bypass",
+      "personId": "patel-priti",
+      "connectionType": "post_office_appointment",
+      "status": "live_proceedings",
+      "liveProceedings": true,
+      "summary": "Priti Patel took up a strategic adviser role with US satellite-communications firm Viasat Inc. in 2019, paid at a reported £1,000 per hour, without seeking prior ACOBA clearance; in 2024 the Upper Tribunal (Administrative Appeals Chamber) ordered the Cabinet Office to disclose information about her compliance with the Ministerial Code and Business Appointment Rules.",
+      "detail": "Patel resigned as Secretary of State for International Development in November 2017. In 2019, while a backbench MP, she took up a paid strategic adviser role with Viasat Inc., a US-listed satellite-communications firm with UK defence-adjacent interests. The role was reported at a rate of £1,000 per hour. She subsequently returned to government as Home Secretary from July 2019 to September 2022.\n\nIt has been alleged that Patel did not seek ACOBA clearance before taking up the Viasat role, and that this represents a breach of the Business Appointment Rules and (during her time as Home Secretary) of the Ministerial Code. In 2024 the Upper Tribunal (Administrative Appeals Chamber) ordered the Cabinet Office to disclose information about Patel's compliance, in a case driven by Freedom of Information litigation. The substantive dispute about whether a breach occurred is live as of early 2026; Patel denies any breach.\n\nViasat is not a Gracchus-tracked prime contractor; it supplies secure satcoms to defence and government customers internationally. Gracchus carries this case in the public record because the Upper Tribunal disclosure ruling is a finding in the public domain, while flagging that the substantive question of breach is unresolved. Gracchus reports only what is already on the public record.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Viasat Inc.",
+        "note": "US-listed satellite-communications firm with UK defence-adjacent interests. Not a Gracchus-tracked prime supplier. Carried as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2019-01",
+        "end": null,
+        "periodLabel": "2019 - ongoing (Viasat strategic adviser; tribunal disclosure proceedings 2024-)"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "Reported rate of £1,000 per hour; total remuneration not publicly disclosed",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government contracts awarded that have been linked to the Viasat appointment"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Upper Tribunal (Administrative Appeals Chamber)",
+          "date": "2024-05-01",
+          "quotedText": "The Cabinet Office is ordered to disclose information about the former Home Secretary's compliance with the Ministerial Code and the Business Appointment Rules in respect of her engagement with Viasat Inc.",
+          "url": "https://www.monckton.com/former-home-secretarys-compliance-with-the-ministerial-code-upper-tribunal-orders-disclosure-of-information/",
+          "outcome": "Disclosure ordered; substantive question of breach unresolved as of early 2026."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "ACOBA record - Priti Patel, Secretary of State, Department for International Development",
+          "publisher": "gov.uk (ACOBA)",
+          "url": "https://www.gov.uk/government/publications/patel-priti-secretary-of-state-the-department-for-international-development-acoba-advice",
+          "date": "2018-01-01"
+        },
+        {
+          "tier": "primary",
+          "title": "Former Home Secretary's compliance with the Ministerial Code: Upper Tribunal orders disclosure of information",
+          "publisher": "Monckton Chambers (case note on Upper Tribunal ruling)",
+          "url": "https://www.monckton.com/former-home-secretarys-compliance-with-the-ministerial-code-upper-tribunal-orders-disclosure-of-information/",
+          "date": "2024-05-01"
+        },
+        {
+          "tier": "analysis",
+          "title": "Priti Patel, the Independent Adviser, and ministerial irresponsibility",
+          "publisher": "Counsel Magazine",
+          "url": "https://www.counselmagazine.co.uk/articles/priti-patel-the-independent-adviser-ministerial-irresponsibility",
+          "date": "2022-01-01"
+        }
+      ]
+    },
+    {
+      "id": "lee-palantir-mod-revolving-door",
+      "personId": "lee-laurence",
+      "connectionType": "post_office_appointment",
+      "status": "closed_approved",
+      "liveProceedings": false,
+      "summary": "Laurence Lee, the MoD's former Second Permanent Secretary, took up a paid geo-strategic adviser role with Palantir Technologies UK after leaving the civil service; reporting indicates that while at the MoD he met Palantir executives nine times, accepted hospitality on four occasions, and oversaw negotiations for a reported £25m contract for the company before approaching it for a job shortly after his resignation.",
+      "detail": "Laurence Lee served as Second Permanent Secretary at the Ministry of Defence, the second most-senior civil-service position in the department. After leaving the MoD, he took up a paid geo-strategic adviser role with Palantir Technologies UK.\n\nReporting by Action on Armed Violence and Declassified UK indicates that during his time at the MoD, Lee met Palantir executives on nine occasions, accepted hospitality from the firm on four occasions, and oversaw negotiations for a reported £25m MoD contract for Palantir. He is reported to have approached Palantir for a job shortly after resigning from the civil service. ACOBA approved his post-Crown-service appointment subject to standard conditions including a cooling-off period and lobbying restrictions; no public breach finding has been made against Lee.\n\nLee's case is the single most documented named example in a wider pattern. Action on Armed Violence's analysis identified more than 120 applications by former senior military officers, civil servants and politicians to take paid positions with firms either holding or bidding for MoD contracts over the last decade. Other named transitions include Admiral Sir Philip Jones (former First Sea Lord, to BAE Systems in 2021), Air Marshal Sir Stuart Atha (to BAE Systems VP Military Operations) and Martyn Williams (former Head of Naval Ships, to BAE Systems Maritime). Transparency International UK, Spotlight on Corruption and the Committee on Standards in Public Life have called the regulatory framework 'not fit for purpose'. Palantir is a Gracchus-tracked supplier and the MoD is a tracked department.",
+      "counterparty": {
+        "kind": "supplier",
+        "id": "supplier-palantir-technologies",
+        "name": "Palantir Technologies UK",
+        "note": "Tracked Gracchus supplier. The Ministry of Defence (buyer-ministry-of-defence) is the tracked counterparty department."
+      },
+      "timeframe": {
+        "start": "2023-06",
+        "end": null,
+        "periodLabel": "Jun 2023 - ongoing (Palantir adviser)"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "Remuneration from Palantir not publicly disclosed",
+        "relatedContractsGBP": 25000000,
+        "relatedContractsDescription": "Reported £25m MoD contract negotiated for Palantir during Lee's tenure as Second Permanent Secretary"
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "From Whitehall to weapon factories: the revolving door between the UK government and Britain's defence industry examined",
+          "publisher": "Action on Armed Violence",
+          "url": "https://aoav.org.uk/2025/from-whitehall-to-weapon-factories-the-revolving-door-between-the-uk-government-and-britains-defence-industry-examined/",
+          "date": "2025-01-01"
+        },
+        {
+          "tier": "news",
+          "title": "Britain's revolving door syndrome",
+          "publisher": "Declassified UK",
+          "url": "https://www.declassifieduk.org/britains-revolving-door-syndrome/",
+          "date": "2024-01-01"
+        },
+        {
+          "tier": "analysis",
+          "title": "The defence industry's revolving door",
+          "publisher": "Prospect Magazine",
+          "url": "https://www.prospectmagazine.co.uk/politics/policy/defence-news/72848/uk-defence-industry-revolving-door",
+          "date": "2024-01-01"
+        },
+        {
+          "tier": "analysis",
+          "title": "Britain's revolving door rules are broken",
+          "publisher": "Spotlight on Corruption",
+          "url": "https://www.spotlightcorruption.org/britains-revolving-door-rules-broken/",
+          "date": "2024-01-01"
+        }
+      ]
+    },
+    {
+      "id": "may-speeches-outside-earnings",
+      "personId": "may-theresa",
+      "connectionType": "post_office_appointment",
+      "status": "public_record",
+      "liveProceedings": false,
+      "summary": "Theresa May was the highest-earning MP by outside earnings in the 2019-2024 Parliament, registering more than £2.5m on top of her MP salary, principally from speaking engagements; her office has stated the earnings are routed through 'the Office of Theresa May' to fund staff and charitable work.",
+      "detail": "May resigned as Prime Minister in July 2019 and continued to sit as MP for Maidenhead until the 2024 general election, when she was created a life peer (Baroness May of Maidenhead). During the 2019-2024 Parliament her registered outside earnings exceeded £2.5m, making her the highest-earning MP by outside earnings of that Parliament. The earnings are recorded in the Register of Members' Financial Interests.\n\nThe largest source was a contract with the Washington Speakers Bureau, registered from December 2019 with a £190,000 signing payment. Reporting by Tortoise Media and Sky News indicates 27 individual speech engagements were registered, averaging c. £61,917 per speech (with an in-person average of c. £112,904). Specific named fees in the Register include £115,000 from the Structured Finance Association and £115,000 from Brown University.\n\nMay's office has publicly stated that the earnings are routed through 'the Office of Theresa May' and used to fund staff and charitable work, rather than as personal income. All earnings have been declared on the Register in line with the rules; no regulator has made any finding of rule-breaking. There is no UK supplier-contract link: the speaking-engagement income is from third-party hosts, not from UK government contractors. Gracchus carries this case as the calibration example for the brief - a former PM with very large outside earnings but no contract link, included to show that the catalogue is not an earnings league table.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Speaking-circuit engagements",
+        "note": "Outside earnings from speaking engagements with Washington Speakers Bureau and individual hosts (Structured Finance Association, Brown University, others). No UK supplier-contract link. Carried as adjacent_firm for completeness."
+      },
+      "timeframe": {
+        "start": "2019-12",
+        "end": "2024-05",
+        "periodLabel": "Dec 2019 - May 2024 (2019-2024 Parliament outside earnings)"
+      },
+      "financial": {
+        "personalIncomeGBP": 2500000,
+        "personalIncomeDescription": "More than £2.5m in registered outside earnings during the 2019-2024 Parliament; routed through 'the Office of Theresa May' per her office",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government supplier-contract link"
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Register of Interests for Baroness May of Maidenhead",
+          "publisher": "parliament.uk",
+          "url": "https://members.parliament.uk/member/8/registeredinterests",
+          "date": "2024-07-04"
+        },
+        {
+          "tier": "news",
+          "title": "May's millions",
+          "publisher": "Tortoise Media",
+          "url": "https://www.tortoisemedia.com/2023/01/08/mays-millions",
+          "date": "2023-01-08"
+        },
+        {
+          "tier": "news",
+          "title": "Theresa May's Earnings: Ex-PM Tops List of MPs Income From Second Jobs",
+          "publisher": "Bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2023-01-08/theresa-may-tops-list-of-uk-mps-earnings-from-side-hussles-sky",
+          "date": "2023-01-08"
+        }
+      ]
+    },
+    {
+      "id": "harding-test-and-trace-unlawful-appointment",
+      "personId": "harding-dido",
+      "connectionType": "spousal_political_role",
+      "status": "closed_with_finding",
+      "liveProceedings": false,
+      "summary": "Baroness Dido Harding was appointed by Health Secretary Matt Hancock in May 2020 to lead NHS Test & Trace, a DHSC-budget programme later put at £37bn over two years by the Public Accounts Committee; the High Court ruled in 2022 that her appointment as Chair of the National Institute for Health Protection was unlawful, while her husband - Conservative MP John Penrose - simultaneously served as the Government's Anti-Corruption Champion.",
+      "detail": "Baroness Harding was appointed Executive Chair of NHS Test & Trace in May 2020 by Health Secretary Matt Hancock, and Interim Chair of the National Institute for Health Protection in August 2020. The NHS Test & Trace programme's audited costs were put at £37bn over two years by the Commons Public Accounts Committee. Tracked Gracchus suppliers on NHS Test & Trace included Serco, Sitel, Deloitte and Accenture.\n\nIn 2022 the High Court ruled, on a judicial review brought by the Good Law Project and the Runnymede Trust, that the appointment of Harding as Chair of the National Institute for Health Protection had been unlawful because the post had not been advertised or subject to open competition, and that indirect discrimination had occurred. The court did not order any personal sanction against Harding; the finding is one against the appointment process.\n\nHarding's husband, John Penrose, was Conservative MP for Weston-super-Mare from 2005 to 2024 and served as the Government's Anti-Corruption Champion from 2017. Reporting by openDemocracy notes that Penrose was also a member of the advisory board of the think tank 1828, which advocated replacing the NHS with an insurance model and scrapping Public Health England. Penrose has not been found by any regulator to have breached standards in connection with his wife's appointment. Gracchus carries this connection because the spousal-political overlap and the High Court's unlawfulness finding on the appointment process are both in the public record.",
+      "counterparty": {
+        "kind": "buyer",
+        "id": "buyer-department-of-health-and-social-care",
+        "name": "Department of Health and Social Care",
+        "note": "DHSC funded NHS Test & Trace and the National Institute for Health Protection that Harding was appointed to lead. Tracked Gracchus department."
+      },
+      "timeframe": {
+        "start": "2020-05",
+        "end": "2021-05",
+        "periodLabel": "May 2020 - May 2021 (NHS T&T executive chair tenure; spousal overlap with Penrose Anti-Corruption Champion role 2017-)"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "Salary from the NHS T&T role not publicly disclosed; Harding has stated she served unpaid",
+        "relatedContractsGBP": 37000000000,
+        "relatedContractsDescription": "£37bn audited NHS Test & Trace programme costs over two years (Public Accounts Committee)"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "High Court of England and Wales (judicial review)",
+          "date": "2022-02-15",
+          "quotedText": "The Secretary of State acted unlawfully in appointing the claimant to the position of Chair of the National Institute for Health Protection without open competition; that decision involved indirect discrimination.",
+          "url": "https://goodlawproject.org/",
+          "outcome": "Appointment ruled unlawful; no personal sanction against Harding. Finding directed at the appointment process, not the appointee."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Good Law Project judicial review on Dido Harding NIHP appointment",
+          "publisher": "Good Law Project",
+          "url": "https://goodlawproject.org/",
+          "date": "2022-02-15"
+        },
+        {
+          "tier": "news",
+          "title": "UK's anti-corruption tsar accused of defending COVID cronyism",
+          "publisher": "openDemocracy",
+          "url": "https://www.opendemocracy.net/en/dark-money-investigations/uk-anti-corruption-john-penrose-sinister-defence-government-covid-cronyism/",
+          "date": "2021-04-14"
+        },
+        {
+          "tier": "news",
+          "title": "Dido Harding - biographical entry",
+          "publisher": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Dido_Harding",
+          "date": "2024-01-01"
+        },
+        {
+          "tier": "news",
+          "title": "John Penrose - biographical entry",
+          "publisher": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/John_Penrose",
+          "date": "2024-01-01"
+        }
+      ]
+    },
+    {
+      "id": "zahawi-balshore-yougov-trust",
+      "personId": "zahawi-nadhim",
+      "connectionType": "family_trust_arrangement",
+      "status": "closed_with_finding",
+      "liveProceedings": false,
+      "summary": "Gibraltar-registered Balshore Investments, described in YouGov's 2009 annual report as the 'family trust of Nadhim Zahawi', held more than 10% of YouGov - the polling firm Zahawi co-founded; HMRC's investigation concluded the resulting tax position involved a 'careless and not deliberate' error and Zahawi paid a settlement reported at c. £4.8m, after which Sir Laurie Magnus found Zahawi had committed a 'serious breach' of the Ministerial Code and he was dismissed as Conservative Party Chairman on 29 January 2023.",
+      "detail": "Nadhim Zahawi co-founded YouGov plc and was its Chief Executive until entering Parliament in 2010. YouGov's 2009 annual report described Gibraltar-registered Balshore Investments, which then held more than 10% of YouGov, as the 'family trust of Nadhim Zahawi'. The founder shares were held by his father.\n\nA tax investigation, opened initially by the National Crime Agency in 2020 and then transferred to HMRC, concluded that the tax treatment of the Balshore YouGov share sale involved an error that was 'careless and not deliberate'. Tax Policy Associates estimated the unpaid capital gains tax at c. £3.7m; Zahawi paid a settlement reported at c. £4.8m including a penalty.\n\nIn January 2023, Prime Minister Rishi Sunak ordered the Independent Adviser on Ministers' Interests, Sir Laurie Magnus, to investigate Zahawi's tax affairs and his disclosure of them while in office. Magnus's report found that Zahawi had committed a 'serious breach' of the Ministerial Code by failing to disclose the existence of the HMRC investigation when he became Chancellor in July 2022 and on subsequent occasions. Zahawi was dismissed as Conservative Party Chairman and Minister without Portfolio on 29 January 2023.\n\nYouGov has held UK government research contracts with Cabinet Office, FCDO, DCMS and others, but is not a Gracchus-tracked prime supplier on the core 116 projects. Gracchus carries this case for the documented family-trust arrangement around a UK-government supplier and for the Independent Adviser's Ministerial Code finding.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "YouGov plc / Balshore Investments",
+        "note": "YouGov is a UK government research contractor (Cabinet Office, FCDO, DCMS) but not a Gracchus-tracked prime supplier on the core 116. Balshore Investments was the Gibraltar-registered vehicle holding the Zahawi-family stake. Carried as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2010-05",
+        "end": "2023-01",
+        "periodLabel": "May 2010 - Jan 2023 (parliamentary career to dismissal as Party Chairman)"
+      },
+      "financial": {
+        "personalIncomeGBP": 4800000,
+        "personalIncomeDescription": "HMRC settlement reported at c. £4.8m including penalty; estimated unpaid CGT c. £3.7m (Tax Policy Associates)",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "YouGov UK public-sector contracts not separately attributed to the Balshore arrangement"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Independent Adviser on Ministers' Interests (Sir Laurie Magnus)",
+          "date": "2023-01-29",
+          "quotedText": "Mr Zahawi's failure to disclose to the Cabinet Office or to me, as Independent Adviser, the investigation by HMRC and his subsequent settlement of his tax liability, constituted a serious breach of the Ministerial Code.",
+          "url": "https://www.gov.uk/government/publications/independent-advisers-report-on-the-rt-hon-nadhim-zahawi-mp",
+          "outcome": "Zahawi dismissed as Conservative Party Chairman and Minister without Portfolio on 29 January 2023."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Independent Adviser's report on the Rt Hon Nadhim Zahawi MP",
+          "publisher": "gov.uk (Independent Adviser on Ministers' Interests)",
+          "url": "https://www.gov.uk/government/publications/independent-advisers-report-on-the-rt-hon-nadhim-zahawi-mp",
+          "date": "2023-01-29"
+        },
+        {
+          "tier": "analysis",
+          "title": "Nadhim Zahawi - the whole story",
+          "publisher": "Tax Policy Associates",
+          "url": "https://taxpolicy.org.uk/2023/01/19/zahawi_story/",
+          "date": "2023-01-19"
+        },
+        {
+          "tier": "news",
+          "title": "FactCheck: The Nadhim Zahawi tax allegations explained",
+          "publisher": "Channel 4 News",
+          "url": "https://www.channel4.com/news/factcheck/factcheck-the-nadhim-zahawi-tax-allegations-explained",
+          "date": "2023-01-23"
+        },
+        {
+          "tier": "news",
+          "title": "Nadhim Zahawi tax scandal sacking - timeline",
+          "publisher": "National World",
+          "url": "https://www.nationalworld.com/news/politics/nadhim-zahawi-tax-scandal-sacking-tory-cabinet-net-worth-reform-uk-new-recruit-5471879",
+          "date": "2024-09-01"
+        }
+      ]
+    },
+    {
+      "id": "meller-ppe-vip-lane",
+      "personId": "meller-david",
+      "connectionType": "vip_lane_referral",
+      "status": "closed_with_finding",
+      "liveProceedings": false,
+      "summary": "Meller Designs Ltd, co-owned by Conservative donor David Meller, was awarded c. £164m of PPE contracts without competitive tender after referral via the 'VIP / high-priority lane' by Cabinet Office Minister Michael Gove; the High Court subsequently ruled the operation of the VIP lane unlawful, and Meller has admitted deleting emails relevant to the referral.",
+      "detail": "Meller Designs Ltd, normally a fashion / homeware manufacturer, was awarded six PPE contracts during the COVID-19 pandemic worth a reported c. £164m. The contracts were awarded without competitive tender after the firm was routed through the Government's 'VIP / high-priority lane' following a referral by Cabinet Office Minister Michael Gove. Meller is a long-standing Conservative donor, with reported donations of more than £63,000 to the Conservative Party since 2009, and a former trustee of Policy Exchange.\n\nIn 2022 the High Court ruled, on a judicial review brought by the Good Law Project, that the operation of the VIP lane was unlawful: it had treated VIP-lane referrals preferentially in breach of the duty of equal treatment of suppliers under public-procurement law. The judgment is one against the operation of the lane rather than against any individual firm. Meller Designs reportedly made £13m profit after tax in 2020, and analysis indicated three of its six PPE contracts were priced above the average for comparable items.\n\nIn February 2024, reporting by Byline Times disclosed that Meller had admitted deleting emails relevant to the VIP-lane referral. As of early 2026 there is no criminal investigation in the public record against Meller personally. Meller Designs is not on Gracchus's canonical tracked-suppliers list (DHSC is the tracked buyer); the firm is carried as adjacent. Gracchus reports only the documented public-record findings.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Meller Designs Ltd",
+        "note": "Recipient of c. £164m PPE contracts via the VIP lane. DHSC (buyer-department-of-health-and-social-care) is the tracked buyer. Meller Designs not separately on the canonical tracked-suppliers list; carried as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2020-04",
+        "end": "2020-12",
+        "periodLabel": "Apr 2020 - Dec 2020 (COVID-19 PPE procurement window)"
+      },
+      "financial": {
+        "personalIncomeGBP": 13000000,
+        "personalIncomeDescription": "Meller Designs reported £13m profit after tax in 2020; David Meller's personal share not separately disclosed",
+        "relatedContractsGBP": 164000000,
+        "relatedContractsDescription": "c. £164m DHSC PPE contracts (six contracts, no competitive tender)"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "High Court of England and Wales (judicial review)",
+          "date": "2022-01-12",
+          "quotedText": "The operation of the high-priority lane was in breach of the obligation of equal treatment under the Public Contracts Regulations 2015. Offers that were made through the high-priority lane were treated as more credible or as having greater merit ... the Defendant was unable to demonstrate that this preferential treatment was justified.",
+          "url": "https://goodlawproject.org/conservative-politicians-vip-lane/",
+          "outcome": "VIP lane ruled unlawful (Good Law Project judicial review). No personal sanction against Meller."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "LEAKED: The Conservative politicians who referred companies to the PPE 'VIP lane'",
+          "publisher": "Good Law Project",
+          "url": "https://goodlawproject.org/conservative-politicians-vip-lane/",
+          "date": "2022-04-22"
+        },
+        {
+          "tier": "news",
+          "title": "Record profits for Tory donor's firm that won huge PPE contracts",
+          "publisher": "openDemocracy",
+          "url": "https://www.opendemocracy.net/en/dark-money-investigations/record-profits-tory-donors-firm-won-huge-ppe-contracts/",
+          "date": "2021-12-15"
+        },
+        {
+          "tier": "news",
+          "title": "Conservative Donor Who Won £164m PPE Contracts Admits Deleting Emails",
+          "publisher": "Byline Times",
+          "url": "https://bylinetimes.com/2024/02/12/conservative-donor-who-won-164m-ppe-contracts-admits-deleting-emails/",
+          "date": "2024-02-12"
+        }
+      ]
+    },
+    {
+      "id": "uniserve-liddell-covid-contracts",
+      "personId": "liddell-iain",
+      "connectionType": "donation_then_contract",
+      "status": "reported",
+      "liveProceedings": false,
+      "summary": "Uniserve Group, owned by Iain Liddell, was awarded c. £777m of COVID-era contracts without competitive tender - including a £473m freight contract in March 2020 to move PPE and medical equipment, plus a c. £304m PPE-supply contract - and was reported to have been routed via the VIP lane; company profits reportedly increased c. 505% from £6.2m in 2019 to £38m by June 2020. Uniserve denies any direct ministerial communication.",
+      "detail": "Uniserve Group, an Essex-based logistics firm owned by Iain Liddell, was awarded a £473m 12-month freight contract by the Government in March 2020 to move PPE and medical equipment, followed by a further c. £304m PPE-supply contract. The aggregate of c. £777m was awarded without competitive tender. Reporting by the Good Law Project indicates Uniserve was channelled through the Government's VIP / high-priority lane.\n\nFrom May to July 2021 Uniserve was paid a reported £104m in storage costs for surplus PPE. Company profits reportedly increased c. 505%, from £6.2m in 2019 to £38m by June 2020. Liddell has been a reported contributor to Prosperity UK, a Brexit-aligned think tank whose membership has included Rishi Sunak and Michael Gove. Uniserve has publicly denied any direct ministerial communication by Liddell in connection with the contracts.\n\nNo regulator, court or parliamentary committee has made a finding of rule-breaking by Uniserve or by Liddell personally. The High Court's 2022 ruling that the operation of the VIP lane was unlawful was directed at the lane's operation rather than at any individual firm. Gracchus carries the company denial alongside the public-record contract values. Uniserve is not on Gracchus's canonical tracked-suppliers list (DHSC is the tracked buyer); the firm is carried as adjacent.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Uniserve Group",
+        "note": "Recipient of c. £777m COVID-era contracts. DHSC (buyer-department-of-health-and-social-care) is the tracked buyer. Uniserve not separately on the canonical tracked-suppliers list; carried as adjacent_firm. Company denies direct ministerial communication."
+      },
+      "timeframe": {
+        "start": "2020-03",
+        "end": "2021-07",
+        "periodLabel": "Mar 2020 - Jul 2021 (COVID-19 freight and PPE-supply window; storage costs to mid-2021)"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "Liddell's personal income not publicly disclosed; Uniserve company profits reported up from £6.2m (2019) to £38m (Jun 2020), a c. 505% rise",
+        "relatedContractsGBP": 777000000,
+        "relatedContractsDescription": "c. £777m aggregate (£473m freight + c. £304m PPE supply); plus c. £104m PPE storage costs May-Jul 2021"
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "REVEALED: Profits jumped 500% at Uniserve",
+          "publisher": "Good Law Project",
+          "url": "https://goodlawproject.org/update/uniserve-profits-500-vip-contracts/",
+          "date": "2021-09-01"
+        },
+        {
+          "tier": "news",
+          "title": "Revealed: The company given £800m of Covid PPE contracts by Government without open tender",
+          "publisher": "ITV News",
+          "url": "https://www.itv.com/news/2020-12-18/revealed-the-company-given-800m-of-covid-ppe-contracts-by-government-without-open-tender",
+          "date": "2020-12-18"
+        },
+        {
+          "tier": "news",
+          "title": "Mapping the Pandemic: £2 Billion in Contracts Awarded to Conservative Associates",
+          "publisher": "Byline Times",
+          "url": "https://bylinetimes.com/2021/03/31/mapping-the-pandemic-contracts-to-conservative-associates/",
+          "date": "2021-03-31"
+        },
+        {
+          "tier": "primary",
+          "title": "Investigation into government procurement during the COVID-19 pandemic",
+          "publisher": "National Audit Office",
+          "url": "https://www.nao.org.uk/reports/government-procurement-during-the-covid-19-pandemic/",
+          "date": "2020-11-18"
+        }
+      ]
+    },
+    {
+      "id": "benton-times-lobbying-sting",
+      "personId": "benton-scott",
+      "connectionType": "cash_for_access",
+      "status": "closed_with_finding",
+      "liveProceedings": false,
+      "summary": "Scott Benton, Conservative MP for Blackpool South and chair of the All-Party Parliamentary Group on Betting and Gaming, was filmed by an undercover Times investigation offering to lobby ministers, table parliamentary questions and leak a confidential gambling white paper containing market-sensitive information in exchange for £2,000-£4,000 a month from what he believed to be a fictitious gambling investment fund; the Commons Standards Committee recommended a 35-day suspension for an 'extremely serious breach' of the rules and Benton resigned as MP on 25 March 2024.",
+      "detail": "In April 2023 The Times published the results of an undercover investigation in which Scott Benton, then Conservative MP for Blackpool South and chair of the APPG on Betting and Gaming, was filmed offering to lobby ministers, table parliamentary questions, and pass a confidential pre-publication copy of the Government's gambling white paper to what he believed to be a gambling investment fund called 'Tahr Partners'. The 'fund' was a fictitious entity created by Times reporters. Benton was filmed agreeing to retainers in the range of £2,000 to £4,000 per month.\n\nThe Commons Standards Committee subsequently found that Benton had committed an 'extremely serious breach' of the rules and recommended a 35-day suspension - one of the longest suspensions ever recommended by the Committee. Benton appealed and lost the appeal in February 2024. A recall petition was opened in his Blackpool South constituency. Benton resigned as MP on 25 March 2024, triggering a by-election.\n\nThere is no Gracchus-tracked prime supplier directly involved (DCMS gambling policy sits within the tracked policy perimeter but the gambling industry is not a Gracchus core-tracker sector). The case is carried as an adjacent record because the Standards Committee finding is one of the most definitive recent regulatory rulings on cash-for-access misconduct.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "'Tahr Partners' (fictitious gambling investment fund - Times sting)",
+        "note": "Counterparty was a fictitious entity created by undercover Times reporters. DCMS gambling policy sits within Gracchus's tracked policy perimeter but no specific tracked supplier was involved. Carried as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2023-04",
+        "end": "2024-03",
+        "periodLabel": "Apr 2023 - Mar 2024 (Times sting to resignation as MP)"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "No payment was actually made; Benton agreed to a £2,000-£4,000 per month retainer from what he believed to be a real fund",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government contracts involved"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Commons Committee on Standards",
+          "date": "2024-02-20",
+          "quotedText": "Mr Benton's conduct represented an extremely serious breach of the rules of the House and caused significant damage to the reputation of the House. The Committee recommends that he be suspended from the service of the House for 35 sitting days.",
+          "url": "https://committees.parliament.uk/committee/290/committee-on-standards/",
+          "outcome": "Standards Committee recommended a 35-day suspension; Benton's appeal was dismissed in February 2024. A recall petition was opened. Benton resigned as MP on 25 March 2024."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Commons Committee on Standards - reports on the conduct of Mr Scott Benton",
+          "publisher": "parliament.uk",
+          "url": "https://committees.parliament.uk/committee/290/committee-on-standards/",
+          "date": "2024-02-20"
+        },
+        {
+          "tier": "news",
+          "title": "Blackpool South MP Scott Benton loses appeal over lobbying sting suspension",
+          "publisher": "ITV News",
+          "url": "https://www.itv.com/news/granada/2024-02-20/mp-caught-in-lobbying-sting-faces-suspension-after-appeal-fails",
+          "date": "2024-02-20"
+        },
+        {
+          "tier": "news",
+          "title": "Scott Benton (politician) - biographical entry",
+          "publisher": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Scott_Benton_(politician)",
+          "date": "2024-04-01"
         }
       ]
     }

@@ -5,6 +5,14 @@
     {
       "date": "2026-04-24",
       "type": "coverage",
+      "title": "Connection catalogue expanded \u2014 12 more stories",
+      "summary": "The Money Map Stories tab now spans Osborne (BlackRock), Clegg (Meta), Javid (JP Morgan), Hammond, Patel, May, Harding/Penrose (NHS Test & Trace), Zahawi (Balshore), Meller (PPE VIP lane), Uniserve, and Benton (lobbying suspension). Mix of regulator findings, ACOBA-approved appointments, and public-record entries. Sourced to gov.uk, parliament.uk, court records, and investigative journalism.",
+      "view": "moneymap",
+      "metric": "19 connection stories live"
+    },
+    {
+      "date": "2026-04-24",
+      "type": "coverage",
       "title": "Four more connection stories \u2014 Cameron, Crothers, Bourne, Cox",
       "summary": "Second-wave individual-connection records from the revolving-door research brief. Cameron\u2019s Greensill lobbying, Crothers\u2019s dual civil-service / Greensill role, Alex Bourne\u2019s Hancock-linked PPE contract, and Geoffrey Cox\u2019s outside legal earnings. Sourced to Parliamentary records, Treasury Committee / PACAC findings, and investigative reporting where applicable.",
       "view": "moneymap",

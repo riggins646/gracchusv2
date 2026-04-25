@@ -488,6 +488,9 @@ const CONN_EYEBROW = {
   appg_paid_chair: "APPG INTEREST",
   personal_connection_then_contract: "PERSONAL CONTRACT",
   outside_earnings_during_office: "OUTSIDE EARNINGS",
+  spousal_political_role: "SPOUSAL POLITICAL ROLE",
+  family_trust_arrangement: "FAMILY TRUST",
+  cash_for_access: "CASH FOR ACCESS",
   other: "CONNECTION",
 };
 

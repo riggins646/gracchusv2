@@ -16,6 +16,9 @@ const CONN_TYPE_LABEL = {
   appg_paid_chair: "APPG paid chair",
   personal_connection_then_contract: "Personal connection \u2192 contract",
   outside_earnings_during_office: "Outside earnings during office",
+  spousal_political_role: "Spousal political role",
+  family_trust_arrangement: "Family trust arrangement",
+  cash_for_access: "Cash for access",
   other: "Connection of interest",
 };
 
