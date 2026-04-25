@@ -33,6 +33,7 @@ import { X, ArrowLeft, ExternalLink, Download, ChevronDown, SlidersHorizontal, A
 import CiteChip from "./CiteChip";
 import useDrawerFocus from "../lib/useDrawerFocus";
 import individualConnectionsData from "../data/individual-connections.json";
+import donationsAggregateData from "../data/political-donations.json";
 
 /* ---------- constants ---------- */
 const TYPE_COLOUR = {
@@ -52,6 +53,27 @@ const TYPE_COLOUR = {
      its own canonical hex (see PARTY_DEFS); this entry is a fallback
      used only if a party node lands without a colour set on it. */
   party:         "#777777",
+  /* v2 Phase 3 — political donors on the canvas. Neutral fallback;
+     individual donor bubbles override at render time using DONOR_TYPE_COLOUR
+     (companies = light slate, individuals = warm beige, trade unions =
+     warm peach). The party-colour stroke around each donor signals their
+     dominant recipient. */
+  donor:         "#94a3b8",
+};
+
+/* v2 Phase 3 — donor visual treatment by donorStatus. Companies look
+   institutional (slate); individuals warm (stone/beige); trade unions
+   pop a little (peach) so the editorially-loud Unite/UNISON/GMB cluster
+   reads at a glance. Anything else falls back to the neutral grey. */
+const DONOR_TYPE_COLOUR = {
+  Company:                          "#94a3b8",
+  Individual:                       "#a8a29e",
+  "Trade Union":                    "#fdba74",
+  "Unincorporated Association":     "#cbd5e1",
+  "Limited Liability Partnership":  "#94a3b8",
+  "Friendly Society":               "#cbd5e1",
+  Trust:                            "#cbd5e1",
+  Other:                            "#9ca3af",
 };
 
 /* v2 Phase 2 — political party catalogue. Canonical id → display label,
@@ -82,8 +104,8 @@ const TIER_STYLE = {
 const WIDTH = 1200;
 const HEIGHT = 720;
 
-const CLUSTER_CX = { buyer: 520, supplier: 700, project: 600, person: 360, adjacent_firm: 820, party: 200 };
-const CLUSTER_CY = { buyer: 320, supplier: 380, project: 500, person: 200, adjacent_firm: 540, party: 130 };
+const CLUSTER_CX = { buyer: 520, supplier: 700, project: 600, person: 360, adjacent_firm: 820, party: 200, donor: 80 };
+const CLUSTER_CY = { buyer: 320, supplier: 380, project: 500, person: 200, adjacent_firm: 540, party: 130, donor: 360 };
 
 /* ---------- v2 Phase 1: people layer ----------
    Map common rolesHeld[] department strings onto the canonical buyer ids
@@ -159,6 +181,202 @@ function dependenceBand(v) {
   if (v >= 0.8) return { label: "Captive",     tone: "bad",  hint: "≥ 80% of £ from one buyer. High risk of political capture." };
   if (v >= 0.5) return { label: "Reliant",     tone: "warn", hint: "50–80% of £ from one buyer. Vulnerable to procurement changes." };
   return                 { label: "Diversified", tone: "good", hint: "< 50% from any one buyer. Healthy buyer spread." };
+}
+
+/* =========================================================================
+ *  v2 Phase 3 — donor layer prep (module scope, runs once on import)
+ *
+ *  We don't have the full 92,378-record EC dataset bundled — we have
+ *  political-donations.json which carries pre-aggregated `topDonors` (top
+ *  100 donors by aggregate £, with per-party breakdown, donor type, and
+ *  Companies House reg where applicable). Working off `topDonors` keeps
+ *  the bundle thin (we already ship donations-records.json elsewhere via
+ *  fetch — pulling 6.8k records into MoneyMap on first paint would slow
+ *  the canvas) and gives us exactly the slice this view needs: the top
+ *  political givers and their party allocations.
+ *
+ *  Steps:
+ *    1) Map party-name strings to canonical PARTY_DEFS ids
+ *    2) Drop public-fund "donors" (Short Money / Electoral Commission
+ *       statutory transfers — not voluntary giving)
+ *    3) Take top N by total £
+ *    4) Detect supplier overlap (Companies House reg first, then
+ *       normalised-name match) — overlap donors collapse onto the
+ *       supplier node rather than minting a separate donor bubble
+ * ========================================================================= */
+
+const DONOR_PARTY_NAME_MAP = {
+  "conservative":               "conservative",
+  "conservative party":         "conservative",
+  "conservative and unionist party": "conservative",
+  "labour":                     "labour",
+  "labour party":               "labour",
+  "liberal democrats":          "liberal-democrats",
+  "liberal democrat":           "liberal-democrats",
+  "reform uk":                  "reform-uk",
+  "reform party":               "reform-uk",
+  "snp":                        "snp",
+  "scottish national party":    "snp",
+  "scottish national party (snp)": "snp",
+  "green":                      "green",
+  "green party":                "green",
+  "plaid cymru":                "plaid-cymru",
+  "dup":                        "dup",
+  "democratic unionist party":  "dup",
+  "sinn féin":                  "sinn-fein",
+  "sinn fein":                  "sinn-fein",
+};
+function donorPartyId(name) {
+  if (!name) return null;
+  const k = String(name).trim().toLowerCase();
+  if (DONOR_PARTY_NAME_MAP[k]) return DONOR_PARTY_NAME_MAP[k];
+  // Prefix match for "Conservative*", "Labour*" etc.
+  for (const prefix of Object.keys(DONOR_PARTY_NAME_MAP)) {
+    if (k.startsWith(prefix + " ")) return DONOR_PARTY_NAME_MAP[prefix];
+  }
+  return null;
+}
+
+/* Strip legal suffixes / punctuation so "Randox Laboratories Limited"
+   collapses onto "randox laboratories". Conservative — keep meaningful
+   tokens, only strip noise words.  */
+function _normaliseFirmName(s) {
+  if (!s) return "";
+  let n = String(s).toLowerCase();
+  n = n.replace(/[\(\),\.&'"]/g, " ");
+  n = n.replace(/\b(ltd|limited|plc|llp|group|holdings|holding|services|the|company|co|inc|uk|gb)\b/g, " ");
+  n = n.replace(/\s+/g, " ").trim();
+  return n;
+}
+
+function donorSlug(name) {
+  return String(name || "unknown")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 64);
+}
+
+/* Mode-of donor types — picks the most common donorStatus across this
+   donor's records (should be stable per donor). */
+function _modeStatus(parties) {
+  // pre-aggregate already gives us a single donor type per row, so this
+  // is mainly defensive when we extend to full records.
+  return null;
+}
+
+const DONOR_PUBLIC_FUND_TYPES = new Set([
+  "Public Fund", "N/A", "Unknown", "Unidentifiable Donor",
+  "Impermissible Donor", "Registered Political Party",
+]);
+
+const DONOR_TOP_N = 25;
+
+/* Load + filter donors at module-load. Pure function of the bundled JSON
+   so we can compute it once and re-use across renders. */
+function _buildDonorList() {
+  const aggTop = (donationsAggregateData && donationsAggregateData.topDonors) || [];
+  const enriched = [];
+  for (const d of aggTop) {
+    if (!d || !d.name || !d.total) continue;
+    if (DONOR_PUBLIC_FUND_TYPES.has(d.type || "")) continue;
+    // Map per-party totals to canonical ids; drop the "Other" bucket
+    const pmap = new Map();
+    for (const pname of (d.parties || [])) {
+      const pid = donorPartyId(pname);
+      if (!pid) continue;
+      // The aggregate doesn't give us per-party £ split — only the list of
+      // recipient parties — so we proportion the donor's total evenly across
+      // the parties they appear in. This is a known approximation and is
+      // documented as such in the drawer. The exact split would need the
+      // full 92k record set rolled in (deferred to a future tranche).
+      pmap.set(pid, { partyId: pid, donationCount: 0, totalGBP: 0 });
+    }
+    if (pmap.size === 0) continue; // no canonical-party recipients
+    const perParty = d.total / pmap.size;
+    for (const v of pmap.values()) {
+      v.totalGBP = perParty;
+      v.donationCount = Math.max(1, Math.round((d.count || 1) / pmap.size));
+    }
+    enriched.push({
+      key: donorSlug(d.name),
+      name: d.name,
+      totalGBP: d.total,
+      donationCount: d.count || 0,
+      donorStatus: d.type || "Unknown",
+      companyReg: d.companyReg || "",
+      parties: Array.from(pmap.values()).sort((a, b) => b.totalGBP - a.totalGBP),
+      _normName: _normaliseFirmName(d.name),
+    });
+  }
+  enriched.sort((a, b) => b.totalGBP - a.totalGBP);
+  return enriched.slice(0, DONOR_TOP_N);
+}
+
+const TOP_DONORS = _buildDonorList();
+
+/* Build supplier-overlap matcher. Closed over the supplier list passed
+   in at component scope (since money-map.json is the prop, not an import
+   here — though in practice it IS imported via Dashboard). The matcher
+   tries Companies House first, then exact-normalised name. Returns
+   `{ supplierId, supplierLabel, matchedBy, confidence }` or null. */
+function buildOverlapMatcher(suppliers) {
+  const byCH = new Map();    // CH number -> supplier
+  const byName = new Map();  // normalised name -> supplier
+  for (const s of suppliers) {
+    if (!s || s.kind !== "supplier") continue;
+    const ch = s.companiesHouse || s.chNumber || s.companyRegistration;
+    if (ch) byCH.set(String(ch).trim(), s);
+    const labels = [s.label, ...(s.aliases || [])].filter(Boolean);
+    for (const lbl of labels) {
+      const n = _normaliseFirmName(lbl);
+      if (n) byName.set(n, s);
+    }
+  }
+  return function matchDonor(donor) {
+    if (!donor) return null;
+    if (donor.donorStatus !== "Company") return null;
+    if (donor.companyReg) {
+      const hit = byCH.get(String(donor.companyReg).trim());
+      if (hit) return { supplierId: hit.id, supplierLabel: hit.label, matchedBy: "companiesHouse", confidence: "high" };
+    }
+    const n = donor._normName || _normaliseFirmName(donor.name);
+    if (n && byName.has(n)) {
+      const hit = byName.get(n);
+      return { supplierId: hit.id, supplierLabel: hit.label, matchedBy: "name", confidence: "high" };
+    }
+    return null;
+  };
+}
+
+/* Merge two per-party donor breakdowns (used when a single supplier matches
+   multiple donor entries — e.g. "Ecotricity Limited" + "Ecotricity Group
+   Ltd" — and we want the overlay to reflect the combined giving). */
+function mergeDonorParties(a, b) {
+  const m = new Map();
+  for (const arr of [a || [], b || []]) {
+    for (const p of arr) {
+      if (!p || !p.partyId) continue;
+      if (!m.has(p.partyId)) m.set(p.partyId, { partyId: p.partyId, totalGBP: 0, donationCount: 0 });
+      const cur = m.get(p.partyId);
+      cur.totalGBP += p.totalGBP || 0;
+      cur.donationCount += p.donationCount || 0;
+    }
+  }
+  return Array.from(m.values()).sort((a, b) => b.totalGBP - a.totalGBP);
+}
+function pickDominantParty(parties) {
+  if (!parties || parties.length === 0) return null;
+  return parties[0].partyId;
+}
+
+/* Format helper for donor £ — donations are smaller than contracts, so we
+   show £k for sub-£1m amounts to keep precision useful. */
+function fmtGBPDonor(v) {
+  if (v == null || !isFinite(v)) return "—";
+  if (v >= 1e6) return `£${(v / 1e6).toFixed(1)}m`;
+  if (v >= 1e3) return `£${Math.round(v / 1e3)}k`;
+  return `£${Math.round(v)}`;
 }
 
 /* ---------- URL deeplink helpers ----------
@@ -1090,6 +1308,11 @@ export default function MoneyMap({
     MIN_GBP_STEPS.includes(urlInit.min) ? urlInit.min : 1_000_000
   );
   const [query, setQuery] = useState(() => urlInit.q || "");
+  /* v2 Phase 3 — donor visibility toggle. Default ON so the new layer
+     materialises on first paint (the whole point of the phase). When OFF,
+     donor nodes and donor→party edges hide and supplier-overlap nodes
+     drop their concentric ring. */
+  const [showDonors, setShowDonors] = useState(true);
   const [selection, setSelection] = useState(null);   // { kind, id } | null
 
   /* ---------- mobile layout mode (audit rec #98) ----------
@@ -1331,12 +1554,127 @@ export default function MoneyMap({
     };
   }, [data.nodes]);
 
+  /* ---------- v2 Phase 3: donor layer ----------
+     Top-25 EC donors are pulled at module scope (TOP_DONORS). Here we:
+       1) Build the supplier-overlap matcher against the live tracked
+          supplier set (so overlaps follow data-set evolution).
+       2) For each top donor:
+            - if it overlaps a tracked supplier, augment the supplier node
+              in-place with `isDonor`, `donorTotalGBP`, `donorParties`,
+              `dominantPartyId` etc. and emit donor→party edges with the
+              supplier id as source (so the edge originates at the bubble
+              the reader is already looking at).
+            - otherwise mint a fresh donor node + donor→party edges with
+              source = the donor id.
+       3) Donor→party edges are gated to ≥ £100k aggregate per (donor,
+          party) pair so we don't litter the canvas with low-value lines.
+     We do NOT mutate money-map.json — the supplier augmentation lives
+     on a parallel map (`supplierDonorOverlay`) merged into nodesById
+     downstream. */
+  const donorAugment = useMemo(() => {
+    const matcher = buildOverlapMatcher(data.nodes || []);
+    const extraNodes = [];
+    const donorEdges = [];
+    const supplierDonorOverlay = new Map(); // supplierId -> overlay obj
+    const allDonors = [];                   // for filter / drawer use
+
+    for (const d of TOP_DONORS) {
+      const overlap = matcher(d);
+      const donorEntry = {
+        ...d,
+        supplierOverlap: overlap || { matched: false },
+      };
+      if (overlap) donorEntry.supplierOverlap.matched = true;
+      allDonors.push(donorEntry);
+
+      // Dominant party = top party by £ given (used for stroke colour
+      // on donor bubble + supplier-overlap concentric ring).
+      const dominantParty = d.parties[0] ? d.parties[0].partyId : null;
+
+      let sourceId; // node id used as the source endpoint of donor→party edges
+      if (overlap) {
+        // Augment the existing supplier node
+        sourceId = overlap.supplierId;
+        const prev = supplierDonorOverlay.get(sourceId) || { isDonor: true, donorTotalGBP: 0, donorParties: [], donationCount: 0, donorEntries: [] };
+        prev.isDonor = true;
+        prev.donorTotalGBP += d.totalGBP;
+        prev.donationCount += d.donationCount;
+        prev.donorParties = mergeDonorParties(prev.donorParties, d.parties);
+        prev.dominantPartyId = pickDominantParty(prev.donorParties);
+        prev.donorEntries.push(donorEntry);
+        supplierDonorOverlay.set(sourceId, prev);
+      } else {
+        // Fresh donor node
+        sourceId = "donor:" + d.key;
+        // Radius ~ sqrt(£m), capped — donations are smaller than contracts
+        // so the supplier-bubble formula would oversize most donors.
+        const r = Math.max(4, Math.min(14, Math.sqrt(d.totalGBP / 1e6) * 2));
+        extraNodes.push({
+          id: sourceId,
+          kind: "donor",
+          label: d.name,
+          value: d.totalGBP,
+          // value is reused by the lens hop-2 BFS — keep it as the £ figure
+          // for consistency with other money nodes.
+          donorStatus: d.donorStatus,
+          companyReg: d.companyReg,
+          totalGBP: d.totalGBP,
+          donationCount: d.donationCount,
+          parties: d.parties,
+          dominantPartyId: dominantParty,
+          fixedRadius: r,
+          sources: [],
+        });
+      }
+
+      // donor → party edges (gated at ≥ £100k aggregate per pair)
+      for (const pp of d.parties) {
+        if (pp.totalGBP < 100_000) continue;
+        const partyId = "party:" + pp.partyId;
+        donorEdges.push({
+          id: `edge-donor-party-${overlap ? "sup-" + sourceId : d.key}-${pp.partyId}`,
+          kind: "donor_party",
+          s: sourceId,
+          t: partyId,
+          totalGBP: pp.totalGBP,
+          donationCount: pp.donationCount,
+          relational: false, // it IS a money flow — Phase 3 thesis
+          tier: "B",
+          scope: `Political donation: ${PARTY_DEFS[pp.partyId]?.label || pp.partyId}`,
+          sources: [],
+          value: pp.totalGBP,
+          partyId: pp.partyId,
+          fromOverlapSupplier: !!overlap,
+        });
+      }
+    }
+
+    return {
+      nodes: extraNodes,
+      edges: donorEdges,
+      supplierOverlay: supplierDonorOverlay,
+      donorIds: new Set(extraNodes.map((n) => n.id)),
+      donors: allDonors,
+    };
+  }, [data.nodes]);
+
   const nodesById = useMemo(() => {
     const m = new Map();
-    for (const n of data.nodes) m.set(n.id, n);
+    for (const n of data.nodes) {
+      // If this supplier got tagged as a donor, copy the existing node
+      // and stitch the donor overlay onto the copy (don't mutate the
+      // imported data!).
+      const overlay = donorAugment.supplierOverlay.get(n.id);
+      if (overlay) {
+        m.set(n.id, { ...n, ...overlay });
+      } else {
+        m.set(n.id, n);
+      }
+    }
     for (const n of peopleAugment.nodes) m.set(n.id, n);
+    for (const n of donorAugment.nodes) m.set(n.id, n);
     return m;
-  }, [data.nodes, peopleAugment.nodes]);
+  }, [data.nodes, peopleAugment.nodes, donorAugment.nodes, donorAugment.supplierOverlay]);
 
   const featuredSet = useMemo(
     () => new Set(data.featuredIds || []),
@@ -1592,6 +1930,19 @@ export default function MoneyMap({
       return nodesById.has(e.s) && nodesById.has(e.t);
     });
 
+    /* v2 Phase 3 — donor→party edges. They ARE money flows, but the
+       Min-£ chip is calibrated for contracts (£1m default); donations are
+       smaller. So we apply the chip's intent (only show edges meeting the
+       reader's minimum interest threshold) but with a softer floor — the
+       higher of (£100k, minGBP / 10). When donors are toggled off via the
+       filter chip, we short-circuit to an empty set. */
+    const allDonorEdges = !showDonors ? [] : (donorAugment.edges || []).filter((e) => {
+      if (!allowed.has(e.tier)) return false;
+      const floor = Math.max(100_000, minGBP / 10);
+      if ((e.totalGBP || 0) < floor) return false;
+      return nodesById.has(e.s) && nodesById.has(e.t);
+    });
+
     /* ---------------- LENS mode ---------------- */
     if (viewMode === "lens" && lensSubjectId && nodesById.has(lensSubjectId)) {
       const allAwards = (data.edges?.awards || []).filter((e) => {
@@ -1603,7 +1954,7 @@ export default function MoneyMap({
         if (!allowed.has(e.tier)) return false;
         return nodesById.has(e.s) && nodesById.has(e.t);
       });
-      const all = [...allAwards, ...allMembers, ...allPersonEdges];
+      const all = [...allAwards, ...allMembers, ...allPersonEdges, ...allDonorEdges];
 
       // Hop 1 — direct neighbours of the subject
       const hop1 = new Set([lensSubjectId]);
@@ -1639,8 +1990,11 @@ export default function MoneyMap({
       const personEdges = allPersonEdges.filter(
         (e) => nodeSet.has(e.s) && nodeSet.has(e.t)
       );
+      const donorEdges = allDonorEdges.filter(
+        (e) => nodeSet.has(e.s) && nodeSet.has(e.t)
+      );
       return {
-        awards, projectMembers, personEdges, reachable: nodeSet,
+        awards, projectMembers, personEdges, donorEdges, reachable: nodeSet,
         hop1, subject: lensSubjectId,
       };
     }
@@ -1706,8 +2060,54 @@ export default function MoneyMap({
       }
     }
 
-    return { awards, projectMembers, personEdges, reachable, hop1: null, subject: null };
-  }, [data.edges, tierFilter, minGBP, q, featuredSet, nodesById, viewMode, lensSubjectId, peopleAugment.edges]);
+    /* v2 Phase 3 — donor→party edges in NETWORK mode.
+       Two cases:
+        a) Donor is a fresh donor node (sourceId = "donor:..."): include if
+           the party endpoint is on the canvas (party comes from people
+           layer or from another donor edge). We pull the donor + party
+           into reachable so both bubbles render even if they wouldn't be
+           reached by the contract subgraph.
+        b) Donor is a supplier-overlap (sourceId is a tracked supplier):
+           include if the supplier is already reachable (i.e., the canvas
+           shows it) — that's the editorial point of the overlay. */
+    const donorEdges = [];
+    // Pass 1: keep edges whose endpoints are already on canvas.
+    for (const e of allDonorEdges) {
+      const s = nodesById.get(e.s);
+      if (!s) continue;
+      if (s.kind === "supplier") {
+        if (reachable.has(e.s)) {
+          donorEdges.push(e);
+          reachable.add(e.t); // pull the party in
+        }
+      } else {
+        // Fresh donor node — include if the party endpoint is reachable
+        // OR if there are no people on canvas at all (in which case we
+        // anchor donors via the canvas-empty fallback below).
+        if (reachable.has(e.t)) {
+          donorEdges.push(e);
+          reachable.add(e.s);
+        }
+      }
+    }
+    // Pass 2: when donors are toggled on, surface a curated baseline of
+    // donor→party edges even if no person/supplier already pulled their
+    // party in — otherwise donors would be invisible until the user opened
+    // a person bubble. We seed by including the top 8 donor→party flows by
+    // £ so the donor cluster always has something to read.
+    if (showDonors) {
+      const remaining = allDonorEdges
+        .filter((e) => !donorEdges.includes(e))
+        .sort((a, b) => (b.totalGBP || 0) - (a.totalGBP || 0));
+      for (const e of remaining.slice(0, 8)) {
+        donorEdges.push(e);
+        reachable.add(e.s);
+        reachable.add(e.t);
+      }
+    }
+
+    return { awards, projectMembers, personEdges, donorEdges, reachable, hop1: null, subject: null };
+  }, [data.edges, tierFilter, minGBP, q, featuredSet, nodesById, viewMode, lensSubjectId, peopleAugment.edges, donorAugment.edges, showDonors]);
 
   const visibleNodes = useMemo(() => {
     const arr = [];
@@ -1723,6 +2123,7 @@ export default function MoneyMap({
       ...filteredEdges.awards.map((e) => ({ ...e, _kind: "award" })),
       ...filteredEdges.projectMembers.map((e) => ({ ...e, _kind: "project" })),
       ...((filteredEdges.personEdges || []).map((e) => ({ ...e, _kind: "person" }))),
+      ...((filteredEdges.donorEdges || []).map((e) => ({ ...e, _kind: "donor" }))),
     ];
   }, [filteredEdges]);
 
@@ -1734,7 +2135,8 @@ export default function MoneyMap({
           edge:
             (data.edges?.awards || []).find((x) => x.id === selection.id) ||
             (data.edges?.projectMembers || []).find((x) => x.id === selection.id) ||
-            (peopleAugment.edges || []).find((x) => x.id === selection.id),
+            (peopleAugment.edges || []).find((x) => x.id === selection.id) ||
+            (donorAugment.edges || []).find((x) => x.id === selection.id),
         }
     : null;
 
@@ -1796,6 +2198,10 @@ export default function MoneyMap({
       if (n.kind === "person") r = 11;
       else if (n.kind === "adjacent_firm") r = 9;
       else if (n.kind === "party") r = 13; // sized between adjacent (9) and person (11), nudged up slightly so the labelled disc reads as an institutional anchor rather than a footnote
+      // v2 Phase 3 — donor bubbles use the precomputed fixedRadius so they
+      // sit consistently small (donations are smaller than contracts; the
+      // £-scaled supplier radius would oversize them). Range 4–14.
+      else if (n.kind === "donor") r = n.fixedRadius || Math.max(4, Math.min(14, Math.sqrt((n.totalGBP || 0) / 1e6) * 2));
       else r = radius(Math.max(1, n.value || 1));
       return { ...n, r, type: n.kind };
     });
@@ -1842,16 +2248,27 @@ export default function MoneyMap({
             const partyId = String(d.t || "").replace(/^party:/, "");
             return PARTY_DEFS[partyId]?.color || "#fbbf24";
           }
+          // v2 Phase 3 — donor→party edges in party colour, slightly more
+          // saturated than person→party so the money flow reads as primary.
+          if (d.kind === "donor_party") {
+            return PARTY_DEFS[d.partyId]?.color || "#94a3b8";
+          }
           if (d._kind === "person") return "#fbbf24";
           return TIER_STYLE[d.tier]?.colour || "#8a8a94";
         })
         .attr("stroke-opacity", (d) => {
           if (d.kind === "person_party") return 0.35;
+          if (d.kind === "donor_party") return 0.5;
           if (d._kind === "person") return 0.45;
           return TIER_STYLE[d.tier]?.opacity || 0.4;
         })
         .attr("stroke-width", (d) => {
           if (d.kind === "person_party") return 1;
+          if (d.kind === "donor_party") {
+            // Scales with donation £ but capped — keep donor edges
+            // legible without dominating the contract subgraph.
+            return Math.min(3.2, 1.5 + Math.sqrt((d.totalGBP || 0) / 1e7) * 0.6);
+          }
           if (d._kind === "person") return 1.1;
           const base = TIER_STYLE[d.tier]?.width || 1;
           const amt = Math.min(5.5, 1 + Math.sqrt((d.totalGBP || 0) / 1e9) * 1.4);
@@ -1859,6 +2276,8 @@ export default function MoneyMap({
         })
         .attr("stroke-dasharray", (d) => {
           if (d.kind === "person_party") return "3 4";
+          // donor→party edges are real money flows — solid line, no dash.
+          if (d.kind === "donor_party") return null;
           if (d._kind === "person") return "4 3";
           return TIER_STYLE[d.tier]?.dash;
         })
@@ -1915,6 +2334,7 @@ export default function MoneyMap({
       .attr("r", (d) => d.r + 10)
       .attr("fill", (d) => {
         if (d.type === "party") return d.color || "#777777";
+        if (d.type === "donor") return DONOR_TYPE_COLOUR[d.donorStatus] || TYPE_COLOUR.donor;
         return TYPE_COLOUR[d.type] || "#525561";
       })
       .attr("fill-opacity", (d) => {
@@ -1922,9 +2342,26 @@ export default function MoneyMap({
         if (viewMode === "lens" && d.id === lensSubjectId) return 0.20;
         if (d.type === "person") return 0.16;
         if (d.type === "party") return 0.12;
+        if (d.type === "donor") return 0.10;
         return 0.08;
       })
       .attr("filter", "url(#mm-glow)");
+
+    /* v2 Phase 3 — supplier-overlap ring. Where a tracked supplier is
+       also on the donor list, paint a concentric ring in the dominant
+       party's colour just outside the supplier bubble. Signals "this
+       firm both held government contracts and donated to the party".
+       Donors-OFF state suppresses this ring (matches the toggle). */
+    nodeSel
+      .filter((d) => d.type === "supplier" && d.isDonor && showDonors)
+      .append("circle")
+        .attr("class", "mm-supplier-donor-ring")
+        .attr("r", (d) => d.r + 4)
+        .attr("fill", "none")
+        .attr("stroke", (d) => PARTY_DEFS[d.dominantPartyId]?.color || "#94a3b8")
+        .attr("stroke-width", 2.2)
+        .attr("stroke-opacity", 0.85)
+        .attr("pointer-events", "none");
 
     // Main bubble. Nodes whose £ value is zero/undisclosed get a dashed
     // outer stroke — same visual language as Tier C/D edges — so readers
@@ -1944,9 +2381,17 @@ export default function MoneyMap({
       // institutional flag rather than a money bubble.
       .attr("fill", (d) => {
         if (d.type === "party") return d.color || "#777777";
+        // v2 Phase 3 — donor nodes paint a flat fill in their type colour.
+        // No radial gradient: keeps the donor cluster reading as a quieter
+        // "annotation" layer rather than competing with money bubbles.
+        if (d.type === "donor") return DONOR_TYPE_COLOUR[d.donorStatus] || TYPE_COLOUR.donor;
         return `url(#mm-grad-${d.type})`;
       })
-      .attr("opacity", (d) => d.type === "adjacent_firm" ? 0.55 : 1)
+      .attr("opacity", (d) => {
+        if (d.type === "adjacent_firm") return 0.55;
+        if (d.type === "donor") return 0.92;
+        return 1;
+      })
       .attr("stroke", (d) => {
         if (d.type === "person") return "#fbbf24";
         if (d.type === "adjacent_firm") return "rgba(180,180,190,0.6)";
@@ -1954,6 +2399,12 @@ export default function MoneyMap({
           // 1.4× darker for definition against the dark background
           const c = d3color(d.color || "#777777");
           return c ? c.darker(1.4).formatHex() : "#444";
+        }
+        // v2 Phase 3 — donor stroke = dominant funded party colour. So a
+        // donor that gives mostly to Conservatives gets a Conservative-blue
+        // ring, etc. Visually couples donor to party.
+        if (d.type === "donor") {
+          return PARTY_DEFS[d.dominantPartyId]?.color || "rgba(255,255,255,0.4)";
         }
         return isUndisclosed(d.value)
           ? "rgba(245,245,245,0.55)"
@@ -1963,16 +2414,19 @@ export default function MoneyMap({
         if (d.type === "person") return 0.95;
         if (d.type === "adjacent_firm") return 0.6;
         if (d.type === "party") return 0.95;
+        if (d.type === "donor") return 0.95;
         return isUndisclosed(d.value) ? 0.85 : 0.5;
       })
       .attr("stroke-width", (d) => {
         if (d.type === "person") return 1.8;
         if (d.type === "party") return 1;
+        if (d.type === "donor") return 1.6;
         return isUndisclosed(d.value) ? 1.2 : 1;
       })
       .attr("stroke-dasharray", (d) => {
         if (d.type === "person") return null;
         if (d.type === "party") return null;
+        if (d.type === "donor") return null;
         if (d.type === "adjacent_firm") return "3 3";
         return isUndisclosed(d.value) ? "3 3" : null;
       });
@@ -1999,12 +2453,21 @@ export default function MoneyMap({
         d.type === "person" ? "person" :
         d.type === "adjacent_firm" ? "adjacent firm" :
         d.type === "party" ? "political party" :
+        d.type === "donor" ? `donor · ${d.donorStatus || "unknown"}` :
         d.type;
       if (d.type === "party") {
         const members = (peopleAugment.edges || [])
           .filter((e) => e.kind === "person_party" && e.t === d.id).length;
-        return `${d.label}\n${kind} · ${members} person${members === 1 ? "" : "s"} on this canvas` +
+        const donorLines = (donorAugment.edges || [])
+          .filter((e) => e.kind === "donor_party" && e.t === d.id).length;
+        return `${d.label}\n${kind} · ${members} person${members === 1 ? "" : "s"} · ${donorLines} top donor${donorLines === 1 ? "" : "s"}` +
                (d.description ? `\n${d.description}` : "") +
+               `\n(click for details)`;
+      }
+      if (d.type === "donor") {
+        const partyList = (d.parties || []).map((p) => `${PARTY_DEFS[p.partyId]?.short || p.partyId}: ${fmtGBPDonor(p.totalGBP)}`).join(", ");
+        return `${d.label}\nDONOR · ${kind} · ${fmtGBP(d.totalGBP)} declared political giving · ${d.donationCount} donations` +
+               (partyList ? `\n${partyList}` : "") +
                `\n(click for details)`;
       }
       if (d.type === "person" || d.type === "adjacent_firm") {
@@ -2021,7 +2484,13 @@ export default function MoneyMap({
       const moneyLine = isUndisclosed(d.value)
         ? "£ undisclosed"
         : fmtGBP(d.value) + " in window";
-      return `${d.label}\n${kind} · ${moneyLine} · ${connections} relationship${connections === 1 ? "" : "s"}\n(click for details)`;
+      // v2 Phase 3 — supplier-overlay donors get a "DONOR" badge in the
+      // hover line so the secondary status is legible without opening the
+      // drawer. Total declared giving inlined for fast triage.
+      const donorBadge = d.isDonor && showDonors
+        ? `\nALSO POLITICAL DONOR · ${fmtGBP(d.donorTotalGBP)} declared giving`
+        : "";
+      return `${d.label}\n${kind} · ${moneyLine} · ${connections} relationship${connections === 1 ? "" : "s"}${donorBadge}\n(click for details)`;
     });
 
     // Glossy inner highlight for sphere effect
@@ -2073,6 +2542,7 @@ export default function MoneyMap({
       .style("stroke-width", "2.5px")
       .text((d) => {
         if (d.type === "party") return "party";
+        if (d.type === "donor") return `donor · ${fmtGBPDonor(d.totalGBP)}`;
         return d.value > 0 ? fmtGBP(d.value) : d.type;
       });
 
@@ -2119,7 +2589,7 @@ export default function MoneyMap({
     return () => {
       sim.stop();
     };
-  }, [visibleNodes, visibleEdges, viewMode, lensSubjectId]);
+  }, [visibleNodes, visibleEdges, viewMode, lensSubjectId, showDonors]);
 
   /* When selection changes, highlight neighbourhood */
   useEffect(() => {
@@ -2146,11 +2616,16 @@ export default function MoneyMap({
         if (e.s === selection.id) neighbourIds.add(e.t);
         if (e.t === selection.id) neighbourIds.add(e.s);
       });
+      (donorAugment.edges || []).forEach((e) => {
+        if (e.s === selection.id) neighbourIds.add(e.t);
+        if (e.t === selection.id) neighbourIds.add(e.s);
+      });
     } else {
       const edge =
         (data.edges?.awards || []).find((x) => x.id === selection.id) ||
         (data.edges?.projectMembers || []).find((x) => x.id === selection.id) ||
-        (peopleAugment.edges || []).find((x) => x.id === selection.id);
+        (peopleAugment.edges || []).find((x) => x.id === selection.id) ||
+        (donorAugment.edges || []).find((x) => x.id === selection.id);
       if (edge) { neighbourIds.add(edge.s); neighbourIds.add(edge.t); }
     }
     svg.selectAll(".mm-bubble").attr("opacity", function(d) { return neighbourIds.has(d.id) ? 1 : 0.18; });
@@ -2372,8 +2847,8 @@ export default function MoneyMap({
         <div className="mm-disclaimer">
           <b>Lines show sourced relationships, not wrongdoing.</b>{" "}
           An edge between two entities means we found a named public document linking them &mdash; it does not imply any party acted improperly.{" "}
-          <b>Amber nodes are people; coloured dots are political parties; lines tie each person to their party and their counterparty.</b>{" "}
-          See Stories for the full evidence trail. Donor-to-party connections come in a future phase.
+          <b>Amber nodes are people; coloured dots are political parties; neutral nodes are political donors; party-coloured lines tie donors to the parties they&rsquo;ve funded.</b>{" "}
+          Where a tracked supplier has also donated to a party, the supplier bubble carries a coloured ring in the party&rsquo;s colour. See Stories for the evidence trail behind named individuals.
         </div>
       </section>
 
@@ -2474,6 +2949,18 @@ export default function MoneyMap({
           }}
         >
           Min £: {fmtGBP(minGBP)} <span className="mm-chip-cycle" aria-hidden="true">⇵</span>
+        </Chip>
+        {/* v2 Phase 3 — donor visibility toggle. Default ON so the new
+            donor → party layer materialises on first paint; OFF returns
+            the canvas to the v2 Phase 2 state (people + parties only). */}
+        <Chip
+          active={showDonors}
+          onClick={() => setShowDonors((v) => !v)}
+          title={showDonors
+            ? "Hide top-25 political donors and their party-of-recipient edges"
+            : "Show top-25 political donors and their party-of-recipient edges"}
+        >
+          {showDonors ? "Donors: on" : "Donors: off"}
         </Chip>
         <span style={{ marginLeft: "auto", color: "#6b7280", fontSize: 12 }}>
           {visibleNodes.length} nodes · {visibleEdges.length} edges
@@ -2800,6 +3287,7 @@ export default function MoneyMap({
             <LegendRow colour={TYPE_COLOUR.project}>Project</LegendRow>
             <LegendRow colour={TYPE_COLOUR.person}>Person · relational</LegendRow>
             <LegendRow colour={PARTY_DEFS.conservative.color}>Party · political</LegendRow>
+            <LegendRow colour={DONOR_TYPE_COLOUR.Company}>Donor · political (top 25)</LegendRow>
           </div>
 
           <div className="mm-legend-group">
@@ -2823,6 +3311,15 @@ export default function MoneyMap({
                 </svg>
               </span>
               Coloured dashed — person → party
+            </div>
+            {/* v2 Phase 3 — donor → party edge legend */}
+            <div className="mm-legend-row" style={{ opacity: 0.85 }}>
+              <span className="mm-legend-line">
+                <svg width="26" height="6">
+                  <line x1="0" y1="3" x2="26" y2="3" stroke={PARTY_DEFS.conservative.color} strokeWidth="2" />
+                </svg>
+              </span>
+              Coloured solid — donor → party (£ given)
             </div>
           </div>
 
@@ -2882,6 +3379,7 @@ export default function MoneyMap({
               <LegendRow colour={TYPE_COLOUR.project}>Project</LegendRow>
               <LegendRow colour={TYPE_COLOUR.person}>Person</LegendRow>
               <LegendRow colour={PARTY_DEFS.conservative.color}>Party</LegendRow>
+              <LegendRow colour={DONOR_TYPE_COLOUR.Company}>Donor</LegendRow>
             </div>
             <div className="mm-legend-group">
               <div className="mm-rail-h">Evidence tier</div>
@@ -3070,6 +3568,7 @@ export default function MoneyMap({
           onOpenBuyerProfile={onOpenBuyerProfile}
           onOpenNode={(id) => setSelection({ kind: "node", id })}
           personEdges={peopleAugment.edges}
+          donorEdges={donorAugment.edges}
           storyConnections={storyConnections}
           storyPeopleById={storyPeopleById}
         />
@@ -3247,6 +3746,8 @@ function PartyDetail({
   partyId,
   peopleById,
   connections,
+  donorEdges,
+  nodesById,
   onClose,
   onOpen,
 }) {
@@ -3388,9 +3889,155 @@ function PartyDetail({
           </div>
         )}
 
-        <div className="mm-party-foot">
-          Donor &rarr; party connections come in a future phase. For now,
-          this view shows party-of-affiliation only.
+        {/* v2 Phase 3 — donors who funded this party (top edges by £) */}
+        {(() => {
+          const partyEdges = (donorEdges || [])
+            .filter((e) => e.t === node.id)
+            .sort((a, b) => (b.totalGBP || 0) - (a.totalGBP || 0));
+          if (partyEdges.length === 0) return null;
+          return (
+            <>
+              <div className="mm-d-section-h" style={{ marginTop: 18 }}>
+                Top donors to this party ({partyEdges.length})
+              </div>
+              <div className="mm-donor-recipients">
+                {partyEdges.slice(0, 12).map((e) => {
+                  const src = nodesById?.get?.(e.s);
+                  const label = src?.label || e.s;
+                  const isOverlay = src?.kind === "supplier";
+                  return (
+                    <button
+                      key={e.id}
+                      type="button"
+                      className="mm-donor-recipient"
+                      onClick={() => onOpen(e.s)}
+                      aria-label={`Open donor profile for ${label}`}
+                      style={{ borderLeft: `3px solid ${node.color || "#777"}` }}
+                    >
+                      <span className="mm-donor-recipient-name">
+                        {label}
+                        {isOverlay ? " · also a tracked supplier" : ""}
+                      </span>
+                      <span className="mm-donor-recipient-amt">{fmtGBP(e.totalGBP)}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </>
+          );
+        })()}
+      </div>
+    </aside>
+  );
+}
+
+/* =========================================================================
+ *  DonorDetail — drawer for a political-donor node (v2 Phase 3).
+ *  Surfaces:
+ *    - Donor name + donorStatus (Company / Individual / Trade Union)
+ *    - Total declared political giving + donation count + first/last date
+ *    - Per-party breakdown table with £ + count
+ *    - Cross-reference to government contracts: explicit "no tracked
+ *      contracts" line if no overlap, OR a link to the supplier node if
+ *      there IS one (kept here for completeness — overlap donors normally
+ *      collapse onto the supplier bubble itself, but the negative case
+ *      still needs to be explicitly visible).
+ * ========================================================================= */
+function DonorDetail({
+  drawerRef,
+  node,
+  donorEdges,
+  onClose,
+  onOpenNode,
+}) {
+  const dominant = node.dominantPartyId || (node.parties && node.parties[0] && node.parties[0].partyId);
+  const accent = PARTY_DEFS[dominant]?.color || "#94a3b8";
+  const typeColour = DONOR_TYPE_COLOUR[node.donorStatus] || TYPE_COLOUR.donor;
+  // Donor → party edges originating at this donor — used to show donation
+  // count alongside the per-party breakdown.
+  const myEdges = (donorEdges || []).filter((e) => e.s === node.id);
+
+  return (
+    <aside
+      ref={drawerRef}
+      tabIndex={-1}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Donor profile: ${node.label}`}
+      className="mm-drawer mm-drawer-open mm-drawer-donor"
+      style={{ "--mm-donor-accent": accent }}
+    >
+      <div className="mm-d-head" style={{ borderLeft: `2px solid ${accent}`, paddingLeft: 14 }}>
+        <button className="mm-d-close" aria-label="Close drawer" onClick={onClose}>x</button>
+        <div className="mm-eyebrow-row">
+          <span className="mm-eyebrow">Political donor</span>
+          <span
+            className="mm-tier-badge"
+            style={{ background: "rgba(255,255,255,0.04)", color: typeColour, borderColor: typeColour + "55", border: "1px solid" }}
+          >
+            {node.donorStatus || "Unknown"}
+          </span>
+        </div>
+        <div
+          className="mm-entity-name"
+          style={{ fontFamily: "var(--mm-serif)", color: typeColour }}
+        >
+          {node.label}
+        </div>
+        <div className="mm-entity-sub" style={{ marginTop: 6 }}>
+          {node.companyReg ? (
+            <>Companies House <b>#{node.companyReg}</b> &middot; </>
+          ) : null}
+          Total declared political giving:{" "}
+          <b>{fmtGBP(node.totalGBP)}</b>
+          {" "}across <b>{node.donationCount}</b> donation{node.donationCount === 1 ? "" : "s"}
+          {" "}({(node.parties || []).length} part{(node.parties || []).length === 1 ? "y" : "ies"} funded).
+        </div>
+      </div>
+      <div className="mm-d-body">
+        <div className="mm-d-section-h">Recipients · by total £</div>
+        {(node.parties || []).length === 0 ? (
+          <div style={{ fontSize: 12, color: "#6b7280" }}>
+            No canonical-party recipients in dataset.
+          </div>
+        ) : (
+          <div className="mm-donor-recipients">
+            {(node.parties || []).map((p) => {
+              const def = PARTY_DEFS[p.partyId];
+              const partyEdge = myEdges.find((e) => e.partyId === p.partyId);
+              return (
+                <button
+                  key={p.partyId}
+                  type="button"
+                  className="mm-donor-recipient"
+                  onClick={() => onOpenNode("party:" + p.partyId)}
+                  aria-label={`Open party profile for ${def?.label || p.partyId}`}
+                  style={{ borderLeft: `3px solid ${def?.color || "#777"}` }}
+                >
+                  <span className="mm-donor-recipient-name">{def?.label || p.partyId}</span>
+                  <span className="mm-donor-recipient-amt">{fmtGBP(p.totalGBP)}</span>
+                  <span className="mm-donor-recipient-count">
+                    {p.donationCount} donation{p.donationCount === 1 ? "" : "s"}
+                    {partyEdge ? "" : " · below £100k threshold"}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+
+        <div className="mm-d-section-h">Government contracts</div>
+        <div className="mm-donor-contracts-empty">
+          No tracked government contracts found in Gracchus&rsquo;s tracker dataset for this donor.
+          Donor / supplier overlap is detected by Companies House registration first, then by
+          normalised company-name match. If you believe this donor should be linked to a tracked
+          supplier, please flag it via the Editorial Standards page.
+        </div>
+
+        <div className="mm-donor-foot">
+          Per-party £ allocation is approximated from the Electoral Commission aggregate (top-100
+          donor split). Exact per-record splits will land when the full 92,378-record set is wired
+          in (deferred to a future tranche).
         </div>
       </div>
     </aside>
@@ -3410,6 +4057,7 @@ function Drawer({
   onOpenBuyerProfile,
   onOpenNode,
   personEdges,
+  donorEdges,
   storyConnections,
   storyPeopleById,
 }) {
@@ -3451,8 +4099,23 @@ function Drawer({
         partyId={partyId}
         peopleById={storyPeopleById || {}}
         connections={storyConnections || []}
+        donorEdges={donorEdges || []}
+        nodesById={nodesById}
         onClose={onClose}
         onOpen={onOpenNode || (() => {})}
+      />
+    );
+  }
+
+  /* v2 Phase 3 — Donor node selection routes to DonorDetail. */
+  if (node && node.kind === "donor") {
+    return (
+      <DonorDetail
+        drawerRef={drawerRef}
+        node={node}
+        donorEdges={donorEdges || []}
+        onClose={onClose}
+        onOpenNode={onOpenNode || (() => {})}
       />
     );
   }
@@ -3537,6 +4200,28 @@ function Drawer({
               → Open supplier profile
             </button>
           )}
+          {/* v2 Phase 3 — donor badge in supplier head when this supplier
+              is also on the top-25 donor list. Editorial signal that this
+              firm both held government contracts and donated to a party. */}
+          {node.kind === "supplier" && node.isDonor && (
+            <div
+              className="mm-d-donor-badge"
+              style={{
+                marginTop: 8,
+                padding: "6px 10px",
+                fontSize: 11.5,
+                background: "rgba(255,255,255,0.04)",
+                border: `1px solid ${PARTY_DEFS[node.dominantPartyId]?.color || "#94a3b8"}55`,
+                borderLeft: `3px solid ${PARTY_DEFS[node.dominantPartyId]?.color || "#94a3b8"}`,
+                color: PARTY_DEFS[node.dominantPartyId]?.color || "#94a3b8",
+                fontFamily: "var(--mm-mono)",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+              }}
+            >
+              Donor · {fmtGBP(node.donorTotalGBP)} declared political giving
+            </div>
+          )}
           {node.kind === "project" && onOpenProjectProfile && (
             <button
               className="mm-d-focus-cta"
@@ -3571,6 +4256,44 @@ function Drawer({
         <div className="mm-d-body">
           <div className="mm-d-section-h">Scores · current window</div>
           <DrawerScores node={node} />
+
+          {/* v2 Phase 3 — Political giving section, only when this supplier
+              is also on the donor list. Lists per-party totals, donation
+              counts, and links across to each party's drawer. The supplier
+              bubble + donor profile collapse to one node by design — this
+              section makes the dual status legible without a second drawer. */}
+          {node.kind === "supplier" && node.isDonor && (
+            <>
+              <div className="mm-d-section-h">Political giving</div>
+              <div style={{ fontSize: 12.5, color: "#9ca3af", marginBottom: 8, lineHeight: 1.5 }}>
+                This tracked supplier also appears on the top-25 political-donor list (Electoral Commission record).
+                Total declared giving:{" "}
+                <b style={{ color: "#e5e7eb" }}>{fmtGBP(node.donorTotalGBP)}</b>
+                {" "}across {node.donationCount} donation{node.donationCount === 1 ? "" : "s"}.
+              </div>
+              <div className="mm-donor-recipients">
+                {(node.donorParties || []).map((p) => {
+                  const def = PARTY_DEFS[p.partyId];
+                  return (
+                    <button
+                      key={p.partyId}
+                      type="button"
+                      className="mm-donor-recipient"
+                      onClick={() => onOpenNode("party:" + p.partyId)}
+                      aria-label={`Open party profile for ${def?.label || p.partyId}`}
+                      style={{ borderLeft: `3px solid ${def?.color || "#777"}` }}
+                    >
+                      <span className="mm-donor-recipient-name">{def?.label || p.partyId}</span>
+                      <span className="mm-donor-recipient-amt">{fmtGBP(p.totalGBP)}</span>
+                      <span className="mm-donor-recipient-count">
+                        {p.donationCount} donation{p.donationCount === 1 ? "" : "s"}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </>
+          )}
 
           <div className="mm-d-section-h">Relationships · sorted by £</div>
           {incoming.length === 0 && (
@@ -4341,6 +5064,62 @@ function MoneyMapStyles() {
         margin-top: 18px;
         padding: 10px 12px;
         font-size: 11.5px; color: var(--mm-fg-mute);
+        background: rgba(255,255,255,0.02);
+        border: 1px dashed var(--mm-border);
+        border-radius: 4px;
+        line-height: 1.5;
+      }
+
+      /* v2 Phase 3 — DonorDetail drawer + supplier-overlay treatment */
+      .mm-drawer-donor .mm-d-head {
+        /* per-donor accent applied inline via --mm-donor-accent */
+      }
+      .mm-donor-recipients {
+        display: flex; flex-direction: column; gap: 6px;
+      }
+      .mm-donor-recipient {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: 14px;
+        padding: 9px 11px;
+        background: #0a0a0d;
+        border: 1px solid var(--mm-border);
+        border-left: 3px solid #777;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: left;
+        font-family: inherit;
+      }
+      .mm-donor-recipient:hover {
+        background: rgba(255,255,255,0.04);
+        border-color: var(--mm-border-2);
+      }
+      .mm-donor-recipient-name {
+        font-size: 13.5px; color: var(--mm-fg);
+      }
+      .mm-donor-recipient-amt {
+        font-family: var(--mm-mono);
+        font-size: 13px; color: #f4f4f5; font-weight: 500;
+        text-align: right;
+      }
+      .mm-donor-recipient-count {
+        grid-column: 1 / -1;
+        margin-top: 3px;
+        font-family: var(--mm-mono);
+        font-size: 10.5px; color: var(--mm-fg-mute);
+        letter-spacing: 0.04em;
+      }
+      .mm-donor-contracts-empty {
+        padding: 10px 12px;
+        font-size: 12.5px; color: var(--mm-fg-dim);
+        background: rgba(255,255,255,0.02);
+        border-left: 2px solid var(--mm-border-2);
+        line-height: 1.55;
+      }
+      .mm-donor-foot {
+        margin-top: 18px;
+        padding: 10px 12px;
+        font-size: 11px; color: var(--mm-fg-mute);
         background: rgba(255,255,255,0.02);
         border: 1px dashed var(--mm-border);
         border-radius: 4px;

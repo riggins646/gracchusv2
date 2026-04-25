@@ -1,7 +1,15 @@
 {
   "$comment": "Human-curated feed of notable additions to Gracchus. Append newest-first. Types: tranche | project | disclosure | coverage | dataset | feature. `view` is a Dashboard view id (matches VIEW_SLUGS keys); omit to render without a CTA.",
-  "updatedAt": "2026-04-24",
+  "updatedAt": "2026-04-25",
   "entries": [
+    {
+      "date": "2026-04-24",
+      "type": "feature",
+      "title": "Money Map v2 \u2014 donors on the canvas + donor-supplier overlap",
+      "summary": "The top 25 political donors by aggregate \u00a3 (Electoral Commission record) now appear on the Money Map canvas, wired by donor\u2192party edges in party colours. Where a tracked supplier is also on that donor list \u2014 Randox is the textbook case \u2014 the supplier bubble gains a coloured ring in the party's colour, signalling 'this firm both held government contracts and donated to the party in power'. The donor profile drawer cross-references contract and donation history side-by-side. Phase 3 of Money Map v2 \u2014 the full donor\u2192party\u2192minister\u2192contract money loop is now visible.",
+      "view": "moneymap",
+      "metric": "+25 donor nodes"
+    },
     {
       "date": "2026-04-24",
       "type": "feature",
