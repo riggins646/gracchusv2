@@ -48,6 +48,28 @@ const TYPE_COLOUR = {
      as desaturated context — they're not Gracchus-tracked entities so
      they shouldn't read with the same weight as a real supplier. */
   adjacent_firm: "#525561",
+  /* v2 Phase 2 — political parties on the canvas. Each party renders in
+     its own canonical hex (see PARTY_DEFS); this entry is a fallback
+     used only if a party node lands without a colour set on it. */
+  party:         "#777777",
+};
+
+/* v2 Phase 2 — political party catalogue. Canonical id → display label,
+   hex colour, and a one-sentence institutional descriptor used in the
+   PartyDetail drawer. Hex colours follow each party's published brand
+   guidance; greys are used for Independent and the catch-all "none"
+   bucket (which isn't surfaced as a node — it suppresses the edge). */
+const PARTY_DEFS = {
+  conservative:        { label: "Conservative Party",                 short: "C",  color: "#0087DC", description: "Conservative Party — in government 2010-2024." },
+  labour:              { label: "Labour Party",                       short: "L",  color: "#DC241F", description: "Labour Party — in government from July 2024." },
+  "liberal-democrats": { label: "Liberal Democrats",                  short: "LD", color: "#FAA61A", description: "Liberal Democrats — in coalition government 2010-2015." },
+  "reform-uk":         { label: "Reform UK",                          short: "R",  color: "#12B6CF", description: "Reform UK — populist right party founded as the Brexit Party in 2018." },
+  snp:                 { label: "Scottish National Party",            short: "SNP",color: "#FFF95D", description: "Scottish National Party — governing party at Holyrood." },
+  green:               { label: "Green Party",                        short: "G",  color: "#6AB023", description: "Green Party of England and Wales." },
+  "plaid-cymru":       { label: "Plaid Cymru",                        short: "PC", color: "#005B54", description: "Plaid Cymru — Welsh nationalist party." },
+  dup:                 { label: "Democratic Unionist Party",          short: "DUP",color: "#D46A4C", description: "Democratic Unionist Party — Northern Ireland unionist party." },
+  "sinn-fein":         { label: "Sinn Féin",                          short: "SF", color: "#326760", description: "Sinn Féin — Irish republican party." },
+  independent:         { label: "Independent",                        short: "I",  color: "#777777", description: "Independent — sitting without a party whip." },
 };
 
 const TIER_STYLE = {
@@ -60,8 +82,8 @@ const TIER_STYLE = {
 const WIDTH = 1200;
 const HEIGHT = 720;
 
-const CLUSTER_CX = { buyer: 520, supplier: 700, project: 600, person: 360, adjacent_firm: 820 };
-const CLUSTER_CY = { buyer: 320, supplier: 380, project: 500, person: 200, adjacent_firm: 540 };
+const CLUSTER_CX = { buyer: 520, supplier: 700, project: 600, person: 360, adjacent_firm: 820, party: 200 };
+const CLUSTER_CY = { buyer: 320, supplier: 380, project: 500, person: 200, adjacent_firm: 540, party: 130 };
 
 /* ---------- v2 Phase 1: people layer ----------
    Map common rolesHeld[] department strings onto the canonical buyer ids
@@ -582,6 +604,8 @@ function MoneyMapStoriesTab({ connections, peopleById, onOpen, onOpenPerson }) {
         const cpId = c.counterparty?.id || null;
         const cpName = c.counterparty?.name || "";
         const hasTarget = !!cpId;
+        const partyId = person && person.party && person.party !== "none" ? person.party : null;
+        const partyDef = partyId ? PARTY_DEFS[partyId] : null;
         const handleCardClick = () => {
           if (hasTarget) onOpen(cpId);
         };
@@ -600,7 +624,36 @@ function MoneyMapStoriesTab({ connections, peopleById, onOpen, onOpenPerson }) {
                 </div>
               )}
               <div className="mm-story-body">
-                <div className="mm-story-eyebrow">{eyebrow}</div>
+                <div className="mm-story-eyebrow-row">
+                  <div className="mm-story-eyebrow">{eyebrow}</div>
+                  {partyDef && (
+                    <span
+                      className="mm-story-party-badge"
+                      role="button"
+                      tabIndex={0}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onOpen("party:" + partyId);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          onOpen("party:" + partyId);
+                        }
+                      }}
+                      aria-label={`${partyDef.label} — open party profile`}
+                      title={`${partyDef.label} — tap to open party profile`}
+                    >
+                      <span
+                        className="mm-story-party-dot"
+                        style={{ background: partyDef.color }}
+                        aria-hidden="true"
+                      />
+                      <span className="mm-story-party-letter">{partyDef.short}</span>
+                    </span>
+                  )}
+                </div>
                 {person?.name && (
                   <h3 className="mm-story-name">{person.name}</h3>
                 )}
@@ -741,6 +794,8 @@ function MoneyMapStoriesStrip({ connections, peopleById, onOpen, onOpenPerson })
           const cpId = c.counterparty?.id || null;
           const cpName = c.counterparty?.name || "";
           const hasTarget = !!cpId;
+          const partyId = person && person.party && person.party !== "none" ? person.party : null;
+          const partyDef = partyId ? PARTY_DEFS[partyId] : null;
           const fig = c.financial?.relatedContractsDescription
             || c.financial?.personalIncomeDescription
             || "";
@@ -758,7 +813,36 @@ function MoneyMapStoriesStrip({ connections, peopleById, onOpen, onOpenPerson })
                   <span>LIVE PROCEEDINGS</span>
                 </div>
               )}
-              <div className="mm-story-strip-eyebrow-card">{eyebrow}</div>
+              <div className="mm-story-strip-eyebrow-row">
+                <div className="mm-story-strip-eyebrow-card">{eyebrow}</div>
+                {partyDef && (
+                  <span
+                    className="mm-story-party-badge"
+                    role="button"
+                    tabIndex={0}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpen("party:" + partyId);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        onOpen("party:" + partyId);
+                      }
+                    }}
+                    aria-label={`${partyDef.label} — open party profile`}
+                    title={`${partyDef.label} — tap to open party profile`}
+                  >
+                    <span
+                      className="mm-story-party-dot"
+                      style={{ background: partyDef.color }}
+                      aria-hidden="true"
+                    />
+                    <span className="mm-story-party-letter">{partyDef.short}</span>
+                  </span>
+                )}
+              </div>
               {person?.name && (
                 <h3 className="mm-story-strip-name">{person.name}</h3>
               )}
@@ -1107,6 +1191,52 @@ export default function MoneyMap({
         headline: p.headline,
         externalLinks: p.externalLinks || [],
         rolesHeld: p.rolesHeld || [],
+        party: p.party || null,
+      });
+    }
+
+    /* 1b) v2 Phase 2 — synthesise a party node for each unique non-"none"
+        party value across the seeded people, plus a relational edge from
+        each person to their party. Donor → party connections (e.g. Meller,
+        Liddell) are deferred to Phase 3 — they'll come from the Electoral
+        Commission record, not from a person being a party member.
+        Independent and "none" are skipped (Independent has no edge target
+        worth synthesising; "none" means civil servant / military / private). */
+    const partiesUsed = new Set();
+    for (const p of people) {
+      if (!p.party) continue;
+      if (p.party === "none") continue;
+      if (!PARTY_DEFS[p.party]) continue;
+      partiesUsed.add(p.party);
+    }
+    for (const partyId of partiesUsed) {
+      const def = PARTY_DEFS[partyId];
+      extraNodes.push({
+        id: "party:" + partyId,
+        kind: "party",
+        label: def.label,
+        color: def.color,
+        partyShort: def.short,
+        description: def.description,
+        value: 1,
+        sources: [],
+        department: null,
+      });
+    }
+    for (const p of people) {
+      if (!p.party) continue;
+      if (p.party === "none") continue;
+      if (!PARTY_DEFS[p.party]) continue;
+      personEdges.push({
+        id: `edge-person-party-${p.id}-${p.party}`,
+        kind: "person_party",
+        s: "person:" + p.id,
+        t: "party:" + p.party,
+        totalGBP: 0,
+        relational: true,
+        tier: "B",
+        scope: `Party affiliation: ${PARTY_DEFS[p.party].label}`,
+        sources: [],
       });
     }
 
@@ -1197,6 +1327,7 @@ export default function MoneyMap({
       edges: dedupPersonEdges,
       personIds: new Set(extraNodes.filter((n) => n.kind === "person").map((n) => n.id)),
       adjacentIds: new Set(extraNodes.filter((n) => n.kind === "adjacent_firm").map((n) => n.id)),
+      partyIds: new Set(extraNodes.filter((n) => n.kind === "party").map((n) => n.id)),
     };
   }, [data.nodes]);
 
@@ -1549,13 +1680,31 @@ export default function MoneyMap({
     /* Person edges in NETWORK mode: include those whose counterparty
        (supplier or buyer) is on the current canvas, plus their served-at
        buyers if reachable. The corresponding person + adjacent_firm
-       endpoints get pulled into `reachable` so the bubbles render. */
+       endpoints get pulled into `reachable` so the bubbles render.
+       v2 Phase 2 — person→party edges are kept for any person already on
+       the canvas; the party endpoint itself isn't anchored to a money
+       flow so we can't gate on `reachable.has(party)`. */
     const personEdges = allPersonEdges.filter((e) => {
-      // Person endpoint always passes; check the OTHER endpoint
       const other = e.s.startsWith("person:") ? e.t : e.s;
+      // person→party edges: keep if the person endpoint is reachable, OR
+      // if any other person edge for the same person is already reachable.
+      if (e.kind === "person_party") {
+        return reachable.has(e.s) || reachable.has(e.t);
+      }
       return reachable.has(other);
     });
     personEdges.forEach((e) => { reachable.add(e.s); reachable.add(e.t); });
+    // Second pass: now that person endpoints might have been pulled in by
+    // their counterparty edge, sweep party edges that match a now-reachable
+    // person and weren't included on the first pass.
+    for (const e of allPersonEdges) {
+      if (e.kind !== "person_party") continue;
+      if (personEdges.includes(e)) continue;
+      if (reachable.has(e.s)) {
+        personEdges.push(e);
+        reachable.add(e.t);
+      }
+    }
 
     return { awards, projectMembers, personEdges, reachable, hop1: null, subject: null };
   }, [data.edges, tierFilter, minGBP, q, featuredSet, nodesById, viewMode, lensSubjectId, peopleAugment.edges]);
@@ -1646,6 +1795,7 @@ export default function MoneyMap({
       let r;
       if (n.kind === "person") r = 11;
       else if (n.kind === "adjacent_firm") r = 9;
+      else if (n.kind === "party") r = 13; // sized between adjacent (9) and person (11), nudged up slightly so the labelled disc reads as an institutional anchor rather than a footnote
       else r = radius(Math.max(1, n.value || 1));
       return { ...n, r, type: n.kind };
     });
@@ -1684,25 +1834,34 @@ export default function MoneyMap({
       .data(linkData, (d) => d.id)
       .enter().append("line")
         .attr("class", "mm-edge-line")
-        .attr("stroke", (d) =>
-          d._kind === "person"
-            ? "#fbbf24"
-            : (TIER_STYLE[d.tier]?.colour || "#8a8a94")
-        )
-        .attr("stroke-opacity", (d) =>
-          d._kind === "person"
-            ? 0.45
-            : (TIER_STYLE[d.tier]?.opacity || 0.4)
-        )
+        .attr("stroke", (d) => {
+          // v2 Phase 2 — person→party edges render in the party's own
+          // colour so a reader can see clusters of amber person dots
+          // pulled toward each coloured party disc.
+          if (d.kind === "person_party") {
+            const partyId = String(d.t || "").replace(/^party:/, "");
+            return PARTY_DEFS[partyId]?.color || "#fbbf24";
+          }
+          if (d._kind === "person") return "#fbbf24";
+          return TIER_STYLE[d.tier]?.colour || "#8a8a94";
+        })
+        .attr("stroke-opacity", (d) => {
+          if (d.kind === "person_party") return 0.35;
+          if (d._kind === "person") return 0.45;
+          return TIER_STYLE[d.tier]?.opacity || 0.4;
+        })
         .attr("stroke-width", (d) => {
+          if (d.kind === "person_party") return 1;
           if (d._kind === "person") return 1.1;
           const base = TIER_STYLE[d.tier]?.width || 1;
           const amt = Math.min(5.5, 1 + Math.sqrt((d.totalGBP || 0) / 1e9) * 1.4);
           return base * amt;
         })
-        .attr("stroke-dasharray", (d) =>
-          d._kind === "person" ? "4 3" : TIER_STYLE[d.tier]?.dash
-        )
+        .attr("stroke-dasharray", (d) => {
+          if (d.kind === "person_party") return "3 4";
+          if (d._kind === "person") return "4 3";
+          return TIER_STYLE[d.tier]?.dash;
+        })
         .attr("stroke-linecap", "round")
         .attr("pointer-events", "stroke")
         .style("cursor", "pointer")
@@ -1754,11 +1913,15 @@ export default function MoneyMap({
     nodeSel.append("circle")
       .attr("class", "mm-halo")
       .attr("r", (d) => d.r + 10)
-      .attr("fill", (d) => TYPE_COLOUR[d.type] || "#525561")
+      .attr("fill", (d) => {
+        if (d.type === "party") return d.color || "#777777";
+        return TYPE_COLOUR[d.type] || "#525561";
+      })
       .attr("fill-opacity", (d) => {
         if (d.type === "adjacent_firm") return 0.04;
         if (viewMode === "lens" && d.id === lensSubjectId) return 0.20;
         if (d.type === "person") return 0.16;
+        if (d.type === "party") return 0.12;
         return 0.08;
       })
       .attr("filter", "url(#mm-glow)");
@@ -1775,11 +1938,23 @@ export default function MoneyMap({
     nodeSel.append("circle")
       .attr("class", "mm-main-bubble")
       .attr("r", (d) => d.r)
-      .attr("fill", (d) => `url(#mm-grad-${d.type})`)
+      // v2 Phase 2 — party nodes paint a solid disc in the canonical
+      // party colour (no radial gradient). Avoids minting a per-party
+      // gradient def at render time and keeps the disc reading as an
+      // institutional flag rather than a money bubble.
+      .attr("fill", (d) => {
+        if (d.type === "party") return d.color || "#777777";
+        return `url(#mm-grad-${d.type})`;
+      })
       .attr("opacity", (d) => d.type === "adjacent_firm" ? 0.55 : 1)
       .attr("stroke", (d) => {
         if (d.type === "person") return "#fbbf24";
         if (d.type === "adjacent_firm") return "rgba(180,180,190,0.6)";
+        if (d.type === "party") {
+          // 1.4× darker for definition against the dark background
+          const c = d3color(d.color || "#777777");
+          return c ? c.darker(1.4).formatHex() : "#444";
+        }
         return isUndisclosed(d.value)
           ? "rgba(245,245,245,0.55)"
           : d3color(TYPE_COLOUR[d.type] || "#525561").brighter(0.4).formatHex();
@@ -1787,14 +1962,17 @@ export default function MoneyMap({
       .attr("stroke-opacity", (d) => {
         if (d.type === "person") return 0.95;
         if (d.type === "adjacent_firm") return 0.6;
+        if (d.type === "party") return 0.95;
         return isUndisclosed(d.value) ? 0.85 : 0.5;
       })
       .attr("stroke-width", (d) => {
         if (d.type === "person") return 1.8;
+        if (d.type === "party") return 1;
         return isUndisclosed(d.value) ? 1.2 : 1;
       })
       .attr("stroke-dasharray", (d) => {
         if (d.type === "person") return null;
+        if (d.type === "party") return null;
         if (d.type === "adjacent_firm") return "3 3";
         return isUndisclosed(d.value) ? "3 3" : null;
       });
@@ -1820,7 +1998,15 @@ export default function MoneyMap({
         d.type === "buyer" ? "department" :
         d.type === "person" ? "person" :
         d.type === "adjacent_firm" ? "adjacent firm" :
+        d.type === "party" ? "political party" :
         d.type;
+      if (d.type === "party") {
+        const members = (peopleAugment.edges || [])
+          .filter((e) => e.kind === "person_party" && e.t === d.id).length;
+        return `${d.label}\n${kind} · ${members} person${members === 1 ? "" : "s"} on this canvas` +
+               (d.description ? `\n${d.description}` : "") +
+               `\n(click for details)`;
+      }
       if (d.type === "person" || d.type === "adjacent_firm") {
         const rels = (peopleAugment.edges || [])
           .filter((e) => e.s === d.id || e.t === d.id).length;
@@ -1861,9 +2047,14 @@ export default function MoneyMap({
       .attr("text-anchor", "middle")
       .attr("dy", (d) => d.r >= 40 ? "0.1em" : (d.r + 14))
       .style("font-family", "'IBM Plex Sans', system-ui, sans-serif")
-      .style("font-weight", (d) => d.r >= 40 ? 600 : 500)
+      // v2 Phase 2 — party labels render at normal weight so they sit
+      // quietly behind the editorial subjects (people, suppliers).
+      .style("font-weight", (d) => {
+        if (d.type === "party") return 400;
+        return d.r >= 40 ? 600 : 500;
+      })
       .style("font-size", (d) => d.r >= 40 ? "12.5px" : "11px")
-      .style("fill", "#f4f4f5")
+      .style("fill", (d) => d.type === "party" ? "rgba(244,244,245,0.7)" : "#f4f4f5")
       .style("paint-order", "stroke fill")
       .style("stroke", "rgba(5,5,7,0.9)")
       .style("stroke-width", (d) => d.r >= 40 ? "2.5px" : "3px")
@@ -1880,7 +2071,10 @@ export default function MoneyMap({
       .style("paint-order", "stroke fill")
       .style("stroke", "rgba(5,5,7,0.85)")
       .style("stroke-width", "2.5px")
-      .text((d) => d.value > 0 ? fmtGBP(d.value) : d.type);
+      .text((d) => {
+        if (d.type === "party") return "party";
+        return d.value > 0 ? fmtGBP(d.value) : d.type;
+      });
 
     /* ---------- tick ---------- */
     sim.on("tick", () => {
@@ -2178,7 +2372,8 @@ export default function MoneyMap({
         <div className="mm-disclaimer">
           <b>Lines show sourced relationships, not wrongdoing.</b>{" "}
           An edge between two entities means we found a named public document linking them &mdash; it does not imply any party acted improperly.{" "}
-          <b>Amber nodes are people whose role connects them to one or more entities below</b> &mdash; see Stories for the full evidence trail.
+          <b>Amber nodes are people; coloured dots are political parties; lines tie each person to their party and their counterparty.</b>{" "}
+          See Stories for the full evidence trail. Donor-to-party connections come in a future phase.
         </div>
       </section>
 
@@ -2604,6 +2799,7 @@ export default function MoneyMap({
             <LegendRow colour={TYPE_COLOUR.buyer}>Department · buyer</LegendRow>
             <LegendRow colour={TYPE_COLOUR.project}>Project</LegendRow>
             <LegendRow colour={TYPE_COLOUR.person}>Person · relational</LegendRow>
+            <LegendRow colour={PARTY_DEFS.conservative.color}>Party · political</LegendRow>
           </div>
 
           <div className="mm-legend-group">
@@ -2618,7 +2814,15 @@ export default function MoneyMap({
                   <line x1="0" y1="3" x2="26" y2="3" stroke="#fbbf24" strokeWidth="1.4" strokeDasharray="4 3" />
                 </svg>
               </span>
-              Amber dashed — relationship, not money flow
+              Amber dashed — person → counterparty
+            </div>
+            <div className="mm-legend-row" style={{ opacity: 0.85 }}>
+              <span className="mm-legend-line">
+                <svg width="26" height="6">
+                  <line x1="0" y1="3" x2="26" y2="3" stroke={PARTY_DEFS.conservative.color} strokeWidth="1" strokeDasharray="3 4" />
+                </svg>
+              </span>
+              Coloured dashed — person → party
             </div>
           </div>
 
@@ -2676,6 +2880,8 @@ export default function MoneyMap({
               <LegendRow colour={TYPE_COLOUR.supplier}>Supplier</LegendRow>
               <LegendRow colour={TYPE_COLOUR.buyer}>Department · buyer</LegendRow>
               <LegendRow colour={TYPE_COLOUR.project}>Project</LegendRow>
+              <LegendRow colour={TYPE_COLOUR.person}>Person</LegendRow>
+              <LegendRow colour={PARTY_DEFS.conservative.color}>Party</LegendRow>
             </div>
             <div className="mm-legend-group">
               <div className="mm-rail-h">Evidence tier</div>
@@ -3027,6 +3233,170 @@ function PersonDetail({
   );
 }
 
+/* =========================================================================
+ *  PartyDetail — drawer for a political-party node.
+ *  v2 Phase 2. Lists the people on this canvas affiliated with the party,
+ *  a connection-type breakdown across those people, and a live-proceedings
+ *  summary. Wired through the same drawer dispatcher as PersonDetail.
+ *  Donor → party connections are deferred to Phase 3 — this drawer is for
+ *  party-of-affiliation only.
+ * ========================================================================= */
+function PartyDetail({
+  drawerRef,
+  node,
+  partyId,
+  peopleById,
+  connections,
+  onClose,
+  onOpen,
+}) {
+  // People in this party — derived from the storyPeopleById map (not just
+  // people who happen to have a connection record this session, but every
+  // person record carrying the party id).
+  const peopleInParty = Object.values(peopleById || {}).filter(
+    (p) => p && p.party === partyId
+  );
+  const peopleIdSet = new Set(peopleInParty.map((p) => p.id));
+
+  // Connection records belonging to those people
+  const myConns = (connections || []).filter((c) => peopleIdSet.has(c.personId));
+
+  // Connection-type breakdown
+  const typeCounts = myConns.reduce((acc, c) => {
+    const k = c.connectionType || "other";
+    acc[k] = (acc[k] || 0) + 1;
+    return acc;
+  }, {});
+  const typeRows = Object.entries(typeCounts)
+    .sort((a, b) => b[1] - a[1])
+    .map(([k, n]) => ({
+      key: k,
+      label: CONN_EYEBROW[k] || "CONNECTION",
+      count: n,
+    }));
+
+  // Live proceedings — distinct people whose connections include any
+  // record with liveProceedings: true.
+  const livePeopleIds = new Set(
+    myConns.filter((c) => c.liveProceedings).map((c) => c.personId)
+  );
+  const livePeople = peopleInParty.filter((p) => livePeopleIds.has(p.id));
+
+  const partyColor = node.color || "#777777";
+
+  return (
+    <aside
+      ref={drawerRef}
+      tabIndex={-1}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Party profile: ${node.label}`}
+      className="mm-drawer mm-drawer-open mm-drawer-party"
+      style={{ "--mm-party-accent": partyColor }}
+    >
+      <div className="mm-d-head" style={{ borderLeft: `2px solid ${partyColor}`, paddingLeft: 14 }}>
+        <button className="mm-d-close" aria-label="Close drawer" onClick={onClose}>x</button>
+        <div className="mm-eyebrow-row">
+          <span className="mm-eyebrow">Political party</span>
+          <span
+            className="mm-tier-badge"
+            style={{ background: "rgba(255,255,255,0.04)", color: partyColor, borderColor: partyColor + "55", border: "1px solid" }}
+          >
+            {peopleInParty.length} on canvas
+          </span>
+        </div>
+        <div
+          className="mm-entity-name"
+          style={{ fontFamily: "var(--mm-serif)", color: partyColor }}
+        >
+          {node.label}
+        </div>
+        {node.description && (
+          <div className="mm-entity-sub" style={{ marginTop: 6 }}>
+            {node.description}
+          </div>
+        )}
+      </div>
+      <div className="mm-d-body">
+        <div className="mm-d-section-h">
+          People connected on this canvas ({peopleInParty.length})
+        </div>
+        {peopleInParty.length === 0 ? (
+          <div style={{ fontSize: 12, color: "#6b7280" }}>
+            No people from this party are on the current canvas.
+          </div>
+        ) : (
+          <div className="mm-party-people">
+            {peopleInParty.map((p) => (
+              <div key={p.id} className="mm-party-person-row">
+                <div className="mm-party-person-name">{p.name}</div>
+                {p.headline && (
+                  <div className="mm-party-person-headline">{p.headline}</div>
+                )}
+                <button
+                  type="button"
+                  className="mm-party-person-link"
+                  onClick={() => onOpen("person:" + p.id)}
+                  aria-label={`Open person profile for ${p.name}`}
+                >
+                  View profile &rarr;
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className="mm-d-section-h" style={{ marginTop: 18 }}>
+          Connection summary
+        </div>
+        {typeRows.length === 0 ? (
+          <div style={{ fontSize: 12, color: "#6b7280" }}>
+            No connection records yet for these people.
+          </div>
+        ) : (
+          <div className="mm-party-types">
+            {typeRows.map((r) => (
+              <div key={r.key} className="mm-party-type-row">
+                <span className="mm-party-type-count">{r.count}</span>
+                <span className="mm-party-type-label">{r.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className="mm-d-section-h" style={{ marginTop: 18 }}>
+          Live proceedings ({livePeople.length})
+        </div>
+        {livePeople.length === 0 ? (
+          <div style={{ fontSize: 12, color: "#6b7280" }}>
+            No live regulatory or court proceedings against this party&rsquo;s people in the current dataset.
+          </div>
+        ) : (
+          <div className="mm-party-live">
+            {livePeople.map((p) => (
+              <button
+                key={p.id}
+                type="button"
+                className="mm-party-live-row"
+                onClick={() => onOpen("person:" + p.id)}
+                aria-label={`Open profile for ${p.name} (live proceedings)`}
+              >
+                <AlertTriangle size={12} aria-hidden="true" />
+                <span>{p.name}</span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className="mm-party-foot">
+          Donor &rarr; party connections come in a future phase. For now,
+          this view shows party-of-affiliation only.
+        </div>
+      </div>
+    </aside>
+  );
+}
+
 function Drawer({
   selection,
   nodesById,
@@ -3060,6 +3430,27 @@ function Drawer({
         node={node}
         connections={myConns}
         peopleById={storyPeopleById || {}}
+        onClose={onClose}
+        onOpen={onOpenNode || (() => {})}
+      />
+    );
+  }
+
+  /* v2 Phase 2 — Party node selection routes to a PartyDetail drawer.
+     Computes the people in the party from the storyPeopleById map, the
+     connection-type breakdown across those people, and the live
+     proceedings tally. Uses the same drawer chassis as PersonDetail so
+     the editorial pattern (eyebrow + accent border + sectioned body)
+     stays consistent. */
+  if (node && node.kind === "party") {
+    const partyId = node.id.replace(/^party:/, "");
+    return (
+      <PartyDetail
+        drawerRef={drawerRef}
+        node={node}
+        partyId={partyId}
+        peopleById={storyPeopleById || {}}
+        connections={storyConnections || []}
         onClose={onClose}
         onOpen={onOpenNode || (() => {})}
       />
@@ -3876,6 +4267,116 @@ function MoneyMapStyles() {
         display: inline-flex; align-items: center;
       }
       .mm-person-links a:hover { text-decoration: underline; }
+
+      /* v2 Phase 2 — PartyDetail drawer + Stories party-badge */
+      .mm-drawer-party .mm-d-head {
+        /* per-party accent applied inline via --mm-party-accent */
+      }
+      .mm-party-people {
+        display: flex; flex-direction: column; gap: 8px;
+      }
+      .mm-party-person-row {
+        padding: 9px 11px;
+        background: #0a0a0d;
+        border: 1px solid var(--mm-border);
+        border-radius: 4px;
+      }
+      .mm-party-person-name {
+        font-size: 13.5px; color: var(--mm-fg); font-weight: 500;
+      }
+      .mm-party-person-headline {
+        margin-top: 3px;
+        font-size: 11.5px; color: var(--mm-fg-mute); line-height: 1.4;
+      }
+      .mm-party-person-link {
+        display: inline-block; margin-top: 6px;
+        font-family: var(--mm-mono); font-size: 10.5px;
+        text-transform: uppercase; letter-spacing: 0.14em;
+        color: var(--mm-party-accent, #fbbf24);
+        background: transparent;
+        border: 1px dashed rgba(255,255,255,0.18);
+        border-radius: 999px;
+        padding: 3px 9px;
+        cursor: pointer;
+      }
+      .mm-party-person-link:hover {
+        background: rgba(255,255,255,0.06);
+        border-color: rgba(255,255,255,0.4);
+      }
+      .mm-party-types {
+        display: flex; flex-direction: column; gap: 4px;
+      }
+      .mm-party-type-row {
+        display: flex; align-items: baseline; gap: 10px;
+        padding: 6px 0;
+        border-bottom: 1px dotted var(--mm-border);
+      }
+      .mm-party-type-count {
+        font-family: var(--mm-mono); font-size: 13px;
+        color: #f4f4f5; min-width: 24px;
+      }
+      .mm-party-type-label {
+        font-family: var(--mm-mono); font-size: 11px;
+        color: var(--mm-fg-mute); letter-spacing: 0.08em;
+      }
+      .mm-party-live {
+        display: flex; flex-direction: column; gap: 5px;
+      }
+      .mm-party-live-row {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 6px 9px;
+        background: rgba(220,38,38,0.06);
+        border: 1px solid rgba(220,38,38,0.25);
+        color: #fca5a5;
+        border-radius: 4px;
+        font-size: 12.5px;
+        cursor: pointer;
+        text-align: left;
+      }
+      .mm-party-live-row:hover {
+        background: rgba(220,38,38,0.12);
+        border-color: rgba(220,38,38,0.45);
+      }
+      .mm-party-foot {
+        margin-top: 18px;
+        padding: 10px 12px;
+        font-size: 11.5px; color: var(--mm-fg-mute);
+        background: rgba(255,255,255,0.02);
+        border: 1px dashed var(--mm-border);
+        border-radius: 4px;
+        line-height: 1.5;
+      }
+
+      /* Stories card party badge — small dot + letter that opens PartyDetail. */
+      .mm-story-eyebrow-row,
+      .mm-story-strip-eyebrow-row {
+        display: flex; align-items: center; gap: 8px;
+        flex-wrap: wrap;
+      }
+      .mm-story-party-badge {
+        display: inline-flex; align-items: center; gap: 4px;
+        padding: 2px 6px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 999px;
+        cursor: pointer;
+        font-family: var(--mm-mono);
+        font-size: 9.5px;
+        letter-spacing: 0.06em;
+        color: rgba(255,255,255,0.75);
+        line-height: 1;
+      }
+      .mm-story-party-badge:hover {
+        background: rgba(255,255,255,0.08);
+        border-color: rgba(255,255,255,0.25);
+      }
+      .mm-story-party-dot {
+        width: 7px; height: 7px; border-radius: 50%;
+        display: inline-block;
+      }
+      .mm-story-party-letter {
+        text-transform: uppercase;
+      }
 
       /* Per-card "View person profile" link surfaced inside Stories cards */
       .mm-story-person-link {

@@ -30,6 +30,7 @@
     {
       "id": "paterson-owen",
       "name": "Owen Paterson",
+      "party": "conservative",
       "headline": "Former Secretary of State for Environment, Food and Rural Affairs (2012-2014) and for Northern Ireland (2010-2012); Conservative MP for North Shropshire until his resignation on 5 November 2021.",
       "rolesHeld": [
         { "title": "Secretary of State for Northern Ireland", "department": "Northern Ireland Office", "start": "2010-05", "end": "2012-09" },
@@ -45,6 +46,7 @@
     {
       "id": "mone-michelle",
       "name": "Baroness Michelle Mone",
+      "party": "conservative",
       "headline": "Conservative life peer (Baroness Mone of Mayfair) since 2015; took leave of absence from the House of Lords in December 2022 pending investigations connected to PPE Medpro.",
       "rolesHeld": [
         { "title": "Member of the House of Lords (Conservative)", "department": "House of Lords", "start": "2015-08", "end": null },
@@ -58,6 +60,7 @@
     {
       "id": "sunak-rishi",
       "name": "Rishi Sunak",
+      "party": "conservative",
       "headline": "Chancellor of the Exchequer February 2020-July 2022; Prime Minister October 2022-July 2024; Conservative MP for Richmond and Northallerton.",
       "rolesHeld": [
         { "title": "Chancellor of the Exchequer", "department": "HM Treasury", "start": "2020-02", "end": "2022-07" },
@@ -72,6 +75,7 @@
     {
       "id": "cameron-david",
       "name": "David Cameron",
+      "party": "conservative",
       "headline": "Prime Minister May 2010-July 2016; Conservative MP for Witney 1997-2016; Foreign Secretary November 2023-July 2024 as Baron Cameron of Chipping Norton.",
       "rolesHeld": [
         { "title": "Prime Minister", "department": "10 Downing Street", "start": "2010-05", "end": "2016-07" },
@@ -87,6 +91,7 @@
     {
       "id": "crothers-bill",
       "name": "Bill Crothers",
+      "party": "none",
       "headline": "Government Chief Commercial Officer at the Cabinet Office 2012-2015; took up a paid advisory role with Greensill Capital in 2015 while still serving as a civil servant.",
       "rolesHeld": [
         { "title": "Government Chief Commercial Officer", "department": "Cabinet Office / Crown Commercial Service", "start": "2012-01", "end": "2015-11" },
@@ -101,6 +106,7 @@
     {
       "id": "bourne-alex",
       "name": "Alex Bourne",
+      "party": "none",
       "headline": "Former landlord of the Cock Inn in Little Thurlow, Matt Hancock's West Suffolk constituency; ran Hinpack, a plastics manufacturer that was contracted to produce specimen collection tubes and funnels for COVID-19 testing after he contacted Hancock via WhatsApp.",
       "rolesHeld": [
         { "title": "Landlord, the Cock Inn, Little Thurlow (West Suffolk)", "department": "Private", "start": "2010-01", "end": "2020-01" },
@@ -114,6 +120,7 @@
     {
       "id": "cox-geoffrey",
       "name": "Sir Geoffrey Cox KC",
+      "party": "conservative",
       "headline": "Conservative MP for Torridge and West Devon (later Torridge and Tavistock) since 2005; Attorney General for England and Wales 2018-2020; practising barrister with substantial outside legal earnings declared in the Register of Members' Financial Interests.",
       "rolesHeld": [
         { "title": "MP for Torridge and West Devon / Torridge and Tavistock", "department": "House of Commons", "start": "2005-05", "end": null },
@@ -128,6 +135,7 @@
     {
       "id": "osborne-george",
       "name": "George Osborne",
+      "party": "conservative",
       "headline": "Chancellor of the Exchequer May 2010-July 2016; Conservative MP for Tatton until April 2017; subsequently editor of the Evening Standard (2017-2020) and senior adviser to BlackRock Investment Institute.",
       "rolesHeld": [
         { "title": "Chancellor of the Exchequer", "department": "HM Treasury", "start": "2010-05", "end": "2016-07" },
@@ -144,6 +152,7 @@
     {
       "id": "clegg-nick",
       "name": "Sir Nick Clegg",
+      "party": "liberal-democrats",
       "headline": "Deputy Prime Minister 2010-2015; Liberal Democrat leader 2007-2015; MP for Sheffield Hallam 2005-2017; subsequently VP and President of Global Affairs at Meta Platforms (Facebook).",
       "rolesHeld": [
         { "title": "Deputy Prime Minister", "department": "Cabinet Office", "start": "2010-05", "end": "2015-05" },
@@ -159,6 +168,7 @@
     {
       "id": "javid-sajid",
       "name": "Sajid Javid",
+      "party": "conservative",
       "headline": "Conservative MP for Bromsgrove 2010-2024; Chancellor of the Exchequer July 2019-February 2020; Secretary of State for Health and Social Care June 2021-July 2022; pre-politics career at JP Morgan and Deutsche Bank.",
       "rolesHeld": [
         { "title": "Chancellor of the Exchequer", "department": "HM Treasury", "start": "2019-07", "end": "2020-02" },
@@ -174,6 +184,7 @@
     {
       "id": "hammond-philip",
       "name": "Lord (Philip) Hammond of Runnymede",
+      "party": "conservative",
       "headline": "Conservative MP for Runnymede and Weybridge 1997-2019; Defence Secretary 2011-2014; Foreign Secretary 2014-2016; Chancellor of the Exchequer July 2016-July 2019; created life peer in 2020.",
       "rolesHeld": [
         { "title": "Secretary of State for Defence", "department": "Ministry of Defence", "start": "2011-10", "end": "2014-07" },
@@ -190,6 +201,7 @@
     {
       "id": "patel-priti",
       "name": "Dame Priti Patel",
+      "party": "conservative",
       "headline": "Conservative MP for Witham since 2010; Secretary of State for International Development 2016-2017 (resigned over undisclosed Israel meetings); Home Secretary July 2019-September 2022.",
       "rolesHeld": [
         { "title": "Secretary of State for International Development", "department": "DfID", "start": "2016-07", "end": "2017-11" },
@@ -205,6 +217,7 @@
     {
       "id": "lee-laurence",
       "name": "Laurence Lee",
+      "party": "none",
       "headline": "Former Second Permanent Secretary at the Ministry of Defence; took up a paid geo-strategic adviser role with Palantir Technologies UK after leaving the civil service.",
       "rolesHeld": [
         { "title": "Second Permanent Secretary", "department": "Ministry of Defence", "start": "2018-01", "end": "2023-01" },
@@ -218,6 +231,7 @@
     {
       "id": "may-theresa",
       "name": "Baroness May of Maidenhead",
+      "party": "conservative",
       "headline": "Home Secretary 2010-2016; Prime Minister July 2016-July 2019; Conservative MP for Maidenhead 1997-2024; created life peer in 2024.",
       "rolesHeld": [
         { "title": "Home Secretary", "department": "Home Office", "start": "2010-05", "end": "2016-07" },
@@ -234,6 +248,7 @@
     {
       "id": "harding-dido",
       "name": "Baroness Dido Harding",
+      "party": "conservative",
       "headline": "Conservative life peer (Baroness Harding of Winscombe) since 2014; former CEO of TalkTalk; appointed by Health Secretary Matt Hancock in May 2020 to lead NHS Test & Trace and the National Institute for Health Protection. Married to Conservative MP and Anti-Corruption Champion John Penrose.",
       "rolesHeld": [
         { "title": "Member of the House of Lords (Conservative)", "department": "House of Lords", "start": "2014-08", "end": null },
@@ -248,6 +263,7 @@
     {
       "id": "zahawi-nadhim",
       "name": "Nadhim Zahawi",
+      "party": "conservative",
       "headline": "Conservative MP for Stratford-on-Avon 2010-2024; Vaccines Minister 2020-2021; Secretary of State for Education 2021-2022; Chancellor of the Exchequer July-September 2022; Minister without Portfolio and Conservative Party Chairman October 2022-January 2023; co-founder of YouGov.",
       "rolesHeld": [
         { "title": "Co-founder and Chief Executive, YouGov plc", "department": "YouGov (private)", "start": "2000-05", "end": "2010-05" },
@@ -265,6 +281,7 @@
     {
       "id": "meller-david",
       "name": "David Meller",
+      "party": "none",
       "headline": "Conservative donor (reported >£63,000 donated to the Conservative Party since 2009); former co-owner of Meller Designs Ltd; former trustee of Policy Exchange.",
       "rolesHeld": [
         { "title": "Co-owner / director, Meller Designs Ltd", "department": "Meller Designs (private)", "start": "1999-01", "end": null },
@@ -278,6 +295,7 @@
     {
       "id": "liddell-iain",
       "name": "Iain Liddell",
+      "party": "none",
       "headline": "Owner and Group Managing Director of Uniserve Group, an Essex-based logistics firm; reported contributor to Brexit-aligned think tank Prosperity UK.",
       "rolesHeld": [
         { "title": "Owner / Group Managing Director, Uniserve Group", "department": "Uniserve (private)", "start": "1984-01", "end": null }
@@ -290,6 +308,8 @@
     {
       "id": "benton-scott",
       "name": "Scott Benton",
+      "party": "conservative",
+      "partyNote": "Was Conservative MP 2019-2024; whip suspended in April 2023 over the Times sting; resigned the seat on 25 March 2024 before the Commons Standards Committee report was tabled. Treated as Conservative for canvas affiliation since the misconduct findings sit within the Conservative tenure.",
       "headline": "Conservative MP for Blackpool South 2019-2024; chair of the All-Party Parliamentary Group on Betting and Gaming; resigned as MP on 25 March 2024 after the Commons Standards Committee recommended a 35-day suspension for an 'extremely serious breach' of the rules.",
       "rolesHeld": [
         { "title": "MP for Blackpool South", "department": "House of Commons", "start": "2019-12", "end": "2024-03" },

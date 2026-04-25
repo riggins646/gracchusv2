@@ -5,6 +5,14 @@
     {
       "date": "2026-04-24",
       "type": "feature",
+      "title": "Money Map v2 \u2014 parties on the canvas",
+      "summary": "Adds political parties as a new node kind. Each person with a party affiliation now sits next to their party on the canvas, coloured in standard party colours. Click a party to see who's connected to it on this canvas, the regulator findings against its people, and the live proceedings still in play. Phase 3 will add donor-to-party edges from the Electoral Commission record.",
+      "view": "moneymap",
+      "metric": "+political party node kind"
+    },
+    {
+      "date": "2026-04-24",
+      "type": "feature",
       "title": "Money Map v2 \u2014 people on the canvas",
       "summary": "The Money Map canvas now includes 19 people as a new node kind, wired from the connection records. Each person is linked to their counterparty (supplier or buyer) and the departments they served in. Click a person bubble to open a profile drawer with their roles, their connections, and the underlying source documents. Phase 2 will add political parties and donations as further node kinds.",
       "view": "moneymap",
