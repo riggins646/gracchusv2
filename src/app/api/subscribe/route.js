@@ -15,7 +15,23 @@ import { checkOrigin } from "@/lib/origin-check";
    connected to the Vercel project).
    ─────────────────────────────────────────────── */
 
-const BLOB_PATH = "subscribers.json";
+// SECURITY (audit fix B3, 2026-04-26): blob path is the PREFIX, not the
+// canonical filename. addRandomSuffix is true now, so each save writes
+// to subscribers-<hash>.json. URL is no longer guessable — even if the
+// access mode is ever flipped to "public", an attacker can't enumerate
+// the subscriber list from a deterministic URL. Reads sort by uploadedAt
+// descending and take the most recent.
+const BLOB_PREFIX = "subscribers";
+
+// SECURITY (audit fix C3, 2026-04-26): hard cap on the subscriber list
+// to prevent DoS via the in-memory rate-limiter being per-isolate. With
+// many concurrent isolates an attacker can far exceed the documented
+// 5-per-hour-per-IP limit. The cap means once the list reaches this
+// size the endpoint returns 503 instead of growing the blob unbounded
+// to the point that the function OOMs trying to JSON.parse it.
+// 50,000 covers any plausible real-world subscriber count for an
+// independent journalism site for a long time before this triggers.
+const MAX_SUBSCRIBERS = 50_000;
 
 function getToken() {
   const token = process.env.BLOB_READ_WRITE_TOKEN;
@@ -30,12 +46,23 @@ function getToken() {
 async function getSubscribers() {
   try {
     const token = getToken();
-    const { blobs } = await list({ prefix: BLOB_PATH, token });
+    const { blobs } = await list({ prefix: BLOB_PREFIX, token });
     if (blobs.length === 0) return [];
-    const url = blobs[0].downloadUrl || blobs[0].url;
+    // SECURITY (audit fix B3): with addRandomSuffix: true each save creates
+    // a new blob (subscribers-<hash>.json). Sort by uploadedAt desc and
+    // take the most recent — that's the canonical current state. Older
+    // blobs remain as natural append-only history, harmless under the
+    // access:"private" mode.
+    const sorted = [...blobs].sort((a, b) => {
+      const at = new Date(a.uploadedAt || 0).getTime();
+      const bt = new Date(b.uploadedAt || 0).getTime();
+      return bt - at;
+    });
+    const url = sorted[0].downloadUrl || sorted[0].url;
     const res = await fetch(url);
     if (!res.ok) return [];
-    return await res.json();
+    const parsed = await res.json();
+    return Array.isArray(parsed) ? parsed : [];
   } catch (err) {
     // If token is missing, re-throw so caller gets a clear message
     if (err.message?.includes("BLOB_READ_WRITE_TOKEN")) throw err;
@@ -45,9 +72,10 @@ async function getSubscribers() {
 
 async function saveSubscribers(subscribers) {
   const token = getToken();
-  await put(BLOB_PATH, JSON.stringify(subscribers, null, 2), {
+  // Pathname is just the prefix; addRandomSuffix appends the random hash.
+  await put(BLOB_PREFIX + ".json", JSON.stringify(subscribers, null, 2), {
     access: "private",
-    addRandomSuffix: false,
+    addRandomSuffix: true,
     token,
   });
 }
@@ -71,6 +99,15 @@ export async function POST(req) {
       );
     }
 
+    // SECURITY (audit fix C4 applied to subscribe, 2026-04-26): cap
+    // body size BEFORE req.json() parses everything into memory. A 50MB
+    // POST is fully parsed before the email regex below ever runs.
+    // Email + a few wrapping bytes; 1KB is generous.
+    const contentLength = parseInt(req.headers.get("content-length") || "0", 10);
+    if (contentLength > 1024) {
+      return NextResponse.json({ error: "Payload too large" }, { status: 413 });
+    }
+
     const { email } = await req.json();
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -85,6 +122,25 @@ export async function POST(req) {
     // Check for duplicate
     if (subscribers.some((s) => s.email === cleanEmail)) {
       return NextResponse.json({ ok: true, message: "Already subscribed" });
+    }
+
+    // SECURITY (audit fix C3, 2026-04-26): hard cap on the subscriber
+    // list. With 50,000 subscribers any further sign-up is refused with
+    // 503 — the in-memory rate limiter is per-isolate and can't reliably
+    // throttle a botnet across many concurrent isolates, so this cap is
+    // the structural floor that prevents the JSON.parse OOM scenario.
+    // When this triggers in legitimate use, swap in a proper KV-backed
+    // store; treat it as a "we're successful" milestone, not an outage.
+    if (subscribers.length >= MAX_SUBSCRIBERS) {
+      console.warn(
+        `[subscribe] Subscriber list reached cap of ${MAX_SUBSCRIBERS}; refusing new sign-ups until storage is upgraded.`
+      );
+      return NextResponse.json(
+        {
+          error: "Newsletter signup temporarily paused — please email us instead.",
+        },
+        { status: 503 }
+      );
     }
 
     // Add new subscriber
