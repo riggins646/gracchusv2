@@ -28,6 +28,7 @@ import Toast from "./Toast";
 import ShareChips from "./ShareChips";
 import StickySubscribe from "./StickySubscribe";
 import ConnectedIndividuals from "./ConnectedIndividuals";
+import ConnectionInFocus from "./ConnectionInFocus";
 import { ToastProvider, useToast } from "../lib/useToast";
 import useDrawerFocus from "../lib/useDrawerFocus";
 import projectsData from "../data/projects.json";
@@ -8645,6 +8646,20 @@ function AppInner() {
                 </div>
               );
             })()}
+
+            {/* ========= CONNECTIONS IN FOCUS — homepage front door =========
+                Three featured records from individual-connections.json
+                rotated weekly by ISO-week-of-year. Sits directly under
+                Story of the Week so first-time visitors meet the Money
+                Map v2 editorial work without having to navigate to the
+                Money Map view. Cards inherit the same border / bg /
+                padding tokens as the Money Map preview strip below for
+                visual continuity. Curation logic lives inside the
+                component (Slot 1: regulator finding, Slot 2: live
+                proceedings, Slot 3: pattern / donor_and_contractor). */}
+            <ConnectionInFocus
+              onOpenMoneyMap={() => setView("moneymap")}
+            />
 
             {/* Four-pillar "What Gracchus investigates" block cut
                 2026-04-19. Reason: we're repositioning from a generic

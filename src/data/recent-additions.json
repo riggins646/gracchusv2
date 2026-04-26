@@ -4,6 +4,14 @@
   "entries": [
     {
       "date": "2026-04-26",
+      "type": "feature",
+      "title": "Connections in Focus \u2014 stories on the homepage",
+      "summary": "Three featured connection stories now sit above the fold on the homepage, picked weekly by ISO-week-of-year: one regulator-finding case, one live-proceedings case, one pattern case (cross-party hedger / donor-contractor). Drags first-time visitors into the Money Map v2 work without forcing them to navigate. Same data, new front door.",
+      "view": "moneymap",
+      "metric": "3-story homepage feed"
+    },
+    {
+      "date": "2026-04-26",
       "type": "coverage",
       "title": "Six firm-subject Stories — the donor-contractor pattern, named",
       "summary": "Six new Stories cards frame the Money Map v2 donor-supplier overlaps editorially: Deloitte (cross-party hedger £427k to both Conservative and Labour), Cook Defence Systems (Conservative £1.27m), Sir Robert McAlpine, Canary Wharf, Heathrow Airport Holdings (Reform UK — unusual), and Imagination Industries. Schema extended with kind:'firm' so the Stories surface can render company subjects alongside individual political figures.",
