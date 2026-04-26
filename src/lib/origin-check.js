@@ -76,14 +76,21 @@ export function checkOrigin(request) {
     const selfHost = request.headers.get("host");
     if (selfHost && originHost === selfHost) return null;
 
-    // Vercel preview URLs (*.vercel.app) are project-scoped and can't
-    // carry a gracchus.ai session cookie, so they're harmless for CSRF.
-    if (originHost.endsWith(".vercel.app")) return null;
-
     // Any subdomain of gracchus.ai — staging, preview, alias — is ours.
     if (originHost === "gracchus.ai" || originHost.endsWith(".gracchus.ai")) {
       return null;
     }
+
+    // SECURITY (audit fix B1, 2026-04-26): the previous blanket
+    // `endsWith(".vercel.app")` allowed any Vercel-hosted origin in the
+    // world to pass the CSRF check. An attacker hosting a free
+    // `evil.vercel.app` page could embed an auto-submitting form. The
+    // session-token gate then becomes the only line of defence — too
+    // narrow a margin. Drop the blanket: rely instead on (a) the
+    // canonical origins added in getAllowedOrigins(), and (b) the
+    // VERCEL_URL / VERCEL_BRANCH_URL env vars Vercel injects per-project
+    // (already collected in getAllowedOrigins above), so our own
+    // previews still pass.
   }
 
   // Log the rejection in prod logs so a bad origin surfaces on Vercel

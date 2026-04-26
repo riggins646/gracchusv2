@@ -19,13 +19,22 @@
 // which are two distinct isolates. A random-per-module fallback meant
 // the token route and the verify route each generated a *different*
 // secret on startup, so every local AI request 401'd "Unauthorized".
-// A fixed dev string is safe because it's never used in production
-// (we log + refuse to use it if NODE_ENV === "production").
+// A fixed dev string is safe because it's never used in production:
+// SECURITY (audit fix C1, 2026-04-26): we now THROW at module load if
+// CRON_SECRET is missing in production, rather than just logging an
+// error and silently using the dev string (which is in the source repo,
+// so an attacker could forge tokens against any deploy that mis-set the
+// env var). Fail closed.
 // NEVER use ANTHROPIC_API_KEY as a signing secret — different rotation schedules.
 const SECRET = (typeof process !== "undefined" ? process.env.CRON_SECRET : null)
   || (() => {
     if (typeof process !== "undefined" && process.env.NODE_ENV === "production") {
-      console.error("[session-token] CRITICAL: CRON_SECRET not set in production");
+      // Fail closed. Surfaces the misconfig immediately instead of
+      // silently accepting forged tokens signed with the public dev string.
+      throw new Error(
+        "[session-token] CRITICAL: CRON_SECRET not set in production. " +
+        "Refusing to fall back to dev secret — set the env var in Vercel."
+      );
     }
     return "dev-only-shared-secret-do-not-use-in-production";
   })();
@@ -74,8 +83,31 @@ export async function verifyToken(token) {
   // Check expiry
   if (Date.now() - timestamp > TOKEN_TTL) return false;
 
-  // Check signature
+  // Check signature.
+  // SECURITY (audit fix C2, 2026-04-26): use a constant-time comparison
+  // rather than ===. Practically the timing leak over a Vercel edge call
+  // is below the noise floor, but it's a one-line fix and removes a
+  // theoretical oracle.
   const payload = `${timestamp}.${nonce}`;
   const expectedSig = await sign(payload);
-  return expectedSig === providedSig;
+  return constantTimeEqual(expectedSig, providedSig);
+}
+
+/**
+ * Constant-time string comparison. Both inputs are HMAC-SHA256 hex strings
+ * (length 64). We compare byte-by-byte and OR the diffs into an accumulator
+ * so the loop always runs the same number of iterations regardless of where
+ * the first mismatch sits. Length mismatch returns false but still walks the
+ * full length of `a` to keep timing uniform.
+ */
+function constantTimeEqual(a, b) {
+  if (typeof a !== "string" || typeof b !== "string") return false;
+  // OR length difference into the result so unequal-length inputs reject
+  // without a short-circuit early return.
+  let diff = a.length ^ b.length;
+  const len = a.length;
+  for (let i = 0; i < len; i++) {
+    diff |= a.charCodeAt(i) ^ (i < b.length ? b.charCodeAt(i) : 0);
+  }
+  return diff === 0;
 }

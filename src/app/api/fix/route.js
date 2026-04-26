@@ -62,6 +62,15 @@ export async function POST(request) {
     const blocked = checkOrigin(request);
     if (blocked) return blocked;
 
+    // SECURITY (audit fix C4, 2026-04-26): hard cap on body size BEFORE
+    // request.json() parses everything into memory. Without this, a 50MB
+    // POST is fully parsed before the per-field length cap further down
+    // ever fires — open path to function-memory DoS.
+    const contentLength = parseInt(request.headers.get("content-length") || "0", 10);
+    if (contentLength > 8192) {
+      return Response.json({ error: "Payload too large" }, { status: 413 });
+    }
+
     const body = await request.json();
 
     // ── 1. Validate input ─────────────────────────────────────────
