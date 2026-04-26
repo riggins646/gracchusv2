@@ -4135,22 +4135,26 @@ export default function MoneyMap({
         ))}
       </section>
 
-      {/* Mode toggle — Lens (ego network) vs Network (firehose) */}
+      {/* Mode toggle — UX audit #2 (2026-04-26): "Lens" / "Network"
+          were internal terms. Renamed to plain English so a first-time
+          visitor immediately understands what each does. URL state
+          values stay "lens" / "network" — only the visible labels
+          change, so existing deep-links keep working. */}
       <section className="mm-filters mm-filters-modes">
         <span className="mm-mode-label">View</span>
         <Chip
           active={viewMode === "lens"}
           onClick={() => setViewMode("lens")}
-          title="Focus on one entity and its 1–2 hop connections"
+          title="Centre the canvas on one entity and its 1–2 hop neighbours"
         >
-          Lens
+          Focus on one
         </Chip>
         <Chip
           active={viewMode === "network"}
           onClick={() => setViewMode("network")}
-          title="Show the full featured subgraph"
+          title="Show all featured connections at once"
         >
-          Network
+          Show all
         </Chip>
 
         {viewMode === "lens" && lensSubjectNode && (
@@ -4183,8 +4187,8 @@ export default function MoneyMap({
 
         <span className="mm-filters-hint">
           {viewMode === "lens"
-            ? "Click any bubble, rail card or ranking row to re-center the lens."
-            : "Hectic? Switch to Lens to focus on one entity."}
+            ? "Click any bubble, rail card or ranking row to re-centre on it."
+            : "Too much at once? Switch to 'Focus on one' to centre on a single entity."}
         </span>
       </section>
 
@@ -4195,7 +4199,7 @@ export default function MoneyMap({
           <input
             placeholder={
               viewMode === "lens"
-                ? "Narrow the ego network…"
+                ? "Search within this focus…"
                 : "Search a supplier, department or project…"
             }
             value={query}
@@ -4294,6 +4298,14 @@ export default function MoneyMap({
               </button>
               <span className="mm-explorer-title">Money Explorer</span>
             </div>
+            {/* UX audit #6 (2026-04-26): a reader on mobile may wonder
+                where the visual graph is — d3-force on a phone is
+                hostile, so the canvas is desktop-only. Signpost the
+                fact rather than leaving them to assume something is
+                broken. */}
+            <p className="mm-explorer-mobile-note">
+              On mobile this view is presented as ranked lists and stories. The full visual canvas is on desktop &mdash; open on a laptop to explore the graph.
+            </p>
             <div
               className="mm-tabbar"
               role="tablist"
@@ -6357,13 +6369,16 @@ function MoneyMapStyles() {
         max-width: 1440px; margin: 0 auto;
         border-bottom: 1px solid var(--mm-border);
       }
+      /* UX audit #8 (2026-04-26): demoted from prominent block to a
+         small footnote-style line so it doesn't compete with hero copy
+         on first paint. Same legal posture, less first-paint reading load. */
       .mm-disclaimer {
-        margin-top: 18px; padding: 10px 14px;
-        border-left: 2px solid var(--mm-border-2);
-        font-size: 15px; line-height: 1.55; color: var(--mm-fg-dim);
-        background: #0a0a0d; max-width: 900px;
+        margin-top: 12px; padding: 0;
+        border: 0;
+        font-size: 12px; line-height: 1.5; color: var(--mm-fg-mute);
+        background: transparent; max-width: 820px;
       }
-      .mm-disclaimer b { color: var(--mm-fg); }
+      .mm-disclaimer b { color: var(--mm-fg-dim); font-weight: 500; }
 
       .mm-filters {
         padding: 14px 32px;
@@ -7661,6 +7676,17 @@ function MoneyMapStyles() {
         padding: 12px 16px 10px;
         border-bottom: 1px solid var(--mm-border);
       }
+      .mm-explorer-mobile-note {
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--mm-fg-mute);
+        padding: 8px 12px;
+        margin: 0 0 8px 0;
+        background: rgba(255,255,255,0.02);
+        border-left: 2px solid var(--mm-border);
+        border-radius: 0 4px 4px 0;
+      }
+
       .mm-explorer-title {
         font-family: var(--mm-mono);
         font-size: 11px;

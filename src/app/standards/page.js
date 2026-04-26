@@ -17,7 +17,7 @@ export default function StandardsPage() {
             "hover:text-gray-400 transition-colors"
           }
         >
-          &larr; About
+          &larr; About Gracchus
         </a>
 
         <h1
