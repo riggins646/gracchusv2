@@ -20,10 +20,19 @@ export default function StandardsPage() {
           &larr; About Gracchus
         </a>
 
+        <div
+          className={
+            "text-[10px] uppercase tracking-[0.2em] " +
+            "font-mono text-gray-600 mt-12 mb-2"
+          }
+        >
+          Gracchus &middot; Standards
+        </div>
         <h1
           className={
-            "text-2xl font-black text-white " +
-            "tracking-tight mt-12 mb-8"
+            "text-3xl md:text-4xl font-serif " +
+            "font-medium text-white leading-tight " +
+            "tracking-[-0.01em] mb-8"
           }
         >
           Editorial standards

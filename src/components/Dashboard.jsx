@@ -11526,34 +11526,14 @@ function AppInner() {
 
           return (
             <div className="space-y-6">
-              {/* Header */}
-              <div>
-                <div className={
-                  "text-[10px] uppercase " +
-                  "tracking-[0.3em] " +
-                  "text-amber-500/80 " +
-                  "font-mono mb-2"
-                }>
-                  Accountability
-                </div>
-                <h2 className={
-                  "text-2xl sm:text-3xl " +
-                  "font-black text-white " +
-                  "tracking-tight"
-                }>
-                  MP Scorecards
-                </h2>
-                <p className={
-                  "text-sm text-gray-500 " +
-                  "mt-1 max-w-xl"
-                }>
-                  Every MP ranked by declared
-                  financial interests. Outside
-                  income, gifts, and donations
-                  {"\u2014"}all from the
-                  Parliamentary Register.
-                </p>
-              </div>
+              <PageHeader
+                eyebrow="Accountability › MPs"
+                title="MP Scorecards"
+                description={
+                  "Every MP ranked by declared financial interests. Outside " +
+                  "income, gifts, and donations\u2014all from the Parliamentary Register."
+                }
+              />
 
               {/* Controls */}
               <div className={
@@ -13130,7 +13110,7 @@ function AppInner() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-1">
-                    <h1 className="text-2xl md:text-3xl font-serif font-medium text-white leading-tight tracking-[-0.01em]">{mp.n}</h1>
+                    <h1 className="text-3xl md:text-4xl font-serif font-medium text-white leading-tight tracking-[-0.01em]">{mp.n}</h1>
                     <span
                       className="px-2 py-0.5 rounded text-xs font-medium"
                       style={{ backgroundColor: (partyColors[mp.pa] || "#6b7280") + "20", color: partyColors[mp.pa] || "#9ca3af", border: "1px solid " + (partyColors[mp.pa] || "#6b7280") + "40" }}
@@ -13240,17 +13220,11 @@ function AppInner() {
                 <button key={t.id} onClick={() => setView(t.id)} className={"px-2 sm:px-3 py-1.5 text-[10px] sm:text-[11px] uppercase tracking-[0.05em] sm:tracking-[0.1em] font-medium rounded-md transition-colors whitespace-nowrap" + (view === t.id ? "text-white bg-gray-800/60" : "text-gray-600 hover:text-gray-400")}>{t.label}</button>
               ))}
             </div>
-            <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
-                Accountability → MPs & Money
-              </div>
-              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
-                MP Accountability Tracker
-              </h2>
-              <p className="text-gray-500 text-sm mt-2">
-                {mpInterestsData.contextSentences.headline}
-              </p>
-            </div>
+            <PageHeader
+              eyebrow="Accountability › MPs & Money"
+              title="MP Accountability Tracker"
+              description={mpInterestsData.contextSentences.headline}
+            />
 
             {/* Summary stat cards */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
@@ -14029,24 +14003,11 @@ function AppInner() {
 
           return (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className={
-                "text-[10px] uppercase tracking-[0.2em] " +
-                "font-mono text-gray-600 mb-2"
-              }>
-                Accountability &rarr; International
-              </div>
-              <h2 className={
-                "text-3xl md:text-4xl font-serif " +
-                "font-medium text-white " +
-                "leading-[1.1] tracking-[-0.01em]"
-              }>
-                Foreign Aid (ODA)
-              </h2>
-              <p className="text-gray-500 text-sm mt-2">
-                {foreignAidData.contextSentences.headline}
-              </p>
-            </div>
+            <PageHeader
+              eyebrow="Accountability › International"
+              title="Foreign Aid (ODA)"
+              description={foreignAidData.contextSentences.headline}
+            />
 
             {/* Year selector pills */}
             <div className="flex flex-wrap gap-1.5">
@@ -14568,18 +14529,11 @@ function AppInner() {
 
           return (
           <div className="space-y-6">
-            {/* Section header */}
-            <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
-                Accountability → Immigration
-              </div>
-              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
-                Immigration & Borders
-              </h2>
-              <p className="text-gray-500 text-sm mt-2">
-                {immigrationData.contextSentences.headline}
-              </p>
-            </div>
+            <PageHeader
+              eyebrow="Accountability › Immigration"
+              title="Immigration & Borders"
+              description={immigrationData.contextSentences.headline}
+            />
 
             {/* Key stats row */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -14736,11 +14690,11 @@ function AppInner() {
 
           return (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">Accountability → NHS</div>
-              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">NHS Waiting Times</h2>
-              <p className="text-gray-500 text-sm mt-2">{nhsWaitsData.contextSentences.headline}</p>
-            </div>
+            <PageHeader
+              eyebrow="Accountability › NHS"
+              title="NHS Waiting Times"
+              description={nhsWaitsData.contextSentences.headline}
+            />
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
@@ -14886,11 +14840,11 @@ function AppInner() {
 
           return (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">Accountability → Environment</div>
-              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">The Sewage Clock</h2>
-              <p className="text-gray-500 text-sm mt-2">{sewageData.contextSentences.headline}</p>
-            </div>
+            <PageHeader
+              eyebrow="Accountability › Environment"
+              title="The Sewage Clock"
+              description={sewageData.contextSentences.headline}
+            />
 
             <div className="bg-gradient-to-b from-red-950/20 to-transparent border border-red-900/30 rounded-2xl p-8 sm:p-12 text-center">
               <div className="text-[11px] uppercase tracking-[0.25em] text-red-600 font-semibold mb-6">Estimated Sewage Hours Since Jan 1 2026</div>
@@ -15019,11 +14973,11 @@ function AppInner() {
 
           return (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">Accountability → Energy</div>
-              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">The Wind Waste Clock</h2>
-              <p className="text-gray-500 text-sm mt-2">{wc.contextSentences.headline}</p>
-            </div>
+            <PageHeader
+              eyebrow="Accountability › Energy"
+              title="The Wind Waste Clock"
+              description={wc.contextSentences.headline}
+            />
 
             {/* Live cost ticker */}
             <div className="bg-gradient-to-b from-cyan-950/20 to-transparent border border-cyan-900/30 rounded-2xl p-8 sm:p-12 text-center">
@@ -17461,18 +17415,11 @@ function AppInner() {
         {/* ============ GOVERNMENT: CIVIL SERVICE ============ */}
         {view === "government.civilservice" && (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
-                {"Your Money \u203A Civil Service"}
-              </div>
-              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
-                The Government Machine
-              </h2>
-              <p className="text-gray-500 text-sm mt-2">
-                UK Civil Service headcount, pay, and departmental breakdown.
-                Source: Cabinet Office Civil Service Statistics 2025.
-              </p>
-            </div>
+            <PageHeader
+              eyebrow="Your Money › Civil Service"
+              title="The Government Machine"
+              description="UK Civil Service headcount, pay, and departmental breakdown. Source: Cabinet Office Civil Service Statistics 2025."
+            />
 
             <TimeRangeControl range={govRange} setRange={setGovRange} />
 
@@ -18545,30 +18492,11 @@ function AppInner() {
 
           return (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className={
-                "text-[10px] uppercase " +
-                "tracking-[0.2em] font-medium " +
-                "text-gray-600 mb-2"
-              }>
-                {"Tax & Spending \u203A Tax & Public Finances"}
-              </div>
-              <h2 className={
-                "text-3xl md:text-4xl font-serif " +
-                "font-medium text-white " +
-                "leading-[1.1] tracking-[-0.01em]"
-              }>
-                Tax & Public Finances
-              </h2>
-              <p className={
-                "text-gray-500 text-sm mt-2"
-              }>
-                UK tax receipts and debt
-                {" "}servicing costs.
-                {" "}20 years of HMRC, ONS,
-                {" "}and OBR data.
-              </p>
-            </div>
+            <PageHeader
+              eyebrow="Tax & Spending › Tax & Public Finances"
+              title="Tax & Public Finances"
+              description="UK tax receipts and debt servicing costs. 20 years of HMRC, ONS, and OBR data."
+            />
 
             {/* Time range selector */}
             <div className={
@@ -19347,18 +19275,11 @@ function AppInner() {
         {/* ============ ECONOMY: ECONOMIC OUTPUT ============ */}
         {view === "economy.output" && (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
-                Economic Output
-              </div>
-              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
-                Economic Output
-              </h2>
-              <p className="text-gray-500 text-sm mt-2">
-                GDP growth, productivity, employment and business investment
-                across the UK economy.
-              </p>
-            </div>
+            <PageHeader
+              eyebrow="Economy › Output"
+              title="Economic Output"
+              description="GDP growth, productivity, employment and business investment across the UK economy."
+            />
 
             <TimeRangeControl range={econRange} setRange={setEconRange} />
 
@@ -20042,18 +19963,11 @@ function AppInner() {
         {/* ============ ECONOMY: COST OF LIVING ============ */}
         {view === "economy.costOfLiving" && (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
-                Cost of Living
-              </div>
-              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
-                Cost of Living
-              </h2>
-              <p className="text-gray-500 text-sm mt-2">
-                Inflation, wages, housing, energy and everyday costs facing UK
-                households.
-              </p>
-            </div>
+            <PageHeader
+              eyebrow="Economy › Cost of Living"
+              title="Cost of Living"
+              description="Inflation, wages, housing, energy and everyday costs facing UK households."
+            />
 
             <TimeRangeControl range={colRange} setRange={setColRange} />
 
@@ -20984,18 +20898,11 @@ function AppInner() {
         {/* ============ ECONOMY: PRODUCTION VS IMPORTS ============ */}
         {view === "economy.production" && (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
-                Critical Industries
-              </div>
-              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
-                Domestic Production vs Imports
-              </h2>
-              <p className="text-gray-500 text-sm mt-2">
-                UK import dependency across critical industries, with France
-                & Germany comparisons. Source-backed, factual data.
-              </p>
-            </div>
+            <PageHeader
+              eyebrow="Economy › Critical Industries"
+              title="Domestic Production vs Imports"
+              description="UK import dependency across critical industries, with France & Germany comparisons. Source-backed, factual data."
+            />
 
             <TimeRangeControl range={prodRange} setRange={setProdRange} />
 
@@ -21861,26 +21768,11 @@ function AppInner() {
 
           return (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className={
-                "text-[10px] uppercase tracking-[0.2em] " +
-                "font-mono text-gray-600 mb-2"
-              }>
-                Energy Independence
-              </div>
-              <h2 className={
-                "text-3xl md:text-4xl font-serif " +
-                "font-medium text-white " +
-                "leading-[1.1] tracking-[-0.01em]"
-              }>
-                Energy
-              </h2>
-              <p className="text-gray-500 text-sm mt-2">
-                UK energy production, imports, and
-                self-sufficiency. How dependent is
-                Britain on overseas energy?
-              </p>
-            </div>
+            <PageHeader
+              eyebrow="Economy › Energy Independence"
+              title="Energy"
+              description="UK energy production, imports, and self-sufficiency. How dependent is Britain on overseas energy?"
+            />
 
             <TimeRangeControl
               range={energyRange}
@@ -22483,25 +22375,11 @@ function AppInner() {
 
           return (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className={
-                "text-[10px] uppercase tracking-[0.2em] " +
-                "font-mono text-gray-600 mb-2"
-              }>
-                Technology & Investment
-              </div>
-              <h2 className={
-                "text-3xl md:text-4xl font-serif " +
-                "font-medium text-white " +
-                "leading-[1.1] tracking-[-0.01em]"
-              }>
-                Innovation
-              </h2>
-              <p className="text-gray-500 text-sm mt-2">
-                UK venture capital, unicorns, AI funding,
-                and R&D investment.
-              </p>
-            </div>
+            <PageHeader
+              eyebrow="Economy › Technology & Investment"
+              title="Innovation"
+              description="UK venture capital, unicorns, AI funding, and R&D investment."
+            />
 
             <TimeRangeControl
               range={innovRange}
@@ -23482,25 +23360,11 @@ function AppInner() {
         {/* ===== COMPARE: INFRASTRUCTURE COSTS ===== */}
         {view === "compare.infrastructure" && (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className={
-                "text-[10px] uppercase tracking-[0.2em] " +
-                "font-mono text-gray-600 mb-2"
-              }>
-                {"Cost of Living \u203A Infrastructure"}
-              </div>
-              <h2 className={
-                "text-3xl md:text-4xl font-serif " +
-                "font-medium text-white " +
-                "leading-[1.1] tracking-[-0.01em]"
-              }>
-                Infrastructure Costs
-              </h2>
-              <p className="text-gray-500 text-sm mt-2">
-                High-speed rail cost per kilometre, ranked.
-                {" "}{compareData.infrastructure.source}.
-              </p>
-            </div>
+            <PageHeader
+              eyebrow="Compare › Infrastructure"
+              title="Infrastructure Costs"
+              description={"High-speed rail cost per kilometre, ranked. " + compareData.infrastructure.source + "."}
+            />
 
             {/* Headline callout */}
             <div className={
@@ -23878,26 +23742,11 @@ function AppInner() {
         {/* ===== COMPARE: HOUSEHOLD BILLS ===== */}
         {view === "compare.bills" && (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className={
-                "text-[10px] uppercase tracking-[0.2em] " +
-                "font-mono text-gray-600 mb-2"
-              }>
-                Compare &rsaquo; Household Bills
-              </div>
-              <h2 className={
-                "text-3xl md:text-4xl font-serif " +
-                "font-medium text-white " +
-                "leading-[1.1] tracking-[-0.01em]"
-              }>
-                Household Electricity Prices
-              </h2>
-              <p className="text-gray-500 text-sm mt-2">
-                Residential electricity price per kWh in
-                USD PPP, tax-inclusive.{" "}
-                {compareData.electricity.source}.
-              </p>
-            </div>
+            <PageHeader
+              eyebrow="Compare › Household Bills"
+              title="Household Electricity Prices"
+              description={"Residential electricity price per kWh in USD PPP, tax-inclusive. " + compareData.electricity.source + "."}
+            />
 
             {/* Headline callout */}
             <div className={
@@ -24243,28 +24092,11 @@ function AppInner() {
         {/* ===== COMPARE: STRUCTURAL PERFORMANCE ===== */}
         {view === "compare.structural" && (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className={
-                "text-[10px] uppercase tracking-[0.2em] " +
-                "font-mono text-gray-600 mb-2"
-              }>
-                {"Economy \u203A Structural Performance"}
-              </div>
-              <h2 className={
-                "text-3xl md:text-4xl font-serif " +
-                "font-medium text-white " +
-                "leading-[1.1] tracking-[-0.01em]"
-              }>
-                Structural Performance
-              </h2>
-              <p className={
-                "text-gray-500 text-sm mt-2"
-              }>
-                Long-term UK performance vs peers on
-                productivity, wages, housing, and health
-                capacity. OECD, ONS, and World Bank data.
-              </p>
-            </div>
+            <PageHeader
+              eyebrow="Compare › Structural Performance"
+              title="Structural Performance"
+              description="Long-term UK performance vs peers on productivity, wages, housing, and health capacity. OECD, ONS, and World Bank data."
+            />
 
             {/* ==== METRIC 1: PRODUCTIVITY ==== */}
             <div>
@@ -25302,24 +25134,11 @@ function AppInner() {
 
           return (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className={
-                "text-[10px] uppercase tracking-[0.2em] " +
-                "font-mono text-gray-600 mb-2"
-              }>
-                International Comparison
-              </div>
-              <h2 className={
-                "text-3xl md:text-4xl font-serif " +
-                "font-medium text-white " +
-                "leading-[1.1] tracking-[-0.01em]"
-              }>
-                Defence Spending
-              </h2>
-              <p className="text-gray-500 text-sm mt-2">
-                Spending as a share of GDP
-              </p>
-            </div>
+            <PageHeader
+              eyebrow="Compare › Defence"
+              title="Defence Spending"
+              description="Spending as a share of GDP"
+            />
 
             <TimeRangeControl
               range={defenceRange}
@@ -25720,17 +25539,11 @@ function AppInner() {
 
           return (
             <div className="space-y-6">
-              <div className="py-6 mb-4">
-                <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
-                  Economy › Markets & Growth
-                </div>
-                <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
-                  Markets & Growth
-                </h2>
-                <p className="text-gray-500 text-sm mt-2">
-                  Tracking UK capital market competitiveness and the health of the London Stock Exchange.
-                </p>
-              </div>
+              <PageHeader
+                eyebrow="Economy › Markets & Growth"
+                title="Markets & Growth"
+                description="Tracking UK capital market competitiveness and the health of the London Stock Exchange."
+              />
 
               {/* Key finding callout */}
               <div className="border border-gray-800/60 rounded-lg p-5 space-y-3">
@@ -25966,17 +25779,11 @@ function AppInner() {
 
           return (
             <div className="space-y-6">
-              <div className="py-6 mb-4">
-                <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
-                  Government › Taxes & Charges
-                </div>
-                <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
-                  Air Passenger Duty
-                </h2>
-                <p className="text-gray-500 text-sm mt-2">
-                  Tracking the UK flight tax burden over time and its impact on aviation.
-                </p>
-              </div>
+              <PageHeader
+                eyebrow="Government › Taxes & Charges"
+                title="Air Passenger Duty"
+                description="Tracking the UK flight tax burden over time and its impact on aviation."
+              />
 
               {/* Key finding callout */}
               <div className="border border-gray-800/60 rounded-lg p-5 space-y-3">
@@ -30447,10 +30254,10 @@ function AppInner() {
                     Your Lifetime in Data
                   </div>
                   <h1 className={
-                    "text-3xl sm:text-4xl " +
-                    "md:text-5xl font-black " +
-                    "text-white tracking-tight " +
-                    "leading-tight mb-3"
+                    "text-4xl sm:text-5xl " +
+                    "md:text-6xl font-serif " +
+                    "font-medium text-white " +
+                    "leading-[1.05] tracking-[-0.015em] mb-3"
                   }>
                     What changed since{" "}
                     <br className="sm:hidden" />
