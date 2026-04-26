@@ -12174,6 +12174,36 @@ function AppInner() {
                  "Covering " + dd.summary.totalDonations.toLocaleString() + " donations totalling " +
                  fmt(dd.summary.totalValue) + " across all UK political parties."}
               </p>
+              {/* UX audit #16 (2026-04-26): cross-link to the Money Map's
+                  Donor-supplier overlap preset, which uses the same
+                  Electoral Commission dataset to surface 'firms that
+                  donated AND held government contracts' visually. The
+                  two views are powered by the same data; tell the
+                  reader explicitly. */}
+              <a
+                href="/money-map?preset=donor-supplier"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setView("moneymap");
+                  if (typeof window !== "undefined") {
+                    const url = new URL(window.location.href);
+                    url.searchParams.set("preset", "donor-supplier");
+                    window.history.replaceState({}, "", url.toString());
+                  }
+                }}
+                className={
+                  "inline-flex items-center gap-2 mt-3 " +
+                  "text-[13px] text-amber-400/90 hover:text-amber-300 " +
+                  "underline underline-offset-4 " +
+                  "decoration-amber-500/30 hover:decoration-amber-400/60 " +
+                  "transition-colors"
+                }
+              >
+                See this dataset on the Money Map &rarr;
+                <span className="text-[11px] text-gray-500 normal-case tracking-normal no-underline">
+                  shows the firms that donated and held government contracts
+                </span>
+              </a>
             </div>
 
             {/* Period selector pills */}
