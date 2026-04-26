@@ -31,6 +31,7 @@ import { color as d3color } from "d3-color";
 import "d3-transition"; // side-effect — attaches .transition() to selections
 import { X, ArrowLeft, ExternalLink, Download, ChevronDown, SlidersHorizontal, AlertTriangle, Users } from "lucide-react";
 import CiteChip from "./CiteChip";
+import { PageHeader } from "./Dashboard";
 import useDrawerFocus from "../lib/useDrawerFocus";
 import individualConnectionsData from "../data/individual-connections.json";
 import donationsAggregateData from "../data/political-donations.json";
@@ -4020,9 +4021,13 @@ export default function MoneyMap({
     <div className="mm-root-container -mx-3 sm:-mx-6 -mt-4 sm:-mt-8 min-h-[900px] bg-[#060608] text-[#e5e7eb]">
       <MoneyMapStyles />
 
-      {/* Hero — styled to match the site-wide <PageHeader>
-          component in Dashboard.jsx so the Money Map reads as
-          part of the publication rather than a separate app. */}
+      {/* Hero — uses the shared PageHeader in feature register so
+          the Money Map reads as part of the publication and matches
+          the homepage's canonical big-editorial hero (orange-line
+          eyebrow, 4xl/5xl/6xl serif headline with ember accent,
+          gray-400 subhead). The back-link stays above as a discrete
+          breadcrumb; the source-grade / window / updated metadata
+          pills move below the headline. */}
       <section className="mm-hero">
         {onBack && (
           <button
@@ -4039,23 +4044,14 @@ export default function MoneyMap({
             <ArrowLeft size={12} /> Back to overview
           </button>
         )}
-        {!onBack && (
-          <div className={
-            "text-[10px] uppercase " +
-            "tracking-[0.2em] font-mono " +
-            "text-gray-600 mb-2"
-          }>
-            Flagship &middot; Money Map
-          </div>
-        )}
-        <div className="flex items-baseline gap-3 flex-wrap">
-          <h2 className={
-            "text-3xl md:text-4xl font-serif " +
-            "font-medium text-white " +
-            "leading-[1.1] tracking-[-0.01em]"
-          }>
-            Follow the money.
-          </h2>
+        <PageHeader
+          feature
+          eyebrow="UK Money Map · Contracts & connections"
+          title="Follow the money."
+          accentTitle="money"
+          description="Contracts, contractors, and the public buyers behind them — every edge tied to a named source."
+        />
+        <div className="flex items-baseline gap-3 flex-wrap mb-4">
           <span className={
             "inline-flex items-center gap-1 px-2 py-0.5 " +
             "rounded text-[9px] font-mono uppercase " +
@@ -4099,13 +4095,6 @@ export default function MoneyMap({
             </span>
           )}
         </div>
-        <p className={
-          "text-gray-400 text-[15px] mt-3 " +
-          "leading-relaxed max-w-[820px]"
-        }>
-          Contracts, contractors, and the public buyers behind
-          them &mdash; every edge tied to a named source.
-        </p>
         <div className="mm-disclaimer">
           <b>Lines show sourced relationships, not wrongdoing.</b>{" "}
           An edge between two entities means we found a named public document linking them &mdash; it does not imply any party acted improperly.{" "}

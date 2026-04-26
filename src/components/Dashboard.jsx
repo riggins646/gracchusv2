@@ -2241,49 +2241,124 @@ function SourcesFooter({ children }) {
  * PageHeader — standard page heading with breadcrumb,
  * title, and description.
  * Props: breadcrumb?, breadcrumbAction?, title,
- *        description?
+ *        description?, feature?, accentTitle?
+ *
+ * feature (bool) — when true, renders the canonical
+ *   homepage big-editorial register: orange-line eyebrow
+ *   in ember mono, headline at 4xl/5xl/6xl serif, and a
+ *   larger gray subhead. Default false preserves the
+ *   existing standard register so all 12+ existing call
+ *   sites are untouched.
+ * accentTitle (string) — when provided AND found in
+ *   `title` exactly once (i.e. title.split(accentTitle)
+ *   yields two parts), the matched substring is wrapped
+ *   in <span className="text-ember-400">…</span>. If the
+ *   substring isn't found or appears more than once, the
+ *   title renders as-is.
  */
-function PageHeader({
+export function PageHeader({
   eyebrow, breadcrumb, breadcrumbAction,
-  title, description, dataAsOf, citation
+  title, description, dataAsOf, citation,
+  feature = false, accentTitle
 }) {
   // Editorial register: mono section-kicker eyebrow over a
   // mixed-case Plex Serif title. The ProPublica / FT pattern.
   // Section kickers stay uppercase-tracked mono so the page
   // still has a data-register chrome above its headline.
+
+  // Optional accent: wrap a substring of the title in an
+  // ember span to mirror the homepage hero treatment.
+  let renderedTitle = title;
+  if (accentTitle && typeof title === "string") {
+    const parts = title.split(accentTitle);
+    if (parts.length === 2) {
+      renderedTitle = (
+        <>
+          {parts[0]}
+          <span className="text-ember-400">{accentTitle}</span>
+          {parts[1]}
+        </>
+      );
+    }
+  }
+
+  const eyebrowCls = feature
+    ? (
+      "text-[11px] uppercase " +
+      "tracking-[0.25em] font-mono " +
+      "text-ember-400/90 mb-5 flex " +
+      "items-center gap-3"
+    )
+    : (
+      "text-[10px] uppercase " +
+      "tracking-[0.2em] font-mono " +
+      "text-gray-600 mb-2"
+    );
+
+  const breadcrumbCls = feature
+    ? (
+      "text-[11px] uppercase " +
+      "tracking-[0.25em] font-mono " +
+      "text-ember-400/90 mb-5 flex " +
+      "items-center gap-3 " +
+      "hover:text-ember-300 " +
+      "transition-colors"
+    )
+    : (
+      "text-[10px] uppercase " +
+      "tracking-[0.2em] font-mono " +
+      "text-gray-600 mb-2 flex " +
+      "items-center gap-1 " +
+      "hover:text-gray-400 " +
+      "transition-colors"
+    );
+
+  const headlineCls = feature
+    ? (
+      "text-4xl sm:text-5xl md:text-6xl font-serif " +
+      "font-medium text-gray-50 " +
+      "leading-[1.05] tracking-[-0.015em]"
+    )
+    : (
+      "text-3xl md:text-4xl font-serif " +
+      "font-medium text-white " +
+      "leading-[1.1] tracking-[-0.01em]"
+    );
+
+  const subheadCls = feature
+    ? (
+      "text-base sm:text-lg text-gray-400 " +
+      "max-w-3xl leading-relaxed mt-4"
+    )
+    : (
+      "text-gray-400 text-[17px] mt-3 " +
+      "leading-relaxed max-w-[820px]"
+    );
+
   return (
     <div className="py-6 mb-4">
       {breadcrumb && (
         <button
           onClick={breadcrumbAction}
-          className={
-            "text-[10px] uppercase " +
-            "tracking-[0.2em] font-mono " +
-            "text-gray-600 mb-2 flex " +
-            "items-center gap-1 " +
-            "hover:text-gray-400 " +
-            "transition-colors"
-          }
+          className={breadcrumbCls}
         >
+          {feature && (
+            <span className="inline-block h-px w-8 bg-ember-500/70" />
+          )}
           {breadcrumb}
         </button>
       )}
       {!breadcrumb && eyebrow && (
-        <div className={
-          "text-[10px] uppercase " +
-          "tracking-[0.2em] font-mono " +
-          "text-gray-600 mb-2"
-        }>
+        <div className={eyebrowCls}>
+          {feature && (
+            <span className="inline-block h-px w-8 bg-ember-500/70" />
+          )}
           {eyebrow}
         </div>
       )}
       <div className="flex items-baseline gap-3 flex-wrap">
-        <h2 className={
-          "text-3xl md:text-4xl font-serif " +
-          "font-medium text-white " +
-          "leading-[1.1] tracking-[-0.01em]"
-        }>
-          {title}
+        <h2 className={headlineCls}>
+          {renderedTitle}
         </h2>
         {dataAsOf && (
           <span className="group inline-flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-wider bg-gray-800/60 text-gray-500 border border-gray-800/40 self-center">
@@ -2293,10 +2368,7 @@ function PageHeader({
         )}
       </div>
       {description && (
-        <p className={
-          "text-gray-400 text-[17px] mt-3 " +
-          "leading-relaxed max-w-[820px]"
-        }>
+        <p className={subheadCls}>
           {description}
         </p>
       )}
