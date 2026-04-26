@@ -4,28 +4,6 @@ export const metadata = {
     "Non-partisan, source-backed audit of UK government performance. Who we are and how to get in touch.",
 };
 
-/* ─────────────────────────────────────────────────────────
-   UX audit #9 (2026-04-26): named-masthead pre-stage.
-
-   To put a named editor on the About page, fill in the two
-   strings below. The Editorial section will render
-   automatically. Leave both blank and the section is
-   suppressed (current state).
-
-   EDITOR_NAME      — the name to appear on the masthead.
-                      e.g. "Tim Riggins"
-   EDITOR_CREDENTIAL — one short line about who you are.
-                      e.g. "Independent researcher, formerly at the FT"
-                      e.g. "Investigative journalist"
-                      e.g. "Open-data developer, ex-Cabinet Office"
-                      Keep it ≤ 80 chars — single-sentence.
-   EDITOR_BIO        — optional second sentence for context.
-                      Leave "" to omit. ≤ 140 chars.
-   ─────────────────────────────────────────────────────── */
-const EDITOR_NAME = "";
-const EDITOR_CREDENTIAL = "";
-const EDITOR_BIO = "";
-
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-gray-300">
@@ -75,39 +53,6 @@ export default function AboutPage() {
             and whether public money is being spent well.
           </p>
         </div>
-
-        {/* Editorial — UX audit #9 (2026-04-26).
-            Renders only when EDITOR_NAME is filled in at the top of
-            this file. With it: the named-author trust signal the
-            audit flagged as the highest-leverage move. Without it:
-            section is silently suppressed, About page reads exactly
-            as it does today. */}
-        {EDITOR_NAME && (
-          <div className="mt-16 pt-8 border-t border-gray-800/60">
-            <div
-              className={
-                "text-[11px] uppercase tracking-[0.25em] " +
-                "font-mono text-gray-600 mb-4"
-              }
-            >
-              Editorial
-            </div>
-            <p className="text-[17px] text-gray-300 leading-relaxed mb-2">
-              <span className="text-white font-semibold">{EDITOR_NAME}</span>
-              {EDITOR_CREDENTIAL && (
-                <>
-                  <span className="text-gray-500"> &middot; </span>
-                  <span className="text-gray-400">{EDITOR_CREDENTIAL}</span>
-                </>
-              )}
-            </p>
-            {EDITOR_BIO && (
-              <p className="text-[15px] text-gray-500 leading-relaxed">
-                {EDITOR_BIO}
-              </p>
-            )}
-          </div>
-        )}
 
         {/* Contact */}
         <div className="mt-16 pt-8 border-t border-gray-800/60">
