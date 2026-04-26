@@ -34,6 +34,18 @@ import CiteChip from "./CiteChip";
 import useDrawerFocus from "../lib/useDrawerFocus";
 import individualConnectionsData from "../data/individual-connections.json";
 import donationsAggregateData from "../data/political-donations.json";
+/* 2026-04-26 — Money Map v2 Phase 4. Registered consultant lobbyists
+   (Office of the Registrar of Consultant Lobbyists, 251 firms / 1,172
+   unique declared clients) bundle into the MoneyMap chunk so the
+   lobbyist canvas layer ships without an async fetch race. */
+import lobbyistRecordsData from "../data/lobbyist-records.json";
+import {
+  matchClientToSupplier,
+  buildSupplierIndex,
+  lobbyistSlug,
+  LOBBYIST_TYPE_LABEL,
+  orclSearchUrl,
+} from "../lib/lobbyist-aggregation";
 /* 2026-04-26 — Money Map v2 Phase 3 follow-up. The per-record donations
    file used to be parsed inline here at module load (~6,819 records →
    ≈ 501 unique company donors). That aggregation is now in a shared util
@@ -75,6 +87,12 @@ const TYPE_COLOUR = {
      warm peach). The party-colour stroke around each donor signals their
      dominant recipient. */
   donor:         "#94a3b8",
+  /* v2 Phase 4 — registered consultant lobbyists. Bright violet so the
+     lobbyist ring reads distinctly against the project's softer violet
+     (#a78bfa) — shape (hollow ring vs filled bubble) is the primary
+     differentiator, hue is the secondary. The ring treatment + dashed
+     edges signal "agent of access, not a money flow itself". */
+  lobbyist:      "#c084fc",
 };
 
 /* v2 Phase 3 — donor visual treatment by donorStatus. Companies look
@@ -120,8 +138,8 @@ const TIER_STYLE = {
 const WIDTH = 1200;
 const HEIGHT = 720;
 
-const CLUSTER_CX = { buyer: 520, supplier: 700, project: 600, person: 360, adjacent_firm: 820, party: 200, donor: 80 };
-const CLUSTER_CY = { buyer: 320, supplier: 380, project: 500, person: 200, adjacent_firm: 540, party: 130, donor: 360 };
+const CLUSTER_CX = { buyer: 520, supplier: 700, project: 600, person: 360, adjacent_firm: 820, party: 200, donor: 80, lobbyist: 880 };
+const CLUSTER_CY = { buyer: 320, supplier: 380, project: 500, person: 200, adjacent_firm: 540, party: 130, donor: 360, lobbyist: 200 };
 
 /* ---------- v2 Phase 1: people layer ----------
    Map common rolesHeld[] department strings onto the canonical buyer ids
@@ -1279,6 +1297,11 @@ export default function MoneyMap({
      donor nodes and donor→party edges hide and supplier-overlap nodes
      drop their concentric ring. */
   const [showDonors, setShowDonors] = useState(true);
+  /* v2 Phase 4 — lobbyist visibility toggle. Default ON so the new
+     ORCL-derived layer materialises on first paint. When OFF, lobbyist
+     nodes + lobbyist→supplier edges hide. Independent of showDonors so
+     a reader can isolate the access-vs-money axes. */
+  const [showLobbyists, setShowLobbyists] = useState(true);
   const [selection, setSelection] = useState(null);   // { kind, id } | null
 
   /* ---------- mobile layout mode (audit rec #98) ----------
@@ -1728,6 +1751,96 @@ export default function MoneyMap({
     };
   }, [data.nodes]);
 
+  /* ---------- v2 Phase 4: lobbyist layer (ORCL register, 2026-04-26) ----------
+     Walk the 251-firm ORCL register, match each firm's declared client
+     roster against the tracked-supplier index, and mint a node + edges
+     for every lobbyist whose client list contains ≥1 tracked supplier.
+
+     Sizing decisions:
+       - Skip firms with <5 declared clients. Below that threshold the
+         match signal is too noisy — every cluster of micro-agencies
+         would muscle onto the canvas without real editorial weight.
+       - Cap at 25 lobbyist nodes total, sorted by # of matched suppliers
+         descending. The canvas has a budget for new layers; 25 is
+         enough to make the access pattern visible without crowding the
+         supplier cluster.
+
+     The matcher (lib/lobbyist-aggregation.js) is much stricter than the
+     donor matcher — see the file header for why. Confidence tier is
+     surfaced on each edge so the canvas can dim "fuzzy" ties. */
+  const lobbyistAugment = useMemo(() => {
+    const lobbyists = (lobbyistRecordsData?.lobbyists || []);
+    const supplierIndex = buildSupplierIndex(data.nodes || []);
+    const enriched = [];
+    for (const l of lobbyists) {
+      if ((l.cl || 0) < 5) continue;
+      const matches = [];
+      for (const client of (l.cls || [])) {
+        const m = matchClientToSupplier(client, supplierIndex);
+        if (m) matches.push({ client, ...m });
+      }
+      if (matches.length === 0) continue;
+      enriched.push({
+        firm: l,
+        slug: lobbyistSlug(l.n),
+        matches,
+      });
+    }
+    enriched.sort((a, b) => b.matches.length - a.matches.length);
+    const TOP_N = 25;
+    const top = enriched.slice(0, TOP_N);
+
+    const extraNodes = [];
+    const lobbyistEdges = [];
+    for (const e of top) {
+      const id = "lobbyist:" + e.slug;
+      const matchedSupplierIds = new Set();
+      for (const m of e.matches) matchedSupplierIds.add(m.id);
+      extraNodes.push({
+        id,
+        kind: "lobbyist",
+        label: e.firm.n,
+        value: 1,
+        lobbyistType: e.firm.t,
+        registrationDate: e.firm.d,
+        totalClients: e.firm.cl || (e.firm.cls || []).length,
+        allClients: e.firm.cls || [],
+        matchedClients: e.matches,
+        matchedSupplierCount: matchedSupplierIds.size,
+        sources: [],
+      });
+      // Dedupe by supplier id — multiple matched-client rows can point
+      // at the same tracked supplier (e.g. "BT" + "BT plc"). One edge
+      // per (lobbyist, supplier) pair keeps the canvas legible.
+      const seenEdgeKey = new Set();
+      for (const m of e.matches) {
+        const edgeKey = id + "→" + m.id;
+        if (seenEdgeKey.has(edgeKey)) continue;
+        seenEdgeKey.add(edgeKey);
+        lobbyistEdges.push({
+          id: `edge-lobby-${e.slug}-${m.id}`,
+          kind: "lobbyist_client",
+          s: id,
+          t: m.id,
+          totalGBP: 0,
+          relational: true, // bypass £-threshold filter (same as person edges)
+          tier: "B",
+          confidence: m.confidence,
+          method: m.method,
+          client: m.client,
+          scope: `Declared client: ${m.client}`,
+          sources: [],
+        });
+      }
+    }
+
+    return {
+      nodes: extraNodes,
+      edges: lobbyistEdges,
+      lobbyistIds: new Set(extraNodes.map((n) => n.id)),
+    };
+  }, [data.nodes]);
+
   const nodesById = useMemo(() => {
     const m = new Map();
     for (const n of data.nodes) {
@@ -1743,8 +1856,9 @@ export default function MoneyMap({
     }
     for (const n of peopleAugment.nodes) m.set(n.id, n);
     for (const n of donorAugment.nodes) m.set(n.id, n);
+    for (const n of lobbyistAugment.nodes) m.set(n.id, n);
     return m;
-  }, [data.nodes, peopleAugment.nodes, donorAugment.nodes, donorAugment.supplierOverlay]);
+  }, [data.nodes, peopleAugment.nodes, donorAugment.nodes, donorAugment.supplierOverlay, lobbyistAugment.nodes]);
 
   const featuredSet = useMemo(
     () => new Set(data.featuredIds || []),
@@ -2013,6 +2127,15 @@ export default function MoneyMap({
       return nodesById.has(e.s) && nodesById.has(e.t);
     });
 
+    /* v2 Phase 4 — lobbyist→supplier edges. Relational (NOT a money
+       flow), so they ignore the £-threshold chip — same exemption that
+       person edges and other connection edges already enjoy. They still
+       respect the Tier A+B filter via tier:"B". */
+    const allLobbyistEdges = !showLobbyists ? [] : (lobbyistAugment.edges || []).filter((e) => {
+      if (!allowed.has(e.tier)) return false;
+      return nodesById.has(e.s) && nodesById.has(e.t);
+    });
+
     /* ---------------- LENS mode ---------------- */
     if (viewMode === "lens" && lensSubjectId && nodesById.has(lensSubjectId)) {
       const allAwards = (data.edges?.awards || []).filter((e) => {
@@ -2024,7 +2147,7 @@ export default function MoneyMap({
         if (!allowed.has(e.tier)) return false;
         return nodesById.has(e.s) && nodesById.has(e.t);
       });
-      const all = [...allAwards, ...allMembers, ...allPersonEdges, ...allDonorEdges];
+      const all = [...allAwards, ...allMembers, ...allPersonEdges, ...allDonorEdges, ...allLobbyistEdges];
 
       // Hop 1 — direct neighbours of the subject
       const hop1 = new Set([lensSubjectId]);
@@ -2063,9 +2186,12 @@ export default function MoneyMap({
       const donorEdges = allDonorEdges.filter(
         (e) => nodeSet.has(e.s) && nodeSet.has(e.t)
       );
+      const lobbyistEdges = allLobbyistEdges.filter(
+        (e) => nodeSet.has(e.s) && nodeSet.has(e.t)
+      );
       return {
-        awards, projectMembers, personEdges, donorEdges, reachable: nodeSet,
-        hop1, subject: lensSubjectId,
+        awards, projectMembers, personEdges, donorEdges, lobbyistEdges,
+        reachable: nodeSet, hop1, subject: lensSubjectId,
       };
     }
 
@@ -2176,8 +2302,44 @@ export default function MoneyMap({
       }
     }
 
-    return { awards, projectMembers, personEdges, donorEdges, reachable, hop1: null, subject: null };
-  }, [data.edges, tierFilter, minGBP, q, featuredSet, nodesById, viewMode, lensSubjectId, peopleAugment.edges, donorAugment.edges, showDonors]);
+    /* v2 Phase 4 — lobbyist→supplier edges in NETWORK mode.
+       Pass 1: include any edge whose tracked-supplier endpoint is already
+       reachable from the awards subgraph (so a lobbyist that reps a
+       supplier currently on canvas materialises alongside it).
+       Pass 2: when lobbyists are toggled on, surface a curated baseline
+       of the top 5 best-matched lobbyists (those with the highest
+       matchedSupplierCount) so the cluster always has something to read
+       even if no on-canvas supplier pulled them in. */
+    const lobbyistEdges = [];
+    for (const e of allLobbyistEdges) {
+      if (reachable.has(e.t)) {
+        lobbyistEdges.push(e);
+        reachable.add(e.s);
+      }
+    }
+    if (showLobbyists) {
+      // Group remaining edges by lobbyist (source) and surface the top 5
+      // lobbyists by # of supplier connections — keeps the cluster shape
+      // legible without flooding the canvas.
+      const byLobbyist = new Map();
+      for (const e of allLobbyistEdges) {
+        if (lobbyistEdges.includes(e)) continue;
+        if (!byLobbyist.has(e.s)) byLobbyist.set(e.s, []);
+        byLobbyist.get(e.s).push(e);
+      }
+      const sorted = Array.from(byLobbyist.entries())
+        .sort((a, b) => b[1].length - a[1].length);
+      for (const [, edges] of sorted.slice(0, 5)) {
+        for (const e of edges) {
+          lobbyistEdges.push(e);
+          reachable.add(e.s);
+          reachable.add(e.t);
+        }
+      }
+    }
+
+    return { awards, projectMembers, personEdges, donorEdges, lobbyistEdges, reachable, hop1: null, subject: null };
+  }, [data.edges, tierFilter, minGBP, q, featuredSet, nodesById, viewMode, lensSubjectId, peopleAugment.edges, donorAugment.edges, lobbyistAugment.edges, showDonors, showLobbyists]);
 
   const visibleNodes = useMemo(() => {
     const arr = [];
@@ -2194,6 +2356,7 @@ export default function MoneyMap({
       ...filteredEdges.projectMembers.map((e) => ({ ...e, _kind: "project" })),
       ...((filteredEdges.personEdges || []).map((e) => ({ ...e, _kind: "person" }))),
       ...((filteredEdges.donorEdges || []).map((e) => ({ ...e, _kind: "donor" }))),
+      ...((filteredEdges.lobbyistEdges || []).map((e) => ({ ...e, _kind: "lobbyist" }))),
     ];
   }, [filteredEdges]);
 
@@ -2206,7 +2369,8 @@ export default function MoneyMap({
             (data.edges?.awards || []).find((x) => x.id === selection.id) ||
             (data.edges?.projectMembers || []).find((x) => x.id === selection.id) ||
             (peopleAugment.edges || []).find((x) => x.id === selection.id) ||
-            (donorAugment.edges || []).find((x) => x.id === selection.id),
+            (donorAugment.edges || []).find((x) => x.id === selection.id) ||
+            (lobbyistAugment.edges || []).find((x) => x.id === selection.id),
         }
     : null;
 
@@ -2272,6 +2436,10 @@ export default function MoneyMap({
       // sit consistently small (donations are smaller than contracts; the
       // £-scaled supplier radius would oversize them). Range 4–14.
       else if (n.kind === "donor") r = n.fixedRadius || Math.max(4, Math.min(14, Math.sqrt((n.totalGBP || 0) / 1e6) * 2));
+      // v2 Phase 4 — lobbyist nodes render as hollow rings at a fixed
+      // radius. Slightly bigger than person bubbles because the ring's
+      // hollow centre needs to read as deliberate, not as a tiny dot.
+      else if (n.kind === "lobbyist") r = 10;
       else r = radius(Math.max(1, n.value || 1));
       return { ...n, r, type: n.kind };
     });
@@ -2323,12 +2491,19 @@ export default function MoneyMap({
           if (d.kind === "donor_party") {
             return PARTY_DEFS[d.partyId]?.color || "#94a3b8";
           }
+          // v2 Phase 4 — lobbyist→supplier edges in violet, dashed.
+          if (d.kind === "lobbyist_client") return TYPE_COLOUR.lobbyist;
           if (d._kind === "person") return "#fbbf24";
           return TIER_STYLE[d.tier]?.colour || "#8a8a94";
         })
         .attr("stroke-opacity", (d) => {
           if (d.kind === "person_party") return 0.35;
           if (d.kind === "donor_party") return 0.5;
+          if (d.kind === "lobbyist_client") {
+            // Lower opacity for fuzzy/medium-confidence matches —
+            // visual humility about the match quality.
+            return d.confidence === "medium" ? 0.25 : 0.4;
+          }
           if (d._kind === "person") return 0.45;
           return TIER_STYLE[d.tier]?.opacity || 0.4;
         })
@@ -2339,6 +2514,7 @@ export default function MoneyMap({
             // legible without dominating the contract subgraph.
             return Math.min(3.2, 1.5 + Math.sqrt((d.totalGBP || 0) / 1e7) * 0.6);
           }
+          if (d.kind === "lobbyist_client") return 1;
           if (d._kind === "person") return 1.1;
           const base = TIER_STYLE[d.tier]?.width || 1;
           const amt = Math.min(5.5, 1 + Math.sqrt((d.totalGBP || 0) / 1e9) * 1.4);
@@ -2348,6 +2524,9 @@ export default function MoneyMap({
           if (d.kind === "person_party") return "3 4";
           // donor→party edges are real money flows — solid line, no dash.
           if (d.kind === "donor_party") return null;
+          // Lobbyist→supplier edges are relationships, not money — dashed
+          // to read as "access channel" rather than a contract flow.
+          if (d.kind === "lobbyist_client") return "5 4";
           if (d._kind === "person") return "4 3";
           return TIER_STYLE[d.tier]?.dash;
         })
@@ -2405,6 +2584,7 @@ export default function MoneyMap({
       .attr("fill", (d) => {
         if (d.type === "party") return d.color || "#777777";
         if (d.type === "donor") return DONOR_TYPE_COLOUR[d.donorStatus] || TYPE_COLOUR.donor;
+        if (d.type === "lobbyist") return TYPE_COLOUR.lobbyist;
         return TYPE_COLOUR[d.type] || "#525561";
       })
       .attr("fill-opacity", (d) => {
@@ -2413,6 +2593,10 @@ export default function MoneyMap({
         if (d.type === "person") return 0.16;
         if (d.type === "party") return 0.12;
         if (d.type === "donor") return 0.10;
+        // v2 Phase 4 — lobbyist halo is feather-light. The hollow ring
+        // is the actual visual anchor; the halo just gives the bubble
+        // a soft footprint when the canvas is busy.
+        if (d.type === "lobbyist") return 0.07;
         return 0.08;
       })
       .attr("filter", "url(#mm-glow)");
@@ -2455,6 +2639,9 @@ export default function MoneyMap({
         // No radial gradient: keeps the donor cluster reading as a quieter
         // "annotation" layer rather than competing with money bubbles.
         if (d.type === "donor") return DONOR_TYPE_COLOUR[d.donorStatus] || TYPE_COLOUR.donor;
+        // v2 Phase 4 — lobbyist nodes are HOLLOW rings. The ring shape
+        // (no fill) signals "agent of access, not a money flow itself".
+        if (d.type === "lobbyist") return "none";
         return `url(#mm-grad-${d.type})`;
       })
       .attr("opacity", (d) => {
@@ -2476,6 +2663,8 @@ export default function MoneyMap({
         if (d.type === "donor") {
           return PARTY_DEFS[d.dominantPartyId]?.color || "rgba(255,255,255,0.4)";
         }
+        // v2 Phase 4 — lobbyist ring stroke = violet. Solid 1.6px.
+        if (d.type === "lobbyist") return TYPE_COLOUR.lobbyist;
         return isUndisclosed(d.value)
           ? "rgba(245,245,245,0.55)"
           : d3color(TYPE_COLOUR[d.type] || "#525561").brighter(0.4).formatHex();
@@ -2485,18 +2674,21 @@ export default function MoneyMap({
         if (d.type === "adjacent_firm") return 0.6;
         if (d.type === "party") return 0.95;
         if (d.type === "donor") return 0.95;
+        if (d.type === "lobbyist") return 0.85;
         return isUndisclosed(d.value) ? 0.85 : 0.5;
       })
       .attr("stroke-width", (d) => {
         if (d.type === "person") return 1.8;
         if (d.type === "party") return 1;
         if (d.type === "donor") return 1.6;
+        if (d.type === "lobbyist") return 1.6;
         return isUndisclosed(d.value) ? 1.2 : 1;
       })
       .attr("stroke-dasharray", (d) => {
         if (d.type === "person") return null;
         if (d.type === "party") return null;
         if (d.type === "donor") return null;
+        if (d.type === "lobbyist") return null;
         if (d.type === "adjacent_firm") return "3 3";
         return isUndisclosed(d.value) ? "3 3" : null;
       });
@@ -2524,7 +2716,13 @@ export default function MoneyMap({
         d.type === "adjacent_firm" ? "adjacent firm" :
         d.type === "party" ? "political party" :
         d.type === "donor" ? `donor · ${d.donorStatus || "unknown"}` :
+        d.type === "lobbyist" ? "registered consultant lobbyist" :
         d.type;
+      if (d.type === "lobbyist") {
+        const typeLbl = LOBBYIST_TYPE_LABEL[d.lobbyistType] || "lobbyist";
+        return `${d.label}\nLOBBYIST · ${typeLbl} · ${d.totalClients} declared client${d.totalClients === 1 ? "" : "s"} · ${d.matchedSupplierCount} match tracked supplier${d.matchedSupplierCount === 1 ? "" : "s"}` +
+               `\n(click for details)`;
+      }
       if (d.type === "party") {
         const members = (peopleAugment.edges || [])
           .filter((e) => e.kind === "person_party" && e.t === d.id).length;
@@ -2593,7 +2791,13 @@ export default function MoneyMap({
         return d.r >= 40 ? 600 : 500;
       })
       .style("font-size", (d) => d.r >= 40 ? "12.5px" : "11px")
-      .style("fill", (d) => d.type === "party" ? "rgba(244,244,245,0.7)" : "#f4f4f5")
+      .style("fill", (d) => {
+        if (d.type === "party") return "rgba(244,244,245,0.7)";
+        // v2 Phase 4 — lobbyist labels run slightly desaturated so the
+        // ring + label read as "annotation layer", not first-class money.
+        if (d.type === "lobbyist") return "rgba(244,244,245,0.82)";
+        return "#f4f4f5";
+      })
       .style("paint-order", "stroke fill")
       .style("stroke", "rgba(5,5,7,0.9)")
       .style("stroke-width", (d) => d.r >= 40 ? "2.5px" : "3px")
@@ -2613,6 +2817,7 @@ export default function MoneyMap({
       .text((d) => {
         if (d.type === "party") return "party";
         if (d.type === "donor") return `donor · ${fmtGBPDonor(d.totalGBP)}`;
+        if (d.type === "lobbyist") return `lobbyist · ${d.matchedSupplierCount}/${d.totalClients}`;
         return d.value > 0 ? fmtGBP(d.value) : d.type;
       });
 
@@ -2659,7 +2864,7 @@ export default function MoneyMap({
     return () => {
       sim.stop();
     };
-  }, [visibleNodes, visibleEdges, viewMode, lensSubjectId, showDonors]);
+  }, [visibleNodes, visibleEdges, viewMode, lensSubjectId, showDonors, showLobbyists]);
 
   /* When selection changes, highlight neighbourhood */
   useEffect(() => {
@@ -2690,12 +2895,17 @@ export default function MoneyMap({
         if (e.s === selection.id) neighbourIds.add(e.t);
         if (e.t === selection.id) neighbourIds.add(e.s);
       });
+      (lobbyistAugment.edges || []).forEach((e) => {
+        if (e.s === selection.id) neighbourIds.add(e.t);
+        if (e.t === selection.id) neighbourIds.add(e.s);
+      });
     } else {
       const edge =
         (data.edges?.awards || []).find((x) => x.id === selection.id) ||
         (data.edges?.projectMembers || []).find((x) => x.id === selection.id) ||
         (peopleAugment.edges || []).find((x) => x.id === selection.id) ||
-        (donorAugment.edges || []).find((x) => x.id === selection.id);
+        (donorAugment.edges || []).find((x) => x.id === selection.id) ||
+        (lobbyistAugment.edges || []).find((x) => x.id === selection.id);
       if (edge) { neighbourIds.add(edge.s); neighbourIds.add(edge.t); }
     }
     svg.selectAll(".mm-bubble").attr("opacity", function(d) { return neighbourIds.has(d.id) ? 1 : 0.18; });
@@ -2917,8 +3127,8 @@ export default function MoneyMap({
         <div className="mm-disclaimer">
           <b>Lines show sourced relationships, not wrongdoing.</b>{" "}
           An edge between two entities means we found a named public document linking them &mdash; it does not imply any party acted improperly.{" "}
-          <b>Amber nodes are people; coloured dots are political parties; neutral nodes are political donors; party-coloured lines tie donors to the parties they&rsquo;ve funded.</b>{" "}
-          Where a tracked supplier has also donated to a party, the supplier bubble carries a coloured ring in the party&rsquo;s colour. See Stories for the evidence trail behind named individuals.
+          <b>Amber nodes are people; coloured dots are political parties; neutral nodes are political donors; violet rings are registered consultant lobbyists tied to their declared clients.</b>{" "}
+          Where a tracked supplier has also donated to a party, the supplier bubble carries a coloured ring in the party&rsquo;s colour. The lobbyist register covers consultant lobbyists only &mdash; in-house lobbyists and informal access are outside the public record. See Stories for the evidence trail behind named individuals.
         </div>
       </section>
 
@@ -3031,6 +3241,18 @@ export default function MoneyMap({
             : "Show top-25 political donors and their party-of-recipient edges"}
         >
           {showDonors ? "Donors: on" : "Donors: off"}
+        </Chip>
+        {/* v2 Phase 4 — registered consultant lobbyists. Default ON.
+            When OFF, the violet ring nodes + their dashed edges to
+            tracked suppliers hide. Independent of Donors toggle. */}
+        <Chip
+          active={showLobbyists}
+          onClick={() => setShowLobbyists((v) => !v)}
+          title={showLobbyists
+            ? "Hide registered consultant lobbyists and their tracked-supplier edges"
+            : "Show registered consultant lobbyists and their tracked-supplier edges"}
+        >
+          {showLobbyists ? "Lobbyists: on" : "Lobbyists: off"}
         </Chip>
         <span style={{ marginLeft: "auto", color: "#6b7280", fontSize: 12 }}>
           {visibleNodes.length} nodes · {visibleEdges.length} edges
@@ -4146,6 +4368,210 @@ function DonorDetail({
   );
 }
 
+/* =========================================================================
+ *  LobbyistDetail — drawer for a registered consultant lobbyist node
+ *  (v2 Phase 4). Surfaces:
+ *    - Firm name + ORCL type label (Consultant lobbyist / In-house / etc)
+ *    - Registration date
+ *    - Total declared client count vs # of matched tracked suppliers
+ *    - Tracked-supplier clients list with confidence badge, taps open the
+ *      SupplierDetail drawer
+ *    - Collapsible "Other declared clients" list for the wider roster
+ *      (no links — these aren't in Gracchus's tracked set)
+ *    - External link to the ORCL register search for this firm
+ * ========================================================================= */
+function LobbyistDetail({
+  drawerRef,
+  node,
+  onClose,
+  onOpenNode,
+}) {
+  const accent = TYPE_COLOUR.lobbyist;
+  const typeLbl = LOBBYIST_TYPE_LABEL[node.lobbyistType] || "Lobbyist";
+  // Slice the tracked-supplier matches out and de-dupe by supplier id (the
+  // raw matches list can carry "BT" + "BT plc" both pointing at supplier-bt;
+  // we want one card per distinct tracked-supplier id, but keep all the
+  // declared-client strings rolled up so the reader sees how the firm
+  // referred to that supplier in their declaration).
+  const matchedById = new Map();
+  for (const m of (node.matchedClients || [])) {
+    if (!matchedById.has(m.id)) {
+      matchedById.set(m.id, { ...m, clients: [m.client] });
+    } else {
+      const cur = matchedById.get(m.id);
+      if (!cur.clients.includes(m.client)) cur.clients.push(m.client);
+      // Promote confidence — high beats medium if multiple aliases match.
+      if (m.confidence === "high" && cur.confidence !== "high") cur.confidence = "high";
+    }
+  }
+  const matchedRows = Array.from(matchedById.values());
+  // Other declared clients = all declared clients NOT in the matched set.
+  const matchedClientNames = new Set();
+  for (const m of (node.matchedClients || [])) matchedClientNames.add(m.client);
+  const otherClients = (node.allClients || []).filter((c) => !matchedClientNames.has(c));
+  const [otherOpen, setOtherOpen] = useState(false);
+  const orclUrl = orclSearchUrl(node.label);
+
+  return (
+    <aside
+      ref={drawerRef}
+      tabIndex={-1}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Lobbyist profile: ${node.label}`}
+      className="mm-drawer mm-drawer-open mm-drawer-lobbyist"
+      style={{ "--mm-lobby-accent": accent }}
+    >
+      <div className="mm-d-head" style={{ borderLeft: `2px solid ${accent}`, paddingLeft: 14 }}>
+        <button className="mm-d-close" aria-label="Close drawer" onClick={onClose}>x</button>
+        <div className="mm-eyebrow-row">
+          <span className="mm-eyebrow">Registered consultant lobbyist</span>
+          <span
+            className="mm-tier-badge"
+            style={{ background: "rgba(255,255,255,0.04)", color: accent, borderColor: accent + "55", border: "1px solid" }}
+          >
+            {typeLbl}
+          </span>
+        </div>
+        <div
+          className="mm-entity-name"
+          style={{ fontFamily: "var(--mm-serif)", color: accent }}
+        >
+          {node.label}
+        </div>
+        <div className="mm-entity-sub" style={{ marginTop: 6 }}>
+          {node.registrationDate ? (
+            <>Registered with ORCL {fmtDate(node.registrationDate)} &middot; </>
+          ) : null}
+          <b>{node.totalClients}</b> client{node.totalClients === 1 ? "" : "s"} declared
+          {" · "}
+          <b style={{ color: accent }}>{matchedRows.length}</b>{" "}
+          match tracked Gracchus supplier{matchedRows.length === 1 ? "" : "s"}.
+        </div>
+      </div>
+      <div className="mm-d-body">
+        <div className="mm-d-section-h">Tracked-supplier clients</div>
+        {matchedRows.length === 0 ? (
+          <div style={{ fontSize: 12, color: "#6b7280" }}>
+            No tracked suppliers in this firm&rsquo;s declared client list.
+          </div>
+        ) : (
+          <div className="mm-donor-recipients">
+            {matchedRows.map((m) => (
+              <button
+                key={m.id}
+                type="button"
+                className="mm-donor-recipient"
+                onClick={() => onOpenNode(m.id)}
+                aria-label={`Open supplier profile for ${m.label}`}
+                style={{ borderLeft: `3px solid ${accent}` }}
+              >
+                <span className="mm-donor-recipient-name">{m.label}</span>
+                <span
+                  className="mm-donor-recipient-amt"
+                  style={{
+                    color: m.confidence === "high" ? "#bbf7d0" : "#fde68a",
+                    fontFamily: "var(--mm-mono)",
+                    fontSize: 11,
+                    letterSpacing: "0.04em",
+                    textTransform: "uppercase",
+                  }}
+                  title={m.confidence === "high"
+                    ? "Exact normalised name match"
+                    : "Token-overlap match — read as suggestive, not definitive"}
+                >
+                  {m.confidence === "high" ? "Exact" : "Fuzzy"}
+                </span>
+                <span className="mm-donor-recipient-count">
+                  Declared as: {m.clients.join(" · ")}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        {otherClients.length > 0 && (
+          <>
+            <div className="mm-d-section-h">
+              Other declared clients ({otherClients.length})
+            </div>
+            <button
+              type="button"
+              onClick={() => setOtherOpen((v) => !v)}
+              style={{
+                fontSize: 12,
+                color: "#9ca3af",
+                background: "transparent",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderRadius: 4,
+                padding: "6px 10px",
+                cursor: "pointer",
+                marginBottom: 8,
+              }}
+              aria-expanded={otherOpen}
+            >
+              {otherOpen ? "Hide" : "Show"} the other {otherClients.length} declared client{otherClients.length === 1 ? "" : "s"}
+            </button>
+            {otherOpen && (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: 6,
+                  fontSize: 11.5,
+                  color: "#9ca3af",
+                  lineHeight: 1.5,
+                  marginBottom: 12,
+                }}
+              >
+                {otherClients.map((c, i) => (
+                  <span
+                    key={i}
+                    style={{
+                      padding: "3px 8px",
+                      background: "rgba(255,255,255,0.03)",
+                      borderRadius: 3,
+                    }}
+                  >
+                    {c}
+                  </span>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+
+        <div className="mm-d-section-h">Source</div>
+        <div className="mm-donor-foot">
+          Office of the Registrar of Consultant Lobbyists (ORCL).
+          The register only covers <i>consultant</i> lobbying &mdash; in-house
+          lobbyists and informal access remain outside the public record.
+          Confidence badges reflect Gracchus&rsquo;s name-matching rigour: <b>Exact</b>
+          means the declared client name normalised to the same string as a
+          tracked supplier&rsquo;s canonical name; <b>Fuzzy</b> means a token-overlap
+          match that still cleared a stricter bar than the donor matcher uses.
+        </div>
+        <a
+          href={orclUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mm-d-focus-cta"
+          style={{
+            display: "inline-block",
+            marginTop: 10,
+            background: "rgba(192, 132, 252, 0.08)",
+            borderColor: "rgba(192, 132, 252, 0.4)",
+            color: accent,
+            textDecoration: "none",
+          }}
+        >
+          Open ORCL register entry &rarr;
+        </a>
+      </div>
+    </aside>
+  );
+}
+
 function Drawer({
   selection,
   nodesById,
@@ -4216,6 +4642,18 @@ function Drawer({
         drawerRef={drawerRef}
         node={node}
         donorEdges={donorEdges || []}
+        onClose={onClose}
+        onOpenNode={onOpenNode || (() => {})}
+      />
+    );
+  }
+
+  /* v2 Phase 4 — Lobbyist node selection routes to LobbyistDetail. */
+  if (node && node.kind === "lobbyist") {
+    return (
+      <LobbyistDetail
+        drawerRef={drawerRef}
+        node={node}
         onClose={onClose}
         onOpenNode={onOpenNode || (() => {})}
       />

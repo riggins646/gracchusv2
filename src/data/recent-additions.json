@@ -5,6 +5,14 @@
     {
       "date": "2026-04-26",
       "type": "feature",
+      "title": "Money Map v2 Phase 4 \u2014 lobbyists on the canvas",
+      "summary": "Adds 25 registered consultant lobbyist firms to the Money Map canvas as violet rings, derived from the Office of the Registrar of Consultant Lobbyists. Each lobbyist is wired to its declared clients where those clients match a tracked Gracchus supplier (Arup, AECOM, Cook Defence, BAE-related, BT, DXC, Heathrow, Bechtel, Balfour Beatty and others). The lobbyist drawer lists tracked-supplier clients with confidence badges plus the wider declared-client roster. The register only covers consultant lobbying \u2014 in-house lobbyists and informal access remain outside the public record. New shared util src/lib/lobbyist-aggregation.js carries the tightened matcher (token-overlap with confidence tiers; rejects 'Capital City College Group \u2192 Capita plc' style false positives that the donor matcher allowed).",
+      "view": "moneymap",
+      "metric": "+25 lobbyist nodes"
+    },
+    {
+      "date": "2026-04-26",
+      "type": "feature",
       "title": "Methodology updated for the connections layer",
       "summary": "Methodology page now documents the Money Map v2 work: what a connection record is, the categories tracked (post-office appointment, dual role, donor-and-contractor, family ties, VIP lane referral, paid consultancy during office, donor-supplier overlap), source rigour standards, the firm-subject convention, and the matcher's known limits. Cross-linked inline to /standards and /corrections.",
       "view": "methodology",

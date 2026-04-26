@@ -58,6 +58,7 @@ import planningData from "../data/planning-approvals.json";
 import delaysData from "../data/delays-delivery.json";
 import donationsData from "../data/political-donations.json";
 import donationRecordsData from "../data/donations-records.json";
+import lobbyistRecordsData from "../data/lobbyist-records.json";
 import foreignAidData from "../data/foreign-aid.json";
 import fcdoProgrammes from "../data/fcdo-programmes.json";
 import mpInterestsData from "../data/mp-interests.json";
@@ -7234,19 +7235,15 @@ function AppInner() {
   const [lobSortDir, setLobSortDir] = useState("desc");
   const [lobPage, setLobPage] = useState(0);
   const [lobTab, setLobTab] = useState("directory");
-  const [lobRecords, setLobRecords] = useState({ lobbyists: [], topClients: [] });
-  const [lobRecordsLoading, setLobRecordsLoading] = useState(true);
+  /* 2026-04-26 — Money Map v2 Phase 4. Lobbyist records used to be
+     fetched via `/data/lobbyist-records.json` at runtime; the file now
+     imports as a module from src/data so it bundles into the lazy-loaded
+     MoneyMap chunk and Dashboard's Lobbying view shares the exact same
+     parsed object — no async race, no second JSON parse. setLoading(false)
+     stays for the existing UI state machine. */
+  const [lobRecords] = useState(lobbyistRecordsData || { lobbyists: [], topClients: [] });
+  const [lobRecordsLoading, setLobRecordsLoading] = useState(false);
   const [lobSelectedFirm, setLobSelectedFirm] = useState(null);
-
-  useEffect(() => {
-    fetch("/data/lobbyist-records.json")
-      .then(r => r.json())
-      .then(data => {
-        setLobRecords(data);
-        setLobRecordsLoading(false);
-      })
-      .catch(() => setLobRecordsLoading(false));
-  }, []);
 
   const [chartShare, setChartShare] = useState(null);
   const [chartShareCopied, setChartShareCopied] = useState(false);
