@@ -875,6 +875,184 @@
           "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=Imagination+Industries+Incubator&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted"
         }
       ]
+    },
+    {
+      "id": "firm-jcb",
+      "name": "J.C. Bamford Excavators (JCB)",
+      "kind": "firm",
+      "headline": "Family-owned Staffordshire construction-equipment manufacturer (Bamford family); long-running donor cluster to the Conservative Party and supplier of military backhoe loaders to the British Army.",
+      "rolesHeld": [],
+      "externalLinks": [
+        {
+          "label": "Companies House (J. C. Bamford Excavators Ltd, 00561597)",
+          "url": "https://find-and-update.company-information.service.gov.uk/company/00561597"
+        },
+        {
+          "label": "Electoral Commission donor record",
+          "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=Bamford&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted"
+        }
+      ]
+    },
+    {
+      "id": "johnson-boris",
+      "name": "Boris Johnson",
+      "party": "conservative",
+      "headline": "Prime Minister July 2019 - September 2022; Conservative MP for Uxbridge & South Ruislip until June 2023; subsequently Daily Mail columnist, GB News presenter and member of the international speaking circuit.",
+      "rolesHeld": [
+        {
+          "title": "Mayor of London",
+          "department": "Greater London Authority",
+          "start": "2008-05",
+          "end": "2016-05"
+        },
+        {
+          "title": "MP for Uxbridge & South Ruislip",
+          "department": "House of Commons",
+          "start": "2015-05",
+          "end": "2023-06"
+        },
+        {
+          "title": "Secretary of State for Foreign and Commonwealth Affairs",
+          "department": "Foreign and Commonwealth Office",
+          "start": "2016-07",
+          "end": "2018-07"
+        },
+        {
+          "title": "Prime Minister",
+          "department": "10 Downing Street",
+          "start": "2019-07",
+          "end": "2022-09"
+        },
+        {
+          "title": "Columnist, Daily Mail",
+          "department": "Associated Newspapers (private)",
+          "start": "2023-06",
+          "end": null
+        },
+        {
+          "title": "Presenter and Contributor, GB News",
+          "department": "GB News (private)",
+          "start": "2023-10",
+          "end": null
+        }
+      ],
+      "externalLinks": [
+        {
+          "label": "ACOBA advice page - Boris Johnson",
+          "url": "https://www.gov.uk/government/publications/johnson-boris-secretary-of-state-foreign-and-commonwealth-office-acoba"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Boris_Johnson"
+        }
+      ],
+      "kind": "person"
+    },
+    {
+      "id": "duncan-smith-iain",
+      "name": "Sir Iain Duncan Smith",
+      "party": "conservative",
+      "headline": "Conservative MP for Chingford & Woodford Green since 1992; Leader of the Opposition 2001-03; Secretary of State for Work and Pensions 2010-16; co-founder and Chairman of the Centre for Social Justice (CSJ) since 2004 (with a break while in Cabinet).",
+      "rolesHeld": [
+        {
+          "title": "MP for Chingford (later Chingford & Woodford Green)",
+          "department": "House of Commons",
+          "start": "1992-04",
+          "end": null
+        },
+        {
+          "title": "Leader of the Conservative Party",
+          "department": "Conservative Party (Opposition)",
+          "start": "2001-09",
+          "end": "2003-11"
+        },
+        {
+          "title": "Co-founder and Chairman, Centre for Social Justice",
+          "department": "Centre for Social Justice (think tank)",
+          "start": "2004-01",
+          "end": null
+        },
+        {
+          "title": "Secretary of State for Work and Pensions",
+          "department": "Department for Work and Pensions",
+          "start": "2010-05",
+          "end": "2016-03"
+        }
+      ],
+      "externalLinks": [
+        {
+          "label": "Register of Members' Financial Interests - Sir Iain Duncan Smith (18 March 2024)",
+          "url": "https://publications.parliament.uk/pa/cm/cmregmem/240318/duncan-smith_iain.htm"
+        },
+        {
+          "label": "Members.parliament.uk registered interests",
+          "url": "https://members.parliament.uk/member/152/registeredinterests"
+        },
+        {
+          "label": "Wikipedia - Centre for Social Justice",
+          "url": "https://en.wikipedia.org/wiki/Centre_for_Social_Justice"
+        }
+      ],
+      "kind": "person"
+    },
+    {
+      "id": "whittingdale-john",
+      "name": "Sir John Whittingdale",
+      "party": "conservative",
+      "headline": "Conservative MP for Maldon since 1992; Secretary of State for Culture, Media and Sport May 2015 - July 2016; subsequently Minister of State for Media and Data 2020-22; took multiple paid post-office appointments in the media and gambling sectors that ACOBA reviewed.",
+      "rolesHeld": [
+        {
+          "title": "MP for Maldon (formerly Colchester South & Maldon)",
+          "department": "House of Commons",
+          "start": "1992-04",
+          "end": null
+        },
+        {
+          "title": "Chair, Culture, Media and Sport Select Committee",
+          "department": "House of Commons",
+          "start": "2005-07",
+          "end": "2015-05"
+        },
+        {
+          "title": "Secretary of State for Culture, Media and Sport",
+          "department": "Department for Culture, Media and Sport",
+          "start": "2015-05",
+          "end": "2016-07"
+        },
+        {
+          "title": "Adviser, Authors Licensing and Collecting Society (ALCS)",
+          "department": "ALCS (private)",
+          "start": "2017-04",
+          "end": null
+        },
+        {
+          "title": "Adviser, SWNS Media Group",
+          "department": "SWNS Media Group (private)",
+          "start": "2017-01",
+          "end": null
+        },
+        {
+          "title": "Minister of State for Media and Data",
+          "department": "Department for Digital, Culture, Media and Sport",
+          "start": "2020-02",
+          "end": "2022-09"
+        }
+      ],
+      "externalLinks": [
+        {
+          "label": "ACOBA advice page - John Whittingdale",
+          "url": "https://www.gov.uk/government/publications/whittingdale-john-former-secretary-of-state-for-culture-media-and-sport-dcms-acoba-recommendation"
+        },
+        {
+          "label": "ACOBA correspondence on Alphasights & Betting and Gaming Council",
+          "url": "https://www.gov.uk/government/publications/whittingdale-john-former-secretary-of-state-for-culture-media-and-sport-dcms-acoba-recommendation/correspondence-between-acoba-and-john-whittingdale-regarding-alphasights-the-betting-and-gaming-council"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/John_Whittingdale"
+        }
+      ],
+      "kind": "person"
     }
   ],
   "connections": [
@@ -2262,6 +2440,260 @@
           "publisher": "GOV.UK",
           "url": "https://www.contractsfinder.service.gov.uk/Search?keywords=Imagination+Industries",
           "date": ""
+        }
+      ]
+    },
+    {
+      "id": "jcb-donor-contractor",
+      "personId": "firm-jcb",
+      "connectionType": "donor_and_contractor",
+      "status": "public_record",
+      "liveProceedings": false,
+      "summary": "Bamford-family corporate vehicles (JCB Research, JCB Service, JC Bamford Excavators, J.S. Bloor) and named family members donated approximately £19.15m to UK political parties between 2003 and 2025 - of which £17.33m to the Conservative Party - while JCB held UK Ministry of Defence contracts for military backhoe loaders and wheel loading shovels.",
+      "detail": "Electoral Commission records show 70 reportable donations totalling £19,152,607 from the Bamford-family corporate cluster between 7 July 2003 and 3 November 2025. The donor identifiers split across at least 21 spelling variants (J C Bamford Excavators Ltd, JC Bamford Excavators Limited, J.C.B. Services, JCB Research, JCB Sales Ltd, J.S. Bloor (Services) Ltd, Bloor Holdings Ltd, plus named individuals Lord Anthony P Bamford and Mark J C Bamford). £17,332,860 was received by the Conservative Party, £200,000 by Reform UK and £1,619,747 logged as 'Other' (which on cross-reference with Electoral Commission categorisations is dominated by referendum / Brexit-aligned campaign vehicles).\n\nIn the same period JCB held UK Ministry of Defence contracts. The most-cited example is the 2010-11 British Army order for 138 4CX backhoe loaders and 98 436eHT wheel loading shovels, described in trade press as 'the largest order for machines for the British Army in more than 25 years'. JCB's defence-products division (HMEE - High Mobility Engineer Excavator, military backhoes, MOTS variants) supplies the British Army, MoD construction estate and overseas defence customers. Separately, in November 2022 the Department for Business, Energy and Industrial Strategy announced £26m of public funding for a JCB hydrogen-engine project; the announcement was made by then-Business Secretary while JCB-linked donations were continuing.\n\nJCB is not on the Gracchus tracker's list of 116 monitored programmes (it is not a prime contractor on any of the major outsourced public-service projects we follow). The connection is therefore carried as adjacent_firm rather than as a tracked supplier. Gracchus reports the Electoral Commission figures and the publicly-disclosed contracts; we do not assert that contracts were awarded as a quid pro quo for donations.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "UK Ministry of Defence (and BEIS / DESNZ via the 2022 hydrogen-engine grant)",
+        "note": "JCB is a long-running supplier to the British Army (military backhoe loaders, wheel loading shovels, HMEE) but is not a Gracchus-tracked prime contractor on the 116 monitored programmes. Carried as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2003",
+        "end": "2025",
+        "periodLabel": "2003–2025"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "£19,152,607 in political donations across 70 records (Conservative £17,332,860; Reform UK £200,000; Other / referendum vehicles £1,619,747)",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "British Army order for 138 4CX backhoe loaders + 98 436eHT wheel loading shovels (2010-11); ongoing defence-products supply (HMEE, MOTS variants); £26m BEIS hydrogen-engine grant announced November 2022. Aggregate UK government contract value not publicly disclosed."
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Electoral Commission donor record - Bamford family / JCB cluster",
+          "publisher": "Electoral Commission",
+          "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=Bamford&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Companies House (J. C. Bamford Excavators Ltd, 00561597)",
+          "publisher": "Companies House",
+          "url": "https://find-and-update.company-information.service.gov.uk/company/00561597",
+          "date": ""
+        },
+        {
+          "tier": "news",
+          "title": "JCB wins order to supply British Army with 236 machines",
+          "publisher": "The Construction Index",
+          "url": "https://www.theconstructionindex.co.uk/news/view/jcb-wins-order-to-supply-british-army-with-236-machines",
+          "date": "2010-01-01"
+        },
+        {
+          "tier": "news",
+          "title": "Government Announces £26 Million Funding for Firm Owned by Tory Donor",
+          "publisher": "Byline Times",
+          "url": "https://bylinetimes.com/2022/11/01/government-announces-26-million-funding-for-firm-owned-by-tory-donor/",
+          "date": "2022-11-01"
+        },
+        {
+          "tier": "analysis",
+          "title": "JCB and directors gave £1.3m to Tories after UN linked firm to Israeli settlements",
+          "publisher": "openDemocracy",
+          "url": "https://www.opendemocracy.net/en/dark-money-investigations/conservative-party-jcb-donations-israel-settlements-palestine-west-bank/",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "johnson-daily-mail-gb-news-acoba",
+      "personId": "johnson-boris",
+      "connectionType": "post_office_appointment",
+      "status": "closed_with_finding",
+      "liveProceedings": false,
+      "summary": "Boris Johnson signed as Daily Mail columnist in June 2023 - submitting his ACOBA application 30 minutes before the Mail tweeted the announcement - which the Advisory Committee on Business Appointments ruled 'a clear and unambiguous breach of the Rules and the requirements set out in the Ministerial Code'. He subsequently took a paid GB News presenting role (October 2023), which ACOBA approved subject to conditions.",
+      "detail": "Johnson left office as Prime Minister in September 2022 and as MP for Uxbridge in June 2023. On 16 June 2023 his office submitted an ACOBA application for a Daily Mail columnist role at 12.31pm; the Daily Mail's Twitter account announced the appointment 30 minutes later, at 1.01pm. ACOBA Chair Lord Pickles wrote to Johnson and to then-Deputy Prime Minister Oliver Dowden the same week confirming a breach of the Business Appointment Rules and the Ministerial Code, and declined to give advice on the appointment. Press reports (ITV News, Press Gazette) put the column's reported value at around £1m a year, though ACOBA correspondence does not state remuneration.\n\nIn October 2023 Johnson sought ACOBA advice for a separate paid role as 'Presenter and Contributor' at GB News. ACOBA approved that appointment subject to standard conditions: a two-year ban on lobbying the UK government on behalf of GB News, a bar on advising on UK-government bids or contracts during that window, and the standard restriction on drawing on privileged information. The Cabinet Office told ACOBA that, given two administrations had passed since Johnson's time in office, his knowledge was 'unlikely to offer any unfair advantage to GB News'.\n\nJohnson has subsequently been the subject of further ACOBA breach correspondence in connection with Merlyn Advisors Ltd. The Cabinet Office took no enforcement action over the Daily Mail breach; then-Deputy PM Dowden indicated to Parliament that any sanction would be 'disproportionate', and signalled a future reform direction in which media work would be exempted from the Business Appointment Rules.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Associated Newspapers (Daily Mail) and GB News",
+        "note": "Neither Associated Newspapers nor GB News is a Gracchus-tracked prime contractor. Carried as adjacent_firm for the post-office appointment record."
+      },
+      "timeframe": {
+        "start": "2023-06",
+        "end": null,
+        "periodLabel": "Jun 2023 – ongoing"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "Daily Mail column reported at c.£1m / year (ITV, Press Gazette); GB News fee not publicly disclosed",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government contracts associated with these appointments"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Advisory Committee on Business Appointments (ACOBA)",
+          "date": "2023-06-27",
+          "quotedText": "The announcement of your column in the Daily Mail was a clear and unambiguous breach of the Rules and the requirements set out in the Ministerial Code - both of which you are familiar with. ACOBA's established practice is not to provide advice in these circumstances.",
+          "url": "https://www.gov.uk/government/publications/johnson-boris-secretary-of-state-foreign-and-commonwealth-office-acoba/correspondence-from-acoba-to-boris-johnson-breach-of-the-rules-daily-mail",
+          "outcome": "Breach of the Business Appointment Rules and Ministerial Code recorded; ACOBA declined to give advice. No further enforcement action by the Cabinet Office."
+        },
+        {
+          "body": "Advisory Committee on Business Appointments (ACOBA)",
+          "date": "2023-10",
+          "quotedText": "for two years from your last day in ministerial office you should not undertake any work with GB News (including parent companies, subsidiaries, partners and clients) that involves providing advice on the terms of, or with regard to the subject matter of a bid with, or contract relating directly to the work of, the UK government or its arm's length bodies.",
+          "url": "https://www.gov.uk/government/publications/johnson-boris-secretary-of-state-foreign-and-commonwealth-office-acoba/advice-letter-boris-johnson-presenter-and-contributor-gb-news",
+          "outcome": "GB News appointment approved subject to standard conditions including a two-year lobbying ban."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Correspondence from ACOBA to Boris Johnson, breach of the Rules (Daily Mail)",
+          "publisher": "gov.uk (ACOBA)",
+          "url": "https://www.gov.uk/government/publications/johnson-boris-secretary-of-state-foreign-and-commonwealth-office-acoba/correspondence-from-acoba-to-boris-johnson-breach-of-the-rules-daily-mail",
+          "date": "2023-06-27"
+        },
+        {
+          "tier": "primary",
+          "title": "Advice Letter: Boris Johnson, Presenter and Contributor, GB News",
+          "publisher": "gov.uk (ACOBA)",
+          "url": "https://www.gov.uk/government/publications/johnson-boris-secretary-of-state-foreign-and-commonwealth-office-acoba/advice-letter-boris-johnson-presenter-and-contributor-gb-news",
+          "date": "2023-10-01"
+        },
+        {
+          "tier": "news",
+          "title": "Boris Johnson signs for Daily Mail as weekly columnist",
+          "publisher": "Press Gazette",
+          "url": "https://pressgazette.co.uk/the-wire/media-jobs-uk-news/boris-johnson-daily-mail/",
+          "date": "2023-06-16"
+        },
+        {
+          "tier": "news",
+          "title": "Boris Johnson announced as new '£1m' Daily Mail columnist",
+          "publisher": "ITV News",
+          "url": "https://www.itv.com/news/2023-06-16/boris-johnson-set-to-be-new-daily-mail-columnist-after-damning-partygate-report",
+          "date": "2023-06-16"
+        }
+      ]
+    },
+    {
+      "id": "duncan-smith-csj-dual-role",
+      "personId": "duncan-smith-iain",
+      "connectionType": "dual_role",
+      "status": "public_record",
+      "liveProceedings": false,
+      "summary": "Sir Iain Duncan Smith co-founded the Centre for Social Justice (CSJ) in 2004 and resumed its chairmanship after resigning from the Cabinet in 2016; CSJ research formed the policy basis for Universal Credit and the Work Programme, both of which he subsequently delivered as Secretary of State for Work and Pensions (2010-16).",
+      "detail": "The Centre for Social Justice is a centre-right think tank co-founded in 2004 by Duncan Smith with Tim Montgomerie and Philippa Stroud. It published the 2009 paper 'Dynamic Benefits' that proposed the Universal Credit single-payment model. From May 2010 to March 2016 Duncan Smith served as Secretary of State for Work and Pensions, with departmental responsibility for designing and rolling out Universal Credit, the Work Programme and pension reform - policy briefs whose intellectual lineage was traced back, by his department's own statements, to CSJ research.\n\nDuncan Smith resigned from the Cabinet in March 2016 in protest at planned cuts to disability benefits, and resumed the chairmanship of CSJ. The dual role - sitting MP plus chair of a think tank that publishes policy proposals on welfare, family policy and criminal justice - is recorded openly in the Register of Members' Financial Interests. The Register entry for 18 March 2024 lists, under category 3 (Gifts, benefits and hospitality from UK sources): 'Name of donor: Centre for Social Justice (CSJ) ... Associated with visiting various charities/organisations in Scotland in my capacity as Chairman of the CSJ, flights, accommodation and other transport related costs with a total value of £3,370 ... Date received: 25-27 May 2023 ... Donor status: company, registration 05137036'.\n\nNo regulator or court has made any finding of rule-breaking; the dual role is properly disclosed and predates Duncan Smith's most recent Cabinet appointments. The pattern of interest is structural rather than transactional: CSJ proposals shaped the welfare-reform agenda Duncan Smith later implemented from inside government, and CSJ continues to lobby successive governments (including the post-2024 Labour administration, per The Canary's 2024 reporting) on the welfare brief he chaired. Carried as a dual_role record so the connection is searchable from Duncan Smith's MP profile and from any future tracker entry on welfare-policy contracts.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Centre for Social Justice",
+        "note": "UK think tank (Companies House registration 05137036). Not a Gracchus-tracked supplier; carried as adjacent_firm. Receives no UK government contracts of public-record significance but is an active policy influencer on the DWP brief."
+      },
+      "timeframe": {
+        "start": "2004",
+        "end": null,
+        "periodLabel": "2004 – ongoing (with break May 2010 – Mar 2016 while in Cabinet)"
+      },
+      "financial": {
+        "personalIncomeGBP": 3370,
+        "personalIncomeDescription": "£3,370 of declared in-kind benefits (flights, accommodation, transport) from CSJ in May 2023 in Duncan Smith's capacity as Chairman; no salaried fee for the Chairmanship itself appears in the Register entries reviewed.",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government contracts to CSJ; the structural interest is policy-shaping rather than contractual."
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Register of Members' Financial Interests - Sir Iain Duncan Smith (as at 18 March 2024)",
+          "publisher": "House of Commons",
+          "url": "https://publications.parliament.uk/pa/cm/cmregmem/240318/duncan-smith_iain.htm",
+          "date": "2024-03-18"
+        },
+        {
+          "tier": "primary",
+          "title": "Members.parliament.uk - registered interests for Sir Iain Duncan Smith",
+          "publisher": "UK Parliament",
+          "url": "https://members.parliament.uk/member/152/registeredinterests",
+          "date": ""
+        },
+        {
+          "tier": "analysis",
+          "title": "Centre for Social Justice - history and policy outputs",
+          "publisher": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Centre_for_Social_Justice",
+          "date": ""
+        },
+        {
+          "tier": "news",
+          "title": "Iain Duncan Smith's notorious DWP think tank already lobbying Labour government",
+          "publisher": "The Canary",
+          "url": "https://www.thecanary.co/uk/analysis/2024/09/04/csj-labour-welfare/",
+          "date": "2024-09-04"
+        }
+      ]
+    },
+    {
+      "id": "whittingdale-media-acoba-portfolio",
+      "personId": "whittingdale-john",
+      "connectionType": "post_office_appointment",
+      "status": "closed_with_finding",
+      "liveProceedings": false,
+      "summary": "Sir John Whittingdale took multiple paid post-office appointments after leaving DCMS in July 2016 - Authors Licensing and Collecting Society, SWNS Media Group, the Federation for International Polo, and (without ACOBA permission) a £1,000-an-hour Alphasights consulting role on the Betting and Gaming Council brief - several of which sat in policy areas he had directly regulated.",
+      "detail": "Whittingdale was Secretary of State for Culture, Media and Sport from May 2015 to July 2016, with portfolio responsibility for press regulation, broadcasting (including audio-visual policy and the BBC charter review), gambling, and creative-industries copyright. After leaving Cabinet he sought ACOBA advice for paid roles including: SWNS Media Group (advisory board, c.1 day a month, advising on developments in the newspaper, audio-visual and online media sectors); Authors Licensing and Collecting Society (ALCS, regulatory and policy advice from April 2017, paid £2,000 a quarter from October 2018); and the Federation for International Polo (FIP) as a paid part-time consultant.\n\nIn 2022 openDemocracy and Business Insider reported that Whittingdale had taken a £1,000-an-hour consulting role with Alphasights, advising on the Betting and Gaming Council brief, without first seeking ACOBA permission. ACOBA published correspondence on Alphasights and the Betting and Gaming Council (linked above) recording the failure to seek prior advice. Whittingdale returned to government as Minister of State for Media and Data (2020-22) under Boris Johnson, with policy oversight again of the broadcasting and online-media sectors he had advised privately.\n\nNo court finding has been made. The pattern of interest is sector-overlap: every disclosed post-Cabinet role sat in the broadcasting, press, copyright or gambling-policy areas Whittingdale had departmental responsibility for as Culture Secretary, and the Alphasights/Betting and Gaming Council engagement was the subject of ACOBA correspondence after the fact. Carried as post_office_appointment with status closed_with_finding to reflect the ACOBA correspondence on the Alphasights breach.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "SWNS Media Group, ALCS, Federation for International Polo, Alphasights / Betting and Gaming Council",
+        "note": "None of these counterparties is a Gracchus-tracked prime contractor on the 116 monitored programmes; carried as adjacent_firm. The Betting and Gaming Council is a sector trade body, not a public-sector supplier."
+      },
+      "timeframe": {
+        "start": "2017-01",
+        "end": null,
+        "periodLabel": "Jan 2017 – ongoing"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "ALCS £8,000 / year from October 2018 (£2,000 a quarter); Alphasights consulting reported at £1,000 an hour; SWNS and FIP fees not publicly disclosed",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government contracts associated with these counterparties"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Advisory Committee on Business Appointments (ACOBA)",
+          "date": "2022-03",
+          "quotedText": "Correspondence between ACOBA and John Whittingdale regarding Alphasights & the Betting and Gaming Council.",
+          "url": "https://www.gov.uk/government/publications/whittingdale-john-former-secretary-of-state-for-culture-media-and-sport-dcms-acoba-recommendation/correspondence-between-acoba-and-john-whittingdale-regarding-alphasights-the-betting-and-gaming-council",
+          "outcome": "ACOBA correspondence published recording that Whittingdale did not seek prior ACOBA advice before taking the Alphasights consulting role on the Betting and Gaming Council brief."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Whittingdale, John - ACOBA recommendation page",
+          "publisher": "gov.uk (ACOBA)",
+          "url": "https://www.gov.uk/government/publications/whittingdale-john-former-secretary-of-state-for-culture-media-and-sport-dcms-acoba-recommendation",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Summary of business appointments applications - John Whittingdale",
+          "publisher": "gov.uk (ACOBA)",
+          "url": "https://www.gov.uk/government/publications/whittingdale-john-former-secretary-of-state-for-culture-media-and-sport-dcms-acoba-recommendation/summary-of-business-appointments-applications-john-whittingdale",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Correspondence between ACOBA and John Whittingdale regarding Alphasights & the Betting and Gaming Council",
+          "publisher": "gov.uk (ACOBA)",
+          "url": "https://www.gov.uk/government/publications/whittingdale-john-former-secretary-of-state-for-culture-media-and-sport-dcms-acoba-recommendation/correspondence-between-acoba-and-john-whittingdale-regarding-alphasights-the-betting-and-gaming-council",
+          "date": "2022-03-01"
+        },
+        {
+          "tier": "news",
+          "title": "Former UK gambling minister did not seek permission for £1,000-an-hour second job",
+          "publisher": "Business Insider",
+          "url": "https://www.businessinsider.in/politics/world/news/former-uk-gambling-minister-did-not-seek-permission-for-1000-an-hour-second-job/articleshow/90383889.cms",
+          "date": "2022-03-01"
         }
       ]
     }

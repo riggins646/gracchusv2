@@ -4,73 +4,81 @@
   "entries": [
     {
       "date": "2026-04-26",
+      "type": "coverage",
+      "title": "Catalogue expansion — 4 more connection stories",
+      "summary": "Added: JCB / Bamford family donor-contractor cluster (£19.15m donations, 70 records, 2003–2025; British Army backhoe contracts; £26m BEIS hydrogen grant); Boris Johnson post-office appointments (Daily Mail breach of ACOBA Rules + Ministerial Code, GB News approved with conditions); Sir Iain Duncan Smith Centre for Social Justice dual role (CSJ founder; Universal Credit policy lineage; Register of Members' Financial Interests); Sir John Whittingdale post-DCMS media-sector portfolio (SWNS, ALCS, FIP, plus ACOBA correspondence on the Alphasights / Betting and Gaming Council £1,000-an-hour role).",
+      "view": "moneymap",
+      "metric": "29 connection stories live"
+    },
+    {
+      "date": "2026-04-26",
       "type": "feature",
-      "title": "BuyerDetail \u2014 ministerial meeting counts",
-      "summary": "Open a tracked department's drawer (Cabinet Office, MoD, DHSC, Home Office, BEIS, HMT etc.) and the published ministerial-meeting count for 2012\u20132025 now sits as a small 'Ministerial access' section. Sourced from Office of the Registrar of Consultant Lobbyists data already on the site's Lobbying view. Honest about the scope: consultant lobbying only \u2014 in-house lobbying and informal access remain outside the public record.",
+      "title": "BuyerDetail — ministerial meeting counts",
+      "summary": "Open a tracked department's drawer (Cabinet Office, MoD, DHSC, Home Office, BEIS, HMT etc.) and the published ministerial-meeting count for 2012–2025 now sits as a small 'Ministerial access' section. Sourced from Office of the Registrar of Consultant Lobbyists data already on the site's Lobbying view. Honest about the scope: consultant lobbying only — in-house lobbying and informal access remain outside the public record.",
       "view": "moneymap",
       "metric": "+ ministerial-access on BuyerDetail"
     },
     {
       "date": "2026-04-26",
       "type": "feature",
-      "title": "PersonDetail \u2014 current-parliament declared interests for matched MPs",
-      "summary": "Open Sunak's PersonDetail drawer and you'll see his \u00a33.3m current-parliament outside income alongside the historical Infosys connection. Cox shows zero current-parliament earnings (the BVI work ended) but the section makes the negative explicit \u2014 'no outside earnings declared in current parliament' is an editorial fact too. Sourced from the Register of Members' Financial Interests via the existing 650-record MP dataset already used on the Transparency \u2192 MP Pay view. Matches by name normalisation with last-name + first-initial fallback for honorific variants ('Sir Geoffrey Cox KC' \u2192 'Geoffrey Cox'). Peers and non-MP subjects (Mone, Hammond, Crothers, Bourne etc.) skip the section silently \u2014 they're not in the Commons register.",
+      "title": "PersonDetail — current-parliament declared interests for matched MPs",
+      "summary": "Open Sunak's PersonDetail drawer and you'll see his £3.3m current-parliament outside income alongside the historical Infosys connection. Cox shows zero current-parliament earnings (the BVI work ended) but the section makes the negative explicit — 'no outside earnings declared in current parliament' is an editorial fact too. Sourced from the Register of Members' Financial Interests via the existing 650-record MP dataset already used on the Transparency → MP Pay view. Matches by name normalisation with last-name + first-initial fallback for honorific variants ('Sir Geoffrey Cox KC' → 'Geoffrey Cox'). Peers and non-MP subjects (Mone, Hammond, Crothers, Bourne etc.) skip the section silently — they're not in the Commons register.",
       "view": "moneymap",
       "metric": "+ MP register in PersonDetail"
     },
     {
       "date": "2026-04-26",
       "type": "feature",
-      "title": "Money Map \u2014 four saved 'quick view' presets",
-      "summary": "One click snaps the canvas to a curated cross-section: Donor-supplier overlap (firms holding contracts that funded the party in power), Defence cluster (MoD lens with people + lobbyists), Health spend cronyism (DHSC lens with donor overlaps), or Lobbyist access (consultant lobbyists and their tracked-supplier clients). Each preset sets layers, tier, minimum \u00a3, view mode and lens subject in a single move. Active preset highlighted in amber when current state matches. Sits in a 'Quick views' row above the filter chips on desktop and at the top of the mobile Filters sheet.",
+      "title": "Money Map — four saved 'quick view' presets",
+      "summary": "One click snaps the canvas to a curated cross-section: Donor-supplier overlap (firms holding contracts that funded the party in power), Defence cluster (MoD lens with people + lobbyists), Health spend cronyism (DHSC lens with donor overlaps), or Lobbyist access (consultant lobbyists and their tracked-supplier clients). Each preset sets layers, tier, minimum £, view mode and lens subject in a single move. Active preset highlighted in amber when current state matches. Sits in a 'Quick views' row above the filter chips on desktop and at the top of the mobile Filters sheet.",
       "view": "moneymap",
       "metric": "+ 4 quick-view presets"
     },
     {
       "date": "2026-04-26",
       "type": "feature",
-      "title": "Cross-link \u2014 Stories \u2194 Projects, both directions",
-      "summary": "Open a project dossier (HS2, Universal Credit IT, Crossrail etc.) and the connection records about its contractors now surface alongside the existing supplier breakdown \u2014 'Sir Robert McAlpine donated to Conservative party' lands on HS2's page automatically. Reverse direction too: open a Story card and a 'Projects involving [supplier]' section appears in the drawer, listing tracked Gracchus projects where the supplier is a contractor with a tap-through to each project's dossier. The catalogue stops being island-of-stories and starts behaving like a navigable graph.",
+      "title": "Cross-link — Stories ↔ Projects, both directions",
+      "summary": "Open a project dossier (HS2, Universal Credit IT, Crossrail etc.) and the connection records about its contractors now surface alongside the existing supplier breakdown — 'Sir Robert McAlpine donated to Conservative party' lands on HS2's page automatically. Reverse direction too: open a Story card and a 'Projects involving [supplier]' section appears in the drawer, listing tracked Gracchus projects where the supplier is a contractor with a tap-through to each project's dossier. The catalogue stops being island-of-stories and starts behaving like a navigable graph.",
       "view": "moneymap",
-      "metric": "+ bidirectional Stories\u2194Projects"
+      "metric": "+ bidirectional Stories↔Projects"
     },
     {
       "date": "2026-04-26",
       "type": "feature",
-      "title": "Money Map \u2014 base-layer default + Lens works for every node kind",
-      "summary": "First-time visitors now see the base layer (suppliers, buyers, projects, \u00a3-flow edges) by default rather than all 700+ nodes at once. People, parties, donors, lobbyists and adjacent firms are one click away \u2014 the Layers panel gains a Base-only / Show-all preset toggle. Supplier-overlap rings stay visible whatever the donor layer state \u2014 they're metadata on the supplier itself, not a separate entity. Lens mode now properly handles people, parties, donors and lobbyists as subject \u2014 click any of those bubbles or arrive via cmd-K and the canvas correctly pivots to the ego network.",
+      "title": "Money Map — base-layer default + Lens works for every node kind",
+      "summary": "First-time visitors now see the base layer (suppliers, buyers, projects, £-flow edges) by default rather than all 700+ nodes at once. People, parties, donors, lobbyists and adjacent firms are one click away — the Layers panel gains a Base-only / Show-all preset toggle. Supplier-overlap rings stay visible whatever the donor layer state — they're metadata on the supplier itself, not a separate entity. Lens mode now properly handles people, parties, donors and lobbyists as subject — click any of those bubbles or arrive via cmd-K and the canvas correctly pivots to the ego network.",
       "view": "moneymap",
       "metric": "+ readable defaults"
     },
     {
       "date": "2026-04-26",
       "type": "feature",
-      "title": "Money Map typography \u2014 brought into line with the FT/Bloomberg site scale",
-      "summary": "MoneyMapStyles had hard-coded font sizes from before the site-wide typography pass (6836066). Body prose, drawer text, story-card content, panel descriptions are now sized at 15\u201317px to match the rest of the site \u2014 not the smaller 11\u201314px Money Map was using since it was first built. Editorial smallness preserved where it earns its place (eyebrows, kickers, chips, citation glyphs, canvas bubble labels). Reader-prose bumped; UI chrome unchanged.",
+      "title": "Money Map typography — brought into line with the FT/Bloomberg site scale",
+      "summary": "MoneyMapStyles had hard-coded font sizes from before the site-wide typography pass (6836066). Body prose, drawer text, story-card content, panel descriptions are now sized at 15–17px to match the rest of the site — not the smaller 11–14px Money Map was using since it was first built. Editorial smallness preserved where it earns its place (eyebrows, kickers, chips, citation glyphs, canvas bubble labels). Reader-prose bumped; UI chrome unchanged.",
       "view": "moneymap",
       "metric": "+ readable on Money Map"
     },
     {
       "date": "2026-04-26",
       "type": "feature",
-      "title": "Companies House numbers on tracked suppliers \u2014 tighter overlap matcher",
-      "summary": "74 of the 576 tracked Gracchus suppliers now carry verified Companies House registration numbers, written to a sidecar at src/data/supplier-companies-house.json by a resumable precompute script (scripts/match-supplier-ch-numbers.py). Numbers were seeded in two passes from data already in the repo: Electoral Commission donor records (4 suppliers, primary source on conflict) and project-contractors.json (70 suppliers); a third optional pass calls the public CH search API once a key is configured. The donor-supplier overlap matcher in src/lib/donor-aggregation.js now runs CH-number match first (definitive) and falls back to name match second \u2014 catches subsidiaries, renamed companies, and parent groups the name-only matcher missed. Surfaces 2 new PwC donation streams that the name matcher was splitting away from supplier-pwc. A sanity guard rejects spurious CH matches where donor and supplier share no name overlap (e.g. an EC record with a stray CH number that happened to belong to an unrelated company). Closes the 'planned improvement' loop flagged in Methodology.",
+      "title": "Companies House numbers on tracked suppliers — tighter overlap matcher",
+      "summary": "74 of the 576 tracked Gracchus suppliers now carry verified Companies House registration numbers, written to a sidecar at src/data/supplier-companies-house.json by a resumable precompute script (scripts/match-supplier-ch-numbers.py). Numbers were seeded in two passes from data already in the repo: Electoral Commission donor records (4 suppliers, primary source on conflict) and project-contractors.json (70 suppliers); a third optional pass calls the public CH search API once a key is configured. The donor-supplier overlap matcher in src/lib/donor-aggregation.js now runs CH-number match first (definitive) and falls back to name match second — catches subsidiaries, renamed companies, and parent groups the name-only matcher missed. Surfaces 2 new PwC donation streams that the name matcher was splitting away from supplier-pwc. A sanity guard rejects spurious CH matches where donor and supplier share no name overlap (e.g. an EC record with a stray CH number that happened to belong to an unrelated company). Closes the 'planned improvement' loop flagged in Methodology.",
       "view": "moneymap",
       "metric": "+ CH-number matcher"
     },
     {
       "date": "2026-04-26",
       "type": "feature",
-      "title": "Money Map \u2014 Layers panel for dial-to-taste reading",
-      "summary": "New floating panel on the Money Map canvas (and a Layers section in the mobile Filters sheet) lets readers toggle visibility of each node kind \u2014 suppliers, buyers, projects, people, parties, donors, lobbyists, adjacent firms, and the various edge classes. Counts shown per layer. Hiding a node kind hides edges incident to it. Replaces the standalone show-donors and show-lobbyists toggles. Lets the canvas dial from 'everything at once' to 'just the donor-supplier overlap pattern' without changing data sources.",
+      "title": "Money Map — Layers panel for dial-to-taste reading",
+      "summary": "New floating panel on the Money Map canvas (and a Layers section in the mobile Filters sheet) lets readers toggle visibility of each node kind — suppliers, buyers, projects, people, parties, donors, lobbyists, adjacent firms, and the various edge classes. Counts shown per layer. Hiding a node kind hides edges incident to it. Replaces the standalone show-donors and show-lobbyists toggles. Lets the canvas dial from 'everything at once' to 'just the donor-supplier overlap pattern' without changing data sources.",
       "view": "moneymap",
       "metric": "+ Layers control"
     },
     {
       "date": "2026-04-26",
       "type": "feature",
-      "title": "Money Map v2 Phase 4 \u2014 lobbyists on the canvas",
-      "summary": "Adds 25 registered consultant lobbyist firms to the Money Map canvas as violet rings, derived from the Office of the Registrar of Consultant Lobbyists. Each lobbyist is wired to its declared clients where those clients match a tracked Gracchus supplier (Arup, AECOM, Cook Defence, BAE-related, BT, DXC, Heathrow, Bechtel, Balfour Beatty and others). The lobbyist drawer lists tracked-supplier clients with confidence badges plus the wider declared-client roster. The register only covers consultant lobbying \u2014 in-house lobbyists and informal access remain outside the public record. New shared util src/lib/lobbyist-aggregation.js carries the tightened matcher (token-overlap with confidence tiers; rejects 'Capital City College Group \u2192 Capita plc' style false positives that the donor matcher allowed).",
+      "title": "Money Map v2 Phase 4 — lobbyists on the canvas",
+      "summary": "Adds 25 registered consultant lobbyist firms to the Money Map canvas as violet rings, derived from the Office of the Registrar of Consultant Lobbyists. Each lobbyist is wired to its declared clients where those clients match a tracked Gracchus supplier (Arup, AECOM, Cook Defence, BAE-related, BT, DXC, Heathrow, Bechtel, Balfour Beatty and others). The lobbyist drawer lists tracked-supplier clients with confidence badges plus the wider declared-client roster. The register only covers consultant lobbying — in-house lobbyists and informal access remain outside the public record. New shared util src/lib/lobbyist-aggregation.js carries the tightened matcher (token-overlap with confidence tiers; rejects 'Capital City College Group → Capita plc' style false positives that the donor matcher allowed).",
       "view": "moneymap",
       "metric": "+25 lobbyist nodes"
     },
@@ -86,14 +94,14 @@
       "date": "2026-04-26",
       "type": "feature",
       "title": "Cmd-K finds people, firms, parties, donors",
-      "summary": "The cmd-K palette now searches across the Money Map v2 layer too. Type 'paterson', 'deloitte', 'conservative' or 'unite' and the right entity surfaces; selecting a result jumps you to the Money Map with the lens centred on it. Discovery is no longer canvas-only \u2014 every connection in the catalogue is reachable from anywhere on the site.",
+      "summary": "The cmd-K palette now searches across the Money Map v2 layer too. Type 'paterson', 'deloitte', 'conservative' or 'unite' and the right entity surfaces; selecting a result jumps you to the Money Map with the lens centred on it. Discovery is no longer canvas-only — every connection in the catalogue is reachable from anywhere on the site.",
       "view": "moneymap",
       "metric": "+4 cmd-K entity types"
     },
     {
       "date": "2026-04-26",
       "type": "feature",
-      "title": "Connections in Focus \u2014 stories on the homepage",
+      "title": "Connections in Focus — stories on the homepage",
       "summary": "Three featured connection stories now sit above the fold on the homepage, picked weekly by ISO-week-of-year: one regulator-finding case, one live-proceedings case, one pattern case (cross-party hedger / donor-contractor). Drags first-time visitors into the Money Map v2 work without forcing them to navigate. Same data, new front door.",
       "view": "moneymap",
       "metric": "3-story homepage feed"
