@@ -135,6 +135,48 @@ const TIER_STYLE = {
   D: { dash: "1 3.5", opacity: 0.40, colour: "#7a7a84", width: 1.0 },
 };
 
+/* 2026-04-26 — Layers control (task #115). The canonical list of layer ids
+   the reader can toggle via the floating Layers panel (desktop top-right)
+   and the Layers section in the mobile Filters sheet. Order matters here:
+   it determines panel row order. Node-kind ids match `node.kind` exactly
+   so visibleNodes can do a Set.has(n.kind) check; edge-kind ids match
+   either `edge.kind` (for the typed edges introduced in v2 phases 1-4)
+   or a virtual id we apply at filter time (e.g. "award" comes from
+   `edge.kind === "award"`). Default = all on so first paint shows the
+   full v2 Phase 4 picture; the reader dials down. */
+const LAYER_DEFS = [
+  // Money flow group
+  { id: "award",          group: "money",  scope: "edge", label: "Money-flow edges",
+    kind: "edge",         swatchColor: "#b8b8c2", dashed: false },
+  { id: "supplier",       group: "money",  scope: "node", label: "Suppliers",
+    kind: "node",         swatchColor: "#94a3b8" },
+  { id: "buyer",          group: "money",  scope: "node", label: "Buyers (departments)",
+    kind: "node",         swatchColor: "#60a5fa" },
+  { id: "project",        group: "money",  scope: "node", label: "Projects",
+    kind: "node",         swatchColor: "#a78bfa" },
+  // People + politics group
+  { id: "person",         group: "people", scope: "node", label: "People",
+    kind: "node",         swatchColor: "#fbbf24" },
+  { id: "party",          group: "people", scope: "node", label: "Parties",
+    kind: "node",         swatchColor: "#0087DC" },
+  { id: "donor",          group: "people", scope: "node", label: "Donors",
+    kind: "node",         swatchColor: "#94a3b8" },
+  { id: "lobbyist",       group: "people", scope: "node", label: "Lobbyists",
+    kind: "node",         swatchColor: "#c084fc" },
+  { id: "adjacent_firm",  group: "people", scope: "node", label: "Adjacent firms",
+    kind: "node",         swatchColor: "#525561" },
+  // Relational-edge group
+  { id: "person_party",     group: "edges", scope: "edge", label: "Person to party edges",
+    kind: "edge",           swatchColor: "#0087DC", dashed: true },
+  { id: "donor_party",      group: "edges", scope: "edge", label: "Donor to party edges",
+    kind: "edge",           swatchColor: "#DC241F", dashed: false },
+  { id: "lobbyist_client",  group: "edges", scope: "edge", label: "Lobbyist to client edges",
+    kind: "edge",           swatchColor: "#c084fc", dashed: true },
+  { id: "served_at",        group: "edges", scope: "edge", label: "Person served-at edges",
+    kind: "edge",           swatchColor: "#fbbf24", dashed: true },
+];
+const DEFAULT_VISIBLE_LAYERS = LAYER_DEFS.map((l) => l.id);
+
 const WIDTH = 1200;
 const HEIGHT = 720;
 
@@ -1113,12 +1155,112 @@ function MoneyMapStoriesStrip({ connections, peopleById, onOpen, onOpenPerson })
   );
 }
 
+/* =========================================================================
+ *  LayersPanel — task #115 (2026-04-26)
+ *
+ *  Reusable layer-toggle list. Renders both the floating desktop panel
+ *  (top-right of the canvas) and the Layers section embedded inside the
+ *  mobile Filters bottom sheet. Layout — header row with title and
+ *  conditional "Reset" link, then one row per LAYER_DEFS entry with
+ *  checkbox + colour swatch + label + count.
+ *
+ *  Swatch shape encodes scope: nodes render as a small filled disc, edges
+ *  render as a short line (dashed for relational edge kinds). Visual
+ *  vocabulary matches the canvas — the reader's eye learns one mapping.
+ *
+ *  Pure-presentation, no useState — all state lives in the host component.
+ * ========================================================================= */
+function LayersPanel({
+  visibleLayers,
+  toggleLayer,
+  resetLayers,
+  layersAreDefault,
+  layerCounts,
+  className = "",
+  variant = "panel", // "panel" | "section"
+}) {
+  // Group LAYER_DEFS for divider rendering.
+  const groups = useMemo(() => {
+    const out = { money: [], people: [], edges: [] };
+    for (const def of LAYER_DEFS) out[def.group].push(def);
+    return out;
+  }, []);
+  const renderRow = (def) => {
+    const checked = visibleLayers.has(def.id);
+    const count = layerCounts?.[def.id] ?? 0;
+    return (
+      <label key={def.id} className="mm-layers-row">
+        <input
+          type="checkbox"
+          className="mm-layers-checkbox"
+          checked={checked}
+          onChange={() => toggleLayer(def.id)}
+          aria-label={`Toggle ${def.label} layer`}
+        />
+        <span className="mm-layers-swatch" aria-hidden="true">
+          {def.scope === "node" ? (
+            <svg width="14" height="10" viewBox="0 0 14 10">
+              <circle cx="7" cy="5" r="4" fill={def.swatchColor} />
+            </svg>
+          ) : (
+            <svg width="22" height="6" viewBox="0 0 22 6">
+              <line
+                x1="0" y1="3" x2="22" y2="3"
+                stroke={def.swatchColor}
+                strokeWidth="1.6"
+                strokeDasharray={def.dashed ? "4 3" : null}
+                strokeLinecap="round"
+              />
+            </svg>
+          )}
+        </span>
+        <span className="mm-layers-label">{def.label}</span>
+        <span className="mm-layers-count">{count.toLocaleString()}</span>
+      </label>
+    );
+  };
+  return (
+    <div
+      className={
+        (variant === "panel" ? "mm-layers-panel " : "mm-layers-section ") +
+        className
+      }
+      role="group"
+      aria-label="Canvas layers"
+    >
+      <div className="mm-layers-head">
+        <span className="mm-layers-title">Layers</span>
+        {!layersAreDefault && (
+          <button
+            type="button"
+            className="mm-layers-reset"
+            onClick={resetLayers}
+            title="Show every layer again"
+          >
+            Reset
+          </button>
+        )}
+      </div>
+      <div className="mm-layers-body">
+        {groups.money.map(renderRow)}
+        <div className="mm-layers-divider" aria-hidden="true" />
+        {groups.people.map(renderRow)}
+        <div className="mm-layers-divider" aria-hidden="true" />
+        {groups.edges.map(renderRow)}
+      </div>
+    </div>
+  );
+}
+
 function MoneyMapFiltersSheet({
   open, onClose,
   tierFilter, setTierFilter,
   minGBP, setMinGBP,
   query, setQuery,
   viewMode, lensSubjectNode, resetLens,
+  // 2026-04-26 — task #115. Layers section appears inside the mobile
+  // Filters bottom sheet so the same controls are reachable on mobile.
+  visibleLayers, toggleLayer, resetLayers, layersAreDefault, layerCounts,
 }) {
   const sheetRef = useDrawerFocus(onClose);
   if (!open) return null;
@@ -1230,6 +1372,21 @@ function MoneyMapFiltersSheet({
               </div>
             </div>
           )}
+
+          {/* 2026-04-26 — task #115. Layers section, mirrors the desktop
+              floating panel. Same checkbox + swatch + count pattern. */}
+          {visibleLayers && (
+            <div className="mm-sheet-group">
+              <LayersPanel
+                visibleLayers={visibleLayers}
+                toggleLayer={toggleLayer}
+                resetLayers={resetLayers}
+                layersAreDefault={layersAreDefault}
+                layerCounts={layerCounts}
+                variant="section"
+              />
+            </div>
+          )}
         </div>
 
         <div className="mm-sheet-foot">
@@ -1292,16 +1449,38 @@ export default function MoneyMap({
     MIN_GBP_STEPS.includes(urlInit.min) ? urlInit.min : 1_000_000
   );
   const [query, setQuery] = useState(() => urlInit.q || "");
-  /* v2 Phase 3 — donor visibility toggle. Default ON so the new layer
-     materialises on first paint (the whole point of the phase). When OFF,
-     donor nodes and donor→party edges hide and supplier-overlap nodes
-     drop their concentric ring. */
-  const [showDonors, setShowDonors] = useState(true);
-  /* v2 Phase 4 — lobbyist visibility toggle. Default ON so the new
-     ORCL-derived layer materialises on first paint. When OFF, lobbyist
-     nodes + lobbyist→supplier edges hide. Independent of showDonors so
-     a reader can isolate the access-vs-money axes. */
-  const [showLobbyists, setShowLobbyists] = useState(true);
+  /* 2026-04-26 — Layers control (task #115). Single source of truth for
+     which node and edge kinds are rendered on the canvas. Replaces the
+     standalone showDonors / showLobbyists toggles shipped in v2 Phase
+     3 + Phase 4 — those become two of the layer rows in the new panel.
+     Default = everything on; readers dial down via the Layers panel
+     (desktop top-right) or the Layers section in the mobile Filters
+     sheet. Hiding a node kind also hides any edge incident to it (see
+     visibleEdges memo) so the canvas never carries orphan stubs. */
+  const [visibleLayers, setVisibleLayers] = useState(
+    () => new Set(DEFAULT_VISIBLE_LAYERS)
+  );
+  // Keep the old showDonors / showLobbyists naming where the existing
+  // edge-augmentation logic reads them; derive both from the layer set
+  // so the upstream code path doesn't need to learn about layers.
+  const showDonors    = visibleLayers.has("donor");
+  const showLobbyists = visibleLayers.has("lobbyist");
+  const layersAreDefault = useMemo(
+    () => visibleLayers.size === DEFAULT_VISIBLE_LAYERS.size &&
+          DEFAULT_VISIBLE_LAYERS.every((id) => visibleLayers.has(id)),
+    [visibleLayers]
+  );
+  const toggleLayer = useCallback((id) => {
+    setVisibleLayers((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  }, []);
+  const resetLayers = useCallback(
+    () => setVisibleLayers(new Set(DEFAULT_VISIBLE_LAYERS)),
+    []
+  );
   const [selection, setSelection] = useState(null);   // { kind, id } | null
 
   /* ---------- mobile layout mode (audit rec #98) ----------
@@ -2022,7 +2201,10 @@ export default function MoneyMap({
      Tier A+B and Min £ 1m are defaults — any deviation counts as
      an active filter. Search string and non-default lens subject
      each contribute one too. Purely cosmetic: drives the "(N)"
-     badge on the mobile Filters button. */
+     badge on the mobile Filters button.
+     2026-04-26 (task #115): if the Layers state diverges from the
+     defaults, count one extra (we don't itemise per-layer — single
+     bump is enough signal that "the canvas is dialled down"). */
   const activeFilterCount = useMemo(() => {
     let n = 0;
     if (tierFilter !== "AB") n += 1;
@@ -2032,8 +2214,42 @@ export default function MoneyMap({
       const defaultLens = (data.featuredIds && data.featuredIds[0]) || null;
       if (lensSubjectId && lensSubjectId !== defaultLens) n += 1;
     }
+    if (!layersAreDefault) n += 1;
     return n;
-  }, [tierFilter, minGBP, query, viewMode, lensSubjectId, data.featuredIds]);
+  }, [tierFilter, minGBP, query, viewMode, lensSubjectId, data.featuredIds, layersAreDefault]);
+
+  /* ---------- per-layer counts (task #115) ----------
+     Right-aligned counts shown next to each layer row in the Layers
+     panel. We count from the augmented full graph (data.nodes plus
+     people / donor / lobbyist augments) rather than the currently
+     visible subset — the count tells the reader "this layer carries
+     N entities" not "N are on screen right now", which would loop
+     confusingly when they toggle the layer off. Edges are counted
+     against augmentation source arrays for the same reason. */
+  const layerCounts = useMemo(() => {
+    const c = {};
+    for (const def of LAYER_DEFS) c[def.id] = 0;
+    // Node kinds — base graph + augments. nodesById already merges all.
+    for (const n of nodesById.values()) {
+      if (c[n.kind] != null) c[n.kind] += 1;
+    }
+    // Edge kinds.
+    for (const e of (data.edges?.awards || [])) {
+      if (e && e.kind === "award") c.award += 1;
+    }
+    for (const e of (peopleAugment.edges || [])) {
+      if (!e) continue;
+      if (e.kind === "person_party")     c.person_party += 1;
+      else if (e.kind === "served_at")   c.served_at += 1;
+    }
+    for (const e of (donorAugment.edges || [])) {
+      if (e && e.kind === "donor_party") c.donor_party += 1;
+    }
+    for (const e of (lobbyistAugment.edges || [])) {
+      if (e && e.kind === "lobbyist_client") c.lobbyist_client += 1;
+    }
+    return c;
+  }, [nodesById, data.edges, peopleAugment.edges, donorAugment.edges, lobbyistAugment.edges]);
 
   /* ---------- individual-connection lookups (task #104) ----------
      Bundle the full connection list and its person index once, and
@@ -2345,20 +2561,44 @@ export default function MoneyMap({
     const arr = [];
     for (const id of filteredEdges.reachable) {
       const n = nodesById.get(id);
-      if (n) arr.push(n);
+      if (!n) continue;
+      // Layers control: drop nodes whose kind has been toggled off.
+      if (!visibleLayers.has(n.kind)) continue;
+      arr.push(n);
     }
     return arr;
-  }, [filteredEdges.reachable, nodesById]);
+  }, [filteredEdges.reachable, nodesById, visibleLayers]);
 
   const visibleEdges = useMemo(() => {
-    return [
+    const all = [
       ...filteredEdges.awards.map((e) => ({ ...e, _kind: "award" })),
       ...filteredEdges.projectMembers.map((e) => ({ ...e, _kind: "project" })),
       ...((filteredEdges.personEdges || []).map((e) => ({ ...e, _kind: "person" }))),
       ...((filteredEdges.donorEdges || []).map((e) => ({ ...e, _kind: "donor" }))),
       ...((filteredEdges.lobbyistEdges || []).map((e) => ({ ...e, _kind: "lobbyist" }))),
     ];
-  }, [filteredEdges]);
+    // Layers control. Two passes:
+    //  (a) per-edge layer toggle — match either e.kind (typed v2 edges)
+    //      or e._kind === "award" (legacy money-flow edge).
+    //  (b) drop edges incident to a node kind the reader has hidden, so
+    //      the canvas doesn't carry orphan stubs that go to nowhere.
+    return all.filter((e) => {
+      // (a) per-edge-kind toggle
+      if (e._kind === "award" && !visibleLayers.has("award")) return false;
+      if (e.kind === "person_party"     && !visibleLayers.has("person_party")) return false;
+      if (e.kind === "donor_party"      && !visibleLayers.has("donor_party"))  return false;
+      if (e.kind === "lobbyist_client"  && !visibleLayers.has("lobbyist_client")) return false;
+      if (e.kind === "served_at"        && !visibleLayers.has("served_at"))    return false;
+      // (b) endpoint-kind gating
+      const sId = typeof e.s === "string" ? e.s : e.s?.id;
+      const tId = typeof e.t === "string" ? e.t : e.t?.id;
+      const sNode = sId != null ? nodesById.get(sId) : null;
+      const tNode = tId != null ? nodesById.get(tId) : null;
+      if (sNode && !visibleLayers.has(sNode.kind)) return false;
+      if (tNode && !visibleLayers.has(tNode.kind)) return false;
+      return true;
+    });
+  }, [filteredEdges, visibleLayers, nodesById]);
 
   const selected = selection
     ? selection.kind === "node"
@@ -3230,30 +3470,11 @@ export default function MoneyMap({
         >
           Min £: {fmtGBP(minGBP)} <span className="mm-chip-cycle" aria-hidden="true">⇵</span>
         </Chip>
-        {/* v2 Phase 3 — donor visibility toggle. Default ON so the new
-            donor → party layer materialises on first paint; OFF returns
-            the canvas to the v2 Phase 2 state (people + parties only). */}
-        <Chip
-          active={showDonors}
-          onClick={() => setShowDonors((v) => !v)}
-          title={showDonors
-            ? "Hide top-25 political donors and their party-of-recipient edges"
-            : "Show top-25 political donors and their party-of-recipient edges"}
-        >
-          {showDonors ? "Donors: on" : "Donors: off"}
-        </Chip>
-        {/* v2 Phase 4 — registered consultant lobbyists. Default ON.
-            When OFF, the violet ring nodes + their dashed edges to
-            tracked suppliers hide. Independent of Donors toggle. */}
-        <Chip
-          active={showLobbyists}
-          onClick={() => setShowLobbyists((v) => !v)}
-          title={showLobbyists
-            ? "Hide registered consultant lobbyists and their tracked-supplier edges"
-            : "Show registered consultant lobbyists and their tracked-supplier edges"}
-        >
-          {showLobbyists ? "Lobbyists: on" : "Lobbyists: off"}
-        </Chip>
+        {/* 2026-04-26 — task #115. The standalone Donors / Lobbyists
+            chips were retired here in favour of the floating Layers
+            panel (desktop top-right of the canvas) and the Layers
+            section in the mobile Filters bottom sheet. Single source
+            of truth for "what's visible on the canvas right now". */}
         <span style={{ marginLeft: "auto", color: "#6b7280", fontSize: 12 }}>
           {visibleNodes.length} nodes · {visibleEdges.length} edges
         </span>
@@ -3440,6 +3661,11 @@ export default function MoneyMap({
             viewMode={viewMode}
             lensSubjectNode={lensSubjectNode}
             resetLens={resetLens}
+            visibleLayers={visibleLayers}
+            toggleLayer={toggleLayer}
+            resetLayers={resetLayers}
+            layersAreDefault={layersAreDefault}
+            layerCounts={layerCounts}
           />
         </>
       ) : null}
@@ -3526,6 +3752,20 @@ export default function MoneyMap({
               PNG
             </button>
           </div>
+
+          {/* Top-right (below export): floating Layers panel. Lets the
+              reader toggle visibility of each node kind / edge kind on
+              the canvas. Replaces the standalone Donors / Lobbyists
+              chips that lived in the toolbar. Hidden on mobile — mobile
+              uses the Layers section in the Filters bottom sheet. */}
+          <LayersPanel
+            visibleLayers={visibleLayers}
+            toggleLayer={toggleLayer}
+            resetLayers={resetLayers}
+            layersAreDefault={layersAreDefault}
+            layerCounts={layerCounts}
+            className="mm-layers-panel-desktop"
+          />
 
           {/* Bottom-right: user guidance hint */}
           <div className="mm-canvas-hint">
@@ -5886,6 +6126,127 @@ function MoneyMapStyles() {
       }
       .mm-canvas-action[disabled] {
         opacity: 0.5; cursor: not-allowed;
+      }
+
+      /* ============================================================
+         Layers panel — task #115 (2026-04-26).
+         Floating panel top-right of the canvas; hidden on mobile
+         (mobile renders the same control as a section inside the
+         Filters bottom sheet via .mm-layers-section).
+         ============================================================ */
+      .mm-layers-panel {
+        position: absolute;
+        top: 56px;            /* sits below the PNG export button */
+        right: 14px;
+        width: 240px;
+        z-index: 4;
+        background: rgba(11, 12, 16, 0.92);
+        border: 1px solid var(--mm-border);
+        border-radius: 12px;
+        padding: 14px;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+        font-family: var(--mm-mono);
+        color: var(--mm-fg-dim);
+      }
+      /* Mobile hide for the desktop floating variant. The mobile
+         experience uses the .mm-layers-section variant inside the
+         Filters bottom sheet instead. */
+      @media (max-width: 767px) {
+        .mm-layers-panel-desktop { display: none; }
+      }
+      .mm-layers-section {
+        font-family: var(--mm-mono);
+        color: var(--mm-fg-dim);
+      }
+      .mm-layers-head {
+        display: flex; align-items: baseline; justify-content: space-between;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--mm-border);
+      }
+      .mm-layers-title {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--mm-fg-mute);
+      }
+      .mm-layers-reset {
+        background: none;
+        border: none;
+        color: #93c5fd;
+        font-family: var(--mm-mono);
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        cursor: pointer;
+        padding: 0;
+      }
+      .mm-layers-reset:hover { color: #bfdbfe; text-decoration: underline; }
+      .mm-layers-reset:focus-visible {
+        outline: 2px solid #93c5fd;
+        outline-offset: 2px;
+      }
+      .mm-layers-body {
+        display: flex; flex-direction: column; gap: 2px;
+      }
+      .mm-layers-row {
+        display: flex; align-items: center; gap: 8px;
+        padding: 4px 2px;
+        font-size: 12px;
+        color: var(--mm-fg);
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      .mm-layers-row:hover { background: rgba(255,255,255,0.03); }
+      .mm-layers-checkbox {
+        appearance: none;
+        width: 13px; height: 13px;
+        border: 1px solid var(--mm-border-2);
+        border-radius: 3px;
+        background: rgba(0,0,0,0.4);
+        cursor: pointer;
+        position: relative;
+        flex-shrink: 0;
+      }
+      .mm-layers-checkbox:checked {
+        background: #3b82f6;
+        border-color: #3b82f6;
+      }
+      .mm-layers-checkbox:checked::after {
+        content: '';
+        position: absolute;
+        left: 3px; top: 0px;
+        width: 4px; height: 8px;
+        border: solid #fff;
+        border-width: 0 1.5px 1.5px 0;
+        transform: rotate(45deg);
+      }
+      .mm-layers-checkbox:focus-visible {
+        outline: 2px solid #93c5fd; outline-offset: 1px;
+      }
+      .mm-layers-swatch {
+        display: inline-flex;
+        align-items: center; justify-content: center;
+        width: 22px; flex-shrink: 0;
+      }
+      .mm-layers-label {
+        flex: 1; min-width: 0;
+        font-size: 12px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .mm-layers-count {
+        font-variant-numeric: tabular-nums;
+        font-size: 10.5px;
+        color: var(--mm-fg-mute);
+        flex-shrink: 0;
+      }
+      .mm-layers-divider {
+        height: 1px;
+        margin: 6px 0;
+        background: var(--mm-border);
       }
 
       /* Empty-canvas overlay — when filters hide every node */

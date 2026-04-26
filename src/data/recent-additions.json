@@ -5,6 +5,14 @@
     {
       "date": "2026-04-26",
       "type": "feature",
+      "title": "Money Map \u2014 Layers panel for dial-to-taste reading",
+      "summary": "New floating panel on the Money Map canvas (and a Layers section in the mobile Filters sheet) lets readers toggle visibility of each node kind \u2014 suppliers, buyers, projects, people, parties, donors, lobbyists, adjacent firms, and the various edge classes. Counts shown per layer. Hiding a node kind hides edges incident to it. Replaces the standalone show-donors and show-lobbyists toggles. Lets the canvas dial from 'everything at once' to 'just the donor-supplier overlap pattern' without changing data sources.",
+      "view": "moneymap",
+      "metric": "+ Layers control"
+    },
+    {
+      "date": "2026-04-26",
+      "type": "feature",
       "title": "Money Map v2 Phase 4 \u2014 lobbyists on the canvas",
       "summary": "Adds 25 registered consultant lobbyist firms to the Money Map canvas as violet rings, derived from the Office of the Registrar of Consultant Lobbyists. Each lobbyist is wired to its declared clients where those clients match a tracked Gracchus supplier (Arup, AECOM, Cook Defence, BAE-related, BT, DXC, Heathrow, Bechtel, Balfour Beatty and others). The lobbyist drawer lists tracked-supplier clients with confidence badges plus the wider declared-client roster. The register only covers consultant lobbying \u2014 in-house lobbyists and informal access remain outside the public record. New shared util src/lib/lobbyist-aggregation.js carries the tightened matcher (token-overlap with confidence tiers; rejects 'Capital City College Group \u2192 Capita plc' style false positives that the donor matcher allowed).",
       "view": "moneymap",
