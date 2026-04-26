@@ -68,6 +68,41 @@ import {
    sitting MPs. Honorific-tolerant matcher with last-name + first-initial
    fallback. */
 import { matchMpRecord } from "../lib/mp-aggregation";
+/* 2026-04-26 — task #122. BuyerDetail surfaces the published ministerial
+   meeting count for the department (2012–2025) when the buyer id maps to
+   one of the 10 departments in lobbying.json's
+   ministerialMeetings.meetingsByDepartment list. Source: Office of the
+   Registrar of Consultant Lobbyists / Transparency International UK
+   (already shipping on the Lobbying view). The site-wide Lobbying section
+   already imports the file via Dashboard, so this re-import doesn't add
+   to the bundle in a meaningful way. */
+import lobbyingDataForBuyer from "../data/lobbying.json";
+
+/* Department-name → canonical Gracchus buyer-id map. Verified against
+   money-map.json — only entries with a tracked buyer id are listed; the
+   four publishing departments without a tracked Gracchus buyer (HM
+   Treasury, FCDO, DfT top-level, DBT-as-such) are intentionally absent
+   so we don't surface a count under the wrong drawer. BEIS is included
+   as the predecessor of DBT (the meeting count covers 2012–2025 and most
+   of that window is BEIS-era). */
+const MEETINGS_BY_BUYER_ID = (() => {
+  const NAME_TO_ID = {
+    "Cabinet Office": "buyer-cabinet-office",
+    "DHSC (Health)": "buyer-department-of-health-and-social-care",
+    "Home Office": "buyer-home-office",
+    "DESNZ (Energy)": "buyer-desnz",
+    "DBT (Business & Trade)": "buyer-beis",
+    "DWP (Work & Pensions)": "buyer-dwp",
+    "MoD (Defence)": "buyer-ministry-of-defence",
+  };
+  const out = {};
+  const list = lobbyingDataForBuyer?.ministerialMeetings?.meetingsByDepartment || [];
+  for (const row of list) {
+    const id = NAME_TO_ID[row.department];
+    if (id) out[id] = row.approxMeetings;
+  }
+  return out;
+})();
 
 /* ---------- constants ---------- */
 const TYPE_COLOUR = {
@@ -5524,6 +5559,27 @@ function Drawer({
           <div className="mm-d-section-h">Scores · current window</div>
           <DrawerScores node={node} />
 
+          {/* 2026-04-26 — task #122. Ministerial-access section. Surfaces
+              the published ministerial meeting count for tracked
+              departments (Cabinet Office, MoD, DHSC, Home Office, BEIS,
+              DESNZ, DWP). Honest about scope: register covers consultant
+              lobbying / formal meetings only — in-house lobbying and
+              informal access remain outside the public record. */}
+          {node.kind === "buyer" && MEETINGS_BY_BUYER_ID[node.id] != null && (
+            <section className="mm-buyer-meetings">
+              <div className="mm-d-section-h">Ministerial access</div>
+              <p className="mm-buyer-meetings-stat">
+                <span className="mm-buyer-meetings-num">
+                  {MEETINGS_BY_BUYER_ID[node.id].toLocaleString()}
+                </span>
+                {" "}ministerial meetings with outside organisations published 2012&ndash;2025
+              </p>
+              <p className="mm-buyer-meetings-foot">
+                Source: Office of the Registrar of Consultant Lobbyists / Transparency International UK. Coverage is consultant-lobbying only &mdash; in-house lobbying and informal access remain outside the public record.
+              </p>
+            </section>
+          )}
+
           {/* v2 Phase 3 — Political giving section, only when this supplier
               is also on the donor list. Lists per-party totals, donation
               counts, and links across to each party's drawer. The supplier
@@ -6700,6 +6756,24 @@ function MoneyMapStyles() {
       .mm-why-undisclosed-body li { margin: 3px 0; }
       .mm-why-undisclosed-foot {
         margin-top: 8px; font-size: 12px; color: var(--mm-fg-mute);
+      }
+      /* 2026-04-26 — task #122. Ministerial-access section in BuyerDetail.
+         Prominent figure (serif tabular) followed by a 17px body line and
+         a 13px source-attribution foot. */
+      .mm-buyer-meetings { margin: 6px 0 10px; }
+      .mm-buyer-meetings-stat {
+        font-size: 17px; line-height: 1.55;
+        color: var(--mm-fg); margin: 4px 0 6px;
+      }
+      .mm-buyer-meetings-num {
+        font-family: var(--mm-serif); font-size: 26px;
+        font-feature-settings: "tnum" 1; font-variant-numeric: tabular-nums;
+        color: var(--mm-fg); font-weight: 600;
+        margin-right: 2px;
+      }
+      .mm-buyer-meetings-foot {
+        font-size: 13px; line-height: 1.5;
+        color: var(--mm-fg-mute); margin: 0;
       }
       .mm-edge-meta {
         grid-column: 1 / -1;

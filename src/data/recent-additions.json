@@ -5,6 +5,14 @@
     {
       "date": "2026-04-26",
       "type": "feature",
+      "title": "BuyerDetail \u2014 ministerial meeting counts",
+      "summary": "Open a tracked department's drawer (Cabinet Office, MoD, DHSC, Home Office, BEIS, HMT etc.) and the published ministerial-meeting count for 2012\u20132025 now sits as a small 'Ministerial access' section. Sourced from Office of the Registrar of Consultant Lobbyists data already on the site's Lobbying view. Honest about the scope: consultant lobbying only \u2014 in-house lobbying and informal access remain outside the public record.",
+      "view": "moneymap",
+      "metric": "+ ministerial-access on BuyerDetail"
+    },
+    {
+      "date": "2026-04-26",
+      "type": "feature",
       "title": "PersonDetail \u2014 current-parliament declared interests for matched MPs",
       "summary": "Open Sunak's PersonDetail drawer and you'll see his \u00a33.3m current-parliament outside income alongside the historical Infosys connection. Cox shows zero current-parliament earnings (the BVI work ended) but the section makes the negative explicit \u2014 'no outside earnings declared in current parliament' is an editorial fact too. Sourced from the Register of Members' Financial Interests via the existing 650-record MP dataset already used on the Transparency \u2192 MP Pay view. Matches by name normalisation with last-name + first-initial fallback for honorific variants ('Sir Geoffrey Cox KC' \u2192 'Geoffrey Cox'). Peers and non-MP subjects (Mone, Hammond, Crothers, Bourne etc.) skip the section silently \u2014 they're not in the Commons register.",
       "view": "moneymap",
