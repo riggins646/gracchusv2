@@ -1,7 +1,15 @@
 {
   "$comment": "Human-curated feed of notable additions to Gracchus. Append newest-first. Types: tranche | project | disclosure | coverage | dataset | feature. `view` is a Dashboard view id (matches VIEW_SLUGS keys); omit to render without a CTA.",
-  "updatedAt": "2026-04-25",
+  "updatedAt": "2026-04-26",
   "entries": [
+    {
+      "date": "2026-04-26",
+      "type": "feature",
+      "title": "Money Map v2 \u2014 donor-supplier overlap surfacing live",
+      "summary": "Phase 3 now processes the full 6,819-record donations dataset (was: top-100 aggregate, which surfaced zero overlaps). Nine real overlaps now appear on the canvas \u2014 Deloitte LLP, Sir Robert McAlpine, William Cook Defence Systems, Canary Wharf Group, Heathrow Airport Holdings, Imagination Industries. Each is a tracked supplier whose firm also donated to a UK political party; the supplier bubble carries a coloured ring in the dominant funded party's colour. The supplier drawer now has a 'Political giving' section with per-party totals and donation date range. The Gracchus thesis \u2014 firms that hold government contracts also funding the party that gives them out \u2014 is finally legible at a glance.",
+      "view": "moneymap",
+      "metric": "9 supplier-donors live"
+    },
     {
       "date": "2026-04-24",
       "type": "feature",

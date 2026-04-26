@@ -56,6 +56,7 @@ import dailyCostData from "../data/daily-cost-projects.json";
 import planningData from "../data/planning-approvals.json";
 import delaysData from "../data/delays-delivery.json";
 import donationsData from "../data/political-donations.json";
+import donationRecordsData from "../data/donations-records.json";
 import foreignAidData from "../data/foreign-aid.json";
 import fcdoProgrammes from "../data/fcdo-programmes.json";
 import mpInterestsData from "../data/mp-interests.json";
@@ -7058,25 +7059,22 @@ function AppInner() {
   const [donSortDir, setDonSortDir] = useState("desc");
   const [donPage, setDonPage] = useState(0);
   const [selectedDonation, setSelectedDonation] = useState(null);
-  const [donationRecords, setDonationRecords] = useState([]);
-  const [donRecordsLoading, setDonRecordsLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("/data/donations-records.json")
-      .then(r => r.json())
-      .then(data => {
-        const decoded = (data.donations || []).map(rec => ({
-          ecRef: rec.r, entity: rec.e, party: rec.p, donor: rec.d,
-          value: rec.v, accepted: rec.a, donationType: rec.t,
-          donorStatus: rec.s, companyReg: rec.c, nature: rec.n || "",
-          received: rec.rv, reported: rec.rp, doneeType: rec.dt || "",
-          govPeriod: rec.g,
-        }));
-        setDonationRecords(decoded);
-        setDonRecordsLoading(false);
-      })
-      .catch(() => setDonRecordsLoading(false));
-  }, []);
+  // 2026-04-26 — donations-records.json moved from public/ to src/ so the
+  // Money Map Phase 3 follow-up can run supplier-overlap matching against
+  // the full 6,819-record dataset synchronously at canvas load. Switching
+  // this Cronyism page from runtime fetch → bundled import preserves the
+  // same decoded shape downstream while saving a network round-trip.
+  const donationRecords = useMemo(
+    () => (donationRecordsData?.donations || []).map(rec => ({
+      ecRef: rec.r, entity: rec.e, party: rec.p, donor: rec.d,
+      value: rec.v, accepted: rec.a, donationType: rec.t,
+      donorStatus: rec.s, companyReg: rec.c, nature: rec.n || "",
+      received: rec.rv, reported: rec.rp, doneeType: rec.dt || "",
+      govPeriod: rec.g,
+    })),
+    []
+  );
+  const donRecordsLoading = false;
 
   // MP Accountability Tracker view state
   const [mpPartyFilter, setMpPartyFilter] = useState("All");
