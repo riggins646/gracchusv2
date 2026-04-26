@@ -59,6 +59,7 @@ import delaysData from "../data/delays-delivery.json";
 import donationsData from "../data/political-donations.json";
 import donationRecordsData from "../data/donations-records.json";
 import lobbyistRecordsData from "../data/lobbyist-records.json";
+import mpRecordsData from "../data/mp-records.json";
 import foreignAidData from "../data/foreign-aid.json";
 import fcdoProgrammes from "../data/fcdo-programmes.json";
 import mpInterestsData from "../data/mp-interests.json";
@@ -7251,19 +7252,16 @@ function AppInner() {
   const [mpSortDir, setMpSortDir] = useState("desc");
   const [mpPage, setMpPage] = useState(0);
   const [mpSelectedMP, setMpSelectedMP] = useState(null);
-  const [mpRecords, setMpRecords] = useState([]);
-  const [mpRecordsLoading, setMpRecordsLoading] = useState(true);
+  /* 2026-04-26 — task #121. mp-records.json moved from public/data/ to
+     src/data/ so it bundles into the lazy-loaded MoneyMap chunk (the new
+     PersonDetail Register-of-Interests block needs it synchronously at
+     drawer-open time). The MP Pay view here gets the same bundled object
+     for free, swapping the runtime fetch for a const — no async race, no
+     second JSON parse. setMpRecords stays so the existing setter sites
+     downstream don't change shape. */
+  const [mpRecords] = useState(mpRecordsData?.mps || []);
+  const mpRecordsLoading = false;
   const [mpDetailTab, setMpDetailTab] = useState("overview");
-
-  useEffect(() => {
-    fetch("/data/mp-records.json")
-      .then(r => r.json())
-      .then(data => {
-        setMpRecords(data.mps || []);
-        setMpRecordsLoading(false);
-      })
-      .catch(() => setMpRecordsLoading(false));
-  }, []);
 
   // Lobbying view state
   const [lobSearchQuery, setLobSearchQuery] = useState("");

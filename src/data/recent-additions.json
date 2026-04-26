@@ -5,6 +5,14 @@
     {
       "date": "2026-04-26",
       "type": "feature",
+      "title": "PersonDetail \u2014 current-parliament declared interests for matched MPs",
+      "summary": "Open Sunak's PersonDetail drawer and you'll see his \u00a33.3m current-parliament outside income alongside the historical Infosys connection. Cox shows zero current-parliament earnings (the BVI work ended) but the section makes the negative explicit \u2014 'no outside earnings declared in current parliament' is an editorial fact too. Sourced from the Register of Members' Financial Interests via the existing 650-record MP dataset already used on the Transparency \u2192 MP Pay view. Matches by name normalisation with last-name + first-initial fallback for honorific variants ('Sir Geoffrey Cox KC' \u2192 'Geoffrey Cox'). Peers and non-MP subjects (Mone, Hammond, Crothers, Bourne etc.) skip the section silently \u2014 they're not in the Commons register.",
+      "view": "moneymap",
+      "metric": "+ MP register in PersonDetail"
+    },
+    {
+      "date": "2026-04-26",
+      "type": "feature",
       "title": "Money Map \u2014 four saved 'quick view' presets",
       "summary": "One click snaps the canvas to a curated cross-section: Donor-supplier overlap (firms holding contracts that funded the party in power), Defence cluster (MoD lens with people + lobbyists), Health spend cronyism (DHSC lens with donor overlaps), or Lobbyist access (consultant lobbyists and their tracked-supplier clients). Each preset sets layers, tier, minimum \u00a3, view mode and lens subject in a single move. Active preset highlighted in amber when current state matches. Sits in a 'Quick views' row above the filter chips on desktop and at the top of the mobile Filters sheet.",
       "view": "moneymap",

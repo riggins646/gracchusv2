@@ -62,6 +62,12 @@ import {
   mergeDonorParties,
   pickDominantParty,
 } from "../lib/donor-aggregation";
+/* 2026-04-26 — task #121. PersonDetail surfaces the current-parliament
+   Register of Members' Financial Interests entry alongside the historical
+   connection record, when the subject's name resolves to one of the 650
+   sitting MPs. Honorific-tolerant matcher with last-name + first-initial
+   fallback. */
+import { matchMpRecord } from "../lib/mp-aggregation";
 
 /* ---------- constants ---------- */
 const TYPE_COLOUR = {
@@ -4549,6 +4555,23 @@ function PersonDetail({
     }
     return Array.from(seen.values());
   }, [connections, projectsBySupplierId]);
+
+  /* task #121 — match the subject (when not a firm) to their current-parliament
+     Register-of-Interests entry. Returns null for peers, former MPs and
+     anyone not on the Commons register. */
+  const mpRecord = useMemo(
+    () => (isFirm ? null : matchMpRecord(node.label)),
+    [isFirm, node.label]
+  );
+  const mpHasFigures =
+    mpRecord &&
+    ((mpRecord.oi || 0) > 0 ||
+      (mpRecord.gi || 0) > 0 ||
+      (mpRecord.dn || 0) > 0 ||
+      (mpRecord.prC || 0) > 0 ||
+      (mpRecord.shC || 0) > 0 ||
+      (mpRecord.fmC || 0) > 0);
+
   return (
     <aside
       ref={drawerRef}
@@ -4610,6 +4633,74 @@ function PersonDetail({
               ))}
             </div>
           </>
+        )}
+
+        {/* task #121 — current-parliament Register of Members' Financial
+            Interests block. Renders only when the subject resolves to a
+            sitting MP. The negative case (matched record but all-zero
+            figures, e.g. Cox) is preserved as editorial signal — "no
+            outside earnings declared" is a fact too. */}
+        {mpRecord && (
+          <section className="mm-mp-record">
+            <div className="mm-d-section-h">Current parliament &mdash; declared</div>
+            {mpHasFigures ? (
+              <>
+                <dl className="mm-mp-grid">
+                  {mpRecord.oi > 0 && (
+                    <div>
+                      <dt>Outside income</dt>
+                      <dd>&pound;{mpRecord.oi.toLocaleString()}</dd>
+                    </div>
+                  )}
+                  {mpRecord.gi > 0 && (
+                    <div>
+                      <dt>Gifts received</dt>
+                      <dd>&pound;{mpRecord.gi.toLocaleString()}</dd>
+                    </div>
+                  )}
+                  {mpRecord.dn > 0 && (
+                    <div>
+                      <dt>Donations</dt>
+                      <dd>&pound;{mpRecord.dn.toLocaleString()}</dd>
+                    </div>
+                  )}
+                  {mpRecord.prC > 0 && (
+                    <div>
+                      <dt>Paid roles</dt>
+                      <dd>{mpRecord.prC}</dd>
+                    </div>
+                  )}
+                  {mpRecord.shC > 0 && (
+                    <div>
+                      <dt>Shareholdings</dt>
+                      <dd>{mpRecord.shC}</dd>
+                    </div>
+                  )}
+                  {mpRecord.fmC > 0 && (
+                    <div>
+                      <dt>Family interests</dt>
+                      <dd>{mpRecord.fmC}</dd>
+                    </div>
+                  )}
+                </dl>
+                <p className="mm-mp-foot">
+                  Source: Register of Members&rsquo; Financial Interests, current parliament.
+                  Historical figures (post-office appointments, BVI legal work etc.) sit in
+                  the connection record above.
+                </p>
+              </>
+            ) : (
+              <p className="mm-mp-empty">
+                No outside earnings declared in current parliament. (Historical earnings
+                sit in the connection record above.)
+              </p>
+            )}
+            {mpRecord.c && (
+              <div className="mm-mp-context">
+                {mpRecord.n} &middot; {mpRecord.p} &middot; {mpRecord.c}
+              </div>
+            )}
+          </section>
         )}
 
         <div className="mm-d-section-h" style={{ marginTop: 18 }}>
@@ -6260,6 +6351,66 @@ function MoneyMapStyles() {
         font-size: 11px;
         color: var(--mm-fg-mute);
         letter-spacing: 0.04em;
+      }
+
+      /* task #121 — Current-parliament Register-of-Interests block in
+         PersonDetail. Two-column dl on wide drawers, single column under
+         440px so figures stay legible on mobile. dt is a small uppercase
+         mono label, dd is a tabular-nums £ figure in serif for visual
+         hierarchy parity with the other PersonDetail figures. */
+      .mm-mp-record {
+        margin-top: 6px;
+      }
+      .mm-mp-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 18px;
+        margin: 0 0 12px;
+      }
+      .mm-mp-grid > div {
+        padding: 9px 11px;
+        background: #0a0a0d;
+        border: 1px solid var(--mm-border);
+        border-radius: 4px;
+      }
+      .mm-mp-grid dt {
+        font-family: var(--mm-mono);
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--mm-fg-mute);
+        margin-bottom: 4px;
+      }
+      .mm-mp-grid dd {
+        margin: 0;
+        font-family: var(--mm-mono);
+        font-variant-numeric: tabular-nums;
+        font-size: 16px;
+        color: var(--mm-fg);
+      }
+      .mm-mp-foot {
+        font-size: 12.5px;
+        line-height: 1.5;
+        color: var(--mm-fg-mute);
+        margin: 0 0 8px;
+      }
+      .mm-mp-empty {
+        font-size: 14px;
+        line-height: 1.5;
+        color: #cbd5e1;
+        margin: 0 0 8px;
+      }
+      .mm-mp-context {
+        margin-top: 6px;
+        font-family: var(--mm-mono);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        color: var(--mm-fg-mute);
+      }
+      @media (max-width: 440px) {
+        .mm-mp-grid {
+          grid-template-columns: 1fr;
+        }
       }
 
       /* task #119 — "+ N projects" annotation on the counterparty pill in
