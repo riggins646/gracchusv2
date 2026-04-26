@@ -1,0 +1,673 @@
+{
+  "schemaVersion": "supplier-ch.v1",
+  "updatedAt": "2026-04-26",
+  "source": "scripts/match-supplier-ch-numbers.py",
+  "matches": {
+    "supplier-deloitte": {
+      "status": "matched",
+      "name": "Deloitte LLP",
+      "company_number": "OC303675",
+      "title": "Deloitte LLP",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "donor-records-exact-name"
+    },
+    "supplier-sir-robert-mcalpine": {
+      "status": "matched",
+      "name": "Sir Robert McAlpine Limited",
+      "company_number": "00566823",
+      "title": "Sir Robert McAlpine Ltd",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "donor-records-exact-name"
+    },
+    "supplier-pricewaterhousecoopers": {
+      "status": "matched",
+      "name": "PricewaterhouseCoopers LLP",
+      "company_number": "OC303525",
+      "title": "PRICEWATERHOUSECOOPERS LLP",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "donor-records-exact-name"
+    },
+    "supplier-heathrow-airport": {
+      "status": "matched",
+      "name": "Heathrow Airport Limited",
+      "company_number": "5757208",
+      "title": "HEATHROW AIRPORT HOLDINGS LIMITED",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "donor-records-exact-name"
+    },
+    "supplier-bechtel": {
+      "status": "matched",
+      "name": "Bechtel Limited",
+      "company_number": "01011646",
+      "title": "Bechtel Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-serco": {
+      "status": "matched",
+      "name": "Serco Limited",
+      "company_number": "00242246",
+      "title": "Serco Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-randox-laboratories": {
+      "status": "matched",
+      "name": "Randox Laboratories Limited",
+      "company_number": "NI015738",
+      "title": "Randox Laboratories Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-ibm-united-kingdom": {
+      "status": "matched",
+      "name": "IBM United Kingdom Limited",
+      "company_number": "00741598",
+      "title": "IBM United Kingdom Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-accenture-uk": {
+      "status": "matched",
+      "name": "Accenture (UK) Limited",
+      "company_number": "04757301",
+      "title": "Accenture (UK) Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-pa-consulting-services": {
+      "status": "matched",
+      "name": "PA Consulting Services Limited",
+      "company_number": "03434390",
+      "title": "PA Consulting Services Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-fujitsu-services": {
+      "status": "matched",
+      "name": "Fujitsu Services Limited",
+      "company_number": "00096056",
+      "title": "Fujitsu Services Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-womble-bond-dickinson-uk": {
+      "status": "matched",
+      "name": "Womble Bond Dickinson (UK) LLP",
+      "company_number": "OC317661",
+      "title": "Womble Bond Dickinson (UK) LLP",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-morgan-sindall-infrastructure": {
+      "status": "matched",
+      "name": "Morgan Sindall Infrastructure",
+      "company_number": "00726121",
+      "title": "Morgan Sindall Infrastructure",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-costain": {
+      "status": "matched",
+      "name": "Costain Limited",
+      "company_number": "00610201",
+      "title": "Costain Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-thales": {
+      "status": "matched",
+      "name": "Thales UK",
+      "company_number": "00868273",
+      "title": "Thales UK",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-cavendish-nuclear": {
+      "status": "matched",
+      "name": "Cavendish Nuclear Limited",
+      "company_number": "01161846",
+      "title": "Cavendish Nuclear Limited (Babcock International Group plc subsidiary)",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-laing-o-rourke-construction": {
+      "status": "matched",
+      "name": "Laing O'Rourke Construction Limited",
+      "company_number": "01504674",
+      "title": "Laing O'Rourke Construction Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-mott-macdonald": {
+      "status": "matched",
+      "name": "Mott MacDonald Limited",
+      "company_number": "01243967",
+      "title": "Mott MacDonald Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-serco-group": {
+      "status": "matched",
+      "name": "Serco Group plc",
+      "company_number": "00242246",
+      "title": "Serco Group plc",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-capgemini-uk": {
+      "status": "matched",
+      "name": "Capgemini UK plc",
+      "company_number": "00943935",
+      "title": "Capgemini UK plc",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-arup": {
+      "status": "matched",
+      "name": "Arup",
+      "company_number": "00946155",
+      "title": "Arup",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-barclays-bank-uk": {
+      "status": "matched",
+      "name": "Barclays Bank UK plc",
+      "company_number": "01026167",
+      "title": "Barclays Bank UK plc",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-general-dynamics-united-kingdom": {
+      "status": "matched",
+      "name": "General Dynamics United Kingdom Limited",
+      "company_number": "01911653",
+      "title": "General Dynamics United Kingdom Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-wsp": {
+      "status": "matched",
+      "name": "WSP UK Limited",
+      "company_number": "01383511",
+      "title": "WSP UK Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-arup-group": {
+      "status": "matched",
+      "name": "Arup Group Limited",
+      "company_number": "00946155",
+      "title": "Arup Group Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-network-rail-infrastructure": {
+      "status": "matched",
+      "name": "Network Rail Infrastructure Limited",
+      "company_number": "02904587",
+      "title": "Network Rail Infrastructure Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-balfour-beatty-civil-engineering": {
+      "status": "matched",
+      "name": "Balfour Beatty Civil Engineering Limited",
+      "company_number": "00101073",
+      "title": "Balfour Beatty Civil Engineering Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-vinci-construction": {
+      "status": "matched",
+      "name": "VINCI Construction UK Limited",
+      "company_number": "02295904",
+      "title": "VINCI Construction UK Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-aecom": {
+      "status": "matched",
+      "name": "AECOM Limited",
+      "company_number": "01846493",
+      "title": "AECOM Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-kier-construction": {
+      "status": "matched",
+      "name": "Kier Construction Limited",
+      "company_number": "02099533",
+      "title": "Kier Construction Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-morgan-sindall-construction-and-infrastructure": {
+      "status": "matched",
+      "name": "Morgan Sindall Construction and Infrastructure Limited",
+      "company_number": "00726121",
+      "title": "Morgan Sindall Construction and Infrastructure Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-willmott-dixon-construction": {
+      "status": "matched",
+      "name": "Willmott Dixon Construction Limited",
+      "company_number": "00198032",
+      "title": "Willmott Dixon Construction Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-bam-construction": {
+      "status": "matched",
+      "name": "BAM Construction Limited",
+      "company_number": "00566970",
+      "title": "BAM Construction Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-galliford-try-construction": {
+      "status": "matched",
+      "name": "Galliford Try Construction Limited",
+      "company_number": "01431185",
+      "title": "Galliford Try Construction Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-faithful-gould": {
+      "status": "matched",
+      "name": "Faithful & Gould Limited",
+      "company_number": "01862586",
+      "title": "Faithful & Gould Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-wates-construction": {
+      "status": "matched",
+      "name": "Wates Construction Limited",
+      "company_number": "01420855",
+      "title": "Wates Construction Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-siemens": {
+      "status": "matched",
+      "name": "Siemens plc",
+      "company_number": "00727817",
+      "title": "Siemens plc",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-buro-happold": {
+      "status": "matched",
+      "name": "Buro Happold Limited",
+      "company_number": "05536658",
+      "title": "Buro Happold Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-foster-and-partners": {
+      "status": "matched",
+      "name": "Foster and Partners Limited",
+      "company_number": "01209849",
+      "title": "Foster and Partners Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-carillion-construction": {
+      "status": "matched",
+      "name": "Carillion Construction Limited",
+      "company_number": "00594581",
+      "title": "Carillion Construction Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-morgan-sindall-construction-infrastructure": {
+      "status": "matched",
+      "name": "Morgan Sindall Construction & Infrastructure Limited",
+      "company_number": "00726121",
+      "title": "Morgan Sindall Construction & Infrastructure Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-london-continental-railways": {
+      "status": "matched",
+      "name": "London & Continental Railways Limited",
+      "company_number": "03122377",
+      "title": "London & Continental Railways Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-ove-arup-partners-international": {
+      "status": "matched",
+      "name": "Ove Arup & Partners International Limited",
+      "company_number": "01312717",
+      "title": "Ove Arup & Partners International Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-hs1": {
+      "status": "matched",
+      "name": "HS1 Limited",
+      "company_number": "06690568",
+      "title": "HS1 Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-carillion": {
+      "status": "matched",
+      "name": "Carillion plc",
+      "company_number": "03782379",
+      "title": "Carillion plc (in liquidation, January 2018)",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-morrison-construction": {
+      "status": "matched",
+      "name": "Morrison Construction",
+      "company_number": "01431185",
+      "title": "Morrison Construction (Galliford Try Construction Limited)",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-vinci-building": {
+      "status": "matched",
+      "name": "VINCI Building",
+      "company_number": "01929456",
+      "title": "VINCI Building",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-balfour-beatty-construction": {
+      "status": "matched",
+      "name": "Balfour Beatty Construction Limited",
+      "company_number": "00101073",
+      "title": "Balfour Beatty Construction Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-barclays-bank": {
+      "status": "matched",
+      "name": "Barclays Bank PLC",
+      "company_number": "01026167",
+      "title": "Barclays Bank PLC",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-lloyds-bank": {
+      "status": "matched",
+      "name": "Lloyds Bank plc",
+      "company_number": "00002065",
+      "title": "Lloyds Bank plc",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-natwest-group": {
+      "status": "matched",
+      "name": "NatWest Group plc",
+      "company_number": "SC045551",
+      "title": "NatWest Group plc (RBS / NatWest Bank plc)",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-hsbc-uk-bank": {
+      "status": "matched",
+      "name": "HSBC UK Bank plc",
+      "company_number": "09928412",
+      "title": "HSBC UK Bank plc",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-santander-uk": {
+      "status": "matched",
+      "name": "Santander UK plc",
+      "company_number": "02294747",
+      "title": "Santander UK plc",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-starling-bank": {
+      "status": "matched",
+      "name": "Starling Bank Limited",
+      "company_number": "09092149",
+      "title": "Starling Bank Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-pwc": {
+      "status": "matched",
+      "name": "PwC UK",
+      "company_number": "OC303525",
+      "title": "PwC UK (PricewaterhouseCoopers LLP)",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-ey": {
+      "status": "matched",
+      "name": "EY UK",
+      "company_number": "OC300001",
+      "title": "EY UK (Ernst & Young LLP)",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-british-business-bank": {
+      "status": "matched",
+      "name": "British Business Bank plc",
+      "company_number": "08616013",
+      "title": "British Business Bank plc",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-pa-consulting-group": {
+      "status": "matched",
+      "name": "PA Consulting Group Limited",
+      "company_number": "03434390",
+      "title": "PA Consulting Group Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-awe": {
+      "status": "matched",
+      "name": "AWE plc",
+      "company_number": "02093364",
+      "title": "AWE plc",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-palantir-technologies": {
+      "status": "matched",
+      "name": "Palantir Technologies UK Limited",
+      "company_number": "09241787",
+      "title": "Palantir Technologies UK Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-openreach": {
+      "status": "matched",
+      "name": "Openreach Limited",
+      "company_number": "10690039",
+      "title": "Openreach Limited (BT Group)",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-cityfibre-holdings": {
+      "status": "matched",
+      "name": "CityFibre Holdings Limited",
+      "company_number": "10770472",
+      "title": "CityFibre Holdings Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-gigaclear": {
+      "status": "matched",
+      "name": "Gigaclear plc",
+      "company_number": "07476617",
+      "title": "Gigaclear plc",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-magnox": {
+      "status": "matched",
+      "name": "Magnox Limited",
+      "company_number": "02264251",
+      "title": "Magnox Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-vistry-group": {
+      "status": "matched",
+      "name": "Vistry Group plc",
+      "company_number": "06131642",
+      "title": "Vistry Group plc",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-hitachi-rail-europe": {
+      "status": "matched",
+      "name": "Hitachi Rail Europe Limited",
+      "company_number": "06276441",
+      "title": "Hitachi Rail Europe Limited (now Hitachi Rail Limited)",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-bibby-marine": {
+      "status": "matched",
+      "name": "Bibby Marine Limited",
+      "company_number": "01522121",
+      "title": "Bibby Marine Limited (Bibby Line Group)",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-corporate-travel-management-north": {
+      "status": "matched",
+      "name": "Corporate Travel Management (North) Limited",
+      "company_number": "02936560",
+      "title": "Corporate Travel Management (North) Limited (CTM)",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-portland-port": {
+      "status": "matched",
+      "name": "Portland Port Limited",
+      "company_number": "02874672",
+      "title": "Portland Port Limited (Langham Industries)",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-clearsprings-ready-homes": {
+      "status": "matched",
+      "name": "Clearsprings Ready Homes Limited",
+      "company_number": "03703938",
+      "title": "Clearsprings Ready Homes Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-babcock-marine-clyde": {
+      "status": "matched",
+      "name": "Babcock Marine (Clyde) Limited",
+      "company_number": "SC296320",
+      "title": "Babcock Marine (Clyde) Limited",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-nuclear-waste-services": {
+      "status": "matched",
+      "name": "Nuclear Waste Services",
+      "company_number": "05991787",
+      "title": "Nuclear Waste Services (NDA subsidiary \u2014 Radioactive Waste Management Limited trading as NWS)",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-costain-group": {
+      "status": "matched",
+      "name": "Costain Group plc",
+      "company_number": "00610201",
+      "title": "Costain Group plc",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    },
+    "supplier-carillion-powerlines": {
+      "status": "matched",
+      "name": "Carillion Powerlines Limited",
+      "company_number": "03782379",
+      "title": "Carillion Powerlines Limited (in liquidation January 2018)",
+      "confidence": "high",
+      "score": 1.0,
+      "method": "project-contractors-exact-name"
+    }
+  }
+}

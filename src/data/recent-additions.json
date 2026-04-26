@@ -5,6 +5,14 @@
     {
       "date": "2026-04-26",
       "type": "feature",
+      "title": "Companies House numbers on tracked suppliers \u2014 tighter overlap matcher",
+      "summary": "74 of the 576 tracked Gracchus suppliers now carry verified Companies House registration numbers, written to a sidecar at src/data/supplier-companies-house.json by a resumable precompute script (scripts/match-supplier-ch-numbers.py). Numbers were seeded in two passes from data already in the repo: Electoral Commission donor records (4 suppliers, primary source on conflict) and project-contractors.json (70 suppliers); a third optional pass calls the public CH search API once a key is configured. The donor-supplier overlap matcher in src/lib/donor-aggregation.js now runs CH-number match first (definitive) and falls back to name match second \u2014 catches subsidiaries, renamed companies, and parent groups the name-only matcher missed. Surfaces 2 new PwC donation streams that the name matcher was splitting away from supplier-pwc. A sanity guard rejects spurious CH matches where donor and supplier share no name overlap (e.g. an EC record with a stray CH number that happened to belong to an unrelated company). Closes the 'planned improvement' loop flagged in Methodology.",
+      "view": "moneymap",
+      "metric": "+ CH-number matcher"
+    },
+    {
+      "date": "2026-04-26",
+      "type": "feature",
       "title": "Money Map \u2014 Layers panel for dial-to-taste reading",
       "summary": "New floating panel on the Money Map canvas (and a Layers section in the mobile Filters sheet) lets readers toggle visibility of each node kind \u2014 suppliers, buyers, projects, people, parties, donors, lobbyists, adjacent firms, and the various edge classes. Counts shown per layer. Hiding a node kind hides edges incident to it. Replaces the standalone show-donors and show-lobbyists toggles. Lets the canvas dial from 'everything at once' to 'just the donor-supplier overlap pattern' without changing data sources.",
       "view": "moneymap",

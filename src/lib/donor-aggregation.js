@@ -16,6 +16,7 @@
  * ========================================================================= */
 
 import donationRecordsData from "../data/donations-records.json";
+import supplierChMap from "../data/supplier-companies-house.json";
 
 /* Map party-name strings as they appear in the EC records onto the canonical
    PARTY_DEFS ids used elsewhere in the app. Kept in lock-step with the
@@ -141,7 +142,29 @@ export function aggregateCompanyDonors() {
   return COMPANY_DONORS_FROM_RECORDS;
 }
 
-/* ---- supplier-overlap matcher (lifted verbatim from MoneyMap) ---- */
+/* ---- supplier-overlap matcher (lifted verbatim from MoneyMap) ----
+   Three-pass: (1) Companies House registration number match — definitive,
+   catches subsidiaries / renamed companies / parent groups the name match
+   misses; (2) exact normalised-name match; (3) token-overlap fuzzy match.
+
+   CH numbers come from two sources, merged in priority order:
+     a) the precomputed sidecar at src/data/supplier-companies-house.json
+        (status="matched" entries) — populated by
+        scripts/match-supplier-ch-numbers.py
+     b) inline supplier fields companiesHouse / chNumber / companyRegistration
+        (legacy — none in current money-map.json, kept as a future hook)
+*/
+
+const SIDECAR_CH_BY_SUPPLIER_ID = (() => {
+  const out = new Map();
+  const matches = (supplierChMap && supplierChMap.matches) || {};
+  for (const [sid, m] of Object.entries(matches)) {
+    if (m && m.status === "matched" && m.company_number) {
+      out.set(sid, String(m.company_number).trim());
+    }
+  }
+  return out;
+})();
 
 export function buildOverlapMatcher(suppliers) {
   const byCH = new Map();
@@ -150,7 +173,7 @@ export function buildOverlapMatcher(suppliers) {
   const singleTokenByLabel = new Map();
   for (const s of suppliers) {
     if (!s || s.kind !== "supplier") continue;
-    const ch = s.companiesHouse || s.chNumber || s.companyRegistration;
+    const ch = SIDECAR_CH_BY_SUPPLIER_ID.get(s.id) || s.companiesHouse || s.chNumber || s.companyRegistration;
     if (ch) byCH.set(String(ch).trim(), s);
     const labels = [s.label, ...(s.aliases || [])].filter(Boolean);
     for (const lbl of labels) {
@@ -172,7 +195,40 @@ export function buildOverlapMatcher(suppliers) {
     if (donor.donorStatus !== "Company" && donor.donorStatus !== "Limited Liability Partnership") return null;
     if (donor.companyReg) {
       const hit = byCH.get(String(donor.companyReg).trim());
-      if (hit) return { supplierId: hit.id, supplierLabel: hit.label, matchedBy: "companiesHouse", confidence: "high" };
+      if (hit) {
+        /* Sanity guard: when CH numbers agree but the donor and supplier
+           names have no detectable name overlap, treat the match as suspect.
+           Catches cases like "LOCAL GOVERNMENT ASSOCIATION" with a stray
+           CH number that happens to belong to Heathrow Airport Holdings —
+           an upstream EC-data quality issue we don't want to surface as a
+           real overlap. Compares the donor's normalised name against the
+           supplier's label AND every alias; passes if any of them shares
+           a 3+ char token, or has 6-char prefix containment in either
+           direction (catches Pricewater(house)Coopers vs PwC). */
+        const dn = donor._normName || normaliseFirmName(donor.name);
+        const dtoks = (dn || "").split(/\s+/).filter((t) => t.length >= 3);
+        const dset = new Set(dtoks);
+        const supplierVariants = [hit.label, ...(hit.aliases || [])].filter(Boolean);
+        let pass = false;
+        for (const variant of supplierVariants) {
+          const sn = normaliseFirmName(variant);
+          const stoks = (sn || "").split(/\s+/).filter((t) => t.length >= 3);
+          let shared = 0;
+          for (const t of stoks) if (dset.has(t)) shared++;
+          if (shared > 0) { pass = true; break; }
+          for (const dt of dtoks) {
+            for (const st of stoks) {
+              if (dt.length >= 6 && st.includes(dt.slice(0, 6))) { pass = true; break; }
+              if (st.length >= 6 && dt.includes(st.slice(0, 6))) { pass = true; break; }
+            }
+            if (pass) break;
+          }
+          if (pass) break;
+        }
+        if (pass) {
+          return { supplierId: hit.id, supplierLabel: hit.label, matchedBy: "companiesHouse", confidence: "high" };
+        }
+      }
     }
     const n = donor._normName || normaliseFirmName(donor.name);
     if (!n) return null;
