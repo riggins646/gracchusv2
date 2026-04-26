@@ -236,7 +236,7 @@ const wasteSummary = projectWasteData.summary || {
 // severity → tailwind classes (dark theme)
 const wasteSeverityColors = {
   critical: { text: "text-red-400",    bg: "bg-red-500/[0.08]",   border: "border-red-500/30",   dot: "bg-red-400" },
-  high:     { text: "text-orange-400", bg: "bg-orange-500/[0.08]",border: "border-orange-500/30",dot: "bg-orange-400" },
+  high:     { text: "text-red-400",    bg: "bg-red-500/[0.08]",   border: "border-red-500/30",   dot: "bg-red-400" },
   moderate: { text: "text-amber-400",  bg: "bg-amber-500/[0.06]", border: "border-amber-500/30", dot: "bg-amber-400" },
   low:      { text: "text-yellow-400", bg: "bg-yellow-500/[0.05]",border: "border-yellow-500/20",dot: "bg-yellow-400" },
   none:     { text: "text-gray-500",   bg: "bg-gray-900/40",      border: "border-gray-800/60", dot: "bg-gray-600" },
@@ -245,12 +245,12 @@ const wasteSeverityColors = {
 // Per-flag badge metadata: label + one-letter chip + title tooltip
 const wasteFlagMeta = {
   cancelled:         { chip: "C", label: "Cancelled",          color: "text-red-400 border-red-500/40 bg-red-500/[0.08]" },
-  overBudget:        { chip: "£", label: "Over budget",        color: "text-orange-400 border-orange-500/40 bg-orange-500/[0.08]" },
+  overBudget:        { chip: "£", label: "Over budget",        color: "text-red-400 border-red-500/40 bg-red-500/[0.08]" },
   scheduleSlip:      { chip: "T", label: "Schedule slip",      color: "text-amber-400 border-amber-500/40 bg-amber-500/[0.08]" },
   scopeCut:          { chip: "S", label: "Scope cut",          color: "text-amber-300 border-amber-400/40 bg-amber-400/[0.06]" },
   fraudLitigated:    { chip: "F", label: "Fraud / litigation", color: "text-red-500 border-red-600/40 bg-red-600/[0.10]" },
   misSold:           { chip: "M", label: "Mis-sold",           color: "text-red-500 border-red-600/40 bg-red-600/[0.10]" },
-  writtenOff:        { chip: "W", label: "Written off",        color: "text-orange-400 border-orange-500/40 bg-orange-500/[0.08]" },
+  writtenOff:        { chip: "W", label: "Written off",        color: "text-red-400 border-red-500/40 bg-red-500/[0.08]" },
   safetyRisk:        { chip: "!", label: "Safety risk",        color: "text-red-500 border-red-600/40 bg-red-600/[0.12]" },
   governanceFailure: { chip: "G", label: "Governance failure", color: "text-amber-400 border-amber-500/40 bg-amber-500/[0.06]" },
 };
@@ -2315,12 +2315,12 @@ export function PageHeader({
 
   const headlineCls = feature
     ? (
-      "text-4xl sm:text-5xl md:text-6xl font-serif " +
+      "text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif " +
       "font-medium text-gray-50 " +
       "leading-[1.05] tracking-[-0.015em]"
     )
     : (
-      "text-3xl md:text-4xl font-serif " +
+      "text-4xl md:text-5xl lg:text-6xl font-serif " +
       "font-medium text-white " +
       "leading-[1.1] tracking-[-0.01em]"
     );
@@ -5043,7 +5043,7 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
             if (v === "prime")
               return "border-red-500/40 bg-red-500/10 text-red-300";
             if (v === "jv-partner" || v === "jv-parent")
-              return "border-orange-500/40 bg-orange-500/10 text-orange-300";
+              return "border-gray-600/40 bg-gray-700/40 text-gray-300";
             if (v === "subcontractor" || v === "subcontractor-technical")
               return "border-amber-500/40 bg-amber-500/10 text-amber-300";
             if (v === "supplier")
@@ -8376,7 +8376,7 @@ function AppInner() {
                 UK Major Projects · Independent Tracker
               </div>
               <h1 className={
-                "font-serif text-4xl sm:text-6xl font-medium " +
+                "font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium " +
                 "text-gray-50 leading-[1.05] tracking-[-0.015em] mb-6 " +
                 "max-w-5xl"
               }>
@@ -22734,12 +22734,12 @@ function AppInner() {
               className={
                 "w-full border border-gray-800/60 " +
                 "rounded-lg p-4 text-left " +
-                "hover:border-orange-600 " +
+                "hover:border-gray-600 " +
                 "transition-colors"
               }
             >
               <div className="flex items-center gap-3">
-                <Globe size={18} className="text-orange-400" />
+                <Globe size={18} className="text-gray-300" />
                 <div>
                   <div className={
                     "text-sm font-bold text-white"
@@ -25171,8 +25171,8 @@ function AppInner() {
               </div>
 
               <div className={
-                "border border-orange-500/40 " +
-                "rounded-lg p-4 bg-orange-950/20"
+                "border border-gray-600/40 " +
+                "rounded-lg p-4 bg-gray-700/40"
               }>
                 <div className={
                   "text-[10px] uppercase " +
@@ -25182,7 +25182,7 @@ function AppInner() {
                   UK Budget ({hl.ukBudgetYear || hl.ukLatestYear})
                 </div>
                 <div className={
-                  "text-2xl font-black text-orange-400"
+                  "text-2xl font-black text-gray-300"
                 }>
                   {"\u00A3"}{hl.ukBudgetBn || "—"}bn
                 </div>
@@ -26002,7 +26002,7 @@ function AppInner() {
           // Role → badge colour mapping
           const roleColour = {
             "prime": "border-red-500/40 bg-red-500/10 text-red-300",
-            "jv-partner": "border-orange-500/40 bg-orange-500/10 text-orange-300",
+            "jv-partner": "border-gray-600/40 bg-gray-700/40 text-gray-300",
             "subcontractor": "border-amber-500/40 bg-amber-500/10 text-amber-300",
             "supplier": "border-yellow-500/40 bg-yellow-500/10 text-yellow-200",
             "consultant-advisory": "border-purple-500/40 bg-purple-500/10 text-purple-300",
@@ -26025,8 +26025,8 @@ function AppInner() {
             "court-ruling": "border-red-500/40 bg-red-500/[0.08] text-red-300",
             "public-inquiry": "border-red-400/40 bg-red-400/[0.08] text-red-200",
             "companies-house": "border-amber-500/40 bg-amber-500/[0.08] text-amber-300",
-            "company-announcement": "border-orange-500/40 bg-orange-500/[0.08] text-orange-300",
-            "annual-report": "border-orange-500/40 bg-orange-500/[0.08] text-orange-300",
+            "company-announcement": "border-gray-600/40 bg-gray-700/40 text-gray-300",
+            "annual-report": "border-gray-600/40 bg-gray-700/40 text-gray-300",
             "sec-filing": "border-pink-500/40 bg-pink-500/[0.08] text-pink-300",
             "contracts-finder": "border-purple-500/40 bg-purple-500/[0.08] text-purple-300",
             "find-tender": "border-purple-500/40 bg-purple-500/[0.08] text-purple-300",

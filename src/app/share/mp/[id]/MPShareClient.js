@@ -65,7 +65,7 @@ export function MPShareClient({ data, id }) {
             <div className="text-lg sm:text-xl font-bold font-mono text-gray-400 tracking-wider">
               GRACCHUS
             </div>
-            <div className="text-[13px] font-semibold text-amber-500 bg-amber-500/10 px-3 py-1.5 rounded uppercase tracking-wide self-start">
+            <div className="text-[13px] font-semibold text-ember-400 bg-ember-500/10 px-3 py-1.5 rounded uppercase tracking-wide self-start">
               MP Scorecard
             </div>
           </div>
@@ -151,7 +151,7 @@ export function MPShareClient({ data, id }) {
           </div>
           <Link
             href="/?view=transparency.scorecards"
-            className="min-h-[44px] px-5 py-3 bg-amber-500 hover:bg-amber-400 text-[#030303] rounded-md text-sm font-semibold transition-colors text-center inline-flex items-center justify-center"
+            className="min-h-[44px] px-5 py-3 bg-ember-600 hover:bg-ember-500 text-white rounded-md text-sm font-semibold transition-colors text-center inline-flex items-center justify-center"
           >
             See all MP scorecards →
           </Link>
@@ -161,7 +161,7 @@ export function MPShareClient({ data, id }) {
         <div className="mt-12 sm:mt-16 pt-8 sm:pt-10 border-t border-gray-700 text-center text-gray-400 text-sm">
           <p>Data sourced from UK Parliament Register of Members{"'"} Financial Interests</p>
           <p className="mt-2">
-            Gracchus UK • <a href="https://gracchus.ai" className="text-amber-500 hover:text-amber-400 no-underline">gracchus.ai</a>
+            Gracchus UK • <a href="https://gracchus.ai" className="text-ember-400 hover:text-ember-300 no-underline">gracchus.ai</a>
           </p>
         </div>
       </div>

@@ -30,7 +30,7 @@ export default function StandardsPage() {
         </div>
         <h1
           className={
-            "text-3xl md:text-4xl font-serif " +
+            "text-4xl md:text-5xl lg:text-6xl font-serif " +
             "font-medium text-white leading-tight " +
             "tracking-[-0.01em] mb-8"
           }

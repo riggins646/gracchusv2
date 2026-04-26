@@ -6417,6 +6417,7 @@ function MoneyMapStyles() {
         --mm-fg: #e5e7eb;
         --mm-fg-dim: #9ca3af;
         --mm-fg-mute: #6b7280;
+        --mm-accent: #fbbf24;
         --mm-serif: 'IBM Plex Serif', Georgia, serif;
         --mm-sans:  'IBM Plex Sans', system-ui, -apple-system, sans-serif;
         --mm-mono:  'IBM Plex Mono', ui-monospace, Menlo, monospace;
