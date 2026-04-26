@@ -125,8 +125,8 @@
   },
   {
     "name": "Babcock International",
-    "contractCount": 3,
-    "totalValue": 1943500000,
+    "contractCount": 5,
+    "totalValue": 4003500000,
     "annualGovSpend": 2100000000,
     "sector": "Defence",
     "departments": [
@@ -134,9 +134,11 @@
     ],
     "projects": [
       "Dreadnought Submarines",
-      "BISS26 Boats In-Service Support"
+      "BISS26 Boats In-Service Support",
+      "FMSP Royal Navy Surface Fleet",
+      "MOD White Fleet (Phoenix 3)"
     ],
-    "notes": "63% of global revenue from MOD. British Army SPTC extension (\u00a31.6bn, Mar 2025). BISS26 boats support (\u00a3283.5m shared, Apr 2026).",
+    "notes": "63% of global revenue from MOD. British Army SPTC extension (\u00a31.6bn, Mar 2025). BISS26 boats support (\u00a3283.5m shared, Apr 2026). FMSP 2-yr extension (\u00a3~2bn est., Apr 2026). White Fleet Phoenix 3 (\u00a360m, Mar 2026).",
     "strategicSupplier": true
   },
   {

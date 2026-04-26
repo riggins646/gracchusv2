@@ -1305,5 +1305,64 @@
     "competitive": false,
     "duration": "3 years",
     "source": "https://des.mod.uk/879m-apache-and-chinook-helicopters-contract-supports-more-than-1-200-uk-jobs/"
+  },
+  {
+    "id": "DEF-020",
+    "title": "MOD White Fleet Management (Phoenix 3)",
+    "description": "5-year contract to manage and service the MOD's non-combat 'white fleet' of vehicles. Phoenix 3 agreement extends Babcock's long-running role managing leased and pool vehicles for the MOD across the UK.",
+    "buyer": "Ministry of Defence",
+    "status": "active",
+    "awardDate": "2026-03",
+    "value": 60000000,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "Babcock International"
+      }
+    ],
+    "category": "defence",
+    "competitive": true,
+    "duration": "5 years",
+    "source": "https://www.themanufacturer.com/articles/babcock-secures-60m-mod-white-fleet-contract-extending-long-running-partnership/"
+  },
+  {
+    "id": "DEF-021",
+    "title": "Future Maritime Support Programme (FMSP) 2-year extension",
+    "description": "2-year extension of the Future Maritime Support Programme covering ship engineering delivery and management for Type 23 frigates, amphibious warfare ships, Sandown minehunters and landing craft vessels. Work delivered primarily through Babcock's facilities at Devonport and Rosyth. Original 5-year FMSP programme worth ~£5.2bn; 2-year extension value not officially disclosed but estimated ~£2bn pro-rata.",
+    "buyer": "Ministry of Defence",
+    "status": "active",
+    "awardDate": "2026-04",
+    "value": 2000000000,
+    "valueDisclosed": false,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "Babcock International"
+      }
+    ],
+    "category": "defence",
+    "competitive": false,
+    "duration": "2 years (Apr 2026 onward)",
+    "source": "https://www.gov.uk/government/news/future-maritime-support-programme-contracts-awarded"
+  },
+  {
+    "id": "DEF-022",
+    "title": "BFBS 10-year Forces Media Services",
+    "description": "10-year contract renewal with British Forces Broadcasting Service to provide news, sport and entertainment media to UK Armed Forces personnel and families worldwide, including those in remote and operational environments. Contract value not publicly disclosed.",
+    "buyer": "Ministry of Defence",
+    "status": "active",
+    "awardDate": "2026-04",
+    "value": null,
+    "valueDisclosed": false,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "British Forces Broadcasting Service (BFBS)"
+      }
+    ],
+    "category": "defence",
+    "competitive": false,
+    "duration": "10 years",
+    "source": "https://www.gov.uk/government/news/entertainment-on-demand-for-armed-forces-personnel-at-home-and-abroad"
   }
 ]

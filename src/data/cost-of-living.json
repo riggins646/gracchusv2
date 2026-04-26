@@ -1,19 +1,19 @@
 {
   "metadata": {
     "title": "Cost of Living",
-    "lastUpdated": "2026-04-23",
+    "lastUpdated": "2026-04-25",
     "description": "UK cost of living indicators: inflation, wages, housing, energy, food and transport."
   },
   "headline": {
-    "cpiPct": 3.4,
+    "cpiPct": 3.3,
     "realWageGrowthPct": 0.5,
     "avgRentGbp": 1332,
-    "energyCapGbp": 1758,
-    "foodInflationPct": 3.3,
+    "energyCapGbp": 1641,
+    "foodInflationPct": 3.7,
     "petrolPenceLitre": 152.0,
     "dieselPenceLitre": 181.2,
     "asOf": "31 March 2026",
-    "notes": "CPI rose from 3.0% (Feb) to ~3.4% (Mar) due to energy price spike. Petrol/diesel rose sharply mid-March following Middle East conflict. Energy cap is Q1 2026 rate (£1,758); Q2 2026 cap falls to £1,641."
+    "notes": "ONS confirmed CPI rose from 3.0% (Feb) to 3.3% (Mar 2026), released 22 April 2026; motor fuels were the largest upward contributor. Food inflation rose to 3.7% (Mar) from 3.3% (Feb). Energy cap is Q2 2026 (Apr-Jun) at £1,641; Q3 cap announcement due by 27 May 2026."
   },
   "cpiInflation": {
     "source": "ONS Consumer Prices Index (CPI, % YoY)",
@@ -441,6 +441,10 @@
       {
         "m": "Feb 2026",
         "v": 3.0
+      },
+      {
+        "m": "Mar 2026",
+        "v": 3.3
       }
     ]
   },
@@ -812,6 +816,10 @@
         {
           "m": "Feb 2026",
           "v": 3.3
+        },
+        {
+          "m": "Mar 2026",
+          "v": 3.7
         }
       ]
     },

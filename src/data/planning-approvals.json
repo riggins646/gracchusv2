@@ -2,7 +2,7 @@
   "metadata": {
     "title": "UK Infrastructure Planning & Approval Delays",
     "description": "Major UK projects tracked through planning, DCO, grid connection, and regulatory approval stages. All dates and durations sourced from official records.",
-    "lastUpdated": "2026-04-24",
+    "lastUpdated": "2026-04-25",
     "methodology": "Approval durations measured from formal application submission to final decision date. Grid connection data from Ofgem queue statistics. Only projects with verifiable official records included.",
     "sources": [
       "National Infrastructure Planning (PINS)",
@@ -422,6 +422,46 @@
       "sourceName": "DESNZ / PINS",
       "sourceUrl": "https://www.gov.uk/government/news/outer-dowsing-offshore-wind-generating-station-development-consent-decision-announced",
       "sourceConfidence": "very_high"
+    },
+    {
+      "id": "fenwick-solar",
+      "projectName": "Fenwick Solar Farm",
+      "category": "Energy",
+      "approvalType": "DCO",
+      "responsibleBody": "Secretary of State for DESNZ",
+      "submissionDate": "2024-11-01",
+      "originalDecisionDeadline": null,
+      "actualDecisionDate": "2026-02-18",
+      "daysInApproval": 474,
+      "deadlineExtensions": 0,
+      "approvalStatus": "Approved",
+      "causeCategory": "Standard examination",
+      "causeDetail": "237.5MW solar farm in Doncaster developed by Boom Power. Application accepted for examination 29 November 2024; ExA recommendation to SoS 18 November 2025; decision granted by Minister Whitehead 18 February 2026. Two-mile-wide site; >50MW threshold triggers NSIP route.",
+      "estimatedCostM": null,
+      "capacityMW": 237.5,
+      "sourceName": "DESNZ / PINS",
+      "sourceUrl": "https://www.gov.uk/government/news/fenwick-solar-farm-development-consent-decision-announced",
+      "sourceConfidence": "very_high"
+    },
+    {
+      "id": "universal-bedford",
+      "projectName": "Universal Studios UK Resort (Bedfordshire)",
+      "category": "Tourism / Mixed-use",
+      "approvalType": "Special Development Order (SDO)",
+      "responsibleBody": "Ministry of Housing, Communities and Local Government",
+      "submissionDate": "2025-04-01",
+      "originalDecisionDeadline": null,
+      "actualDecisionDate": "2025-12-16",
+      "daysInApproval": 259,
+      "deadlineExtensions": 0,
+      "approvalStatus": "Approved",
+      "causeCategory": "Fast-track SDO route",
+      "causeDetail": "Universal Destinations & Experiences theme park and resort at Kempston Hardwick, Bedfordshire (former brickworks site, ~5km south of Bedford town centre). Granted via Special Development Order rather than NSIP/DCO. SDO approved 16 December 2025; came into force 12 January 2026 with construction commencing same date. Anticipated completion 2031. Estimated to contribute ~£50bn to UK economy by 2055 and create ~28,000 jobs across construction, operations and supply chain.",
+      "estimatedCostM": null,
+      "capacityMW": null,
+      "sourceName": "MHCLG / Universal UK Project",
+      "sourceUrl": "https://www.gov.uk/government/news/universal-studios-resort-bedford-special-development-order",
+      "sourceConfidence": "high"
     }
   ],
   "gridConnectionQueue": {
