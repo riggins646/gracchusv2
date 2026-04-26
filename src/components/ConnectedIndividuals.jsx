@@ -19,6 +19,7 @@ const CONN_TYPE_LABEL = {
   spousal_political_role: "Spousal political role",
   family_trust_arrangement: "Family trust arrangement",
   cash_for_access: "Cash for access",
+  donor_and_contractor: "Donor and contractor",
   other: "Connection of interest",
 };
 
@@ -61,9 +62,23 @@ export default function ConnectedIndividuals({ supplierId, buyerId, projectId, a
                   </span>
                 </div>
               )}
-              {/* person header */}
+              {/* person header. When the subject is a firm (kind === "firm"),
+                  surface a small FIRM pill next to the serif name so the reader
+                  knows the donor-contractor cards are about a company, not a
+                  person. Mirrors the live-proceedings + party-dot conventions. */}
               <div className="flex items-baseline justify-between gap-3 mb-2 flex-wrap">
-                <h4 className="text-base font-serif text-white font-semibold">{person?.name || "\u2014"}</h4>
+                <h4 className="text-base font-serif text-white font-semibold inline-flex items-baseline gap-2">
+                  {person?.name || "\u2014"}
+                  {person?.kind === "firm" && (
+                    <span
+                      className="text-[9px] font-mono tracking-[0.12em] px-1.5 py-0.5 rounded border border-sky-400/40 bg-sky-400/10 text-sky-300 font-semibold uppercase"
+                      title="Subject of this story is a firm, not an individual"
+                      aria-label="Firm subject"
+                    >
+                      FIRM
+                    </span>
+                  )}
+                </h4>
                 <span className="text-[10px] uppercase tracking-wider text-gray-400 border border-gray-700 rounded px-2 py-0.5">
                   {CONN_TYPE_LABEL[c.connectionType] || c.connectionType}
                 </span>

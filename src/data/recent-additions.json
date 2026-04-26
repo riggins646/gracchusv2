@@ -4,24 +4,32 @@
   "entries": [
     {
       "date": "2026-04-26",
+      "type": "coverage",
+      "title": "Six firm-subject Stories — the donor-contractor pattern, named",
+      "summary": "Six new Stories cards frame the Money Map v2 donor-supplier overlaps editorially: Deloitte (cross-party hedger £427k to both Conservative and Labour), Cook Defence Systems (Conservative £1.27m), Sir Robert McAlpine, Canary Wharf, Heathrow Airport Holdings (Reform UK — unusual), and Imagination Industries. Schema extended with kind:'firm' so the Stories surface can render company subjects alongside individual political figures.",
+      "view": "moneymap",
+      "metric": "25 connection stories live"
+    },
+    {
+      "date": "2026-04-26",
       "type": "feature",
-      "title": "Money Map v2 \u2014 donor-supplier overlap surfacing live",
-      "summary": "Phase 3 now processes the full 6,819-record donations dataset (was: top-100 aggregate, which surfaced zero overlaps). Nine real overlaps now appear on the canvas \u2014 Deloitte LLP, Sir Robert McAlpine, William Cook Defence Systems, Canary Wharf Group, Heathrow Airport Holdings, Imagination Industries. Each is a tracked supplier whose firm also donated to a UK political party; the supplier bubble carries a coloured ring in the dominant funded party's colour. The supplier drawer now has a 'Political giving' section with per-party totals and donation date range. The Gracchus thesis \u2014 firms that hold government contracts also funding the party that gives them out \u2014 is finally legible at a glance.",
+      "title": "Money Map v2 — donor-supplier overlap surfacing live",
+      "summary": "Phase 3 now processes the full 6,819-record donations dataset (was: top-100 aggregate, which surfaced zero overlaps). Nine real overlaps now appear on the canvas — Deloitte LLP, Sir Robert McAlpine, William Cook Defence Systems, Canary Wharf Group, Heathrow Airport Holdings, Imagination Industries. Each is a tracked supplier whose firm also donated to a UK political party; the supplier bubble carries a coloured ring in the dominant funded party's colour. The supplier drawer now has a 'Political giving' section with per-party totals and donation date range. The Gracchus thesis — firms that hold government contracts also funding the party that gives them out — is finally legible at a glance.",
       "view": "moneymap",
       "metric": "9 supplier-donors live"
     },
     {
       "date": "2026-04-24",
       "type": "feature",
-      "title": "Money Map v2 \u2014 donors on the canvas + donor-supplier overlap",
-      "summary": "The top 25 political donors by aggregate \u00a3 (Electoral Commission record) now appear on the Money Map canvas, wired by donor\u2192party edges in party colours. Where a tracked supplier is also on that donor list \u2014 Randox is the textbook case \u2014 the supplier bubble gains a coloured ring in the party's colour, signalling 'this firm both held government contracts and donated to the party in power'. The donor profile drawer cross-references contract and donation history side-by-side. Phase 3 of Money Map v2 \u2014 the full donor\u2192party\u2192minister\u2192contract money loop is now visible.",
+      "title": "Money Map v2 — donors on the canvas + donor-supplier overlap",
+      "summary": "The top 25 political donors by aggregate £ (Electoral Commission record) now appear on the Money Map canvas, wired by donor→party edges in party colours. Where a tracked supplier is also on that donor list — Randox is the textbook case — the supplier bubble gains a coloured ring in the party's colour, signalling 'this firm both held government contracts and donated to the party in power'. The donor profile drawer cross-references contract and donation history side-by-side. Phase 3 of Money Map v2 — the full donor→party→minister→contract money loop is now visible.",
       "view": "moneymap",
       "metric": "+25 donor nodes"
     },
     {
       "date": "2026-04-24",
       "type": "feature",
-      "title": "Money Map v2 \u2014 parties on the canvas",
+      "title": "Money Map v2 — parties on the canvas",
       "summary": "Adds political parties as a new node kind. Each person with a party affiliation now sits next to their party on the canvas, coloured in standard party colours. Click a party to see who's connected to it on this canvas, the regulator findings against its people, and the live proceedings still in play. Phase 3 will add donor-to-party edges from the Electoral Commission record.",
       "view": "moneymap",
       "metric": "+political party node kind"
@@ -29,7 +37,7 @@
     {
       "date": "2026-04-24",
       "type": "feature",
-      "title": "Money Map v2 \u2014 people on the canvas",
+      "title": "Money Map v2 — people on the canvas",
       "summary": "The Money Map canvas now includes 19 people as a new node kind, wired from the connection records. Each person is linked to their counterparty (supplier or buyer) and the departments they served in. Click a person bubble to open a profile drawer with their roles, their connections, and the underlying source documents. Phase 2 will add political parties and donations as further node kinds.",
       "view": "moneymap",
       "metric": "+19 person nodes"
@@ -37,7 +45,7 @@
     {
       "date": "2026-04-24",
       "type": "coverage",
-      "title": "Connection catalogue expanded \u2014 12 more stories",
+      "title": "Connection catalogue expanded — 12 more stories",
       "summary": "The Money Map Stories tab now spans Osborne (BlackRock), Clegg (Meta), Javid (JP Morgan), Hammond, Patel, May, Harding/Penrose (NHS Test & Trace), Zahawi (Balshore), Meller (PPE VIP lane), Uniserve, and Benton (lobbying suspension). Mix of regulator findings, ACOBA-approved appointments, and public-record entries. Sourced to gov.uk, parliament.uk, court records, and investigative journalism.",
       "view": "moneymap",
       "metric": "19 connection stories live"
@@ -45,23 +53,23 @@
     {
       "date": "2026-04-24",
       "type": "coverage",
-      "title": "Four more connection stories \u2014 Cameron, Crothers, Bourne, Cox",
-      "summary": "Second-wave individual-connection records from the revolving-door research brief. Cameron\u2019s Greensill lobbying, Crothers\u2019s dual civil-service / Greensill role, Alex Bourne\u2019s Hancock-linked PPE contract, and Geoffrey Cox\u2019s outside legal earnings. Sourced to Parliamentary records, Treasury Committee / PACAC findings, and investigative reporting where applicable.",
+      "title": "Four more connection stories — Cameron, Crothers, Bourne, Cox",
+      "summary": "Second-wave individual-connection records from the revolving-door research brief. Cameron’s Greensill lobbying, Crothers’s dual civil-service / Greensill role, Alex Bourne’s Hancock-linked PPE contract, and Geoffrey Cox’s outside legal earnings. Sourced to Parliamentary records, Treasury Committee / PACAC findings, and investigative reporting where applicable.",
       "view": "moneymap",
       "metric": "7 connection stories live"
     },
     {
       "date": "2026-04-21",
       "type": "feature",
-      "title": "Money Map polish pass \u2014 13 upgrades before ship",
-      "summary": "Shareable URLs (view/lens/tier/min/q), sticky filter bar, export-current-view-as-PNG, dashed strokes on undisclosed-\u00a3 bubbles, HHI/dependence qualitative bands (US DoJ guidelines), hover tooltips on every bubble, drawer focus trap + ARIA, collapsible mobile rails, repeat-offenders \u2192 supplier profile cross-link, weekly-rotating story cards, empty-canvas overlay with reset CTAs, discoverable Min \u00a3 cycler, and a shared useDrawerFocus hook.",
+      "title": "Money Map polish pass — 13 upgrades before ship",
+      "summary": "Shareable URLs (view/lens/tier/min/q), sticky filter bar, export-current-view-as-PNG, dashed strokes on undisclosed-£ bubbles, HHI/dependence qualitative bands (US DoJ guidelines), hover tooltips on every bubble, drawer focus trap + ARIA, collapsible mobile rails, repeat-offenders → supplier profile cross-link, weekly-rotating story cards, empty-canvas overlay with reset CTAs, discoverable Min £ cycler, and a shared useDrawerFocus hook.",
       "view": "moneymap",
       "metric": "13 ship-blockers cleared"
     },
     {
       "date": "2026-04-21",
       "type": "feature",
-      "title": "Drawer accessibility \u2014 focus trap, Esc close, empty states",
+      "title": "Drawer accessibility — focus trap, Esc close, empty states",
       "summary": "Project, Supplier, and Buyer dossier drawers now trap focus, return it to the thing you opened them from, and close on Escape. Unresolved links render a terse 'unavailable' panel instead of crashing. Skip-to-content link wired for keyboard users.",
       "metric": "a11y pass"
     },
@@ -77,21 +85,21 @@
       "date": "2026-04-21",
       "type": "feature",
       "title": "Citation chips in Money Map drawer + print styles",
-      "summary": "Money Map node drawer now exposes copy-citation chips on total-\u00a3, HHI, buyer/supplier counts, and top-edge figures. Dossiers print clean on light paper \u2014 header chrome hidden, drawer flows the full page, links append their URL.",
+      "summary": "Money Map node drawer now exposes copy-citation chips on total-£, HHI, buyer/supplier counts, and top-edge figures. Dossiers print clean on light paper — header chrome hidden, drawer flows the full page, links append their URL.",
       "view": "moneymap"
     },
     {
       "date": "2026-04-21",
       "type": "feature",
       "title": "Citation chip on every headline figure",
-      "summary": "Hover any figure on the home page, in a project dossier, or in a supplier profile \u2014 a small \u00a9 appears, click to copy a terse citation (finding, source file, access date). The whole tracker is now quotable without re-keying.",
-      "metric": "hover \u2192 copy"
+      "summary": "Hover any figure on the home page, in a project dossier, or in a supplier profile — a small © appears, click to copy a terse citation (finding, source file, access date). The whole tracker is now quotable without re-keying.",
+      "metric": "hover → copy"
     },
     {
       "date": "2026-04-21",
       "type": "feature",
-      "title": "Story of the Week \u2014 Universal Credit IT, 618% over",
-      "summary": "The home page now leads with a data-picked story: the tracked UK megaproject with the worst overrun % and a disclosed prime above \u00a3100m. Current pick: Universal Credit IT (\u00a32.2bn \u2192 \u00a315.8bn) \u2014 primes IBM, Accenture, DXC.",
+      "title": "Story of the Week — Universal Credit IT, 618% over",
+      "summary": "The home page now leads with a data-picked story: the tracked UK megaproject with the worst overrun % and a disclosed prime above £100m. Current pick: Universal Credit IT (£2.2bn → £15.8bn) — primes IBM, Accenture, DXC.",
       "view": "projects",
       "metric": "618% over"
     },
@@ -99,13 +107,13 @@
       "date": "2026-04-21",
       "type": "feature",
       "title": "Methodology page",
-      "summary": "An editorial one-pager explaining how Gracchus sources, grades, and reasons about the data \u2014 plus what we don\u2019t claim.",
+      "summary": "An editorial one-pager explaining how Gracchus sources, grades, and reasons about the data — plus what we don’t claim.",
       "view": "methodology"
     },
     {
       "date": "2026-04-20",
       "type": "tranche",
-      "title": "Tranche 11 \u2014 OCDS re-match",
+      "title": "Tranche 11 — OCDS re-match",
       "summary": "Re-ran the OCDS matcher against the grown cache. Fresh contract notices from Contracts Finder and Find a Tender folded into existing project dossiers.",
       "view": "moneymap",
       "metric": "OCDS re-run"
@@ -113,8 +121,8 @@
     {
       "date": "2026-04-20",
       "type": "coverage",
-      "title": "Supplier \u00a3 disclosure at 25.5%",
-      "summary": "Across all tracker projects, 236 of 924 named supplier positions now have a public \u00a3 figure attached \u2014 up from 21% pre-tranche-8.",
+      "title": "Supplier £ disclosure at 25.5%",
+      "summary": "Across all tracker projects, 236 of 924 named supplier positions now have a public £ figure attached — up from 21% pre-tranche-8.",
       "view": "suppliers.coverage",
       "metric": "25.5% coverage"
     },
@@ -135,23 +143,23 @@
     {
       "date": "2026-04-18",
       "type": "tranche",
-      "title": "Tranche 10 \u2014 description-gated dept-CSV match",
-      "summary": "Dept-CSV matcher now gated on shared description tokens to avoid supplier-name collisions. Unlocked \u00a31.30bn of previously-dropped candidates.",
+      "title": "Tranche 10 — description-gated dept-CSV match",
+      "summary": "Dept-CSV matcher now gated on shared description tokens to avoid supplier-name collisions. Unlocked £1.30bn of previously-dropped candidates.",
       "view": "suppliers.coverage",
-      "metric": "+\u00a31.30bn unlocked"
+      "metric": "+£1.30bn unlocked"
     },
     {
       "date": "2026-04-17",
       "type": "dataset",
-      "title": "Department spend CSVs \u2014 MoJ, DHSC, Cabinet Office",
-      "summary": "Added monthly transparency CSVs for six more central departments. Backfilled to January 2022 where the publisher\u2019s archive allows.",
+      "title": "Department spend CSVs — MoJ, DHSC, Cabinet Office",
+      "summary": "Added monthly transparency CSVs for six more central departments. Backfilled to January 2022 where the publisher’s archive allows.",
       "view": "suppliers.coverage"
     },
     {
       "date": "2026-04-15",
       "type": "feature",
-      "title": "Money Map \u2014 Lens mode",
-      "summary": "Click any entity to pivot the graph into an ego-network of its 1\u20132 hop neighbourhood. Makes cross-department concentration visible in one glance.",
+      "title": "Money Map — Lens mode",
+      "summary": "Click any entity to pivot the graph into an ego-network of its 1–2 hop neighbourhood. Makes cross-department concentration visible in one glance.",
       "view": "moneymap"
     }
   ]

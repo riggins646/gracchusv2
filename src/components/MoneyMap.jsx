@@ -958,6 +958,7 @@ const CONN_EYEBROW = {
   spousal_political_role: "SPOUSAL POLITICAL ROLE",
   family_trust_arrangement: "FAMILY TRUST",
   cash_for_access: "CASH FOR ACCESS",
+  donor_and_contractor: "DONOR-CONTRACTOR",
   other: "CONNECTION",
 };
 
@@ -994,6 +995,7 @@ function MoneyMapStoriesTab({ connections, peopleById, onOpen, onOpenPerson }) {
         const hasTarget = !!cpId;
         const partyId = person && person.party && person.party !== "none" ? person.party : null;
         const partyDef = partyId ? PARTY_DEFS[partyId] : null;
+        const isFirm = person && person.kind === "firm";
         const handleCardClick = () => {
           if (hasTarget) onOpen(cpId);
         };
@@ -1043,7 +1045,18 @@ function MoneyMapStoriesTab({ connections, peopleById, onOpen, onOpenPerson }) {
                   )}
                 </div>
                 {person?.name && (
-                  <h3 className="mm-story-name">{person.name}</h3>
+                  <h3 className="mm-story-name">
+                    {person.name}
+                    {isFirm && (
+                      <span
+                        className="mm-story-kind-pill"
+                        title="Subject of this story is a firm, not an individual"
+                        aria-label="Firm subject"
+                      >
+                        FIRM
+                      </span>
+                    )}
+                  </h3>
                 )}
                 {onOpenPerson && person?.id && (
                   <button
@@ -1053,9 +1066,9 @@ function MoneyMapStoriesTab({ connections, peopleById, onOpen, onOpenPerson }) {
                       e.stopPropagation();
                       onOpenPerson("person:" + person.id);
                     }}
-                    aria-label={`Open person profile for ${person.name}`}
+                    aria-label={`Open ${isFirm ? "firm" : "person"} profile for ${person.name}`}
                   >
-                    View person profile &rarr;
+                    {isFirm ? "View firm profile" : "View person profile"} &rarr;
                   </button>
                 )}
                 {c.summary && (
@@ -1184,6 +1197,7 @@ function MoneyMapStoriesStrip({ connections, peopleById, onOpen, onOpenPerson })
           const hasTarget = !!cpId;
           const partyId = person && person.party && person.party !== "none" ? person.party : null;
           const partyDef = partyId ? PARTY_DEFS[partyId] : null;
+          const isFirm = person && person.kind === "firm";
           const fig = c.financial?.relatedContractsDescription
             || c.financial?.personalIncomeDescription
             || "";
@@ -1232,7 +1246,18 @@ function MoneyMapStoriesStrip({ connections, peopleById, onOpen, onOpenPerson })
                 )}
               </div>
               {person?.name && (
-                <h3 className="mm-story-strip-name">{person.name}</h3>
+                <h3 className="mm-story-strip-name">
+                  {person.name}
+                  {isFirm && (
+                    <span
+                      className="mm-story-kind-pill"
+                      title="Subject of this story is a firm, not an individual"
+                      aria-label="Firm subject"
+                    >
+                      FIRM
+                    </span>
+                  )}
+                </h3>
               )}
               {onOpenPerson && person?.id && (
                 <button
@@ -1242,9 +1267,9 @@ function MoneyMapStoriesStrip({ connections, peopleById, onOpen, onOpenPerson })
                     e.stopPropagation();
                     onOpenPerson("person:" + person.id);
                   }}
-                  aria-label={`Open person profile for ${person.name}`}
+                  aria-label={`Open ${isFirm ? "firm" : "person"} profile for ${person.name}`}
                 >
-                  View person profile &rarr;
+                  {isFirm ? "View firm profile" : "View person profile"} &rarr;
                 </button>
               )}
               {c.summary && (
@@ -1573,10 +1598,16 @@ export default function MoneyMap({
     }
 
     // 1) person nodes
+    //    personKind preserves the underlying person record's kind ("person" |
+    //    "firm") so the PersonDetail drawer + Stories cards can render the
+    //    firm-subject treatment (FIRM pill badge, no rolesHeld table) while
+    //    the canvas dispatcher continues to route on the canvas-level
+    //    node.kind === "person".
     for (const p of people) {
       extraNodes.push({
         id: "person:" + p.id,
         kind: "person",
+        personKind: p.kind || "person",
         label: p.name,
         value: 1,
         sources: [],
@@ -3918,25 +3949,36 @@ function PersonDetail({
 }) {
   const roles = node.rolesHeld || [];
   const links = node.externalLinks || [];
+  const isFirm = node.personKind === "firm";
+  // For firm subjects with a single donor-contractor connection, surface the
+  // detail paragraphs as a "Pattern" section in place of the rolesHeld table
+  // (firms have no rolesHeld) so the drawer leads with the editorial framing
+  // before the cards repeat it.
+  const patternConn = isFirm && connections.length > 0 ? connections[0] : null;
   return (
     <aside
       ref={drawerRef}
       tabIndex={-1}
       role="dialog"
       aria-modal="true"
-      aria-label={`Person profile: ${node.label}`}
+      aria-label={`${isFirm ? "Firm" : "Person"} profile: ${node.label}`}
       className="mm-drawer mm-drawer-open mm-drawer-person"
     >
       <div className="mm-d-head">
         <button className="mm-d-close" aria-label="Close drawer" onClick={onClose}>x</button>
         <div className="mm-eyebrow-row">
-          <span className="mm-eyebrow">Person</span>
+          <span className="mm-eyebrow">{isFirm ? "Firm" : "Person"}</span>
           <span className="mm-tier-badge mm-tier-A" style={{ background: "#3b2a06", color: "#fbbf24", borderColor: "#7a5b15" }}>
             {connections.length} connection{connections.length === 1 ? "" : "s"}
           </span>
         </div>
         <div className="mm-entity-name" style={{ fontFamily: "var(--mm-serif)" }}>
           {node.label}
+          {isFirm && (
+            <span className="mm-story-kind-pill" style={{ marginLeft: 8, verticalAlign: "middle" }}>
+              FIRM
+            </span>
+          )}
         </div>
         {node.headline && (
           <div className="mm-entity-sub" style={{ marginTop: 6 }}>
@@ -3945,7 +3987,7 @@ function PersonDetail({
         )}
       </div>
       <div className="mm-d-body">
-        {roles.length > 0 && (
+        {!isFirm && roles.length > 0 && (
           <>
             <div className="mm-d-section-h">Roles held</div>
             <div className="mm-person-roles">
@@ -3961,6 +4003,17 @@ function PersonDetail({
                   </div>
                 );
               })}
+            </div>
+          </>
+        )}
+
+        {patternConn && patternConn.detail && (
+          <>
+            <div className="mm-d-section-h">Pattern</div>
+            <div className="mm-person-pattern" style={{ fontSize: 13, lineHeight: 1.55, color: "#cbd5e1" }}>
+              {patternConn.detail.split("\n\n").map((para, i) => (
+                <p key={i} style={{ marginBottom: 10 }}>{para}</p>
+              ))}
             </div>
           </>
         )}
@@ -5437,6 +5490,28 @@ function MoneyMapStyles() {
       }
       .mm-story-party-letter {
         text-transform: uppercase;
+      }
+
+      /* FIRM pill badge — sits inline next to the serif name on Stories
+         cards when the subject of the story is a company rather than an
+         individual political figure. Mirrors the party-dot/live-proceedings
+         convention so readers can scan the surface and instantly tell whether
+         a card is about a person or a firm. */
+      .mm-story-kind-pill {
+        display: inline-block;
+        margin-left: 8px;
+        padding: 2px 6px;
+        background: rgba(125, 211, 252, 0.10);
+        border: 1px solid rgba(125, 211, 252, 0.35);
+        border-radius: 4px;
+        color: #7dd3fc;
+        font-family: var(--mm-mono);
+        font-size: 9.5px;
+        letter-spacing: 0.12em;
+        line-height: 1;
+        text-transform: uppercase;
+        vertical-align: middle;
+        font-weight: 600;
       }
 
       /* Per-card "View person profile" link surfaced inside Stories cards */

@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-04-24",
-  "editorialNotes": "Every connection must have >=1 source with tier=\"primary\" (gov.uk/parliament.uk/court record). Connections with liveProceedings=true render a cautionary banner and must quote only official findings in the public record. Person IDs are kebab-case (surname-given). Counterparty IDs match the canonical IDs used elsewhere in Gracchus; adjacent_firm entries carry no ID.",
+  "updatedAt": "2026-04-26",
+  "editorialNotes": "Every connection must have >=1 source with tier=\"primary\" (gov.uk/parliament.uk/court record). Connections with liveProceedings=true render a cautionary banner and must quote only official findings in the public record. Person IDs are kebab-case (surname-given for individuals; firm-<slug> for firms). Each person record carries a kind field: \"person\" (individual political figure or civil servant) or \"firm\" (company subject — used for donor-contractor pattern records). Counterparty IDs match the canonical IDs used elsewhere in Gracchus; adjacent_firm entries carry no ID.",
   "connectionTypes": {
     "post_office_appointment": "Ex-minister or senior civil servant joined a firm after leaving office",
     "dual_role": "Held private-sector role while still in public office",
@@ -17,6 +17,7 @@
     "spousal_political_role": "Spouse holds a separate political or public-policy role that overlaps with the individual's appointment",
     "family_trust_arrangement": "Family-linked trust or offshore vehicle holds shares in a firm of public-interest significance",
     "cash_for_access": "Member offered to lobby or share information in exchange for paid retainers (regulator-confirmed)",
+    "donor_and_contractor": "Firm both donated to a UK political party and held UK government contracts in the same period",
     "other": "Connection of interest not fitting the above categories"
   },
   "statuses": {
@@ -33,15 +34,42 @@
       "party": "conservative",
       "headline": "Former Secretary of State for Environment, Food and Rural Affairs (2012-2014) and for Northern Ireland (2010-2012); Conservative MP for North Shropshire until his resignation on 5 November 2021.",
       "rolesHeld": [
-        { "title": "Secretary of State for Northern Ireland", "department": "Northern Ireland Office", "start": "2010-05", "end": "2012-09" },
-        { "title": "Secretary of State for Environment, Food and Rural Affairs", "department": "Defra", "start": "2012-09", "end": "2014-07" },
-        { "title": "MP for North Shropshire", "department": "House of Commons", "start": "1997-05", "end": "2021-11" },
-        { "title": "Paid consultant to Randox Laboratories", "department": "Randox Laboratories Ltd (private)", "start": "2015-08", "end": "2021-11" }
+        {
+          "title": "Secretary of State for Northern Ireland",
+          "department": "Northern Ireland Office",
+          "start": "2010-05",
+          "end": "2012-09"
+        },
+        {
+          "title": "Secretary of State for Environment, Food and Rural Affairs",
+          "department": "Defra",
+          "start": "2012-09",
+          "end": "2014-07"
+        },
+        {
+          "title": "MP for North Shropshire",
+          "department": "House of Commons",
+          "start": "1997-05",
+          "end": "2021-11"
+        },
+        {
+          "title": "Paid consultant to Randox Laboratories",
+          "department": "Randox Laboratories Ltd (private)",
+          "start": "2015-08",
+          "end": "2021-11"
+        }
       ],
       "externalLinks": [
-        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Owen_Paterson" },
-        { "label": "Parliamentary Commissioner for Standards case record", "url": "https://publications.parliament.uk/pa/cm5802/cmselect/cmstandards/797/79702.htm" }
-      ]
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Owen_Paterson"
+        },
+        {
+          "label": "Parliamentary Commissioner for Standards case record",
+          "url": "https://publications.parliament.uk/pa/cm5802/cmselect/cmstandards/797/79702.htm"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "mone-michelle",
@@ -49,13 +77,30 @@
       "party": "conservative",
       "headline": "Conservative life peer (Baroness Mone of Mayfair) since 2015; took leave of absence from the House of Lords in December 2022 pending investigations connected to PPE Medpro.",
       "rolesHeld": [
-        { "title": "Member of the House of Lords (Conservative)", "department": "House of Lords", "start": "2015-08", "end": null },
-        { "title": "Leave of absence from the House of Lords", "department": "House of Lords", "start": "2022-12", "end": null }
+        {
+          "title": "Member of the House of Lords (Conservative)",
+          "department": "House of Lords",
+          "start": "2015-08",
+          "end": null
+        },
+        {
+          "title": "Leave of absence from the House of Lords",
+          "department": "House of Lords",
+          "start": "2022-12",
+          "end": null
+        }
       ],
       "externalLinks": [
-        { "label": "Register of Lords' Interests", "url": "https://www.parliament.uk/mps-lords-and-offices/standards-and-financial-interests/house-of-lords-commissioner-for-standards/register-of-lords-interests/" },
-        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Michelle_Mone" }
-      ]
+        {
+          "label": "Register of Lords' Interests",
+          "url": "https://www.parliament.uk/mps-lords-and-offices/standards-and-financial-interests/house-of-lords-commissioner-for-standards/register-of-lords-interests/"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Michelle_Mone"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "sunak-rishi",
@@ -63,14 +108,36 @@
       "party": "conservative",
       "headline": "Chancellor of the Exchequer February 2020-July 2022; Prime Minister October 2022-July 2024; Conservative MP for Richmond and Northallerton.",
       "rolesHeld": [
-        { "title": "Chancellor of the Exchequer", "department": "HM Treasury", "start": "2020-02", "end": "2022-07" },
-        { "title": "Prime Minister", "department": "10 Downing Street", "start": "2022-10", "end": "2024-07" },
-        { "title": "MP for Richmond (Yorks) / Richmond and Northallerton", "department": "House of Commons", "start": "2015-05", "end": null }
+        {
+          "title": "Chancellor of the Exchequer",
+          "department": "HM Treasury",
+          "start": "2020-02",
+          "end": "2022-07"
+        },
+        {
+          "title": "Prime Minister",
+          "department": "10 Downing Street",
+          "start": "2022-10",
+          "end": "2024-07"
+        },
+        {
+          "title": "MP for Richmond (Yorks) / Richmond and Northallerton",
+          "department": "House of Commons",
+          "start": "2015-05",
+          "end": null
+        }
       ],
       "externalLinks": [
-        { "label": "Register of Members' Financial Interests", "url": "https://publications.parliament.uk/pa/cm/cmregmem/" },
-        { "label": "Wikipedia (Akshata Murty)", "url": "https://en.wikipedia.org/wiki/Akshata_Murty" }
-      ]
+        {
+          "label": "Register of Members' Financial Interests",
+          "url": "https://publications.parliament.uk/pa/cm/cmregmem/"
+        },
+        {
+          "label": "Wikipedia (Akshata Murty)",
+          "url": "https://en.wikipedia.org/wiki/Akshata_Murty"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "cameron-david",
@@ -78,15 +145,42 @@
       "party": "conservative",
       "headline": "Prime Minister May 2010-July 2016; Conservative MP for Witney 1997-2016; Foreign Secretary November 2023-July 2024 as Baron Cameron of Chipping Norton.",
       "rolesHeld": [
-        { "title": "Prime Minister", "department": "10 Downing Street", "start": "2010-05", "end": "2016-07" },
-        { "title": "MP for Witney", "department": "House of Commons", "start": "2001-06", "end": "2016-09" },
-        { "title": "Part-time adviser to Greensill Capital", "department": "Greensill Capital (private)", "start": "2018-08", "end": "2021-03" },
-        { "title": "Secretary of State for Foreign, Commonwealth and Development Affairs", "department": "FCDO", "start": "2023-11", "end": "2024-07" }
+        {
+          "title": "Prime Minister",
+          "department": "10 Downing Street",
+          "start": "2010-05",
+          "end": "2016-07"
+        },
+        {
+          "title": "MP for Witney",
+          "department": "House of Commons",
+          "start": "2001-06",
+          "end": "2016-09"
+        },
+        {
+          "title": "Part-time adviser to Greensill Capital",
+          "department": "Greensill Capital (private)",
+          "start": "2018-08",
+          "end": "2021-03"
+        },
+        {
+          "title": "Secretary of State for Foreign, Commonwealth and Development Affairs",
+          "department": "FCDO",
+          "start": "2023-11",
+          "end": "2024-07"
+        }
       ],
       "externalLinks": [
-        { "label": "Treasury Committee - Lessons from Greensill Capital (HC 151)", "url": "https://publications.parliament.uk/pa/cm5802/cmselect/cmtreasy/151/15106.htm" },
-        { "label": "PACAC - Propriety of Governance in Light of Greensill", "url": "https://publications.parliament.uk/pa/cm5803/cmselect/cmpubadm/888/report.html" }
-      ]
+        {
+          "label": "Treasury Committee - Lessons from Greensill Capital (HC 151)",
+          "url": "https://publications.parliament.uk/pa/cm5802/cmselect/cmtreasy/151/15106.htm"
+        },
+        {
+          "label": "PACAC - Propriety of Governance in Light of Greensill",
+          "url": "https://publications.parliament.uk/pa/cm5803/cmselect/cmpubadm/888/report.html"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "crothers-bill",
@@ -94,14 +188,36 @@
       "party": "none",
       "headline": "Government Chief Commercial Officer at the Cabinet Office 2012-2015; took up a paid advisory role with Greensill Capital in 2015 while still serving as a civil servant.",
       "rolesHeld": [
-        { "title": "Government Chief Commercial Officer", "department": "Cabinet Office / Crown Commercial Service", "start": "2012-01", "end": "2015-11" },
-        { "title": "Paid adviser to Greensill Capital", "department": "Greensill Capital (private)", "start": "2015-09", "end": "2016-11" },
-        { "title": "Director, Greensill Capital", "department": "Greensill Capital (private)", "start": "2016-08", "end": "2021-03" }
+        {
+          "title": "Government Chief Commercial Officer",
+          "department": "Cabinet Office / Crown Commercial Service",
+          "start": "2012-01",
+          "end": "2015-11"
+        },
+        {
+          "title": "Paid adviser to Greensill Capital",
+          "department": "Greensill Capital (private)",
+          "start": "2015-09",
+          "end": "2016-11"
+        },
+        {
+          "title": "Director, Greensill Capital",
+          "department": "Greensill Capital (private)",
+          "start": "2016-08",
+          "end": "2021-03"
+        }
       ],
       "externalLinks": [
-        { "label": "ACOBA record - Bill Crothers", "url": "https://www.gov.uk/government/publications/crothers-bill-government-chief-commercial-officer-cabinet-office-acoba-recommendation" },
-        { "label": "PACAC - Propriety of Governance in Light of Greensill", "url": "https://publications.parliament.uk/pa/cm5803/cmselect/cmpubadm/888/report.html" }
-      ]
+        {
+          "label": "ACOBA record - Bill Crothers",
+          "url": "https://www.gov.uk/government/publications/crothers-bill-government-chief-commercial-officer-cabinet-office-acoba-recommendation"
+        },
+        {
+          "label": "PACAC - Propriety of Governance in Light of Greensill",
+          "url": "https://publications.parliament.uk/pa/cm5803/cmselect/cmpubadm/888/report.html"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "bourne-alex",
@@ -109,13 +225,30 @@
       "party": "none",
       "headline": "Former landlord of the Cock Inn in Little Thurlow, Matt Hancock's West Suffolk constituency; ran Hinpack, a plastics manufacturer that was contracted to produce specimen collection tubes and funnels for COVID-19 testing after he contacted Hancock via WhatsApp.",
       "rolesHeld": [
-        { "title": "Landlord, the Cock Inn, Little Thurlow (West Suffolk)", "department": "Private", "start": "2010-01", "end": "2020-01" },
-        { "title": "Director, Hinpack Ltd (plastics manufacturer)", "department": "Hinpack Ltd (private)", "start": "2020-01", "end": null }
+        {
+          "title": "Landlord, the Cock Inn, Little Thurlow (West Suffolk)",
+          "department": "Private",
+          "start": "2010-01",
+          "end": "2020-01"
+        },
+        {
+          "title": "Director, Hinpack Ltd (plastics manufacturer)",
+          "department": "Hinpack Ltd (private)",
+          "start": "2020-01",
+          "end": null
+        }
       ],
       "externalLinks": [
-        { "label": "Controversies regarding COVID-19 contracts in the United Kingdom (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Controversies_regarding_COVID-19_contracts_in_the_United_Kingdom" },
-        { "label": "Matt Hancock (Wikipedia)", "url": "https://en.wikipedia.org/wiki/Matt_Hancock" }
-      ]
+        {
+          "label": "Controversies regarding COVID-19 contracts in the United Kingdom (Wikipedia)",
+          "url": "https://en.wikipedia.org/wiki/Controversies_regarding_COVID-19_contracts_in_the_United_Kingdom"
+        },
+        {
+          "label": "Matt Hancock (Wikipedia)",
+          "url": "https://en.wikipedia.org/wiki/Matt_Hancock"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "cox-geoffrey",
@@ -123,14 +256,36 @@
       "party": "conservative",
       "headline": "Conservative MP for Torridge and West Devon (later Torridge and Tavistock) since 2005; Attorney General for England and Wales 2018-2020; practising barrister with substantial outside legal earnings declared in the Register of Members' Financial Interests.",
       "rolesHeld": [
-        { "title": "MP for Torridge and West Devon / Torridge and Tavistock", "department": "House of Commons", "start": "2005-05", "end": null },
-        { "title": "Attorney General for England and Wales", "department": "Attorney General's Office", "start": "2018-07", "end": "2020-02" },
-        { "title": "Practising barrister (Withers LLP and others)", "department": "Private practice", "start": "2005-05", "end": null }
+        {
+          "title": "MP for Torridge and West Devon / Torridge and Tavistock",
+          "department": "House of Commons",
+          "start": "2005-05",
+          "end": null
+        },
+        {
+          "title": "Attorney General for England and Wales",
+          "department": "Attorney General's Office",
+          "start": "2018-07",
+          "end": "2020-02"
+        },
+        {
+          "title": "Practising barrister (Withers LLP and others)",
+          "department": "Private practice",
+          "start": "2005-05",
+          "end": null
+        }
       ],
       "externalLinks": [
-        { "label": "Register of Interests - Sir Geoffrey Cox", "url": "https://members.parliament.uk/member/1508/registeredinterests" },
-        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Geoffrey_Cox_(British_politician)" }
-      ]
+        {
+          "label": "Register of Interests - Sir Geoffrey Cox",
+          "url": "https://members.parliament.uk/member/1508/registeredinterests"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoffrey_Cox_(British_politician)"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "osborne-george",
@@ -138,16 +293,48 @@
       "party": "conservative",
       "headline": "Chancellor of the Exchequer May 2010-July 2016; Conservative MP for Tatton until April 2017; subsequently editor of the Evening Standard (2017-2020) and senior adviser to BlackRock Investment Institute.",
       "rolesHeld": [
-        { "title": "Chancellor of the Exchequer", "department": "HM Treasury", "start": "2010-05", "end": "2016-07" },
-        { "title": "MP for Tatton", "department": "House of Commons", "start": "2001-06", "end": "2017-05" },
-        { "title": "Senior adviser, BlackRock Investment Institute", "department": "BlackRock (private)", "start": "2017-02", "end": "2021-01" },
-        { "title": "Editor, Evening Standard", "department": "ESI Media (private)", "start": "2017-05", "end": "2020-06" },
-        { "title": "Adviser, Coinbase", "department": "Coinbase (private)", "start": "2024-01", "end": null }
+        {
+          "title": "Chancellor of the Exchequer",
+          "department": "HM Treasury",
+          "start": "2010-05",
+          "end": "2016-07"
+        },
+        {
+          "title": "MP for Tatton",
+          "department": "House of Commons",
+          "start": "2001-06",
+          "end": "2017-05"
+        },
+        {
+          "title": "Senior adviser, BlackRock Investment Institute",
+          "department": "BlackRock (private)",
+          "start": "2017-02",
+          "end": "2021-01"
+        },
+        {
+          "title": "Editor, Evening Standard",
+          "department": "ESI Media (private)",
+          "start": "2017-05",
+          "end": "2020-06"
+        },
+        {
+          "title": "Adviser, Coinbase",
+          "department": "Coinbase (private)",
+          "start": "2024-01",
+          "end": null
+        }
       ],
       "externalLinks": [
-        { "label": "ACOBA recommendation - George Osborne", "url": "https://www.gov.uk/government/publications/osborne-george-chancellor-of-the-exchequer-hm-treasury-acoba-recommendation" },
-        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/George_Osborne" }
-      ]
+        {
+          "label": "ACOBA recommendation - George Osborne",
+          "url": "https://www.gov.uk/government/publications/osborne-george-chancellor-of-the-exchequer-hm-treasury-acoba-recommendation"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/George_Osborne"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "clegg-nick",
@@ -155,15 +342,42 @@
       "party": "liberal-democrats",
       "headline": "Deputy Prime Minister 2010-2015; Liberal Democrat leader 2007-2015; MP for Sheffield Hallam 2005-2017; subsequently VP and President of Global Affairs at Meta Platforms (Facebook).",
       "rolesHeld": [
-        { "title": "Deputy Prime Minister", "department": "Cabinet Office", "start": "2010-05", "end": "2015-05" },
-        { "title": "MP for Sheffield Hallam", "department": "House of Commons", "start": "2005-05", "end": "2017-06" },
-        { "title": "VP Global Affairs and Communications, Facebook", "department": "Meta Platforms (private)", "start": "2018-10", "end": "2022-02" },
-        { "title": "President, Global Affairs, Meta", "department": "Meta Platforms (private)", "start": "2022-02", "end": "2025-01" }
+        {
+          "title": "Deputy Prime Minister",
+          "department": "Cabinet Office",
+          "start": "2010-05",
+          "end": "2015-05"
+        },
+        {
+          "title": "MP for Sheffield Hallam",
+          "department": "House of Commons",
+          "start": "2005-05",
+          "end": "2017-06"
+        },
+        {
+          "title": "VP Global Affairs and Communications, Facebook",
+          "department": "Meta Platforms (private)",
+          "start": "2018-10",
+          "end": "2022-02"
+        },
+        {
+          "title": "President, Global Affairs, Meta",
+          "department": "Meta Platforms (private)",
+          "start": "2022-02",
+          "end": "2025-01"
+        }
       ],
       "externalLinks": [
-        { "label": "DCMS Committee correspondence with Facebook", "url": "https://committees.parliament.uk/committee/378/digital-culture-media-and-sport-committee/news/103466/facebook-correspondence-17-19/" },
-        { "label": "Britannica", "url": "https://www.britannica.com/biography/Nick-Clegg" }
-      ]
+        {
+          "label": "DCMS Committee correspondence with Facebook",
+          "url": "https://committees.parliament.uk/committee/378/digital-culture-media-and-sport-committee/news/103466/facebook-correspondence-17-19/"
+        },
+        {
+          "label": "Britannica",
+          "url": "https://www.britannica.com/biography/Nick-Clegg"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "javid-sajid",
@@ -171,15 +385,42 @@
       "party": "conservative",
       "headline": "Conservative MP for Bromsgrove 2010-2024; Chancellor of the Exchequer July 2019-February 2020; Secretary of State for Health and Social Care June 2021-July 2022; pre-politics career at JP Morgan and Deutsche Bank.",
       "rolesHeld": [
-        { "title": "Chancellor of the Exchequer", "department": "HM Treasury", "start": "2019-07", "end": "2020-02" },
-        { "title": "Secretary of State for Health and Social Care", "department": "DHSC", "start": "2021-06", "end": "2022-07" },
-        { "title": "MP for Bromsgrove", "department": "House of Commons", "start": "2010-05", "end": "2024-05" },
-        { "title": "Senior adviser, JP Morgan EMEA advisory council", "department": "JP Morgan (private)", "start": "2020-08", "end": null }
+        {
+          "title": "Chancellor of the Exchequer",
+          "department": "HM Treasury",
+          "start": "2019-07",
+          "end": "2020-02"
+        },
+        {
+          "title": "Secretary of State for Health and Social Care",
+          "department": "DHSC",
+          "start": "2021-06",
+          "end": "2022-07"
+        },
+        {
+          "title": "MP for Bromsgrove",
+          "department": "House of Commons",
+          "start": "2010-05",
+          "end": "2024-05"
+        },
+        {
+          "title": "Senior adviser, JP Morgan EMEA advisory council",
+          "department": "JP Morgan (private)",
+          "start": "2020-08",
+          "end": null
+        }
       ],
       "externalLinks": [
-        { "label": "ACOBA advice - Sajid Javid", "url": "https://www.gov.uk/government/publications/javid-sajid-chancellor-of-the-exchequer-hm-treasury-acoba-advice" },
-        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Sajid_Javid" }
-      ]
+        {
+          "label": "ACOBA advice - Sajid Javid",
+          "url": "https://www.gov.uk/government/publications/javid-sajid-chancellor-of-the-exchequer-hm-treasury-acoba-advice"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Sajid_Javid"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "hammond-philip",
@@ -187,16 +428,48 @@
       "party": "conservative",
       "headline": "Conservative MP for Runnymede and Weybridge 1997-2019; Defence Secretary 2011-2014; Foreign Secretary 2014-2016; Chancellor of the Exchequer July 2016-July 2019; created life peer in 2020.",
       "rolesHeld": [
-        { "title": "Secretary of State for Defence", "department": "Ministry of Defence", "start": "2011-10", "end": "2014-07" },
-        { "title": "Secretary of State for Foreign and Commonwealth Affairs", "department": "FCO", "start": "2014-07", "end": "2016-07" },
-        { "title": "Chancellor of the Exchequer", "department": "HM Treasury", "start": "2016-07", "end": "2019-07" },
-        { "title": "Adviser, OakNorth Bank", "department": "OakNorth (private)", "start": "2019-12", "end": null },
-        { "title": "Member of the House of Lords", "department": "House of Lords", "start": "2020-09", "end": null }
+        {
+          "title": "Secretary of State for Defence",
+          "department": "Ministry of Defence",
+          "start": "2011-10",
+          "end": "2014-07"
+        },
+        {
+          "title": "Secretary of State for Foreign and Commonwealth Affairs",
+          "department": "FCO",
+          "start": "2014-07",
+          "end": "2016-07"
+        },
+        {
+          "title": "Chancellor of the Exchequer",
+          "department": "HM Treasury",
+          "start": "2016-07",
+          "end": "2019-07"
+        },
+        {
+          "title": "Adviser, OakNorth Bank",
+          "department": "OakNorth (private)",
+          "start": "2019-12",
+          "end": null
+        },
+        {
+          "title": "Member of the House of Lords",
+          "department": "House of Lords",
+          "start": "2020-09",
+          "end": null
+        }
       ],
       "externalLinks": [
-        { "label": "ACOBA correspondence - Hammond / OakNorth", "url": "https://www.gov.uk/government/publications/hammond-philip-chancellor-of-the-exchequer-hm-treasury-acoba-advice/correspondence-between-acoba-and-philip-hammond-regarding-oaknorth" },
-        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Philip_Hammond" }
-      ]
+        {
+          "label": "ACOBA correspondence - Hammond / OakNorth",
+          "url": "https://www.gov.uk/government/publications/hammond-philip-chancellor-of-the-exchequer-hm-treasury-acoba-advice/correspondence-between-acoba-and-philip-hammond-regarding-oaknorth"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Philip_Hammond"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "patel-priti",
@@ -204,15 +477,42 @@
       "party": "conservative",
       "headline": "Conservative MP for Witham since 2010; Secretary of State for International Development 2016-2017 (resigned over undisclosed Israel meetings); Home Secretary July 2019-September 2022.",
       "rolesHeld": [
-        { "title": "Secretary of State for International Development", "department": "DfID", "start": "2016-07", "end": "2017-11" },
-        { "title": "Home Secretary", "department": "Home Office", "start": "2019-07", "end": "2022-09" },
-        { "title": "MP for Witham", "department": "House of Commons", "start": "2010-05", "end": null },
-        { "title": "Strategic adviser, Viasat Inc.", "department": "Viasat (private)", "start": "2019-01", "end": null }
+        {
+          "title": "Secretary of State for International Development",
+          "department": "DfID",
+          "start": "2016-07",
+          "end": "2017-11"
+        },
+        {
+          "title": "Home Secretary",
+          "department": "Home Office",
+          "start": "2019-07",
+          "end": "2022-09"
+        },
+        {
+          "title": "MP for Witham",
+          "department": "House of Commons",
+          "start": "2010-05",
+          "end": null
+        },
+        {
+          "title": "Strategic adviser, Viasat Inc.",
+          "department": "Viasat (private)",
+          "start": "2019-01",
+          "end": null
+        }
       ],
       "externalLinks": [
-        { "label": "ACOBA record - Priti Patel", "url": "https://www.gov.uk/government/publications/patel-priti-secretary-of-state-the-department-for-international-development-acoba-advice" },
-        { "label": "Monckton Chambers - Upper Tribunal disclosure ruling", "url": "https://www.monckton.com/former-home-secretarys-compliance-with-the-ministerial-code-upper-tribunal-orders-disclosure-of-information/" }
-      ]
+        {
+          "label": "ACOBA record - Priti Patel",
+          "url": "https://www.gov.uk/government/publications/patel-priti-secretary-of-state-the-department-for-international-development-acoba-advice"
+        },
+        {
+          "label": "Monckton Chambers - Upper Tribunal disclosure ruling",
+          "url": "https://www.monckton.com/former-home-secretarys-compliance-with-the-ministerial-code-upper-tribunal-orders-disclosure-of-information/"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "lee-laurence",
@@ -220,13 +520,30 @@
       "party": "none",
       "headline": "Former Second Permanent Secretary at the Ministry of Defence; took up a paid geo-strategic adviser role with Palantir Technologies UK after leaving the civil service.",
       "rolesHeld": [
-        { "title": "Second Permanent Secretary", "department": "Ministry of Defence", "start": "2018-01", "end": "2023-01" },
-        { "title": "Geo-strategic adviser, Palantir Technologies UK", "department": "Palantir (private)", "start": "2023-06", "end": null }
+        {
+          "title": "Second Permanent Secretary",
+          "department": "Ministry of Defence",
+          "start": "2018-01",
+          "end": "2023-01"
+        },
+        {
+          "title": "Geo-strategic adviser, Palantir Technologies UK",
+          "department": "Palantir (private)",
+          "start": "2023-06",
+          "end": null
+        }
       ],
       "externalLinks": [
-        { "label": "Action on Armed Violence - From Whitehall to weapon factories", "url": "https://aoav.org.uk/2025/from-whitehall-to-weapon-factories-the-revolving-door-between-the-uk-government-and-britains-defence-industry-examined/" },
-        { "label": "Declassified UK - Britain's revolving door syndrome", "url": "https://www.declassifieduk.org/britains-revolving-door-syndrome/" }
-      ]
+        {
+          "label": "Action on Armed Violence - From Whitehall to weapon factories",
+          "url": "https://aoav.org.uk/2025/from-whitehall-to-weapon-factories-the-revolving-door-between-the-uk-government-and-britains-defence-industry-examined/"
+        },
+        {
+          "label": "Declassified UK - Britain's revolving door syndrome",
+          "url": "https://www.declassifieduk.org/britains-revolving-door-syndrome/"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "may-theresa",
@@ -234,16 +551,48 @@
       "party": "conservative",
       "headline": "Home Secretary 2010-2016; Prime Minister July 2016-July 2019; Conservative MP for Maidenhead 1997-2024; created life peer in 2024.",
       "rolesHeld": [
-        { "title": "Home Secretary", "department": "Home Office", "start": "2010-05", "end": "2016-07" },
-        { "title": "Prime Minister", "department": "10 Downing Street", "start": "2016-07", "end": "2019-07" },
-        { "title": "MP for Maidenhead", "department": "House of Commons", "start": "1997-05", "end": "2024-05" },
-        { "title": "Speaker, Washington Speakers Bureau (and other engagements)", "department": "Washington Speakers Bureau (private)", "start": "2019-12", "end": null },
-        { "title": "Member of the House of Lords", "department": "House of Lords", "start": "2024-08", "end": null }
+        {
+          "title": "Home Secretary",
+          "department": "Home Office",
+          "start": "2010-05",
+          "end": "2016-07"
+        },
+        {
+          "title": "Prime Minister",
+          "department": "10 Downing Street",
+          "start": "2016-07",
+          "end": "2019-07"
+        },
+        {
+          "title": "MP for Maidenhead",
+          "department": "House of Commons",
+          "start": "1997-05",
+          "end": "2024-05"
+        },
+        {
+          "title": "Speaker, Washington Speakers Bureau (and other engagements)",
+          "department": "Washington Speakers Bureau (private)",
+          "start": "2019-12",
+          "end": null
+        },
+        {
+          "title": "Member of the House of Lords",
+          "department": "House of Lords",
+          "start": "2024-08",
+          "end": null
+        }
       ],
       "externalLinks": [
-        { "label": "Register of Interests - Baroness May of Maidenhead", "url": "https://members.parliament.uk/member/8/registeredinterests" },
-        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Theresa_May" }
-      ]
+        {
+          "label": "Register of Interests - Baroness May of Maidenhead",
+          "url": "https://members.parliament.uk/member/8/registeredinterests"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Theresa_May"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "harding-dido",
@@ -251,14 +600,36 @@
       "party": "conservative",
       "headline": "Conservative life peer (Baroness Harding of Winscombe) since 2014; former CEO of TalkTalk; appointed by Health Secretary Matt Hancock in May 2020 to lead NHS Test & Trace and the National Institute for Health Protection. Married to Conservative MP and Anti-Corruption Champion John Penrose.",
       "rolesHeld": [
-        { "title": "Member of the House of Lords (Conservative)", "department": "House of Lords", "start": "2014-08", "end": null },
-        { "title": "Executive Chair, NHS Test and Trace", "department": "DHSC", "start": "2020-05", "end": "2021-05" },
-        { "title": "Interim Chair, National Institute for Health Protection", "department": "DHSC", "start": "2020-08", "end": "2021-05" }
+        {
+          "title": "Member of the House of Lords (Conservative)",
+          "department": "House of Lords",
+          "start": "2014-08",
+          "end": null
+        },
+        {
+          "title": "Executive Chair, NHS Test and Trace",
+          "department": "DHSC",
+          "start": "2020-05",
+          "end": "2021-05"
+        },
+        {
+          "title": "Interim Chair, National Institute for Health Protection",
+          "department": "DHSC",
+          "start": "2020-08",
+          "end": "2021-05"
+        }
       ],
       "externalLinks": [
-        { "label": "Register of Lords' Interests", "url": "https://www.parliament.uk/mps-lords-and-offices/standards-and-financial-interests/house-of-lords-commissioner-for-standards/register-of-lords-interests/" },
-        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Dido_Harding" }
-      ]
+        {
+          "label": "Register of Lords' Interests",
+          "url": "https://www.parliament.uk/mps-lords-and-offices/standards-and-financial-interests/house-of-lords-commissioner-for-standards/register-of-lords-interests/"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Dido_Harding"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "zahawi-nadhim",
@@ -266,17 +637,54 @@
       "party": "conservative",
       "headline": "Conservative MP for Stratford-on-Avon 2010-2024; Vaccines Minister 2020-2021; Secretary of State for Education 2021-2022; Chancellor of the Exchequer July-September 2022; Minister without Portfolio and Conservative Party Chairman October 2022-January 2023; co-founder of YouGov.",
       "rolesHeld": [
-        { "title": "Co-founder and Chief Executive, YouGov plc", "department": "YouGov (private)", "start": "2000-05", "end": "2010-05" },
-        { "title": "MP for Stratford-on-Avon", "department": "House of Commons", "start": "2010-05", "end": "2024-05" },
-        { "title": "Parliamentary Under-Secretary of State (Vaccine Deployment)", "department": "DHSC", "start": "2020-11", "end": "2021-09" },
-        { "title": "Secretary of State for Education", "department": "Department for Education", "start": "2021-09", "end": "2022-07" },
-        { "title": "Chancellor of the Exchequer", "department": "HM Treasury", "start": "2022-07", "end": "2022-09" },
-        { "title": "Minister without Portfolio / Conservative Party Chairman", "department": "Cabinet Office", "start": "2022-10", "end": "2023-01" }
+        {
+          "title": "Co-founder and Chief Executive, YouGov plc",
+          "department": "YouGov (private)",
+          "start": "2000-05",
+          "end": "2010-05"
+        },
+        {
+          "title": "MP for Stratford-on-Avon",
+          "department": "House of Commons",
+          "start": "2010-05",
+          "end": "2024-05"
+        },
+        {
+          "title": "Parliamentary Under-Secretary of State (Vaccine Deployment)",
+          "department": "DHSC",
+          "start": "2020-11",
+          "end": "2021-09"
+        },
+        {
+          "title": "Secretary of State for Education",
+          "department": "Department for Education",
+          "start": "2021-09",
+          "end": "2022-07"
+        },
+        {
+          "title": "Chancellor of the Exchequer",
+          "department": "HM Treasury",
+          "start": "2022-07",
+          "end": "2022-09"
+        },
+        {
+          "title": "Minister without Portfolio / Conservative Party Chairman",
+          "department": "Cabinet Office",
+          "start": "2022-10",
+          "end": "2023-01"
+        }
       ],
       "externalLinks": [
-        { "label": "Independent Adviser on Ministers' Interests - Magnus report on Nadhim Zahawi", "url": "https://www.gov.uk/government/publications/independent-advisers-report-on-the-rt-hon-nadhim-zahawi-mp" },
-        { "label": "Wikipedia", "url": "https://en.wikipedia.org/wiki/Nadhim_Zahawi" }
-      ]
+        {
+          "label": "Independent Adviser on Ministers' Interests - Magnus report on Nadhim Zahawi",
+          "url": "https://www.gov.uk/government/publications/independent-advisers-report-on-the-rt-hon-nadhim-zahawi-mp"
+        },
+        {
+          "label": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Nadhim_Zahawi"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "meller-david",
@@ -284,13 +692,30 @@
       "party": "none",
       "headline": "Conservative donor (reported >£63,000 donated to the Conservative Party since 2009); former co-owner of Meller Designs Ltd; former trustee of Policy Exchange.",
       "rolesHeld": [
-        { "title": "Co-owner / director, Meller Designs Ltd", "department": "Meller Designs (private)", "start": "1999-01", "end": null },
-        { "title": "Trustee, Policy Exchange", "department": "Policy Exchange (private)", "start": "2010-01", "end": "2020-01" }
+        {
+          "title": "Co-owner / director, Meller Designs Ltd",
+          "department": "Meller Designs (private)",
+          "start": "1999-01",
+          "end": null
+        },
+        {
+          "title": "Trustee, Policy Exchange",
+          "department": "Policy Exchange (private)",
+          "start": "2010-01",
+          "end": "2020-01"
+        }
       ],
       "externalLinks": [
-        { "label": "Good Law Project - LEAKED: Conservative politicians who referred companies to the PPE 'VIP lane'", "url": "https://goodlawproject.org/conservative-politicians-vip-lane/" },
-        { "label": "openDemocracy - Record profits for Tory donor's firm that won huge PPE contracts", "url": "https://www.opendemocracy.net/en/dark-money-investigations/record-profits-tory-donors-firm-won-huge-ppe-contracts/" }
-      ]
+        {
+          "label": "Good Law Project - LEAKED: Conservative politicians who referred companies to the PPE 'VIP lane'",
+          "url": "https://goodlawproject.org/conservative-politicians-vip-lane/"
+        },
+        {
+          "label": "openDemocracy - Record profits for Tory donor's firm that won huge PPE contracts",
+          "url": "https://www.opendemocracy.net/en/dark-money-investigations/record-profits-tory-donors-firm-won-huge-ppe-contracts/"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "liddell-iain",
@@ -298,12 +723,24 @@
       "party": "none",
       "headline": "Owner and Group Managing Director of Uniserve Group, an Essex-based logistics firm; reported contributor to Brexit-aligned think tank Prosperity UK.",
       "rolesHeld": [
-        { "title": "Owner / Group Managing Director, Uniserve Group", "department": "Uniserve (private)", "start": "1984-01", "end": null }
+        {
+          "title": "Owner / Group Managing Director, Uniserve Group",
+          "department": "Uniserve (private)",
+          "start": "1984-01",
+          "end": null
+        }
       ],
       "externalLinks": [
-        { "label": "Good Law Project - REVEALED: Profits jumped 500% at Uniserve", "url": "https://goodlawproject.org/update/uniserve-profits-500-vip-contracts/" },
-        { "label": "ITV News - The company given £800m of Covid PPE contracts by Government without open tender", "url": "https://www.itv.com/news/2020-12-18/revealed-the-company-given-800m-of-covid-ppe-contracts-by-government-without-open-tender" }
-      ]
+        {
+          "label": "Good Law Project - REVEALED: Profits jumped 500% at Uniserve",
+          "url": "https://goodlawproject.org/update/uniserve-profits-500-vip-contracts/"
+        },
+        {
+          "label": "ITV News - The company given £800m of Covid PPE contracts by Government without open tender",
+          "url": "https://www.itv.com/news/2020-12-18/revealed-the-company-given-800m-of-covid-ppe-contracts-by-government-without-open-tender"
+        }
+      ],
+      "kind": "person"
     },
     {
       "id": "benton-scott",
@@ -312,12 +749,131 @@
       "partyNote": "Was Conservative MP 2019-2024; whip suspended in April 2023 over the Times sting; resigned the seat on 25 March 2024 before the Commons Standards Committee report was tabled. Treated as Conservative for canvas affiliation since the misconduct findings sit within the Conservative tenure.",
       "headline": "Conservative MP for Blackpool South 2019-2024; chair of the All-Party Parliamentary Group on Betting and Gaming; resigned as MP on 25 March 2024 after the Commons Standards Committee recommended a 35-day suspension for an 'extremely serious breach' of the rules.",
       "rolesHeld": [
-        { "title": "MP for Blackpool South", "department": "House of Commons", "start": "2019-12", "end": "2024-03" },
-        { "title": "Chair, APPG on Betting and Gaming", "department": "House of Commons", "start": "2020-01", "end": "2024-03" }
+        {
+          "title": "MP for Blackpool South",
+          "department": "House of Commons",
+          "start": "2019-12",
+          "end": "2024-03"
+        },
+        {
+          "title": "Chair, APPG on Betting and Gaming",
+          "department": "House of Commons",
+          "start": "2020-01",
+          "end": "2024-03"
+        }
       ],
       "externalLinks": [
-        { "label": "Commons Standards Committee", "url": "https://committees.parliament.uk/committee/290/committee-on-standards/" },
-        { "label": "Wikipedia (Scott Benton)", "url": "https://en.wikipedia.org/wiki/Scott_Benton_(politician)" }
+        {
+          "label": "Commons Standards Committee",
+          "url": "https://committees.parliament.uk/committee/290/committee-on-standards/"
+        },
+        {
+          "label": "Wikipedia (Scott Benton)",
+          "url": "https://en.wikipedia.org/wiki/Scott_Benton_(politician)"
+        }
+      ],
+      "kind": "person"
+    },
+    {
+      "id": "firm-deloitte-llp",
+      "name": "Deloitte LLP",
+      "kind": "firm",
+      "headline": "Big Four professional services firm; UK partnership of the global Deloitte network with multi-decade UK government consulting and audit contracts.",
+      "rolesHeld": [],
+      "externalLinks": [
+        {
+          "label": "Companies House (Deloitte LLP, OC303675)",
+          "url": "https://find-and-update.company-information.service.gov.uk/company/OC303675"
+        },
+        {
+          "label": "Electoral Commission donor record",
+          "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=Deloitte&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted"
+        }
+      ]
+    },
+    {
+      "id": "firm-cook-defence-systems",
+      "name": "Cook Defence Systems",
+      "kind": "firm",
+      "headline": "Sheffield-based defence engineering firm (William Cook Holdings group); long-standing supplier of tracks and armoured vehicle running gear to the UK Ministry of Defence.",
+      "rolesHeld": [],
+      "externalLinks": [
+        {
+          "label": "Companies House (William Cook Holdings Ltd, 03283010)",
+          "url": "https://find-and-update.company-information.service.gov.uk/company/03283010"
+        },
+        {
+          "label": "Electoral Commission donor record",
+          "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=William+Cook&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted"
+        }
+      ]
+    },
+    {
+      "id": "firm-sir-robert-mcalpine",
+      "name": "Sir Robert McAlpine Limited",
+      "kind": "firm",
+      "headline": "Family-owned UK construction and civil engineering contractor; named supplier on Hinkley Point C, Olympic Stadium 2012, NHS hospitals, MoD bases and other major public-sector infrastructure programmes.",
+      "rolesHeld": [],
+      "externalLinks": [
+        {
+          "label": "Companies House (Sir Robert McAlpine Ltd, 00566823)",
+          "url": "https://find-and-update.company-information.service.gov.uk/company/00566823"
+        },
+        {
+          "label": "Electoral Commission donor record",
+          "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=McAlpine&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted"
+        }
+      ]
+    },
+    {
+      "id": "firm-canary-wharf-contractors",
+      "name": "Canary Wharf Contractors Limited",
+      "kind": "firm",
+      "headline": "Construction subsidiary of Canary Wharf Group plc; main contractor on Crossrail Place (Canary Wharf Crossrail station) under a Transport for London / Crossrail Limited award.",
+      "rolesHeld": [],
+      "externalLinks": [
+        {
+          "label": "Companies House (Canary Wharf Group PLC, 04191122)",
+          "url": "https://find-and-update.company-information.service.gov.uk/company/04191122"
+        },
+        {
+          "label": "Electoral Commission donor record",
+          "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=Canary+Wharf&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted"
+        }
+      ]
+    },
+    {
+      "id": "firm-heathrow-airport-holdings",
+      "name": "Heathrow Airport Holdings Limited",
+      "kind": "firm",
+      "headline": "Privately owned operator of Heathrow Airport; counterparty in DfT-sponsored projects under the Airports National Policy Statement (Heathrow third-runway expansion).",
+      "rolesHeld": [],
+      "externalLinks": [
+        {
+          "label": "Companies House (Heathrow Airport Holdings Ltd, 05757208)",
+          "url": "https://find-and-update.company-information.service.gov.uk/company/05757208"
+        },
+        {
+          "label": "Electoral Commission donor record",
+          "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=Heathrow+Airport+Holdings&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted"
+        }
+      ]
+    },
+    {
+      "id": "firm-imagination-group",
+      "name": "Imagination Group Limited",
+      "kind": "firm",
+      "headline": "London-based creative agency; designed and produced the interior content of the Millennium Dome (New Millennium Experience Company) for DCMS and the Millennium Commission.",
+      "rolesHeld": [],
+      "externalLinks": [
+        {
+          "label": "Companies House (Imagination Industries Incubator Ltd, 11062169)",
+          "url": "https://find-and-update.company-information.service.gov.uk/company/11062169"
+        },
+        {
+          "label": "Electoral Commission donor record",
+          "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=Imagination+Industries+Incubator&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted"
+        }
       ]
     }
   ],
@@ -1412,6 +1968,300 @@
           "publisher": "Wikipedia",
           "url": "https://en.wikipedia.org/wiki/Scott_Benton_(politician)",
           "date": "2024-04-01"
+        }
+      ]
+    },
+    {
+      "id": "deloitte-donor-contractor",
+      "personId": "firm-deloitte-llp",
+      "connectionType": "donor_and_contractor",
+      "status": "public_record",
+      "liveProceedings": false,
+      "summary": "Donated approximately £427,000 to the Conservative and Labour parties between 2009 and 2014 while concurrently holding multi-hundred-million-pound UK government consulting contracts.",
+      "detail": "Electoral Commission records show Deloitte LLP and its sister entity Deloitte & Touche LLP made 5 reportable political donations totalling £427,247 between 31 December 2009 and 31 December 2014. £349,960 was received by the Conservative Party (4 donations) and £77,287 was received by the Labour Party (1 donation). Both donor entities share the same UK partnership registration (Companies House OC303675).\n\nIn the same period and since, Deloitte LLP has been a tracked supplier on UK government programmes captured by Gracchus, with £298m of disclosed contract value via the Department of Health and Social Care (Test and Trace and related COVID-era consulting work) plus a smaller undisclosed-value engagement with the Home Office. Sister entity Deloitte MCS Limited carries a further £44m via Cabinet Office / GDS and an undisclosed-value HMRC engagement.\n\nDeloitte's pattern is distinct from the other firms in this set: giving is split across both major UK parties of government rather than concentrated on one. This is consistent with the cross-party hedging behaviour typical of large professional-services firms whose government revenue does not depend on a particular party being in office. Gracchus reports the figures; readers may draw their own conclusions about what cross-party giving signals.",
+      "counterparty": {
+        "kind": "supplier",
+        "id": "supplier-deloitte",
+        "name": "Deloitte LLP"
+      },
+      "timeframe": {
+        "start": "2009",
+        "end": "2014",
+        "periodLabel": "2009–2014"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "£427,247 in political donations across 5 records (Conservative £349,960; Labour £77,287)",
+        "relatedContractsGBP": 298000000,
+        "relatedContractsDescription": "£298m in tracked UK government contracts via DHSC (sister entity Deloitte MCS Ltd carries a further £44m via Cabinet Office / GDS)"
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Electoral Commission donor record — Deloitte LLP",
+          "publisher": "Electoral Commission",
+          "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=Deloitte&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Companies House (Deloitte LLP, OC303675)",
+          "publisher": "Companies House",
+          "url": "https://find-and-update.company-information.service.gov.uk/company/OC303675",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Contracts Finder — Deloitte",
+          "publisher": "GOV.UK",
+          "url": "https://www.contractsfinder.service.gov.uk/Search?keywords=Deloitte",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "cook-defence-donor-contractor",
+      "personId": "firm-cook-defence-systems",
+      "connectionType": "donor_and_contractor",
+      "status": "public_record",
+      "liveProceedings": false,
+      "summary": "The William Cook group donated approximately £1.27m to the Conservative Party between 2005 and 2016 while its defence subsidiary Cook Defence Systems held UK Ministry of Defence track and running-gear contracts.",
+      "detail": "Electoral Commission records show 10 reportable donations totalling £1,273,050 from the William Cook group of companies between 12 May 2005 and 10 February 2016. All 10 donations were to the Conservative Party. The donor name appears in three spelling variants in the Electoral Commission record (William Cook Holdings Limited, William Cook Holdings Ltd, William Cook Ltd) covering Companies House numbers 03283010 and 00074837.\n\nThe group's defence subsidiary, Cook Defence Systems, is a tracked supplier on Gracchus with £125m of disclosed contract value via Defence Equipment & Support (the procurement arm of the Ministry of Defence) for tracks and running gear used on UK armoured vehicle programmes. The supplier is single-buyer dependent (100% of tracked revenue from MoD).\n\nThe pattern here is single-party loyalty rather than cross-party hedging: every Electoral Commission record across an eleven-year window goes to the Conservative Party, while the firm's primary public-sector customer is the Ministry of Defence. Gracchus reports the figures and the concurrence; we do not assert that contracts were awarded in exchange for donations.",
+      "counterparty": {
+        "kind": "supplier",
+        "id": "supplier-cook-defence-systems",
+        "name": "Cook Defence Systems"
+      },
+      "timeframe": {
+        "start": "2005",
+        "end": "2016",
+        "periodLabel": "2005–2016"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "£1,273,050 in political donations across 10 records (Conservative only)",
+        "relatedContractsGBP": 125000000,
+        "relatedContractsDescription": "£125m in tracked UK government contracts via Defence Equipment & Support (MoD)"
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Electoral Commission donor record — William Cook group",
+          "publisher": "Electoral Commission",
+          "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=William+Cook&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Companies House (William Cook Holdings Ltd, 03283010)",
+          "publisher": "Companies House",
+          "url": "https://find-and-update.company-information.service.gov.uk/company/03283010",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Contracts Finder — William Cook / Cook Defence",
+          "publisher": "GOV.UK",
+          "url": "https://www.contractsfinder.service.gov.uk/Search?keywords=Cook+Defence",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "mcalpine-donor-contractor",
+      "personId": "firm-sir-robert-mcalpine",
+      "connectionType": "donor_and_contractor",
+      "status": "public_record",
+      "liveProceedings": false,
+      "summary": "Donated £77,500 to the Conservative Party in November 2009 while named as a contractor on six tracked UK government infrastructure programmes including Hinkley Point C, the 2012 Olympic Stadium and Ministry of Defence works.",
+      "detail": "Electoral Commission records show one reportable donation of £77,500 from Sir Robert McAlpine Ltd (Companies House 00566823) to the Conservative Party on 17 November 2009.\n\nSir Robert McAlpine Limited is a tracked supplier on Gracchus across six buyers — NNB Generation Company (Hinkley Point C), the Ministry of Defence, the New Millennium Experience Company (Millennium Dome), the Olympic Delivery Authority (London 2012 Stadium), NHS England, and Rolls-Royce client board work. The contract values across these programmes are recorded as undisclosed in current source data, so the cumulative tracked-contract figure is not stated; the supplier appears on six separate publicly-tracked UK government programmes.\n\nThe pattern is single-party loyalty (one donation, Conservative) alongside a wide spread of tracked UK government contractor relationships across multiple departments and arm's-length bodies.",
+      "counterparty": {
+        "kind": "supplier",
+        "id": "supplier-sir-robert-mcalpine",
+        "name": "Sir Robert McAlpine Limited"
+      },
+      "timeframe": {
+        "start": "2009",
+        "end": "2009",
+        "periodLabel": "2009"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "£77,500 in political donations across 1 record (Conservative only)",
+        "relatedContractsGBP": 0,
+        "relatedContractsDescription": "Tracked supplier on 6 UK government programmes (Hinkley Point C, MoD, Millennium Dome, Olympic Stadium 2012, NHS England, R-R client board); contract values currently undisclosed in source data"
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Electoral Commission donor record — Sir Robert McAlpine Ltd",
+          "publisher": "Electoral Commission",
+          "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=McAlpine&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Companies House (Sir Robert McAlpine Ltd, 00566823)",
+          "publisher": "Companies House",
+          "url": "https://find-and-update.company-information.service.gov.uk/company/00566823",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Contracts Finder — Sir Robert McAlpine",
+          "publisher": "GOV.UK",
+          "url": "https://www.contractsfinder.service.gov.uk/Search?keywords=Sir+Robert+McAlpine",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "canary-wharf-donor-contractor",
+      "personId": "firm-canary-wharf-contractors",
+      "connectionType": "donor_and_contractor",
+      "status": "public_record",
+      "liveProceedings": false,
+      "summary": "Canary Wharf Group plc donated £58,685 to the Conservative Party in January 2021 while its construction subsidiary held a Crossrail Limited / Transport for London contract for the Crossrail Place station works.",
+      "detail": "Electoral Commission records show one reportable donation of £58,685 from Canary Wharf Group PLC (Companies House 04191122) to the Conservative Party on 18 January 2021.\n\nCanary Wharf Contractors Limited — the construction subsidiary of Canary Wharf Group — is a tracked supplier on Gracchus via Crossrail Limited (the Transport for London subsidiary co-sponsored by the Department for Transport) for the Crossrail Place station works at Canary Wharf. The tracked contract value is currently undisclosed in source data.\n\nThe pattern is single-party loyalty (one donation, Conservative) concurrent with a tracked UK government contractor relationship via a DfT-sponsored body.",
+      "counterparty": {
+        "kind": "supplier",
+        "id": "supplier-canary-wharf-contractors",
+        "name": "Canary Wharf Contractors Limited"
+      },
+      "timeframe": {
+        "start": "2021",
+        "end": "2021",
+        "periodLabel": "2021"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "£58,685 in political donations across 1 record (Conservative only)",
+        "relatedContractsGBP": 0,
+        "relatedContractsDescription": "Tracked supplier on Crossrail Limited (Transport for London / DfT) Canary Wharf station works; contract value currently undisclosed in source data"
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Electoral Commission donor record — Canary Wharf Group PLC",
+          "publisher": "Electoral Commission",
+          "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=Canary+Wharf&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Companies House (Canary Wharf Group PLC, 04191122)",
+          "publisher": "Companies House",
+          "url": "https://find-and-update.company-information.service.gov.uk/company/04191122",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Contracts Finder — Canary Wharf Contractors",
+          "publisher": "GOV.UK",
+          "url": "https://www.contractsfinder.service.gov.uk/Search?keywords=Canary+Wharf",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "heathrow-donor-contractor",
+      "personId": "firm-heathrow-airport-holdings",
+      "connectionType": "donor_and_contractor",
+      "status": "public_record",
+      "liveProceedings": false,
+      "summary": "Heathrow Airport Holdings Limited donated £36,000 to Reform UK on 2 September 2025 while the Heathrow third-runway expansion project sits within DfT's Airports National Policy Statement programme.",
+      "detail": "Electoral Commission records show one reportable donation of £36,000 from Heathrow Airport Holdings Limited (Companies House 05757208) to Reform UK on 2 September 2025.\n\nHeathrow Airport Limited is a tracked counterparty on Gracchus via the Heathrow third-runway expansion programme, which is sponsored by the Department for Transport under the Airports National Policy Statement; the figures captured to date in the project record reflect litigation-cost references rather than primary works values, and the substantive expansion contracts are pending.\n\nThis case is the editorial outlier in the donor-contractor set. The other firms in this batch donate either to the party currently in government or to a long-running party of government — a pattern consistent with maintaining access to existing procurement relationships. Heathrow's recipient is Reform UK, which holds no UK government contracts and is not currently a party of government. Gracchus flags this for editorial visibility; we do not characterise the donor's intent.",
+      "counterparty": {
+        "kind": "supplier",
+        "id": "supplier-heathrow-airport",
+        "name": "Heathrow Airport Limited"
+      },
+      "timeframe": {
+        "start": "2025",
+        "end": "2025",
+        "periodLabel": "2025"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "£36,000 in political donations across 1 record (Reform UK only)",
+        "relatedContractsGBP": 1053418,
+        "relatedContractsDescription": "Tracked counterparty on the Heathrow third-runway expansion programme (DfT, Airports National Policy Statement); recorded value to date £1.05m reflects litigation-cost references"
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Electoral Commission donor record — Heathrow Airport Holdings Ltd",
+          "publisher": "Electoral Commission",
+          "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=Heathrow+Airport+Holdings&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Companies House (Heathrow Airport Holdings Ltd, 05757208)",
+          "publisher": "Companies House",
+          "url": "https://find-and-update.company-information.service.gov.uk/company/05757208",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Contracts Finder — Heathrow Airport",
+          "publisher": "GOV.UK",
+          "url": "https://www.contractsfinder.service.gov.uk/Search?keywords=Heathrow+Airport",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "imagination-donor-contractor",
+      "personId": "firm-imagination-group",
+      "connectionType": "donor_and_contractor",
+      "status": "public_record",
+      "liveProceedings": false,
+      "summary": "Imagination Industries Incubator Limited donated £173,000 to the Conservative Party on 1 March 2019 while the Imagination Group sits as a tracked supplier on the Millennium Dome programme (DCMS / New Millennium Experience Company).",
+      "detail": "Electoral Commission records show one reportable donation of £173,000 from Imagination Industries Incubator Limited (Companies House 11062169) to the Conservative Party on 1 March 2019.\n\nImagination Group Limited is a tracked supplier on Gracchus via the New Millennium Experience Company (NMEC) — the wholly DCMS-owned vehicle that delivered the Millennium Dome — with the Millennium Commission as grant funder. The contract value in the source record is currently undisclosed.\n\nThe pattern is single-party loyalty (one donation, Conservative) concurrent with a tracked DCMS-sponsored programme relationship.",
+      "counterparty": {
+        "kind": "supplier",
+        "id": "supplier-imagination-group",
+        "name": "Imagination Group Limited"
+      },
+      "timeframe": {
+        "start": "2019",
+        "end": "2019",
+        "periodLabel": "2019"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "£173,000 in political donations across 1 record (Conservative only)",
+        "relatedContractsGBP": 0,
+        "relatedContractsDescription": "Tracked supplier on the New Millennium Experience Company (DCMS) Millennium Dome programme; contract value currently undisclosed in source data"
+      },
+      "regulatoryFindings": [],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Electoral Commission donor record — Imagination Industries Incubator Ltd",
+          "publisher": "Electoral Commission",
+          "url": "https://search.electoralcommission.org.uk/?currentPage=1&rows=10&query=Imagination+Industries+Incubator&donorClass=&filter%5BdonationStatus%5D=&filter%5BdonationStatus%5D=Accepted",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Companies House (Imagination Industries Incubator Ltd, 11062169)",
+          "publisher": "Companies House",
+          "url": "https://find-and-update.company-information.service.gov.uk/company/11062169",
+          "date": ""
+        },
+        {
+          "tier": "primary",
+          "title": "Contracts Finder — Imagination Industries",
+          "publisher": "GOV.UK",
+          "url": "https://www.contractsfinder.service.gov.uk/Search?keywords=Imagination+Industries",
+          "date": ""
         }
       ]
     }
