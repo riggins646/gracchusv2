@@ -96,7 +96,7 @@ const MoneyMap = dynamic(() => import("./MoneyMap"), {
     </div>
   ),
 });
-import { encodeShareId, buildContextLine, shareFmtAmt, renderCardToCanvas, renderTrendCard, renderChartShareCard, renderCancelledProjectCard, renderSewageFinesCard } from "../lib/share-utils";
+import { encodeShareId, buildContextLine, renderCardToCanvas, renderTrendCard, renderChartShareCard, renderCancelledProjectCard, renderSewageFinesCard } from "../lib/share-utils";
 const Wrapped = dynamic(() => import("./Wrapped"), {
   ssr: false,
   loading: () => (
