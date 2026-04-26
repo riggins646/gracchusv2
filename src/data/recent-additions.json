@@ -5,6 +5,14 @@
     {
       "date": "2026-04-26",
       "type": "feature",
+      "title": "Money Map typography \u2014 brought into line with the FT/Bloomberg site scale",
+      "summary": "MoneyMapStyles had hard-coded font sizes from before the site-wide typography pass (6836066). Body prose, drawer text, story-card content, panel descriptions are now sized at 15\u201317px to match the rest of the site \u2014 not the smaller 11\u201314px Money Map was using since it was first built. Editorial smallness preserved where it earns its place (eyebrows, kickers, chips, citation glyphs, canvas bubble labels). Reader-prose bumped; UI chrome unchanged.",
+      "view": "moneymap",
+      "metric": "+ readable on Money Map"
+    },
+    {
+      "date": "2026-04-26",
+      "type": "feature",
       "title": "Companies House numbers on tracked suppliers \u2014 tighter overlap matcher",
       "summary": "74 of the 576 tracked Gracchus suppliers now carry verified Companies House registration numbers, written to a sidecar at src/data/supplier-companies-house.json by a resumable precompute script (scripts/match-supplier-ch-numbers.py). Numbers were seeded in two passes from data already in the repo: Electoral Commission donor records (4 suppliers, primary source on conflict) and project-contractors.json (70 suppliers); a third optional pass calls the public CH search API once a key is configured. The donor-supplier overlap matcher in src/lib/donor-aggregation.js now runs CH-number match first (definitive) and falls back to name match second \u2014 catches subsidiaries, renamed companies, and parent groups the name-only matcher missed. Surfaces 2 new PwC donation streams that the name matcher was splitting away from supplier-pwc. A sanity guard rejects spurious CH matches where donor and supplier share no name overlap (e.g. an EC record with a stray CH number that happened to belong to an unrelated company). Closes the 'planned improvement' loop flagged in Methodology.",
       "view": "moneymap",

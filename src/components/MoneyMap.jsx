@@ -4243,7 +4243,7 @@ function PersonDetail({
         {patternConn && patternConn.detail && (
           <>
             <div className="mm-d-section-h">Pattern</div>
-            <div className="mm-person-pattern" style={{ fontSize: 13, lineHeight: 1.55, color: "#cbd5e1" }}>
+            <div className="mm-person-pattern" style={{ fontSize: 15, lineHeight: 1.55, color: "#cbd5e1" }}>
               {patternConn.detail.split("\n\n").map((para, i) => (
                 <p key={i} style={{ marginBottom: 10 }}>{para}</p>
               ))}
@@ -4255,7 +4255,7 @@ function PersonDetail({
           Connections {connections.length > 0 ? `(${connections.length})` : ""}
         </div>
         {connections.length === 0 ? (
-          <div style={{ fontSize: 12, color: "#6b7280" }}>
+          <div style={{ fontSize: 15, color: "#6b7280" }}>
             No connection records yet for this person.
           </div>
         ) : (
@@ -4377,7 +4377,7 @@ function PartyDetail({
           People connected on this canvas ({peopleInParty.length})
         </div>
         {peopleInParty.length === 0 ? (
-          <div style={{ fontSize: 12, color: "#6b7280" }}>
+          <div style={{ fontSize: 15, color: "#6b7280" }}>
             No people from this party are on the current canvas.
           </div>
         ) : (
@@ -4405,7 +4405,7 @@ function PartyDetail({
           Connection summary
         </div>
         {typeRows.length === 0 ? (
-          <div style={{ fontSize: 12, color: "#6b7280" }}>
+          <div style={{ fontSize: 15, color: "#6b7280" }}>
             No connection records yet for these people.
           </div>
         ) : (
@@ -4423,7 +4423,7 @@ function PartyDetail({
           Live proceedings ({livePeople.length})
         </div>
         {livePeople.length === 0 ? (
-          <div style={{ fontSize: 12, color: "#6b7280" }}>
+          <div style={{ fontSize: 15, color: "#6b7280" }}>
             No live regulatory or court proceedings against this party&rsquo;s people in the current dataset.
           </div>
         ) : (
@@ -4554,7 +4554,7 @@ function DonorDetail({
       <div className="mm-d-body">
         <div className="mm-d-section-h">Recipients · by total £</div>
         {(node.parties || []).length === 0 ? (
-          <div style={{ fontSize: 12, color: "#6b7280" }}>
+          <div style={{ fontSize: 15, color: "#6b7280" }}>
             No canonical-party recipients in dataset.
           </div>
         ) : (
@@ -4692,7 +4692,7 @@ function LobbyistDetail({
       <div className="mm-d-body">
         <div className="mm-d-section-h">Tracked-supplier clients</div>
         {matchedRows.length === 0 ? (
-          <div style={{ fontSize: 12, color: "#6b7280" }}>
+          <div style={{ fontSize: 15, color: "#6b7280" }}>
             No tracked suppliers in this firm&rsquo;s declared client list.
           </div>
         ) : (
@@ -4739,7 +4739,7 @@ function LobbyistDetail({
               type="button"
               onClick={() => setOtherOpen((v) => !v)}
               style={{
-                fontSize: 12,
+                fontSize: 13,
                 color: "#9ca3af",
                 background: "transparent",
                 border: "1px solid rgba(255,255,255,0.08)",
@@ -5045,7 +5045,7 @@ function Drawer({
           {node.kind === "supplier" && node.isDonor && (
             <>
               <div className="mm-d-section-h">Political giving</div>
-              <div style={{ fontSize: 12.5, color: "#9ca3af", marginBottom: 8, lineHeight: 1.5 }}>
+              <div style={{ fontSize: 15, color: "#9ca3af", marginBottom: 8, lineHeight: 1.55 }}>
                 This tracked supplier also appears on the political-donor record (Electoral Commission).
                 Total declared giving:{" "}
                 <b style={{ color: "#e5e7eb" }}>{fmtGBP(node.donorTotalGBP)}</b>
@@ -5081,7 +5081,7 @@ function Drawer({
 
           <div className="mm-d-section-h">Relationships · sorted by £</div>
           {incoming.length === 0 && (
-            <div style={{ fontSize: 12, color: "#6b7280" }}>
+            <div style={{ fontSize: 15, color: "#6b7280" }}>
               No direct money-edges in current data. Widen the window or include softer links to see more.
             </div>
           )}
@@ -5185,7 +5185,7 @@ function Drawer({
         </div>
         <div className="mm-d-body">
           <div className="mm-d-section-h">Scope</div>
-          <div style={{ fontSize: 13, color: "#e5e7eb", lineHeight: 1.5 }}>
+          <div style={{ fontSize: 15, color: "#e5e7eb", lineHeight: 1.55 }}>
             {edge.scope || edge.groupName || "Relationship confirmed by public record."}
           </div>
 
@@ -5213,7 +5213,7 @@ function Drawer({
             </div>
           ))}
           {(!edge.sources || edge.sources.length === 0) && (
-            <div style={{ fontSize: 12, color: "#6b7280" }}>
+            <div style={{ fontSize: 15, color: "#6b7280" }}>
               No sources linked to this edge in current dataset.
             </div>
           )}
@@ -5391,7 +5391,7 @@ function MoneyMapStyles() {
       .mm-disclaimer {
         margin-top: 18px; padding: 10px 14px;
         border-left: 2px solid var(--mm-border-2);
-        font-size: 12.5px; color: var(--mm-fg-dim);
+        font-size: 15px; line-height: 1.55; color: var(--mm-fg-dim);
         background: #0a0a0d; max-width: 900px;
       }
       .mm-disclaimer b { color: var(--mm-fg); }
@@ -5436,7 +5436,7 @@ function MoneyMapStyles() {
         border: 1px solid #3a3a46; border-radius: 999px;
         background: linear-gradient(90deg, rgba(96,165,250,0.10), rgba(167,139,250,0.10));
         box-shadow: 0 0 0 3px rgba(96,165,250,0.06);
-        font-size: 12.5px; color: var(--mm-fg);
+        font-size: 13px; color: var(--mm-fg);
         max-width: 460px;
       }
       .mm-focus-pill-label {
@@ -5445,7 +5445,7 @@ function MoneyMapStyles() {
         letter-spacing: 0.14em;
       }
       .mm-focus-pill-name {
-        font-family: var(--mm-serif); font-size: 13.5px;
+        font-family: var(--mm-serif); font-size: 15px;
         color: #f4f4f5; overflow: hidden; text-overflow: ellipsis;
         white-space: nowrap; max-width: 280px;
       }
@@ -5470,7 +5470,7 @@ function MoneyMapStyles() {
       }
       .mm-search input {
         flex: 1; background: transparent; border: 0; outline: 0;
-        color: var(--mm-fg); font-family: var(--mm-sans); font-size: 14px;
+        color: var(--mm-fg); font-family: var(--mm-sans); font-size: 15px;
       }
       .mm-search input::placeholder { color: #5a5a66; }
       .mm-search-clear {
@@ -5481,7 +5481,7 @@ function MoneyMapStyles() {
         display: inline-flex; align-items: center; gap: 6px;
         padding: 6px 12px; border: 1px solid var(--mm-border-2);
         border-radius: 999px; background: #0b0b0f;
-        color: var(--mm-fg-dim); font-size: 12.5px; cursor: pointer;
+        color: var(--mm-fg-dim); font-size: 13px; cursor: pointer;
         user-select: none; transition: all .15s;
       }
       .mm-chip:hover { border-color: #3a3a44; color: var(--mm-fg); }
@@ -5516,11 +5516,11 @@ function MoneyMapStyles() {
         letter-spacing: 0.14em;
       }
       .mm-card-headline {
-        font-family: var(--mm-serif); font-size: 17px;
+        font-family: var(--mm-serif); font-size: 19px;
         line-height: 1.3; margin: 7px 0 8px; color: #f4f4f5;
       }
       .mm-card-metric {
-        font-family: var(--mm-mono); font-size: 11.5px; color: var(--mm-fg-dim);
+        font-family: var(--mm-mono); font-size: 12px; color: var(--mm-fg-dim);
       }
 
       .mm-canvas-wrap {
@@ -5567,7 +5567,7 @@ function MoneyMapStyles() {
       .mm-legend-group { margin-bottom: 20px; }
       .mm-legend-row {
         display: flex; align-items: center; gap: 10px;
-        padding: 5px 0; font-size: 12.5px; color: var(--mm-fg-dim);
+        padding: 5px 0; font-size: 13px; color: var(--mm-fg-dim);
       }
       .mm-legend-swatch {
         width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
@@ -5579,7 +5579,7 @@ function MoneyMapStyles() {
       .mm-meta-stat {
         display: flex; justify-content: space-between;
         padding: 6px 0; border-bottom: 1px dashed var(--mm-border);
-        font-size: 12.5px;
+        font-size: 13px;
       }
       .mm-k {
         color: var(--mm-fg-mute); font-family: var(--mm-mono);
@@ -5596,13 +5596,13 @@ function MoneyMapStyles() {
       .mm-below-left { border-right: 1px solid var(--mm-border); }
       .mm-below h3 {
         font-family: var(--mm-serif); font-weight: 500;
-        font-size: 20px; margin: 0 0 14px; color: #f4f4f5;
+        font-size: 22px; margin: 0 0 14px; color: #f4f4f5;
       }
       .mm-rank-row {
         display: grid; grid-template-columns: 28px 1fr auto auto;
         gap: 14px; align-items: baseline;
         padding: 11px 0; border-bottom: 1px dashed var(--mm-border);
-        font-size: 13px; cursor: pointer;
+        font-size: 15px; cursor: pointer;
         transition: background .12s;
       }
       .mm-rank-row:hover { background: rgba(255,255,255,0.02); }
@@ -5616,11 +5616,11 @@ function MoneyMapStyles() {
       .mm-below-full { padding: 28px 32px; }
       .mm-feature-h { margin-bottom: 6px !important; }
       .mm-feature-sub {
-        font-size: 14px; color: var(--mm-fg-dim); line-height: 1.55;
+        font-size: 17px; color: var(--mm-fg-dim); line-height: 1.55;
         max-width: 820px; margin: 0 0 18px 0;
       }
       .mm-feature-empty {
-        font-size: 12px; color: var(--mm-fg-mute); padding: 14px 0;
+        font-size: 15px; color: var(--mm-fg-mute); padding: 14px 0;
       }
       .mm-ro-grid { display: flex; flex-direction: column; }
       .mm-ro-row {
@@ -5636,11 +5636,11 @@ function MoneyMapStyles() {
         text-align: right;
       }
       .mm-ro-name {
-        color: var(--mm-fg); font-size: 13.5px;
+        color: var(--mm-fg); font-size: 15px;
         white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
       }
       .mm-ro-score {
-        font-family: var(--mm-mono); font-size: 15px; font-weight: 500;
+        font-family: var(--mm-mono); font-size: 16px; font-weight: 500;
         color: #fbbf24; text-align: right;
         padding: 3px 8px; border-radius: 4px;
         background: rgba(251,191,36,0.06);
@@ -5684,7 +5684,7 @@ function MoneyMapStyles() {
       .mm-known-unknowns {
         margin-top: 20px; padding: 11px 13px;
         border: 1px dashed var(--mm-border-2); border-radius: 7px;
-        font-size: 12px; color: var(--mm-fg-dim); background: #0a0a0e;
+        font-size: 15px; line-height: 1.55; color: var(--mm-fg-dim); background: #0a0a0e;
       }
       .mm-known-unknowns h4 {
         font-family: var(--mm-mono); font-size: 10px;
@@ -5722,12 +5722,12 @@ function MoneyMapStyles() {
         display: flex; gap: 8px; align-items: center; margin-bottom: 6px; flex-wrap: wrap;
       }
       .mm-entity-name {
-        font-family: var(--mm-serif); font-size: 26px;
+        font-family: var(--mm-serif); font-size: 28px;
         color: #f4f4f5; margin: 2px 0 8px;
         letter-spacing: -0.01em; line-height: 1.1;
       }
       .mm-entity-sub {
-        font-family: var(--mm-mono); font-size: 11.5px; color: var(--mm-fg-mute);
+        font-family: var(--mm-mono); font-size: 13px; color: var(--mm-fg-mute);
       }
       .mm-entity-sub b { color: var(--mm-fg); }
       .mm-d-body {
@@ -5755,7 +5755,7 @@ function MoneyMapStyles() {
         border-radius: 4px;
       }
       .mm-person-role-title {
-        font-size: 13px; color: var(--mm-fg);
+        font-size: 15px; color: var(--mm-fg);
       }
       .mm-person-role-meta {
         margin-top: 2px;
@@ -5770,7 +5770,7 @@ function MoneyMapStyles() {
         display: flex; flex-direction: column; gap: 6px;
       }
       .mm-person-links a {
-        font-size: 12.5px; color: #fbbf24; text-decoration: none;
+        font-size: 13px; color: #fbbf24; text-decoration: none;
         display: inline-flex; align-items: center;
       }
       .mm-person-links a:hover { text-decoration: underline; }
@@ -5789,11 +5789,11 @@ function MoneyMapStyles() {
         border-radius: 4px;
       }
       .mm-party-person-name {
-        font-size: 13.5px; color: var(--mm-fg); font-weight: 500;
+        font-size: 15px; color: var(--mm-fg); font-weight: 500;
       }
       .mm-party-person-headline {
         margin-top: 3px;
-        font-size: 11.5px; color: var(--mm-fg-mute); line-height: 1.4;
+        font-size: 13px; color: var(--mm-fg-mute); line-height: 1.45;
       }
       .mm-party-person-link {
         display: inline-block; margin-top: 6px;
@@ -5819,7 +5819,7 @@ function MoneyMapStyles() {
         border-bottom: 1px dotted var(--mm-border);
       }
       .mm-party-type-count {
-        font-family: var(--mm-mono); font-size: 13px;
+        font-family: var(--mm-mono); font-size: 15px;
         color: #f4f4f5; min-width: 24px;
       }
       .mm-party-type-label {
@@ -5836,7 +5836,7 @@ function MoneyMapStyles() {
         border: 1px solid rgba(220,38,38,0.25);
         color: #fca5a5;
         border-radius: 4px;
-        font-size: 12.5px;
+        font-size: 14px;
         cursor: pointer;
         text-align: left;
       }
@@ -5847,7 +5847,7 @@ function MoneyMapStyles() {
       .mm-party-foot {
         margin-top: 18px;
         padding: 10px 12px;
-        font-size: 11.5px; color: var(--mm-fg-mute);
+        font-size: 13px; color: var(--mm-fg-mute);
         background: rgba(255,255,255,0.02);
         border: 1px dashed var(--mm-border);
         border-radius: 4px;
@@ -5879,11 +5879,11 @@ function MoneyMapStyles() {
         border-color: var(--mm-border-2);
       }
       .mm-donor-recipient-name {
-        font-size: 13.5px; color: var(--mm-fg);
+        font-size: 15px; color: var(--mm-fg);
       }
       .mm-donor-recipient-amt {
         font-family: var(--mm-mono);
-        font-size: 13px; color: #f4f4f5; font-weight: 500;
+        font-size: 15px; color: #f4f4f5; font-weight: 500;
         text-align: right;
       }
       .mm-donor-recipient-count {
@@ -5895,7 +5895,7 @@ function MoneyMapStyles() {
       }
       .mm-donor-contracts-empty {
         padding: 10px 12px;
-        font-size: 12.5px; color: var(--mm-fg-dim);
+        font-size: 15px; color: var(--mm-fg-dim);
         background: rgba(255,255,255,0.02);
         border-left: 2px solid var(--mm-border-2);
         line-height: 1.55;
@@ -5903,7 +5903,7 @@ function MoneyMapStyles() {
       .mm-donor-foot {
         margin-top: 18px;
         padding: 10px 12px;
-        font-size: 11px; color: var(--mm-fg-mute);
+        font-size: 13px; color: var(--mm-fg-mute);
         background: rgba(255,255,255,0.02);
         border: 1px dashed var(--mm-border);
         border-radius: 4px;
@@ -5924,7 +5924,7 @@ function MoneyMapStyles() {
         border-radius: 999px;
         cursor: pointer;
         font-family: var(--mm-mono);
-        font-size: 9.5px;
+        font-size: 10px;
         letter-spacing: 0.06em;
         color: rgba(255,255,255,0.75);
         line-height: 1;
@@ -5955,7 +5955,7 @@ function MoneyMapStyles() {
         border-radius: 4px;
         color: #7dd3fc;
         font-family: var(--mm-mono);
-        font-size: 9.5px;
+        font-size: 10px;
         letter-spacing: 0.12em;
         line-height: 1;
         text-transform: uppercase;
@@ -5985,22 +5985,22 @@ function MoneyMapStyles() {
         padding: 11px 0; border-bottom: 1px solid var(--mm-border);
         align-items: baseline;
       }
-      .mm-score-k { font-size: 14px; color: var(--mm-fg); }
+      .mm-score-k { font-size: 15px; color: var(--mm-fg); }
       .mm-score-v {
-        font-family: var(--mm-mono); font-size: 14px;
+        font-family: var(--mm-mono); font-size: 15px;
         color: #f4f4f5; font-weight: 500;
       }
       .mm-score-hint {
-        font-size: 11.5px; color: var(--mm-fg-mute);
-        grid-column: 1 / -1; margin-top: 3px; line-height: 1.4;
+        font-size: 13px; color: var(--mm-fg-mute);
+        grid-column: 1 / -1; margin-top: 3px; line-height: 1.45;
       }
       .mm-edge-item {
         padding: 13px 0; border-bottom: 1px solid var(--mm-border);
         display: grid; grid-template-columns: 1fr auto; gap: 4px 10px;
       }
-      .mm-edge-title { font-size: 14px; color: var(--mm-fg); }
+      .mm-edge-title { font-size: 15px; color: var(--mm-fg); }
       .mm-edge-amount {
-        font-family: var(--mm-mono); font-size: 14px;
+        font-family: var(--mm-mono); font-size: 15px;
         color: #f4f4f5; text-align: right; font-weight: 500;
       }
       .mm-edge-amount-undisclosed {
@@ -6023,14 +6023,14 @@ function MoneyMapStyles() {
         color: #9ca3af; margin-bottom: 8px;
       }
       .mm-why-undisclosed-body {
-        font-size: 14px; color: var(--mm-fg-dim); line-height: 1.55;
+        font-size: 15px; color: var(--mm-fg-dim); line-height: 1.55;
       }
       .mm-why-undisclosed-body ul {
         margin: 6px 0 0 0; padding-left: 18px;
       }
       .mm-why-undisclosed-body li { margin: 3px 0; }
       .mm-why-undisclosed-foot {
-        margin-top: 8px; font-size: 11px; color: var(--mm-fg-mute);
+        margin-top: 8px; font-size: 12px; color: var(--mm-fg-mute);
       }
       .mm-edge-meta {
         grid-column: 1 / -1;
@@ -6076,7 +6076,7 @@ function MoneyMapStyles() {
         border: 1px solid rgba(147,197,253,0.35);
         color: var(--mm-fg);
         border-radius: 6px; padding: 7px 14px;
-        font-family: var(--mm-sans); font-size: 12.5px; font-weight: 500;
+        font-family: var(--mm-sans); font-size: 13px; font-weight: 500;
         cursor: pointer; transition: all .15s;
       }
       .mm-d-focus-cta:hover {
@@ -6270,7 +6270,7 @@ function MoneyMapStyles() {
         color: var(--mm-fg-mute); margin-bottom: 10px;
       }
       .mm-canvas-empty-body {
-        font-family: var(--mm-serif); font-size: 17px;
+        font-family: var(--mm-serif); font-size: 19px;
         color: #f4f4f5; line-height: 1.45; margin: 0 0 16px;
       }
       .mm-canvas-empty-actions {
@@ -6280,7 +6280,7 @@ function MoneyMapStyles() {
         background: #15151c;
         border: 1px solid var(--mm-border-2);
         color: var(--mm-fg);
-        font-family: var(--mm-sans); font-size: 12.5px;
+        font-family: var(--mm-sans); font-size: 13px;
         padding: 7px 14px; border-radius: 6px; cursor: pointer;
         transition: all .15s;
       }
@@ -6324,7 +6324,7 @@ function MoneyMapStyles() {
       .mm-ro-profile {
         background: transparent; border: 1px solid var(--mm-border-2);
         color: var(--mm-fg-mute); font-family: var(--mm-mono);
-        font-size: 12px; padding: 4px 8px; border-radius: 4px;
+        font-size: 12.5px; padding: 4px 8px; border-radius: 4px;
         cursor: pointer; transition: all .15s; justify-self: end;
       }
       .mm-ro-profile:hover {
@@ -6379,7 +6379,7 @@ function MoneyMapStyles() {
         .mm-chip, .mm-filters button, .mm-canvas-action, .mm-canvas-empty-btn {
           min-height: 44px;
           padding: 10px 14px;
-          font-size: 14px;
+          font-size: 15px;
         }
         .mm-cy { height: 360px; }
         .mm-canvas-wrap { min-height: 360px; }
@@ -6467,7 +6467,7 @@ function MoneyMapStyles() {
         padding: 8px 12px; min-height: 40px;
         background: var(--mm-bg-2); border: 1px solid var(--mm-border-2);
         border-radius: 999px;
-        color: var(--mm-fg); font-size: 13px;
+        color: var(--mm-fg); font-size: 15px;
         font-family: var(--mm-sans);
         cursor: pointer;
         transition: border-color 120ms, background 120ms;
@@ -6510,7 +6510,7 @@ function MoneyMapStyles() {
         border-bottom: 2px solid transparent;
         color: var(--mm-fg-dim);
         font-family: var(--mm-sans);
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 500;
         letter-spacing: 0.01em;
         cursor: pointer;
@@ -6533,7 +6533,7 @@ function MoneyMapStyles() {
       .mm-explorer-empty {
         padding: 40px 20px;
         color: var(--mm-fg-dim);
-        font-size: 14px;
+        font-size: 15px;
         text-align: center;
       }
 
@@ -6572,11 +6572,11 @@ function MoneyMapStyles() {
       }
       .mm-flow-arrow {
         color: var(--mm-fg-mute);
-        font-size: 13px;
+        font-size: 15px;
         margin: 0 2px;
       }
       .mm-flow-supplier {
-        font-size: 17px;
+        font-size: 19px;
         font-weight: 600;
         color: var(--mm-fg);
       }
@@ -6584,7 +6584,7 @@ function MoneyMapStyles() {
         margin-top: 4px;
         display: flex; align-items: baseline; flex-wrap: wrap;
         gap: 4px;
-        font-size: 13px;
+        font-size: 15px;
         color: #9ca3af;
       }
       .mm-flow-amt {
@@ -6636,7 +6636,7 @@ function MoneyMapStyles() {
       }
       .mm-dept-name,
       .mm-supp-name {
-        font-size: 17px;
+        font-size: 19px;
         font-weight: 600;
         color: var(--mm-fg);
         line-height: 1.3;
@@ -6645,7 +6645,7 @@ function MoneyMapStyles() {
       .mm-supp-amt {
         font-family: var(--mm-mono);
         font-variant-numeric: tabular-nums;
-        font-size: 16px;
+        font-size: 17px;
         color: var(--mm-fg);
         white-space: nowrap;
         font-weight: 500;
@@ -6653,9 +6653,9 @@ function MoneyMapStyles() {
       .mm-dept-card-sub,
       .mm-supp-card-sub {
         margin-top: 4px;
-        font-size: 13px;
+        font-size: 15px;
         color: #9ca3af;
-        line-height: 1.4;
+        line-height: 1.45;
       }
 
       /* Inline supplier / buyer chips inside cards */
@@ -6671,7 +6671,7 @@ function MoneyMapStyles() {
         border-radius: 999px;
         background: #0b0b0f;
         color: var(--mm-fg);
-        font-size: 12px;
+        font-size: 13px;
         font-family: var(--mm-sans);
         cursor: pointer;
         max-width: 100%;
@@ -6705,7 +6705,7 @@ function MoneyMapStyles() {
       .mm-supp-dep {
         margin-top: 10px;
         display: flex; align-items: center; gap: 7px;
-        font-size: 12.5px;
+        font-size: 13px;
       }
       .mm-supp-dep-dot {
         display: inline-block;
@@ -6757,7 +6757,7 @@ function MoneyMapStyles() {
       }
       .mm-sheet-title {
         font-family: var(--mm-serif);
-        font-size: 18px;
+        font-size: 20px;
         color: var(--mm-fg);
       }
       .mm-sheet-close {
@@ -6828,7 +6828,7 @@ function MoneyMapStyles() {
         border: 1px solid var(--mm-border-2);
         border-radius: 999px;
         color: var(--mm-fg-dim);
-        font-size: 13px;
+        font-size: 15px;
         font-family: var(--mm-sans);
         cursor: pointer;
         font-variant-numeric: tabular-nums;
@@ -6854,7 +6854,7 @@ function MoneyMapStyles() {
       }
       .mm-sheet-lens-name {
         font-family: var(--mm-serif);
-        font-size: 14.5px;
+        font-size: 16px;
         color: var(--mm-fg);
       }
       .mm-sheet-foot {
@@ -6889,7 +6889,7 @@ function MoneyMapStyles() {
       .mm-mobile-list-empty {
         padding: 32px 16px;
         color: var(--mm-fg-dim);
-        font-size: 14px;
+        font-size: 15px;
         text-align: center;
       }
       .mm-mobile-list-h {
@@ -6938,7 +6938,7 @@ function MoneyMapStyles() {
         gap: 12px;
       }
       .mm-mobile-list-name {
-        font-size: 16px;
+        font-size: 17px;
         font-weight: 600;
         color: var(--mm-fg);
         line-height: 1.25;
@@ -6946,15 +6946,15 @@ function MoneyMapStyles() {
       .mm-mobile-list-amount {
         font-family: var(--mm-mono);
         font-variant-numeric: tabular-nums;
-        font-size: 16px;
+        font-size: 17px;
         color: var(--mm-fg);
         white-space: nowrap;
       }
       .mm-mobile-list-sub {
         margin-top: 4px;
-        font-size: 13px;
+        font-size: 15px;
         color: #9ca3af;
-        line-height: 1.4;
+        line-height: 1.45;
       }
 
       /* ----------------------------------------------------
@@ -7022,7 +7022,7 @@ function MoneyMapStyles() {
       }
       .mm-story-name {
         font-family: var(--mm-serif);
-        font-size: 30px;
+        font-size: 32px;
         line-height: 1.1;
         font-weight: 500;
         color: #f8fafc;
@@ -7031,7 +7031,7 @@ function MoneyMapStyles() {
       }
       .mm-story-summary {
         font-size: 17px;
-        line-height: 1.55;
+        line-height: 1.6;
         color: #d8dbe3;
         margin: 0 0 18px;
       }
@@ -7044,7 +7044,7 @@ function MoneyMapStyles() {
       }
       .mm-story-quote-text {
         font-family: var(--mm-serif);
-        font-size: 15px;
+        font-size: 17px;
         line-height: 1.5;
         color: #e5e7eb;
         font-style: italic;
@@ -7067,7 +7067,7 @@ function MoneyMapStyles() {
       }
       .mm-story-fig-row {
         display: flex; align-items: baseline; gap: 10px;
-        font-size: 12.5px;
+        font-size: 13px;
         line-height: 1.55;
       }
       .mm-story-fig-row + .mm-story-fig-row { margin-top: 2px; }
@@ -7097,7 +7097,7 @@ function MoneyMapStyles() {
         border: 1px solid #3a3a46;
         border-radius: 999px;
         color: var(--mm-fg);
-        font-size: 13.5px;
+        font-size: 15px;
         font-family: var(--mm-sans);
         cursor: pointer;
         transition: border-color 120ms, background 120ms;
@@ -7129,7 +7129,7 @@ function MoneyMapStyles() {
         padding: 4px 8px;
         border-radius: 4px;
         border: 1px solid var(--mm-border-2);
-        font-size: 10px;
+        font-size: 11px;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         font-family: var(--mm-sans);
@@ -7282,7 +7282,7 @@ function MoneyMapStyles() {
         color: #fbbf24;
         border-radius: 4px;
         font-family: var(--mm-mono);
-        font-size: 9px;
+        font-size: 10px;
         letter-spacing: 0.2em;
         text-transform: uppercase;
         width: fit-content;
@@ -7296,7 +7296,7 @@ function MoneyMapStyles() {
       }
       .mm-story-strip-name {
         font-family: var(--mm-serif);
-        font-size: 22px;
+        font-size: 24px;
         font-weight: 500;
         color: #fff;
         letter-spacing: -0.01em;
@@ -7304,17 +7304,17 @@ function MoneyMapStyles() {
         margin: 0;
       }
       .mm-story-strip-summary {
-        font-size: 14px;
-        line-height: 1.5;
+        font-size: 15px;
+        line-height: 1.55;
         color: #d8dbe3;
         margin: 0;
       }
       .mm-story-strip-quote {
         font-family: var(--mm-serif);
         font-style: italic;
-        font-size: 13px;
+        font-size: 15px;
         color: #fcd34d;
-        line-height: 1.4;
+        line-height: 1.45;
         border-left: 2px solid rgba(251, 191, 36, 0.5);
         padding-left: 10px;
         margin: 0;
@@ -7331,7 +7331,7 @@ function MoneyMapStyles() {
       .mm-story-strip-figures {
         font-family: var(--mm-mono);
         font-variant-numeric: tabular-nums;
-        font-size: 12px;
+        font-size: 13px;
         color: #cbd5e1;
       }
       .mm-story-strip-cp {
@@ -7341,7 +7341,7 @@ function MoneyMapStyles() {
         padding: 6px 10px;
         border: 1px solid var(--mm-border);
         border-radius: 100px;
-        font-size: 12px;
+        font-size: 13px;
         color: #e2e8f0;
         background: rgba(255,255,255,0.02);
         width: fit-content;
