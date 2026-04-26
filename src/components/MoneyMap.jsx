@@ -4100,6 +4100,23 @@ export default function MoneyMap({
           <b>Amber nodes are people; coloured dots are political parties; neutral nodes are political donors; violet rings are registered consultant lobbyists tied to their declared clients.</b>{" "}
           Where a tracked supplier has also donated to a party, the supplier bubble carries a coloured ring in the party&rsquo;s colour. The lobbyist register covers consultant lobbyists only &mdash; in-house lobbyists and informal access are outside the public record. See Stories for the evidence trail behind named individuals.
         </div>
+        {/* UX audit #1 + #4 (2026-04-26): primary onboarding CTA.
+            First-time visitors land on a 600-node graph with no
+            narrative anchor; surface "Take a tour" as the first thing
+            their eye finds, not buried in the Layers panel header. */}
+        <div className="mm-hero-tour-cta">
+          <button
+            type="button"
+            className="mm-hero-tour-btn"
+            onClick={() => setTourPickerOpen(true)}
+          >
+            <span className="mm-hero-tour-btn-eyebrow">First time here?</span>
+            <span className="mm-hero-tour-btn-label">Take a 4-stop tour &rarr;</span>
+          </button>
+          <span className="mm-hero-tour-hint">
+            Or browse the Stories below, or jump straight into the canvas.
+          </span>
+        </div>
       </section>
 
       {/* Desktop-only Stories strip — surfaces the editorial hook above
@@ -4223,16 +4240,23 @@ export default function MoneyMap({
         >
           Include softer (C/D)
         </Chip>
-        <Chip
-          active
-          title={`Click to cycle minimum edge value · currently showing only flows ≥ ${fmtGBP(minGBP)}. Next: ${fmtGBP(MIN_GBP_STEPS[(MIN_GBP_STEPS.indexOf(minGBP) + 1) % MIN_GBP_STEPS.length])}`}
-          onClick={() => {
-            const idx = MIN_GBP_STEPS.indexOf(minGBP);
-            setMinGBP(MIN_GBP_STEPS[(idx + 1) % MIN_GBP_STEPS.length]);
-          }}
-        >
-          Min £: {fmtGBP(minGBP)} <span className="mm-chip-cycle" aria-hidden="true">⇵</span>
-        </Chip>
+        {/* UX audit #3 (2026-04-26): proper labelled dropdown rather
+            than the previous hidden cycler-on-tap pattern. The chip
+            looked like static metadata; readers couldn't tell it was
+            interactive. */}
+        <label className="mm-min-gbp-control" title="Show only money flows above this size">
+          <span className="mm-min-gbp-label">Show flows &ge;</span>
+          <select
+            className="mm-min-gbp-select"
+            value={minGBP}
+            onChange={(e) => setMinGBP(parseInt(e.target.value, 10))}
+            aria-label="Minimum flow value"
+          >
+            {MIN_GBP_STEPS.map((step) => (
+              <option key={step} value={step}>{fmtGBP(step)}</option>
+            ))}
+          </select>
+        </label>
         {/* 2026-04-26 — task #115. The standalone Donors / Lobbyists
             chips were retired here in favour of the floating Layers
             panel (desktop top-right of the canvas) and the Layers
@@ -6379,6 +6403,98 @@ function MoneyMapStyles() {
         background: transparent; max-width: 820px;
       }
       .mm-disclaimer b { color: var(--mm-fg-dim); font-weight: 500; }
+
+      /* UX audit #1 + #4 (2026-04-26): primary onboarding CTA in the
+         hero. Cold-start fix — first thing a first-time reader's eye
+         finds, gives them a clear "what do I do" path. */
+      .mm-hero-tour-cta {
+        display: flex; align-items: center; gap: 14px;
+        margin-top: 18px; flex-wrap: wrap;
+      }
+      .mm-hero-tour-btn {
+        display: inline-flex; flex-direction: column; align-items: flex-start;
+        gap: 2px;
+        padding: 10px 18px;
+        border: 1px solid var(--mm-accent);
+        background: rgba(251, 191, 36, 0.08);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 120ms ease, border-color 120ms ease, transform 80ms ease;
+        text-align: left;
+      }
+      .mm-hero-tour-btn:hover {
+        background: rgba(251, 191, 36, 0.16);
+        border-color: var(--mm-accent);
+      }
+      .mm-hero-tour-btn:active { transform: translateY(1px); }
+      .mm-hero-tour-btn-eyebrow {
+        font-family: var(--mm-mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #fcd34d;
+        opacity: 0.85;
+      }
+      .mm-hero-tour-btn-label {
+        font-size: 15px;
+        font-weight: 500;
+        color: #ffffff;
+      }
+      .mm-hero-tour-hint {
+        font-size: 13px;
+        color: var(--mm-fg-mute);
+      }
+      @media (max-width: 540px) {
+        .mm-hero-tour-cta { flex-direction: column; align-items: stretch; }
+        .mm-hero-tour-btn { width: 100%; align-items: flex-start; }
+      }
+
+      /* UX audit #3 (2026-04-26): Min £ as a proper labelled dropdown,
+         not a hidden cycler. The previous chip looked like static
+         metadata; readers couldn't tell it was clickable, let alone
+         that it cycled through thresholds. */
+      .mm-min-gbp-control {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 4px 10px 4px 10px;
+        border: 1px solid var(--mm-border);
+        border-radius: 6px;
+        background: rgba(255,255,255,0.02);
+        font-family: var(--mm-mono);
+        font-size: 13px;
+        color: var(--mm-fg-dim);
+        cursor: pointer;
+        transition: border-color 120ms ease, background 120ms ease;
+      }
+      .mm-min-gbp-control:hover {
+        border-color: rgba(251,191,36,0.45);
+        background: rgba(251,191,36,0.05);
+      }
+      .mm-min-gbp-label {
+        color: var(--mm-fg-mute);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .mm-min-gbp-select {
+        appearance: none;
+        -webkit-appearance: none;
+        background: transparent;
+        border: 0;
+        color: var(--mm-fg);
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 2px 18px 2px 0;
+        cursor: pointer;
+        outline: none;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><path fill='%23a7adba' d='M2 4l3 3 3-3z'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right center;
+      }
+      .mm-min-gbp-select option {
+        background: #0a0a0d;
+        color: var(--mm-fg);
+      }
 
       .mm-filters {
         padding: 14px 32px;
