@@ -5,6 +5,14 @@
     {
       "date": "2026-04-26",
       "type": "feature",
+      "title": "Cross-link \u2014 Stories \u2194 Projects, both directions",
+      "summary": "Open a project dossier (HS2, Universal Credit IT, Crossrail etc.) and the connection records about its contractors now surface alongside the existing supplier breakdown \u2014 'Sir Robert McAlpine donated to Conservative party' lands on HS2's page automatically. Reverse direction too: open a Story card and a 'Projects involving [supplier]' section appears in the drawer, listing tracked Gracchus projects where the supplier is a contractor with a tap-through to each project's dossier. The catalogue stops being island-of-stories and starts behaving like a navigable graph.",
+      "view": "moneymap",
+      "metric": "+ bidirectional Stories\u2194Projects"
+    },
+    {
+      "date": "2026-04-26",
+      "type": "feature",
       "title": "Money Map \u2014 base-layer default + Lens works for every node kind",
       "summary": "First-time visitors now see the base layer (suppliers, buyers, projects, \u00a3-flow edges) by default rather than all 700+ nodes at once. People, parties, donors, lobbyists and adjacent firms are one click away \u2014 the Layers panel gains a Base-only / Show-all preset toggle. Supplier-overlap rings stay visible whatever the donor layer state \u2014 they're metadata on the supplier itself, not a separate entity. Lens mode now properly handles people, parties, donors and lobbyists as subject \u2014 click any of those bubbles or arrive via cmd-K and the canvas correctly pivots to the ego network.",
       "view": "moneymap",

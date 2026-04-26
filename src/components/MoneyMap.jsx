@@ -808,7 +808,7 @@ const CONN_EYEBROW = {
   other: "CONNECTION",
 };
 
-function MoneyMapStoriesTab({ connections, peopleById, onOpen, onOpenPerson }) {
+function MoneyMapStoriesTab({ connections, peopleById, onOpen, onOpenPerson, projectsBySupplierId }) {
   if (!connections || connections.length === 0) {
     return (
       <div
@@ -948,31 +948,60 @@ function MoneyMapStoriesTab({ connections, peopleById, onOpen, onOpenPerson }) {
                     )}
                   </dl>
                 )}
-                {cpName && (
-                  <div className="mm-story-cp-row">
-                    <span
-                      className={"mm-story-cp-pill" + (hasTarget ? "" : " mm-story-cp-pill-inert")}
-                      role={hasTarget ? "button" : undefined}
-                      tabIndex={hasTarget ? 0 : undefined}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (hasTarget) onOpen(cpId);
-                      }}
-                      onKeyDown={(e) => {
-                        if (!hasTarget) return;
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault();
+                {cpName && (() => {
+                  /* task #119 — when the counterparty is a tracked supplier
+                     that appears as contractor on tracked Gracchus projects,
+                     show "+ N projects" inside the pill so the reader can
+                     preview the navigation depth. The whole pill remains a
+                     single tap target into the supplier drawer (where the
+                     "Projects involving X" section now lives). */
+                  const projHits = (
+                    c.counterparty?.kind === "supplier" && cpId && projectsBySupplierId
+                      ? projectsBySupplierId.get(cpId)
+                      : null
+                  );
+                  const projCount = projHits ? projHits.length : 0;
+                  return (
+                    <div className="mm-story-cp-row">
+                      <span
+                        className={"mm-story-cp-pill" + (hasTarget ? "" : " mm-story-cp-pill-inert")}
+                        role={hasTarget ? "button" : undefined}
+                        tabIndex={hasTarget ? 0 : undefined}
+                        onClick={(e) => {
                           e.stopPropagation();
-                          onOpen(cpId);
+                          if (hasTarget) onOpen(cpId);
+                        }}
+                        onKeyDown={(e) => {
+                          if (!hasTarget) return;
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            onOpen(cpId);
+                          }
+                        }}
+                        aria-label={
+                          hasTarget
+                            ? (projCount > 0
+                                ? `Open ${cpName} — appears on ${projCount} tracked project${projCount === 1 ? "" : "s"}`
+                                : `Open ${cpName}`)
+                            : undefined
                         }
-                      }}
-                      aria-label={hasTarget ? `Open ${cpName}` : undefined}
-                    >
-                      <span className="mm-story-cp-arrow" aria-hidden="true">&rarr;</span>
-                      <span className="mm-story-cp-name">{cpName}</span>
-                    </span>
-                  </div>
-                )}
+                      >
+                        <span className="mm-story-cp-arrow" aria-hidden="true">&rarr;</span>
+                        <span className="mm-story-cp-name">{cpName}</span>
+                        {projCount > 0 && (
+                          <span
+                            className="mm-story-cp-projbadge"
+                            aria-hidden="true"
+                            title={`${cpName} is a contractor on ${projCount} tracked Gracchus project${projCount === 1 ? "" : "s"}`}
+                          >
+                            + {projCount} project{projCount === 1 ? "" : "s"}
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  );
+                })()}
                 {c.sources && c.sources.length > 0 && (
                   <div className="mm-story-sources">
                     {c.sources.map((s, i) => (
@@ -1017,7 +1046,7 @@ function MoneyMapStoriesTab({ connections, peopleById, onOpen, onOpenPerson }) {
  * Compact card: serif name text-2xl, 360px wide, 260px min-height.
  * Taps open the existing drawer via onOpen(counterpartyId).
  * ========================================================================= */
-function MoneyMapStoriesStrip({ connections, peopleById, onOpen, onOpenPerson }) {
+function MoneyMapStoriesStrip({ connections, peopleById, onOpen, onOpenPerson, projectsBySupplierId }) {
   if (!connections || connections.length === 0) return null;
   return (
     <section className="mm-story-strip-wrap" aria-label="Featured connection stories">
@@ -1132,12 +1161,33 @@ function MoneyMapStoriesStrip({ connections, peopleById, onOpen, onOpenPerson })
               {fig && (
                 <div className="mm-story-strip-figures">{fig}</div>
               )}
-              {cpName && (
-                <span className="mm-story-strip-cp">
-                  <span aria-hidden="true">&rarr;</span>
-                  <span>{cpName}</span>
-                </span>
-              )}
+              {cpName && (() => {
+                /* task #119 — desktop strip mirror of the mobile annotation.
+                   Counts tracked projects involving this supplier so the
+                   reader sees the navigation depth before tapping the card
+                   into the supplier drawer. */
+                const projHits = (
+                  c.counterparty?.kind === "supplier" && cpId && projectsBySupplierId
+                    ? projectsBySupplierId.get(cpId)
+                    : null
+                );
+                const projCount = projHits ? projHits.length : 0;
+                return (
+                  <span className="mm-story-strip-cp">
+                    <span aria-hidden="true">&rarr;</span>
+                    <span>{cpName}</span>
+                    {projCount > 0 && (
+                      <span
+                        className="mm-story-strip-cp-projbadge"
+                        aria-hidden="true"
+                        title={`${cpName} is a contractor on ${projCount} tracked Gracchus project${projCount === 1 ? "" : "s"}`}
+                      >
+                        + {projCount} project{projCount === 1 ? "" : "s"}
+                      </span>
+                    )}
+                  </span>
+                );
+              })()}
               {c.sources && c.sources.length > 0 && (
                 <div className="mm-story-strip-sources">
                   {c.sources.slice(0, 3).map((s, i) => (
@@ -2329,6 +2379,51 @@ export default function MoneyMap({
     }
     return m;
   }, [storyConnections]);
+  /* projectsBySupplierId — task #119 (2026-04-26).
+     Reverse direction of the cross-link: given a supplier-id, list every
+     tracked Gracchus project where that supplier appears as a contractor.
+     Built once per session by walking data.edges.projectMembers (the
+     canonical project↔supplier link, generated by build-money-map.mjs
+     from project-contractors.json) and joining against the project nodes
+     for label / status / department metadata. Consumed by:
+       - PersonDetail (drawer) → "Projects involving X" section
+       - MoneyMapStoriesTab + MoneyMapStoriesStrip → "+ N projects" badge
+     Stored as a Map for O(1) lookup; values are arrays of slim project
+     records (no riskScore — projects.json doesn't carry one — so we use
+     status as the lightweight editorial signal). */
+  const projectsBySupplierId = useMemo(() => {
+    const projectNodeById = new Map();
+    for (const n of (data?.nodes || [])) {
+      if (n && n.kind === "project") projectNodeById.set(n.id, n);
+    }
+    const map = new Map();
+    const edges = (data?.edges?.projectMembers) || [];
+    for (const e of edges) {
+      if (!e || typeof e.s !== "string" || typeof e.t !== "string") continue;
+      if (!e.s.startsWith("project-")) continue;
+      if (!e.t.startsWith("supplier-")) continue;
+      const node = projectNodeById.get(e.s);
+      if (!node) continue;
+      if (!map.has(e.t)) map.set(e.t, []);
+      const list = map.get(e.t);
+      // de-dupe — a supplier can have multiple project-member edges per
+      // project (different group rows). One row per project for the UI.
+      if (!list.some((p) => p.id === node.id)) {
+        list.push({
+          id: node.id,
+          name: node.label,
+          status: node.status || null,
+          department: node.department || null,
+        });
+      }
+    }
+    // Sort each project list alphabetically so the order is stable across
+    // renders. (Could sort by £ later — name is the editorial default.)
+    for (const list of map.values()) {
+      list.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+    }
+    return map;
+  }, [data]);
 
   /* ---------- rotating Story Cards ----------
      Same pattern as Story of the Week on the home page: take the full
@@ -3448,6 +3543,7 @@ export default function MoneyMap({
         <MoneyMapStoriesStrip
           connections={storyConnections}
           peopleById={storyPeopleById}
+          projectsBySupplierId={projectsBySupplierId}
           onOpen={(id) => setSelection({ kind: "node", id })}
           onOpenPerson={(id) => setSelection({ kind: "node", id })}
         />
@@ -3688,6 +3784,7 @@ export default function MoneyMap({
               <MoneyMapStoriesTab
                 connections={storyConnections}
                 peopleById={storyPeopleById}
+                projectsBySupplierId={projectsBySupplierId}
                 onOpen={(id) => setSelection({ kind: "node", id })}
                 onOpenPerson={(id) => setSelection({ kind: "node", id })}
               />
@@ -4184,6 +4281,7 @@ export default function MoneyMap({
           donorEdges={donorAugment.edges}
           storyConnections={storyConnections}
           storyPeopleById={storyPeopleById}
+          projectsBySupplierId={projectsBySupplierId}
         />
       )}
     </div>
@@ -4258,6 +4356,7 @@ function PersonDetail({
   node,
   connections,
   peopleById,
+  projectsBySupplierId,
   onClose,
   onOpen,
 }) {
@@ -4269,6 +4368,29 @@ function PersonDetail({
   // (firms have no rolesHeld) so the drawer leads with the editorial framing
   // before the cards repeat it.
   const patternConn = isFirm && connections.length > 0 ? connections[0] : null;
+
+  /* task #119 — derive the per-supplier project list from this person's
+     connections. Multiple connections can share a counterparty supplier so
+     we collapse to one entry per supplier, preserving the first-seen name.
+     Empty list when there are no supplier-typed counterparties or the
+     supplier doesn't appear on any tracked Gracchus project. */
+  const supplierProjectGroups = useMemo(() => {
+    if (!projectsBySupplierId) return [];
+    const seen = new Map();
+    for (const c of (connections || [])) {
+      if (c.counterparty?.kind !== "supplier") continue;
+      const sid = c.counterparty.id;
+      if (!sid || seen.has(sid)) continue;
+      const projs = projectsBySupplierId.get(sid);
+      if (!projs || projs.length === 0) continue;
+      seen.set(sid, {
+        supplierId: sid,
+        supplierName: c.counterparty.name || sid,
+        projects: projs,
+      });
+    }
+    return Array.from(seen.values());
+  }, [connections, projectsBySupplierId]);
   return (
     <aside
       ref={drawerRef}
@@ -4343,9 +4465,42 @@ function PersonDetail({
           <MoneyMapStoriesTab
             connections={connections}
             peopleById={peopleById}
+            projectsBySupplierId={projectsBySupplierId}
             onOpen={onOpen}
           />
         )}
+
+        {/* task #119 — reverse cross-link.
+            For each supplier counterparty in this person's connections that
+            also appears as a contractor on tracked Gracchus projects, list
+            the projects with a tap-through into the project node drawer
+            (which carries an "Open project dossier" CTA). Renders nothing
+            when no supplier-typed connections hit any tracked project. */}
+        {supplierProjectGroups.length > 0 && supplierProjectGroups.map((g) => (
+          <div className="mm-person-projects" key={g.supplierId}>
+            <div className="mm-d-section-h" style={{ marginTop: 18 }}>
+              Projects involving {g.supplierName} ({g.projects.length})
+            </div>
+            <ul className="mm-person-project-list">
+              {g.projects.map((p) => (
+                <li key={p.id}>
+                  <button
+                    type="button"
+                    className="mm-person-project-row"
+                    onClick={() => onOpen(p.id)}
+                    aria-label={`Open project ${p.name}`}
+                  >
+                    <span className="mm-person-project-name">{p.name}</span>
+                    <span className="mm-person-project-meta">
+                      {p.department || ""}
+                      {p.status ? (p.department ? " \u00b7 " : "") + p.status : ""}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
 
         {links.length > 0 && (
           <>
@@ -4909,6 +5064,7 @@ function Drawer({
   donorEdges,
   storyConnections,
   storyPeopleById,
+  projectsBySupplierId,
 }) {
   const drawerRef = useDrawerFocus(onClose);
   const node = selection.node;
@@ -4927,6 +5083,7 @@ function Drawer({
         node={node}
         connections={myConns}
         peopleById={storyPeopleById || {}}
+        projectsBySupplierId={projectsBySupplierId}
         onClose={onClose}
         onOpen={onOpenNode || (() => {})}
       />
@@ -5855,6 +6012,77 @@ function MoneyMapStyles() {
         display: inline-flex; align-items: center;
       }
       .mm-person-links a:hover { text-decoration: underline; }
+
+      /* task #119 — Projects involving [supplier] section in PersonDetail */
+      .mm-person-project-list {
+        list-style: none; padding: 0; margin: 0;
+        display: flex; flex-direction: column; gap: 6px;
+      }
+      .mm-person-project-row {
+        display: flex; flex-direction: column; align-items: stretch;
+        text-align: left;
+        padding: 9px 11px;
+        background: #0a0a0d;
+        border: 1px solid var(--mm-border);
+        border-radius: 4px;
+        color: inherit;
+        cursor: pointer;
+        width: 100%;
+        font: inherit;
+        transition: border-color 120ms, background 120ms;
+      }
+      .mm-person-project-row:hover {
+        border-color: #fbbf24;
+        background: #15151c;
+      }
+      .mm-person-project-row:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 2px;
+      }
+      .mm-person-project-name {
+        font-size: 15px;
+        color: var(--mm-fg);
+        font-family: var(--mm-serif);
+        line-height: 1.25;
+      }
+      .mm-person-project-meta {
+        margin-top: 3px;
+        font-family: var(--mm-mono);
+        font-size: 11px;
+        color: var(--mm-fg-mute);
+        letter-spacing: 0.04em;
+      }
+
+      /* task #119 — "+ N projects" annotation on the counterparty pill in
+         the Stories tab cards (mobile) and Stories strip (desktop). Lives
+         inside the existing pill so the whole pill remains a single tap
+         target into the supplier drawer. */
+      .mm-story-cp-projbadge {
+        margin-left: 8px;
+        padding: 2px 7px;
+        border-radius: 999px;
+        background: rgba(251, 191, 36, 0.10);
+        border: 1px solid rgba(251, 191, 36, 0.35);
+        color: #fbbf24;
+        font-family: var(--mm-mono);
+        font-size: 10.5px;
+        letter-spacing: 0.04em;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .mm-story-strip-cp-projbadge {
+        margin-left: 6px;
+        padding: 1px 6px;
+        border-radius: 999px;
+        background: rgba(251, 191, 36, 0.10);
+        border: 1px solid rgba(251, 191, 36, 0.35);
+        color: #fbbf24;
+        font-family: var(--mm-mono);
+        font-size: 10px;
+        letter-spacing: 0.04em;
+        font-weight: 500;
+        white-space: nowrap;
+      }
 
       /* v2 Phase 2 — PartyDetail drawer + Stories party-badge */
       .mm-drawer-party .mm-d-head {

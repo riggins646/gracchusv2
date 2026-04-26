@@ -160,6 +160,33 @@ function supplierIdFromName(name) {
   return "supplier-" + mmSlug(key);
 }
 
+/* Project → supplierId[] lookup. Walks money-map.json's project-member
+   edges (built from project-contractors.json by scripts/build-money-map.mjs)
+   so the canonical edge set is the single source of truth. Computed once at
+   module load — reused by ProjectDetail to wire ConnectedIndividuals's
+   transitive matches (task #119). Key is the numeric project id (matches
+   projects.json). */
+const PROJECT_CONTRACTOR_SUPPLIER_IDS = (() => {
+  const map = new Map();
+  const edges = (moneyMapData?.edges?.projectMembers) || [];
+  for (const e of edges) {
+    if (!e || typeof e.s !== "string" || typeof e.t !== "string") continue;
+    if (!e.s.startsWith("project-")) continue;
+    if (!e.t.startsWith("supplier-")) continue;
+    const pidNum = parseInt(e.s.replace(/^project-/, ""), 10);
+    if (!Number.isFinite(pidNum)) continue;
+    if (!map.has(pidNum)) map.set(pidNum, new Set());
+    map.get(pidNum).add(e.t);
+  }
+  // Freeze to plain arrays so ConnectedIndividuals can use Array.isArray().
+  const out = new Map();
+  for (const [k, set] of map.entries()) out.set(k, Array.from(set));
+  return out;
+})();
+function projectContractorSupplierIds(projectId) {
+  return PROJECT_CONTRACTOR_SUPPLIER_IDS.get(projectId) || [];
+}
+
 const getOverrun = (p) => p.latestBudget - p.originalBudget;
 const getOverrunPct = (p) => (
   p.originalBudget > 0
@@ -5275,10 +5302,19 @@ function ProjectDetail({ project, onClose, onNavigate, onSelectSupplier }) {
           </div>
         )}
 
-        {/* Connected individuals (task #102) — renders when any connection's
-            counterparty.id matches this project's id. */}
+        {/* Connected individuals (task #102, extended #119 2026-04-26) —
+            renders direct matches (counterparty.id matches this project's id)
+            AND transitive matches (counterparty is one of this project's
+            contractors). The transitive set is computed once at module load
+            from money-map.json's project-member edges so a reader on HS2's
+            page automatically sees "Sir Robert McAlpine donated to
+            Conservative + holds your contract" alongside any project-direct
+            stories. */}
         <div className="px-6">
-          <ConnectedIndividuals projectId={p.id} />
+          <ConnectedIndividuals
+            projectId={p.id}
+            projectContractorSupplierIds={projectContractorSupplierIds(p.id)}
+          />
         </div>
 
         {/* — FOOTER RULE — */}
