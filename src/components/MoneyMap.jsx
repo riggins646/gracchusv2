@@ -175,7 +175,22 @@ const LAYER_DEFS = [
   { id: "served_at",        group: "edges", scope: "edge", label: "Person served-at edges",
     kind: "edge",           swatchColor: "#fbbf24", dashed: true },
 ];
-const DEFAULT_VISIBLE_LAYERS = LAYER_DEFS.map((l) => l.id);
+/* 2026-04-26 — Smart layer defaults (task #118).
+   First-time visitor sees the BASE layer only: suppliers, buyers, projects
+   and £-flow edges. v2 layers (people, parties, donors, lobbyists,
+   adjacent firms + their relational edges) are one click away via the
+   Layers panel — and via the new "Show all" preset toggle on the panel
+   header. ~700 nodes-and-edges all-at-once was visually overwhelming
+   for readers landing on /money-map cold. */
+const DEFAULT_VISIBLE_LAYERS = [
+  // Base layer — first-time visitor sees this
+  "supplier", "buyer", "project",
+  "award",  // £-flow edges
+  // v2 layers default OFF — readers opt in via the panel
+];
+/* Canonical "everything on" set. Generated from LAYER_DEFS so adding a
+   new layer row automatically extends ALL_LAYERS without a separate edit. */
+const ALL_LAYERS = LAYER_DEFS.map((l) => l.id);
 
 const WIDTH = 1200;
 const HEIGHT = 720;
@@ -1174,7 +1189,9 @@ function LayersPanel({
   visibleLayers,
   toggleLayer,
   resetLayers,
+  setAllLayers,
   layersAreDefault,
+  layersAreAll,
   layerCounts,
   className = "",
   variant = "panel", // "panel" | "section"
@@ -1230,16 +1247,31 @@ function LayersPanel({
     >
       <div className="mm-layers-head">
         <span className="mm-layers-title">Layers</span>
-        {!layersAreDefault && (
+        {/* 2026-04-26 — task #118. Two-state preset toggle. "Base only"
+            collapses to suppliers/buyers/projects + £-flow edges; "Show all"
+            re-enables everything. Active state is whichever set the current
+            visibleLayers matches; if it's neither, neither pill is highlit
+            (custom selection). */}
+        <span className="mm-layers-presets" role="group" aria-label="Layer preset">
           <button
             type="button"
-            className="mm-layers-reset"
+            className={"mm-layers-preset" + (layersAreDefault ? " mm-layers-preset-active" : "")}
             onClick={resetLayers}
-            title="Show every layer again"
+            title="Show only suppliers, buyers, projects and money-flow edges"
+            aria-pressed={layersAreDefault}
           >
-            Reset
+            Base only
           </button>
-        )}
+          <button
+            type="button"
+            className={"mm-layers-preset" + (layersAreAll ? " mm-layers-preset-active" : "")}
+            onClick={setAllLayers}
+            title="Show every layer — people, parties, donors, lobbyists, edges"
+            aria-pressed={layersAreAll}
+          >
+            Show all
+          </button>
+        </span>
       </div>
       <div className="mm-layers-body">
         {groups.money.map(renderRow)}
@@ -1260,7 +1292,8 @@ function MoneyMapFiltersSheet({
   viewMode, lensSubjectNode, resetLens,
   // 2026-04-26 — task #115. Layers section appears inside the mobile
   // Filters bottom sheet so the same controls are reachable on mobile.
-  visibleLayers, toggleLayer, resetLayers, layersAreDefault, layerCounts,
+  visibleLayers, toggleLayer, resetLayers, setAllLayers,
+  layersAreDefault, layersAreAll, layerCounts,
 }) {
   const sheetRef = useDrawerFocus(onClose);
   if (!open) return null;
@@ -1381,7 +1414,9 @@ function MoneyMapFiltersSheet({
                 visibleLayers={visibleLayers}
                 toggleLayer={toggleLayer}
                 resetLayers={resetLayers}
+                setAllLayers={setAllLayers}
                 layersAreDefault={layersAreDefault}
+                layersAreAll={layersAreAll}
                 layerCounts={layerCounts}
                 variant="section"
               />
@@ -1466,8 +1501,13 @@ export default function MoneyMap({
   const showDonors    = visibleLayers.has("donor");
   const showLobbyists = visibleLayers.has("lobbyist");
   const layersAreDefault = useMemo(
-    () => visibleLayers.size === DEFAULT_VISIBLE_LAYERS.size &&
+    () => visibleLayers.size === DEFAULT_VISIBLE_LAYERS.length &&
           DEFAULT_VISIBLE_LAYERS.every((id) => visibleLayers.has(id)),
+    [visibleLayers]
+  );
+  const layersAreAll = useMemo(
+    () => visibleLayers.size === ALL_LAYERS.length &&
+          ALL_LAYERS.every((id) => visibleLayers.has(id)),
     [visibleLayers]
   );
   const toggleLayer = useCallback((id) => {
@@ -1479,6 +1519,11 @@ export default function MoneyMap({
   }, []);
   const resetLayers = useCallback(
     () => setVisibleLayers(new Set(DEFAULT_VISIBLE_LAYERS)),
+    []
+  );
+  /* 2026-04-26 — "Show all" preset wired into the new toggle. */
+  const setAllLayers = useCallback(
+    () => setVisibleLayers(new Set(ALL_LAYERS)),
     []
   );
   const [selection, setSelection] = useState(null);   // { kind, id } | null
@@ -2363,7 +2408,24 @@ export default function MoneyMap({
         if (!allowed.has(e.tier)) return false;
         return nodesById.has(e.s) && nodesById.has(e.t);
       });
-      const all = [...allAwards, ...allMembers, ...allPersonEdges, ...allDonorEdges, ...allLobbyistEdges];
+      /* 2026-04-26 (task #118) — lens-mode ego-network walker uses the
+         FULL donor / lobbyist edge set, ignoring the donor/lobbyist layer
+         toggles. The visibleNodes/visibleEdges memos still apply the
+         layer filter at render time, so the user can hide a kind via
+         the panel without breaking the lens for a donor or lobbyist
+         subject. Otherwise: lens on a donor → donor layer off → no
+         neighbours found. */
+      const allDonorEdgesForLens = (donorAugment.edges || []).filter((e) => {
+        if (!allowed.has(e.tier)) return false;
+        const floor = Math.max(100_000, minGBP / 10);
+        if ((e.totalGBP || 0) < floor) return false;
+        return nodesById.has(e.s) && nodesById.has(e.t);
+      });
+      const allLobbyistEdgesForLens = (lobbyistAugment.edges || []).filter((e) => {
+        if (!allowed.has(e.tier)) return false;
+        return nodesById.has(e.s) && nodesById.has(e.t);
+      });
+      const all = [...allAwards, ...allMembers, ...allPersonEdges, ...allDonorEdgesForLens, ...allLobbyistEdgesForLens];
 
       // Hop 1 — direct neighbours of the subject
       const hop1 = new Set([lensSubjectId]);
@@ -2399,10 +2461,10 @@ export default function MoneyMap({
       const personEdges = allPersonEdges.filter(
         (e) => nodeSet.has(e.s) && nodeSet.has(e.t)
       );
-      const donorEdges = allDonorEdges.filter(
+      const donorEdges = allDonorEdgesForLens.filter(
         (e) => nodeSet.has(e.s) && nodeSet.has(e.t)
       );
-      const lobbyistEdges = allLobbyistEdges.filter(
+      const lobbyistEdges = allLobbyistEdgesForLens.filter(
         (e) => nodeSet.has(e.s) && nodeSet.has(e.t)
       );
       return {
@@ -2845,9 +2907,13 @@ export default function MoneyMap({
        also on the donor list, paint a concentric ring in the dominant
        party's colour just outside the supplier bubble. Signals "this
        firm both held government contracts and donated to the party".
-       Donors-OFF state suppresses this ring (matches the toggle). */
+       2026-04-26 (task #118) — the ring is part of the supplier node's
+       own appearance (it's metadata pinned to the supplier, not a
+       donor-layer artefact), so we no longer gate on `showDonors`.
+       That means the ring stays visible under the new "Base only"
+       default — which is the whole editorial point of having it. */
     nodeSel
-      .filter((d) => d.type === "supplier" && d.isDonor && showDonors)
+      .filter((d) => d.type === "supplier" && d.isDonor)
       .append("circle")
         .attr("class", "mm-supplier-donor-ring")
         .attr("r", (d) => d.r + 4)
@@ -2995,7 +3061,10 @@ export default function MoneyMap({
       // v2 Phase 3 — supplier-overlay donors get a "DONOR" badge in the
       // hover line so the secondary status is legible without opening the
       // drawer. Total declared giving inlined for fast triage.
-      const donorBadge = d.isDonor && showDonors
+      // 2026-04-26 (task #118) — decoupled from the donor layer: the badge
+      // describes the supplier itself, not the donor cluster, so it stays
+      // visible whether or not the donor layer is on.
+      const donorBadge = d.isDonor
         ? `\nALSO POLITICAL DONOR · ${fmtGBP(d.donorTotalGBP)} declared giving`
         : "";
       return `${d.label}\n${kind} · ${moneyLine} · ${connections} relationship${connections === 1 ? "" : "s"}${donorBadge}\n(click for details)`;
@@ -3407,9 +3476,17 @@ export default function MoneyMap({
             <span className="mm-focus-pill-label">Focus</span>
             <span className="mm-focus-pill-name">{lensSubjectNode.label}</span>
             <span className="mm-focus-pill-kind">
-              {lensSubjectNode.kind === "buyer"    ? "dept"     :
-               lensSubjectNode.kind === "supplier" ? "supplier" :
-               lensSubjectNode.kind === "project"  ? "project"  : ""}
+              {/* 2026-04-26 (task #118) — extended for v2 Phases 1-4 node
+                  kinds. Lens subjects can now be people, parties, donors,
+                  lobbyists or adjacent firms. */}
+              {lensSubjectNode.kind === "buyer"         ? "dept"     :
+               lensSubjectNode.kind === "supplier"      ? "supplier" :
+               lensSubjectNode.kind === "project"       ? "project"  :
+               lensSubjectNode.kind === "person"        ? "person"   :
+               lensSubjectNode.kind === "party"         ? "party"    :
+               lensSubjectNode.kind === "donor"         ? "donor"    :
+               lensSubjectNode.kind === "lobbyist"      ? "lobbyist" :
+               lensSubjectNode.kind === "adjacent_firm" ? "firm"     : ""}
             </span>
             <button
               className="mm-focus-pill-reset"
@@ -3664,7 +3741,9 @@ export default function MoneyMap({
             visibleLayers={visibleLayers}
             toggleLayer={toggleLayer}
             resetLayers={resetLayers}
+            setAllLayers={setAllLayers}
             layersAreDefault={layersAreDefault}
+            layersAreAll={layersAreAll}
             layerCounts={layerCounts}
           />
         </>
@@ -3762,7 +3841,9 @@ export default function MoneyMap({
             visibleLayers={visibleLayers}
             toggleLayer={toggleLayer}
             resetLayers={resetLayers}
+            setAllLayers={setAllLayers}
             layersAreDefault={layersAreDefault}
+            layersAreAll={layersAreAll}
             layerCounts={layerCounts}
             className="mm-layers-panel-desktop"
           />
@@ -6186,6 +6267,43 @@ function MoneyMapStyles() {
       .mm-layers-reset:focus-visible {
         outline: 2px solid #93c5fd;
         outline-offset: 2px;
+      }
+      /* 2026-04-26 (task #118) — Base-only / Show-all preset toggle.
+         Compact mono uppercase pills, one tone darker than the panel
+         background; active state lifts to the existing amber accent
+         used elsewhere on the surface so the highlit pill reads as
+         "you are here". */
+      .mm-layers-presets {
+        display: inline-flex;
+        gap: 0;
+        background: rgba(0,0,0,0.35);
+        border: 1px solid var(--mm-border);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .mm-layers-preset {
+        background: transparent;
+        border: none;
+        color: var(--mm-fg-mute);
+        font-family: var(--mm-mono);
+        font-size: 9.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 3px 7px;
+        cursor: pointer;
+        line-height: 1.2;
+      }
+      .mm-layers-preset + .mm-layers-preset {
+        border-left: 1px solid var(--mm-border);
+      }
+      .mm-layers-preset:hover { color: #fbbf24; }
+      .mm-layers-preset-active {
+        background: rgba(251,191,36,0.16);
+        color: #fbbf24;
+      }
+      .mm-layers-preset:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: -2px;
       }
       .mm-layers-body {
         display: flex; flex-direction: column; gap: 2px;
