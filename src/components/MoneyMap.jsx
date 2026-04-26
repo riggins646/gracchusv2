@@ -192,6 +192,79 @@ const DEFAULT_VISIBLE_LAYERS = [
    new layer row automatically extends ALL_LAYERS without a separate edit. */
 const ALL_LAYERS = LAYER_DEFS.map((l) => l.id);
 
+/* 2026-04-26 — task #120. Saved "quick view" presets. Each preset
+   atomically sets visibleLayers + tierFilter + minGBP + query +
+   viewMode (+ lensSubjectId when relevant) so a reader can snap the
+   canvas to a curated editorial cross-section in one click. The
+   active preset (if the current state deep-equals one) is highlighted
+   in amber. Buyer ids referenced here are verified against
+   src/data/money-map.json — see lookups for buyer-ministry-of-defence
+   (line 209) and buyer-department-of-health-and-social-care (line 41). */
+const PRESETS = [
+  {
+    id: "donor-supplier",
+    name: "Donor-supplier overlap",
+    sub: "Firms holding contracts that also funded the party in power",
+    config: {
+      visibleLayers: ["supplier", "buyer", "donor", "party", "donor_party", "award"],
+      tierFilter: "AB",
+      minGBP: 1_000_000,
+      query: "",
+      viewMode: "network",
+      lensSubjectId: null,
+    },
+  },
+  {
+    id: "defence",
+    name: "Defence cluster",
+    sub: "MoD spend, contractors, the people behind them",
+    config: {
+      visibleLayers: ["supplier", "buyer", "project", "person", "lobbyist", "award", "served_at", "lobbyist_client"],
+      tierFilter: "AB",
+      minGBP: 1_000_000,
+      query: "",
+      viewMode: "lens",
+      lensSubjectId: "buyer-ministry-of-defence",
+    },
+  },
+  {
+    id: "health",
+    name: "Health spend cronyism",
+    sub: "DHSC contracts, donor overlaps, regulator findings",
+    config: {
+      visibleLayers: ["supplier", "buyer", "project", "person", "donor", "party", "award", "donor_party"],
+      tierFilter: "ABCD",
+      minGBP: 100_000,
+      query: "",
+      viewMode: "lens",
+      lensSubjectId: "buyer-department-of-health-and-social-care",
+    },
+  },
+  {
+    id: "lobbyist",
+    name: "Lobbyist access",
+    sub: "Consultant lobbyists and their tracked-supplier clients",
+    config: {
+      visibleLayers: ["supplier", "lobbyist", "lobbyist_client"],
+      tierFilter: "AB",
+      minGBP: 100_000,
+      query: "",
+      viewMode: "network",
+      lensSubjectId: null,
+    },
+  },
+];
+
+/* Set-equality helper for active-preset detection. Used in the
+   activePresetId memo below — the moment any of the five state slices
+   diverges from a preset's config, the chip un-highlights. */
+function setEqual(a, b) {
+  if (!a || !b) return false;
+  if (a.size !== b.size) return false;
+  for (const x of a) if (!b.has(x)) return false;
+  return true;
+}
+
 const WIDTH = 1200;
 const HEIGHT = 720;
 
@@ -1344,6 +1417,9 @@ function MoneyMapFiltersSheet({
   // Filters bottom sheet so the same controls are reachable on mobile.
   visibleLayers, toggleLayer, resetLayers, setAllLayers,
   layersAreDefault, layersAreAll, layerCounts,
+  // 2026-04-26 — task #120. Quick-views chip row at the top of the
+  // sheet, mirroring the desktop Presets row.
+  activePresetId, applyPreset,
 }) {
   const sheetRef = useDrawerFocus(onClose);
   if (!open) return null;
@@ -1376,6 +1452,28 @@ function MoneyMapFiltersSheet({
         </div>
 
         <div className="mm-sheet-body">
+          {/* 2026-04-26 — task #120. Quick-views row at the top of the
+              mobile Filters sheet, mirroring the desktop Presets row. */}
+          {applyPreset && (
+            <div className="mm-sheet-group">
+              <div className="mm-sheet-label">Quick views</div>
+              <div className="mm-sheet-row mm-sheet-presets">
+                {PRESETS.map((p) => (
+                  <button
+                    key={p.id}
+                    type="button"
+                    className={"mm-preset" + (activePresetId === p.id ? " mm-preset-active" : "")}
+                    onClick={() => applyPreset(p)}
+                    title={p.sub}
+                    aria-pressed={activePresetId === p.id}
+                  >
+                    <span className="mm-preset-name">{p.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div className="mm-sheet-group">
             <label className="mm-sheet-label" htmlFor="mm-sheet-search">Search</label>
             <div className="mm-sheet-search-wrap">
@@ -1577,6 +1675,25 @@ export default function MoneyMap({
     []
   );
   const [selection, setSelection] = useState(null);   // { kind, id } | null
+
+  /* 2026-04-26 — task #120. Detect which (if any) saved preset the
+     current state matches, by deep-equalling all five filter slices.
+     Drives the amber "active" highlight on the matching Quick-views
+     chip — and harmlessly returns null whenever a reader has tweaked
+     a single filter away from a preset. */
+  const activePresetId = useMemo(() => {
+    for (const p of PRESETS) {
+      const c = p.config;
+      if (!setEqual(visibleLayers, new Set(c.visibleLayers))) continue;
+      if (tierFilter !== c.tierFilter) continue;
+      if (minGBP !== c.minGBP) continue;
+      if ((query || "").trim() !== (c.query || "").trim()) continue;
+      if (viewMode !== c.viewMode) continue;
+      if ((lensSubjectId || null) !== (c.lensSubjectId || null)) continue;
+      return p.id;
+    }
+    return null;
+  }, [visibleLayers, tierFilter, minGBP, query, viewMode, lensSubjectId]);
 
   /* ---------- mobile layout mode (audit rec #98) ----------
      At <md (767px and below), the force-directed graph is cognitively
@@ -3362,6 +3479,25 @@ export default function MoneyMap({
     setSelection({ kind: "node", id });
   }, []);
 
+  /* ---------- preset application (task #120) ----------
+     Atomically snap the canvas to a curated cross-section. Routes
+     through setLens (not raw setLensSubjectId + setViewMode) when a
+     preset asks for lens mode so the existing "open the subject in
+     the drawer" side-effect fires consistently. */
+  const applyPreset = useCallback((preset) => {
+    if (!preset || !preset.config) return;
+    const c = preset.config;
+    setVisibleLayers(new Set(c.visibleLayers));
+    setTierFilter(c.tierFilter);
+    setMinGBP(c.minGBP);
+    setQuery(c.query || "");
+    if (c.viewMode === "lens" && c.lensSubjectId) {
+      setLens(c.lensSubjectId);
+    } else {
+      setViewMode(c.viewMode);
+    }
+  }, [setLens]);
+
   /* Reset the lens to the first curated featured entity. Surfaced as
      the "↺ home" button next to the focus pill. */
   const resetLens = useCallback(() => {
@@ -3548,6 +3684,26 @@ export default function MoneyMap({
           onOpenPerson={(id) => setSelection({ kind: "node", id })}
         />
       </div>
+
+      {/* Quick views — task #120. Curated cross-sections, one click.
+          Sits above the mode/filter rows on desktop. Hidden at <md;
+          mobile readers reach the same chips at the top of the
+          Filters bottom sheet (see MoneyMapFiltersSheet). */}
+      <section className="mm-filters mm-presets-row">
+        <span className="mm-mode-label">Quick views</span>
+        {PRESETS.map((p) => (
+          <button
+            key={p.id}
+            type="button"
+            className={"mm-preset" + (activePresetId === p.id ? " mm-preset-active" : "")}
+            onClick={() => applyPreset(p)}
+            title={p.sub}
+            aria-pressed={activePresetId === p.id}
+          >
+            <span className="mm-preset-name">{p.name}</span>
+          </button>
+        ))}
+      </section>
 
       {/* Mode toggle — Lens (ego network) vs Network (firehose) */}
       <section className="mm-filters mm-filters-modes">
@@ -3842,6 +3998,8 @@ export default function MoneyMap({
             layersAreDefault={layersAreDefault}
             layersAreAll={layersAreAll}
             layerCounts={layerCounts}
+            activePresetId={activePresetId}
+            applyPreset={applyPreset}
           />
         </>
       ) : null}
@@ -5652,6 +5810,57 @@ function MoneyMapStyles() {
       .mm-filters-modes {
         padding-top: 14px; padding-bottom: 10px;
         border-bottom: 1px dashed var(--mm-border);
+      }
+      /* Quick-views preset row (task #120). Sits above the mode row
+         on desktop. Slightly tighter padding than the main filter
+         row, dashed bottom border like the modes strip so the three
+         "toolbar" rows visually nest as a single block. */
+      .mm-presets-row {
+        padding-top: 10px; padding-bottom: 8px;
+        border-bottom: 1px dashed var(--mm-border);
+        gap: 8px;
+      }
+      .mm-preset {
+        display: inline-flex; align-items: center;
+        padding: 5px 11px;
+        font-family: var(--mm-sans);
+        font-size: 12.5px;
+        line-height: 1.2;
+        color: var(--mm-fg-dim);
+        background: #0b0b0f;
+        border: 1px solid var(--mm-border-2);
+        border-radius: 999px;
+        cursor: pointer;
+        transition: color 120ms, border-color 120ms, background 120ms;
+        white-space: nowrap;
+      }
+      .mm-preset:hover,
+      .mm-preset:focus-visible {
+        color: var(--mm-fg);
+        border-color: #4a4a56;
+      }
+      .mm-preset:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 1px;
+      }
+      .mm-preset-active {
+        color: #fbbf24;
+        border-color: #fbbf24;
+        background: rgba(251,191,36,0.06);
+      }
+      .mm-preset-name {
+        font-family: var(--mm-sans);
+      }
+      /* Mobile sheet variant — chips wrap and grow tap targets to 40px+. */
+      .mm-sheet-presets .mm-preset {
+        padding: 9px 14px;
+        font-size: 13.5px;
+        min-height: 40px;
+      }
+      /* Sub-768px: hide the desktop Quick-views row. Mobile readers
+         reach the chips at the top of the Filters bottom sheet. */
+      @media (max-width: 767px) {
+        .mm-presets-row { display: none; }
       }
       .mm-chip-cycle {
         font-family: var(--mm-mono); font-size: 10px;

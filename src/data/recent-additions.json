@@ -5,6 +5,14 @@
     {
       "date": "2026-04-26",
       "type": "feature",
+      "title": "Money Map \u2014 four saved 'quick view' presets",
+      "summary": "One click snaps the canvas to a curated cross-section: Donor-supplier overlap (firms holding contracts that funded the party in power), Defence cluster (MoD lens with people + lobbyists), Health spend cronyism (DHSC lens with donor overlaps), or Lobbyist access (consultant lobbyists and their tracked-supplier clients). Each preset sets layers, tier, minimum \u00a3, view mode and lens subject in a single move. Active preset highlighted in amber when current state matches. Sits in a 'Quick views' row above the filter chips on desktop and at the top of the mobile Filters sheet.",
+      "view": "moneymap",
+      "metric": "+ 4 quick-view presets"
+    },
+    {
+      "date": "2026-04-26",
+      "type": "feature",
       "title": "Cross-link \u2014 Stories \u2194 Projects, both directions",
       "summary": "Open a project dossier (HS2, Universal Credit IT, Crossrail etc.) and the connection records about its contractors now surface alongside the existing supplier breakdown \u2014 'Sir Robert McAlpine donated to Conservative party' lands on HS2's page automatically. Reverse direction too: open a Story card and a 'Projects involving [supplier]' section appears in the drawer, listing tracked Gracchus projects where the supplier is a contractor with a tap-through to each project's dossier. The catalogue stops being island-of-stories and starts behaving like a navigable graph.",
       "view": "moneymap",
