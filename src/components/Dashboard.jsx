@@ -9408,6 +9408,7 @@ function AppInner() {
         {view === "projects" && (
           <div className="space-y-4">
             <PageHeader
+              feature
               eyebrow="Waste & Projects"
               title="Project Tracker"
               dataAsOf="Mar 2025"
@@ -12227,56 +12228,47 @@ function AppInner() {
           return (
           <div className="space-y-6">
             {/* Header */}
-            <div className="py-6 mb-4">
-              <div className={
-                "text-[10px] uppercase tracking-[0.2em] " +
-                "font-mono text-gray-600 mb-2"
-              }>
-                Accountability {"\u2192"} Political Finance
-              </div>
-              <h2 className={
-                "text-3xl md:text-4xl font-serif " +
-                "font-medium text-white " +
-                "leading-[1.1] tracking-[-0.01em]"
-              }>
-                Political Donations
-              </h2>
-              <p className="text-gray-500 text-sm mt-2">
-                {"Every donation over £500 reported to the Electoral Commission since 2001. " +
-                 "Covering " + dd.summary.totalDonations.toLocaleString() + " donations totalling " +
-                 fmt(dd.summary.totalValue) + " across all UK political parties."}
-              </p>
-              {/* UX audit #16 (2026-04-26): cross-link to the Money Map's
-                  Donor-supplier overlap preset, which uses the same
-                  Electoral Commission dataset to surface 'firms that
-                  donated AND held government contracts' visually. The
-                  two views are powered by the same data; tell the
-                  reader explicitly. */}
-              <a
-                href="/money-map?preset=donor-supplier"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setView("moneymap");
-                  if (typeof window !== "undefined") {
-                    const url = new URL(window.location.href);
-                    url.searchParams.set("preset", "donor-supplier");
-                    window.history.replaceState({}, "", url.toString());
-                  }
-                }}
-                className={
-                  "inline-flex items-center gap-2 mt-3 " +
-                  "text-[13px] text-amber-400/90 hover:text-amber-300 " +
-                  "underline underline-offset-4 " +
-                  "decoration-amber-500/30 hover:decoration-amber-400/60 " +
-                  "transition-colors"
+            <PageHeader
+              feature
+              accentTitle="Donations"
+              eyebrow={"Accountability \u2192 Political Finance"}
+              title="Political Donations"
+              description={
+                "Every donation over \u00a3500 reported to the Electoral Commission since 2001. " +
+                "Covering " + dd.summary.totalDonations.toLocaleString() + " donations totalling " +
+                fmt(dd.summary.totalValue) + " across all UK political parties."
+              }
+            />
+            {/* UX audit #16 (2026-04-26): cross-link to the Money Map's
+                Donor-supplier overlap preset, which uses the same
+                Electoral Commission dataset to surface 'firms that
+                donated AND held government contracts' visually. The
+                two views are powered by the same data; tell the
+                reader explicitly. */}
+            <a
+              href="/money-map?preset=donor-supplier"
+              onClick={(e) => {
+                e.preventDefault();
+                setView("moneymap");
+                if (typeof window !== "undefined") {
+                  const url = new URL(window.location.href);
+                  url.searchParams.set("preset", "donor-supplier");
+                  window.history.replaceState({}, "", url.toString());
                 }
-              >
-                See this dataset on the Money Map &rarr;
-                <span className="text-[11px] text-gray-500 normal-case tracking-normal no-underline">
-                  shows the firms that donated and held government contracts
-                </span>
-              </a>
-            </div>
+              }}
+              className={
+                "inline-flex items-center gap-2 -mt-2 " +
+                "text-[13px] text-amber-400/90 hover:text-amber-300 " +
+                "underline underline-offset-4 " +
+                "decoration-amber-500/30 hover:decoration-amber-400/60 " +
+                "transition-colors"
+              }
+            >
+              See this dataset on the Money Map &rarr;
+              <span className="text-[11px] text-gray-500 normal-case tracking-normal no-underline">
+                shows the firms that donated and held government contracts
+              </span>
+            </a>
 
             {/* Period selector pills */}
             <div className="flex flex-wrap gap-1.5">
@@ -12853,17 +12845,13 @@ function AppInner() {
               ))}
             </div>
             {/* HEADER */}
-            <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
-                {"Accountability \u203A MPs & Money"}
-              </div>
-              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
-                {"MPs\u2019 Pay vs the Country"}
-              </h2>
-              <p className="text-gray-500 text-sm mt-2 max-w-2xl">
-                {"How MP pay has changed relative to the people they represent. All data from IPSA, ONS ASHE, and UK Parliament official records. Base year indexed to 100."}
-              </p>
-            </div>
+            <PageHeader
+              feature
+              accentTitle="Pay"
+              eyebrow={"Accountability \u203A MPs & Money"}
+              title={"MPs\u2019 Pay vs the Country"}
+              description={"How MP pay has changed relative to the people they represent. All data from IPSA, ONS ASHE, and UK Parliament official records. Base year indexed to 100."}
+            />
 
             {/* TIME FILTER */}
             <TimeRangeControl range={mpPayRange} setRange={setMpPayRange} />
@@ -13566,17 +13554,13 @@ function AppInner() {
 
           return (
           <div className="space-y-6">
-            <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">
-                Accountability → Lobbying
-              </div>
-              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">
-                UK Lobbying Register
-              </h2>
-              <p className="text-gray-500 text-sm mt-2">
-                {lobbyingData.contextSentences.headline}
-              </p>
-            </div>
+            <PageHeader
+              feature
+              accentTitle="Lobbying"
+              eyebrow={"Accountability \u2192 Lobbying"}
+              title="UK Lobbying Register"
+              description={lobbyingData.contextSentences.headline}
+            />
 
             {/* Summary Stats */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
@@ -15243,11 +15227,12 @@ function AppInner() {
                 <button key={t.id} onClick={() => setView(t.id)} className={"px-2 sm:px-3 py-1.5 text-[10px] sm:text-[11px] uppercase tracking-[0.05em] sm:tracking-[0.1em] font-medium rounded-md transition-colors whitespace-nowrap" + (view === t.id ? "text-white bg-gray-800/60" : "text-gray-600 hover:text-gray-400")}>{t.label}</button>
               ))}
             </div>
-            <div className="py-6 mb-4">
-              <div className="text-[10px] uppercase tracking-[0.2em] font-mono text-gray-600 mb-2">Accountability → MPs & Money</div>
-              <h2 className="text-3xl md:text-4xl font-serif font-medium text-white leading-[1.1] tracking-[-0.01em]">Moonlighting MPs</h2>
-              <p className="text-gray-500 text-sm mt-2">{moonlightingData.contextSentences.headline}</p>
-            </div>
+            <PageHeader
+              feature
+              eyebrow={"Accountability \u2192 MPs & Money"}
+              title="Moonlighting MPs"
+              description={moonlightingData.contextSentences.headline}
+            />
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
@@ -15951,6 +15936,8 @@ function AppInner() {
               "gap-4"
             }>
               <PageHeader
+                feature
+                accentTitle="Paid?"
                 eyebrow={"Waste & Projects \u203A Suppliers & Contracts"}
                 title="Who Got Paid?"
                 dataAsOf="Feb 2025"
@@ -16384,16 +16371,17 @@ function AppInner() {
           <div
             className="space-y-6"
           >
-            <SectionHeader
-              label="Procurement Scrutiny"
-              title="Questionable Contracts"
-              accent="text-red-500"
+            <PageHeader
+              feature
+              accentTitle="Crony"
+              eyebrow={"Accountability \u203A Procurement Scrutiny"}
+              title="Crony Contracts"
+              description={
+                "Contracts flagged by auditors, courts, or parliamentary " +
+                "committees. Covers competitive vs non-competitive awards, " +
+                "connection disclosures, and procurement outcomes."
+              }
             />
-            <p className="text-gray-500 text-sm mb-6 -mt-4">
-              Contracts flagged by auditors, courts, or parliamentary
-              committees. Covers competitive vs non-competitive awards,
-              connection disclosures, and procurement outcomes.
-            </p>
 
             {/* Key stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
@@ -18031,6 +18019,8 @@ function AppInner() {
           return (
           <div className="space-y-6">
             <PageHeader
+              feature
+              accentTitle="Money"
               eyebrow="Tax & Spending"
               breadcrumb="← Tax & Spending"
               breadcrumbAction={() => setView("government.flow")}
@@ -26608,6 +26598,8 @@ function AppInner() {
           return (
             <div className="space-y-4">
               <PageHeader
+                feature
+                accentTitle="Same Names"
                 eyebrow={"Waste & Projects \u203A Who keeps getting paid?"}
                 title="The Same Names, Over and Over"
                 dataAsOf={data?.projects?.[0]?.lastUpdated ? "Apr 2026" : ""}
@@ -27665,6 +27657,8 @@ function AppInner() {
           return (
             <div className="space-y-6">
               <PageHeader
+                feature
+                accentTitle="Rankings"
                 eyebrow={"Contractors \u203A Rankings"}
                 title="Supplier Rankings"
                 dataAsOf="Apr 2026"
@@ -28241,6 +28235,8 @@ function AppInner() {
           return (
             <div className="space-y-6">
               <PageHeader
+                feature
+                accentTitle="Transparency"
                 eyebrow={"Contractors \u203A Transparency"}
                 title="Coverage Transparency"
                 dataAsOf="Apr 2026"
@@ -28753,6 +28749,8 @@ function AppInner() {
           return (
             <div>
               <PageHeader
+                feature
+                accentTitle="Department"
                 eyebrow={"Waste & Projects \u203A Department Rankings"}
                 title="Department Rankings"
                 dataAsOf="Mar 2025"
@@ -29445,6 +29443,8 @@ function AppInner() {
           return (
             <div>
               <PageHeader
+                feature
+                accentTitle="Consultancy"
                 eyebrow={"Waste & Projects \u203A Consultancy Spend"}
                 title="Consultancy Dependency Rankings"
                 description={
