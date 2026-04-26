@@ -4,6 +4,14 @@
   "entries": [
     {
       "date": "2026-04-26",
+      "type": "feature",
+      "title": "Money Map \u2014 annotated walking tours",
+      "summary": "Four guided narratives walk first-time visitors through the canvas: The PPE story (Mone \u2192 Bourne \u2192 Meller via VIP lane), The Greensill thread (Cameron lobbying \u2192 Crothers dual role), The defence cluster (MoD \u2192 Cook Defence \u2192 Lee/Palantir \u2192 JCB), and The cross-party hedger (Deloitte's both-sides giving). Each tour walks 2\u20134 stops; the canvas auto-pivots to each entity in lens mode while a floating card explains what the reader is looking at. Reduces the cold-start problem of landing on a 700-node graph with no narrative entry point.",
+      "view": "moneymap",
+      "metric": "+ 4 walking tours"
+    },
+    {
+      "date": "2026-04-26",
       "type": "coverage",
       "title": "Catalogue expansion — 4 more connection stories",
       "summary": "Added: JCB / Bamford family donor-contractor cluster (£19.15m donations, 70 records, 2003–2025; British Army backhoe contracts; £26m BEIS hydrogen grant); Boris Johnson post-office appointments (Daily Mail breach of ACOBA Rules + Ministerial Code, GB News approved with conditions); Sir Iain Duncan Smith Centre for Social Justice dual role (CSJ founder; Universal Credit policy lineage; Register of Members' Financial Interests); Sir John Whittingdale post-DCMS media-sector portfolio (SWNS, ALCS, FIP, plus ACOBA correspondence on the Alphasights / Betting and Gaming Council £1,000-an-hour role).",

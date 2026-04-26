@@ -296,6 +296,114 @@ const PRESETS = [
   },
 ];
 
+/* 2026-04-26 — task #124. Annotated walking tours.
+   Editorial layer for first-time visitors who'd otherwise land on a
+   ~700-node graph with no narrative anchor. Each tour walks 2–4 stops
+   through specific entities on the canvas; per-stop the lens auto-pivots
+   to the focus entity (kind = "buyer" / "supplier" / "person") while a
+   small floating card explains what the reader is looking at.
+
+   Entity ids verified against:
+     - src/data/money-map.json (buyer-* / supplier-* ids)
+     - src/data/individual-connections.json (person ids — registered on
+       the canvas as "person:<id>" by the peopleAugment memo, so the
+       focus.id below carries the prefix already). */
+const TOURS = [
+  {
+    id: "ppe",
+    title: "The PPE story",
+    summary: "How COVID emergency procurement turned into £14bn of contracts via the VIP lane.",
+    stops: [
+      {
+        title: "Where it started",
+        body: "March 2020. The Department of Health and Social Care had to source PPE at unprecedented speed. A 'high-priority' lane was created for politically-referred firms — outside the standard procurement process.",
+        focus: { kind: "buyer", id: "buyer-department-of-health-and-social-care" },
+      },
+      {
+        title: "Baroness Mone & PPE Medpro",
+        body: "Baroness Michelle Mone referred PPE Medpro into the VIP lane. The firm received \u00a3200m+ in contracts despite no prior PPE manufacturing record. The High Court later ruled in favour of the government on a \u00a3122m recovery claim; an NCA investigation remains open.",
+        focus: { kind: "supplier", id: "supplier-ppe-medpro" },
+      },
+      {
+        title: "Alex Bourne & Hinpack",
+        body: "Matt Hancock's former neighbour Alex Bourne received approximately \u00a330m in DHSC PPE contracts via Hinpack — also without prior manufacturing experience. Reported by Good Law Project and the Guardian.",
+        focus: { kind: "person", id: "person:bourne-alex" },
+      },
+      {
+        title: "David Meller's PPE referral",
+        body: "Conservative donor David Meller referred Meller Designs Ltd into the VIP lane — and the firm received PPE contracts. The High Court found a 'breach of the obligation of equal treatment' in the VIP lane process.",
+        focus: { kind: "person", id: "person:meller-david" },
+      },
+    ],
+  },
+  {
+    id: "greensill",
+    title: "The Greensill thread",
+    summary: "Where the rules ran out: a former PM lobbying for a finance firm, and a civil servant working for it while still in government.",
+    stops: [
+      {
+        title: "David Cameron joins Greensill",
+        body: "After leaving Downing Street, David Cameron took a part-time advisory role at Greensill Capital — share options reportedly worth tens of millions. Two years had passed since office, so ACOBA rules did not apply.",
+        focus: { kind: "person", id: "person:cameron-david" },
+      },
+      {
+        title: "Lobbying the serving Chancellor",
+        body: "During the COVID-19 pandemic Cameron lobbied Chancellor Rishi Sunak and DHSC officials for Greensill to access the Covid Corporate Financing Facility. The Treasury Committee later concluded he had shown 'a significant lack of judgement.'",
+        focus: { kind: "person", id: "person:sunak-rishi" },
+      },
+      {
+        title: "Bill Crothers — dual role",
+        body: "Bill Crothers, the Government's Chief Commercial Officer, took a paid advisory role at Greensill while still serving in the Cabinet Office. He did not declare it through ACOBA. The case prompted the Boardman Review.",
+        focus: { kind: "person", id: "person:crothers-bill" },
+      },
+    ],
+  },
+  {
+    id: "defence",
+    title: "The defence cluster",
+    summary: "MoD spending, the small set of firms that capture it, and the people who move between them.",
+    stops: [
+      {
+        title: "MoD: the \u00a3-flow concentration",
+        body: "The Ministry of Defence is among the most concentrated procurement budgets in Whitehall. A handful of suppliers \u2014 BAE Systems, Babcock, Rolls-Royce, Cook Defence Systems \u2014 capture the bulk of disclosed spend.",
+        focus: { kind: "buyer", id: "buyer-ministry-of-defence" },
+      },
+      {
+        title: "Cook Defence Systems \u2014 donor and contractor",
+        body: "Cook Defence Systems holds \u00a3125m+ in MoD contracts. The William Cook corporate cluster donated \u00a31.27m to the Conservative Party between 2005 and 2016 \u2014 a single-party loyalty pattern.",
+        focus: { kind: "supplier", id: "supplier-cook-defence-systems" },
+      },
+      {
+        title: "Lt Gen Laurence Lee \u2192 Palantir",
+        body: "Lt Gen Laurence Lee left a senior MoD role and joined Palantir Technologies UK in a post-office appointment ACOBA reviewed and approved. Palantir holds \u00a325m+ in MoD contracts including data analytics for the Federated Data Platform.",
+        focus: { kind: "person", id: "person:lee-laurence" },
+      },
+      {
+        title: "JCB \u2014 adjacent donor pattern",
+        body: "The Bamford-family corporate cluster (J.C. Bamford Excavators, JCB Research, J.S. Bloor) donated \u00a319.15m to UK political parties between 2003 and 2025 \u2014 \u00a317.33m to Conservatives. JCB also holds UK government infrastructure and defence-equipment contracts.",
+        focus: { kind: "person", id: "person:firm-jcb" },
+      },
+    ],
+  },
+  {
+    id: "cross-party",
+    title: "The cross-party hedger",
+    summary: "How one firm donates to both sides \u2014 and what that pattern reveals.",
+    stops: [
+      {
+        title: "Deloitte LLP",
+        body: "Deloitte LLP holds \u00a3342m in tracked UK government consulting contracts (\u00a3298m via DHSC, \u00a344m via Cabinet Office / GDS). The firm donated \u00a3350k to Conservative and \u00a377k to Labour between 2009 and 2014 \u2014 a cross-party hedging pattern distinct from the single-party loyalty most government contractors show.",
+        focus: { kind: "person", id: "person:firm-deloitte-llp" },
+      },
+      {
+        title: "Why it matters",
+        body: "Most government contractor donations follow the party in power. Deloitte's giving spans both major parties. The pattern is editorially neutral \u2014 funding both sides may reflect lobbying rather than political alignment \u2014 but it sits visibly on the canvas as the only Conservative-AND-Labour ring among the donor-supplier overlaps.",
+        focus: { kind: "supplier", id: "supplier-deloitte" },
+      },
+    ],
+  },
+];
+
 /* Set-equality helper for active-preset detection. Used in the
    activePresetId memo below — the moment any of the five state slices
    diverges from a preset's config, the chip un-highlights. */
@@ -1359,6 +1467,11 @@ function LayersPanel({
   layerCounts,
   className = "",
   variant = "panel", // "panel" | "section"
+  // 2026-04-26 — task #124. Optional Tours entry point. When provided,
+  // renders a small "Take a tour →" link above the Base/Show-all
+  // preset toggles. Optional so the embedded LayersPanel inside the
+  // mobile Filters sheet (which renders its own Tours row) can omit it.
+  onOpenTours = null,
 }) {
   // Group LAYER_DEFS for divider rendering.
   const groups = useMemo(() => {
@@ -1409,6 +1522,22 @@ function LayersPanel({
       role="group"
       aria-label="Canvas layers"
     >
+      {/* 2026-04-26 — task #124. Tours entry point. Sits above the
+          Layers title so a first-time visitor sees the editorial
+          on-ramp before the technical layer controls. Hidden on the
+          mobile sheet variant (the sheet renders its own Tours row). */}
+      {onOpenTours && (
+        <div className="mm-tours-cta-wrap">
+          <button
+            type="button"
+            className="mm-tours-cta"
+            onClick={onOpenTours}
+            title="Guided narrative walks through the canvas"
+          >
+            Take a tour <span aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+      )}
       <div className="mm-layers-head">
         <span className="mm-layers-title">Layers</span>
         {/* 2026-04-26 — task #118. Two-state preset toggle. "Base only"
@@ -1461,6 +1590,10 @@ function MoneyMapFiltersSheet({
   // 2026-04-26 — task #120. Quick-views chip row at the top of the
   // sheet, mirroring the desktop Presets row.
   activePresetId, applyPreset,
+  // 2026-04-26 — task #124. Mobile entry point for the walking tours.
+  // Optional; when supplied, renders a "Take a tour" CTA at the top of
+  // the sheet body alongside the Quick views row.
+  onOpenTours = null,
 }) {
   const sheetRef = useDrawerFocus(onClose);
   if (!open) return null;
@@ -1493,6 +1626,21 @@ function MoneyMapFiltersSheet({
         </div>
 
         <div className="mm-sheet-body">
+          {/* 2026-04-26 — task #124. Walking-tours CTA at the very top
+              of the sheet so first-time mobile readers see the editorial
+              on-ramp before the technical filter chips. */}
+          {onOpenTours && (
+            <div className="mm-sheet-group">
+              <div className="mm-sheet-label">Guided narrative</div>
+              <button
+                type="button"
+                className="mm-sheet-tours-cta"
+                onClick={() => { onClose(); onOpenTours(); }}
+              >
+                Take a walking tour <span aria-hidden="true">&rarr;</span>
+              </button>
+            </div>
+          )}
           {/* 2026-04-26 — task #120. Quick-views row at the top of the
               mobile Filters sheet, mirroring the desktop Presets row. */}
           {applyPreset && (
@@ -1624,6 +1772,180 @@ function MoneyMapFiltersSheet({
         </div>
       </aside>
     </>
+  );
+}
+
+/* =========================================================================
+ *  TourPicker — task #124 (2026-04-26)
+ *
+ *  Modal that surfaces the four annotated walking tours when the reader
+ *  clicks "Take a tour" from the Layers panel header (desktop) or the
+ *  Filters bottom sheet (mobile). Each tour is rendered as a card with
+ *  title + summary + "Start" button; click → calls onStart(tourId)
+ *  and the host component takes it from there (sets activeTour, swaps
+ *  to ALL_LAYERS, pivots to the first stop's focus entity).
+ *
+ *  Backdrop click + Escape both close the picker — useDrawerFocus
+ *  handles the Escape + focus-trap pattern shared with the rest of
+ *  the modals on this page.
+ * ========================================================================= */
+function TourPicker({ open, onClose, onStart }) {
+  const ref = useDrawerFocus(onClose);
+  if (!open) return null;
+  return (
+    <>
+      <div className="mm-tour-backdrop" onClick={onClose} aria-hidden="true" />
+      <div
+        ref={ref}
+        tabIndex={-1}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Walking tours"
+        className="mm-tour-picker"
+      >
+        <div className="mm-tour-picker-head">
+          <div>
+            <div className="mm-tour-picker-eyebrow">Guided narrative</div>
+            <h3 className="mm-tour-picker-title">Take a walking tour</h3>
+          </div>
+          <button
+            type="button"
+            className="mm-tour-picker-close"
+            onClick={onClose}
+            aria-label="Close tour picker"
+          >
+            <X size={16} aria-hidden="true" />
+          </button>
+        </div>
+        <p className="mm-tour-picker-lede">
+          Each tour walks you through 2&ndash;4 specific entities on the canvas with a short
+          editorial note at every stop. The map auto-pivots as you advance.
+        </p>
+        <div className="mm-tour-picker-grid">
+          {TOURS.map((t) => (
+            <article key={t.id} className="mm-tour-card">
+              <div className="mm-tour-card-eyebrow">
+                {t.stops.length} stop{t.stops.length === 1 ? "" : "s"}
+              </div>
+              <h4 className="mm-tour-card-title">{t.title}</h4>
+              <p className="mm-tour-card-summary">{t.summary}</p>
+              <button
+                type="button"
+                className="mm-tour-card-start"
+                onClick={() => onStart(t.id)}
+              >
+                Start tour <span aria-hidden="true">&rarr;</span>
+              </button>
+            </article>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+/* =========================================================================
+ *  TourOverlay — task #124 (2026-04-26)
+ *
+ *  Floating card pinned to the bottom-centre of the canvas while a tour
+ *  is active. Shows either the current stop (title, body, prev / open
+ *  detail / next / exit buttons) or the finish card (when stopIndex is
+ *  one past the last stop).
+ *
+ *  Pure-presentation: all advance / exit handlers come from the host.
+ * ========================================================================= */
+function TourOverlay({
+  tour, stopIndex, finished,
+  onPrev, onNext, onExit, onOpenDetail, onRestart, onPickAnother,
+}) {
+  if (!tour) return null;
+  const total = tour.stops.length;
+  if (finished) {
+    return (
+      <div
+        className="mm-tour-overlay mm-tour-overlay-finish"
+        role="dialog"
+        aria-label={`${tour.title} — tour complete`}
+      >
+        <div className="mm-tour-eyebrow">Tour complete</div>
+        <h4 className="mm-tour-stop-title">{tour.title}</h4>
+        <p className="mm-tour-body">
+          You&rsquo;ve seen the {total} key entit{total === 1 ? "y" : "ies"}.
+          Now explore the rest of the canvas freely, or take another tour.
+        </p>
+        <div className="mm-tour-actions">
+          <button
+            type="button"
+            className="mm-tour-btn mm-tour-btn-secondary"
+            onClick={onPickAnother}
+          >
+            <span aria-hidden="true">&larr;</span> Take another tour
+          </button>
+          <button
+            type="button"
+            className="mm-tour-btn mm-tour-btn-primary"
+            onClick={onExit}
+          >
+            Free explore <span aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+  const stop = tour.stops[stopIndex];
+  if (!stop) return null;
+  const isFirst = stopIndex === 0;
+  const isLast = stopIndex === total - 1;
+  return (
+    <div
+      className="mm-tour-overlay"
+      role="dialog"
+      aria-label={`${tour.title} — stop ${stopIndex + 1} of ${total}`}
+    >
+      <div className="mm-tour-overlay-head">
+        <div className="mm-tour-eyebrow">
+          {tour.title} <span className="mm-tour-eyebrow-sep">&middot;</span>{" "}
+          stop {stopIndex + 1} of {total}
+        </div>
+        <button
+          type="button"
+          className="mm-tour-exit"
+          onClick={onExit}
+          aria-label="Exit tour"
+          title="Exit tour"
+        >
+          <X size={14} aria-hidden="true" />
+        </button>
+      </div>
+      <h4 className="mm-tour-stop-title">{stop.title}</h4>
+      <p className="mm-tour-body">{stop.body}</p>
+      <div className="mm-tour-actions">
+        <button
+          type="button"
+          className="mm-tour-btn mm-tour-btn-secondary"
+          onClick={onPrev}
+          disabled={isFirst}
+          aria-label="Previous stop"
+        >
+          <span aria-hidden="true">&larr;</span> Previous
+        </button>
+        <button
+          type="button"
+          className="mm-tour-btn mm-tour-btn-secondary"
+          onClick={onOpenDetail}
+        >
+          Open detail
+        </button>
+        <button
+          type="button"
+          className="mm-tour-btn mm-tour-btn-primary"
+          onClick={onNext}
+          aria-label={isLast ? "Finish tour" : "Next stop"}
+        >
+          {isLast ? "Finish" : "Next"} <span aria-hidden="true">&rarr;</span>
+        </button>
+      </div>
+    </div>
   );
 }
 
@@ -3551,6 +3873,73 @@ export default function MoneyMap({
     }
   }, [data.featuredIds, data.nodes]);
 
+  /* ---------- annotated walking tours (task #124) ----------
+     activeTour shape: { tourId, stopIndex } | null. The picker modal
+     opens when tourPickerOpen is true. When a tour is active, stops
+     drive an effect that calls setLens(focus.id) — the existing setLens
+     side-effect (switch to lens mode + open the entity drawer) is
+     intentional: the reader sees the entity drawer auto-open at each
+     stop alongside the floating tour card.
+
+     Layer state is widened to ALL_LAYERS on tour entry so the
+     reader sees the full v2 graph (people, parties, donors, lobbyists)
+     in context; the previous layer set is captured and restored on
+     exit. The "Finish" card is rendered when stopIndex === stops.length
+     (one past the last stop). */
+  const [tourPickerOpen, setTourPickerOpen] = useState(false);
+  const [activeTour, setActiveTour] = useState(null);
+  const preTourLayersRef = useRef(null);
+
+  const currentTour = activeTour
+    ? TOURS.find((t) => t.id === activeTour.tourId)
+    : null;
+  const currentStop = currentTour && activeTour.stopIndex < currentTour.stops.length
+    ? currentTour.stops[activeTour.stopIndex]
+    : null;
+  const tourFinished = !!(currentTour && activeTour.stopIndex >= currentTour.stops.length);
+
+  const startTour = useCallback((tourId) => {
+    // Capture pre-tour layer set so exit restores exactly what the
+    // reader had configured before stepping into the narrative.
+    preTourLayersRef.current = new Set(visibleLayers);
+    setVisibleLayers(new Set(ALL_LAYERS));
+    setActiveTour({ tourId, stopIndex: 0 });
+    setTourPickerOpen(false);
+  }, [visibleLayers]);
+
+  const exitTour = useCallback(() => {
+    setActiveTour(null);
+    if (preTourLayersRef.current) {
+      setVisibleLayers(preTourLayersRef.current);
+      preTourLayersRef.current = null;
+    } else {
+      setVisibleLayers(new Set(DEFAULT_VISIBLE_LAYERS));
+    }
+  }, []);
+
+  const goToStop = useCallback((index) => {
+    setActiveTour((t) => (t ? { ...t, stopIndex: index } : null));
+  }, []);
+
+  const nextStop = useCallback(() => {
+    setActiveTour((t) => (t ? { ...t, stopIndex: t.stopIndex + 1 } : null));
+  }, []);
+
+  const prevStop = useCallback(() => {
+    setActiveTour((t) => (t ? { ...t, stopIndex: Math.max(0, t.stopIndex - 1) } : null));
+  }, []);
+
+  /* When the current stop changes, pivot the canvas. focus.id already
+     carries the "person:" prefix for kind === "person" (per the schema
+     in the TOURS constant) so we can pass it straight through to
+     setLens — no kind-specific normalisation needed here. */
+  useEffect(() => {
+    if (!currentStop) return;
+    const targetId = currentStop.focus?.id;
+    if (!targetId) return;
+    setLens(targetId);
+  }, [currentStop, setLens]);
+
   /* ---------- export current view as PNG ----------
      Rasterises the live SVG at 2× resolution so editors can drop the
      figure into a publication without losing fidelity. We clone the SVG,
@@ -4041,6 +4430,7 @@ export default function MoneyMap({
             layerCounts={layerCounts}
             activePresetId={activePresetId}
             applyPreset={applyPreset}
+            onOpenTours={() => setTourPickerOpen(true)}
           />
         </>
       ) : null}
@@ -4141,6 +4531,7 @@ export default function MoneyMap({
             layersAreDefault={layersAreDefault}
             layersAreAll={layersAreAll}
             layerCounts={layerCounts}
+            onOpenTours={() => setTourPickerOpen(true)}
             className="mm-layers-panel-desktop"
           />
 
@@ -4150,6 +4541,31 @@ export default function MoneyMap({
               ? "scroll to zoom · drag to pan · click any bubble to re-focus"
               : "scroll to zoom · drag to pan · click any bubble"}
           </div>
+
+          {/* 2026-04-26 — task #124. Annotated walking-tour overlay.
+              Floats at the bottom of the canvas while a tour is active;
+              steps the reader through 2-4 stops with narrative + auto
+              lens pivot per stop. */}
+          {activeTour && (
+            <TourOverlay
+              tour={currentTour}
+              stopIndex={activeTour.stopIndex}
+              finished={tourFinished}
+              onPrev={prevStop}
+              onNext={nextStop}
+              onExit={exitTour}
+              onOpenDetail={() => {
+                if (currentStop?.focus?.id) {
+                  setSelection({ kind: "node", id: currentStop.focus.id });
+                }
+              }}
+              onRestart={() => goToStop(0)}
+              onPickAnother={() => {
+                exitTour();
+                setTourPickerOpen(true);
+              }}
+            />
+          )}
 
           {/* Empty-state overlay when filters zero out the graph. Matches
               the drawer empty-state pattern — terse message + a clear
@@ -4483,6 +4899,16 @@ export default function MoneyMap({
           projectsBySupplierId={projectsBySupplierId}
         />
       )}
+
+      {/* 2026-04-26 — task #124. Walking-tour picker modal. Opened from
+          the Layers panel header (desktop) or the Filters bottom sheet
+          (mobile). Click → onStart fires, closes the picker, switches
+          all layers on, pivots the canvas to the first stop. */}
+      <TourPicker
+        open={tourPickerOpen}
+        onClose={() => setTourPickerOpen(false)}
+        onStart={(tourId) => startTour(tourId)}
+      />
     </div>
   );
 }
@@ -8154,6 +8580,332 @@ function MoneyMapStyles() {
         color: var(--mm-fg-mute);
         text-align: center;
         padding: 16px;
+      }
+
+      /* ============================================================
+         Walking tours — task #124 (2026-04-26).
+         Three surfaces: (1) "Take a tour" CTA in the LayersPanel
+         header + the mobile Filters sheet, (2) TourPicker modal
+         with the four tour cards, (3) TourOverlay floating card
+         pinned to the bottom-centre of the canvas while a tour is
+         live. Amber accent matches the existing editorial highlight
+         vocabulary used by Story Cards / Stories tab / preset chip.
+         ============================================================ */
+      .mm-tours-cta-wrap {
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--mm-border);
+      }
+      .mm-tours-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(251,191,36,0.10);
+        border: 1px solid rgba(251,191,36,0.45);
+        color: #fbbf24;
+        font-family: var(--mm-mono);
+        font-size: 10.5px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 6px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        justify-content: center;
+        transition: background-color 120ms, color 120ms;
+      }
+      .mm-tours-cta:hover {
+        background: rgba(251,191,36,0.18);
+        color: #fcd34d;
+      }
+      .mm-tours-cta:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 2px;
+      }
+
+      .mm-sheet-tours-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        min-height: 48px;
+        padding: 10px 16px;
+        background: rgba(251,191,36,0.12);
+        border: 1px solid rgba(251,191,36,0.5);
+        border-radius: 8px;
+        color: #fbbf24;
+        font-family: var(--mm-sans);
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .mm-sheet-tours-cta:hover,
+      .mm-sheet-tours-cta:focus-visible {
+        background: rgba(251,191,36,0.2);
+        color: #fcd34d;
+      }
+      .mm-sheet-tours-cta:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 2px;
+      }
+
+      /* Picker modal */
+      .mm-tour-backdrop {
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,0.65);
+        backdrop-filter: blur(2px);
+        z-index: 70;
+      }
+      .mm-tour-picker {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 71;
+        width: min(720px, calc(100vw - 32px));
+        max-height: calc(100vh - 64px);
+        overflow-y: auto;
+        background: linear-gradient(180deg, #0c0c12 0%, #07070a 100%);
+        border: 1px solid var(--mm-border-2);
+        border-radius: 14px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+        padding: 22px 22px 24px;
+        color: var(--mm-fg);
+      }
+      .mm-tour-picker:focus-visible { outline: none; }
+      .mm-tour-picker-head {
+        display: flex; align-items: flex-start;
+        justify-content: space-between; gap: 12px;
+        margin-bottom: 6px;
+      }
+      .mm-tour-picker-eyebrow {
+        font-family: var(--mm-mono);
+        font-size: 10.5px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #fbbf24;
+        margin-bottom: 4px;
+      }
+      .mm-tour-picker-title {
+        font-family: var(--mm-serif);
+        font-size: 26px;
+        line-height: 1.15;
+        color: #f4f4f5;
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+      .mm-tour-picker-close {
+        background: transparent;
+        border: 1px solid var(--mm-border-2);
+        color: var(--mm-fg-dim);
+        width: 30px; height: 30px;
+        border-radius: 6px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+      .mm-tour-picker-close:hover {
+        color: var(--mm-fg); border-color: #4a4a56;
+      }
+      .mm-tour-picker-close:focus-visible {
+        outline: 2px solid #fbbf24; outline-offset: 1px;
+      }
+      .mm-tour-picker-lede {
+        color: var(--mm-fg-dim);
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 8px 0 18px;
+      }
+      .mm-tour-picker-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+      @media (max-width: 600px) {
+        .mm-tour-picker-grid { grid-template-columns: 1fr; }
+      }
+      .mm-tour-card {
+        background: rgba(255,255,255,0.025);
+        border: 1px solid var(--mm-border);
+        border-radius: 10px;
+        padding: 14px 16px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        transition: border-color 140ms, background-color 140ms;
+      }
+      .mm-tour-card:hover {
+        border-color: rgba(251,191,36,0.5);
+        background: rgba(251,191,36,0.04);
+      }
+      .mm-tour-card-eyebrow {
+        font-family: var(--mm-mono);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--mm-fg-mute);
+      }
+      .mm-tour-card-title {
+        font-family: var(--mm-serif);
+        font-size: 19px;
+        line-height: 1.2;
+        color: #f4f4f5;
+        margin: 0;
+        letter-spacing: -0.005em;
+      }
+      .mm-tour-card-summary {
+        color: var(--mm-fg-dim);
+        font-size: 13.5px;
+        line-height: 1.5;
+        margin: 0;
+        flex: 1;
+      }
+      .mm-tour-card-start {
+        align-self: flex-start;
+        margin-top: 4px;
+        background: transparent;
+        border: 1px solid #fbbf24;
+        color: #fbbf24;
+        font-family: var(--mm-mono);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 7px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .mm-tour-card-start:hover {
+        background: rgba(251,191,36,0.12);
+        color: #fcd34d;
+      }
+      .mm-tour-card-start:focus-visible {
+        outline: 2px solid #fbbf24; outline-offset: 2px;
+      }
+
+      /* Floating overlay during a tour */
+      .mm-tour-overlay {
+        position: absolute;
+        left: 50%;
+        bottom: 16px;
+        transform: translateX(-50%);
+        z-index: 6;
+        width: min(440px, calc(100% - 32px));
+        background: rgba(11, 12, 16, 0.94);
+        border: 1px solid rgba(251,191,36,0.55);
+        border-radius: 12px;
+        padding: 14px 16px 14px;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.55);
+        color: var(--mm-fg);
+      }
+      .mm-tour-overlay-finish {
+        border-color: rgba(251,191,36,0.55);
+        text-align: left;
+      }
+      .mm-tour-overlay-head {
+        display: flex; align-items: flex-start;
+        justify-content: space-between; gap: 8px;
+      }
+      .mm-tour-eyebrow {
+        font-family: var(--mm-mono);
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #fbbf24;
+        margin-bottom: 4px;
+        line-height: 1.4;
+      }
+      .mm-tour-eyebrow-sep {
+        color: var(--mm-fg-mute);
+        margin: 0 2px;
+      }
+      .mm-tour-exit {
+        background: transparent;
+        border: 1px solid var(--mm-border-2);
+        color: var(--mm-fg-dim);
+        width: 24px; height: 24px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+      .mm-tour-exit:hover {
+        color: var(--mm-fg); border-color: #4a4a56;
+      }
+      .mm-tour-exit:focus-visible {
+        outline: 2px solid #fbbf24; outline-offset: 1px;
+      }
+      .mm-tour-stop-title {
+        font-family: var(--mm-serif);
+        font-size: 18px;
+        line-height: 1.25;
+        color: #f4f4f5;
+        margin: 2px 0 6px;
+        letter-spacing: -0.005em;
+      }
+      .mm-tour-body {
+        color: var(--mm-fg-dim);
+        font-size: 13.5px;
+        line-height: 1.55;
+        margin: 0 0 12px;
+      }
+      .mm-tour-actions {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .mm-tour-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-family: var(--mm-mono);
+        font-size: 10.5px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 7px 11px;
+        border-radius: 4px;
+        cursor: pointer;
+        line-height: 1.2;
+        transition: all 120ms;
+      }
+      .mm-tour-btn-secondary {
+        background: transparent;
+        border: 1px solid var(--mm-border-2);
+        color: var(--mm-fg-dim);
+      }
+      .mm-tour-btn-secondary:hover:not(:disabled) {
+        color: var(--mm-fg);
+        border-color: #4a4a56;
+      }
+      .mm-tour-btn-primary {
+        background: #fbbf24;
+        border: 1px solid #fbbf24;
+        color: #111;
+        margin-left: auto;
+      }
+      .mm-tour-btn-primary:hover:not(:disabled) {
+        background: #fcd34d;
+        border-color: #fcd34d;
+      }
+      .mm-tour-btn:focus-visible {
+        outline: 2px solid #fbbf24;
+        outline-offset: 2px;
+      }
+      .mm-tour-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      @media (max-width: 480px) {
+        .mm-tour-overlay {
+          left: 16px; right: 16px; bottom: 12px;
+          width: auto; transform: none;
+          padding: 14px;
+        }
+        .mm-tour-btn { padding: 9px 12px; font-size: 11.5px; min-height: 44px; }
       }
     `}</style>
   );
