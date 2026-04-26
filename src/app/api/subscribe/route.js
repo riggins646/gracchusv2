@@ -111,7 +111,10 @@ export async function POST(req) {
     const { email } = await req.json();
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Please enter a valid email address." },
+        { status: 400 }
+      );
     }
 
     // Sanitise: only store the email, nothing else from the payload
@@ -121,7 +124,11 @@ export async function POST(req) {
 
     // Check for duplicate
     if (subscribers.some((s) => s.email === cleanEmail)) {
-      return NextResponse.json({ ok: true, message: "Already subscribed" });
+      return NextResponse.json({
+        ok: true,
+        alreadySubscribed: true,
+        message: "You're already subscribed — thanks.",
+      });
     }
 
     // SECURITY (audit fix C3, 2026-04-26): hard cap on the subscriber
@@ -151,7 +158,11 @@ export async function POST(req) {
 
     await saveSubscribers(subscribers);
 
-    return NextResponse.json({ ok: true, message: "Subscribed" });
+    return NextResponse.json({
+      ok: true,
+      alreadySubscribed: false,
+      message: "Thanks — you're subscribed. Look out for the next briefing.",
+    });
   } catch (err) {
     console.error("Subscribe error:", err?.message || err);
 

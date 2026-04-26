@@ -96,7 +96,7 @@ export default function ConnectedIndividuals({
           <div className="mb-3 flex items-start gap-2 p-2.5 rounded border border-amber-500/40 bg-amber-500/5 text-xs text-amber-300">
             <AlertTriangle size={14} className="flex-shrink-0 mt-0.5" />
             <span>
-              <strong className="uppercase tracking-wider text-[10px]">Live proceedings</strong> &mdash; this case is subject to ongoing legal or regulatory proceedings. Gracchus reports only findings already in the public record.
+              <strong className="uppercase tracking-wider text-[10px]">Live: legal or regulatory proceedings underway.</strong> Story below quotes only public-record findings; the case is unresolved.
             </span>
           </div>
         )}

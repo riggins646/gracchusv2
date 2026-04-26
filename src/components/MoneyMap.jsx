@@ -1856,7 +1856,7 @@ function TourPicker({ open, onClose, onStart }) {
  * ========================================================================= */
 function TourOverlay({
   tour, stopIndex, finished,
-  onPrev, onNext, onExit, onOpenDetail, onRestart, onPickAnother,
+  onPrev, onNext, onExit, onFreeExplore, onOpenDetail, onRestart, onPickAnother,
 }) {
   if (!tour) return null;
   const total = tour.stops.length;
@@ -1884,7 +1884,8 @@ function TourOverlay({
           <button
             type="button"
             className="mm-tour-btn mm-tour-btn-primary"
-            onClick={onExit}
+            onClick={onFreeExplore || onExit}
+            title="Keep the tour's layer settings; explore the canvas yourself"
           >
             Free explore <span aria-hidden="true">&rarr;</span>
           </button>
@@ -3908,6 +3909,7 @@ export default function MoneyMap({
   }, [visibleLayers]);
 
   const exitTour = useCallback(() => {
+    // Mid-tour cancel — user pressed × — restore the pre-tour layer state.
     setActiveTour(null);
     if (preTourLayersRef.current) {
       setVisibleLayers(preTourLayersRef.current);
@@ -3915,6 +3917,16 @@ export default function MoneyMap({
     } else {
       setVisibleLayers(new Set(DEFAULT_VISIBLE_LAYERS));
     }
+  }, []);
+
+  // UX audit #22 (2026-04-26): "Free explore" from the finish card is
+  // an intentional graduation, not a cancellation — keep the all-layers-
+  // on state the tour was using so the reader can keep poking around
+  // the same canvas they just learned about. Drop the pre-tour layer
+  // memory without applying it.
+  const freeExploreTour = useCallback(() => {
+    setActiveTour(null);
+    preTourLayersRef.current = null;
   }, []);
 
   const goToStop = useCallback((index) => {
@@ -4590,6 +4602,7 @@ export default function MoneyMap({
               onPrev={prevStop}
               onNext={nextStop}
               onExit={exitTour}
+              onFreeExplore={freeExploreTour}
               onOpenDetail={() => {
                 if (currentStop?.focus?.id) {
                   setSelection({ kind: "node", id: currentStop.focus.id });

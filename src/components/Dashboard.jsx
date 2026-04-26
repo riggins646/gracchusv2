@@ -9207,7 +9207,7 @@ function AppInner() {
               };
               return (
                 <div className="mb-10">
-                  <div className="flex items-baseline justify-between mb-4">
+                  <div className="flex items-baseline justify-between mb-2">
                     <div className={
                       "text-[11px] font-mono tracking-[0.25em] " +
                       "text-gray-500 uppercase"
@@ -9221,6 +9221,13 @@ function AppInner() {
                       Updated {recentAdditionsData.updatedAt}
                     </div>
                   </div>
+                  {/* UX audit #17 (2026-04-26): one-line frame so first-time
+                      readers know what this list is. Insider vocabulary
+                      ("tranche 11", "OCDS re-match") is fine if you've
+                      told them what these entries represent. */}
+                  <p className="text-[13px] text-gray-500 leading-relaxed mb-4 max-w-prose">
+                    What changed in the data and the catalogue over the past two weeks &mdash; new datasets folded in, new connection stories shipped, methodology updates.
+                  </p>
                   <div className={
                     "border-t border-gray-800/60 divide-y divide-gray-800/60"
                   }>
