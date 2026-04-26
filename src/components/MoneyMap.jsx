@@ -4134,7 +4134,7 @@ export default function MoneyMap({
       {/* Desktop-only Stories strip — surfaces the editorial hook above
           the canvas. Mobile has its own full-screen Stories tab inside
           the 3-tab Explorer and must NOT also render this strip. */}
-      <div className="hidden md:block">
+      <div className="hidden md:block" id="mm-stories-anchor" tabIndex={-1}>
         <MoneyMapStoriesStrip
           connections={storyConnections}
           peopleById={storyPeopleById}
@@ -4516,6 +4516,28 @@ export default function MoneyMap({
 
         {/* CENTER — canvas */}
         <div className="mm-canvas-wrap">
+          {/* UX audit #14 (2026-04-26): screen-reader / keyboard skip
+              link. The d3-force SVG carries a descriptive aria-label
+              but its node-by-node content is not navigable by AT.
+              This visually-hidden link lets a keyboard / AT user jump
+              straight to the Stories strip (desktop) or the canvas-
+              caption rankings (which ARE accessible). Visible on
+              keyboard focus. */}
+          <a
+            href="#mm-stories-anchor"
+            className="mm-skip-canvas"
+            onClick={(e) => {
+              e.preventDefault();
+              const target = document.querySelector("#mm-stories-anchor, .mm-story-strip-wrap, .mm-explorer");
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+                if (target.tabIndex == null || target.tabIndex < 0) target.setAttribute("tabindex", "-1");
+                target.focus();
+              }
+            }}
+          >
+            Skip canvas &mdash; read connection stories
+          </a>
           <svg
             ref={svgRef}
             viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
@@ -7805,6 +7827,37 @@ function MoneyMapStyles() {
         padding: 12px 16px 10px;
         border-bottom: 1px solid var(--mm-border);
       }
+      /* UX audit #14 (2026-04-26): screen-reader / keyboard skip-link
+         to bypass the canvas. Visually hidden by default, becomes a
+         visible focus-state link when a keyboard user tabs into it. */
+      .mm-skip-canvas {
+        position: absolute;
+        left: -9999px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        font-family: var(--mm-mono);
+        font-size: 12px;
+        letter-spacing: 0.05em;
+      }
+      .mm-skip-canvas:focus,
+      .mm-skip-canvas:focus-visible {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        width: auto;
+        height: auto;
+        z-index: 50;
+        background: var(--mm-accent);
+        color: #0a0a0d;
+        padding: 8px 14px;
+        border-radius: 4px;
+        outline: 2px solid #fff;
+        outline-offset: 2px;
+        text-decoration: none;
+      }
+
       .mm-explorer-mobile-note {
         font-size: 12px;
         line-height: 1.5;
