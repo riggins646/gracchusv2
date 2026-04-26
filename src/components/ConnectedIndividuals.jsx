@@ -140,43 +140,58 @@ export default function ConnectedIndividuals({
             </>
           )}
         </p>
-        {/* summary */}
+        {/* TIER 1 — WHAT (close): summary completes the headline tier. */}
         <p className="text-base text-gray-200 leading-relaxed mb-3">{c.summary}</p>
-        {/* detail paragraphs */}
-        {c.detail && (
-          <div className="text-sm text-gray-300 leading-relaxed space-y-2 mb-3">
-            {c.detail.split("\n\n").map((para, i) => <p key={i}>{para}</p>)}
-          </div>
-        )}
-        {/* financial summary */}
-        {(c.financial?.relatedContractsDescription || c.financial?.personalIncomeDescription) && (
-          <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-400 mb-3 p-2 rounded bg-black/30 border border-gray-800/60">
-            {c.financial.personalIncomeDescription && (
-              <span><span className="text-gray-500">Personal:</span> <span className="font-mono tabular-nums">{c.financial.personalIncomeDescription}</span></span>
-            )}
-            {c.financial.relatedContractsDescription && (
-              <span><span className="text-gray-500">Contracts:</span> <span className="font-mono tabular-nums">{c.financial.relatedContractsDescription}</span></span>
-            )}
-          </div>
-        )}
-        {/* regulatory findings */}
-        {c.regulatoryFindings?.length > 0 && (
-          <div className="mb-3 space-y-2">
-            {c.regulatoryFindings.map((f, i) => (
-              <div key={i} className="text-xs p-2 rounded border-l-2 border-amber-500/60 bg-amber-500/5">
-                <div className="flex items-center gap-1.5 text-amber-400 font-medium mb-1">
-                  <Scale size={11} />
-                  <span>{f.body}</span>
-                  <span className="text-gray-500 font-mono">&middot; {f.date}</span>
-                </div>
-                <p className="text-gray-300 italic">&ldquo;{f.quotedText}&rdquo;</p>
-                {f.outcome && <p className="text-gray-400 mt-1">{f.outcome}</p>}
+        {/* TIER 2 — EVIDENCE.
+            Audit pass 6: regulator finding promoted from sixth-in-flat-order
+            to first-in-evidence so the strongest editorial signal lands above
+            the multi-paragraph narrative. Subtle border-t divider (no label)
+            cues the tier shift to the eye. */}
+        {(c.regulatoryFindings?.length > 0 ||
+          c.financial?.relatedContractsDescription ||
+          c.financial?.personalIncomeDescription ||
+          c.detail) && (
+          <div className="mt-4 pt-4 border-t border-gray-800/50 space-y-3">
+            {/* regulatory findings — promoted, slightly more visual weight
+                (p-3 not p-2, body-name row 13px not 12px) */}
+            {c.regulatoryFindings?.length > 0 && (
+              <div className="space-y-2">
+                {c.regulatoryFindings.map((f, i) => (
+                  <div key={i} className="p-3 rounded border-l-2 border-amber-500/60 bg-amber-500/5">
+                    <div className="flex items-center gap-1.5 text-amber-400 font-semibold mb-1.5 text-[13px]">
+                      <Scale size={12} />
+                      <span>{f.body}</span>
+                      <span className="text-gray-500 font-mono text-xs">&middot; {f.date}</span>
+                    </div>
+                    <p className="text-sm text-gray-300 italic leading-relaxed">&ldquo;{f.quotedText}&rdquo;</p>
+                    {f.outcome && <p className="text-xs text-gray-400 mt-1.5">{f.outcome}</p>}
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
+            {/* financial summary */}
+            {(c.financial?.relatedContractsDescription || c.financial?.personalIncomeDescription) && (
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-400 p-2 rounded bg-black/30 border border-gray-800/60">
+                {c.financial.personalIncomeDescription && (
+                  <span><span className="text-gray-500">Personal:</span> <span className="font-mono tabular-nums">{c.financial.personalIncomeDescription}</span></span>
+                )}
+                {c.financial.relatedContractsDescription && (
+                  <span><span className="text-gray-500">Contracts:</span> <span className="font-mono tabular-nums">{c.financial.relatedContractsDescription}</span></span>
+                )}
+              </div>
+            )}
+            {/* detail paragraphs — longest content goes LAST in Evidence so
+                the reader has the headline finding before the narrative. */}
+            {c.detail && (
+              <div className="text-sm text-gray-300 leading-relaxed space-y-2">
+                {c.detail.split("\n\n").map((para, i) => <p key={i}>{para}</p>)}
+              </div>
+            )}
           </div>
         )}
-        {/* sources */}
-        <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-gray-800/60">
+        {/* TIER 3 — SOURCES. Same border-t divider register as Tier 2 so the
+            three tiers feel evenly weighted to the eye. */}
+        <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-gray-800/50">
           {c.sources?.map((s, i) => (
             <a
               key={i}

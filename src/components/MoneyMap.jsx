@@ -5136,6 +5136,14 @@ function PersonDetail({
         )}
       </div>
       <div className="mm-d-body">
+        {/* TIER 2 — EVIDENCE.
+            Audit pass 6: 3-tier hierarchy via subtle dividers (no labels).
+            Tier 1 (head: name + connection-count + headline) sits in mm-d-head
+            above. Tier 2 leads with the structural signal — roles or
+            register-of-interests figures — then surfaces the connection cards
+            (which carry the regulator findings inline). The Pattern narrative,
+            being the longest body of prose, moves to the END of Evidence so
+            the eye lands on figures + cards before the multi-paragraph case. */}
         {!isFirm && roles.length > 0 && (
           <>
             <div className="mm-d-section-h">Roles held</div>
@@ -5152,17 +5160,6 @@ function PersonDetail({
                   </div>
                 );
               })}
-            </div>
-          </>
-        )}
-
-        {patternConn && patternConn.detail && (
-          <>
-            <div className="mm-d-section-h">Pattern</div>
-            <div className="mm-person-pattern" style={{ fontSize: 15, lineHeight: 1.55, color: "#cbd5e1" }}>
-              {patternConn.detail.split("\n\n").map((para, i) => (
-                <p key={i} style={{ marginBottom: 10 }}>{para}</p>
-              ))}
             </div>
           </>
         )}
@@ -5249,6 +5246,28 @@ function PersonDetail({
             projectsBySupplierId={projectsBySupplierId}
             onOpen={onOpen}
           />
+        )}
+
+        {/* Pattern — the multi-paragraph editorial framing for firm subjects.
+            Moved to last-in-Evidence (audit pass 6) so the reader has the
+            connection cards (with their regulator findings) above the
+            longer-form narrative. */}
+        {patternConn && patternConn.detail && (
+          <>
+            <div className="mm-d-section-h" style={{ marginTop: 18 }}>Pattern</div>
+            <div className="mm-person-pattern" style={{ fontSize: 15, lineHeight: 1.55, color: "#cbd5e1" }}>
+              {patternConn.detail.split("\n\n").map((para, i) => (
+                <p key={i} style={{ marginBottom: 10 }}>{para}</p>
+              ))}
+            </div>
+          </>
+        )}
+
+        {/* TIER 3 — SOURCES + CONTEXT. Subtle border-t divider cues the
+            shift away from Evidence; projects-involving (cross-link) and
+            external-links (off-platform sources) sit together here. */}
+        {(supplierProjectGroups.length > 0 || links.length > 0) && (
+          <div className="mm-d-tier-divider" aria-hidden="true" />
         )}
 
         {/* task #119 — reverse cross-link.
@@ -6925,6 +6944,16 @@ function MoneyMapStyles() {
         color: var(--mm-fg-mute); margin: 22px 0 10px;
       }
       .mm-d-section-h:first-child { margin-top: 0; }
+      /* Audit pass 6 — subtle tier divider in PersonDetail. Marks the
+         shift from Evidence (cards + figures + narrative) to Sources +
+         Context (projects-involving cross-link, external links). No
+         label — just a 1px horizontal rule with reduced opacity. */
+      .mm-d-tier-divider {
+        height: 1px;
+        margin: 22px 0 4px;
+        background: var(--mm-border);
+        opacity: 0.55;
+      }
 
       /* v2 Phase 1 — PersonDetail drawer styles */
       .mm-drawer-person .mm-d-head {
