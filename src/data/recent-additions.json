@@ -5,6 +5,14 @@
     {
       "date": "2026-04-26",
       "type": "feature",
+      "title": "Methodology updated for the connections layer",
+      "summary": "Methodology page now documents the Money Map v2 work: what a connection record is, the categories tracked (post-office appointment, dual role, donor-and-contractor, family ties, VIP lane referral, paid consultancy during office, donor-supplier overlap), source rigour standards, the firm-subject convention, and the matcher's known limits. Cross-linked inline to /standards and /corrections.",
+      "view": "methodology",
+      "metric": "+ connections methodology"
+    },
+    {
+      "date": "2026-04-26",
+      "type": "feature",
       "title": "Cmd-K finds people, firms, parties, donors",
       "summary": "The cmd-K palette now searches across the Money Map v2 layer too. Type 'paterson', 'deloitte', 'conservative' or 'unite' and the right entity surfaces; selecting a result jumps you to the Money Map with the lens centred on it. Discovery is no longer canvas-only \u2014 every connection in the catalogue is reachable from anywhere on the site.",
       "view": "moneymap",

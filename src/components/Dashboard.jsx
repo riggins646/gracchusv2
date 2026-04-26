@@ -30957,14 +30957,199 @@ function AppInner() {
                 </p>
               </section>
 
-              {/* 6. What we don't claim */}
+              {/* 6. The connections layer (Money Map v2) */}
               <section>
                 <div className={
                   "text-[10px] uppercase " +
                   "tracking-[0.2em] font-mono " +
                   "text-gray-600 mb-2"
                 }>
-                  06 &middot; What we don&rsquo;t claim
+                  06 &middot; The connections layer
+                </div>
+                <h3 className={
+                  "text-2xl font-serif font-medium " +
+                  "text-white leading-tight tracking-[-0.01em] mb-3"
+                }>
+                  Linking named individuals to the contracts and the parties.
+                </h3>
+                <p className="text-gray-400 text-[17px] leading-relaxed mb-3">
+                  Alongside the contracts data, Gracchus maintains a
+                  catalogue of named individuals and firms whose role
+                  connects them to one or more of the tracked
+                  suppliers, departments, projects, or political parties.
+                  These appear as amber bubbles on the Money Map canvas
+                  and as scrollable cards in the Stories tab. A connection
+                  is a verifiable link &mdash; it never implies that any
+                  party named has acted improperly.
+                </p>
+                <p className="text-gray-400 text-[17px] leading-relaxed mb-4">
+                  Each record carries at least one primary source
+                  (gov.uk, parliament.uk, court record, or official
+                  regulator), and where a regulator or court has made a
+                  finding, that finding is quoted directly rather than
+                  paraphrased. See{" "}
+                  <a
+                    href="/standards"
+                    className="text-gray-300 underline decoration-gray-700 hover:decoration-gray-400 hover:text-white"
+                  >
+                    Editorial standards &rarr;
+                  </a>{" "}
+                  for the full sourcing policy and the live-proceedings
+                  language convention.
+                </p>
+
+                <div className={
+                  "text-[10px] uppercase " +
+                  "tracking-[0.2em] font-mono " +
+                  "text-gray-600 mt-6 mb-2"
+                }>
+                  Categories tracked
+                </div>
+                <ul className="space-y-2 text-gray-400 text-[15px] leading-relaxed mb-4">
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    <b className="text-gray-200">Post-office appointment</b> &mdash; ex-minister or senior civil servant joining a firm after leaving office.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    <b className="text-gray-200">Dual role</b> &mdash; private-sector role held while still in public office.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    <b className="text-gray-200">Paid consultancy during office</b> &mdash; payments from a firm while serving as MP, minister or civil servant.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    <b className="text-gray-200">Family employment, ownership, spousal shareholding, spousal political role, family trust arrangement</b> &mdash; close-family ties to a firm or to a politically-charged role.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    <b className="text-gray-200">Donation &rarr; contract</b> &mdash; donor or donor&rsquo;s firm received a government contract during the donating party&rsquo;s term.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    <b className="text-gray-200">VIP lane referral</b> &mdash; firm referred into a high-priority procurement lane by a politician or peer.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    <b className="text-gray-200">Personal connection &rarr; contract</b> &mdash; contract awarded to a firm linked to a minister&rsquo;s personal connection (neighbour, friend, associate) without competitive tender.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    <b className="text-gray-200">Outside earnings during office</b> &mdash; substantial outside income earned by an MP during their time in Parliament, declared in the Register of Members&rsquo; Financial Interests.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    <b className="text-gray-200">Cash for access &middot; APPG paid chair &middot; Shareholding</b> &mdash; financial entanglements declared (or surfaced) while in office.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    <b className="text-gray-200">Donor and contractor</b> &mdash; firm both donated to a UK political party and held UK government contracts in the same period.
+                  </li>
+                </ul>
+
+                <div className={
+                  "text-[10px] uppercase " +
+                  "tracking-[0.2em] font-mono " +
+                  "text-gray-600 mt-6 mb-2"
+                }>
+                  Firm-subjects
+                </div>
+                <p className="text-gray-400 text-[17px] leading-relaxed mb-4">
+                  A small number of records have a firm rather than an
+                  individual as their subject &mdash; Deloitte LLP,
+                  Cook Defence Systems, Heathrow Airport Holdings, and
+                  similar. These render with a small <span className="text-[10px] font-mono tracking-[0.12em] px-1.5 py-0.5 rounded border border-sky-400/40 bg-sky-400/10 text-sky-300 font-semibold uppercase">FIRM</span> pill on the card, and document patterns that are
+                  about the company itself rather than any single
+                  named officer (typically: a firm donating to one
+                  party while concurrently holding multi-year
+                  contracts with the government).
+                </p>
+
+                <div className={
+                  "text-[10px] uppercase " +
+                  "tracking-[0.2em] font-mono " +
+                  "text-gray-600 mt-6 mb-2"
+                }>
+                  Donor-supplier overlap
+                </div>
+                <p className="text-gray-400 text-[17px] leading-relaxed mb-3">
+                  The Money Map matcher cross-references the Electoral
+                  Commission donor record (6,819 individual donations
+                  bundled with the site) against the tracked supplier
+                  set. Where the same legal entity appears on both
+                  lists, the supplier bubble on the canvas gains a
+                  concentric ring in the dominant funded party&rsquo;s
+                  colour, and the supplier drawer adds a
+                  &ldquo;Political giving&rdquo; section with per-party
+                  totals and donation date range.
+                </p>
+                <p className="text-gray-400 text-[17px] leading-relaxed mb-3">
+                  Matching runs in two passes: exact name
+                  normalisation first (strip Ltd / Limited / PLC /
+                  Holdings / Group, lowercase, compare tokens), then
+                  substring fuzzy match for strings of eight
+                  characters or more. Companies House registration
+                  numbers would tighten this further but are not yet
+                  on supplier nodes &mdash; flagged as a planned
+                  improvement. Any overlap shown today is therefore
+                  name-matched, not registration-matched, and should
+                  be treated as a starting point for further reading
+                  rather than a definitive identity claim.
+                </p>
+
+                <div className={
+                  "text-[10px] uppercase " +
+                  "tracking-[0.2em] font-mono " +
+                  "text-gray-600 mt-6 mb-2"
+                }>
+                  What this layer does not claim
+                </div>
+                <ul className="space-y-2 text-gray-400 text-[15px] leading-relaxed">
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    A connection is a verifiable link, not an allegation of wrongdoing.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    Where proceedings are still live (NCA, High Court, public inquiry), the card carries a cautionary banner and only findings already in the public record are reported.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    The donor-supplier matcher uses fuzzy name matching; false positives are possible.{" "}
+                    <a
+                      href="/corrections"
+                      className="text-gray-300 underline decoration-gray-700 hover:decoration-gray-400 hover:text-white"
+                    >
+                      Corrections &rarr;
+                    </a>{" "}
+                    are welcome and resolved transparently.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    Absence from the catalogue does not mean a person or firm has no documented connections &mdash; only that none have yet been added to the record at Gracchus&rsquo;s sourcing standard.
+                  </li>
+                  <li className="pl-5 relative">
+                    <span className="absolute left-0 top-[0.6em] w-2 h-[1px] bg-gray-600" />
+                    Anyone named on the site can{" "}
+                    <a
+                      href="/standards"
+                      className="text-gray-300 underline decoration-gray-700 hover:decoration-gray-400 hover:text-white"
+                    >
+                      respond &rarr;
+                    </a>; replies are read and, where appropriate, added alongside the record.
+                  </li>
+                </ul>
+              </section>
+
+              {/* 7. What we don't claim */}
+              <section>
+                <div className={
+                  "text-[10px] uppercase " +
+                  "tracking-[0.2em] font-mono " +
+                  "text-gray-600 mb-2"
+                }>
+                  07 &middot; What we don&rsquo;t claim
                 </div>
                 <h3 className={
                   "text-2xl font-serif font-medium " +
