@@ -80,6 +80,8 @@ import projectWasteData from "../data/project-waste.json";
 import projectSourceQuality from "../data/project-source-quality.json";
 import moneyMapData from "../data/money-map.json";
 import recentAdditionsData from "../data/recent-additions.json";
+import individualConnectionsData from "../data/individual-connections.json";
+import { aggregateCompanyDonors, buildDonorLensResolver } from "../lib/donor-aggregation";
 import dynamic from "next/dynamic";
 // Lazy-loaded to keep initial TTI snappy on mobile 4G — MoneyMap pulls
 // d3-* modules and the heavy money-map canvas. Wrapped is only opened
@@ -6199,9 +6201,37 @@ function BuyerDetail({ buyerId, buyerName, onClose, onSelectSupplier, onSelectPr
 //   - 576 supplier nodes (from money-map.json) with their aliases
 //   - 86 buyer nodes (money-map.json)
 //   - 116 project rows (projects.json) so name / department / keywords match
+//   - 19 people + 6 firms (individual-connections.json) — Money Map v2 layer
+//   - 9 political parties (canonical PARTY_DEFS subset)
+//   - top 30 company donors aggregated from donations-records.json
 // Open via cmd/ctrl-K or the search icon in the top nav. Arrow keys navigate,
 // Enter opens the matching drawer (Supplier → SupplierDetail, Project →
-// ProjectDetail, Buyer → jump to Money Map with that entity as lens subject).
+// ProjectDetail, Buyer → jump to Money Map with that entity as lens subject;
+// person / firm / party / donor → jump to Money Map with ?lens=<id>).
+
+/* Money Map v2 entity catalogue used for cmd-K rows. The party subset is
+   hardcoded here rather than imported from MoneyMap.jsx — that file is
+   next/dynamic-loaded so its module exports aren't on the synchronous
+   import graph. Kept in sync with MoneyMap PARTY_DEFS by hand; if a new
+   party joins the canvas, add it here too. */
+const CMD_PARTY_DEFS = {
+  conservative:        { label: "Conservative Party",        color: "#0087DC" },
+  labour:              { label: "Labour Party",              color: "#DC241F" },
+  "liberal-democrats": { label: "Liberal Democrats",         color: "#FAA61A" },
+  "reform-uk":         { label: "Reform UK",                 color: "#12B6CF" },
+  snp:                 { label: "Scottish National Party",   color: "#FFF95D" },
+  green:               { label: "Green Party",               color: "#6AB023" },
+  "plaid-cymru":       { label: "Plaid Cymru",               color: "#005B54" },
+  dup:                 { label: "Democratic Unionist Party", color: "#D46A4C" },
+  "sinn-fein":         { label: "Sinn Féin",                 color: "#326760" },
+};
+
+/* Pre-compute the donor → lens-target resolver once per module load. The
+   resolver closes over the full supplier list (so token-overlap and
+   first-token matching can fire) and returns either `donor:<slug>` or a
+   supplier id for the 6 known overlap cases (Deloitte, Cook Defence,
+   McAlpine, Canary Wharf, Heathrow, Imagination). */
+const _DONOR_LENS_RESOLVER = buildDonorLensResolver(moneyMapData.nodes || []);
 
 // Pre-compute the search index once at module load — the underlying JSON is
 // static, so this is safe and avoids rebuilding on every keystroke.
@@ -6253,6 +6283,75 @@ const SEARCH_INDEX = (() => {
       });
     }
   } catch (e) { /* ignore */ }
+
+  /* v2 Phase 1 — people + firms from individual-connections.json. Each
+     row carries `lensTarget` so the onSelect handler can write the right
+     ?lens=… without the palette caring about node-id prefixes. People &
+     firms both register on the canvas as `person:<personId>` nodes
+     (firms are a personKind variant of the person record), so the same
+     lens prefix works for both. */
+  try {
+    for (const p of (individualConnectionsData?.people || [])) {
+      const isFirm = p.kind === "firm";
+      const sub = (p.headline || "").trim().slice(0, 80) ||
+        (isFirm ? "Donor-contractor pattern" : "Connection story");
+      rows.push({
+        id: "person:" + p.id,
+        kind: isFirm ? "firm" : "person",
+        label: p.name,
+        aliases: [],
+        value: 0,
+        sub,
+        lensTarget: "person:" + p.id,
+        search: (p.name + " " + (p.headline || "") + " " + (p.party || "")).toLowerCase(),
+      });
+    }
+  } catch (e) { /* ignore */ }
+
+  /* v2 Phase 2 — political parties. Hardcoded subset matching MoneyMap's
+     PARTY_DEFS (re-declared as CMD_PARTY_DEFS above to avoid pulling
+     MoneyMap onto the synchronous import graph). Lens lands on the canvas
+     party node id `party:<partyId>` — works for parties present in the
+     canvas data; falls back gracefully via Lens-mode resolution if not. */
+  for (const partyId of Object.keys(CMD_PARTY_DEFS)) {
+    const def = CMD_PARTY_DEFS[partyId];
+    rows.push({
+      id: "party:" + partyId,
+      kind: "party",
+      label: def.label,
+      aliases: [],
+      value: 0,
+      sub: "Political party",
+      lensTarget: "party:" + partyId,
+      partyColor: def.color,
+      search: (def.label + " " + partyId).toLowerCase(),
+    });
+  }
+
+  /* v2 Phase 3 — top company donors from donations-records.json (≈ 501
+     unique companies; we surface the top 30 by aggregate £). For the 6
+     known supplier-overlap cases (Deloitte, Cook Defence, McAlpine,
+     Canary Wharf, Heathrow, Imagination), the donor collapses onto the
+     supplier node on the canvas — so the lens target swaps to the
+     supplier id. The donor-aggregation util's buildDonorLensResolver
+     handles that mapping. */
+  try {
+    const topDonors = aggregateCompanyDonors().slice(0, 30);
+    for (const d of topDonors) {
+      const lensTarget = _DONOR_LENS_RESOLVER(d.key);
+      rows.push({
+        id: "donor:" + d.key,
+        kind: "donor",
+        label: d.name,
+        aliases: [],
+        value: d.totalGBP || 0,
+        sub: `${fmt((d.totalGBP || 0) / 1e6)} political giving · ${d.donationCount} donation${d.donationCount === 1 ? "" : "s"}`,
+        lensTarget,
+        search: (d.name + " donor").toLowerCase(),
+      });
+    }
+  } catch (e) { /* ignore */ }
+
   return rows;
 })();
 
@@ -6288,6 +6387,14 @@ function kindMeta(kind) {
   if (kind === "supplier") return { chip: "Supplier", color: "text-sky-300 bg-sky-500/10 border-sky-500/40" };
   if (kind === "buyer") return { chip: "Buyer", color: "text-amber-300 bg-amber-500/10 border-amber-500/40" };
   if (kind === "project") return { chip: "Project", color: "text-emerald-300 bg-emerald-500/10 border-emerald-500/40" };
+  /* v2 entity types — match the existing chip pattern (uppercase mono pill,
+     coloured border + tinted bg). Person + firm both feed the same
+     person:<id> lens but read distinctly: person uses ember (the canvas
+     people-layer accent), firm uses sky (institutional / corporate). */
+  if (kind === "person") return { chip: "Person", color: "text-amber-300 bg-amber-500/10 border-amber-500/40" };
+  if (kind === "firm") return { chip: "Firm", color: "text-sky-300 bg-sky-500/10 border-sky-500/40" };
+  if (kind === "party") return { chip: "Party", color: "text-gray-300 bg-gray-500/10 border-gray-500/40" };
+  if (kind === "donor") return { chip: "Donor", color: "text-stone-300 bg-stone-500/10 border-stone-500/40" };
   return { chip: kind || "?", color: "text-gray-400 bg-gray-700/20 border-gray-700/40" };
 }
 
@@ -6311,12 +6418,25 @@ function CommandPalette({ open, onClose, onSelect }) {
 
   const results = useMemo(() => {
     if (!query.trim()) {
-      // Empty state: curated top picks — highest-£ suppliers + projects.
-      const curated = SEARCH_INDEX
-        .filter((r) => r.kind !== "buyer")
-        .sort((a, b) => (b.value || 0) - (a.value || 0))
-        .slice(0, 8);
-      return curated;
+      // Empty state: a curated mixed-category default. Supplier + project
+      // suggestions used to fill all 8 slots; we now reserve a few rows for
+      // the v2 entity types so first-time openers see what they can search
+      // for. Order: top suppliers (4) · top donors (2) · top people (2) ·
+      // a couple of parties at the tail.
+      const top = (kind, n, sortBy = "value") => SEARCH_INDEX
+        .filter((r) => r.kind === kind)
+        .sort((a, b) => (sortBy === "value"
+          ? (b.value || 0) - (a.value || 0)
+          : 0))
+        .slice(0, n);
+      return [
+        ...top("supplier", 4),
+        ...top("project", 2),
+        ...top("donor", 2),
+        ...top("person", 2, "alpha"),
+        ...top("firm", 1, "alpha"),
+        ...top("party", 1, "alpha"),
+      ];
     }
     const scored = [];
     for (const r of SEARCH_INDEX) {
@@ -6381,7 +6501,7 @@ function CommandPalette({ open, onClose, onSelect }) {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search suppliers, projects, buyers…"
+            placeholder="Search suppliers, projects, people, donors…"
             className="flex-1 bg-transparent text-white text-sm font-mono placeholder-gray-700 focus:outline-none"
             aria-label="Global search"
           />
@@ -6397,12 +6517,12 @@ function CommandPalette({ open, onClose, onSelect }) {
         >
           {results.length === 0 && (
             <div className="px-4 py-6 text-center text-gray-600 text-xs font-mono">
-              No matches — try a supplier or project name.
+              No matches — try a supplier, project, person or donor name.
             </div>
           )}
           {!query.trim() && results.length > 0 && (
             <div className="px-4 pt-3 pb-1 text-[9px] uppercase tracking-[0.25em] text-gray-700 font-mono">
-              Suggestions · highest value
+              Suggestions · top entries across the catalogue
             </div>
           )}
           {results.map((r, i) => {
@@ -6423,6 +6543,16 @@ function CommandPalette({ open, onClose, onSelect }) {
                     : "border-transparent hover:bg-gray-900/30")
                 }
               >
+                {/* Party rows render a small colour dot before the chip
+                    so readers can identify the party at a glance even
+                    when several parties match a query (e.g. "labour"). */}
+                {r.kind === "party" && r.partyColor && (
+                  <span
+                    className="inline-block w-2 h-2 rounded-full shrink-0"
+                    style={{ backgroundColor: r.partyColor }}
+                    aria-hidden="true"
+                  />
+                )}
                 <span
                   className={
                     "text-[8px] uppercase tracking-[0.15em] font-mono " +
@@ -31149,6 +31279,28 @@ function AppInner() {
           } else if (row.kind === "buyer") {
             setSelectedBuyerId(row.id);
             setSelectedBuyerName(row.label);
+          } else if (
+            row.kind === "person" ||
+            row.kind === "firm" ||
+            row.kind === "party" ||
+            row.kind === "donor"
+          ) {
+            /* v2 entity kinds — no drawer of their own; jump to the Money
+               Map with ?lens=<lensTarget>. We write the URL search before
+               flipping the view so MoneyMap.readUrlState() picks the lens
+               up on its first paint (mirrors the ConnectionInFocus flow). */
+            const lensId = row.lensTarget || row.id;
+            if (typeof window !== "undefined" && lensId) {
+              try {
+                const u = new URL(window.location.href);
+                u.searchParams.set("view", "lens");
+                u.searchParams.set("lens", lensId);
+                window.history.replaceState(
+                  null, "", u.pathname + "?" + u.searchParams.toString()
+                );
+              } catch { /* nav still works without the deeplink */ }
+            }
+            setView("moneymap");
           }
         }}
       />

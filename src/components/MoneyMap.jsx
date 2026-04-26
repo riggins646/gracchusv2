@@ -34,14 +34,22 @@ import CiteChip from "./CiteChip";
 import useDrawerFocus from "../lib/useDrawerFocus";
 import individualConnectionsData from "../data/individual-connections.json";
 import donationsAggregateData from "../data/political-donations.json";
-/* 2026-04-26 — Money Map v2 Phase 3 follow-up. Pulling the full per-record
-   donations file in at module load (was: pre-aggregated top-100 only) so
-   the supplier-overlap matcher can walk all 6,819 records and aggregate
-   501 unique company donors at canvas time. The bundle hit (~1.5MB) only
-   lands in the MoneyMap chunk (next/dynamic-loaded), and the same file
-   used to ship from /public via runtime fetch on Cronyism — see comment
-   in Dashboard.jsx donationRecords useMemo for the migration note. */
-import donationRecordsData from "../data/donations-records.json";
+/* 2026-04-26 — Money Map v2 Phase 3 follow-up. The per-record donations
+   file used to be parsed inline here at module load (~6,819 records →
+   ≈ 501 unique company donors). That aggregation is now in a shared util
+   so Dashboard's cmd-K palette can search the same set without duplicating
+   ~120 lines of normalisation + matcher logic. The bundle hit lives in the
+   util's import of donations-records.json — landed in whichever chunk
+   imports first. */
+import {
+  COMPANY_DONORS_FROM_RECORDS,
+  donorPartyId,
+  donorSlug,
+  normaliseFirmName as _normaliseFirmName,
+  buildOverlapMatcher,
+  mergeDonorParties,
+  pickDominantParty,
+} from "../lib/donor-aggregation";
 
 /* ---------- constants ---------- */
 const TYPE_COLOUR = {
@@ -231,57 +239,9 @@ function dependenceBand(v) {
  *       than minting a separate donor bubble
  * ========================================================================= */
 
-const DONOR_PARTY_NAME_MAP = {
-  "conservative":               "conservative",
-  "conservative party":         "conservative",
-  "conservative and unionist party": "conservative",
-  "labour":                     "labour",
-  "labour party":               "labour",
-  "liberal democrats":          "liberal-democrats",
-  "liberal democrat":           "liberal-democrats",
-  "reform uk":                  "reform-uk",
-  "reform party":               "reform-uk",
-  "snp":                        "snp",
-  "scottish national party":    "snp",
-  "scottish national party (snp)": "snp",
-  "green":                      "green",
-  "green party":                "green",
-  "plaid cymru":                "plaid-cymru",
-  "dup":                        "dup",
-  "democratic unionist party":  "dup",
-  "sinn féin":                  "sinn-fein",
-  "sinn fein":                  "sinn-fein",
-};
-function donorPartyId(name) {
-  if (!name) return null;
-  const k = String(name).trim().toLowerCase();
-  if (DONOR_PARTY_NAME_MAP[k]) return DONOR_PARTY_NAME_MAP[k];
-  // Prefix match for "Conservative*", "Labour*" etc.
-  for (const prefix of Object.keys(DONOR_PARTY_NAME_MAP)) {
-    if (k.startsWith(prefix + " ")) return DONOR_PARTY_NAME_MAP[prefix];
-  }
-  return null;
-}
-
-/* Strip legal suffixes / punctuation so "Randox Laboratories Limited"
-   collapses onto "randox laboratories". Conservative — keep meaningful
-   tokens, only strip noise words.  */
-function _normaliseFirmName(s) {
-  if (!s) return "";
-  let n = String(s).toLowerCase();
-  n = n.replace(/[\(\),\.&'"]/g, " ");
-  n = n.replace(/\b(ltd|limited|plc|llp|group|holdings|holding|services|the|company|co|inc|uk|gb)\b/g, " ");
-  n = n.replace(/\s+/g, " ").trim();
-  return n;
-}
-
-function donorSlug(name) {
-  return String(name || "unknown")
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")
-    .slice(0, 64);
-}
+/* DONOR_PARTY_NAME_MAP, donorPartyId, _normaliseFirmName, donorSlug — all
+   moved to ../lib/donor-aggregation.js (single source of truth, shared
+   with Dashboard cmd-K). Imported at the top of this file. */
 
 /* Mode-of donor types — picks the most common donorStatus across this
    donor's records (should be stable per donor). */
@@ -297,85 +257,10 @@ const DONOR_PUBLIC_FUND_TYPES = new Set([
 ]);
 
 const DONOR_TOP_N = 25;
-/* Cap on Company donors carried from the records-aggregated set into the
-   overlap-matching pass. We want EVERY company in the records (≈ 501) to
-   pass through the matcher so we don't miss small-£ overlaps — keep this
-   uncapped and let the matcher do the filtering. */
-const COMPANY_OVERLAP_SCAN_CAP = 5000;
 
-/* 2026-04-26 — Aggregate Company / LLP donors from the full 6,819-record
-   set (was: top-100 pre-aggregate). Returns one entry per unique donor
-   with REAL per-party £ splits, donation count, first/last accepted date,
-   Companies House reg, and the canonical donor name (longest spelling
-   wins so "William Cook Holdings Limited" beats "William Cook Ltd").
-   This is the new source of truth for Company donor matching against the
-   tracked supplier set — the old top-100 aggregate never surfaced any
-   overlaps because the top is dominated by trade unions and HNW
-   individuals, not government contractors. */
-function _buildCompanyDonorAggFromRecords() {
-  const records = (donationRecordsData && donationRecordsData.donations) || [];
-  const agg = new Map();
-  for (const r of records) {
-    // r.s is donorStatus in the record schema (see Dashboard decoder)
-    if (!(r.s === "Company" || r.s === "Limited Liability Partnership")) continue;
-    const donor = String(r.d || "").trim();
-    if (!donor) continue;
-    // Normalise key — strip non-alphanumerics so "Deloitte LLP" and
-    // "Deloitte LLP." collapse onto the same row.
-    const key = donor.toLowerCase().replace(/[^a-z0-9]/g, "");
-    if (!key) continue;
-    let entry = agg.get(key);
-    if (!entry) {
-      entry = {
-        name: donor,
-        donorStatus: r.s,
-        total: 0,
-        count: 0,
-        parties: new Map(), // canonical partyId -> { totalGBP, count }
-        companyReg: r.c || "",
-        firstDate: r.a || "",
-        lastDate: r.a || "",
-      };
-      agg.set(key, entry);
-    }
-    entry.total += r.v || 0;
-    entry.count += 1;
-    if (r.p) {
-      const pid = donorPartyId(r.p);
-      if (pid) {
-        const pp = entry.parties.get(pid) || { partyId: pid, totalGBP: 0, donationCount: 0 };
-        pp.totalGBP += r.v || 0;
-        pp.donationCount += 1;
-        entry.parties.set(pid, pp);
-      }
-    }
-    if (!entry.companyReg && r.c) entry.companyReg = r.c;
-    if (r.a && (!entry.firstDate || r.a < entry.firstDate)) entry.firstDate = r.a;
-    if (r.a && (!entry.lastDate || r.a > entry.lastDate))  entry.lastDate  = r.a;
-    // Pick the longer spelling as canonical — captures "Limited" vs "Ltd"
-    if (donor.length > entry.name.length) entry.name = donor;
-  }
-  // Materialise into the same shape topDonors uses downstream.
-  const out = [];
-  for (const e of agg.values()) {
-    if (!e.total) continue;
-    const parties = Array.from(e.parties.values()).sort((a, b) => b.totalGBP - a.totalGBP);
-    out.push({
-      key: donorSlug(e.name),
-      name: e.name,
-      totalGBP: e.total,
-      donationCount: e.count,
-      donorStatus: e.donorStatus,
-      companyReg: e.companyReg || "",
-      firstDate: e.firstDate || "",
-      lastDate: e.lastDate || "",
-      parties, // already canonical partyId — no proportional fudge here
-      _normName: _normaliseFirmName(e.name),
-    });
-  }
-  out.sort((a, b) => b.totalGBP - a.totalGBP);
-  return out;
-}
+/* _buildCompanyDonorAggFromRecords + COMPANY_OVERLAP_SCAN_CAP — moved to
+   ../lib/donor-aggregation.js (exported as COMPANY_DONORS_FROM_RECORDS).
+   Same logic, now also consumed by Dashboard's cmd-K palette. */
 
 /* Build donor entries from the pre-aggregated topDonors block. Used for
    non-Company donor types (Individuals, Trade Unions, etc.) that the
@@ -419,126 +304,12 @@ function _buildDonorListFromTopDonors(filterFn) {
   return enriched;
 }
 
-/* Module-load: full Company donor set from records (capped only for
-   defence — in practice ≈ 501). Used both for supplier overlap matching
-   and as the source for top-N Company donor BUBBLES (after excluding
-   any donor that overlaps a tracked supplier — those collapse onto the
-   supplier node, no separate bubble). */
-const COMPANY_DONORS_FROM_RECORDS = _buildCompanyDonorAggFromRecords()
-  .slice(0, COMPANY_OVERLAP_SCAN_CAP);
-
-/* Build supplier-overlap matcher. Closed over the supplier list passed
-   in at component scope (since money-map.json is the prop, not an import
-   here — though in practice it IS imported via Dashboard). The matcher
-   tries Companies House first, then exact-normalised name, then a guarded
-   substring match (donor token-string contained in supplier token-string
-   or vice versa, both ≥ 6 chars). Substring is what catches e.g. donor
-   "William Cook Holdings Ltd" (norm: "william cook") against supplier
-   alias "Cook Defence Systems (William Cook Holdings)" (norm contains
-   "william cook"). Returns `{ supplierId, supplierLabel, matchedBy,
-   confidence }` or null. */
-function buildOverlapMatcher(suppliers) {
-  const byCH = new Map();              // CH number -> supplier
-  const byName = new Map();            // normalised name -> supplier
-  const nameEntries = [];              // [normalisedName, supplier] for substring scan
-  const singleTokenByLabel = new Map();// strong token -> supplier whose LABEL collapses to that single token
-  for (const s of suppliers) {
-    if (!s || s.kind !== "supplier") continue;
-    const ch = s.companiesHouse || s.chNumber || s.companyRegistration;
-    if (ch) byCH.set(String(ch).trim(), s);
-    const labels = [s.label, ...(s.aliases || [])].filter(Boolean);
-    for (const lbl of labels) {
-      const n = _normaliseFirmName(lbl);
-      if (n) {
-        if (!byName.has(n)) byName.set(n, s);
-        nameEntries.push([n, s]);
-      }
-    }
-    // Prefer the primary LABEL when keying single-token suppliers — alias
-    // overlap (e.g. "Deloitte MCS Limited" alias collapsing to "deloitte
-    // mcs") shouldn't shadow the canonical "Deloitte LLP" → "deloitte"
-    // mapping. We require the FULL normalised label to be a single
-    // strong token (≥ 6 chars) — that way "Deloitte LLP" (norm =
-    // "deloitte") qualifies but "Deloitte MCS Limited" (norm =
-    // "deloitte mcs") does not.
-    const labelN = _normaliseFirmName(s.label || "");
-    if (labelN && !labelN.includes(" ") && labelN.length >= 6) {
-      if (!singleTokenByLabel.has(labelN)) {
-        singleTokenByLabel.set(labelN, s);
-      }
-    }
-  }
-  return function matchDonor(donor) {
-    if (!donor) return null;
-    if (donor.donorStatus !== "Company" && donor.donorStatus !== "Limited Liability Partnership") return null;
-    if (donor.companyReg) {
-      const hit = byCH.get(String(donor.companyReg).trim());
-      if (hit) return { supplierId: hit.id, supplierLabel: hit.label, matchedBy: "companiesHouse", confidence: "high" };
-    }
-    const n = donor._normName || _normaliseFirmName(donor.name);
-    if (!n) return null;
-    if (byName.has(n)) {
-      const hit = byName.get(n);
-      return { supplierId: hit.id, supplierLabel: hit.label, matchedBy: "name", confidence: "high" };
-    }
-    // Two fuzzy fallbacks, in order:
-    //   (a) Token-overlap — ≥ 2 shared word-tokens (each ≥ 4 chars)
-    //       between donor and any supplier label/alias. Catches "William
-    //       Cook Holdings Ltd" → supplier alias "Cook Defence Systems
-    //       (William Cook Holdings)" where two strong tokens overlap.
-    //   (b) Single-token containment — when a supplier's normalised name
-    //       collapses to a SINGLE strong token (≥ 6 chars, e.g. supplier
-    //       "Deloitte LLP" → "deloitte"), match any donor whose
-    //       normalised name contains that token as its FIRST token
-    //       (catches "Deloitte LLP", "Deloitte & Touche LLP", etc.
-    //       without matching "ABC Deloitte Sub Ltd" — first-token-only
-    //       avoids the trailing-position false positive).
-    if (n.length >= 6) {
-      const donorTokens = n.split(/\s+/).filter((t) => t.length >= 4);
-      if (donorTokens.length >= 2) {
-        const dset = new Set(donorTokens);
-        for (const [skey, sval] of nameEntries) {
-          if (skey.length < 6) continue;
-          const supplierTokens = skey.split(/\s+/).filter((t) => t.length >= 4);
-          let shared = 0;
-          for (const t of supplierTokens) if (dset.has(t)) shared++;
-          if (shared >= 2) {
-            return { supplierId: sval.id, supplierLabel: sval.label, matchedBy: "token-overlap", confidence: "medium" };
-          }
-        }
-      }
-      const firstToken = (donorTokens[0] || n.split(/\s+/)[0] || "");
-      if (firstToken && firstToken.length >= 6) {
-        const hit = singleTokenByLabel.get(firstToken);
-        if (hit) {
-          return { supplierId: hit.id, supplierLabel: hit.label, matchedBy: "first-token", confidence: "medium" };
-        }
-      }
-    }
-    return null;
-  };
-}
-
-/* Merge two per-party donor breakdowns (used when a single supplier matches
-   multiple donor entries — e.g. "Ecotricity Limited" + "Ecotricity Group
-   Ltd" — and we want the overlay to reflect the combined giving). */
-function mergeDonorParties(a, b) {
-  const m = new Map();
-  for (const arr of [a || [], b || []]) {
-    for (const p of arr) {
-      if (!p || !p.partyId) continue;
-      if (!m.has(p.partyId)) m.set(p.partyId, { partyId: p.partyId, totalGBP: 0, donationCount: 0 });
-      const cur = m.get(p.partyId);
-      cur.totalGBP += p.totalGBP || 0;
-      cur.donationCount += p.donationCount || 0;
-    }
-  }
-  return Array.from(m.values()).sort((a, b) => b.totalGBP - a.totalGBP);
-}
-function pickDominantParty(parties) {
-  if (!parties || parties.length === 0) return null;
-  return parties[0].partyId;
-}
+/* COMPANY_DONORS_FROM_RECORDS, buildOverlapMatcher, mergeDonorParties,
+   pickDominantParty — all moved to ../lib/donor-aggregation.js (single
+   source of truth, shared with Dashboard cmd-K). Imported at the top of
+   this file. The COMPANY_OVERLAP_SCAN_CAP slice that used to wrap the
+   array here is no longer applied — the util emits the full ≈ 501-entry
+   set, well under any conceivable cap. */
 
 /* Format helper for donor £ — donations are smaller than contracts, so we
    show £k for sub-£1m amounts to keep precision useful. */

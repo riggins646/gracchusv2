@@ -5,6 +5,14 @@
     {
       "date": "2026-04-26",
       "type": "feature",
+      "title": "Cmd-K finds people, firms, parties, donors",
+      "summary": "The cmd-K palette now searches across the Money Map v2 layer too. Type 'paterson', 'deloitte', 'conservative' or 'unite' and the right entity surfaces; selecting a result jumps you to the Money Map with the lens centred on it. Discovery is no longer canvas-only \u2014 every connection in the catalogue is reachable from anywhere on the site.",
+      "view": "moneymap",
+      "metric": "+4 cmd-K entity types"
+    },
+    {
+      "date": "2026-04-26",
+      "type": "feature",
       "title": "Connections in Focus \u2014 stories on the homepage",
       "summary": "Three featured connection stories now sit above the fold on the homepage, picked weekly by ISO-week-of-year: one regulator-finding case, one live-proceedings case, one pattern case (cross-party hedger / donor-contractor). Drags first-time visitors into the Money Map v2 work without forcing them to navigate. Same data, new front door.",
       "view": "moneymap",
