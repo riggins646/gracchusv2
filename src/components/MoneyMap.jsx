@@ -3704,6 +3704,18 @@ export default function MoneyMap({
         if (d.type === "party") return "party";
         if (d.type === "donor") return `donor · ${fmtGBPDonor(d.totalGBP)}`;
         if (d.type === "lobbyist") return `lobbyist · ${d.matchedSupplierCount}/${d.totalClients}`;
+        // 2026-04-26 — relational nodes (person, adjacent firm, firm
+        // subjects) carry value:1 only as a force-simulation sizing
+        // hint; surfacing it as "£1" via the £-formatter was a real
+        // user-visible bug. They're not money flows. Show the kind
+        // instead.
+        if (d.type === "person") {
+          // Distinguish a firm-as-subject record from an individual
+          // — the personKind field was set in MoneyMapStoriesTab/Strip
+          // and is also on the augmented canvas node.
+          return d.personKind === "firm" ? "firm subject" : "person";
+        }
+        if (d.type === "adjacent_firm") return "adjacent firm";
         return d.value > 0 ? fmtGBP(d.value) : d.type;
       });
 
