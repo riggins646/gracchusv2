@@ -48,7 +48,7 @@
     { "m": "Jan 2026", "y2": 4.30, "y5": 4.38, "y10": 4.58, "y30": 5.28 },
     { "m": "Feb 2026", "y2": 4.32, "y5": 4.40, "y10": 4.62, "y30": 5.32 },
     { "m": "Mar 2026", "y2": 4.36, "y5": 4.42, "y10": 4.65, "y30": 5.35 },
-    { "m": "Apr 2026", "y2": 4.29, "y5": 4.40, "y10": 5.09, "y30": 5.51 }
+    { "m": "Apr 2026", "y2": 4.34, "y5": 4.38, "y10": 5.02, "y30": 5.58 }
   ],
   "debtMaturity": {
     "description": "UK government debt maturity profile by bucket, £bn nominal outstanding",
