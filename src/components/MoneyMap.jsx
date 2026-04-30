@@ -375,8 +375,8 @@ const TOURS = [
         focus: { kind: "supplier", id: "supplier-cook-defence-systems" },
       },
       {
-        title: "Lt Gen Laurence Lee \u2192 Palantir",
-        body: "Lt Gen Laurence Lee left a senior MoD role and joined Palantir Technologies UK in a post-office appointment ACOBA reviewed and approved. Palantir holds \u00a325m+ in MoD contracts including data analytics for the Federated Data Platform.",
+        title: "Laurence Lee CMG \u2192 Palantir",
+        body: "Laurence Lee CMG, Second Permanent Secretary at the MoD (March 2021 \u2013 May 2023, on secondment from the FCDO), and subsequently Director General at Large at the FCDO, was approved by ACOBA in August 2025 to take up a paid role as Geostrategic Advisor to the CEO of Palantir Technologies Limited (a non-UK role) subject to a six-month waiting period and two-year restrictions on UK-government engagement. Palantir is a long-standing UK supplier (MoD AI platform 2022; NHS England Federated Data Platform).",
         focus: { kind: "person", id: "person:lee-laurence" },
       },
       {

@@ -516,24 +516,41 @@
     },
     {
       "id": "lee-laurence",
-      "name": "Laurence Lee",
+      "name": "Laurence Lee CMG",
       "party": "none",
-      "headline": "Former Second Permanent Secretary at the Ministry of Defence; took up a paid geo-strategic adviser role with Palantir Technologies UK after leaving the civil service.",
+      "headline": "Second Permanent Secretary at the Ministry of Defence (March 2021 - May 2023, on secondment from the FCDO); subsequently Director General at Large at the FCDO; in August 2025 ACOBA approved his appointment as Geostrategic Advisor to the CEO of Palantir Technologies Limited subject to a six-month waiting period and two-year restrictions on advising on UK defence and national security matters or engaging the UK government on Palantir's behalf.",
       "rolesHeld": [
         {
           "title": "Second Permanent Secretary",
           "department": "Ministry of Defence",
-          "start": "2018-01",
-          "end": "2023-01"
+          "start": "2021-03",
+          "end": "2023-05",
+          "note": "Seconded from the Foreign, Commonwealth and Development Office. Last day in post 8 May 2023 (per ACOBA letter)."
         },
         {
-          "title": "Geo-strategic adviser, Palantir Technologies UK",
-          "department": "Palantir (private)",
-          "start": "2023-06",
-          "end": null
+          "title": "Director General at Large",
+          "department": "Foreign, Commonwealth and Development Office",
+          "start": "2023-05",
+          "end": null,
+          "note": "Returned to FCDO after MOD secondment; placed on restricted duties (HR/people matters only) per ACOBA letter."
+        },
+        {
+          "title": "Geostrategic Advisor to the CEO",
+          "department": "Palantir Technologies Limited",
+          "start": "2025-08",
+          "end": null,
+          "note": "Non-UK role. Approved by ACOBA in August 2025 subject to a six-month waiting period from his last day at the MOD and a two-year ban on advising on Palantir's UK defence and national security work or engaging the UK government on Palantir's behalf."
         }
       ],
       "externalLinks": [
+        {
+          "label": "ACOBA advice letter - Geostrategic Advisor to the CEO, Palantir Technologies Limited",
+          "url": "https://www.gov.uk/government/publications/lee-laurence-director-general-at-the-foreign-commonwealth-and-development-office-acoba-advice/advice-letter-laurence-lee-geostrategic-advisor-to-the-ceo-palantir-technologies-limited"
+        },
+        {
+          "label": "Laurence Lee CMG - GOV.UK people page",
+          "url": "https://www.gov.uk/government/people/laurence-lee"
+        },
         {
           "label": "Action on Armed Violence - From Whitehall to weapon factories",
           "url": "https://aoav.org.uk/2025/from-whitehall-to-weapon-factories-the-revolving-door-between-the-uk-government-and-britains-defence-industry-examined/"
@@ -1126,8 +1143,8 @@
       "connectionType": "vip_lane_referral",
       "status": "live_proceedings",
       "liveProceedings": true,
-      "summary": "Baroness Mone referred PPE Medpro into the government's 'VIP / high-priority' procurement lane, after which the firm won c. £203m of DHSC PPE contracts; the High Court has ordered PPE Medpro to repay c. £122m, and a National Crime Agency criminal investigation into her and her husband Doug Barrowman remains active.",
-      "detail": "PPE Medpro Ltd was incorporated in May 2020 and awarded two DHSC contracts totalling a reported £203m for face masks and sterile surgical gowns, entered through the 'VIP / high-priority lane' after a referral by Baroness Mone. For more than two years Mone and Doug Barrowman publicly denied any involvement with the firm; they later confirmed, in a BBC interview broadcast in December 2023, that Barrowman was the ultimate beneficial owner. Reporting indicates Barrowman received more than £60m in profits, with £29m transferred to a trust benefiting Mone and her children.\n\nIn 2024 the High Court ruled in favour of DHSC in its civil claim against PPE Medpro, ordering the firm to repay c. £122m for surgical gowns later deemed unsuitable for use. That judgment is a closed finding in the public record.\n\nSeparately, the National Crime Agency opened a criminal investigation in May 2021 and executed search warrants at Mone and Barrowman's homes and at PPE Medpro offices in April 2022; as of early 2026 that investigation is ongoing. The UK Covid-19 Inquiry declined a late bid by Mone to participate as a core participant in Module 5 (procurement). Mone took leave of absence from the House of Lords in December 2022. Gracchus reports only findings already entered into the public record.",
+      "summary": "Baroness Mone referred PPE Medpro into the government's high-priority ('VIP') procurement lane, after which the firm won two DHSC contracts totalling a reported c. £203m. In Secretary of State for Health and Social Care v PPE Medpro Limited [2025] EWHC 2486 (Comm), handed down by Mrs Justice Cockerill DBE on 1 October 2025, the Commercial Court found PPE Medpro in breach of contract on the c. 25 million sterile surgical gowns supplied under the second contract and ordered the company to repay approximately £122m to DHSC. A National Crime Agency criminal investigation into Mone and her husband Doug Barrowman remains active.",
+      "detail": "PPE Medpro Ltd was incorporated in May 2020 and awarded two DHSC contracts totalling a reported c. £203m - one for face masks and one for c. 25 million sterile surgical gowns - entered through the high-priority ('VIP') lane after a referral by Baroness Mone. For more than two years Mone and Doug Barrowman publicly denied any involvement with the firm; they later confirmed, in a BBC interview broadcast in December 2023, that Barrowman was the ultimate beneficial owner. Reporting indicates Barrowman received more than £60m in profits, with £29m transferred to a trust benefiting Mone and her children.\n\nIn Secretary of State for Health and Social Care v PPE Medpro Limited [2025] EWHC 2486 (Comm) (Case No: CL-2022-000676), Mrs Justice Cockerill DBE handed down judgment on 1 October 2025 in DHSC's civil breach-of-contract claim. The Commercial Court held that PPE Medpro had failed to demonstrate a validated sterilisation process for the gowns and lacked the required Notified Body certification under the relevant EU legislation, and was therefore in breach of the gowns contract. PPE Medpro was ordered to repay approximately £122m to DHSC. PPE Medpro disputes the finding and has stated the court ruled on a technicality; it failed to meet the court-ordered repayment deadline.\n\nSeparately, the National Crime Agency opened a criminal investigation in May 2021 and executed search warrants at Mone and Barrowman's homes and at PPE Medpro offices in April 2022; as of early 2026 that investigation is ongoing and no charges have been brought. The UK Covid-19 Inquiry declined a late bid by Mone to participate as a core participant in Module 5 (procurement). Mone took leave of absence from the House of Lords in December 2022. Gracchus reports only findings already entered into the public record.",
       "counterparty": {
         "kind": "supplier",
         "id": "supplier-ppe-medpro",
@@ -1147,14 +1164,32 @@
       },
       "regulatoryFindings": [
         {
-          "body": "High Court of England and Wales (civil)",
-          "date": "2024-11-06",
-          "quotedText": "PPE Medpro is liable to repay the sum of approximately £122m paid under the gowns contract, the gowns having been found not to conform to the contractual specification.",
-          "url": "https://goodlawproject.org/ppe-medpro-must-repay-122m-for-breach-of-contract/",
-          "outcome": "Judgment in favour of DHSC; PPE Medpro ordered to repay c. £122m. Appeal rights reserved."
+          "body": "High Court of England and Wales, Commercial Court (King's Bench Division)",
+          "neutralCitation": "[2025] EWHC 2486 (Comm)",
+          "caseName": "Secretary of State for Health and Social Care v PPE Medpro Limited",
+          "caseNumber": "CL-2022-000676",
+          "judge": "Mrs Justice Cockerill DBE",
+          "date": "2025-10-01",
+          "quotedText": "PPE Medpro is liable for breach of the gowns contract: it failed to demonstrate a validated sterilisation process and the gowns lacked the required Notified Body certification. PPE Medpro must repay approximately £122m paid under that contract.",
+          "url": "https://www.judiciary.uk/judgments/secretary-of-state-for-health-and-social-care-v-ppe-medpro/",
+          "outcome": "Judgment for DHSC on the gowns contract. PPE Medpro ordered to repay approximately £122m. PPE Medpro disputes the finding and missed the court-ordered repayment deadline. No personal court judgment against Baroness Mone or Doug Barrowman; the National Crime Agency criminal investigation opened May 2021 remains active and no charges have been brought."
         }
       ],
       "sources": [
+        {
+          "tier": "primary",
+          "title": "Secretary of State for Health and Social Care v PPE Medpro [2025] EWHC 2486 (Comm) - judgment PDF",
+          "publisher": "Courts and Tribunals Judiciary",
+          "url": "https://www.judiciary.uk/wp-content/uploads/2025/10/Secretary-of-State-for-Health-and-Social-Care-v-PPE-Medpro.pdf",
+          "date": "2025-10-01"
+        },
+        {
+          "tier": "primary",
+          "title": "Case page: Secretary of State for Health and Social Care v PPE Medpro",
+          "publisher": "Courts and Tribunals Judiciary",
+          "url": "https://www.judiciary.uk/judgments/secretary-of-state-for-health-and-social-care-v-ppe-medpro/",
+          "date": "2025-10-01"
+        },
         {
           "tier": "primary",
           "title": "Investigation into government procurement during the COVID-19 pandemic",
@@ -1163,11 +1198,11 @@
           "date": "2020-11-18"
         },
         {
-          "tier": "primary",
-          "title": "PPE Medpro must repay £122m for breach of contract — judgment summary",
-          "publisher": "Good Law Project (reporting High Court judgment)",
-          "url": "https://goodlawproject.org/ppe-medpro-must-repay-122m-for-breach-of-contract/",
-          "date": "2024-11-06"
+          "tier": "analysis",
+          "title": "The PPE Medpro Judgment",
+          "publisher": "Squire Patton Boggs",
+          "url": "https://www.squirepattonboggs.com/insights/publications/the-ppe-medpro-judgment/",
+          "date": "2025-10-02"
         },
         {
           "tier": "news",
@@ -1287,7 +1322,7 @@
           "title": "Propriety of Governance in Light of Greensill",
           "publisher": "Public Administration and Constitutional Affairs Committee",
           "url": "https://publications.parliament.uk/pa/cm5803/cmselect/cmpubadm/888/report.html",
-          "date": "2022-03-17"
+          "date": "2022-12-02"
         },
         {
           "tier": "analysis",
@@ -1332,7 +1367,7 @@
       "regulatoryFindings": [
         {
           "body": "Public Administration and Constitutional Affairs Committee",
-          "date": "2022-03-17",
+          "date": "2022-12-02",
           "quotedText": "Too little consideration appears to have been paid to the potential reputational risk of a senior civil servant taking up a paid private-sector role while still in Crown service.",
           "url": "https://publications.parliament.uk/pa/cm5803/cmselect/cmpubadm/888/report.html",
           "outcome": "No breach finding on the point at which Crothers was hired by Greensill, because Greensill had limited UK public-sector contracts at that time; dual-employment arrangement triggered the Boardman Review."
@@ -1344,7 +1379,7 @@
           "title": "Propriety of Governance in Light of Greensill",
           "publisher": "Public Administration and Constitutional Affairs Committee",
           "url": "https://publications.parliament.uk/pa/cm5803/cmselect/cmpubadm/888/report.html",
-          "date": "2022-03-17"
+          "date": "2022-12-02"
         },
         {
           "tier": "primary",
@@ -1417,7 +1452,7 @@
       "connectionType": "outside_earnings_during_office",
       "status": "public_record",
       "liveProceedings": false,
-      "summary": "Geoffrey Cox earned more than £6m from outside legal work during his time as Conservative MP for Torridge and West Devon - including more than £800,000 from Withers LLP for advising the Government of the British Virgin Islands in an inquiry set up by the UK Foreign Office to investigate alleged corruption in the BVI - all declared in the Register of Members' Financial Interests.",
+      "summary": "Geoffrey Cox earned more than £6m from outside legal work over his time as Conservative MP for Torridge and West Devon - including aggregate Withers LLP earnings of more than £800,000 over the period (over £150,000 of which related specifically to advising the Government of the British Virgin Islands in an inquiry set up by the UK Foreign Office) - all declared in the Register of Members' Financial Interests.",
       "detail": "Cox has practised at the Bar throughout his time as an MP, most prominently through Withers LLP. His outside earnings, declared in the Register of Members' Financial Interests, have consistently placed him among the highest-earning MPs of his era. Reporting by ITV News, The Week and Byline Times, drawing on the Register, put his outside earnings since the 2019 general election at more than £2m; wider reporting on his earnings across his time in Parliament places the total above £6m.\n\nHis largest single engagement has been advising the Government of the British Virgin Islands in connection with an inquiry set up by the UK Foreign Office to investigate alleged corruption in the BVI. Withers LLP's engagement with the BVI government was reported at a rate of £468,000 per year for 48 hours of work per month, with more than £150,000 specifically for BVI inquiry work and more than £800,000 in aggregate from Withers LLP over the period.\n\nIn 2016 the Standards Committee found Cox had committed a 'serious breach' of Commons rules by failing to register c. £400,000 of outside earnings (eleven payments) within the 28-day window. No subsequent breach finding has been made against Cox in relation to the BVI work specifically, and no finding of paid advocacy has been made. Cox maintains that the work does not breach any rules.\n\nGracchus records this connection as a matter of public fact: the earnings exist, they are declared in the Register, and they include work for a jurisdiction that was the subject of a UK-government-initiated inquiry. Gracchus does not assert any causal link to tracked Gracchus suppliers - there is none - and the record is carried as adjacent.",
       "counterparty": {
         "kind": "adjacent_firm",
@@ -1494,10 +1529,10 @@
       "regulatoryFindings": [
         {
           "body": "Advisory Committee on Business Appointments (ACOBA)",
-          "date": "2017-04-19",
-          "quotedText": "There were no specific policy decisions taken when you were Chancellor that would have affected BlackRock; and the Permanent Secretary to HM Treasury had no concerns about the appointment.",
+          "date": "2017-01-01",
+          "quotedText": "ACOBA advised that the appointment should be subject to the following conditions: a three-month waiting period from his last day in Ministerial office; that he should not draw on (disclose or use for the benefit of himself or BlackRock) any privileged information available to him from his time as a Minister; and that for two years from his last day in service he should not become personally involved in lobbying the UK Government on behalf of BlackRock Investment Institute or any part of the BlackRock Group or its clients.",
           "url": "https://www.gov.uk/government/publications/osborne-george-chancellor-of-the-exchequer-hm-treasury-acoba-recommendation",
-          "outcome": "Approved subject to standard conditions including a two-year lobbying ban."
+          "outcome": "Approved subject to (i) a three-month waiting period from last day in Ministerial office, (ii) no use or disclosure of privileged information, and (iii) a two-year ban on personally lobbying the UK Government on behalf of BlackRock. Public Administration and Constitutional Affairs Committee subsequently published HC 252 (24 April 2017) on the case."
         }
       ],
       "sources": [
@@ -1506,7 +1541,14 @@
           "title": "ACOBA recommendation - George Osborne, Chancellor of the Exchequer, HM Treasury",
           "publisher": "gov.uk (ACOBA)",
           "url": "https://www.gov.uk/government/publications/osborne-george-chancellor-of-the-exchequer-hm-treasury-acoba-recommendation",
-          "date": "2017-04-19"
+          "date": "2017-01-01"
+        },
+        {
+          "tier": "primary",
+          "title": "PACAC report HC 252 - The Business Appointment Rules: George Osborne (Public Administration and Constitutional Affairs Committee)",
+          "publisher": "parliament.uk",
+          "url": "https://publications.parliament.uk/pa/cm201617/cmselect/cmpubadm/252/252.pdf",
+          "date": "2017-04-24"
         },
         {
           "tier": "analysis",
@@ -1528,10 +1570,10 @@
       "id": "clegg-meta-global-affairs",
       "personId": "clegg-nick",
       "connectionType": "post_office_appointment",
-      "status": "closed_approved",
+      "status": "public_record",
       "liveProceedings": false,
-      "summary": "Nick Clegg joined Facebook as Vice-President of Global Affairs and Communications in October 2018, more than three years after leaving the Cabinet Office; he was promoted to President of Global Affairs in 2022 and stepped down in January 2025.",
-      "detail": "Clegg was Deputy Prime Minister from May 2010 to May 2015 and continued as MP for Sheffield Hallam until losing the seat in June 2017. In October 2018 he joined Facebook (now Meta Platforms) as Vice-President of Global Affairs and Communications, becoming its most senior non-US public-affairs executive. He was promoted to President, Global Affairs in February 2022, and stepped down in January 2025, replaced by Joel Kaplan.\n\nThe two-year ACOBA cooling-off period after Clegg's departure from government in 2015 had elapsed by the time of the Facebook appointment, so no ACOBA advice was sought or required. No regulator has made any finding of rule-breaking against him. The DCMS Select Committee separately sought answers from Clegg's office in 2019 over conflicting evidence Facebook had given about third-party data access; that exchange is on the public record.\n\nMeta is not a Gracchus-tracked prime supplier on the core 116 projects, but DCMS, the Home Office and Cabinet Office have had direct regulatory and policy engagement with the firm during the Online Safety Bill / Act period (2019-2023) and through the Digital Markets, Competition and Consumers Act. Gracchus carries this as a matter of public-interest record: a former Cabinet-level UK figure leading a US tech platform's engagement with the UK regulator.",
+      "summary": "Nick Clegg joined Facebook as Vice-President of Global Affairs and Communications in October 2018, more than three years after leaving the Cabinet Office in May 2015; he was promoted to President, Global Affairs in February 2022 and stepped down in January 2025. The appointment fell outside ACOBA's two-year window, so no ACOBA advice was sought or required.",
+      "detail": "Clegg was Deputy Prime Minister from May 2010 to May 2015 and continued as MP for Sheffield Hallam until losing the seat in June 2017. In October 2018 he joined Facebook (now Meta Platforms) as Vice-President of Global Affairs and Communications, becoming its most senior non-US public-affairs executive. He was promoted to President, Global Affairs in February 2022, and stepped down in January 2025, replaced by Joel Kaplan.\n\nThe two-year ACOBA window for ex-ministers runs from the last day in Crown service. Because Clegg left ministerial office in May 2015, the two-year window had expired before the Facebook appointment, so no ACOBA advice was sought or required and no ACOBA approval exists for this role. ACOBA did issue advice on Clegg's earlier post-government roles (Radix, the Social Market Foundation and the London Evening Standard) within the 2015-2017 window. No regulator has made any finding of rule-breaking against him. The DCMS Select Committee separately sought answers from Clegg's office in 2019 over conflicting evidence Facebook had given about third-party data access; that exchange is on the public record.\n\nMeta is not a Gracchus-tracked prime supplier on the core 116 projects, but DCMS, the Home Office and Cabinet Office have had direct regulatory and policy engagement with the firm during the Online Safety Bill / Act period (2019-2023) and through the Digital Markets, Competition and Consumers Act. Gracchus carries this as a matter of public-interest record: a former Cabinet-level UK figure leading a US tech platform's engagement with the UK regulator.",
       "counterparty": {
         "kind": "adjacent_firm",
         "name": "Meta Platforms (Facebook)",
@@ -1550,6 +1592,13 @@
       },
       "regulatoryFindings": [],
       "sources": [
+        {
+          "tier": "primary",
+          "title": "ACOBA recommendation - Nick Clegg, Deputy Prime Minister (covers 2015-2017 post-office roles only; the Facebook 2018 appointment fell outside ACOBA's two-year window)",
+          "publisher": "gov.uk (ACOBA)",
+          "url": "https://www.gov.uk/government/publications/clegg-nick-deputy-prime-minister-acoba-recommendation",
+          "date": "2015-11-01"
+        },
         {
           "tier": "primary",
           "title": "DCMS Committee correspondence with Facebook",
@@ -1657,33 +1706,33 @@
       "regulatoryFindings": [
         {
           "body": "Advisory Committee on Business Appointments (ACOBA)",
-          "date": "2021-08-12",
-          "quotedText": "There is a reasonable concern that the access you had to a senior Treasury official ... was only made available to OakNorth as a direct result of your time as Chancellor. This was an unwise step and your conduct on this occasion was not acceptable.",
+          "date": "2021-08-31",
+          "quotedText": "There is a reasonable concern that direct engagement with the Second Permanent Secretary at HMT was only made available to OakNorth as a direct result of your time as Chancellor. This was an unwise step and your conduct on this occasion was not acceptable.",
           "url": "https://www.gov.uk/government/publications/hammond-philip-chancellor-of-the-exchequer-hm-treasury-acoba-advice/correspondence-between-acoba-and-philip-hammond-regarding-oaknorth",
-          "outcome": "Public letter published by ACOBA finding the conduct 'not acceptable' but not 'blatant and deliberate'. No further sanction available to ACOBA."
+          "outcome": "Public ACOBA correspondence (Pickles to Hammond, 31 August 2021; published gov.uk 1 September 2021; updated 25 November 2021) finding the conduct 'not acceptable' but recognising it was 'not a blatant and deliberate attempt to breach the Rules'. No further sanction available to ACOBA."
         }
       ],
       "sources": [
         {
           "tier": "primary",
-          "title": "Correspondence between ACOBA and Philip Hammond regarding OakNorth",
+          "title": "Correspondence between ACOBA and Philip Hammond regarding OakNorth (letters of 13, 16 and 31 August 2021; updated November 2021)",
           "publisher": "gov.uk (ACOBA)",
           "url": "https://www.gov.uk/government/publications/hammond-philip-chancellor-of-the-exchequer-hm-treasury-acoba-advice/correspondence-between-acoba-and-philip-hammond-regarding-oaknorth",
-          "date": "2021-08-12"
+          "date": "2021-09-01"
         },
         {
           "tier": "news",
           "title": "Philip Hammond rebuked over bank lobbying allegations",
           "publisher": "openDemocracy",
           "url": "https://www.opendemocracy.net/en/dark-money-investigations/philip-hammond-rebuked-over-bank-lobbying-allegations/",
-          "date": "2021-08-12"
+          "date": "2021-09-01"
         },
         {
           "tier": "news",
           "title": "Ex-chancellor Philip Hammond accused of lobbying the Treasury by watchdog",
           "publisher": "City AM",
           "url": "https://www.cityam.com/ex-chancellor-philip-hammond-accused-of-lobbying-the-treasury-by-watchdog/",
-          "date": "2021-08-12"
+          "date": "2021-09-01"
         }
       ]
     },
@@ -1693,8 +1742,8 @@
       "connectionType": "post_office_appointment",
       "status": "live_proceedings",
       "liveProceedings": true,
-      "summary": "Priti Patel took up a strategic adviser role with US satellite-communications firm Viasat Inc. in 2019, paid at a reported £1,000 per hour, without seeking prior ACOBA clearance; in 2024 the Upper Tribunal (Administrative Appeals Chamber) ordered the Cabinet Office to disclose information about her compliance with the Ministerial Code and Business Appointment Rules.",
-      "detail": "Patel resigned as Secretary of State for International Development in November 2017. In 2019, while a backbench MP, she took up a paid strategic adviser role with Viasat Inc., a US-listed satellite-communications firm with UK defence-adjacent interests. The role was reported at a rate of £1,000 per hour. She subsequently returned to government as Home Secretary from July 2019 to September 2022.\n\nIt has been alleged that Patel did not seek ACOBA clearance before taking up the Viasat role, and that this represents a breach of the Business Appointment Rules and (during her time as Home Secretary) of the Ministerial Code. In 2024 the Upper Tribunal (Administrative Appeals Chamber) ordered the Cabinet Office to disclose information about Patel's compliance, in a case driven by Freedom of Information litigation. The substantive dispute about whether a breach occurred is live as of early 2026; Patel denies any breach.\n\nViasat is not a Gracchus-tracked prime contractor; it supplies secure satcoms to defence and government customers internationally. Gracchus carries this case in the public record because the Upper Tribunal disclosure ruling is a finding in the public domain, while flagging that the substantive question of breach is unresolved. Gracchus reports only what is already on the public record.",
+      "summary": "Priti Patel took up a strategic adviser role with US satellite-communications firm Viasat Inc. in May 2019, reportedly paid £5,000 a month for five hours' work, before seeking ACOBA advice. In Cabinet Office v The Information Commissioner and Sheppard (MP) [2024] UKUT 76 (AAC), the Upper Tribunal ordered the Cabinet Office to disclose information held about her engagement with Viasat under the Freedom of Information Act 2000. The substantive question of whether Patel breached the Business Appointment Rules or the Ministerial Code is not determined by that ruling and remains unresolved.",
+      "detail": "Patel resigned as Secretary of State for International Development in November 2017. In May 2019, while a backbench MP, she began a paid strategic adviser role with Viasat Inc., a US-listed satellite-communications firm with UK defence-adjacent interests, reportedly paid £5,000 a month for five hours' work. Reporting indicates she did not seek ACOBA advice on this appointment until approximately a month after starting the role. She subsequently returned to government as Home Secretary from July 2019 to September 2022.\n\nIn Cabinet Office v The Information Commissioner and Sheppard (MP) [2024] UKUT 76 (AAC), the Upper Tribunal (Administrative Appeals Chamber) considered an appeal arising from a Freedom of Information request brought by SNP MP Tommy Sheppard concerning the Cabinet Office's handling of Patel's Viasat appointment. The Upper Tribunal accepted that the Cabinet Office had correctly applied the s.36 FOIA exemption to the withheld information but held that the public interest balance favoured disclosure, and ordered the Cabinet Office to disclose the information (with limited redactions) within 35 days. The decision is an FOI disclosure ruling. It does not itself find that Patel breached the Business Appointment Rules or the Ministerial Code; the substantive question remains unresolved as of early 2026, and Patel denies any breach.\n\nViasat is not a Gracchus-tracked prime contractor; it supplies secure satcoms to defence and government customers internationally. Gracchus carries this case in the public record because the Upper Tribunal disclosure ruling is a finding in the public domain, while flagging that the substantive question of breach is unresolved. Gracchus reports only what is already on the public record.",
       "counterparty": {
         "kind": "adjacent_firm",
         "name": "Viasat Inc.",
@@ -1714,13 +1763,22 @@
       "regulatoryFindings": [
         {
           "body": "Upper Tribunal (Administrative Appeals Chamber)",
-          "date": "2024-05-01",
-          "quotedText": "The Cabinet Office is ordered to disclose information about the former Home Secretary's compliance with the Ministerial Code and the Business Appointment Rules in respect of her engagement with Viasat Inc.",
-          "url": "https://www.monckton.com/former-home-secretarys-compliance-with-the-ministerial-code-upper-tribunal-orders-disclosure-of-information/",
-          "outcome": "Disclosure ordered; substantive question of breach unresolved as of early 2026."
+          "neutralCitation": "[2024] UKUT 76 (AAC)",
+          "caseName": "Cabinet Office v The Information Commissioner and Sheppard (MP)",
+          "date": "2024-03-19",
+          "quotedText": "The Cabinet Office correctly applied the s.36 Freedom of Information Act 2000 exemption to the withheld information, but the public interest balance favours disclosure. The Cabinet Office is required to disclose the withheld information to the complainant, with all names redacted except those of the three individuals specified, within 35 days.",
+          "url": "https://www.gov.uk/administrative-appeals-tribunal-decisions/cabinet-office-v-the-information-commissioner-and-sheppard-mp-2024-ukut-76-aac",
+          "outcome": "FOI disclosure ordered. The substantive question of whether Patel breached the Business Appointment Rules or the Ministerial Code in respect of her Viasat appointment is not determined by this ruling and remains unresolved as of early 2026; Patel denies any breach."
         }
       ],
       "sources": [
+        {
+          "tier": "primary",
+          "title": "Cabinet Office v The Information Commissioner and Sheppard (MP) [2024] UKUT 76 (AAC)",
+          "publisher": "GOV.UK (Administrative Appeals Tribunal Decisions)",
+          "url": "https://www.gov.uk/administrative-appeals-tribunal-decisions/cabinet-office-v-the-information-commissioner-and-sheppard-mp-2024-ukut-76-aac",
+          "date": "2024-03-19"
+        },
         {
           "tier": "primary",
           "title": "ACOBA record - Priti Patel, Secretary of State, Department for International Development",
@@ -1729,9 +1787,9 @@
           "date": "2018-01-01"
         },
         {
-          "tier": "primary",
+          "tier": "analysis",
           "title": "Former Home Secretary's compliance with the Ministerial Code: Upper Tribunal orders disclosure of information",
-          "publisher": "Monckton Chambers (case note on Upper Tribunal ruling)",
+          "publisher": "Monckton Chambers (case note)",
           "url": "https://www.monckton.com/former-home-secretarys-compliance-with-the-ministerial-code-upper-tribunal-orders-disclosure-of-information/",
           "date": "2024-05-01"
         },
@@ -1750,29 +1808,49 @@
       "connectionType": "post_office_appointment",
       "status": "closed_approved",
       "liveProceedings": false,
-      "summary": "Laurence Lee, the MoD's former Second Permanent Secretary, took up a paid geo-strategic adviser role with Palantir Technologies UK after leaving the civil service; reporting indicates that while at the MoD he met Palantir executives nine times, accepted hospitality on four occasions, and oversaw negotiations for a reported £25m contract for the company before approaching it for a job shortly after his resignation.",
-      "detail": "Laurence Lee served as Second Permanent Secretary at the Ministry of Defence, the second most-senior civil-service position in the department. After leaving the MoD, he took up a paid geo-strategic adviser role with Palantir Technologies UK.\n\nReporting by Action on Armed Violence and Declassified UK indicates that during his time at the MoD, Lee met Palantir executives on nine occasions, accepted hospitality from the firm on four occasions, and oversaw negotiations for a reported £25m MoD contract for Palantir. He is reported to have approached Palantir for a job shortly after resigning from the civil service. ACOBA approved his post-Crown-service appointment subject to standard conditions including a cooling-off period and lobbying restrictions; no public breach finding has been made against Lee.\n\nLee's case is the single most documented named example in a wider pattern. Action on Armed Violence's analysis identified more than 120 applications by former senior military officers, civil servants and politicians to take paid positions with firms either holding or bidding for MoD contracts over the last decade. Other named transitions include Admiral Sir Philip Jones (former First Sea Lord, to BAE Systems in 2021), Air Marshal Sir Stuart Atha (to BAE Systems VP Military Operations) and Martyn Williams (former Head of Naval Ships, to BAE Systems Maritime). Transparency International UK, Spotlight on Corruption and the Committee on Standards in Public Life have called the regulatory framework 'not fit for purpose'. Palantir is a Gracchus-tracked supplier and the MoD is a tracked department.",
+      "summary": "Laurence Lee CMG was Second Permanent Secretary at the Ministry of Defence (March 2021 - May 2023, on secondment from the FCDO) and subsequently Director General at Large at the FCDO. In August 2025 ACOBA approved his appointment as Geostrategic Advisor to the CEO of Palantir Technologies Limited (a non-UK role) subject to a six-month waiting period and two-year restrictions on advising on Palantir's UK defence and national security work or engaging the UK government on Palantir's behalf.",
+      "detail": "Laurence Lee CMG was Second Permanent Secretary at the Ministry of Defence between March 2021 and 8 May 2023, on secondment from the Foreign, Commonwealth and Development Office. He returned to the FCDO in May 2023 as Director General at Large, on restricted duties (HR/people matters only) per the ACOBA letter. ACOBA's advice letter, published in August 2025, approved his appointment as Geostrategic Advisor to the CEO of Palantir Technologies Limited - explicitly described in the letter as a 'non-UK role'.\n\nThe ACOBA letter records that during his time at the MOD, Lee met Palantir on nine occasions between June 2021 and February 2023, that the MOD had been working with Palantir for over ten years, and that the MOD agreed a contract with Palantir at the end of 2022 for its AI platform to analyse intelligence data. ACOBA states: 'Mr Lee was not involved in the commercial discussions with Palantir, nor commercial escalations during the procurement.' The Committee found 'a limited risk this role could reasonably be seen as a reward for decisions or actions taken in office'.\n\nACOBA imposed the following conditions: (1) a waiting period of at least six months from his last day in post as Second Permanent Secretary at the MOD; (2) for two years after leaving Crown service he must not work or advise on Palantir's UK defence and national security work, and must not directly engage with the UK government or its arm's-length bodies on Palantir's behalf; (3) for two years he must not become personally involved in lobbying contacts developed in office; and (4) for two years he must not work for Palantir on any matter relating to the terms of, or subject matter of a bid with, or contract directly relating to, the UK government.\n\nSeparate reporting by Action on Armed Violence and Declassified UK has covered Lee's hospitality from Palantir, characterised the MOD-Palantir contract value, and placed the case in a wider pattern. ACOBA's letter does not itself quantify the relevant MOD contract value; the £25m figure that has appeared in press coverage is not stated in the ACOBA record. Palantir is a Gracchus-tracked supplier and the MOD is a tracked department.",
       "counterparty": {
         "kind": "supplier",
         "id": "supplier-palantir-technologies",
-        "name": "Palantir Technologies UK",
-        "note": "Tracked Gracchus supplier. The Ministry of Defence (buyer-ministry-of-defence) is the tracked counterparty department."
+        "name": "Palantir Technologies Limited",
+        "note": "ACOBA-named contracting entity. Role described in the ACOBA letter as a non-UK role. The UK Companies House subsidiary 'Palantir Technologies UK Limited' (company no. 09573110) is a separate legal entity. The Ministry of Defence (buyer-ministry-of-defence) is the tracked counterparty department."
       },
       "timeframe": {
-        "start": "2023-06",
+        "start": "2025-08",
         "end": null,
-        "periodLabel": "Jun 2023 - ongoing (Palantir adviser)"
+        "periodLabel": "ACOBA-approved Aug 2025 - ongoing (Palantir Geostrategic Advisor)"
       },
       "financial": {
         "personalIncomeGBP": null,
-        "personalIncomeDescription": "Remuneration from Palantir not publicly disclosed",
-        "relatedContractsGBP": 25000000,
-        "relatedContractsDescription": "Reported £25m MoD contract negotiated for Palantir during Lee's tenure as Second Permanent Secretary"
+        "personalIncomeDescription": "Remuneration from Palantir not publicly disclosed in the ACOBA letter.",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "ACOBA records that the MOD agreed a contract with Palantir at the end of 2022 for an AI platform to analyse intelligence data, and that the MOD had been working with Palantir for over ten years. The ACOBA letter does not state a contract value. Press reporting (Action on Armed Violence, Declassified UK) has cited a c. £25m MOD contract figure, but ACOBA also states that 'Mr Lee was not involved in the commercial discussions with Palantir, nor commercial escalations during the procurement'."
       },
-      "regulatoryFindings": [],
+      "regulatoryFindings": [
+        {
+          "regulator": "ACOBA",
+          "outcome": "Approved with conditions",
+          "summary": "Six-month waiting period from last day at the MOD; two-year ban on advising on Palantir's UK defence and national security work; no direct engagement with UK government or its arm's-length bodies on Palantir's behalf for two years; two-year restrictions on lobbying contacts developed in office and on UK-government bid/contract-related advice."
+        }
+      ],
       "sources": [
         {
           "tier": "primary",
+          "title": "Advice Letter: Laurence Lee, Geostrategic Advisor to the CEO, Palantir Technologies Limited",
+          "publisher": "Advisory Committee on Business Appointments (ACOBA), GOV.UK",
+          "url": "https://www.gov.uk/government/publications/lee-laurence-director-general-at-the-foreign-commonwealth-and-development-office-acoba-advice/advice-letter-laurence-lee-geostrategic-advisor-to-the-ceo-palantir-technologies-limited",
+          "date": "2025-08-29"
+        },
+        {
+          "tier": "primary",
+          "title": "Laurence Lee CMG - GOV.UK people page",
+          "publisher": "GOV.UK",
+          "url": "https://www.gov.uk/government/people/laurence-lee",
+          "date": null
+        },
+        {
+          "tier": "news",
           "title": "From Whitehall to weapon factories: the revolving door between the UK government and Britain's defence industry examined",
           "publisher": "Action on Armed Violence",
           "url": "https://aoav.org.uk/2025/from-whitehall-to-weapon-factories-the-revolving-door-between-the-uk-government-and-britains-defence-industry-examined/",
@@ -1856,8 +1934,8 @@
       "connectionType": "spousal_political_role",
       "status": "closed_with_finding",
       "liveProceedings": false,
-      "summary": "Baroness Dido Harding was appointed by Health Secretary Matt Hancock in May 2020 to lead NHS Test & Trace, a DHSC-budget programme later put at £37bn over two years by the Public Accounts Committee; the High Court ruled in 2022 that her appointment as Chair of the National Institute for Health Protection was unlawful, while her husband - Conservative MP John Penrose - simultaneously served as the Government's Anti-Corruption Champion.",
-      "detail": "Baroness Harding was appointed Executive Chair of NHS Test & Trace in May 2020 by Health Secretary Matt Hancock, and Interim Chair of the National Institute for Health Protection in August 2020. The NHS Test & Trace programme's audited costs were put at £37bn over two years by the Commons Public Accounts Committee. Tracked Gracchus suppliers on NHS Test & Trace included Serco, Sitel, Deloitte and Accenture.\n\nIn 2022 the High Court ruled, on a judicial review brought by the Good Law Project and the Runnymede Trust, that the appointment of Harding as Chair of the National Institute for Health Protection had been unlawful because the post had not been advertised or subject to open competition, and that indirect discrimination had occurred. The court did not order any personal sanction against Harding; the finding is one against the appointment process.\n\nHarding's husband, John Penrose, was Conservative MP for Weston-super-Mare from 2005 to 2024 and served as the Government's Anti-Corruption Champion from 2017. Reporting by openDemocracy notes that Penrose was also a member of the advisory board of the think tank 1828, which advocated replacing the NHS with an insurance model and scrapping Public Health England. Penrose has not been found by any regulator to have breached standards in connection with his wife's appointment. Gracchus carries this connection because the spousal-political overlap and the High Court's unlawfulness finding on the appointment process are both in the public record.",
+      "summary": "Baroness Dido Harding was appointed by Health Secretary Matt Hancock in May 2020 to lead NHS Test & Trace, a DHSC programme whose audited costs were later put at up to £37bn over two years by the Commons Public Accounts Committee; in February 2022 the High Court ruled in R (Good Law Project & Runnymede Trust) v Prime Minister & SSHSC [2022] EWHC 298 (Admin) that the Secretary of State had breached the public sector equality duty under section 149 of the Equality Act 2010 in relation to the process by which Harding was appointed Chair of the National Institute for Health Protection (and the appointment of Mike Coupe). Her husband, Conservative MP John Penrose, served as the Government's Anti-Corruption Champion 2017-2024.",
+      "detail": "Baroness Harding was appointed Executive Chair of NHS Test & Trace in May 2020 by Health Secretary Matt Hancock, and Interim Chair of the National Institute for Health Protection in August 2020. The NHS Test & Trace programme's audited costs were put at up to £37bn over two years by the Commons Public Accounts Committee. Tracked Gracchus suppliers on NHS Test & Trace included Serco, Sitel, Deloitte and Accenture.\n\nIn R (Good Law Project & Runnymede Trust) v Prime Minister & SSHSC [2022] EWHC 298 (Admin), handed down on 15 February 2022, the High Court (Administrative Court) considered judicial review challenges to four appointment decisions. The court found that the Secretary of State for Health and Social Care had breached the public sector equality duty under section 149 of the Equality Act 2010 in relation to the process by which it was decided to appoint Harding as Interim Chair of the National Institute for Health Protection, and similarly in relation to the appointment of Mike Coupe as director of testing at NHS Test and Trace. The court did not find that any individual appointee had been discriminated against, and made no personal finding against Harding. The Good Law Project's claim was dismissed in its entirety on standing grounds; the public-sector-equality-duty findings were obtained by the Runnymede Trust. Claims against the Prime Minister and concerning the appointment of Kate Bingham to lead the Vaccines Task Force were dismissed.\n\nHarding's husband, John Penrose, was Conservative MP for Weston-super-Mare from 2005 to 2024 and served as the Government's Anti-Corruption Champion from December 2017. Reporting by openDemocracy notes that Penrose was also a member of the advisory board of the think tank 1828. Penrose has not been found by any regulator to have breached standards in connection with his wife's appointment. Gracchus carries this connection because the spousal-political overlap and the High Court's PSED-breach finding on the appointment process are both in the public record.",
       "counterparty": {
         "kind": "buyer",
         "id": "buyer-department-of-health-and-social-care",
@@ -1877,20 +1955,37 @@
       },
       "regulatoryFindings": [
         {
-          "body": "High Court of England and Wales (judicial review)",
+          "body": "High Court of England and Wales, Administrative Court",
+          "neutralCitation": "[2022] EWHC 298 (Admin)",
+          "caseName": "R (Good Law Project & Runnymede Trust) v Prime Minister & Secretary of State for Health and Social Care",
+          "caseNumber": "CO/4240/2020",
           "date": "2022-02-15",
-          "quotedText": "The Secretary of State acted unlawfully in appointing the claimant to the position of Chair of the National Institute for Health Protection without open competition; that decision involved indirect discrimination.",
-          "url": "https://goodlawproject.org/",
-          "outcome": "Appointment ruled unlawful; no personal sanction against Harding. Finding directed at the appointment process, not the appointee."
+          "quotedText": "The Secretary of State for Health and Social Care breached the public sector equality duty under section 149 of the Equality Act 2010 in respect of the decision to appoint Baroness Harding as Interim Chair of the National Institute for Health Protection and in respect of the decision to appoint Mike Coupe as Director of Testing.",
+          "url": "https://www.judiciary.uk/judgments/the-queen-on-the-application-of-1-good-law-project-2-runnymede-trust-v-1-prime-minister-sshsc/",
+          "outcome": "PSED breach declared in respect of the appointment processes for Harding (NIHP) and Coupe; no individual finding of discrimination against any appointee and no personal sanction against Harding. Good Law Project's claim dismissed in its entirety on standing grounds; PSED findings obtained by the Runnymede Trust. Claims against the Prime Minister and re: Kate Bingham dismissed."
         }
       ],
       "sources": [
         {
           "tier": "primary",
-          "title": "Good Law Project judicial review on Dido Harding NIHP appointment",
-          "publisher": "Good Law Project",
-          "url": "https://goodlawproject.org/",
+          "title": "R (Good Law Project & Runnymede Trust) v Prime Minister & SSHSC [2022] EWHC 298 (Admin) - judgment PDF",
+          "publisher": "Courts and Tribunals Judiciary",
+          "url": "https://www.judiciary.uk/wp-content/uploads/2022/02/The-Queen-on-the-application-of-1-Good-Law-Project-2-Runnymede-Trust-v-1-Prime-Minister-SSHSC-judgment.pdf",
           "date": "2022-02-15"
+        },
+        {
+          "tier": "primary",
+          "title": "Case page: R (Good Law Project & Runnymede Trust) v Prime Minister & SSHSC",
+          "publisher": "Courts and Tribunals Judiciary",
+          "url": "https://www.judiciary.uk/judgments/the-queen-on-the-application-of-1-good-law-project-2-runnymede-trust-v-1-prime-minister-sshsc/",
+          "date": "2022-02-15"
+        },
+        {
+          "tier": "analysis",
+          "title": "High Court considers judicial review of public sector appointments made during the pandemic",
+          "publisher": "Herbert Smith Freehills Kramer",
+          "url": "https://www.hsfkramer.com/notes/publiclaw/2022-04/high-court-considers-judicial-review-of-public-sector-appointments-made-during-the-pandemic",
+          "date": "2022-04-01"
         },
         {
           "tier": "news",
@@ -1985,8 +2080,8 @@
       "connectionType": "vip_lane_referral",
       "status": "closed_with_finding",
       "liveProceedings": false,
-      "summary": "Meller Designs Ltd, co-owned by Conservative donor David Meller, was awarded c. £164m of PPE contracts without competitive tender after referral via the 'VIP / high-priority lane' by Cabinet Office Minister Michael Gove; the High Court subsequently ruled the operation of the VIP lane unlawful, and Meller has admitted deleting emails relevant to the referral.",
-      "detail": "Meller Designs Ltd, normally a fashion / homeware manufacturer, was awarded six PPE contracts during the COVID-19 pandemic worth a reported c. £164m. The contracts were awarded without competitive tender after the firm was routed through the Government's 'VIP / high-priority lane' following a referral by Cabinet Office Minister Michael Gove. Meller is a long-standing Conservative donor, with reported donations of more than £63,000 to the Conservative Party since 2009, and a former trustee of Policy Exchange.\n\nIn 2022 the High Court ruled, on a judicial review brought by the Good Law Project, that the operation of the VIP lane was unlawful: it had treated VIP-lane referrals preferentially in breach of the duty of equal treatment of suppliers under public-procurement law. The judgment is one against the operation of the lane rather than against any individual firm. Meller Designs reportedly made £13m profit after tax in 2020, and analysis indicated three of its six PPE contracts were priced above the average for comparable items.\n\nIn February 2024, reporting by Byline Times disclosed that Meller had admitted deleting emails relevant to the VIP-lane referral. As of early 2026 there is no criminal investigation in the public record against Meller personally. Meller Designs is not on Gracchus's canonical tracked-suppliers list (DHSC is the tracked buyer); the firm is carried as adjacent. Gracchus reports only the documented public-record findings.",
+      "summary": "Meller Designs Ltd, co-owned by Conservative donor David Meller, was awarded six DHSC PPE contracts worth a reported c. £164m during the COVID-19 pandemic after the firm was routed through the Government's high-priority ('VIP') referral lane following a referral by Cabinet Office Minister Michael Gove. In R (Good Law Project & EveryDoctor) v SSHSC [2022] EWHC 46 (TCC), Mrs Justice O'Farrell held that the operation of the high-priority lane was in breach of the equal-treatment obligation under the Public Contracts Regulations 2015 in respect of the contracts awarded to PestFix and Ayanda Capital, but refused relief because the contracts would highly likely have been awarded anyway. Meller Designs was not a party to that judicial review and is not the subject of any court finding. Reporting by Byline Times in February 2024 stated Meller had acknowledged deleting emails relevant to the VIP-lane referral.",
+      "detail": "Meller Designs Ltd, normally a fashion / homeware manufacturer, was awarded six PPE contracts during the COVID-19 pandemic worth a reported c. £164m. Reporting indicates the contracts were awarded without competitive tender after the firm was routed through the Government's 'VIP / high-priority lane' following a referral by Cabinet Office Minister Michael Gove. Meller is a long-standing Conservative donor, with reported donations of more than £63,000 to the Conservative Party since 2009, and a former trustee of Policy Exchange.\n\nIn R (Good Law Project & EveryDoctor) v Secretary of State for Health and Social Care [2022] EWHC 46 (TCC), handed down by Mrs Justice O'Farrell on 12 January 2022, the High Court (Technology and Construction Court) considered specific contracts awarded to Pestfix (c. £342m) and Ayanda Capital (c. £252m). The court declared that the operation of the high-priority lane was in breach of the equal-treatment obligation under the Public Contracts Regulations 2015 in those two cases, but refused to grant any further remedy on the basis that 'it is highly likely that the outcome would not have been substantially different' - i.e. that Pestfix and Ayanda would have been awarded contracts even without the high-priority lane, because their offers 'justified priority treatment on its merits'. Meller Designs was not a party to those proceedings and the judgment makes no specific finding about Meller Designs' contracts.\n\nMeller Designs reportedly made £13m profit after tax in 2020 and analysis by openDemocracy indicated three of its six PPE contracts were priced above the average for comparable items. In February 2024, reporting by Byline Times stated that Meller had acknowledged deleting emails relevant to the VIP-lane referral. As of early 2026 there is no criminal investigation in the public record against Meller personally and no court or regulator has made a finding against him. Meller Designs is not on Gracchus's canonical tracked-suppliers list (DHSC is the tracked buyer); the firm is carried as adjacent. Gracchus reports only the documented public-record findings.",
       "counterparty": {
         "kind": "adjacent_firm",
         "name": "Meller Designs Ltd",
@@ -2005,16 +2100,33 @@
       },
       "regulatoryFindings": [
         {
-          "body": "High Court of England and Wales (judicial review)",
+          "body": "High Court of England and Wales, Technology and Construction Court",
+          "neutralCitation": "[2022] EWHC 46 (TCC)",
+          "caseName": "R (Good Law Project & EveryDoctor) v Secretary of State for Health and Social Care",
           "date": "2022-01-12",
+          "judge": "Mrs Justice O'Farrell DBE",
           "quotedText": "The operation of the high-priority lane was in breach of the obligation of equal treatment under the Public Contracts Regulations 2015. Offers that were made through the high-priority lane were treated as more credible or as having greater merit ... the Defendant was unable to demonstrate that this preferential treatment was justified.",
-          "url": "https://goodlawproject.org/conservative-politicians-vip-lane/",
-          "outcome": "VIP lane ruled unlawful (Good Law Project judicial review). No personal sanction against Meller."
+          "url": "https://www.bailii.org/ew/cases/EWHC/TCC/2022/46.html",
+          "outcome": "Declaration that the operation of the high-priority lane in respect of the Pestfix and Ayanda Capital contracts breached the equal-treatment obligation under the Public Contracts Regulations 2015. Court refused further relief: held it 'highly likely' the outcome would not have been substantially different and that Pestfix and Ayanda offers 'justified priority treatment on [their] merits'. The judgment makes no finding specific to Meller Designs and there is no personal finding against Meller."
         }
       ],
       "sources": [
         {
           "tier": "primary",
+          "title": "R (Good Law Project & EveryDoctor) v Secretary of State for Health and Social Care [2022] EWHC 46 (TCC) - judgment",
+          "publisher": "British and Irish Legal Information Institute (BAILII)",
+          "url": "https://www.bailii.org/ew/cases/EWHC/TCC/2022/46.html",
+          "date": "2022-01-12"
+        },
+        {
+          "tier": "analysis",
+          "title": "'VIP lane' for PPE contracts unlawful, High Court rules",
+          "publisher": "Law Gazette",
+          "url": "https://www.lawgazette.co.uk/news/vip-lane-for-ppe-contracts-unlawful-high-court-rules/5111112.article",
+          "date": "2022-01-12"
+        },
+        {
+          "tier": "news",
           "title": "LEAKED: The Conservative politicians who referred companies to the PPE 'VIP lane'",
           "publisher": "Good Law Project",
           "url": "https://goodlawproject.org/conservative-politicians-vip-lane/",
@@ -2064,6 +2176,13 @@
       "sources": [
         {
           "tier": "primary",
+          "title": "Investigation into government procurement during the COVID-19 pandemic",
+          "publisher": "National Audit Office",
+          "url": "https://www.nao.org.uk/reports/government-procurement-during-the-covid-19-pandemic/",
+          "date": "2020-11-18"
+        },
+        {
+          "tier": "news",
           "title": "REVEALED: Profits jumped 500% at Uniserve",
           "publisher": "Good Law Project",
           "url": "https://goodlawproject.org/update/uniserve-profits-500-vip-contracts/",
@@ -2082,13 +2201,6 @@
           "publisher": "Byline Times",
           "url": "https://bylinetimes.com/2021/03/31/mapping-the-pandemic-contracts-to-conservative-associates/",
           "date": "2021-03-31"
-        },
-        {
-          "tier": "primary",
-          "title": "Investigation into government procurement during the COVID-19 pandemic",
-          "publisher": "National Audit Office",
-          "url": "https://www.nao.org.uk/reports/government-procurement-during-the-covid-19-pandemic/",
-          "date": "2020-11-18"
         }
       ]
     },
@@ -2660,10 +2772,10 @@
       "regulatoryFindings": [
         {
           "body": "Advisory Committee on Business Appointments (ACOBA)",
-          "date": "2022-03",
-          "quotedText": "Correspondence between ACOBA and John Whittingdale regarding Alphasights & the Betting and Gaming Council.",
+          "date": "2022-04-11",
+          "quotedText": "Correspondence published 11 April 2022 records Whittingdale's position that 'I did not consult ACOBA on these activities as I believe that the Guidance makes clear that I am not required to do so' in relation to AlphaSights Ltd advisory engagements (entries 13 December 2021 and 14 February 2022) and a payment from the Betting and Gaming Council for a speech (entry 14 February 2022).",
           "url": "https://www.gov.uk/government/publications/whittingdale-john-former-secretary-of-state-for-culture-media-and-sport-dcms-acoba-recommendation/correspondence-between-acoba-and-john-whittingdale-regarding-alphasights-the-betting-and-gaming-council",
-          "outcome": "ACOBA correspondence published recording that Whittingdale did not seek prior ACOBA advice before taking the Alphasights consulting role on the Betting and Gaming Council brief."
+          "outcome": "ACOBA correspondence published 11 April 2022 (with Whittingdale's response of 23 March 2022). ACOBA records that Whittingdale did not seek prior ACOBA advice on these engagements; Whittingdale maintains the activities fell within Guidance exemptions for one-off engagements. No further sanction available to ACOBA."
         }
       ],
       "sources": [
@@ -2683,17 +2795,17 @@
         },
         {
           "tier": "primary",
-          "title": "Correspondence between ACOBA and John Whittingdale regarding Alphasights & the Betting and Gaming Council",
+          "title": "Correspondence between ACOBA and John Whittingdale regarding Alphasights & the Betting and Gaming Council (Whittingdale to ACOBA 23 March 2022; ACOBA letter published 11 April 2022)",
           "publisher": "gov.uk (ACOBA)",
           "url": "https://www.gov.uk/government/publications/whittingdale-john-former-secretary-of-state-for-culture-media-and-sport-dcms-acoba-recommendation/correspondence-between-acoba-and-john-whittingdale-regarding-alphasights-the-betting-and-gaming-council",
-          "date": "2022-03-01"
+          "date": "2022-04-11"
         },
         {
           "tier": "news",
           "title": "Former UK gambling minister did not seek permission for £1,000-an-hour second job",
           "publisher": "Business Insider",
           "url": "https://www.businessinsider.in/politics/world/news/former-uk-gambling-minister-did-not-seek-permission-for-1000-an-hour-second-job/articleshow/90383889.cms",
-          "date": "2022-03-01"
+          "date": "2022-03-25"
         }
       ]
     }
