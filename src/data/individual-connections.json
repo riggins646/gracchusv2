@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-04-26",
-  "editorialNotes": "Every connection must have >=1 source with tier=\"primary\" (gov.uk/parliament.uk/court record). Connections with liveProceedings=true render a cautionary banner and must quote only official findings in the public record. Person IDs are kebab-case (surname-given for individuals; firm-<slug> for firms). Each person record carries a kind field: \"person\" (individual political figure or civil servant) or \"firm\" (company subject — used for donor-contractor pattern records). Counterparty IDs match the canonical IDs used elsewhere in Gracchus; adjacent_firm entries carry no ID.",
+  "updatedAt": "2026-04-30",
+  "editorialNotes": "Every connection must have >=1 source with tier=\"primary\" (gov.uk/parliament.uk/court record). Connections with liveProceedings=true render a cautionary banner and must quote only official findings in the public record. Person IDs are kebab-case (surname-given for individuals; firm-<slug> for firms). Each person record carries a kind field: \"person\" (individual political figure or civil servant) or \"firm\" (company subject — used for donor-contractor pattern records). Counterparty IDs match the canonical IDs used elsewhere in Gracchus; adjacent_firm entries carry no ID. Note: ACOBA (the Advisory Committee on Business Appointments) closed on 13 October 2025; its functions transferred to the Independent Adviser on Ministerial Standards (for ministers) and the Civil Service Commission (for senior civil servants and special advisers). Records dated before 13 October 2025 cite ACOBA as the regulator; records dated on or after 13 October 2025 cite the Independent Adviser on Ministerial Standards or the Civil Service Commission as appropriate.",
   "connectionTypes": {
     "post_office_appointment": "Ex-minister or senior civil servant joined a firm after leaving office",
     "dual_role": "Held private-sector role while still in public office",
@@ -1067,6 +1067,180 @@
         {
           "label": "Wikipedia",
           "url": "https://en.wikipedia.org/wiki/John_Whittingdale"
+        }
+      ],
+      "kind": "person"
+    },
+    {
+      "id": "rayner-angela",
+      "name": "Angela Rayner",
+      "party": "labour",
+      "headline": "Labour MP for Ashton-under-Lyne since May 2015. Deputy Prime Minister and Secretary of State for Housing, Communities and Local Government (5 July 2024 - 5 September 2025); Deputy Leader of the Labour Party (April 2020 - 5 September 2025). Resigned all government and party-leadership posts on 5 September 2025 after the Independent Adviser on Ministerial Standards found she had breached the Ministerial Code over an underpayment of stamp duty land tax on a property purchase in Hove.",
+      "rolesHeld": [
+        {
+          "title": "MP for Ashton-under-Lyne",
+          "department": "House of Commons",
+          "start": "2015-05",
+          "end": null
+        },
+        {
+          "title": "Deputy Leader of the Labour Party",
+          "department": "Labour Party",
+          "start": "2020-04",
+          "end": "2025-09"
+        },
+        {
+          "title": "Deputy Prime Minister",
+          "department": "Cabinet Office",
+          "start": "2024-07",
+          "end": "2025-09",
+          "note": "Resigned 5 September 2025."
+        },
+        {
+          "title": "Secretary of State for Housing, Communities and Local Government",
+          "department": "Ministry of Housing, Communities and Local Government",
+          "start": "2024-07",
+          "end": "2025-09",
+          "note": "Resigned 5 September 2025."
+        },
+        {
+          "title": "Speaker, Chartwell Speakers (post-resignation)",
+          "department": "Chartwell Partners Ltd",
+          "start": "2026-01",
+          "end": null,
+          "note": "Independent Adviser on Ministerial Standards advice published 15 January 2026 with two-year UK-government lobbying restrictions."
+        }
+      ],
+      "externalLinks": [
+        {
+          "label": "Independent Adviser on Ministerial Standards letter on Rayner SDLT - GOV.UK",
+          "url": "https://www.gov.uk/government/publications/letter-from-the-independent-adviser-on-ministerial-standards-exchange-of-letters-between-the-prime-minister-and-angela-rayner-mp"
+        },
+        {
+          "label": "Advice letter - Angela Rayner, Speaker, Chartwell Speakers - GOV.UK",
+          "url": "https://www.gov.uk/government/publications/angela-rayner-deputy-prime-minister-and-secretary-of-state-for-housing-communities-and-local-government-at-the-ministry-of-housing-communities-and/advice-letter-angela-rayner-speaker-chartwell-speakers"
+        },
+        {
+          "label": "Register of Interests for Angela Rayner - parliament.uk",
+          "url": "https://members.parliament.uk/member/4356/registeredinterests"
+        }
+      ],
+      "kind": "person"
+    },
+    {
+      "id": "gove-michael",
+      "name": "Lord Gove",
+      "party": "conservative",
+      "headline": "Conservative MP for Surrey Heath May 2005 - May 2024 (stood down at the 2024 general election); held multiple Cabinet positions including Secretary of State for Education (2010-2014), Lord Chancellor and Justice Secretary (2015-2016), Environment Secretary (2017-2019), Cabinet Office Minister (2019-2021) and Secretary of State for Levelling Up, Housing and Communities (2021-2022 and 2022-2024); created Baron Gove of Torry, a life peer, in November 2024. Editor of The Spectator since October 2024.",
+      "rolesHeld": [
+        {
+          "title": "MP for Surrey Heath",
+          "department": "House of Commons",
+          "start": "2005-05",
+          "end": "2024-05"
+        },
+        {
+          "title": "Secretary of State for Levelling Up, Housing and Communities",
+          "department": "Ministry of Housing, Communities and Local Government",
+          "start": "2022-10",
+          "end": "2024-07"
+        },
+        {
+          "title": "Member of the House of Lords",
+          "department": "House of Lords",
+          "start": "2024-11",
+          "end": null
+        },
+        {
+          "title": "Editor",
+          "department": "The Spectator (private)",
+          "start": "2024-10",
+          "end": null
+        },
+        {
+          "title": "Speaker, Chartwell Speakers Bureau",
+          "department": "Chartwell Speakers Bureau (private)",
+          "start": "2026-03",
+          "end": null,
+          "note": "Independent Adviser on Ministerial Standards advice March 2026 with two-year UK-government lobbying restrictions."
+        }
+      ],
+      "externalLinks": [
+        {
+          "label": "Lord Gove - advice under the Business Appointment Rules - GOV.UK",
+          "url": "https://www.gov.uk/government/publications/lord-gove-former-secretary-of-state-for-levelling-up-housing-and-communities-and-minister-for-intergovernmental-relations-advice-under-the-gove"
+        },
+        {
+          "label": "Advice letter - Michael Gove, Speaker, Chartwell Speakers Bureau - GOV.UK",
+          "url": "https://www.gov.uk/government/publications/lord-gove-former-secretary-of-state-for-levelling-up-housing-and-communities-and-minister-for-intergovernmental-relations-advice-under-the-gove/advice-letter-michael-gove-speaker-chartwell-speakers-bureau"
+        },
+        {
+          "label": "Register of Interests for Lord Gove - parliament.uk",
+          "url": "https://members.parliament.uk/member/1571/registeredinterests"
+        }
+      ],
+      "kind": "person"
+    },
+    {
+      "id": "bridgen-andrew",
+      "name": "Andrew Bridgen",
+      "party": "none",
+      "headline": "Conservative MP for North West Leicestershire May 2010 - April 2023; sat as Independent April-May 2023 and as Reclaim Party MP May 2023 - July 2024 after losing the Conservative whip; lost his seat at the 5 July 2024 general election. The Committee on Standards's Second Report of Session 2024-25 (HC 832, 1 May 2025) found that he had breached the Code of Conduct by failing to register an interest-free loan of £4,470,576 from Conservative donor Jeremy Hosking within the 28-day timeframe; the loan was registered 1,135 days late.",
+      "rolesHeld": [
+        {
+          "title": "MP for North West Leicestershire",
+          "department": "House of Commons",
+          "start": "2010-05",
+          "end": "2024-07",
+          "note": "Sat as Conservative until April 2023, Independent April-May 2023, Reclaim Party May 2023 - July 2024."
+        }
+      ],
+      "externalLinks": [
+        {
+          "label": "Committee on Standards Second Report of Session 2024-25: Andrew Bridgen (HC 832) - parliament.uk",
+          "url": "https://publications.parliament.uk/pa/cm5901/cmselect/cmstandards/832/report.html"
+        },
+        {
+          "label": "Committee announcement - Second Report of Session 2024-25: Andrew Bridgen",
+          "url": "https://committees.parliament.uk/committee/290/committee-on-standards/news/206621/committee-on-standards-second-report-of-session-202425-andrew-bridgen/"
+        }
+      ],
+      "kind": "person"
+    },
+    {
+      "id": "mitchell-andrew",
+      "name": "Sir Andrew Mitchell",
+      "party": "conservative",
+      "headline": "Conservative MP for Sutton Coldfield 2001-2024 (and previously for Gedling 1987-1997); Secretary of State for International Development 2010-2012; Government Chief Whip 2012; Minister of State at the FCDO and Minister for Development 2022-2024.",
+      "rolesHeld": [
+        {
+          "title": "MP for Sutton Coldfield",
+          "department": "House of Commons",
+          "start": "2001-06",
+          "end": "2024-05"
+        },
+        {
+          "title": "Minister of State, FCDO",
+          "department": "Foreign, Commonwealth and Development Office",
+          "start": "2022-10",
+          "end": "2024-07"
+        },
+        {
+          "title": "Senior Adviser, Subaha Investments",
+          "department": "Subaha Investments (private)",
+          "start": "2026-02",
+          "end": null,
+          "note": "Independent Adviser on Ministerial Standards advice published 3 February 2026 with two-year UK-government lobbying restrictions."
+        }
+      ],
+      "externalLinks": [
+        {
+          "label": "Andrew Mitchell - advice under the Business Appointment Rules (FCDO) - GOV.UK",
+          "url": "https://www.gov.uk/government/publications/andrew-mitchell-minister-of-state-for-the-foreign-commonwealth-development-office-advice-under-the-governments-business-appointment-rules"
+        },
+        {
+          "label": "Advice letter - Andrew Mitchell, Senior Adviser, Subaha Investments - GOV.UK",
+          "url": "https://www.gov.uk/government/publications/andrew-mitchell-minister-of-state-for-the-foreign-commonwealth-development-office-advice-under-the-governments-business-appointment-rules/advice-letter-andrew-mitchell-senior-adviser-subaha-investments"
         }
       ],
       "kind": "person"
@@ -2806,6 +2980,237 @@
           "publisher": "Business Insider",
           "url": "https://www.businessinsider.in/politics/world/news/former-uk-gambling-minister-did-not-seek-permission-for-1000-an-hour-second-job/articleshow/90383889.cms",
           "date": "2022-03-25"
+        }
+      ]
+    },
+    {
+      "id": "rayner-stamp-duty-ministerial-code-breach",
+      "personId": "rayner-angela",
+      "connectionType": "other",
+      "status": "closed_with_finding",
+      "liveProceedings": false,
+      "summary": "On 5 September 2025 the Independent Adviser on Ministerial Standards, Sir Laurie Magnus, published a letter to the Prime Minister concluding that Angela Rayner had breached the Ministerial Code in connection with the underpayment of stamp duty land tax (c. £40,000) on her purchase of an £800,000 flat in Hove. Rayner resigned the same day from her posts as Deputy Prime Minister, Secretary of State for Housing, Communities and Local Government and Deputy Leader of the Labour Party. In January 2026 the Independent Adviser issued advice approving her post-resignation paid speaking work with Chartwell Speakers, subject to a two-year ban on UK-government lobbying.",
+      "detail": "Angela Rayner purchased a flat in Hove for c. £800,000 in May 2025. In late August 2025 reporting raised the question of whether the higher rate of stamp duty land tax (SDLT) applied because of an existing trust arrangement in favour of her disabled son, under which she was deemed to own that property for SDLT purposes. Rayner publicly acknowledged the underpayment (estimated at c. £40,000) on 3 September 2025 and referred herself to the Prime Minister's Independent Adviser on Ministerial Standards, Sir Laurie Magnus.\n\nIn his letter to the Prime Minister of 5 September 2025, Sir Laurie concluded that he could not consider Rayner 'to have met the highest possible standards of proper conduct as envisaged by the [Ministerial] Code'. He found that the legal advice Rayner had received was qualified by acknowledgements that it was not expert tax advice and recommendations that specific tax advice be obtained, and that her failure to seek expert tax advice in her circumstances constituted a breach of the Ministerial Code. The report accepted that she had acted in good faith. Rayner resigned from all government and party-leadership posts the same day.\n\nOn 15 January 2026 the Independent Adviser on Ministerial Standards published advice on Rayner's application under the Business Appointment Rules to take up paid speaking engagements with Chartwell Speakers (operated by Chartwell Partners Ltd). The advice imposed conditions including: for two years from her last day in office, no personal involvement in lobbying the UK Government or its arm's-length bodies on behalf of Chartwell Speakers Bureau (or related parties and clients); no use of contacts in government to influence policy or unfairly advantage Chartwell; and no work involving advice on UK-government bids or contracts.\n\nRayner remains Labour MP for Ashton-under-Lyne. The Ministerial Code finding is the regulatory hook under which Gracchus carries this connection; MHCLG (which she headed) is a tracked Gracchus department. Gracchus reports only what is in the public record.",
+      "counterparty": {
+        "kind": "buyer",
+        "id": "buyer-ministry-of-housing-communities-and-local-government",
+        "name": "Ministry of Housing, Communities and Local Government",
+        "note": "Tracked Gracchus department. Counterparty for the Ministerial Code aspect is HMG (the Code is the regulatory instrument). Subsequent post-resignation appointment is with Chartwell Partners Ltd (private speaker bureau)."
+      },
+      "timeframe": {
+        "start": "2025-09-05",
+        "end": null,
+        "periodLabel": "5 Sep 2025 ministerial code finding; 15 Jan 2026 BAR advice for Chartwell Speakers - ongoing"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "SDLT underpayment estimated at c. £40,000 on an £800,000 purchase; subsequently paid. Chartwell Speakers fees not publicly disclosed in the advice letter.",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government contracts directly linked"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Independent Adviser on Ministerial Standards (Sir Laurie Magnus CBE)",
+          "date": "2025-09-05",
+          "quotedText": "I am unable to consider that you have met the highest possible standards of proper conduct as envisaged by the Code... Whilst you acted in good faith, your failure to seek expert tax advice in your circumstances was a breach of the Ministerial Code.",
+          "url": "https://www.gov.uk/government/publications/letter-from-the-independent-adviser-on-ministerial-standards-exchange-of-letters-between-the-prime-minister-and-angela-rayner-mp",
+          "outcome": "Ministerial Code breach found; Rayner resigned all government and party-leadership posts the same day."
+        },
+        {
+          "body": "Independent Adviser on Ministerial Standards (Business Appointment Rules)",
+          "date": "2026-01-15",
+          "quotedText": "Approved subject to standard conditions including a two-year ban on lobbying the UK Government or its arm's-length bodies on behalf of Chartwell Speakers Bureau and on UK-government bid/contract-related advice.",
+          "url": "https://www.gov.uk/government/publications/angela-rayner-deputy-prime-minister-and-secretary-of-state-for-housing-communities-and-local-government-at-the-ministry-of-housing-communities-and/advice-letter-angela-rayner-speaker-chartwell-speakers",
+          "outcome": "Approved with conditions."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Letter from the Independent Adviser on Ministerial Standards & exchange of letters between the Prime Minister and Angela Rayner MP",
+          "publisher": "GOV.UK (Cabinet Office)",
+          "url": "https://www.gov.uk/government/publications/letter-from-the-independent-adviser-on-ministerial-standards-exchange-of-letters-between-the-prime-minister-and-angela-rayner-mp",
+          "date": "2025-09-05"
+        },
+        {
+          "tier": "primary",
+          "title": "Advice letter: Angela Rayner, Speaker, Chartwell Speakers",
+          "publisher": "GOV.UK (Independent Adviser on Ministerial Standards)",
+          "url": "https://www.gov.uk/government/publications/angela-rayner-deputy-prime-minister-and-secretary-of-state-for-housing-communities-and-local-government-at-the-ministry-of-housing-communities-and/advice-letter-angela-rayner-speaker-chartwell-speakers",
+          "date": "2026-01-15"
+        },
+        {
+          "tier": "primary",
+          "title": "Register of Interests for Angela Rayner",
+          "publisher": "parliament.uk",
+          "url": "https://members.parliament.uk/member/4356/registeredinterests",
+          "date": null
+        }
+      ]
+    },
+    {
+      "id": "gove-chartwell-speakers-post-office",
+      "personId": "gove-michael",
+      "connectionType": "post_office_appointment",
+      "status": "closed_approved",
+      "liveProceedings": false,
+      "summary": "In March 2026 the Independent Adviser on Ministerial Standards approved Lord Gove's (Michael Gove's) appointment as a paid speaker with Chartwell Speakers Bureau, subject to standard conditions including a two-year ban on UK-government lobbying and an ongoing duty not to disclose privileged information from his time in ministerial office. A separate advice letter approved an appointment with London Speaker Bureau under similar conditions.",
+      "detail": "Michael Gove served in successive Conservative Cabinets between 2010 and July 2024 in roles including Secretary of State for Education, Lord Chancellor and Justice Secretary, Environment Secretary, Cabinet Office Minister and Secretary of State for Levelling Up, Housing and Communities. He stood down as MP for Surrey Heath at the 2024 general election, was created Baron Gove (a life peer) in November 2024, and became editor of The Spectator in October 2024.\n\nIn March 2026 the Independent Adviser on Ministerial Standards (the body to which ACOBA's ministerial-advice function transferred on 13 October 2025) approved Gove's appointment as a paid speaker with Chartwell Speakers Bureau. The advice imposed conditions including: for two years from his last day in office, no work for Chartwell Speakers Bureau (including its related parties) involving advice on UK-government bid/contract terms or subject matter; and an ongoing duty not to draw on or disclose privileged information from his time in ministerial office for the benefit of himself or Chartwell Speakers Bureau. A separate advice letter approved an appointment with London Speaker Bureau under similar terms.\n\nMHCLG (which Gove headed twice) is a tracked Gracchus department. Chartwell Speakers Bureau and London Speaker Bureau are not Gracchus-tracked suppliers. The connection is carried as adjacent and as a calibration example of the Independent Adviser's standard approach to ex-Cabinet speaker engagements - alongside the Theresa May, Boris Johnson and Angela Rayner records.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Chartwell Speakers Bureau / London Speaker Bureau",
+        "note": "Private speaker bureaus. Not Gracchus-tracked suppliers. Carried as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2026-03",
+        "end": null,
+        "periodLabel": "Mar 2026 - ongoing (Chartwell Speakers Bureau and London Speaker Bureau speaking engagements)"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "Speaker fees not publicly disclosed in the advice letters.",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government contracts directly linked"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Independent Adviser on Ministerial Standards (Business Appointment Rules)",
+          "date": "2026-03-01",
+          "quotedText": "Approved subject to (i) for two years from his last day in office, no work for Chartwell Speakers Bureau (including its related parties) involving advice on the terms of, or subject matter of a bid with, or contract relating directly to the work of, the UK Government or its arm's-length bodies; and (ii) an ongoing duty not to draw on or disclose privileged information from his time in ministerial office for his own or Chartwell's benefit.",
+          "url": "https://www.gov.uk/government/publications/lord-gove-former-secretary-of-state-for-levelling-up-housing-and-communities-and-minister-for-intergovernmental-relations-advice-under-the-gove/advice-letter-michael-gove-speaker-chartwell-speakers-bureau",
+          "outcome": "Approved with conditions."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Lord Gove - advice under the Business Appointment Rules (Independent Adviser on Ministerial Standards)",
+          "publisher": "GOV.UK",
+          "url": "https://www.gov.uk/government/publications/lord-gove-former-secretary-of-state-for-levelling-up-housing-and-communities-and-minister-for-intergovernmental-relations-advice-under-the-gove",
+          "date": "2026-03-01"
+        },
+        {
+          "tier": "primary",
+          "title": "Advice letter: Michael Gove, Speaker, Chartwell Speakers Bureau",
+          "publisher": "GOV.UK",
+          "url": "https://www.gov.uk/government/publications/lord-gove-former-secretary-of-state-for-levelling-up-housing-and-communities-and-minister-for-intergovernmental-relations-advice-under-the-gove/advice-letter-michael-gove-speaker-chartwell-speakers-bureau",
+          "date": "2026-03-01"
+        },
+        {
+          "tier": "primary",
+          "title": "Advice letter: Michael Gove, Speaker, London Speaker Bureau",
+          "publisher": "GOV.UK",
+          "url": "https://www.gov.uk/government/publications/lord-gove-former-secretary-of-state-for-levelling-up-housing-and-communities-and-minister-for-intergovernmental-relations-advice-under-the-gove/advice-letter-michael-gove-speaker-london-speaker-bureau",
+          "date": "2026-03-01"
+        }
+      ]
+    },
+    {
+      "id": "bridgen-hosking-loan-late-registration",
+      "personId": "bridgen-andrew",
+      "connectionType": "other",
+      "status": "closed_with_finding",
+      "liveProceedings": false,
+      "summary": "On 1 May 2025 the Commons Committee on Standards published its Second Report of Session 2024-25 (HC 832) on the conduct of former MP Andrew Bridgen, finding that he had breached the Code of Conduct by failing to register an interest-free loan of £4,470,576 from Conservative donor Jeremy Hosking within the 28-day timeframe. The loan, received between 12 October 2020 and 18 December 2023, was registered on 19 December 2023 - 1,135 days after the first relevant payment - only after Hosking referred to it during a High Court hearing in September 2023.",
+      "detail": "Bridgen was Conservative MP for North West Leicestershire from May 2010, sat as Independent April-May 2023 after losing the Conservative whip, then as Reclaim Party MP from May 2023 until losing his seat at the 5 July 2024 general election.\n\nThe Parliamentary Commissioner for Standards's investigation, transmitted to the Committee on Standards and published as the Committee's Second Report of Session 2024-25 (HC 832) on 1 May 2025, found that Bridgen had received an interest-free loan totalling £4,470,576.42 from Conservative donor Jeremy Hosking between 12 October 2020 and 18 December 2023. The loan was registered on the Register of Members' Financial Interests on 19 December 2023 - 1,135 days after the first registrable receipt and well outside the 28-day window required by the Code of Conduct. The Commissioner accepted that the original purpose was to fund private legal costs and that the breach was inadvertent, but found that once the benefit became registrable the time limit applied irrespective of purpose. The Committee concluded that Bridgen should have apologised for the breach.\n\nBridgen had ceased to be an MP (lost his seat July 2024) before the report was published. The Committee did not therefore recommend any suspension. The case is carried by Gracchus as a closed Standards Committee finding on a former Member's late registration of a substantial benefit; there is no UK supplier-contract link.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Jeremy Hosking (interest-free loan)",
+        "note": "Loan from Conservative donor Jeremy Hosking; no UK supplier-contract link. Carried as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2020-10-12",
+        "end": "2025-05-01",
+        "periodLabel": "12 Oct 2020 - 1 May 2025 (loan period; closed by Standards Committee report)"
+      },
+      "financial": {
+        "personalIncomeGBP": 4470576,
+        "personalIncomeDescription": "Interest-free loan of £4,470,576.42 from Jeremy Hosking (registered 19 December 2023, 1,135 days late)",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government contract link"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Commons Committee on Standards (with Parliamentary Commissioner for Standards investigation)",
+          "neutralCitation": "HC 832, Second Report of Session 2024-25",
+          "caseName": "The conduct of Andrew Bridgen, former Member for North West Leicestershire",
+          "date": "2025-05-01",
+          "quotedText": "Mr Bridgen breached paragraph 14 of the 2019 Code of Conduct, and paragraph 5 of the 2023 Code of Conduct, by failing to register monies received from Mr Hosking at the correct time. The Commissioner accepted that the breach was inadvertent. Once it was established, however, that the loan was made as a benefit related to Mr Bridgen's membership of the House or political activities, its purpose was irrelevant and the loan was a registrable interest.",
+          "url": "https://publications.parliament.uk/pa/cm5901/cmselect/cmstandards/832/report.html",
+          "outcome": "Breach of the Code of Conduct found; the Committee considered Bridgen should have apologised. Because Bridgen had ceased to be an MP at the 2024 general election, the Committee made no suspension recommendation."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Committee on Standards Second Report of Session 2024-25: Andrew Bridgen (HC 832)",
+          "publisher": "parliament.uk",
+          "url": "https://publications.parliament.uk/pa/cm5901/cmselect/cmstandards/832/report.html",
+          "date": "2025-05-01"
+        },
+        {
+          "tier": "primary",
+          "title": "Committee on Standards announcement - Second Report of Session 2024-25: Andrew Bridgen",
+          "publisher": "parliament.uk",
+          "url": "https://committees.parliament.uk/committee/290/committee-on-standards/news/206621/committee-on-standards-second-report-of-session-202425-andrew-bridgen/",
+          "date": "2025-05-01"
+        },
+        {
+          "tier": "news",
+          "title": "Bridgen 'should have apologised for code breach' over loan - standards watchdog",
+          "publisher": "Jersey Evening Post / PA Media",
+          "url": "https://jerseyeveningpost.com/morenews/uknews/2025/05/01/bridgen-should-have-apologised-for-code-breach-over-loan-standards-watchdog/",
+          "date": "2025-05-01"
+        }
+      ]
+    },
+    {
+      "id": "mitchell-subaha-investments-post-office",
+      "personId": "mitchell-andrew",
+      "connectionType": "post_office_appointment",
+      "status": "closed_approved",
+      "liveProceedings": false,
+      "summary": "On 3 February 2026 the Independent Adviser on Ministerial Standards published advice approving Sir Andrew Mitchell's appointment as Senior Adviser to Subaha Investments, subject to standard conditions including a two-year ban on UK-government lobbying.",
+      "detail": "Sir Andrew Mitchell was Conservative MP for Sutton Coldfield from 2001 to the 2024 general election (and previously for Gedling 1987-1997). He served as Secretary of State for International Development 2010-2012, Government Chief Whip 2012, and Minister of State at the FCDO and Minister for Development from October 2022 to July 2024.\n\nOn 3 February 2026 the Independent Adviser on Ministerial Standards (which took over ACOBA's ministerial-advice function on 13 October 2025) published advice approving Mitchell's appointment as Senior Adviser to Subaha Investments. Conditions imposed include the standard two-year ban on lobbying the UK Government or its arm's-length bodies on behalf of Subaha Investments, and the standard ongoing duty not to draw on privileged information from his time in ministerial office.\n\nSubaha Investments is not a Gracchus-tracked supplier. The connection is carried as a routine post-ministerial approval to maintain a complete public-record dataset; no finding of rule-breaking has been made.",
+      "counterparty": {
+        "kind": "adjacent_firm",
+        "name": "Subaha Investments",
+        "note": "Private investment firm. Not a Gracchus-tracked supplier. Carried as adjacent_firm."
+      },
+      "timeframe": {
+        "start": "2026-02-03",
+        "end": null,
+        "periodLabel": "Feb 2026 - ongoing (Subaha Investments senior adviser)"
+      },
+      "financial": {
+        "personalIncomeGBP": null,
+        "personalIncomeDescription": "Remuneration not publicly disclosed in the advice letter.",
+        "relatedContractsGBP": null,
+        "relatedContractsDescription": "No UK government contracts linked"
+      },
+      "regulatoryFindings": [
+        {
+          "body": "Independent Adviser on Ministerial Standards (Business Appointment Rules)",
+          "date": "2026-02-03",
+          "quotedText": "Approved subject to standard conditions including a two-year ban on lobbying the UK Government or its arm's-length bodies on behalf of Subaha Investments, and an ongoing duty not to draw on privileged information from his time in ministerial office.",
+          "url": "https://www.gov.uk/government/publications/andrew-mitchell-minister-of-state-for-the-foreign-commonwealth-development-office-advice-under-the-governments-business-appointment-rules/advice-letter-andrew-mitchell-senior-adviser-subaha-investments",
+          "outcome": "Approved with conditions."
+        }
+      ],
+      "sources": [
+        {
+          "tier": "primary",
+          "title": "Andrew Mitchell - advice under the Business Appointment Rules (FCDO)",
+          "publisher": "GOV.UK (Independent Adviser on Ministerial Standards)",
+          "url": "https://www.gov.uk/government/publications/andrew-mitchell-minister-of-state-for-the-foreign-commonwealth-development-office-advice-under-the-governments-business-appointment-rules",
+          "date": "2026-02-03"
+        },
+        {
+          "tier": "primary",
+          "title": "Advice letter: Andrew Mitchell, Senior Adviser, Subaha Investments",
+          "publisher": "GOV.UK",
+          "url": "https://www.gov.uk/government/publications/andrew-mitchell-minister-of-state-for-the-foreign-commonwealth-development-office-advice-under-the-governments-business-appointment-rules/advice-letter-andrew-mitchell-senior-adviser-subaha-investments",
+          "date": "2026-02-03"
         }
       ]
     }
