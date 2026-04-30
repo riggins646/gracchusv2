@@ -13,7 +13,7 @@
       "notes": "OECD provides internationally comparable ODA statistics. UK figures may differ slightly due to rounding and revision cycles."
     },
     "sourceConfidence": "high",
-    "lastUpdated": "2026-04-09",
+    "lastUpdated": "2026-04-29",
     "dataRange": "2005–2025",
     "methodologyNote": "Total ODA includes bilateral aid (government-to-government and project spending) and multilateral contributions (core funding to international organisations). In-donor refugee costs are included in ODA from 2022 onwards per OECD DAC rules, which inflates headline figures. ODA/GNI ratio uses GNI calculated under ESA 2010 methodology from 2016 onwards."
   },
@@ -39,7 +39,7 @@
       {"year": 2022, "value": 12800, "pctGNI": 0.51, "bilateral": 8100, "multilateral": 4700, "notes": "Increase driven by in-donor refugee costs."},
       {"year": 2023, "value": 15344, "pctGNI": 0.58, "bilateral": 10004, "multilateral": 5340, "notes": "28% on refugee hosting costs."},
       {"year": 2024, "value": 14082, "pctGNI": 0.50, "bilateral": 11273, "multilateral": 2809, "notes": "Highest bilateral share on record (80.1%). Multilateral fell 47%."},
-      {"year": 2025, "value": 13500, "pctGNI": 0.48, "bilateral": 10800, "multilateral": 2700, "notes": "Provisional. First year of aid cuts announced Feb 2025. ODA reduced from 0.50% to 0.48% to fund defence increase. Source: FCDO SID provisional 2025 (9 Apr 2026)."}
+      {"year": 2025, "value": 13036, "pctGNI": 0.43, "bilateral": 10256, "multilateral": 2780, "notes": "Provisional. Total UK ODA fell £1.05bn (-7.4%) from £14.082bn (2024) to £13.036bn — equivalent to 0.43% GNI (vs 0.50% in 2024 and the 0.48% target). FCDO £9,021m (-4.7%); bilateral fell £1,017m (-9.0%); multilateral fell £29m (-1.0%). In-donor refugee costs £2.4bn (18.3% of total) vs £2.8bn (20.1%) in 2024. Source: FCDO Statistics on International Development provisional 2025 (gov.uk)."}
     ]
   },
   "composition2024": {
@@ -154,14 +154,14 @@
       {"year": 2022, "value": 0.51},
       {"year": 2023, "value": 0.58},
       {"year": 2024, "value": 0.50},
-      {"year": 2025, "value": 0.48}
+      {"year": 2025, "value": 0.43}
     ],
     "targetLine": 0.70,
     "plannedReduction": {"year": 2027, "target": 0.30, "pathway": [{"year": "2025/26", "pctGNI": 0.48}, {"year": "2026/27", "pctGNI": 0.37}, {"year": "2027/28", "pctGNI": 0.30}], "notes": "Feb 2025: PM Starmer announced aid cuts to fund defence increase to 2.6% GDP. Aid at 0.3% will be ~£9.2bn — lowest cash level since 2012 and lowest GNI share since 1999."}
   },
   "contextSentences": {
-    "headline": "UK foreign aid fell to 0.48% of GNI in 2025 — the first year of cuts from 0.50%, heading to just 0.30% by 2027.",
-    "trend": "Total ODA was provisionally £13.5bn in 2025, down from £14.1bn in 2024. Cuts fund a defence increase to 2.6% of GDP.",
+    "headline": "UK foreign aid fell to 0.43% of GNI in 2025 — sharper than the 0.48% planned cut from 0.50%, heading to just 0.30% by 2027.",
+    "trend": "Total ODA fell to a provisional £13.04bn in 2025, down from £14.08bn in 2024 (-7.4%). FCDO £9.02bn (-4.7%); bilateral £10.26bn (-9.0%); multilateral £2.78bn (-1.0%). Cuts fund a defence increase to 2.6% of GDP.",
     "multilateral": "Multilateral contributions fell 47% in 2024 to their lowest level since 2009, as bilateral aid rose to a record 80% share.",
     "future": "The Government announced in February 2025 that ODA will be further reduced to 0.3% of GNI by 2027 to fund increased defence spending.",
     "refugees": "In-donor refugee costs accounted for £2.83bn (20%) of total ODA in 2024 — the second largest component after FCDO bilateral programmes.",

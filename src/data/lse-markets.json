@@ -486,16 +486,16 @@
   "ftseIndices": {
     "title": "FTSE Index Levels",
     "source": "London Stock Exchange",
-    "lastUpdated": "2026-04-24",
+    "lastUpdated": "2026-04-29",
     "data": [
       {
         "index": "FTSE 100",
-        "level": 10379,
+        "level": 10286,
         "confidence": "high"
       },
       {
         "index": "FTSE 250",
-        "level": 22583,
+        "level": 22521,
         "confidence": "high"
       }
     ]
