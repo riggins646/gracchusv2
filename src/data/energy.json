@@ -29,8 +29,9 @@
     },
     "unit": "various_see_series",
     "period": "calendar_year",
-    "lastUpdated": "2026-04",
-    "sourceConfidence": "high"
+    "lastUpdated": "2026-04-30",
+    "sourceConfidence": "high",
+    "lastReleaseNotes": "DESNZ Energy Trends 30 April 2026 release reviewed: highlights for Dec 2025-Feb 2026 vs prior year — primary energy consumption -3.3% (fuel input), -2.1% (temperature adjusted); indigenous production -4.5%; MPP electricity generation +1.4% with renewables +16%, gas -11%, nuclear -11%; renewables 51.8% MPP share, gas 35.5%, nuclear 11.9%; low-carbon share +5.0pp to 63.7%. Provisional sub-annual data — does not amend 2025 annual figures (DUKES revisions expected July 2026)."
   },
   "energyBalance": {
     "description": "UK aggregate energy balance in million tonnes of oil equivalent (Mtoe)",

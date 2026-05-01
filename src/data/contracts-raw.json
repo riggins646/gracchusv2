@@ -1364,5 +1364,51 @@
     "competitive": false,
     "duration": "10 years",
     "source": "https://www.gov.uk/government/news/entertainment-on-demand-for-armed-forces-personnel-at-home-and-abroad"
+  },
+  {
+    "id": "DEF-023",
+    "title": "Skyhammer Counter-Drone Interceptors",
+    "description": "MOD order for Skyhammer interceptor missiles and launchers from Cambridge Aerospace, a UK start-up, to counter drone threats including Iranian Shahed-style attack drones. Announced by Defence Secretary John Healey at the London Defence Conference on 10 April 2026. Includes integration, technical support and end-user training. First tranche of missiles and launchers due May 2026 with further deliveries within first six months. Supports both UK Armed Forces and Gulf partners. Multi-million pound value not publicly disclosed; deal expected to create 50+ new jobs and support 125 existing roles at Cambridge Aerospace.",
+    "buyer": "Ministry of Defence",
+    "status": "active",
+    "awardDate": "2026-04",
+    "value": null,
+    "valueDisclosed": false,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "Cambridge Aerospace"
+      }
+    ],
+    "category": "defence",
+    "competitive": false,
+    "duration": "Initial 6 months for first tranche delivery",
+    "source": "https://www.gov.uk/government/news/uk-start-up-to-supply-interceptor-missiles-to-uk-military-and-gulf-partners"
+  },
+  {
+    "id": "DEF-024",
+    "title": "Ukraine Drone Package (largest UK ever)",
+    "description": "£752m equipment package — largest of its kind ever supplied by the UK — to deliver at least 120,000 uncrewed air vehicles (UAVs) to Ukraine by end of 2026. Includes long-range strike, intelligence and reconnaissance, logistics drones, and unspecified maritime capabilities. Announced by Defence Secretary John Healey on 15 April 2026 ahead of the 34th Ukraine Defence Contact Group meeting in Berlin. Majority of investment spent with UK-based suppliers Malloy Aeronautics, Tekever and Windracers. Funded via UK military aid commitment to Ukraine.",
+    "buyer": "Ministry of Defence",
+    "status": "active",
+    "awardDate": "2026-04",
+    "value": 752000000,
+    "valueDisclosed": true,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "Malloy Aeronautics"
+      },
+      {
+        "name": "Tekever"
+      },
+      {
+        "name": "Windracers"
+      }
+    ],
+    "category": "defence",
+    "competitive": false,
+    "duration": "Delivery by end-2026",
+    "source": "https://www.gov.uk/government/news/uk-announces-biggest-ever-drone-package-for-ukraine-to-push-back-putin"
   }
 ]

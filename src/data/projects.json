@@ -1255,9 +1255,9 @@
     "category": "Health",
     "subcategory": "Infrastructure",
     "originalBudget": 3700,
-    "latestBudget": 15000,
+    "latestBudget": 56000,
     "originalDate": "2030",
-    "latestDate": "2039+",
+    "latestDate": "2045-46",
     "status": "In Progress",
     "contractors": [
       "Bovis Construction",
@@ -1274,11 +1274,13 @@
       "Galliford Try Construction Limited",
       "Tilbury Douglas Construction Limited"
     ],
-    "description": "40 hospitals promise. Only 7 under construction by 2026. Cost escalated from 3.7bn to 15bn per wave. Programme split into waves.",
+    "description": "Originally 40 hospitals by 2030. NAO January 2026 update: programme reset covers 41 schemes (plus 5 already complete), delivered in four waves over 20 years; total funding £60bn including £56bn capital — a £33.8bn increase on 2023 assumptions. £8.9bn capital allocated 2025-26 to 2029-30, rising to ~£3bn/year from 2030-31. Final hospitals expected 2045-46. Hospital 2.0 alliance contract due early 2026, design due April 2026. RAAC replacement at 7 prioritised hospitals at least 2 years behind schedule (now 2032-33 vs original 2030 target). NAO assessment: 'firmer footing' but significant delivery risks remain.",
     "sources": [
-      "https://www.nao.org.uk/reports/the-new-hospital-programme/"
+      "https://www.nao.org.uk/reports/the-new-hospital-programme/",
+      "https://www.nao.org.uk/reports/update-on-the-new-hospital-programme/",
+      "https://www.nao.org.uk/wp-content/uploads/2026/01/update-on-the-new-hospital-programme.pdf"
     ],
-    "lastUpdated": "2026-03-26",
+    "lastUpdated": "2026-05-01",
     "contractorResearch": {
       "groups": 2,
       "members": 16,

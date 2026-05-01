@@ -1,12 +1,13 @@
 {
   "metadata": {
     "title": "UK Immigration & Borders",
-    "lastUpdated": "2026-04-16",
+    "lastUpdated": "2026-05-01",
     "primarySource": {
       "name": "ONS, Home Office Immigration Statistics",
       "url": "https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/internationalmigration"
     },
-    "methodology": "Net migration from ONS LTIM; visa breakdowns from Home Office quarterly releases; asylum from Home Office Asy tables"
+    "methodology": "Net migration from ONS LTIM; visa breakdowns from Home Office quarterly releases; asylum from Home Office Asy tables",
+    "lastReleaseNotes": "ONS National Population Projections (2024-based) released 28 April 2026: long-term annual net migration assumption set at 230,000 — down 110,000 from 340,000 in 2022-based projections. UK population projected to rise from 69.3m (mid-2024) to 71.0m (mid-2034); deaths projected to exceed births from mid-2026. Pensionable-age population +1.8m (+14.6%) by mid-2034. Forward assumption only — historical netMigration series unchanged. Next Home Office quarterly release: 21 May 2026; next ONS LTIM release: end-May 2026."
   },
   "contextSentences": {
     "headline": "Every visa granted, every asylum claim, every policy shift \u2014 mapped against the party in power.",
