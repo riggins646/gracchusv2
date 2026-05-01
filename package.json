@@ -9,7 +9,10 @@
     "lint": "next lint",
     "ingest": "node scripts/ingest-contracts.mjs",
     "ingest:spending": "node scripts/ingest-dept-spending.mjs",
-    "ingest:spending:check": "node scripts/ingest-dept-spending.mjs --check"
+    "ingest:spending:check": "node scripts/ingest-dept-spending.mjs --check",
+    "ingest:register": "node scripts/ingest-register.mjs",
+    "ingest:register:dry": "node scripts/ingest-register.mjs --dry-run",
+    "ingest:register:since": "node scripts/ingest-register.mjs --since"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
