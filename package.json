@@ -12,7 +12,10 @@
     "ingest:spending:check": "node scripts/ingest-dept-spending.mjs --check",
     "ingest:register": "node scripts/ingest-register.mjs",
     "ingest:register:dry": "node scripts/ingest-register.mjs --dry-run",
-    "ingest:register:since": "node scripts/ingest-register.mjs --since"
+    "ingest:register:since": "node scripts/ingest-register.mjs --since",
+    "ingest:appgs": "node scripts/ingest-appgs.mjs",
+    "ingest:appgs:dry": "node scripts/ingest-appgs.mjs --dry-run",
+    "ingest:appgs:since": "node scripts/ingest-appgs.mjs --since"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
