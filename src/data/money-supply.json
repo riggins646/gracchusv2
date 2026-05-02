@@ -3,7 +3,7 @@
     "title": "Money Supply & Personal Finance",
     "description": "M4 money supply, QE history, purchasing power index, and personal finance indicators",
     "source": "Bank of England Statistical Interactive Database, ONS",
-    "lastUpdated": "2026-03"
+    "lastUpdated": "2026-05"
   },
   "m4MoneySupply": {
     "description": "UK M4 broad money supply, £bn. M4 = notes & coin + bank deposits + building society deposits + other instruments",

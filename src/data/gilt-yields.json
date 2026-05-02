@@ -5,7 +5,7 @@
     "source": "Bank of England Statistical Interactive Database",
     "sourceUrl": "https://www.bankofengland.co.uk/statistics/yield-curves",
     "unit": "percent",
-    "lastUpdated": "2026-04"
+    "lastUpdated": "2026-05"
   },
   "creditRatings": {
     "sp": { "rating": "AA", "outlook": "Stable", "lastChanged": "2024-10" },
@@ -48,7 +48,8 @@
     { "m": "Jan 2026", "y2": 4.30, "y5": 4.38, "y10": 4.58, "y30": 5.28 },
     { "m": "Feb 2026", "y2": 4.32, "y5": 4.40, "y10": 4.62, "y30": 5.32 },
     { "m": "Mar 2026", "y2": 4.36, "y5": 4.42, "y10": 4.65, "y30": 5.35 },
-    { "m": "Apr 2026", "y2": 4.49, "y5": 4.40, "y10": 5.10, "y30": 5.67 }
+    { "m": "Apr 2026", "y2": 4.49, "y5": 4.40, "y10": 5.10, "y30": 5.67 },
+    { "m": "May 2026", "y2": 4.46, "y5": 4.50, "y10": 5.05, "y30": 5.49 }
   ],
   "debtMaturity": {
     "description": "UK government debt maturity profile by bucket, £bn nominal outstanding",
