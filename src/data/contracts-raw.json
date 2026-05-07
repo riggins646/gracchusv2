@@ -1410,5 +1410,25 @@
     "competitive": false,
     "duration": "Delivery by end-2026",
     "source": "https://www.gov.uk/government/news/uk-announces-biggest-ever-drone-package-for-ukraine-to-push-back-putin"
+  },
+  {
+    "id": "DEF-025",
+    "title": "GCAP Edgewing Bridge Design Contract",
+    "description": "First international contract awarded by the GCAP Agency to Edgewing, the trilateral consortium formed by BAE Systems, Leonardo and Japan Aircraft Industrial Enhancement Co. Ltd (JAIEC). £686m bridge funding to sustain design and engineering work to end of June 2026 while the UK Defence Investment Plan is finalised. Edgewing acts as the GCAP design authority overseeing engineering, airworthiness and certification across all phases. Awarded 1 April 2026; intended to be followed by a larger development contract once UK spending plan is complete. Programme target in-service date 2035.",
+    "buyer": "Ministry of Defence (via GCAP Agency)",
+    "status": "active",
+    "awardDate": "2026-04",
+    "value": 686000000,
+    "valueDisclosed": true,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "Edgewing (BAE Systems / Leonardo / JAIEC JV)"
+      }
+    ],
+    "category": "defence",
+    "competitive": false,
+    "duration": "Bridge contract to 30 June 2026",
+    "source": "https://www.flightglobal.com/defence/2026/04/gcap-advances-as-edgewing-lands-first-joint-contract-from-partner-nations/"
   }
 ]

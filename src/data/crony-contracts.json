@@ -1,4 +1,7 @@
 {
+  "metadata": {
+    "lastUpdated": "2026-05-06"
+  },
   "summary": {
     "totalVipLaneValue": 1700000000,
     "totalHighRiskContracts": 135,
@@ -10,8 +13,23 @@
     "vipInflation": 925000000,
     "testAndTraceTotal": 37000000000,
     "pfiLifetimeLiability": 215000000000,
-    "bestForBritainTotal": 131000000000
+    "bestForBritainTotal": 131000000000,
+    "covidFraudErrorTotal": 10910000000,
+    "covidFraudRecovered": 1790000000,
+    "covidPpeWriteOffUnrecoverable": 762000000,
+    "covidLitigationActive": 8
   },
+  "officialReports": [
+    {
+      "id": "OR-001",
+      "name": "COVID Counter-Fraud Commissioner Final Report (Hayhoe Review)",
+      "publishedDate": "2025-12-09",
+      "author": "Tom Hayhoe (independent commissioner appointed by Chancellor Rachel Reeves)",
+      "headlineFindings": "£10.91bn lost to COVID-19 fraud and error across all schemes; £1.79bn recovered to date; £762m of substandard PPE unlikely to ever be recovered. Litigation remains active or in prospect for 8 contracts. DHSC continues efforts to recover £122m settlement against PPE Medpro. Recommendations are forward-looking: treat fraud as core strategic risk in public programme design, use data more systematically, expect private-sector participants to carry greater compliance burden.",
+      "scope": "Review of COVID-era procurement and fraud across PPE, Bounce Back Loans, grants and other emergency spending under the previous government.",
+      "source": "https://hansard.parliament.uk/commons/2025-12-09/debates/251209144000010/CovidCounter-FraudCommissionerIndependentReview"
+    }
+  ],
   "contracts": [
     {
       "id": "CR-001",
