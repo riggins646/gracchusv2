@@ -1024,6 +1024,244 @@ function NestedCirclesChart({ data, budgetKey = "budget", actualKey = "latest", 
   );
 }
 
+/* =========================================================================
+ * ProjectSlipBarChart — horizontal "slip bar" replacement for SlopeChartViz.
+ *
+ *  2026-04-26: original SlopeChartViz crisscrossed every line at similar
+ *  promised dates and crashed long project names into each other on the
+ *  left axis. With 12 projects and 6 different slip targets, the chart
+ *  was visually unreadable and unshareable.
+ *
+ *  This replacement gives each project its own row:
+ *    - Project name (full, truncated only at the row level)
+ *    - A horizontal bar from PROMISED year to REALITY year
+ *    - Cyan dot at PROMISED, red dot at REALITY, slip duration as bar
+ *    - "+Nyr" label at the right
+ *    - Bar stroke width scales with project cost
+ *    - Sorted by slip-years descending
+ *    - Year axis at the bottom
+ *
+ *  Reads as a leaderboard rather than a tangle. Shares cleanly because
+ *  the editorial finding ("the worst slip is X at +N years") is the
+ *  top row.
+ * ========================================================================= */
+function ProjectSlipBarChart({ data, leftLabel = "PROMISED", rightLabel = "REALITY" }) {
+  const rows = (data || [])
+    .filter((d) => d.promised != null && d.current != null && d.current >= d.promised)
+    .map((d) => ({ ...d, slip: d.current - d.promised }))
+    .sort((a, b) => b.slip - a.slip);
+
+  if (rows.length === 0) {
+    return (
+      <div className="text-[13px] text-gray-500 text-center py-8">
+        No slipped projects to display.
+      </div>
+    );
+  }
+
+  // Year axis range
+  const allYears = rows.flatMap((r) => [r.promised, r.current]);
+  const minYear = Math.floor(Math.min(...allYears) / 5) * 5;
+  const maxYear = Math.ceil(Math.max(...allYears) / 5) * 5;
+  const yearSpan = Math.max(1, maxYear - minYear);
+
+  // Layout
+  const ROW_HEIGHT = 28;
+  const TOP_PAD = 24;
+  const BOTTOM_PAD = 36;
+  const LEFT_PAD = 220;
+  const RIGHT_PAD = 80;
+  const VIEW_WIDTH = 1000;
+  const TRACK_WIDTH = VIEW_WIDTH - LEFT_PAD - RIGHT_PAD;
+  const VIEW_HEIGHT = TOP_PAD + rows.length * ROW_HEIGHT + BOTTOM_PAD;
+
+  const xFor = (year) => LEFT_PAD + ((year - minYear) / yearSpan) * TRACK_WIDTH;
+
+  // Bar stroke width scales to project cost. Min 2px (sub-£1bn), max 8px (£20bn+).
+  const allCosts = rows.map((r) => r.cost || 1);
+  const maxCost = Math.max(...allCosts, 1);
+  const strokeFor = (cost) => {
+    const c = Math.max(0.5, cost || 0.5);
+    const norm = Math.sqrt(c) / Math.sqrt(maxCost);
+    return 2 + norm * 6;
+  };
+
+  // Year tick marks
+  const tickStep = yearSpan <= 25 ? 5 : 10;
+  const ticks = [];
+  for (let y = minYear; y <= maxYear; y += tickStep) ticks.push(y);
+
+  return (
+    <div className="w-full overflow-x-auto">
+      <svg
+        viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
+        preserveAspectRatio="xMidYMid meet"
+        className="w-full"
+        style={{ minWidth: 640, height: VIEW_HEIGHT }}
+        role="img"
+        aria-label={`Slip chart: ${rows.length} projects ranked by years late, worst first`}
+      >
+        <defs>
+          <linearGradient id="slipBarGrad" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stopColor="#34d399" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#ef4444" stopOpacity="0.9" />
+          </linearGradient>
+        </defs>
+
+        {/* Header row */}
+        <g>
+          <text
+            x={LEFT_PAD - 12}
+            y={TOP_PAD - 8}
+            textAnchor="end"
+            fontFamily="'IBM Plex Mono', ui-monospace, monospace"
+            fontSize="10"
+            fill="#6b7280"
+            letterSpacing="0.15em"
+          >
+            PROJECT
+          </text>
+          <text
+            x={xFor(minYear)}
+            y={TOP_PAD - 8}
+            textAnchor="start"
+            fontFamily="'IBM Plex Mono', ui-monospace, monospace"
+            fontSize="10"
+            fill="#34d399"
+            letterSpacing="0.15em"
+          >
+            {leftLabel}
+          </text>
+          <text
+            x={VIEW_WIDTH - RIGHT_PAD - 4}
+            y={TOP_PAD - 8}
+            textAnchor="end"
+            fontFamily="'IBM Plex Mono', ui-monospace, monospace"
+            fontSize="10"
+            fill="#ef4444"
+            letterSpacing="0.15em"
+          >
+            {rightLabel}
+          </text>
+          <text
+            x={VIEW_WIDTH - 6}
+            y={TOP_PAD - 8}
+            textAnchor="end"
+            fontFamily="'IBM Plex Mono', ui-monospace, monospace"
+            fontSize="10"
+            fill="#6b7280"
+            letterSpacing="0.15em"
+          >
+            SLIP
+          </text>
+        </g>
+
+        {/* Year tick lines (background) */}
+        {ticks.map((year, i) => (
+          <g key={`tick-${year}`}>
+            <line
+              x1={xFor(year)}
+              x2={xFor(year)}
+              y1={TOP_PAD - 4}
+              y2={VIEW_HEIGHT - BOTTOM_PAD + 4}
+              stroke="#1f2937"
+              strokeWidth="1"
+              strokeDasharray="2 4"
+              opacity="0.6"
+            />
+          </g>
+        ))}
+
+        {/* Rows */}
+        {rows.map((r, i) => {
+          const y = TOP_PAD + i * ROW_HEIGHT + ROW_HEIGHT / 2;
+          const x1 = xFor(r.promised);
+          const x2 = xFor(r.current);
+          const stroke = strokeFor(r.cost);
+          const displayName =
+            r.name && r.name.length > 30 ? r.name.slice(0, 28) + "…" : r.name || "—";
+
+          return (
+            <g key={`${r.name}-${i}`}>
+              {/* Alternating row background */}
+              {i % 2 === 1 && (
+                <rect
+                  x={0}
+                  y={y - ROW_HEIGHT / 2}
+                  width={VIEW_WIDTH}
+                  height={ROW_HEIGHT}
+                  fill="#0f1115"
+                  opacity="0.5"
+                />
+              )}
+
+              {/* Project name */}
+              <text
+                x={LEFT_PAD - 12}
+                y={y + 4}
+                textAnchor="end"
+                fontFamily="'IBM Plex Sans', ui-sans-serif, system-ui"
+                fontSize="12"
+                fill="#e5e7eb"
+              >
+                <title>{r.name}</title>
+                {displayName}
+              </text>
+
+              {/* Slip bar */}
+              <line
+                x1={x1}
+                x2={x2}
+                y1={y}
+                y2={y}
+                stroke="url(#slipBarGrad)"
+                strokeWidth={stroke}
+                strokeLinecap="round"
+              />
+
+              {/* Promised dot */}
+              <circle cx={x1} cy={y} r={4.5} fill="#0a0a0a" />
+              <circle cx={x1} cy={y} r={3.5} fill="#34d399" />
+
+              {/* Reality dot */}
+              <circle cx={x2} cy={y} r={4.5} fill="#0a0a0a" />
+              <circle cx={x2} cy={y} r={3.5} fill="#ef4444" />
+
+              {/* Slip label */}
+              <text
+                x={VIEW_WIDTH - 6}
+                y={y + 4}
+                textAnchor="end"
+                fontFamily="'IBM Plex Mono', ui-monospace, monospace"
+                fontSize="12"
+                fill="#ef4444"
+                fontWeight="600"
+              >
+                +{r.slip}yr
+              </text>
+            </g>
+          );
+        })}
+
+        {/* Year axis */}
+        {ticks.map((year) => (
+          <text
+            key={`year-${year}`}
+            x={xFor(year)}
+            y={VIEW_HEIGHT - 12}
+            textAnchor="middle"
+            fontFamily="'IBM Plex Mono', ui-monospace, monospace"
+            fontSize="10"
+            fill="#6b7280"
+          >
+            {year}
+          </text>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
 function SlopeChartViz({ data, leftKey = "promised", rightKey = "current", nameKey = "name", sizeKey = "cost", leftLabel = "PROMISED", rightLabel = "REALITY" }) {
   const containerRef = useRef(null);
   const [w, setW] = useState(600);
@@ -10812,38 +11050,37 @@ function AppInner() {
                   </div>
                 </div>
 
-                {/* Slope Chart — Promised vs Reality */}
+                {/* Slip-bar chart — replaces previous slope chart that
+                    crisscrossed itself into illegibility (2026-04-26).
+                    Each project gets its own row; bar from promised to
+                    reality, sorted by slip duration desc. */}
                 <ChartCard
                   chartId="project-delays"
                   label="Every Project Slipped"
-                  title="Promised Completion vs Reality"
-                  subtitle="Line thickness = project cost. Hover to isolate."
+                  title="How late each project is, ranked"
+                  subtitle="Each row is one project. Bar length = years late. Bar thickness = project cost. Sorted by worst slip first."
                   onShare={handleChartShare}
                   shareHeadline="Every project late. Every project over budget."
-                  shareSubline="Promised completion vs reality — not a single one on time"
+                  shareSubline="How many years each megaproject slipped past its promised completion"
                   accentColor="#ef4444"
                   explainData={delayProjects.filter(p => p.originalCompletionDate && p.latestCompletionDate).slice(0, 10).map(d => `${d.projectName}: promised ${d.originalCompletionDate.slice(0,4)}, now ${d.latestCompletionDate.slice(0,4)}`).join("; ")}
                 >
-                  <SlopeChartViz
+                  <ProjectSlipBarChart
                     data={delayProjects
                       .filter(p => p.originalCompletionDate && p.latestCompletionDate && p.delayYears > 0)
                       .sort((a, b) => b.delayYears - a.delayYears)
                       .slice(0, 12)
                       .map(p => ({
-                        name: p.projectName.length > 22 ? p.projectName.slice(0, 20) + "\u2026" : p.projectName,
+                        name: p.projectName,
                         promised: parseInt(p.originalCompletionDate.slice(0, 4)),
                         current: parseInt(p.latestCompletionDate.slice(0, 4)),
                         cost: Math.round((p.latestBudgetM || 1) / 1000),
                       }))}
-                    leftKey="promised"
-                    rightKey="current"
-                    nameKey="name"
-                    sizeKey="cost"
                     leftLabel="PROMISED"
                     rightLabel="REALITY"
                   />
                   <div className="text-[9px] text-gray-700 font-mono mt-2 text-center">
-                    Source: NAO / IPA Annual Reports · Line width = project budget
+                    Source: NAO / IPA Annual Reports · Bar thickness = project cost
                   </div>
                 </ChartCard>
               </div>
