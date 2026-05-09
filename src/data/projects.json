@@ -933,7 +933,7 @@
     "category": "Energy",
     "subcategory": "Nuclear",
     "originalBudget": 2500,
-    "latestBudget": 2500,
+    "latestBudget": 2600,
     "originalDate": "2030s",
     "latestDate": "2030s",
     "status": "In Development",
@@ -943,11 +943,12 @@
       "Holtec Britain Limited",
       "Westinghouse Electric Company UK Limited"
     ],
-    "description": "Small Modular Reactor programme. Rolls-Royce SMR selected. First deployment planned at Wylfa, Wales. 2.5bn from GB Energy budget.",
+    "description": "Small Modular Reactor programme. Rolls-Royce SMR selected as preferred bidder. Landmark design and delivery contract signed with Great British Energy – Nuclear (GBE-N) on 13 April 2026, enabling work to begin on three SMR units at Wylfa, Anglesey. £2.6bn allocated in 2025 Spending Review for the programme; National Wealth Fund committed up to a further £599m of development support.",
     "sources": [
-      "https://www.gov.uk/government/news/rolls-royce-smr-selected-to-build-small-modular-nuclear-reactors"
+      "https://www.gov.uk/government/news/rolls-royce-smr-selected-to-build-small-modular-nuclear-reactors",
+      "https://www.rolls-royce.com/media/press-releases/2026/13-04-2026-rr-welcomes-contract-with-uk-government-for-delivery-of-small-modular-reactors.aspx"
     ],
-    "lastUpdated": "2026-03-26",
+    "lastUpdated": "2026-05-09",
     "contractorResearch": {
       "groups": 4,
       "members": 8,
