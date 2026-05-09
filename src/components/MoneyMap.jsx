@@ -295,6 +295,89 @@ const PRESETS = [
       lensSubjectId: null,
     },
   },
+  /* 2026-05-08 — task #32 batch. Six cohort-based quick views that snap
+     the canvas onto specific multi-record clusters in the curated
+     individual-connections dataset. Each anchors on the most-central
+     person or supplier of the cluster (lens mode shows hop-2, which
+     surfaces the wider story without picking a single department). */
+  {
+    id: "ex-chancellors-finance",
+    name: "Ex-Chancellors → finance",
+    sub: "Osborne · Javid · Hammond · Cameron — every ex-Chancellor moved to finance",
+    config: {
+      visibleLayers: ["supplier", "buyer", "person", "served_at", "award", "donor", "party", "donor_party"],
+      tierFilter: "ABCD",
+      minGBP: 100_000,
+      query: "",
+      viewMode: "lens",
+      lensSubjectId: "person:osborne-george",
+    },
+  },
+  {
+    id: "speaker-bureau",
+    name: "Speaker bureau cohort",
+    sub: "May · Johnson · Rayner · Gove — the post-Cabinet speaker-fee circuit",
+    config: {
+      visibleLayers: ["person", "served_at", "party", "donor"],
+      tierFilter: "ABCD",
+      minGBP: 100_000,
+      query: "",
+      viewMode: "lens",
+      lensSubjectId: "person:may-theresa",
+    },
+  },
+  {
+    id: "ppe-vip-lane",
+    name: "PPE / VIP-lane cluster",
+    sub: "Mone · Meller · Bourne · Liddell — referrers and DHSC contracts",
+    config: {
+      visibleLayers: ["supplier", "buyer", "project", "person", "donor", "party", "award", "donor_party", "served_at"],
+      tierFilter: "ABCD",
+      minGBP: 100_000,
+      query: "",
+      viewMode: "lens",
+      lensSubjectId: "supplier-ppe-medpro",
+    },
+  },
+  {
+    id: "greensill",
+    name: "Greensill scandal",
+    sub: "Cameron · Crothers · HM Treasury — the lobbying-rules limit case",
+    config: {
+      visibleLayers: ["supplier", "buyer", "person", "served_at", "award", "donor", "party", "donor_party"],
+      tierFilter: "ABCD",
+      minGBP: 100_000,
+      query: "",
+      viewMode: "lens",
+      lensSubjectId: "person:cameron-david",
+    },
+  },
+  {
+    id: "family-money",
+    name: "Family money",
+    sub: "Sunak/Murty · Harding/Penrose · Zahawi/Balshore — spousal & family arrangements",
+    config: {
+      visibleLayers: ["supplier", "buyer", "project", "person", "donor", "party", "award", "served_at", "donor_party"],
+      tierFilter: "ABCD",
+      minGBP: 100_000,
+      query: "",
+      viewMode: "lens",
+      lensSubjectId: "person:sunak-rishi",
+    },
+  },
+  {
+    id: "standards-findings",
+    name: "Standards findings",
+    sub: "Paterson · Bridgen · Hammond · Patel — late registrations and rule breaches",
+    config: {
+      visibleLayers: ["person", "served_at", "party", "donor", "donor_party"],
+      tierFilter: "ABCD",
+      minGBP: 100_000,
+      query: "",
+      viewMode: "lens",
+      lensSubjectId: "person:paterson-owen",
+    },
+  },
 ];
 
 /* 2026-04-26 — task #124. Annotated walking tours.

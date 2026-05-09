@@ -91,6 +91,86 @@ export default function StandardsPage() {
           </div>
         </div>
 
+        {/* The full A-D source rubric */}
+        <div className="mt-12">
+          <h2 className="text-lg font-semibold text-white mb-4">
+            The granular A&ndash;D rubric
+          </h2>
+          <div className="space-y-4 text-[17px] leading-relaxed text-gray-400">
+            <p>
+              The three chip colours above are the public-facing tiers. Under
+              the hood, every figure is graded on a four-grade scale, and the
+              per-project source-quality score on Money Map is computed from
+              those grades. The published rubric is in the repository at{" "}
+              <a
+                href="https://github.com/riggins646/gracchusv2/blob/main/scripts/source-grading.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-300 underline decoration-gray-700 hover:decoration-gray-400 hover:text-white"
+              >
+                scripts/source-grading.md
+              </a>
+              .
+            </p>
+            <div className="border-l-2 border-gray-800 pl-5 space-y-4 my-6">
+              <div>
+                <div className="text-emerald-400 font-medium">
+                  Grade A &mdash; primary authoritative
+                </div>
+                <p className="mt-1 text-[15px]">
+                  Independent auditors and bodies of record with a mandate to
+                  examine public spending. NAO, PAC, Hansard, Commons Library,
+                  IPA Major Projects Portfolio, MoD Major Projects Report,
+                  Audit Scotland / Wales / NI, court rulings (judiciary.uk /
+                  BAILII), legislation.gov.uk, named statutory inquiries
+                  (Post Office Horizon, Edinburgh Trams, Fraser). Good Law
+                  Project counts here only for judicial-review outcomes that
+                  have actually landed &mdash; not for advocacy posts.
+                </p>
+              </div>
+              <div>
+                <div className="text-emerald-400 font-medium">
+                  Grade B &mdash; primary transactional
+                </div>
+                <p className="mt-1 text-[15px]">
+                  Government and corporate primary sources from the buyer or
+                  the seller of the contract: gov.uk announcements, Contracts
+                  Finder, Find a Tender, Companies House filings, corporate
+                  investor relations.
+                </p>
+              </div>
+              <div>
+                <div className="text-gray-200 font-medium">
+                  Grade C &mdash; reputable secondary press
+                </div>
+                <p className="mt-1 text-[15px]">
+                  Established outlets reporting from primary sources:
+                  Guardian, FT, BBC, Reuters, New Civil Engineer, Computer
+                  Weekly, Digital Health, Bureau of Investigative Journalism,
+                  Private Eye, Byline Times.
+                </p>
+              </div>
+              <div>
+                <div className="text-purple-300 font-medium">
+                  Grade D &mdash; aggregated / Wikipedia
+                </div>
+                <p className="mt-1 text-[15px]">
+                  Useful for context and pattern-spotting, but treated as
+                  argued-from-evidence rather than adjudicated fact. Wikipedia
+                  citations are accepted only when the underlying primary
+                  source is itself reachable from the article.
+                </p>
+              </div>
+            </div>
+            <p>
+              Where the rubric throws an entry into &ldquo;<span className="font-mono">U</span>&rdquo; (ungraded), it&rsquo;s a flag for
+              upgrade rather than a permanent grade. Verifier scripts run
+              regularly to catch any U entries and resurface them for
+              re-grading against a primary source.
+            </p>
+          </div>
+        </div>
+
         {/* Undisclosed */}
         <div className="mt-12">
           <h2 className="text-lg font-semibold text-white mb-4">
