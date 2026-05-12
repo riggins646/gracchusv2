@@ -30,7 +30,7 @@
 
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 // ---------------------------------------------------------------------------
 // Config
@@ -707,7 +707,9 @@ async function main() {
 }
 
 // Only auto-run when invoked directly; allow `import` for unit testing.
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Use pathToFileURL so paths containing spaces or other URL-reserved characters
+// compare equal to import.meta.url (which is percent-encoded).
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((err) => {
     console.error("FATAL:", err.message);
     if (process.env.DEBUG) console.error(err.stack);

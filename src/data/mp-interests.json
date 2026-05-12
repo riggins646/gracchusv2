@@ -6,7 +6,7 @@
       {
         "name": "Register of Members' Financial Interests",
         "url": "https://www.parliament.uk/mps-lords-and-offices/standards-and-financial-interests/parliamentary-commissioner-for-standards/registers-of-interests/register-of-members-financial-interests/",
-        "notes": "Updated every 2 weeks. 10 categories of declarable interest. Thresholds: external employment >\u00a3100 per payment, gifts/hospitality >\u00a3300, donations >\u00a31,500. Published under Open Parliament Licence."
+        "notes": "Updated every 2 weeks. 10 categories of declarable interest. Thresholds: external employment >£100 per payment, gifts/hospitality >£300, donations >£1,500. Published under Open Parliament Licence."
       },
       {
         "name": "Independent Parliamentary Standards Authority (IPSA)",
@@ -15,10 +15,14 @@
       }
     ],
     "sourceConfidence": "high",
-    "lastUpdated": "2026-05-01",
+    "lastUpdated": "2026-05-12",
     "registerEditionReviewed": "as at 27 Apr 2026",
-    "dataRange": "2019\u20132025 (interests), 2019\u20132024 (expenses)",
-    "methodologyNote": "Interests data compiled from Parliamentary Commissioner for Standards publications and verified journalism citing the official register. Expenses data from IPSA annual publications. Historical top-earner data (2019-2024) is from the cumulative register. Current Parliament data covers July 2024 onward."
+    "dataRange": "2019–2025 (interests), 2019–2024 (expenses)",
+    "methodologyNote": "Interests data compiled from Parliamentary Commissioner for Standards publications and verified journalism citing the official register. Expenses data from IPSA annual publications. Historical top-earner data (2019-2024) is from the cumulative register. Current Parliament data covers July 2024 onward.",
+    "sourceUrl": "https://interests-api.parliament.uk/api/v1/Registers/798",
+    "sourceName": "Register of Members' Financial Interests (Parliament Interests API)",
+    "lastRegisterId": 798,
+    "lastRegisterPublishedDate": "2026-04-27"
   },
   "summary": {
     "totalMPs": 650,
@@ -48,7 +52,7 @@
         "year": "2019-20",
         "total": 117.6,
         "staffing": 90.1,
-        "office": 13.0,
+        "office": 13,
         "accommodation": 8.9,
         "travel": 5.6,
         "notes": "IPSA confirmed. Category breakdown verified."
@@ -73,20 +77,20 @@
       },
       {
         "year": "2022-23",
-        "total": 148.0,
-        "staffing": 118.0,
-        "office": 14.0,
-        "accommodation": 10.0,
-        "travel": 6.0,
+        "total": 148,
+        "staffing": 118,
+        "office": 14,
+        "accommodation": 10,
+        "travel": 6,
         "notes": "Estimated from IPSA 2023 publication using category ratios."
       },
       {
         "year": "2023-24",
-        "total": 157.0,
-        "staffing": 126.0,
-        "office": 15.0,
-        "accommodation": 10.0,
-        "travel": 6.0,
+        "total": 157,
+        "staffing": 126,
+        "office": 15,
+        "accommodation": 10,
+        "travel": 6,
         "notes": "Estimated from IPSA Nov 2024 'Supporting Democracy' report."
       }
     ],
@@ -100,129 +104,115 @@
   "byParty": [
     {
       "name": "Labour",
-      "count": 361,
-      "oi": 2029025,
-      "gi": 1550348,
-      "dn": 16410223
+      "count": 320,
+      "oi": 492133.19,
+      "gi": 234125.77999999997,
+      "dn": 1960717.7000000002
     },
     {
       "name": "Conservative",
-      "count": 116,
-      "oi": 4469803,
-      "gi": 965044,
-      "dn": 4308709
+      "count": 112,
+      "oi": 5081712.779999999,
+      "gi": 198672.50000000003,
+      "dn": 1350484.08
     },
     {
       "name": "Liberal Democrat",
-      "count": 72,
-      "oi": 495767,
-      "gi": 1379844,
-      "dn": 6082370
+      "count": 71,
+      "oi": 133233.09000000003,
+      "gi": 1105746.6900000002,
+      "dn": 722507.0499999999
     },
     {
       "name": "Labour (Co-op)",
-      "count": 42,
-      "oi": 124583,
-      "gi": 217192,
-      "dn": 2280582
+      "count": 40,
+      "oi": 9594.81,
+      "gi": 28707.62,
+      "dn": 211501.8
     },
     {
       "name": "Independent",
-      "count": 13,
-      "oi": 39896,
-      "gi": 566163,
-      "dn": 696494
-    },
-    {
-      "name": "Scottish National Party",
-      "count": 9,
-      "oi": 21665,
-      "gi": 54586,
-      "dn": 72000
+      "count": 12,
+      "oi": 82226.29,
+      "gi": 1809.1799999999998,
+      "dn": 85400
     },
     {
       "name": "Reform UK",
       "count": 8,
-      "oi": 2564084,
-      "gi": 334225,
-      "dn": 1882553
+      "oi": 1187304.3399999999,
+      "gi": 15113.27,
+      "dn": 142500
     },
     {
-      "name": "Sinn F\u00e9in",
+      "name": "Scottish National Party",
+      "count": 8,
+      "oi": 2941.62,
+      "gi": 5978.9,
+      "dn": 0
+    },
+    {
+      "name": "Sinn Féin",
       "count": 7,
       "oi": 4672,
-      "gi": 18885,
+      "gi": 0,
       "dn": 0
     },
     {
       "name": "Green Party",
       "count": 5,
-      "oi": 6966,
-      "gi": 20014,
-      "dn": 1177453
+      "oi": 2965.0299999999997,
+      "gi": 3392.3399999999997,
+      "dn": 121314
     },
     {
       "name": "Democratic Unionist Party",
       "count": 5,
-      "oi": 2805,
-      "gi": 11395,
+      "oi": 2500,
+      "gi": 1890,
       "dn": 0
     },
     {
       "name": "Plaid Cymru",
-      "count": 4,
-      "oi": 7875,
-      "gi": 3742,
-      "dn": 150610
+      "count": 3,
+      "oi": 1530.67,
+      "gi": 388.8,
+      "dn": 47250
     },
     {
-      "name": "Social Democratic & Labour Party",
-      "count": 2,
+      "name": "Restore Britain",
+      "count": 1,
+      "oi": 41482.21000000001,
+      "gi": 556,
+      "dn": 45000
+    },
+    {
+      "name": "Your Party",
+      "count": 1,
       "oi": 0,
-      "gi": 4618,
-      "dn": 0
+      "gi": 2945.09,
+      "dn": 1440
     },
     {
       "name": "Traditional Unionist Voice",
       "count": 1,
       "oi": 0,
       "gi": 400,
-      "dn": 2956
-    },
-    {
-      "name": "Alliance",
-      "count": 1,
-      "oi": 0,
-      "gi": 0,
       "dn": 0
     },
     {
-      "name": "Speaker",
+      "name": "Social Democratic & Labour Party",
       "count": 1,
       "oi": 0,
-      "gi": 0,
+      "gi": 684,
       "dn": 0
-    },
-    {
-      "name": "Restore Britain",
-      "count": 1,
-      "oi": 58104,
-      "gi": 4347,
-      "dn": 90000
-    },
-    {
-      "name": "Your Party",
-      "count": 1,
-      "oi": 0,
-      "gi": 10507,
-      "dn": 68679
     },
     {
       "name": "Ulster Unionist Party",
       "count": 1,
       "oi": 0,
       "gi": 0,
-      "dn": 20000
+      "dn": 0
     }
   ],
   "topEarners": {
@@ -239,7 +229,7 @@
         "totalDeclared": 873000,
         "primarySource": "Broadcasting (GB News), brand ambassador (Direct Bullion)",
         "period": "Since July 2024",
-        "notes": "\u00a3415k from Direct Bullion for 12 hours' work (\u00a311,250/hr). 17 code of conduct breaches found by Parliamentary Commissioner."
+        "notes": "£415k from Direct Bullion for 12 hours' work (£11,250/hr). 17 code of conduct breaches found by Parliamentary Commissioner."
       },
       {
         "name": "Geoffrey Cox",
@@ -280,7 +270,7 @@
         "party": "Conservative",
         "totalDeclared": 6400000,
         "primarySource": "Speaking fees, book deal, media",
-        "period": "Dec 2019 \u2013 Jul 2024",
+        "period": "Dec 2019 – Jul 2024",
         "notes": "Cumulative total as MP for Uxbridge."
       },
       {
@@ -288,14 +278,14 @@
         "party": "Conservative",
         "totalDeclared": 3500000,
         "primarySource": "Speaking fees",
-        "period": "Dec 2019 \u2013 Jul 2024"
+        "period": "Dec 2019 – Jul 2024"
       },
       {
         "name": "Geoffrey Cox",
         "party": "Conservative",
         "totalDeclared": 1400000,
         "primarySource": "Barrister",
-        "period": "Oct 2021 \u2013 Nov 2022",
+        "period": "Oct 2021 – Nov 2022",
         "notes": "Highest earner in single-year period."
       },
       {
@@ -303,17 +293,194 @@
         "party": "Labour",
         "totalDeclared": 899600,
         "primarySource": "Legal and other",
-        "period": "Dec 2019 \u2013 Jul 2024",
+        "period": "Dec 2019 – Jul 2024",
         "notes": "Before becoming PM in July 2024."
+      }
+    ],
+    "currentEdition": [
+      {
+        "mp": "Rishi Sunak",
+        "party": "Conservative",
+        "constituency": "Richmond and Northallerton",
+        "outsideIncome": 2446298,
+        "paidRoles": 20
+      },
+      {
+        "mp": "Nigel Farage",
+        "party": "Reform UK",
+        "constituency": "Clacton",
+        "outsideIncome": 977945,
+        "paidRoles": 72
+      },
+      {
+        "mp": "Sir Geoffrey Cox",
+        "party": "Conservative",
+        "constituency": "Torridge and Tavistock",
+        "outsideIncome": 865670,
+        "paidRoles": 34
+      },
+      {
+        "mp": "Sir Jeremy Hunt",
+        "party": "Conservative",
+        "constituency": "Godalming and Ash",
+        "outsideIncome": 412670,
+        "paidRoles": 34
+      },
+      {
+        "mp": "Sir Oliver Dowden",
+        "party": "Conservative",
+        "constituency": "Hertsmere",
+        "outsideIncome": 237500,
+        "paidRoles": 21
+      },
+      {
+        "mp": "Nick Timothy",
+        "party": "Conservative",
+        "constituency": "West Suffolk",
+        "outsideIncome": 145000,
+        "paidRoles": 2
+      },
+      {
+        "mp": "Sir James Cleverly",
+        "party": "Conservative",
+        "constituency": "Braintree",
+        "outsideIncome": 132368,
+        "paidRoles": 11
+      },
+      {
+        "mp": "Lee Anderson",
+        "party": "Reform UK",
+        "constituency": "Ashfield",
+        "outsideIncome": 103716,
+        "paidRoles": 37
+      },
+      {
+        "mp": "Sir John Hayes",
+        "party": "Conservative",
+        "constituency": "South Holland and The Deepings",
+        "outsideIncome": 99986,
+        "paidRoles": 7
+      },
+      {
+        "mp": "Yuan Yang",
+        "party": "Labour",
+        "constituency": "Earley and Woodley",
+        "outsideIncome": 74659,
+        "paidRoles": 8
+      },
+      {
+        "mp": "Chris Bryant",
+        "party": "Labour",
+        "constituency": "Rhondda and Ogmore",
+        "outsideIncome": 69716,
+        "paidRoles": 10
+      },
+      {
+        "mp": "Sir Andrew Mitchell",
+        "party": "Conservative",
+        "constituency": "Sutton Coldfield",
+        "outsideIncome": 66304,
+        "paidRoles": 5
+      },
+      {
+        "mp": "Suella Braverman",
+        "party": "Reform UK",
+        "constituency": "Fareham and Waterlooville",
+        "outsideIncome": 64426,
+        "paidRoles": 24
+      },
+      {
+        "mp": "Sir Gavin Williamson",
+        "party": "Conservative",
+        "constituency": "Stone, Great Wyrley and Penkridge",
+        "outsideIncome": 64000,
+        "paidRoles": 4
+      },
+      {
+        "mp": "John Glen",
+        "party": "Conservative",
+        "constituency": "Salisbury",
+        "outsideIncome": 60000,
+        "paidRoles": 2
+      },
+      {
+        "mp": "Angela Rayner",
+        "party": "Labour",
+        "constituency": "Ashton-under-Lyne",
+        "outsideIncome": 59000,
+        "paidRoles": 7
+      },
+      {
+        "mp": "Tony Vaughan",
+        "party": "Labour",
+        "constituency": "Folkestone and Hythe",
+        "outsideIncome": 56368,
+        "paidRoles": 23
+      },
+      {
+        "mp": "Dr Zubir Ahmed",
+        "party": "Labour",
+        "constituency": "Glasgow South West",
+        "outsideIncome": 53753,
+        "paidRoles": 6
+      },
+      {
+        "mp": "Steve Barclay",
+        "party": "Conservative",
+        "constituency": "North East Cambridgeshire",
+        "outsideIncome": 52000,
+        "paidRoles": 14
+      },
+      {
+        "mp": "Dame Caroline Dinenage",
+        "party": "Conservative",
+        "constituency": "Gosport",
+        "outsideIncome": 50000,
+        "paidRoles": 2
+      },
+      {
+        "mp": "Dr Andrew Murrison",
+        "party": "Conservative",
+        "constituency": "South West Wiltshire",
+        "outsideIncome": 49285,
+        "paidRoles": 7
+      },
+      {
+        "mp": "Rupert Lowe",
+        "party": "Restore Britain",
+        "constituency": "Great Yarmouth",
+        "outsideIncome": 41482,
+        "paidRoles": 32
+      },
+      {
+        "mp": "Ms Diane Abbott",
+        "party": "Independent",
+        "constituency": "Hackney North and Stoke Newington",
+        "outsideIncome": 40950,
+        "paidRoles": 3
+      },
+      {
+        "mp": "Mark Garnier",
+        "party": "Conservative",
+        "constituency": "Wyre Forest",
+        "outsideIncome": 40620,
+        "paidRoles": 12
+      },
+      {
+        "mp": "Dr Neil Shastri-Hurst",
+        "party": "Conservative",
+        "constituency": "Solihull West and Shirley",
+        "outsideIncome": 40241,
+        "paidRoles": 23
       }
     ]
   },
   "aggregateStats": {
     "description": "Aggregate statistics for current Parliament (since July 2024)",
-    "sourceName": "openDemocracy / Unlock Democracy analysis of Register",
-    "sourceUrl": "https://www.opendemocracy.net",
+    "sourceName": "Parliament Interests API",
+    "sourceUrl": "https://interests-api.parliament.uk/api/v1/Interests?RegisterId=798",
     "sourceConfidence": "medium-high",
-    "methodologyNote": "Compiled from investigative journalism analysis of the full register. Cross-referenced with official Parliament publications.",
+    "methodologyNote": "Aggregates derived from Parliament's Interests API. byParty totals computed from Categories 1 (oi), 3+4+5 (gi), 2 (dn). topEarners.currentEdition is for the latest register edition only.",
     "mpsWithSecondJobs": 236,
     "totalMPs": 650,
     "pctWithSecondJobs": 36.3,
@@ -357,14 +524,17 @@
       "year": "2021-22",
       "topMPsCount": 24,
       "pctOfTotalIncome": 71
-    }
+    },
+    "lastUpdated": "2026-05-12",
+    "mpsRegistered": 596,
+    "totalInterests": 4039
   },
   "contextSentences": {
     "headline": "236 of 650 MPs (36%) have declared external income since the July 2024 election, working a combined 32,000 hours in second jobs.",
-    "earnings": "The five highest-earning MPs declared a combined \u00a32.05m in outside income in less than a year \u2014 led by Nigel Farage (\u00a3873k) and Geoffrey Cox (\u00a3686k).",
-    "gifts": "318 MPs declared \u00a31.29m in gifts and hospitality, with overseas trips accounting for 63% of the total value.",
-    "expenses": "Total MP business costs reached an estimated \u00a3157m in 2023-24, up 33% in real terms since 2019-20.",
-    "concentration": "In 2021-22, the top 24 earners \u2014 just 9% of MPs with outside income \u2014 took home 71% of all declared earnings."
+    "earnings": "The five highest-earning MPs declared a combined £2.05m in outside income in less than a year — led by Nigel Farage (£873k) and Geoffrey Cox (£686k).",
+    "gifts": "318 MPs declared £1.29m in gifts and hospitality, with overseas trips accounting for 63% of the total value.",
+    "expenses": "Total MP business costs reached an estimated £157m in 2023-24, up 33% in real terms since 2019-20.",
+    "concentration": "In 2021-22, the top 24 earners — just 9% of MPs with outside income — took home 71% of all declared earnings."
   },
   "q1_2026": {
     "period": "January – March 2026",
@@ -374,17 +544,71 @@
       "mpsReceiving": 189,
       "verifiedTopItemsNote": "Top items below are individually verified from parliament.uk and GOV.UK registers. Aggregate totals are estimates based on register publication volume.",
       "topItems": [
-        { "mp": "David Lammy", "party": "Labour", "item": "Washington DC trip — meetings with VP Vance, Congress, SCOTUS", "donor": "US State Department", "value": 12400, "date": "2026-01-07", "category": "Overseas travel", "registerRef": "GOV.UK press release 7 Jan 2026", "verified": true },
-        { "mp": "Kemi Badenoch", "party": "Conservative", "item": "Accommodation, meals & £10k donation from supporters", "donor": "Neil Record / Giles Davies", "value": 17549, "date": "2026-02-13", "category": "Hospitality & financial support", "registerRef": "parliament.uk register 23 Mar 2026", "verified": true },
-        { "mp": "Keir Starmer", "party": "Labour", "item": "Arsenal hospitality (2 matches) + Trump cufflinks & golf club", "donor": "Arsenal FC / US Government", "value": 5800, "date": "2026-01-25", "category": "Sporting hospitality & gifts", "registerRef": "GOV.UK Ministers' Gifts Register Jan-Feb 2026", "verified": true }
+        {
+          "mp": "David Lammy",
+          "party": "Labour",
+          "item": "Washington DC trip — meetings with VP Vance, Congress, SCOTUS",
+          "donor": "US State Department",
+          "value": 12400,
+          "date": "2026-01-07",
+          "category": "Overseas travel",
+          "registerRef": "GOV.UK press release 7 Jan 2026",
+          "verified": true
+        },
+        {
+          "mp": "Kemi Badenoch",
+          "party": "Conservative",
+          "item": "Accommodation, meals & £10k donation from supporters",
+          "donor": "Neil Record / Giles Davies",
+          "value": 17549,
+          "date": "2026-02-13",
+          "category": "Hospitality & financial support",
+          "registerRef": "parliament.uk register 23 Mar 2026",
+          "verified": true
+        },
+        {
+          "mp": "Keir Starmer",
+          "party": "Labour",
+          "item": "Arsenal hospitality (2 matches) + Trump cufflinks & golf club",
+          "donor": "Arsenal FC / US Government",
+          "value": 5800,
+          "date": "2026-01-25",
+          "category": "Sporting hospitality & gifts",
+          "registerRef": "GOV.UK Ministers' Gifts Register Jan-Feb 2026",
+          "verified": true
+        }
       ],
       "byCategory": [
-        { "category": "Overseas travel", "value": 218000, "items": 84 },
-        { "category": "Sporting hospitality", "value": 96000, "items": 78 },
-        { "category": "Concert & event tickets", "value": 64000, "items": 52 },
-        { "category": "Corporate hospitality", "value": 58000, "items": 48 },
-        { "category": "Gifts from foreign heads of state", "value": 28000, "items": 12 },
-        { "category": "Other gifts & hospitality", "value": 23000, "items": 38 }
+        {
+          "category": "Overseas travel",
+          "value": 218000,
+          "items": 84
+        },
+        {
+          "category": "Sporting hospitality",
+          "value": 96000,
+          "items": 78
+        },
+        {
+          "category": "Concert & event tickets",
+          "value": 64000,
+          "items": 52
+        },
+        {
+          "category": "Corporate hospitality",
+          "value": 58000,
+          "items": 48
+        },
+        {
+          "category": "Gifts from foreign heads of state",
+          "value": 28000,
+          "items": 12
+        },
+        {
+          "category": "Other gifts & hospitality",
+          "value": 23000,
+          "items": 38
+        }
       ]
     },
     "note": "Items declared in register publications between January and March 2026. Overseas travel includes flights, accommodation, and subsistence."
