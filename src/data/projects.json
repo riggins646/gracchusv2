@@ -23,13 +23,15 @@
       "LM Joint Venture",
       "Siemens Mobility / Costain Joint Venture"
     ],
-    "description": "UK flagship high-speed rail. Northern legs scrapped. Cost widely estimated to exceed £100bn. March 2026 parliamentary report: £43.6bn spent to Feb 2026 (£46.2bn inc. scrapped Phase 2). Earthworks 70% complete. Speed reduction under consideration (186mph vs 224mph). Revised cost estimate expected summer 2026.",
+    "description": "UK flagship high-speed rail. Northern legs scrapped. Cost widely estimated to exceed £100bn. March 2026 parliamentary report: £43.6bn spent to Feb 2026 (£46.2bn inc. scrapped Phase 2). Earthworks 70% complete. Speed reduction under consideration (186mph vs 224mph). On 8 May 2026 HS2 CEO Mark Wild confirmed reset conclusions (revised cost & schedule baseline) further delayed from summer 2026 to end of 2026.",
     "sources": [
       "https://www.gov.uk/government/speeches/hs2-6-monthly-report-to-parliament-march-2026",
       "https://www.newcivilengineer.com/latest/hs2-46-2bn-already-spent-but-new-total-estimate-not-yet-detailed-25-03-2026/",
+      "https://www.newcivilengineer.com/latest/hs2-new-cost-and-completion-timeline-estimates-delayed-again-until-end-of-year-08-05-2026/",
+      "https://www.constructionenquirer.com/2026/05/08/hs2-chief-pushes-major-project-reset-back-to-end-of-2026/",
       "https://committees.parliament.uk/committee/127/public-accounts-committee/"
     ],
-    "lastUpdated": "2026-04-10",
+    "lastUpdated": "2026-05-10",
     "contractorResearch": {
       "groups": 9,
       "members": 22,
