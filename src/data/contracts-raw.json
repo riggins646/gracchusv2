@@ -1430,5 +1430,31 @@
     "competitive": false,
     "duration": "Bridge contract to 30 June 2026",
     "source": "https://www.flightglobal.com/defence/2026/04/gcap-advances-as-edgewing-lands-first-joint-contract-from-partner-nations/"
+  },
+  {
+    "id": "DEF-026",
+    "title": "RCH 155 Wheeled Self-Propelled Howitzers (72 units)",
+    "description": "Near-£1bn contract (~$1.35bn) to procure 72 Remote Controlled Howitzers 155mm (RCH 155) for the British Army's Royal Artillery, replacing the AS90 fleet and strengthening NATO interoperability under the UK-Germany Trinity House Agreement (Oct 2024). Contract signed 13 May 2026 and awarded by the Organisation for Joint Armament Cooperation (OCCAR) on behalf of the UK MOD to ARTEC GmbH, the KNDS-Rheinmetall joint venture. Includes initial training and in-service support. Guns mounted on BOXER 8x8 armoured vehicles; capable of 8 rounds/minute at 70km range, operable by a two-soldier crew. First deliveries expected 2028. BOXER drive module (chassis/engine/drivetrain) built at KNDS UK Stockport; barrel/breech/recoil systems at Rheinmetall Telford. Programme expected to support 100 new skilled jobs at Telford, 100 at Stockport and ~300 across the wider UK supply chain.",
+    "buyer": "Ministry of Defence (via OCCAR)",
+    "status": "active",
+    "awardDate": "2026-05-13",
+    "value": 1000000000,
+    "valueDisclosed": true,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "ARTEC GmbH (KNDS / Rheinmetall JV)"
+      },
+      {
+        "name": "KNDS UK"
+      },
+      {
+        "name": "Rheinmetall"
+      }
+    ],
+    "category": "defence",
+    "competitive": false,
+    "duration": "First deliveries from 2028; in-service support included",
+    "source": "https://www.gov.uk/government/news/uk-orders-72-rch-155-self-propelled-howitzers"
   }
 ]

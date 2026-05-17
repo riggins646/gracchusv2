@@ -2,7 +2,7 @@
   "metadata": {
     "title": "UK Infrastructure Planning & Approval Delays",
     "description": "Major UK projects tracked through planning, DCO, grid connection, and regulatory approval stages. All dates and durations sourced from official records.",
-    "lastUpdated": "2026-04-25",
+    "lastUpdated": "2026-05-17",
     "methodology": "Approval durations measured from formal application submission to final decision date. Grid connection data from Ofgem queue statistics. Only projects with verifiable official records included.",
     "sources": [
       "National Infrastructure Planning (PINS)",
@@ -195,15 +195,15 @@
       "responsibleBody": "Secretary of State for DESNZ",
       "submissionDate": "2024-05-01",
       "originalDecisionDeadline": "2026-01-09",
-      "actualDecisionDate": null,
-      "daysInApproval": null,
+      "actualDecisionDate": "2026-05-14",
+      "daysInApproval": 743,
       "deadlineExtensions": 2,
-      "approvalStatus": "Pending (decision delayed)",
+      "approvalStatus": "Approved",
       "causeCategory": "Government decision delay",
-      "causeDetail": "Secretary of State extended decision deadline beyond original 9 Jan 2026 statutory date, first to 30 Apr 2026 (7 Jan 2026 statement), then further reset to 14 May 2026 via section 107(7) Planning Act statement made to Parliament on 26 Mar 2026. Decision still pending.",
+      "causeDetail": "Two-project 3GW offshore wind scheme (DBS West + DBS East) developed by RWE and Masdar; up to 100 turbines at each site with subsea export cables to Skipsea and new converter stations south-west of Beverley (East Riding). Secretary of State extended decision deadline beyond original 9 Jan 2026 statutory date, first to 30 Apr 2026 (7 Jan 2026 statement), then further reset to 14 May 2026 via section 107(7) Planning Act statement made to Parliament on 26 Mar 2026. DCO granted by Lord Whitehead on behalf of the Energy Secretary on 14 May 2026, approximately 4 months past statutory deadline. Subject to a six-week judicial review window from 14 May 2026.",
       "estimatedCostM": null,
       "capacityMW": 3000,
-      "sourceName": "PINS / Offshore Wind",
+      "sourceName": "DESNZ / PINS",
       "sourceUrl": "https://infrastructure.planninginspectorate.gov.uk/projects/north-east/dogger-bank-south-offshore-wind-farms/",
       "sourceConfidence": "very_high"
     },
@@ -462,6 +462,26 @@
       "sourceName": "MHCLG / Universal UK Project",
       "sourceUrl": "https://www.gov.uk/government/news/universal-studios-resort-bedford-special-development-order",
       "sourceConfidence": "high"
+    },
+    {
+      "id": "north-falls",
+      "projectName": "North Falls Offshore Wind Farm",
+      "category": "Energy",
+      "approvalType": "DCO",
+      "responsibleBody": "Secretary of State for DESNZ",
+      "submissionDate": "2024-07-26",
+      "originalDecisionDeadline": "2026-01-28",
+      "actualDecisionDate": "2026-05-14",
+      "daysInApproval": 657,
+      "deadlineExtensions": 1,
+      "approvalStatus": "Approved",
+      "causeCategory": "Government decision delay",
+      "causeDetail": "~1GW offshore wind farm ~40km off East Anglia coast; 50:50 joint venture of RWE and SSE Renewables, extending the existing 504MW Greater Gabbard array. Application accepted for examination 23 August 2024; examination closed 28 July 2025; ExA recommendation to SoS 28 October 2025; SoS decision delayed approximately 3.5 months past statutory deadline (due to UK pre-election period). DCO permits up to 57 turbines and up to two offshore substations. Decision granted by Lord Whitehead on behalf of the Energy Secretary. Subject to a six-week judicial review window from 14 May 2026.",
+      "estimatedCostM": null,
+      "capacityMW": 1000,
+      "sourceName": "DESNZ / PINS",
+      "sourceUrl": "https://www.gov.uk/government/news/north-falls-offshore-wind-farm-development-consent-decision-announced",
+      "sourceConfidence": "very_high"
     }
   ],
   "gridConnectionQueue": {

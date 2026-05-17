@@ -1,20 +1,21 @@
 {
   "metadata": {
     "title": "NHS Waiting Times Explorer",
-    "lastUpdated": "2026-04-17",
+    "lastUpdated": "2026-05-16",
     "source": "NHS England RTT Statistics, BMA, King's Fund",
-    "period": "February 2026 (latest available)"
+    "period": "March 2026 (latest available)",
+    "lastReleaseNotes": "NHS England RTT March 2026 (published 14 May 2026): waiting list fell to 7.11m treatments (~6.02m individual patients), lowest in 3.5 years and down 515k since July 2024; YoY reduction of 312k — largest in 16 years. 65.3% within 18 weeks (interim 65% target met — first time hit since 2015), but still well below long-term 92% standard. Median wait 11.3 weeks; 92nd percentile 38.3 weeks. NHS England framed this as a 'huge moment'; Health Service Journal noted 'majority of improvement' in March driven by a 'record' spike in 'unreported removals' (data-validation caveat). Cancer 28-day faster diagnosis 79.4% (vs 75% target — met); 31-day from decision to treat 92.8% (vs 96%); 62-day urgent 72.8% (vs 85%). Regional and specialty breakdowns below carry the February 2026 distribution pending extraction of the March SPN PDF."
   },
   "contextSentences": {
-    "headline": "7.22 million people waiting for NHS treatment — down for the fourth consecutive month.",
+    "headline": "7.11 million people waiting for NHS treatment — the lowest figure in three and a half years.",
     "subtext": "Select your region and condition to see how long you'd wait."
   },
   "keyStats": {
-    "totalWaiting": 7220000,
-    "individualPatients": 6100000,
-    "medianWaitWeeks": 13.2,
+    "totalWaiting": 7110000,
+    "individualPatients": 6020000,
+    "medianWaitWeeks": 11.3,
     "medianWait2019": 7.8,
-    "pctWithin18Weeks": 62.6,
+    "pctWithin18Weeks": 65.3,
     "target18Weeks": 92,
     "pctOver52Weeks": 1.70,
     "treatmentsDelivered2025": 18400000,
@@ -196,12 +197,12 @@
     { "start": 2024, "end": 2026, "party": "Labour", "color": "#DC241f" }
   ],
   "waitBands": {
-    "description": "Breakdown of 7.22M patients by wait duration (February 2026)",
+    "description": "Breakdown of 7.11M waits by duration (March 2026 RTT — 0–18 weeks band scaled to the 65.3% headline; remaining bands hold the February 2026 distribution until the March SPN PDF is parsed).",
     "bands": [
-      { "label": "0–18 weeks", "count": 4519720, "pct": 62.6, "color": "#10b981" },
-      { "label": "18–36 weeks", "count": 1660600, "pct": 23.0, "color": "#f59e0b" },
-      { "label": "36–52 weeks", "count": 917012, "pct": 12.7, "color": "#ef4444" },
-      { "label": "52+ weeks", "count": 122668, "pct": 1.70, "color": "#7c3aed" }
+      { "label": "0–18 weeks", "count": 4642830, "pct": 65.3, "color": "#10b981" },
+      { "label": "18–36 weeks", "count": 1556210, "pct": 21.9, "color": "#f59e0b" },
+      { "label": "36–52 weeks", "count": 796320, "pct": 11.2, "color": "#ef4444" },
+      { "label": "52+ weeks", "count": 113760, "pct": 1.60, "color": "#7c3aed" }
     ]
   }
 }
