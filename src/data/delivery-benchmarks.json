@@ -1,8 +1,8 @@
 {
   "metadata": {
     "source": "Multiple web sources including World Bank, OECD, government statistics, regulatory bodies, and industry reports",
-    "lastUpdated": "2026-04-14",
-    "methodology": "Data compiled from official government publications, regulatory filings, World Bank reports, and academic research. All figures converted to GBP/USD as appropriate. Cost data adjusted to 2024/2025 prices where necessary. Timeline data reflects most recent publicly available project information as of April 2026.",
+    "lastUpdated": "2026-05-21",
+    "methodology": "Data compiled from official government publications, regulatory filings, World Bank reports, and academic research. All figures converted to GBP/USD as appropriate. Cost data adjusted to 2024/2025 prices where necessary. Timeline data reflects most recent publicly available project information as of May 2026.",
     "disclaimer": "Data represents latest available figures from cited sources. Some historical figures used where recent data unavailable. All figures rounded to reasonable precision given source uncertainty."
   },
   "railCosts": {
@@ -12,11 +12,11 @@
       {
         "country": "UK",
         "project": "HS2 (Phase 1)",
-        "costPerKm": 205,
-        "costPerKmGBP": "£205m",
-        "totalCost": "£46.2bn (March 2026 estimate)",
-        "note": "Current estimate £81-100bn final cost. Highest construction cost per km globally.",
-        "source": "HS2 Ltd 6-monthly report to Parliament (March 2026), New Civil Engineer (March 2026)"
+        "costPerKm": 457,
+        "costPerKmGBP": "£457m",
+        "totalCost": "£87.7-102.7bn (May 2026 reset baseline, 2025 prices)",
+        "note": "Highest construction cost per km globally. Per New Civil Engineer May 2026: assuming no further overruns, HS2 will cost ~£457m/km. £44.2bn (nominal) already spent to end March 2026. Speed cap reduced from 225mph to 200mph in reset.",
+        "source": "HS2 6-monthly report to Parliament (May 2026), Bloomberg, New Civil Engineer (May 2026)"
       },
       {
         "country": "France",
@@ -65,9 +65,9 @@
         "source": "Ministry of Land, Infrastructure, Transport and Tourism (MLIT)"
       }
     ],
-    "ukAvgPerKm": "£205m (HS2 - highest globally)",
+    "ukAvgPerKm": "£457m (HS2 - highest globally)",
     "intlAvgPerKm": "~£20m (Spain, France average)",
-    "ukTointlRatio": "10x more expensive than Spain/France average"
+    "ukTointlRatio": "~23x more expensive than Spain/France average"
   },
   "planningTimelines": {
     "category": "Infrastructure Planning Approval Timeline (proposal to construction start)",

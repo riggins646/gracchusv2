@@ -6,9 +6,9 @@
     "category": "Transport",
     "subcategory": "Rail",
     "originalBudget": 33000,
-    "latestBudget": 100000,
+    "latestBudget": 102700,
     "originalDate": "2033",
-    "latestDate": "Late 2030s",
+    "latestDate": "2036-2043",
     "status": "In Progress",
     "contractors": [
       "Balfour Beatty VINCI",
@@ -23,15 +23,15 @@
       "LM Joint Venture",
       "Siemens Mobility / Costain Joint Venture"
     ],
-    "description": "UK flagship high-speed rail. Northern legs scrapped. Cost widely estimated to exceed £100bn. March 2026 parliamentary report: £43.6bn spent to Feb 2026 (£46.2bn inc. scrapped Phase 2). Earthworks 70% complete. Speed reduction under consideration (186mph vs 224mph). On 8 May 2026 HS2 CEO Mark Wild confirmed reset conclusions (revised cost & schedule baseline) further delayed from summer 2026 to end of 2026.",
+    "description": "UK flagship high-speed rail. Northern legs scrapped. May 2026 6-monthly parliamentary report (Transport Secretary Heidi Alexander) confirmed reset baseline: total cost now estimated at £87.7bn-£102.7bn (2025 prices). £44.2bn (nominal) spent to end of March 2026. First services (Old Oak Common-Birmingham) now expected May 2036-October 2039; Euston extension May 2040-December 2043. Operating speed capped at 200mph (down from 225mph), saving ~£2.5bn. Two-thirds of cost increase attributed to missed scope, prior-government underestimation, inefficient delivery and inflation.",
     "sources": [
-      "https://www.gov.uk/government/speeches/hs2-6-monthly-report-to-parliament-march-2026",
-      "https://www.newcivilengineer.com/latest/hs2-46-2bn-already-spent-but-new-total-estimate-not-yet-detailed-25-03-2026/",
-      "https://www.newcivilengineer.com/latest/hs2-new-cost-and-completion-timeline-estimates-delayed-again-until-end-of-year-08-05-2026/",
-      "https://www.constructionenquirer.com/2026/05/08/hs2-chief-pushes-major-project-reset-back-to-end-of-2026/",
+      "https://www.gov.uk/government/speeches/hs2-6-monthly-report-to-parliament-may-2026",
+      "https://www.newcivilengineer.com/latest/hs2-cost-estimated-to-exceed-100bn-and-trains-not-due-to-start-for-at-least-10-years-19-05-2026/",
+      "https://www.bloomberg.com/news/articles/2026-05-19/high-speed-2-to-cost-up-to-103-billion-after-more-delays",
+      "https://www.theengineer.co.uk/content/news/hs2-reset-cuts-train-speeds-to-reduce-costs",
       "https://committees.parliament.uk/committee/127/public-accounts-committee/"
     ],
-    "lastUpdated": "2026-05-10",
+    "lastUpdated": "2026-05-21",
     "contractorResearch": {
       "groups": 9,
       "members": 22,
