@@ -1,7 +1,7 @@
 {
   "metadata": {
     "source": "Multiple web sources including World Bank, OECD, government statistics, regulatory bodies, and industry reports",
-    "lastUpdated": "2026-05-21",
+    "lastUpdated": "2026-05-22",
     "methodology": "Data compiled from official government publications, regulatory filings, World Bank reports, and academic research. All figures converted to GBP/USD as appropriate. Cost data adjusted to 2024/2025 prices where necessary. Timeline data reflects most recent publicly available project information as of May 2026.",
     "disclaimer": "Data represents latest available figures from cited sources. Some historical figures used where recent data unavailable. All figures rounded to reasonable precision given source uncertainty."
   },
@@ -177,6 +177,20 @@
         "source": "EDF, World Nuclear News, Solar Power Portal"
       },
       {
+        "country": "UK",
+        "project": "Sizewell C (EPR, twin reactor)",
+        "capacity": "3.2 GW",
+        "totalCost": "£38.2bn baseline / £47.7bn higher threshold (NAO May 2026, 2025 prices)",
+        "costPerGW": "£11.9bn/GW baseline / £14.9bn/GW higher threshold",
+        "costPerGWUSD": "$15-19bn/GW (estimated)",
+        "timeline": "2025-2039 baseline (14 years construction) / 2025-2043 higher threshold",
+        "constructionStart": "July 2025 (FID)",
+        "projectedFirstPower": "2038 (baseline)",
+        "delayFromOriginal": "n/a — baseline set at FID; higher threshold scenario extends completion to August 2043",
+        "note": "NAO Value-for-Money report (HC 33, 20 May 2026) sets baseline cost and timeline. Replicates Hinkley Point C design but uses novel RAB financing — consumers pay levy via bills before operation; government majority equity. NAO warns investor incentives to control costs are unclear.",
+        "source": "NAO Sizewell C report (HC 33, 20 May 2026), New Civil Engineer"
+      },
+      {
         "country": "France",
         "project": "Flamanville 3 (EPR)",
         "capacity": "1.65 GW",
@@ -212,7 +226,7 @@
         "source": "World Nuclear Association, IEA NEA"
       }
     ],
-    "ukComparison": "UK Hinkley Point C (£13.4bn/GW) is 7-8x more expensive than China (£1.8-1.9bn/GW) and South Korea (£1.7-1.8bn/GW), and similar to France Flamanville (£12.8bn/GW) which also massively overran."
+    "ukComparison": "UK Hinkley Point C (£13.4bn/GW) and Sizewell C (£11.9-14.9bn/GW per NAO baseline-to-higher-threshold range) are both 6-8x more expensive than China (£1.8-1.9bn/GW) and South Korea (£1.7-1.8bn/GW), and broadly similar to France Flamanville (£12.8bn/GW) which also massively overran. NAO May 2026 caveat: no EPR project has yet been delivered without major delays or cost increases."
   },
   "windFarms": {
     "category": "Offshore Wind Farm Development Timeline",

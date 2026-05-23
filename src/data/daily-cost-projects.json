@@ -56,13 +56,26 @@
       "sourceUrl": "https://www.newcivilengineer.com/latest/lower-thames-crossing-receives-planning-permission-25-03-2025/",
       "sourceConfidence": "high",
       "notes": "DCO approved March 2025 after years of delays. Construction start date not yet confirmed; completion estimated at 6 years from approval."
+    },
+    {
+      "projectId": "sizewell-c",
+      "projectName": "Sizewell C Nuclear Power Station",
+      "department": "Dept for Energy Security & Net Zero",
+      "totalEstimatedCostM": 38200,
+      "startDate": "2025-07-22",
+      "completionDate": "2039-08-15",
+      "durationDays": 5137,
+      "averageDailyCostM": 7.44,
+      "potholeEquivalentPerDay": 74362,
+      "methodologyBasis": "Baseline total cost £38.2bn (NAO Value-for-Money report, HC 33, 20 May 2026) divided by period from FID (22 July 2025) through baseline construction completion (summer 2039, midpoint 15 August 2039). NAO higher threshold cost £47.7bn with completion delayed to August 2043 implies ~£7.23m/day over 6,598 days.",
+      "completionNote": "Construction complete summer 2039 (NAO baseline); electricity generation from 2038 with first power dependent on commissioning. Higher threshold scenario: August 2043.",
+      "sourceName": "NAO Sizewell C report (20 May 2026, HC 33)",
+      "sourceUrl": "https://www.nao.org.uk/reports/sizewell-c/",
+      "sourceConfidence": "medium",
+      "notes": "Reclassified from 'excluded' to 'projects' after NAO May 2026 published baseline cost (£38.2bn) and explicit completion-date estimates. Novel RAB financing: consumers pay via energy bill levy years before operation. NAO concludes 'it is not clear how strongly the deal incentivises investors to reduce construction costs' — investor profits projected to cost consumers £4bn+. No EPR of this type has been delivered without delays/cost overruns (Hinkley-C ~2x cost / 7y delay; Flamanville-3 / Olkiluoto-3 ~10+y / ~4x). Baseline figure used for daily-cost calculation; higher threshold flagged in methodologyBasis."
     }
   ],
   "excluded": [
-    {
-      "projectName": "Sizewell C",
-      "reason": "No official completion date published. FID reached July 2025 but timeline insufficient for defensible daily cost calculation."
-    },
     {
       "projectName": "Palace of Westminster Restoration & Renewal",
       "reason": "Multiple delivery models with 4-5x cost range (£9bn-£18.7bn). No confirmed construction start date. Delivery model decision expected ~2030."

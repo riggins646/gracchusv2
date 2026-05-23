@@ -2,7 +2,7 @@
   "metadata": {
     "title": "UK Infrastructure Delivery Delays",
     "description": "Major UK government projects tracked from approval through delivery, measuring schedule slippage and cost growth. All timelines sourced from NAO, IPA, and official project updates.",
-    "lastUpdated": "2026-05-21",
+    "lastUpdated": "2026-05-22",
     "methodology": "Delay calculated as difference between original planned completion and latest estimated/actual completion. Cost growth measured from original budget at main investment decision to latest published estimate. Only projects with verifiable official schedule data included.",
     "sources": [
       "National Audit Office (NAO)",
@@ -26,7 +26,7 @@
       "delayPct": 76,
       "revisedDeadlines": 5,
       "primaryDelayCause": "Scope revision / cost escalation",
-      "delayCauseDetail": "Northern leg and Birmingham-Crewe leg cancelled. May 2026 6-monthly parliamentary report (Transport Secretary Heidi Alexander) confirmed Old Oak Common-Birmingham services pushed to May 2036-October 2039 window, Euston extension May 2040-December 2043. Speed cap reduced from 225mph to 200mph. Causes attributed to missed scope, prior-government underestimation, inefficient delivery and inflation.",
+      "delayCauseDetail": "Northern leg and Birmingham-Crewe leg cancelled. May 2026 6-monthly parliamentary report (Transport Secretary Heidi Alexander) confirmed Old Oak Common-Birmingham services pushed to May 2036-October 2039 window, Euston extension May 2040-December 2043. Speed cap reduced from 225mph to 200mph. Causes attributed to missed scope, prior-government underestimation, inefficient delivery and inflation. Stephen Lovegrove independent review (20 May 2026) found DfT 'consistently missed' scrutiny opportunities and that sanctions/interventions for HS2 Ltd underperformance were 'insufficient or not applied rigorously enough'; ministers and civil servants did not recognise or act on the 'scale of failure'. PAC opened a separate inquiry into HS2 and Euston delivery on 20 May 2026 (first evidence before 17 July 2026 recess).",
       "originalBudgetM": 33000,
       "latestBudgetM": 102700,
       "costGrowthM": 69700,
