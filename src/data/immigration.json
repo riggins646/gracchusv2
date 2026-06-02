@@ -1,17 +1,17 @@
 {
   "metadata": {
     "title": "UK Immigration & Borders",
-    "lastUpdated": "2026-05-01",
+    "lastUpdated": "2026-06-01",
     "primarySource": {
       "name": "ONS, Home Office Immigration Statistics",
       "url": "https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/internationalmigration"
     },
     "methodology": "Net migration from ONS LTIM; visa breakdowns from Home Office quarterly releases; asylum from Home Office Asy tables",
-    "lastReleaseNotes": "ONS National Population Projections (2024-based) released 28 April 2026: long-term annual net migration assumption set at 230,000 — down 110,000 from 340,000 in 2022-based projections. UK population projected to rise from 69.3m (mid-2024) to 71.0m (mid-2034); deaths projected to exceed births from mid-2026. Pensionable-age population +1.8m (+14.6%) by mid-2034. Forward assumption only — historical netMigration series unchanged. Next Home Office quarterly release: 21 May 2026; next ONS LTIM release: end-May 2026."
+    "lastReleaseNotes": "ONS LTIM provisional year ending December 2025 released 21 May 2026: net migration 171,000 (down 48% from updated YE Dec 2024 estimate of 331,000); long-term immigration 813,000 (-20%), emigration 642,000. Non-EU+ net 350,000 (down from 511,000); British nationals -136,000 net; EU+ -42,000 net. Main driver: non-EU+ work-related arrivals fell 47% YoY. Home Office immigration system statistics year ending March 2026 also released 21 May 2026 (9:30am). ONS NPP 2024-based forward net-migration assumption remains 230,000. Next ONS LTIM and Home Office quarterly releases expected end-Aug 2026."
   },
   "contextSentences": {
     "headline": "Every visa granted, every asylum claim, every policy shift \u2014 mapped against the party in power.",
-    "summary": "Net migration peaked at 764,000 in YE June 2023 before falling to 204,000 by mid-2025 after visa restrictions. Home Office data (YE Dec 2025) shows work visas down 36%, study visas down 31%, and health/care visas down 86%.",
+    "summary": "Net migration peaked at 764,000 in YE June 2023 before falling to 171,000 in YE December 2025 — a 48% drop from the updated YE Dec 2024 estimate of 331,000 — after visa restrictions. Non-EU+ work-related arrivals fell 47% YoY; British nationals net -136,000.",
     "future": "The government targets reducing net migration further through salary thresholds and graduate route reforms."
   },
   "netMigration": {
