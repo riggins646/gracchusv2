@@ -1,6 +1,14 @@
 {
   "editions": [
     {
+      "id": 799,
+      "publishedDate": "2026-05-18",
+      "interests": 4007,
+      "addedSincePrevious": 118,
+      "triageCandidates": 62,
+      "ingestedAt": "2026-06-02T08:21:52.241Z"
+    },
+    {
       "id": 798,
       "publishedDate": "2026-04-27",
       "interests": 4039,
