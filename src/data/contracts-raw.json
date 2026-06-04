@@ -1456,5 +1456,45 @@
     "competitive": false,
     "duration": "First deliveries from 2028; in-service support included",
     "source": "https://www.gov.uk/government/news/uk-orders-72-rch-155-self-propelled-howitzers"
+  },
+  {
+    "id": "DEF-027",
+    "title": "Lightweight Multirole Missiles (Martlet) — additional stockpile order",
+    "description": "£36m contract (combined value of multiple agreements) for several hundred more Thales Lightweight Multirole Missiles (LMM / Martlet) to boost UK stockpiles and protect British personnel deployed in the Middle East and beyond. Latest order placed by the National Armaments Director Group in May 2026; follows a further LMM order in April 2026. LMM is a laser-guided precision weapon for use against small aircraft, fast boats and uncrewed aerial systems (counter-UAS). Designed and manufactured at Thales Belfast, supporting ~700 jobs; Thales has quadrupled missile production capability in Northern Ireland since 2022. Deliveries begin within months and run through 2026.",
+    "buyer": "Ministry of Defence (National Armaments Director Group)",
+    "status": "active",
+    "awardDate": "2026-06-01",
+    "value": 36000000,
+    "valueDisclosed": true,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "Thales UK"
+      }
+    ],
+    "category": "defence",
+    "competitive": false,
+    "duration": "Deliveries through 2026",
+    "source": "https://www.gov.uk/government/news/boost-for-britains-air-defence-stockpiles-in-the-middle-east-with-hundreds-more-uk-made-missiles"
+  },
+  {
+    "id": "DEF-028",
+    "title": "Janes Enterprise Agreement Lite — OSINT defence intelligence",
+    "description": "Three-year Enterprise Agreement Lite worth up to £17.5m awarded by Defence Digital to Janes Group UK Limited for software licences providing access to Janes' open-source intelligence (OSINT) databases, taxonomies and analysis tools covering global military equipment across air, land, sea and space domains. Direct award justified on the basis that Janes owns the underlying IP and proprietary databases and there are no reasonable alternative suppliers providing equivalent coverage. Acts as a framework through which licences can be purchased over the contract life. Centralises pre-existing branch-level Janes subscriptions under a single MOD framework. Janes is headquartered in Croydon and ultimately part of the IHS group.",
+    "buyer": "Ministry of Defence (Defence Digital)",
+    "status": "active",
+    "awardDate": "2026-06-03",
+    "value": 17500000,
+    "valueDisclosed": true,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "Janes Group UK Limited"
+      }
+    ],
+    "category": "defence",
+    "competitive": false,
+    "duration": "March 2026 – March 2029 (3 years)",
+    "source": "https://www.janes.com/company/company-updates/janes-awarded-17-5-million-enterprise-agreement-lite-by-uk-ministry-of-defence-to-provide-unclassified-intelligence-and-analysis"
   }
 ]

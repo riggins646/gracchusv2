@@ -93,8 +93,8 @@
   },
   {
     "name": "Thales",
-    "contractCount": 2,
-    "totalValue": 3000000000,
+    "contractCount": 3,
+    "totalValue": 3036000000,
     "annualGovSpend": 1200000000,
     "sector": "Defence",
     "departments": [
@@ -103,7 +103,7 @@
     "projects": [
       "Type 26 Frigates"
     ],
-    "notes": "2.9bn maritime sensor support contract in procurement. Minehunting command centres.",
+    "notes": "2.9bn maritime sensor support contract in procurement. Minehunting command centres. £36m LMM (Martlet) stockpile order signed 1 June 2026.",
     "strategicSupplier": true
   },
   {
