@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2026-05-06"
+    "lastUpdated": "2026-06-07"
   },
   "summary": {
     "totalVipLaneValue": 1700000000,
@@ -20,6 +20,15 @@
     "covidLitigationActive": 8
   },
   "officialReports": [
+    {
+      "id": "OR-002",
+      "name": "UK Covid-19 Inquiry Module 5 report: Procurement (upcoming)",
+      "publishedDate": "2026-07-14 (scheduled)",
+      "author": "UK Covid-19 Inquiry (Baroness Hallett)",
+      "headlineFindings": "Publication date announced June 2026. Module 5 examined how the UK procured and distributed key healthcare equipment and supplies during the pandemic (PPE, ventilators, oxygen, lateral flow and PCR tests) across all four nations, including the VIP lane. A chapter of findings on PPE Medpro is covered by a Restriction Order and will not be published on 14 July 2026, to avoid undermining current or future criminal investigations; it will be released once criminal proceedings conclude.",
+      "scope": "Robustness of pandemic procurement processes, quality and volume of items obtained, and distribution systems, UK-wide.",
+      "source": "https://covid19.public-inquiry.uk/news/inquiry-announces-fifth-report-publication-date-procurement-module-5/"
+    },
     {
       "id": "OR-001",
       "name": "COVID Counter-Fraud Commissioner Final Report (Hayhoe Review)",
@@ -42,11 +51,11 @@
       "connectionType": "Peer / House of Lords",
       "competitive": false,
       "vipLane": true,
-      "outcome": "Court ordered £122m repayment Oct 2025. Gowns failed sterilisation. Company wound up Dec 2025 with £148m owed to government. Only ~£600k available for unsecured creditors. HMRC separately owed ~£39m. Recovery of taxpayer funds considered unlikely.",
+      "outcome": "Court ordered £122m repayment Oct 2025. Gowns failed sterilisation. Company wound up Dec 2025 with £148m owed to government. Only ~£600k available for unsecured creditors. HMRC separately owed ~£39m. Recovery of taxpayer funds considered unlikely. Covid-19 Inquiry Module 5 (Procurement) report scheduled for 14 July 2026 contains a PPE Medpro chapter withheld under a Restriction Order so as not to undermine current or future criminal investigations; it will be published once criminal proceedings conclude.",
       "severity": "critical",
       "era": "COVID",
       "source": "https://goodlawproject.org/ppe-medpro-must-repay-122m-for-breach-of-contract/",
-      "lastUpdated": "2026-04-15"
+      "lastUpdated": "2026-06-07"
     },
     {
       "id": "CR-002",
