@@ -1217,14 +1217,14 @@
   {
     "id": "MOD-PALANTIR-EA-2026",
     "title": "Palantir Enterprise Agreement (Defence Data Analytics)",
-    "description": "3-year enterprise agreement for continued licencing and support of data analytics capabilities across defence. Direct award (defence & security exemption). Over 3x the value of previous \u00a375.2m agreement (2022). Includes \u00a31.5bn Palantir UK investment commitment.",
+    "description": "3-year enterprise agreement for continued licencing and support of data analytics capabilities across defence. Direct award (defence & security exemption). Over 3x the value of previous £75.2m agreement (2022). Includes £1.5bn Palantir UK investment commitment.",
     "buyer": "Ministry of Defence",
     "status": "awarded",
     "awardDate": "2025-12-30",
     "value": 240600000,
     "currency": "GBP",
     "supplier": "Palantir Technologies UK Limited",
-    "duration": "3 years (Apr 2026 \u2013 Mar 2029)",
+    "duration": "3 years (Apr 2026 – Mar 2029)",
     "source": "Find a Tender Service",
     "sourceUrl": "https://www.publictechnology.net/2026/01/29/defence-and-security/mod-signs-240m-palantir-deal-as-ministers-insist-uk-defence-data-remains-sovereign/",
     "suppliers": [
@@ -1262,13 +1262,13 @@
     ],
     "category": "defence",
     "competitive": true,
-    "duration": "7 years (Apr 2026 \u2013 Mar 2033)",
+    "duration": "7 years (Apr 2026 – Mar 2033)",
     "source": "https://ukdefencejournal.org.uk/high-value-contracts-awarded-to-support-3000-mod-boats/"
   },
   {
     "id": "DEF-018",
     "title": "Defence Logistics Information Services (DLIS)",
-    "description": "\u00a3113m contract to deliver a single digital logistics platform replacing 10 legacy systems. Part of the Business Modernisation for Support (BMfS) programme (total \u00a3466m across 3 contracts). Improves warfighter readiness and NATO interoperability.",
+    "description": "£113m contract to deliver a single digital logistics platform replacing 10 legacy systems. Part of the Business Modernisation for Support (BMfS) programme (total £466m across 3 contracts). Improves warfighter readiness and NATO interoperability.",
     "buyer": "Ministry of Defence",
     "status": "awarded",
     "awardDate": "2026-02",
@@ -1496,5 +1496,25 @@
     "competitive": false,
     "duration": "March 2026 – March 2029 (3 years)",
     "source": "https://www.janes.com/company/company-updates/janes-awarded-17-5-million-enterprise-agreement-lite-by-uk-ministry-of-defence-to-provide-unclassified-intelligence-and-analysis"
+  },
+  {
+    "id": "DEF-029",
+    "title": "Dismounted Data System (DDS) — AI-capable tactical communications",
+    "description": "Contract worth up to £86m awarded by the MOD to UK SME BlackTree Technologies for the Dismounted Data System (DDS), a suite of AI-capable hardware (radios, headsets, display tablets, batteries, antennas) to speed reconnaissance and intelligence data flow to frontline soldiers and shorten decision times from hours to minutes. Structured as an initial £46m commitment with options for a further £40m. Equipment delivered to the British Army in tranches from September with full roll-out targeted for 2027, supporting the goal to double Army lethality by 2027. Builds on deployment in Estonia; creates 12 UK defence industry jobs. Incorporates TrellisWare radios.",
+    "buyer": "Ministry of Defence (British Army)",
+    "status": "active",
+    "awardDate": "2026-02",
+    "value": 86000000,
+    "valueDisclosed": true,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "BlackTree Technologies"
+      }
+    ],
+    "category": "defence",
+    "competitive": true,
+    "duration": "From September 2026; full roll-out by 2027",
+    "source": "https://www.gov.uk/government/news/soldiers-to-get-new-ai-capable-radios-headsets-and-tablets-with-futuristic-sensor-data"
   }
 ]

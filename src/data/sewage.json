@@ -1,9 +1,9 @@
 {
   "metadata": {
     "title": "The Sewage Clock",
-    "lastUpdated": "2026-04-13",
+    "lastUpdated": "2026-06-15",
     "source": "Environment Agency EDM, Ofwat, Rivers Trust, Surfers Against Sewage",
-    "period": "2025 annual data (latest)"
+    "period": "2025 annual EDM data (latest); enforcement to Jun 2026"
   },
   "contextSentences": {
     "headline": "1.87 million hours of raw sewage pumped into England's rivers and seas in 2025.",
@@ -176,6 +176,7 @@
     { "company": "Thames Water", "amount": 18200000, "year": 2024, "reason": "Dividend payment breaches" },
     { "company": "Yorkshire Water", "amount": 47000000, "year": 2024, "reason": "Sewage discharge failures" },
     { "company": "Northumbrian Water", "amount": 17000000, "year": 2024, "reason": "Sewage discharge failures" },
-    { "company": "Wessex Water", "amount": 11000000, "year": 2025, "reason": "Environmental permit breaches" }
+    { "company": "Wessex Water", "amount": 11000000, "year": 2025, "reason": "Environmental permit breaches" },
+    { "company": "Dŵr Cymru Welsh Water", "amount": 44700000, "year": 2026, "reason": "Wastewater operation and maintenance failures", "note": "Ofwat enforcement package confirmed 5 Jun 2026 — 7th case closed in the sector-wide investigation, taking total enforcement packages/fines to over £300m. £40.6m to reduce spills at specific overflows, £4.1m to water-quality and biodiversity in sensitive catchments." }
   ]
 }

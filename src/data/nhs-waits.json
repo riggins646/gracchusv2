@@ -1,23 +1,23 @@
 {
   "metadata": {
     "title": "NHS Waiting Times Explorer",
-    "lastUpdated": "2026-05-16",
+    "lastUpdated": "2026-06-15",
     "source": "NHS England RTT Statistics, BMA, King's Fund",
-    "period": "March 2026 (latest available)",
-    "lastReleaseNotes": "NHS England RTT March 2026 (published 14 May 2026): waiting list fell to 7.11m treatments (~6.02m individual patients), lowest in 3.5 years and down 515k since July 2024; YoY reduction of 312k — largest in 16 years. 65.3% within 18 weeks (interim 65% target met — first time hit since 2015), but still well below long-term 92% standard. Median wait 11.3 weeks; 92nd percentile 38.3 weeks. NHS England framed this as a 'huge moment'; Health Service Journal noted 'majority of improvement' in March driven by a 'record' spike in 'unreported removals' (data-validation caveat). Cancer 28-day faster diagnosis 79.4% (vs 75% target — met); 31-day from decision to treat 92.8% (vs 96%); 62-day urgent 72.8% (vs 85%). Regional and specialty breakdowns below carry the February 2026 distribution pending extraction of the March SPN PDF."
+    "period": "April 2026 (latest available)",
+    "lastReleaseNotes": "NHS England RTT April 2026 (published mid-June 2026): waiting list rose to 7.22m treatments (~6.11m individual patients), up from 7.11m in March — partly reversing March's fall, which the Health Service Journal had attributed to a record spike in 'unreported removals' (data-validation caveat). 62.6% within 18 weeks (down from 65.3% in March, below the long-term 92% standard); ~2.53m pathways waiting over 18 weeks. Median wait rose to 11.9 weeks (vs 7.2 weeks in Apr 2019). Around 100,000 pathways waiting over a year, up from ~94,000 in March. Prior March 2026 release (published 14 May 2026) had reported the lowest list in 3.5 years (7.11m), 65.3% within 18 weeks and the first time the interim 65% target was met since 2015. Regional and specialty breakdowns below carry an earlier monthly distribution pending extraction of the April SPN PDF; April per-region/per-specialty figures not yet incorporated."
   },
   "contextSentences": {
-    "headline": "7.11 million people waiting for NHS treatment — the lowest figure in three and a half years.",
+    "headline": "7.22 million people waiting for NHS treatment — up from 7.11 million the previous month.",
     "subtext": "Select your region and condition to see how long you'd wait."
   },
   "keyStats": {
-    "totalWaiting": 7110000,
-    "individualPatients": 6020000,
-    "medianWaitWeeks": 11.3,
+    "totalWaiting": 7220000,
+    "individualPatients": 6110000,
+    "medianWaitWeeks": 11.9,
     "medianWait2019": 7.8,
-    "pctWithin18Weeks": 65.3,
+    "pctWithin18Weeks": 62.6,
     "target18Weeks": 92,
-    "pctOver52Weeks": 1.70,
+    "pctOver52Weeks": 1.40,
     "treatmentsDelivered2025": 18400000,
     "longestSpecialtyWait": "Trauma & Orthopaedics"
   },
