@@ -1,0 +1,1254 @@
+{
+  "register": {
+    "id": 801,
+    "publishedDate": "2026-06-15",
+    "type": "Commons",
+    "links": [
+      {
+        "rel": "self",
+        "href": "https://interests-api.parliament.uk/api/v1/Registers/801",
+        "method": "GET"
+      },
+      {
+        "rel": "csv",
+        "href": "https://interests-api.parliament.uk/api/v1/Interests/csv?registerId=801",
+        "method": "GET"
+      },
+      {
+        "rel": "registerDocument",
+        "href": "https://interests-api.parliament.uk/api/v1/Registers/801/document",
+        "method": "GET"
+      },
+      {
+        "rel": "registerUpdatesDocument",
+        "href": "https://interests-api.parliament.uk/api/v1/Registers/801/document?type=Updated",
+        "method": "GET"
+      }
+    ]
+  },
+  "candidates": [
+    {
+      "memberId": 4500,
+      "memberName": "Clive Lewis",
+      "memberParty": "Labour",
+      "memberConstituency": "Norwich South",
+      "category": "1 Employment and earnings",
+      "summary": "Appearance as guest on radio programme - Avalon Television Limited",
+      "registrationDate": "2026-06-11",
+      "publishedDate": "2026-06-11",
+      "rectified": false,
+      "fields": {
+        "JobTitle": "Appearance as guest on radio programme",
+        "IsUntilFurtherNotice": false,
+        "PayerName": "Avalon Television Limited",
+        "PayerIsPrivateIndividual": false,
+        "IsPaidAsDirectorOfPayer": false,
+        "PayerNatureOfBusiness": "Broadcast Production Company",
+        "PayerPublicAddress": "4a Exmoor Street, W10 6BD"
+      },
+      "reasons": [
+        "new paid role registered"
+      ],
+      "interestId": "interest:15434"
+    },
+    {
+      "memberId": 4030,
+      "memberName": "Karl Turner",
+      "memberParty": "Independent",
+      "memberConstituency": "Kingston upon Hull East",
+      "category": "1 Employment and earnings",
+      "summary": "Guest Panellist - Hat Trick Productions Ltd",
+      "registrationDate": "2026-06-10",
+      "publishedDate": "2026-06-10",
+      "rectified": false,
+      "fields": {
+        "JobTitle": "Guest Panellist",
+        "StartDate": "2026-05-14",
+        "EndDate": "2026-05-15",
+        "IsUntilFurtherNotice": true,
+        "PayerName": "Hat Trick Productions Ltd",
+        "PayerIsPrivateIndividual": false,
+        "IsPaidAsDirectorOfPayer": false,
+        "PayerNatureOfBusiness": "Production Company",
+        "PayerPublicAddress": "33 Oval Road, London NW1 7EA"
+      },
+      "reasons": [
+        "new paid role registered"
+      ],
+      "interestId": "interest:15426"
+    },
+    {
+      "memberId": 40,
+      "memberName": "Sir Bernard Jenkin",
+      "memberParty": "Conservative",
+      "memberConstituency": "Harwich and North Essex",
+      "category": "1 Employment and earnings",
+      "summary": "Writing articles - Mace Publishing Limited  Company number 15121315",
+      "registrationDate": "2026-06-03",
+      "publishedDate": "2026-06-03",
+      "rectified": false,
+      "fields": {
+        "JobTitle": "Writing articles",
+        "EndDate": "2026-05-28",
+        "IsUntilFurtherNotice": true,
+        "PayerName": "Mace Publishing Limited  Company number 15121315",
+        "PayerIsPrivateIndividual": false,
+        "IsPaidAsDirectorOfPayer": false,
+        "PayerNatureOfBusiness": "58190 - Other publishing activities",
+        "PayerPublicAddress": "Wsm Connect House 133-137 Alexandra Road, Wimbledon SW19 7JY"
+      },
+      "reasons": [
+        "new paid role registered"
+      ],
+      "interestId": "interest:15350"
+    },
+    {
+      "memberId": 1576,
+      "memberName": "Mark Pritchard",
+      "memberParty": "Conservative",
+      "memberConstituency": "The Wrekin",
+      "category": "1 Employment and earnings",
+      "summary": "Member of Advisory Board providing marketing counsel - Enevo Group",
+      "registrationDate": "2026-06-03",
+      "publishedDate": "2026-06-03",
+      "rectified": false,
+      "fields": {
+        "JobTitle": "Member of Advisory Board providing marketing counsel",
+        "StartDate": "2026-05-01",
+        "IsUntilFurtherNotice": false,
+        "PayerName": "Enevo Group",
+        "PayerIsPrivateIndividual": false,
+        "IsPaidAsDirectorOfPayer": false,
+        "PayerNatureOfBusiness": "Automation, infrastructure, digitalisation and energy",
+        "PayerPublicAddress": "Barbu Vacarescu Street,  Nr. 301-311,  11th Floor, 020276,  Bucharest, Romania"
+      },
+      "reasons": [
+        "new paid role registered"
+      ],
+      "interestId": "interest:15356"
+    },
+    {
+      "memberId": 5198,
+      "memberName": "Chris Coghlan",
+      "memberParty": "Liberal Democrat",
+      "memberConstituency": "Dorking and Horley",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment received on 29 May 2026 - £149.97",
+      "registrationDate": "2026-06-12",
+      "publishedDate": "2026-06-15",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": true,
+        "ReceivedDate": "2026-05-29",
+        "PaymentType": "Monetary",
+        "PaymentDescription": "Army Reserve pay",
+        "Value": "149.97",
+        "HoursWorked": "6.00",
+        "HoursDetails": "Estimate",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": false
+      },
+      "reasons": [
+        "new paid role registered"
+      ],
+      "interestId": "interest:15442"
+    },
+    {
+      "memberId": 4441,
+      "memberName": "Sir Oliver Dowden",
+      "memberParty": "Conservative",
+      "memberConstituency": "Hertsmere",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment received on 28 May 2026 - £15,000.00",
+      "registrationDate": "2026-06-12",
+      "publishedDate": "2026-06-15",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": true,
+        "ReceivedDate": "2026-05-28",
+        "PaymentType": "Monetary",
+        "Value": "15000.00",
+        "HoursWorked": "30.00",
+        "HoursDetails": "Up to one day per month for a three month period",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": false
+      },
+      "reasons": [
+        "employment payment £15,000 >= £5000"
+      ],
+      "interestId": "interest:15363"
+    },
+    {
+      "memberId": 146,
+      "memberName": "Barry Gardiner",
+      "memberParty": "Labour",
+      "memberConstituency": "Brent West",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment received on 12 June 2026 - £1,200.00",
+      "registrationDate": "2026-06-15",
+      "publishedDate": "2026-06-15",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": true,
+        "ReceivedDate": "2026-06-12",
+        "PaymentType": "Monetary",
+        "PaymentDescription": "",
+        "Value": "1200.00",
+        "HoursWorked": "40.00",
+        "HoursDetails": "estimated, this includes research on current news.",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": false
+      },
+      "reasons": [
+        "new paid role registered"
+      ],
+      "interestId": "interest:15453"
+    },
+    {
+      "memberId": 5199,
+      "memberName": "Mr Luke Charters",
+      "memberParty": "Labour",
+      "memberConstituency": "York Outer",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment received on 10 June 2026 - £66.90",
+      "registrationDate": "2026-06-10",
+      "publishedDate": "2026-06-11",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": true,
+        "ReceivedDate": "2026-06-10",
+        "PaymentType": "Monetary",
+        "PaymentDescription": "donated in full to Bereaved Children Support York (Charity No. 1171422)",
+        "Value": "66.90",
+        "HoursWorked": "1.00",
+        "HoursDetails": "Estimate",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": true,
+        "DonateePaidBy": "Donated by the Member to the recipient",
+        "DonateeType": "Charity"
+      },
+      "reasons": [
+        "new paid role registered"
+      ],
+      "interestId": "interest:15431"
+    },
+    {
+      "memberId": 4500,
+      "memberName": "Clive Lewis",
+      "memberParty": "Labour",
+      "memberConstituency": "Norwich South",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment received on 24 April 2026 - £350.00",
+      "registrationDate": "2026-06-11",
+      "publishedDate": "2026-06-11",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": true,
+        "ReceivedDate": "2026-04-24",
+        "PaymentType": "Monetary",
+        "PaymentDescription": "For one appearance on radio show",
+        "Value": "350.00",
+        "HoursWorked": "1.50",
+        "HoursDetails": "Approximate",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": false
+      },
+      "reasons": [
+        "new paid role registered"
+      ],
+      "interestId": "interest:15435"
+    },
+    {
+      "memberId": 1508,
+      "memberName": "Sir Geoffrey Cox",
+      "memberParty": "Conservative",
+      "memberConstituency": "Torridge and Tavistock",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment received on 15 May 2026 - £12,500.00",
+      "registrationDate": "2026-06-09",
+      "publishedDate": "2026-06-10",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": true,
+        "ReceivedDate": "2026-05-15",
+        "PaymentType": "Monetary",
+        "Value": "12500.00",
+        "HoursWorked": "12.00",
+        "HoursDetails": "For work undertaken between 1 March and 30 April 2026",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": false
+      },
+      "reasons": [
+        "employment payment £12,500 >= £5000"
+      ],
+      "interestId": "interest:15420"
+    },
+    {
+      "memberId": 1508,
+      "memberName": "Sir Geoffrey Cox",
+      "memberParty": "Conservative",
+      "memberConstituency": "Torridge and Tavistock",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment received on 15 May 2026 - £12,500.00",
+      "registrationDate": "2026-06-09",
+      "publishedDate": "2026-06-10",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": true,
+        "ReceivedDate": "2026-05-15",
+        "PaymentType": "Monetary",
+        "Value": "12500.00",
+        "HoursWorked": "12.00",
+        "HoursDetails": "For work undertaken between 1 March and 30 April 2026",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": false
+      },
+      "reasons": [
+        "employment payment £12,500 >= £5000"
+      ],
+      "interestId": "interest:15419"
+    },
+    {
+      "memberId": 1508,
+      "memberName": "Sir Geoffrey Cox",
+      "memberParty": "Conservative",
+      "memberConstituency": "Torridge and Tavistock",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment received on 15 May 2026 - £11,050.00",
+      "registrationDate": "2026-06-09",
+      "publishedDate": "2026-06-10",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": true,
+        "ReceivedDate": "2026-05-15",
+        "PaymentType": "Monetary",
+        "Value": "11050.00",
+        "HoursWorked": "13.00",
+        "HoursDetails": "For work undertaken between 1 April and 30 April 2026.",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": false
+      },
+      "reasons": [
+        "employment payment £11,050 >= £5000"
+      ],
+      "interestId": "interest:15418"
+    },
+    {
+      "memberId": 1508,
+      "memberName": "Sir Geoffrey Cox",
+      "memberParty": "Conservative",
+      "memberConstituency": "Torridge and Tavistock",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment received on 15 May 2026 - £60,000.00",
+      "registrationDate": "2026-06-10",
+      "publishedDate": "2026-06-10",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": true,
+        "ReceivedDate": "2026-05-15",
+        "PaymentType": "Monetary",
+        "PaymentDescription": "",
+        "Value": "60000.00",
+        "HoursWorked": "15.00",
+        "HoursDetails": "For work undertaken between 1 April and 15 May 2026.",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": false
+      },
+      "reasons": [
+        "employment payment £60,000 >= £5000"
+      ],
+      "interestId": "interest:15417"
+    },
+    {
+      "memberId": 5158,
+      "memberName": "Rupert Lowe",
+      "memberParty": "Restore Britain",
+      "memberConstituency": "Great Yarmouth",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment received on 10 June 2026 - £11,724.97",
+      "registrationDate": "2026-06-10",
+      "publishedDate": "2026-06-10",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": true,
+        "ReceivedDate": "2026-06-10",
+        "PaymentType": "Monetary",
+        "Value": "11724.97",
+        "HoursWorked": "5.00",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": false
+      },
+      "reasons": [
+        "employment payment £11,724.97 >= £5000"
+      ],
+      "interestId": "interest:15422"
+    },
+    {
+      "memberId": 4118,
+      "memberName": "Sir Julian Smith",
+      "memberParty": "Conservative",
+      "memberConstituency": "Skipton and Ripon",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment received on 15 May 2026 - £6,738.28",
+      "registrationDate": "2026-06-10",
+      "publishedDate": "2026-06-10",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": true,
+        "ReceivedDate": "2026-05-15",
+        "PaymentType": "Monetary",
+        "PaymentDescription": "payment for work undertaken and expenses incurred December 2025-April 2026",
+        "Value": "6738.28",
+        "HoursWorked": "69.50",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": false
+      },
+      "reasons": [
+        "employment payment £6,738.28 >= £5000"
+      ],
+      "interestId": "interest:15429"
+    },
+    {
+      "memberId": 4030,
+      "memberName": "Karl Turner",
+      "memberParty": "Independent",
+      "memberConstituency": "Kingston upon Hull East",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment expected for services on 14 May 2026 - £1,500.00",
+      "registrationDate": "2026-06-10",
+      "publishedDate": "2026-06-10",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": false,
+        "ReceivedDate": "2026-05-14",
+        "PaymentType": "Monetary",
+        "PaymentDescription": "Guest Panellist on Have I Got News For You (Series 71)",
+        "Value": "1500.00",
+        "HoursWorked": "5.00",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": false
+      },
+      "reasons": [
+        "new paid role registered"
+      ],
+      "interestId": "interest:15427"
+    },
+    {
+      "memberId": 5197,
+      "memberName": "Dr Neil Shastri-Hurst",
+      "memberParty": "Conservative",
+      "memberConstituency": "Solihull West and Shirley",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment received on 08 June 2026 - £2,750.00",
+      "registrationDate": "2026-06-08",
+      "publishedDate": "2026-06-08",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": true,
+        "ReceivedDate": "2026-06-08",
+        "PaymentType": "Monetary",
+        "PaymentDescription": "(Includes 15% to be deducted on account of Chambers' fees)",
+        "Value": "2750.00",
+        "HoursWorked": "17.25",
+        "HoursDetails": "Approximate number of hours worked",
+        "IsUltimatePayerDifferent": true,
+        "UltimatePayerName": "Lime Personal Injury (Part of Shakespeare Martineau LLP)",
+        "UltimatePayerProtectedByConfidentiality": false,
+        "UltimatePayerAddress": "60 Gracechurch Street, London EC3V 0HR",
+        "UltimatePayerNatureOfBusiness": "Solicitor",
+        "IsPaymentDonated": false
+      },
+      "reasons": [
+        "new paid role registered"
+      ],
+      "interestId": "interest:15386"
+    },
+    {
+      "memberId": 40,
+      "memberName": "Sir Bernard Jenkin",
+      "memberParty": "Conservative",
+      "memberConstituency": "Harwich and North Essex",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment received on 28 May 2026 - £300.00",
+      "registrationDate": "2026-06-03",
+      "publishedDate": "2026-06-03",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": true,
+        "ReceivedDate": "2026-05-28",
+        "PaymentType": "Monetary",
+        "Value": "300.00",
+        "HoursWorked": "4.00",
+        "HoursDetails": "Approx",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": false
+      },
+      "reasons": [
+        "new paid role registered"
+      ],
+      "interestId": "interest:15351"
+    },
+    {
+      "memberId": 5199,
+      "memberName": "Mr Luke Charters",
+      "memberParty": "Labour",
+      "memberConstituency": "York Outer",
+      "category": "1.1 Employment and earnings - Ad hoc payments",
+      "summary": "Payment received on 28 May 2026 - £29.19",
+      "registrationDate": "2026-06-02",
+      "publishedDate": "2026-06-02",
+      "rectified": false,
+      "fields": {
+        "PaymentReceived": true,
+        "ReceivedDate": "2026-05-28",
+        "PaymentType": "Monetary",
+        "PaymentDescription": "Full amount donated to St. Leonard's Hospice, York (Charity Number: 509294)",
+        "Value": "29.19",
+        "HoursWorked": "1.00",
+        "HoursDetails": "The number of hours worked is an estimate",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": true,
+        "DonateePaidBy": "Donated by the Member to the recipient",
+        "DonateeType": "Charity"
+      },
+      "reasons": [
+        "new paid role registered"
+      ],
+      "interestId": "interest:15343"
+    },
+    {
+      "memberId": 1576,
+      "memberName": "Mark Pritchard",
+      "memberParty": "Conservative",
+      "memberConstituency": "The Wrekin",
+      "category": "1.2 Employment and earnings - Ongoing paid employment",
+      "summary": "Agreement starting 08 May 2026 - £8,603.35",
+      "registrationDate": "2026-06-03",
+      "publishedDate": "2026-06-03",
+      "rectified": false,
+      "fields": {
+        "RegularityOfPayment": "Monthly",
+        "StartDate": "2026-05-08",
+        "PeriodForHoursWorked": "Monthly",
+        "PaymentType": "Monetary",
+        "PaymentDescription": "The amount has been converted from Euros into pounds sterling.",
+        "Value": "8603.35",
+        "HoursWorked": "12.00",
+        "IsUltimatePayerDifferent": false,
+        "UltimatePayerProtectedByConfidentiality": false,
+        "IsPaymentDonated": false
+      },
+      "reasons": [
+        "employment payment £8,603.35 >= £5000"
+      ],
+      "interestId": "interest:15362"
+    },
+    {
+      "memberId": 5197,
+      "memberName": "Dr Neil Shastri-Hurst",
+      "memberParty": "Conservative",
+      "memberConstituency": "Solihull West and Shirley",
+      "category": "2 Donations and other support (including loans) for activities as an MP",
+      "summary": "Stuart Leach Associates Limited - £1,000.00",
+      "registrationDate": "2026-06-11",
+      "publishedDate": "2026-06-11",
+      "rectified": false,
+      "fields": {
+        "DonationSource": "(b) Any other support not included in Category 2(a)",
+        "PaymentType": "Monetary",
+        "Value": "1000.00",
+        "ReceivedDate": "2026-06-10",
+        "AcceptedDate": "2026-06-10",
+        "IsSoleBeneficiary": true,
+        "DonorName": "Stuart Leach Associates Limited",
+        "DonorPublicAddress": "The Greenhouse, Greencroft Industrial Park, Stanley DH9 7XN",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Stuart Leach Associates Limited",
+        "DonorCompanyIdentifier": "14239649",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "mentions tracked keyword: \"ey \""
+      ],
+      "interestId": "interest:15437"
+    },
+    {
+      "memberId": 4449,
+      "memberName": "Anna Turley",
+      "memberParty": "Labour (Co-op)",
+      "memberConstituency": "Redcar",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "EFL - £900.00",
+      "registrationDate": "2026-06-14",
+      "publishedDate": "2026-06-15",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Two tickets including hospitality for the Championship Play Off Final at Wembley",
+        "Value": "900.00",
+        "ReceivedDate": "2026-05-23",
+        "AcceptedDate": "2026-05-23",
+        "IsSoleBeneficiary": false,
+        "DonorName": "EFL",
+        "DonorPublicAddress": "EFL House, 10-12 West Cliff, Preston PR1 8HU",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "EFL",
+        "DonorCompanyIdentifier": "06469948",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £900 >= £500",
+        "mentions tracked keyword: \"ey \""
+      ],
+      "interestId": "interest:15449"
+    },
+    {
+      "memberId": 4269,
+      "memberName": "Andy McDonald",
+      "memberParty": "Labour",
+      "memberConstituency": "Middlesbrough and Thornaby East",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Middlesbrough Football & Athletic Company (1986) Ltd - £1,250.00",
+      "registrationDate": "2026-06-15",
+      "publishedDate": "2026-06-15",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Two tickets, including hospitality, for the Hull City v Middlesbrough football match at Wembley Stadium (estimated amount)",
+        "Value": "1250.00",
+        "ReceivedDate": "2026-05-23",
+        "AcceptedDate": "2026-05-23",
+        "IsSoleBeneficiary": true,
+        "DonorName": "Middlesbrough Football & Athletic Company (1986) Ltd",
+        "DonorPublicAddress": "Riverside Stadium, Middlesbrough TS3 6RS",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Middlesbrough Football & Athletic Company (1986) Ltd",
+        "DonorCompanyIdentifier": "01947851",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £1,250 >= £500",
+        "mentions tracked keyword: \"ey \""
+      ],
+      "interestId": "interest:15462"
+    },
+    {
+      "memberId": 5042,
+      "memberName": "Pam Cox",
+      "memberParty": "Labour",
+      "memberConstituency": "Colchester",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Nathan Spencer - £1,390.00",
+      "registrationDate": "2026-06-15",
+      "publishedDate": "2026-06-15",
+      "rectified": false,
+      "fields": {
+        "Appg": "APPG East of England",
+        "PaymentType": "In kind",
+        "PaymentDescription": "Registration for UKREiiF event in Leeds, 20-21 May 2026 (£1095.00), accommodation at UKREiiF in Leeds, 20 May 2026 (£295.00)",
+        "Value": "1390.00",
+        "ReceivedDate": "2026-05-20",
+        "AcceptedDate": "2026-05-20",
+        "IsSoleBeneficiary": true,
+        "DonorName": "Nathan Spencer",
+        "DonorPublicAddress": "UKREiiF, Built Environment Networking,4240 Park Approach, Leeds LS15 8GB",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Nathan Spencer",
+        "DonorCompanyIdentifier": "15086201",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £1,390 >= £500"
+      ],
+      "interestId": "interest:15407"
+    },
+    {
+      "memberId": 4804,
+      "memberName": "Mr Gagan Mohindra",
+      "memberParty": "Conservative",
+      "memberConstituency": "South West Hertfordshire",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Discovery Corporate Services Limited - £500.00",
+      "registrationDate": "2026-06-12",
+      "publishedDate": "2026-06-12",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Two tickets to the world premiere of House of Dragons Series 3 launch event and viewing (£250 per person)",
+        "Value": "500.00",
+        "ReceivedDate": "2026-06-08",
+        "AcceptedDate": "2026-06-08",
+        "IsSoleBeneficiary": false,
+        "DonorName": "Discovery Corporate Services Limited",
+        "DonorPublicAddress": "Chiswick Park Building 2, \r\n566 Chiswick High Road,\r\nLondon W4 5YB",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Discovery Corporate Services Limited",
+        "DonorCompanyIdentifier": "08597513",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £500 >= £500"
+      ],
+      "interestId": "interest:15438"
+    },
+    {
+      "memberId": 5037,
+      "memberName": "Lola McEvoy",
+      "memberParty": "Labour",
+      "memberConstituency": "Darlington",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Built Environment Networking Ltd - £1,600.00",
+      "registrationDate": "2026-06-12",
+      "publishedDate": "2026-06-12",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Tickets for me and a staff member to attend one day of UKREiiF (UK Real Estate and Investment Infrastructure Forum) estimated",
+        "Value": "1600.00",
+        "ReceivedDate": "2026-05-20",
+        "AcceptedDate": "2026-05-20",
+        "IsSoleBeneficiary": false,
+        "DonorName": "Built Environment Networking Ltd",
+        "DonorPublicAddress": "4240 Park Approach, Thorpe Park, Leeds LS15 8GB",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Built Environment Networking Ltd",
+        "DonorCompanyIdentifier": "07110641",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £1,600 >= £500"
+      ],
+      "interestId": "interest:15279"
+    },
+    {
+      "memberId": 5131,
+      "memberName": "Jack Abbott",
+      "memberParty": "Labour (Co-op)",
+      "memberConstituency": "Ipswich",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Built Environment Networking T/A UKREiiF - £714.00",
+      "registrationDate": "2026-06-10",
+      "publishedDate": "2026-06-11",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Ticket to UKREiiF 2026",
+        "Value": "714.00",
+        "ReceivedDate": "2026-05-19",
+        "AcceptedDate": "2026-05-19",
+        "IsSoleBeneficiary": true,
+        "DonorName": "Built Environment Networking T/A UKREiiF",
+        "DonorPublicAddress": "4240 Park Approach, Leeds LS15 8GB",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Built Environment Networking T/A UKREiiF",
+        "DonorCompanyIdentifier": "07110641",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £714 >= £500"
+      ],
+      "interestId": "interest:15430"
+    },
+    {
+      "memberId": 5336,
+      "memberName": "Helen Maguire",
+      "memberParty": "Liberal Democrat",
+      "memberConstituency": "Epsom and Ewell",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Jockey Club Racecourses Limited - £560.00",
+      "registrationDate": "2026-06-10",
+      "publishedDate": "2026-06-10",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Tickets and hospitality at the Epsom Derby for two people (estimated £560)",
+        "Value": "560.00",
+        "ReceivedDate": "2026-06-06",
+        "AcceptedDate": "2026-06-06",
+        "IsSoleBeneficiary": false,
+        "DonorName": "Jockey Club Racecourses Limited",
+        "DonorPublicAddress": "21-27 Lambs Conduit Street, London WC1N 3NL",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Jockey Club Racecourses Limited",
+        "DonorCompanyIdentifier": "02909409",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £560 >= £500",
+        "mentions tracked keyword: \"ey \""
+      ],
+      "interestId": "interest:15421"
+    },
+    {
+      "memberId": 5074,
+      "memberName": "Mr Paul Foster",
+      "memberParty": "Labour",
+      "memberConstituency": "South Ribble",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Rugby Football League (RFL) - £645.60",
+      "registrationDate": "2026-06-10",
+      "publishedDate": "2026-06-10",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Two tickets with hospitality for me and a guest at the RFL Challenge Cup Final on 30 May. The box we were in was hosted by the RFL with tickets not available to buy, however a comparable facility was priced at £322.80",
+        "Value": "645.60",
+        "ReceivedDate": "2026-05-30",
+        "AcceptedDate": "2026-05-30",
+        "IsSoleBeneficiary": false,
+        "DonorName": "Rugby Football League (RFL)",
+        "DonorPublicAddress": "Gate 13,\r\nRowsley Street,\r\nEtihad Campus,\r\nManchester M11 3FF",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Rugby Football League (RFL)",
+        "DonorCompanyIdentifier": "05835638",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £645.6 >= £500",
+        "mentions tracked keyword: \"ey \""
+      ],
+      "interestId": "interest:15423"
+    },
+    {
+      "memberId": 5340,
+      "memberName": "Jack Rankin",
+      "memberParty": "Conservative",
+      "memberConstituency": "Windsor",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "The HPower Group Ltd - £500.00",
+      "registrationDate": "2026-06-08",
+      "publishedDate": "2026-06-09",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "My wife and I were the guests of the committee of the Royal Windsor Horse Show for the day, including champagne reception and lunch in the Royal Box with TRH The Duke and Duchess of Edinburgh. The HPower Group Ltd is the legal entity and management company behind the show. No retail value. Notional value based on advice for the same declaration 12 months ago",
+        "Value": "500.00",
+        "ReceivedDate": "2026-05-14",
+        "AcceptedDate": "2026-05-14",
+        "ReceivedEndDate": "2026-05-14",
+        "IsSoleBeneficiary": false,
+        "DonorName": "The HPower Group Ltd",
+        "DonorPublicAddress": "Stable House, St Albans Close, Windsor, Berkshire SL4 1UT",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "The HPower Group Ltd",
+        "DonorCompanyIdentifier": "05332261",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £500 >= £500"
+      ],
+      "interestId": "interest:15396"
+    },
+    {
+      "memberId": 5118,
+      "memberName": "Chris Curtis",
+      "memberParty": "Labour",
+      "memberConstituency": "Milton Keynes North",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Built Environment Networking Limited - £1,416.00",
+      "registrationDate": "2026-06-09",
+      "publishedDate": "2026-06-09",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Tickets and hotel for UKREiiF. The estimated value of the ticket is  (£714)",
+        "Value": "1416.00",
+        "ReceivedDate": "2026-05-18",
+        "AcceptedDate": "2026-05-18",
+        "ReceivedEndDate": "2026-05-21",
+        "IsSoleBeneficiary": true,
+        "DonorName": "Built Environment Networking Limited",
+        "DonorPublicAddress": "4240 Park Approach, Thorpe Park, Leeds, LS15 8GB",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Built Environment Networking Limited",
+        "DonorCompanyIdentifier": "07110641",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £1,416 >= £500"
+      ],
+      "interestId": "interest:15408"
+    },
+    {
+      "memberId": 5147,
+      "memberName": "Luke Myer",
+      "memberParty": "Labour",
+      "memberConstituency": "Middlesbrough South and East Cleveland",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Steve Gibson - £1,250.00",
+      "registrationDate": "2026-06-08",
+      "publishedDate": "2026-06-09",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Two tickets to watch Middlesbrough Club in the EFL Championship final on 23 May 2026, with hospitality. Approximate value. Luke has made a donation to the MFC Foundation",
+        "Value": "1250.00",
+        "ReceivedDate": "2026-05-23",
+        "AcceptedDate": "2026-05-23",
+        "IsSoleBeneficiary": false,
+        "DonorName": "Steve Gibson",
+        "DonorStatus": "Individual"
+      },
+      "reasons": [
+        "gift/visit value £1,250 >= £500"
+      ],
+      "interestId": "interest:15397"
+    },
+    {
+      "memberId": 4484,
+      "memberName": "Alan Mak",
+      "memberParty": "Conservative",
+      "memberConstituency": "Havant",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Informa Telecoms & Media Ltd - £3,332.67",
+      "registrationDate": "2026-06-08",
+      "publishedDate": "2026-06-09",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Two access passes to London Tech Week venue for me and one staff member, for one day only, to participate in a discussion forum and meet other attendees",
+        "Value": "3332.67",
+        "ReceivedDate": "2026-06-08",
+        "AcceptedDate": "2026-06-08",
+        "IsSoleBeneficiary": false,
+        "DonorName": "Informa Telecoms & Media Ltd",
+        "DonorPublicAddress": "5 Howick Place, London SW1P 1WG",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Informa Telecoms & Media Ltd",
+        "DonorCompanyIdentifier": "00991704",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £3,332.67 >= £500"
+      ],
+      "interestId": "interest:15385"
+    },
+    {
+      "memberId": 5167,
+      "memberName": "Gregor Poynton",
+      "memberParty": "Labour",
+      "memberConstituency": "Livingston",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Hanbury Strategy and Communications Limited - £750.00",
+      "registrationDate": "2026-06-08",
+      "publishedDate": "2026-06-09",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Tickets and hospitality at Lords Cricket Ground",
+        "Value": "750.00",
+        "ReceivedDate": "2026-06-04",
+        "AcceptedDate": "2026-06-04",
+        "IsSoleBeneficiary": true,
+        "DonorName": "Hanbury Strategy and Communications Limited",
+        "DonorPublicAddress": "2 London Bridge, London SE1 9RA",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Hanbury Strategy and Communications Limited",
+        "DonorCompanyIdentifier": "10361418",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £750 >= £500"
+      ],
+      "interestId": "interest:15394"
+    },
+    {
+      "memberId": 4407,
+      "memberName": "Nigel Huddleston",
+      "memberParty": "Conservative",
+      "memberConstituency": "Droitwich and Evesham",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Global Media & Entertainment Limited - £500.00",
+      "registrationDate": "2026-06-09",
+      "publishedDate": "2026-06-09",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Tickets and hospitality for myself and a guest for the Capital Summertime Ball, received in my capacity as Shadow Secretary of State for Culture, Media and Sport",
+        "Value": "500.00",
+        "ReceivedDate": "2026-06-06",
+        "AcceptedDate": "2026-06-06",
+        "IsSoleBeneficiary": false,
+        "DonorName": "Global Media & Entertainment Limited",
+        "DonorPublicAddress": "30 Leicester Square, London WC2H 7LA",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Global Media & Entertainment Limited",
+        "DonorCompanyIdentifier": "06251684",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £500 >= £500",
+        "mentions tracked keyword: \"capita\""
+      ],
+      "interestId": "interest:15399"
+    },
+    {
+      "memberId": 4407,
+      "memberName": "Nigel Huddleston",
+      "memberParty": "Conservative",
+      "memberConstituency": "Droitwich and Evesham",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "England and Wales Cricket Board Ltd - £500.00",
+      "registrationDate": "2026-06-09",
+      "publishedDate": "2026-06-09",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Tickets and hospitality for myself and a guest at a Test Match at Lords, received in my capacity as Shadow Secretary of State for Culture, Media and Sport",
+        "Value": "500.00",
+        "ReceivedDate": "2026-06-07",
+        "AcceptedDate": "2026-06-07",
+        "IsSoleBeneficiary": false,
+        "DonorName": "England and Wales Cricket Board Ltd",
+        "DonorPublicAddress": "Lords Ground\r\nSt Johns Wood\r\nLondon\r\nNW8 8QZ",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "England and Wales Cricket Board Ltd",
+        "DonorCompanyIdentifier": "03251364",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £500 >= £500"
+      ],
+      "interestId": "interest:15400"
+    },
+    {
+      "memberId": 4620,
+      "memberName": "Ellie Reeves",
+      "memberParty": "Labour",
+      "memberConstituency": "Lewisham West and East Dulwich",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "The Ivors Academy - £1,314.00",
+      "registrationDate": "2026-06-09",
+      "publishedDate": "2026-06-09",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "One ticket, including hospitality, for the Ivor Novello Awards",
+        "Value": "1314.00",
+        "ReceivedDate": "2026-05-21",
+        "AcceptedDate": "2026-05-21",
+        "IsSoleBeneficiary": true,
+        "DonorName": "The Ivors Academy",
+        "DonorPublicAddress": "Prager Metis LLP, 5A Bear Lane, Southwark, London SE1 0UH",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "The Ivors Academy",
+        "DonorCompanyIdentifier": "03643088",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £1,314 >= £500"
+      ],
+      "interestId": "interest:15406"
+    },
+    {
+      "memberId": 206,
+      "memberName": "Mr David Lammy",
+      "memberParty": "Labour",
+      "memberConstituency": "Tottenham",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Tottenham Hotspur Limited - £1,598.00",
+      "registrationDate": "2026-06-08",
+      "publishedDate": "2026-06-08",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Two tickets to football match on 11 May 2026. I did not my ticket but my guest did.",
+        "Value": "1598.00",
+        "ReceivedDate": "2026-05-11",
+        "AcceptedDate": "2026-05-11",
+        "IsSoleBeneficiary": false,
+        "DonorName": "Tottenham Hotspur Limited",
+        "DonorPublicAddress": "Lilywhite House, 782 High Road, London N17 0BX",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Tottenham Hotspur Limited",
+        "DonorCompanyIdentifier": "01706358",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £1,598 >= £500"
+      ],
+      "interestId": "interest:15389"
+    },
+    {
+      "memberId": 4439,
+      "memberName": "Alberto Costa",
+      "memberParty": "Conservative",
+      "memberConstituency": "South Leicestershire",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "All-Party Parliamentary Group for Italy - £41.40",
+      "registrationDate": "2026-06-05",
+      "publishedDate": "2026-06-05",
+      "rectified": false,
+      "fields": {
+        "Appg": "All-Party Parliamentary Group for Italy",
+        "PaymentType": "In kind",
+        "PaymentDescription": "Two taxi journeys, to and from the Residence of the Italian Ambassador, for a dinner hosted by the Italian Embassy. The outward journey was shared with a member of my staff and an APPG member; the return journey was shared with an APPG member",
+        "Value": "41.40",
+        "ReceivedDate": "2026-05-19",
+        "AcceptedDate": "2026-05-19",
+        "IsSoleBeneficiary": false,
+        "DonorName": "All-Party Parliamentary Group for Italy",
+        "DonorPublicAddress": "c/o House of Commons, London SW1A 0AA",
+        "DonorStatus": "Other",
+        "DonorOtherDetails": "APPG Bank Account"
+      },
+      "reasons": [
+        "mentions tracked keyword: \"ey \""
+      ],
+      "interestId": "interest:15361"
+    },
+    {
+      "memberId": 5030,
+      "memberName": "Dr Simon Opher",
+      "memberParty": "Labour",
+      "memberConstituency": "Stroud",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "SXSW London - £1,560.00",
+      "registrationDate": "2026-06-03",
+      "publishedDate": "2026-06-04",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "I received a complementary platinum pass for SXSW London conference, where I was a speaker",
+        "Value": "1560.00",
+        "ReceivedDate": "2026-06-03",
+        "AcceptedDate": "2026-06-03",
+        "IsSoleBeneficiary": true,
+        "DonorName": "SXSW London",
+        "DonorPublicAddress": "Second Floor, 67-71 Shoreditch High Street, London E1 6JJ",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "SXSW London",
+        "DonorCompanyIdentifier": "16034054",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £1,560 >= £500"
+      ],
+      "interestId": "interest:15369"
+    },
+    {
+      "memberId": 4441,
+      "memberName": "Sir Oliver Dowden",
+      "memberParty": "Conservative",
+      "memberConstituency": "Hertsmere",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Fenchurch Advisory Partners LLP - £3,500.00",
+      "registrationDate": "2026-06-03",
+      "publishedDate": "2026-06-03",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Two tickets for the Chelsea Flower Show Gala Preview and Reception",
+        "Value": "3500.00",
+        "ReceivedDate": "2026-05-18",
+        "AcceptedDate": "2026-05-18",
+        "IsSoleBeneficiary": false,
+        "DonorName": "Fenchurch Advisory Partners LLP",
+        "DonorPublicAddress": "110 Bishopsgate, London EC2N 4AY",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Fenchurch Advisory Partners LLP",
+        "DonorCompanyIdentifier": "OC306074",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £3,500 >= £500"
+      ],
+      "interestId": "interest:15345"
+    },
+    {
+      "memberId": 4125,
+      "memberName": "Catherine McKinnell",
+      "memberParty": "Labour",
+      "memberConstituency": "Newcastle upon Tyne North",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "UK Music Limited - £732.00",
+      "registrationDate": "2026-06-03",
+      "publishedDate": "2026-06-03",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Ticket with hospitality  to the 71st Ivor Novello Awards",
+        "Value": "732.00",
+        "ReceivedDate": "2026-05-21",
+        "AcceptedDate": "2026-05-21",
+        "IsSoleBeneficiary": true,
+        "DonorName": "UK Music Limited",
+        "DonorPublicAddress": "UK Music, Work.Life, 33 Foley Street, Fitzrovia, London W1W 7TL",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "UK Music Limited",
+        "DonorCompanyIdentifier": "03245288",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £732 >= £500",
+        "mentions tracked keyword: \"ey \""
+      ],
+      "interestId": "interest:15364"
+    },
+    {
+      "memberId": 4504,
+      "memberName": "Wes Streeting",
+      "memberParty": "Labour",
+      "memberConstituency": "Ilford North",
+      "category": "3 Gifts, benefits and hospitality from UK sources",
+      "summary": "Lloyds Banking Group plc - £1,839.00",
+      "registrationDate": "2026-06-02",
+      "publishedDate": "2026-06-02",
+      "rectified": false,
+      "fields": {
+        "PaymentType": "In kind",
+        "PaymentDescription": "Two tickets and hospitality at the opening night of Chelsea Flower Show for me and my partner",
+        "Value": "1839.00",
+        "ReceivedDate": "2026-05-18",
+        "AcceptedDate": "2026-05-18",
+        "IsSoleBeneficiary": false,
+        "DonorName": "Lloyds Banking Group plc",
+        "DonorPublicAddress": "The Mound, Edinburgh EH1 1YZ",
+        "DonorStatus": "Company",
+        "DonorCompanyName": "Lloyds Banking Group plc",
+        "DonorCompanyIdentifier": "SC095000",
+        "DonorCompanyIdentifierSource": "Companies House"
+      },
+      "reasons": [
+        "gift/visit value £1,839 >= £500"
+      ],
+      "interestId": "interest:15276"
+    },
+    {
+      "memberId": 4484,
+      "memberName": "Alan Mak",
+      "memberParty": "Conservative",
+      "memberConstituency": "Havant",
+      "category": "7 Shareholdings",
+      "summary": "Shares in AM Office Ltd",
+      "registrationDate": "2026-06-07",
+      "publishedDate": "2026-06-08",
+      "rectified": false,
+      "fields": {
+        "ShareholdingThreshold": "(i) Shareholdings: over 15% of issued share capital",
+        "RegistrableDate": "2026-05-28",
+        "OrganisationName": "AM Office Ltd",
+        "OrganisationDescription": "Book publishing"
+      },
+      "reasons": [
+        "new shareholding declared",
+        "mentions tracked keyword: \"capita\""
+      ],
+      "interestId": "interest:15383"
+    }
+  ]
+}
