@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Cost of Living",
-    "lastUpdated": "2026-06-01",
+    "lastUpdated": "2026-06-22",
     "description": "UK cost of living indicators: inflation, wages, housing, energy, food and transport."
   },
   "headline": {
@@ -9,11 +9,11 @@
     "realWageGrowthPct": 0.3,
     "avgRentGbp": 1332,
     "energyCapGbp": 1641,
-    "foodInflationPct": 3.7,
+    "foodInflationPct": 2.2,
     "petrolPenceLitre": 152.0,
     "dieselPenceLitre": 181.2,
-    "asOf": "30 April 2026",
-    "notes": "ONS CPI fell from 3.3% (Mar) to 2.8% (Apr 2026), released 20 May 2026; CPIH eased to 3.0% from 3.4%. ONS AWE (released 19 May 2026, Jan-Mar 2026): regular pay +3.4% nominal / +0.3% real (CPI); total pay +4.1% nominal / +1.0% real (CPI). Ofgem announced 27 May 2026 that the Q3 2026 (Jul-Sep) default tariff cap will rise 13% to £1,862 from £1,641, driven by higher wholesale gas prices linked to Middle East conflict."
+    "asOf": "31 May 2026",
+    "notes": "ONS CPI held at 2.8% in the 12 months to May 2026 (unchanged from April), released 18 June 2026; CPIH unchanged at 3.0%. Monthly CPI +0.2%. Transport inflation rose to 6.8% (highest since Dec 2022); food and non-alcoholic beverage inflation eased to 2.2% (from 3.0% in April), the lowest since Dec 2024. Latest ONS AWE (Jan-Mar 2026, released 19 May 2026): regular pay +3.4% nominal / +0.3% real (CPI); total pay +4.1% nominal / +1.0% real (CPI). Ofgem Q3 2026 (Jul-Sep) default tariff cap set at £1,862, up 13% from £1,641."
   },
   "cpiInflation": {
     "source": "ONS Consumer Prices Index (CPI, % YoY)",
@@ -449,6 +449,10 @@
       {
         "m": "Apr 2026",
         "v": 2.8
+      },
+      {
+        "m": "May 2026",
+        "v": 2.8
       }
     ]
   },
@@ -828,6 +832,14 @@
         {
           "m": "Mar 2026",
           "v": 3.7
+        },
+        {
+          "m": "Apr 2026",
+          "v": 3.0
+        },
+        {
+          "m": "May 2026",
+          "v": 2.2
         }
       ]
     },

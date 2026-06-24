@@ -226,7 +226,7 @@
     "source": "EY UK IPO Reports, London Stock Exchange Group",
     "sourceUrl": "https://www.ey.com/en_uk/newsroom/2025/01/london-stock-market-ends-2024-on-a-high-after-q4-boost",
     "unit": "count",
-    "proceedsUnit": "\u00a3m",
+    "proceedsUnit": "£m",
     "data": [
       {
         "year": 2000,
@@ -461,7 +461,7 @@
         "confidence": "high"
       },
       {
-        "exchange": "Deutsche B\u00f6rse",
+        "exchange": "Deutsche Börse",
         "country": "Germany",
         "listed": 1580,
         "note": "Xetra regulated + Open Market",
@@ -486,16 +486,16 @@
   "ftseIndices": {
     "title": "FTSE Index Levels",
     "source": "London Stock Exchange",
-    "lastUpdated": "2026-06-12",
+    "lastUpdated": "2026-06-19",
     "data": [
       {
         "index": "FTSE 100",
-        "level": 10472,
+        "level": 10364,
         "confidence": "high"
       },
       {
         "index": "FTSE 250",
-        "level": 23326,
+        "level": 23201,
         "confidence": "high"
       }
     ]
