@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "Cost of Living",
-    "lastUpdated": "2026-06-22",
+    "lastUpdated": "2026-06-29",
     "description": "UK cost of living indicators: inflation, wages, housing, energy, food and transport."
   },
   "headline": {
@@ -13,7 +13,7 @@
     "petrolPenceLitre": 152.0,
     "dieselPenceLitre": 181.2,
     "asOf": "31 May 2026",
-    "notes": "ONS CPI held at 2.8% in the 12 months to May 2026 (unchanged from April), released 18 June 2026; CPIH unchanged at 3.0%. Monthly CPI +0.2%. Transport inflation rose to 6.8% (highest since Dec 2022); food and non-alcoholic beverage inflation eased to 2.2% (from 3.0% in April), the lowest since Dec 2024. Latest ONS AWE (Jan-Mar 2026, released 19 May 2026): regular pay +3.4% nominal / +0.3% real (CPI); total pay +4.1% nominal / +1.0% real (CPI). Ofgem Q3 2026 (Jul-Sep) default tariff cap set at £1,862, up 13% from £1,641."
+    "notes": "ONS CPI held at 2.8% in the 12 months to May 2026 (unchanged from April), released 18 June 2026; CPIH unchanged at 3.0%. Monthly CPI +0.2%. Transport inflation rose to 6.8% (highest since Dec 2022); food and non-alcoholic beverage inflation eased to 2.2% (from 3.0% in April), the lowest since Dec 2024. Latest ONS AWE (Feb-Apr 2026, released 18 June 2026): regular pay +3.4% nominal / +0.3% real (CPI); total pay +4.4% nominal / +1.3% real (CPI). Ofgem Q3 2026 (Jul-Sep) default tariff cap set at £1,862, up 13% from £1,641."
   },
   "cpiInflation": {
     "source": "ONS Consumer Prices Index (CPI, % YoY)",

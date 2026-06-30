@@ -2,7 +2,7 @@
   "metadata": {
     "title": "UK Infrastructure Delivery Delays",
     "description": "Major UK government projects tracked from approval through delivery, measuring schedule slippage and cost growth. All timelines sourced from NAO, IPA, and official project updates.",
-    "lastUpdated": "2026-05-22",
+    "lastUpdated": "2026-06-30",
     "methodology": "Delay calculated as difference between original planned completion and latest estimated/actual completion. Cost growth measured from original budget at main investment decision to latest published estimate. Only projects with verifiable official schedule data included.",
     "sources": [
       "National Audit Office (NAO)",
@@ -26,15 +26,15 @@
       "delayPct": 76,
       "revisedDeadlines": 5,
       "primaryDelayCause": "Scope revision / cost escalation",
-      "delayCauseDetail": "Northern leg and Birmingham-Crewe leg cancelled. May 2026 6-monthly parliamentary report (Transport Secretary Heidi Alexander) confirmed Old Oak Common-Birmingham services pushed to May 2036-October 2039 window, Euston extension May 2040-December 2043. Speed cap reduced from 225mph to 200mph. Causes attributed to missed scope, prior-government underestimation, inefficient delivery and inflation. Stephen Lovegrove independent review (20 May 2026) found DfT 'consistently missed' scrutiny opportunities and that sanctions/interventions for HS2 Ltd underperformance were 'insufficient or not applied rigorously enough'; ministers and civil servants did not recognise or act on the 'scale of failure'. PAC opened a separate inquiry into HS2 and Euston delivery on 20 May 2026 (first evidence before 17 July 2026 recess).",
+      "delayCauseDetail": "Northern leg and Birmingham-Crewe leg cancelled. May 2026 6-monthly parliamentary report (Transport Secretary Heidi Alexander) confirmed Old Oak Common-Birmingham services pushed to May 2036-October 2039 window, Euston extension May 2040-December 2043. Speed cap reduced from 225mph to 200mph. Causes attributed to missed scope, prior-government underestimation, inefficient delivery and inflation. Stephen Lovegrove independent review (20 May 2026) found DfT 'consistently missed' scrutiny opportunities and that sanctions/interventions for HS2 Ltd underperformance were 'insufficient or not applied rigorously enough'; ministers and civil servants did not recognise or act on the 'scale of failure'. PAC opened a separate inquiry into HS2 and Euston delivery on 20 May 2026 (first evidence before 17 July 2026 recess). The National Audit Office's 'High Speed Two reset' report (29 June 2026) warned DfT and HS2 Ltd to put the programme on a stable footing before confirming revised plans, noting the reset (begun January 2025) is expected to conclude in spring 2027 and that £46.8bn had been spent to end-March 2026 (including Phase 2); it recommended reviewing the reset timetable in autumn 2026, maintaining focus on cost, schedule and commercial management, and revisiting governance as the programme moves into its next stage.",
       "originalBudgetM": 33000,
       "latestBudgetM": 102700,
       "costGrowthM": 69700,
       "costGrowthPct": 211,
       "extraCostPerDelayDayM": 16.78,
       "status": "In Progress",
-      "sourceName": "HS2 6-monthly report to Parliament (May 2026) / NAO",
-      "sourceUrl": "https://www.gov.uk/government/speeches/hs2-6-monthly-report-to-parliament-may-2026",
+      "sourceName": "NAO 'High Speed Two reset' (29 June 2026) / HS2 6-monthly report to Parliament (May 2026)",
+      "sourceUrl": "https://www.nao.org.uk/reports/high-speed-two-reset/",
       "sourceConfidence": "very_high",
       "methodologyNote": "Original 2026 date from 2012 command paper. Latest date is midpoint of confirmed May 2036-October 2039 OOC-Birmingham first services window per May 2026 reset baseline. Northern legs cancelled October 2023; Euston extension pushed to 2040-2043."
     },
