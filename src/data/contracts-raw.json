@@ -1516,5 +1516,25 @@
     "competitive": true,
     "duration": "From September 2026; full roll-out by 2027",
     "source": "https://www.gov.uk/government/news/soldiers-to-get-new-ai-capable-radios-headsets-and-tablets-with-futuristic-sensor-data"
+  },
+  {
+    "id": "DEF-030",
+    "title": "40mm Grenades — nine variants (high & low velocity)",
+    "description": "Contract worth £65.84m (excluding VAT; £82.3m including VAT) awarded through open competition by Defence Equipment & Support (DE&S) to ST Engineering Advanced Material Engineering, a Singapore-based manufacturer, to supply the British military with nine variants of 40mm high- and low-velocity grenades. Three tenders were received and assessed in the final stage, with ST Engineering chosen ahead of unsuccessful bidders NIOA Nominees and Ian Edgar (Liverpool). DE&S award decision dated 20 March 2026; contract award notice published late June 2026; contract due to be signed 7 July 2026 for a five-year term running to July 2031.",
+    "buyer": "Ministry of Defence (Defence Equipment & Support)",
+    "status": "awarded",
+    "awardDate": "2026-06-29",
+    "value": 65840000,
+    "valueDisclosed": true,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "ST Engineering Advanced Material Engineering"
+      }
+    ],
+    "category": "defence",
+    "competitive": true,
+    "duration": "July 2026 – July 2031 (5 years)",
+    "source": "https://www.find-tender.service.gov.uk/procurement/ocds-h6vhtk-0558cc"
   }
 ]
