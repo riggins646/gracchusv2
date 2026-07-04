@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2026-06-07"
+    "lastUpdated": "2026-07-03"
   },
   "summary": {
     "totalVipLaneValue": 1700000000,
@@ -51,11 +51,11 @@
       "connectionType": "Peer / House of Lords",
       "competitive": false,
       "vipLane": true,
-      "outcome": "Court ordered £122m repayment Oct 2025. Gowns failed sterilisation. Company wound up Dec 2025 with £148m owed to government. Only ~£600k available for unsecured creditors. HMRC separately owed ~£39m. Recovery of taxpayer funds considered unlikely. Covid-19 Inquiry Module 5 (Procurement) report scheduled for 14 July 2026 contains a PPE Medpro chapter withheld under a Restriction Order so as not to undermine current or future criminal investigations; it will be published once criminal proceedings conclude.",
+      "outcome": "Court ordered £122m repayment Oct 2025. Gowns failed sterilisation. Company wound up Dec 2025 with £148m owed to government. Only ~£600k available for unsecured creditors. HMRC separately owed ~£39m. Recovery of taxpayer funds considered unlikely. Covid-19 Inquiry Module 5 (Procurement) report scheduled for 14 July 2026 contains a PPE Medpro chapter withheld under a Restriction Order so as not to undermine current or future criminal investigations; it will be published once criminal proceedings conclude. On 25 June 2026 PPE Medpro's liquidators (Interpath), via law firm Simmons & Simmons, issued civil proceedings against six individuals and five companies — including Baroness Mone and Doug Barrowman personally — to recover the ~£122m profit made on the gowns contract, since the company itself holds no assets. The National Crime Agency's criminal investigation into alleged conspiracy to defraud, fraud by false representation and bribery continues (roughly £75m of Mone/Barrowman assets have been restrained under the Proceeds of Crime Act since December 2023); neither has been charged and both deny wrongdoing.",
       "severity": "critical",
       "era": "COVID",
       "source": "https://goodlawproject.org/ppe-medpro-must-repay-122m-for-breach-of-contract/",
-      "lastUpdated": "2026-06-07"
+      "lastUpdated": "2026-07-03"
     },
     {
       "id": "CR-002",
