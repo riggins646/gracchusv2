@@ -138,7 +138,7 @@
       "FMSP Royal Navy Surface Fleet",
       "MOD White Fleet (Phoenix 3)"
     ],
-    "notes": "63% of global revenue from MOD. British Army SPTC extension (\u00a31.6bn, Mar 2025). BISS26 boats support (\u00a3283.5m shared, Apr 2026). FMSP 2-yr extension (\u00a3~2bn est., Apr 2026). White Fleet Phoenix 3 (\u00a360m, Mar 2026).",
+    "notes": "63% of global revenue from MOD. British Army SPTC extension (£1.6bn, Mar 2025). BISS26 boats support (£283.5m shared, Apr 2026). FMSP 2-yr extension (£~2bn est., Apr 2026). White Fleet Phoenix 3 (£60m, Mar 2026).",
     "strategicSupplier": true
   },
   {
@@ -318,7 +318,7 @@
       "Ministry of Defence"
     ],
     "projects": [],
-    "notes": "NHS Federated Data Platform (7yr, \u00a3330M, Nov 2023). MOD Defence Data Analytics Enterprise Agreement (3yr, \u00a3240.6M, awarded Dec 2025, direct award). Total gov contracts: \u00a3570.6M.",
+    "notes": "NHS Federated Data Platform (7yr, £330M, Nov 2023). MOD Defence Data Analytics Enterprise Agreement (3yr, £240.6M, awarded Dec 2025, direct award). Total gov contracts: £570.6M.",
     "strategicSupplier": true
   },
   {
@@ -404,7 +404,7 @@
       "Ministry of Defence"
     ],
     "projects": [],
-    "notes": "HMRC customs and borders. DALAS framework. Test & Trace (30m). Brexit support (30m share). DLIS digital logistics for MOD (\u00a3113m, Feb 2026, joint with PA Consulting).",
+    "notes": "HMRC customs and borders. DALAS framework. Test & Trace (30m). Brexit support (30m share). DLIS digital logistics for MOD (£113m, Feb 2026, joint with PA Consulting).",
     "strategicSupplier": true
   },
   {
@@ -554,7 +554,7 @@
       "Ministry of Defence"
     ],
     "projects": [],
-    "notes": "DLIS digital logistics for MOD (\u00a3113m, Feb 2026, joint with Accenture as Digital Allies consortium). Part of BMfS programme.",
+    "notes": "DLIS digital logistics for MOD (£113m, Feb 2026, joint with Accenture as Digital Allies consortium). Part of BMfS programme.",
     "strategicSupplier": false
   },
   {
@@ -569,7 +569,22 @@
     "projects": [
       "Apache / Chinook In-Service Support (Rotary Wing Enterprise)"
     ],
-    "notes": "\u00a3879m 3-year integrated in-service support contract for British Army AH-64E Apache and RAF CH-47 Chinook fleets. Awarded 15 April 2026. First time both rotary fleets unified under a single contract. Supports 700+ Boeing UK jobs and 500 supply chain jobs.",
+    "notes": "£879m 3-year integrated in-service support contract for British Army AH-64E Apache and RAF CH-47 Chinook fleets. Awarded 15 April 2026. First time both rotary fleets unified under a single contract. Supports 700+ Boeing UK jobs and 500 supply chain jobs.",
+    "strategicSupplier": false
+  },
+  {
+    "name": "Edgewing (BAE Systems / Leonardo / JAIEC JV)",
+    "contractCount": 2,
+    "totalValue": 5286000000,
+    "annualGovSpend": null,
+    "sector": "Defence",
+    "departments": [
+      "Ministry of Defence"
+    ],
+    "projects": [
+      "Tempest / GCAP"
+    ],
+    "notes": "GCAP design authority JV. £686m bridge contract (Apr 2026) + £4.6bn design & development contract (Jul 2026), both awarded via the trilateral GCAP Agency and funded jointly by UK, Japan and Italy — UK share not separately disclosed. UK DIP commits £8.6bn to GCAP over four years.",
     "strategicSupplier": false
   }
 ]

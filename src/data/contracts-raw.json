@@ -1414,7 +1414,7 @@
   {
     "id": "DEF-025",
     "title": "GCAP Edgewing Bridge Design Contract",
-    "description": "First international contract awarded by the GCAP Agency to Edgewing, the trilateral consortium formed by BAE Systems, Leonardo and Japan Aircraft Industrial Enhancement Co. Ltd (JAIEC). £686m bridge funding to sustain design and engineering work to end of June 2026 while the UK Defence Investment Plan is finalised. Edgewing acts as the GCAP design authority overseeing engineering, airworthiness and certification across all phases. Awarded 1 April 2026; intended to be followed by a larger development contract once UK spending plan is complete. Programme target in-service date 2035.",
+    "description": "First international contract awarded by the GCAP Agency to Edgewing, the trilateral consortium formed by BAE Systems, Leonardo and Japan Aircraft Industrial Enhancement Co. Ltd (JAIEC). £686m bridge funding to sustain design and engineering work to end of June 2026 while the UK Defence Investment Plan is finalised. Edgewing acts as the GCAP design authority overseeing engineering, airworthiness and certification across all phases. Awarded 1 April 2026; intended to be followed by a larger development contract once UK spending plan is complete. Programme target in-service date 2035. Superseded as planned by the £4.6bn design & development contract awarded 3 July 2026 (DEF-031).",
     "buyer": "Ministry of Defence (via GCAP Agency)",
     "status": "active",
     "awardDate": "2026-04",
@@ -1536,5 +1536,25 @@
     "competitive": true,
     "duration": "July 2026 – July 2031 (5 years)",
     "source": "https://www.find-tender.service.gov.uk/procurement/ocds-h6vhtk-0558cc"
+  },
+  {
+    "id": "DEF-031",
+    "title": "GCAP Design & Development Contract (Edgewing)",
+    "description": "Main design contract for the Global Combat Air Programme sixth-generation fighter, awarded through the GCAP Agency (GIGO) to Edgewing, the trilateral JV of BAE Systems, Leonardo and JAIEC. £4.6bn funded jointly by the UK, Japan and Italy (UK share not separately disclosed); advances the next design stage by establishing key requirements and rigorous testing. Follows the £686m bridge contract (DEF-025). Announced alongside Defence Investment Plan commitment of £8.6bn UK funding to GCAP over four years. Target in-service date 2035.",
+    "buyer": "GCAP Agency (UK/Japan/Italy; UK MOD participant)",
+    "status": "active",
+    "awardDate": "2026-07-03",
+    "value": 4600000000,
+    "valueDisclosed": true,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "Edgewing (BAE Systems / Leonardo / JAIEC JV)"
+      }
+    ],
+    "category": "defence",
+    "competitive": false,
+    "duration": "Next design stage; in-service target 2035",
+    "source": "https://www.gov.uk/government/news/over-4-billion-invested-in-next-generation-fighter-jet-with-new-international-contract"
   }
 ]
