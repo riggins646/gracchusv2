@@ -15,14 +15,14 @@
       }
     ],
     "sourceConfidence": "high",
-    "lastUpdated": "2026-07-06",
+    "lastUpdated": "2026-07-07",
     "registerEditionReviewed": "as at 27 Apr 2026",
     "dataRange": "2019–2025 (interests), 2019–2024 (expenses)",
     "methodologyNote": "Interests data compiled from Parliamentary Commissioner for Standards publications and verified journalism citing the official register. Expenses data from IPSA annual publications. Historical top-earner data (2019-2024) is from the cumulative register. Current Parliament data covers July 2024 onward.",
-    "sourceUrl": "https://interests-api.parliament.uk/api/v1/Registers/801",
+    "sourceUrl": "https://interests-api.parliament.uk/api/v1/Registers/803",
     "sourceName": "Register of Members' Financial Interests (Parliament Interests API)",
-    "lastRegisterId": 801,
-    "lastRegisterPublishedDate": "2026-06-15"
+    "lastRegisterId": 803,
+    "lastRegisterPublishedDate": "2026-06-29"
   },
   "summary": {
     "totalMPs": 650,
@@ -104,58 +104,58 @@
   "byParty": [
     {
       "name": "Labour",
-      "count": 315,
-      "oi": 542822.5800000001,
-      "gi": 225185.19999999998,
-      "dn": 2020231.32
+      "count": 317,
+      "oi": 572942.1,
+      "gi": 229781.93,
+      "dn": 2090049.0000000002
     },
     {
       "name": "Conservative",
       "count": 112,
-      "oi": 5208779.099999999,
-      "gi": 189645.38999999998,
-      "dn": 1429652.36
+      "oi": 5391791.739999999,
+      "gi": 201194.88999999998,
+      "dn": 1456652.36
     },
     {
       "name": "Liberal Democrat",
       "count": 70,
-      "oi": 125811.81,
-      "gi": 354961.22,
-      "dn": 794929.6
+      "oi": 144039.81,
+      "gi": 355276.2199999999,
+      "dn": 825236.98
     },
     {
       "name": "Labour (Co-op)",
       "count": 40,
       "oi": 8108.59,
-      "gi": 33606.759999999995,
+      "gi": 34464.76,
       "dn": 247001.8
     },
     {
       "name": "Independent",
       "count": 11,
-      "oi": 78472.49,
+      "oi": 79360.98000000001,
       "gi": 3563.6,
       "dn": 85400
     },
     {
       "name": "Reform UK",
       "count": 8,
-      "oi": 1165977.27,
+      "oi": 1454379.27,
       "gi": 15113.27,
-      "dn": 175500
+      "dn": 180500
+    },
+    {
+      "name": "Scottish National Party",
+      "count": 7,
+      "oi": 0,
+      "gi": 5158.9,
+      "dn": 0
     },
     {
       "name": "Sinn Féin",
       "count": 6,
       "oi": 4672,
       "gi": 0,
-      "dn": 0
-    },
-    {
-      "name": "Scottish National Party",
-      "count": 6,
-      "oi": 0,
-      "gi": 4174.9,
       "dn": 0
     },
     {
@@ -175,7 +175,7 @@
     {
       "name": "Plaid Cymru",
       "count": 3,
-      "oi": 1530.67,
+      "oi": 2030.67,
       "gi": 388.8,
       "dn": 47250
     },
@@ -302,8 +302,15 @@
         "mp": "Rishi Sunak",
         "party": "Conservative",
         "constituency": "Richmond and Northallerton",
-        "outsideIncome": 2379794,
-        "paidRoles": 20
+        "outsideIncome": 2597880,
+        "paidRoles": 23
+      },
+      {
+        "mp": "Nigel Farage",
+        "party": "Reform UK",
+        "constituency": "Clacton",
+        "outsideIncome": 1259981,
+        "paidRoles": 66
       },
       {
         "mp": "Sir Geoffrey Cox",
@@ -311,13 +318,6 @@
         "constituency": "Torridge and Tavistock",
         "outsideIncome": 1035567,
         "paidRoles": 41
-      },
-      {
-        "mp": "Nigel Farage",
-        "party": "Reform UK",
-        "constituency": "Clacton",
-        "outsideIncome": 971579,
-        "paidRoles": 64
       },
       {
         "mp": "Sir Jeremy Hunt",
@@ -334,6 +334,13 @@
         "paidRoles": 23
       },
       {
+        "mp": "Angela Rayner",
+        "party": "Labour",
+        "constituency": "Ashton-under-Lyne",
+        "outsideIncome": 145500,
+        "paidRoles": 12
+      },
+      {
         "mp": "Nick Timothy",
         "party": "Conservative",
         "constituency": "West Suffolk",
@@ -346,13 +353,6 @@
         "constituency": "Braintree",
         "outsideIncome": 132368,
         "paidRoles": 11
-      },
-      {
-        "mp": "Angela Rayner",
-        "party": "Labour",
-        "constituency": "Ashton-under-Lyne",
-        "outsideIncome": 120500,
-        "paidRoles": 9
       },
       {
         "mp": "Chris Bryant",
@@ -390,11 +390,11 @@
         "paidRoles": 4
       },
       {
-        "mp": "John Glen",
-        "party": "Conservative",
-        "constituency": "Salisbury",
-        "outsideIncome": 60000,
-        "paidRoles": 2
+        "mp": "Tony Vaughan",
+        "party": "Labour",
+        "constituency": "Folkestone and Hythe",
+        "outsideIncome": 61293,
+        "paidRoles": 23
       },
       {
         "mp": "Suella Braverman",
@@ -411,11 +411,11 @@
         "paidRoles": 31
       },
       {
-        "mp": "Tony Vaughan",
-        "party": "Labour",
-        "constituency": "Folkestone and Hythe",
-        "outsideIncome": 57941,
-        "paidRoles": 21
+        "mp": "Steve Barclay",
+        "party": "Conservative",
+        "constituency": "North East Cambridgeshire",
+        "outsideIncome": 56000,
+        "paidRoles": 15
       },
       {
         "mp": "Dr Zubir Ahmed",
@@ -423,13 +423,6 @@
         "constituency": "Glasgow South West",
         "outsideIncome": 53753,
         "paidRoles": 6
-      },
-      {
-        "mp": "Steve Barclay",
-        "party": "Conservative",
-        "constituency": "North East Cambridgeshire",
-        "outsideIncome": 52000,
-        "paidRoles": 14
       },
       {
         "mp": "Dr Andrew Murrison",
@@ -444,6 +437,13 @@
         "constituency": "Gosport",
         "outsideIncome": 50000,
         "paidRoles": 2
+      },
+      {
+        "mp": "Tom Tugendhat",
+        "party": "Conservative",
+        "constituency": "Tonbridge",
+        "outsideIncome": 44152,
+        "paidRoles": 36
       },
       {
         "mp": "Dr Neil Shastri-Hurst",
@@ -478,7 +478,7 @@
   "aggregateStats": {
     "description": "Aggregate statistics for current Parliament (since July 2024)",
     "sourceName": "Parliament Interests API",
-    "sourceUrl": "https://interests-api.parliament.uk/api/v1/Interests?RegisterId=801",
+    "sourceUrl": "https://interests-api.parliament.uk/api/v1/Interests?RegisterId=803",
     "sourceConfidence": "medium-high",
     "methodologyNote": "Aggregates derived from Parliament's Interests API. byParty totals computed from Categories 1 (oi), 3+4+5 (gi), 2 (dn). topEarners.currentEdition is for the latest register edition only.",
     "mpsWithSecondJobs": 236,
@@ -525,9 +525,9 @@
       "topMPsCount": 24,
       "pctOfTotalIncome": 71
     },
-    "lastUpdated": "2026-06-23",
-    "mpsRegistered": 587,
-    "totalInterests": 3992
+    "lastUpdated": "2026-07-07",
+    "mpsRegistered": 590,
+    "totalInterests": 4112
   },
   "contextSentences": {
     "headline": "236 of 650 MPs (36%) have declared external income since the July 2024 election, working a combined 32,000 hours in second jobs.",
