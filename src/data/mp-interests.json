@@ -15,14 +15,14 @@
       }
     ],
     "sourceConfidence": "high",
-    "lastUpdated": "2026-06-29",
+    "lastUpdated": "2026-07-06",
     "registerEditionReviewed": "as at 27 Apr 2026",
     "dataRange": "2019–2025 (interests), 2019–2024 (expenses)",
     "methodologyNote": "Interests data compiled from Parliamentary Commissioner for Standards publications and verified journalism citing the official register. Expenses data from IPSA annual publications. Historical top-earner data (2019-2024) is from the cumulative register. Current Parliament data covers July 2024 onward.",
-    "sourceUrl": "https://interests-api.parliament.uk/api/v1/Registers/800",
+    "sourceUrl": "https://interests-api.parliament.uk/api/v1/Registers/801",
     "sourceName": "Register of Members' Financial Interests (Parliament Interests API)",
-    "lastRegisterId": 800,
-    "lastRegisterPublishedDate": "2026-06-01"
+    "lastRegisterId": 801,
+    "lastRegisterPublishedDate": "2026-06-15"
   },
   "summary": {
     "totalMPs": 650,

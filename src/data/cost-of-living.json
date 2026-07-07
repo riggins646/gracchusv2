@@ -1,19 +1,19 @@
 {
   "metadata": {
     "title": "Cost of Living",
-    "lastUpdated": "2026-06-29",
+    "lastUpdated": "2026-07-06",
     "description": "UK cost of living indicators: inflation, wages, housing, energy, food and transport."
   },
   "headline": {
     "cpiPct": 2.8,
     "realWageGrowthPct": 0.3,
     "avgRentGbp": 1332,
-    "energyCapGbp": 1641,
+    "energyCapGbp": 1862,
     "foodInflationPct": 2.2,
-    "petrolPenceLitre": 152.0,
-    "dieselPenceLitre": 181.2,
-    "asOf": "31 May 2026",
-    "notes": "ONS CPI held at 2.8% in the 12 months to May 2026 (unchanged from April), released 18 June 2026; CPIH unchanged at 3.0%. Monthly CPI +0.2%. Transport inflation rose to 6.8% (highest since Dec 2022); food and non-alcoholic beverage inflation eased to 2.2% (from 3.0% in April), the lowest since Dec 2024. Latest ONS AWE (Feb-Apr 2026, released 18 June 2026): regular pay +3.4% nominal / +0.3% real (CPI); total pay +4.4% nominal / +1.3% real (CPI). Ofgem Q3 2026 (Jul-Sep) default tariff cap set at £1,862, up 13% from £1,641."
+    "petrolPenceLitre": 150.0,
+    "dieselPenceLitre": 171.6,
+    "asOf": "1 Jul 2026",
+    "notes": "ONS CPI held at 2.8% in the 12 months to May 2026 (unchanged from April), released 18 June 2026; CPIH unchanged at 3.0%. Monthly CPI +0.2%. Transport inflation rose to 6.8% (highest since Dec 2022); food and non-alcoholic beverage inflation eased to 2.2% (from 3.0% in April), the lowest since Dec 2024. June 2026 CPI due ~16 July. Latest ONS AWE (Feb-Apr 2026, released 18 June 2026): regular pay +3.4% nominal / +0.3% real (CPI); total pay +4.4% nominal / +1.3% real (CPI). Ofgem Q3 2026 (Jul-Sep) default tariff cap of £1,862 in effect from 1 July 2026, up 13% from £1,641 in Q2 (rise driven by higher wholesale gas prices amid the Middle East conflict); Q4 2026 (Oct-Dec) cap to be published by 26 Aug 2026. Fuel: DESNZ Energy Trends & Prices (30 June 2026) reports June 2026 petrol down 2.0p/litre and diesel down 9.6p/litre vs May (QEP 4.1.1), giving ~150.0p petrol / ~171.6p diesel applied to the May monthly readings."
   },
   "cpiInflation": {
     "source": "ONS Consumer Prices Index (CPI, % YoY)",
@@ -756,6 +756,10 @@
         },
         {
           "q": "Q2 2026",
+          "v": 1641
+        },
+        {
+          "q": "Q3 2026",
           "v": 1862
         }
       ]
