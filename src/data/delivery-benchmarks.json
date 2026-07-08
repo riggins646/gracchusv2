@@ -1,7 +1,8 @@
 {
   "metadata": {
     "source": "Multiple web sources including World Bank, OECD, government statistics, regulatory bodies, and industry reports",
-    "lastUpdated": "2026-05-22",
+    "lastUpdated": "2026-07-08",
+    "lastReleaseNotes": "2026-07-08 review: World Bank published 'Infrastructure Foundations: From Current Assets to Future Growth' report and launched the Road & Rail Cost Calculator (R2C2, transport.streamlit.app/r2c2) on 30 June 2026 — new global road/rail unit-cost benchmark dataset confirming massive dispersion in per-km costs by terrain/urban density; no UK-specific per-km figures published, so existing series unchanged. NAO 'High Speed Two reset' report (29 June 2026) confirmed £46.8bn spent to end-March 2026 incl. Phase 2 (DfT's £44.2bn nominal figure in railCosts note is Phase 1 parliamentary-report basis); reset baseline £87.7-102.7bn unchanged.",
     "methodology": "Data compiled from official government publications, regulatory filings, World Bank reports, and academic research. All figures converted to GBP/USD as appropriate. Cost data adjusted to 2024/2025 prices where necessary. Timeline data reflects most recent publicly available project information as of May 2026.",
     "disclaimer": "Data represents latest available figures from cited sources. Some historical figures used where recent data unavailable. All figures rounded to reasonable precision given source uncertainty."
   },
