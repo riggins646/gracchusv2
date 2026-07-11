@@ -2,7 +2,7 @@
   "metadata": {
     "title": "UK Infrastructure Planning & Approval Delays",
     "description": "Major UK projects tracked through planning, DCO, grid connection, and regulatory approval stages. All dates and durations sourced from official records.",
-    "lastUpdated": "2026-07-03",
+    "lastUpdated": "2026-07-09",
     "methodology": "Approval durations measured from formal application submission to final decision date. Grid connection data from Ofgem queue statistics. Only projects with verifiable official records included.",
     "sources": [
       "National Infrastructure Planning (PINS)",
@@ -521,6 +521,26 @@
       "capacityMW": 150,
       "sourceName": "DESNZ / PINS",
       "sourceUrl": "https://www.gov.uk/government/news/dean-moor-solar-farm-development-consent-decision-announced",
+      "sourceConfidence": "very_high"
+    },
+    {
+      "id": "one-earth-solar",
+      "projectName": "One Earth Solar Farm",
+      "category": "Energy",
+      "approvalType": "DCO",
+      "responsibleBody": "Secretary of State for DESNZ",
+      "submissionDate": "2025-02-27",
+      "originalDecisionDeadline": "2026-07-08",
+      "actualDecisionDate": "2026-07-08",
+      "daysInApproval": 496,
+      "deadlineExtensions": 0,
+      "approvalStatus": "Approved",
+      "causeCategory": "Standard examination",
+      "causeDetail": "Up to ~740MW solar farm with co-located Battery Energy Storage System (BESS) on the Nottinghamshire–Lincolnshire border near Gainsborough — set to be the UK's second-largest solar farm; developed by a partnership of PS Renewables and Perigus Energy (formerly part of Ørsted). Application submitted 27 February 2025, accepted for examination 27 March 2025; ExA recommendation to SoS 8 April 2026; decision granted by Lord Whitehead on behalf of the Energy Secretary 8 July 2026, within the statutory timescale. PINS' 111th energy application examined (of 179 applications to date). Construction expected to take ~2 years, completing by 2029.",
+      "estimatedCostM": null,
+      "capacityMW": 740,
+      "sourceName": "DESNZ / PINS",
+      "sourceUrl": "https://www.gov.uk/government/news/one-earth-solar-farm-development-consent-decision-announced",
       "sourceConfidence": "very_high"
     }
   ],
