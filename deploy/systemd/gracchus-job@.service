@@ -1,0 +1,19 @@
+[Unit]
+Description=Gracchus data pipeline job (%i)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=__RUN_USER__
+WorkingDirectory=__REPO_DIR__
+# Absolute node/claude paths come from deploy/.env; PATH here is a safety net.
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/bin/bash __DEPLOY_BIN__ %i
+# Judgment jobs can run a while; kill anything that wedges past 30 min.
+TimeoutStartSec=1800
+Nice=10
+
+# NOTE: this is a template. The %i (instance) is the job name, e.g.
+#   systemctl start gracchus-job@projects-contracts.service
+# The timers below target it explicitly via Unit=.

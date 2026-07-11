@@ -1,0 +1,11 @@
+[Unit]
+Description=Gracchus — APPG register ingest (15th of month, 10:00 UTC)
+
+[Timer]
+OnCalendar=*-*-15 10:00:00
+RandomizedDelaySec=600
+Persistent=true
+Unit=gracchus-job@appgs.service
+
+[Install]
+WantedBy=timers.target

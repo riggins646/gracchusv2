@@ -1,0 +1,24 @@
+# Gracchus VPS data pipeline — cron alternative to the systemd timers.
+# Use EITHER systemd timers OR this crontab, not both.
+#
+# Install:  crontab -e   then paste (edit the path first), or:
+#   sed "s|__REPO__|$PWD|g" deploy/crontab.example | crontab -
+#
+# Times are in the server's timezone — set the box to UTC:  sudo timedatectl set-timezone UTC
+# run-job.sh self-deploys (commits + pushes src/data) after each job.
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+SHELL=/bin/bash
+
+# projects & contracts — daily 04:15
+15 4 * * *    /bin/bash __REPO__/deploy/bin/run-job.sh projects-contracts   >> __REPO__/deploy/logs/cron.log 2>&1
+# markets & political finance — Monday 09:00
+0 9 * * 1     /bin/bash __REPO__/deploy/bin/run-job.sh markets-finance       >> __REPO__/deploy/logs/cron.log 2>&1
+# research & structural — Monday 09:05 (staggered)
+5 9 * * 1     /bin/bash __REPO__/deploy/bin/run-job.sh research-structural   >> __REPO__/deploy/logs/cron.log 2>&1
+# MP register ingest — Tuesday 09:00
+0 9 * * 2     /bin/bash __REPO__/deploy/bin/run-job.sh mp-register           >> __REPO__/deploy/logs/cron.log 2>&1
+# APPG register ingest — 15th of the month, 10:00
+0 10 15 * *   /bin/bash __REPO__/deploy/bin/run-job.sh appgs                 >> __REPO__/deploy/logs/cron.log 2>&1
+# safety-net commit & push — daily 05:00
+0 5 * * *     /bin/bash __REPO__/deploy/bin/run-job.sh deploy                >> __REPO__/deploy/logs/cron.log 2>&1

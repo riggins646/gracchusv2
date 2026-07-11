@@ -1,0 +1,11 @@
+[Unit]
+Description=Gracchus — MP register ingest (Tue 09:00 UTC)
+
+[Timer]
+OnCalendar=Tue *-*-* 09:00:00
+RandomizedDelaySec=300
+Persistent=true
+Unit=gracchus-job@mp-register.service
+
+[Install]
+WantedBy=timers.target

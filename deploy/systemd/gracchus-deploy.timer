@@ -1,0 +1,13 @@
+[Unit]
+Description=Gracchus — safety-net commit & push (daily 05:00 UTC)
+
+[Timer]
+# Each job already self-deploys; this is a daily catch-all in case an
+# inline push failed or files were edited by hand. Idempotent (no-op if clean).
+OnCalendar=*-*-* 05:00:00
+RandomizedDelaySec=120
+Persistent=true
+Unit=gracchus-job@deploy.service
+
+[Install]
+WantedBy=timers.target

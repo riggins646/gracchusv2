@@ -1,0 +1,12 @@
+[Unit]
+Description=Gracchus — research & structural refresh (Mon 09:05 UTC)
+
+[Timer]
+# Offset 5 min after markets-finance so the two Monday jobs stagger.
+OnCalendar=Mon *-*-* 09:05:00
+RandomizedDelaySec=300
+Persistent=true
+Unit=gracchus-job@research-structural.service
+
+[Install]
+WantedBy=timers.target
