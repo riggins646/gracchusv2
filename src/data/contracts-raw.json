@@ -1556,5 +1556,50 @@
     "competitive": false,
     "duration": "Next design stage; in-service target 2035",
     "source": "https://www.gov.uk/government/news/over-4-billion-invested-in-next-generation-fighter-jet-with-new-international-contract"
+  },
+  {
+    "id": "DEF-032",
+    "title": "Army Collective Training Service (ACTS) — Omnia Training",
+    "description": "15-year Strategic Training Partner contract for the British Army's Collective Training Service, delivering a digitally enabled collective training system combining live exercises with virtual, synthetic and data-driven environments, including a new 'Combat Laboratory' AI/analytics platform. Expected to train around 60,000 soldiers per year. Awarded to the Omnia Training consortium, led by Raytheon UK, following a competition that downselected to two finalist consortia in February 2025 (Omnia Training and a rival team led by Elbit Systems UK). Creates 270 jobs and sustains 150 existing roles.",
+    "buyer": "Ministry of Defence",
+    "status": "active",
+    "awardDate": "2026-07-10",
+    "value": 2000000000,
+    "valueDisclosed": true,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "Omnia Training (Raytheon UK / Capita / Cervus / Rheinmetall UK / Skyral consortium)"
+      }
+    ],
+    "category": "defence",
+    "competitive": true,
+    "duration": "15 years",
+    "source": "https://www.rtx.com/news/news-center/2026/07/10/omnia-training-selected-to-deliver-2bn-army-training-contract"
+  },
+  {
+    "id": "DEF-033",
+    "title": "Low-Cost Air Defence Effectors (LCADE)",
+    "description": "Contracts to develop and trial low-cost drone interceptors, awarded to three UK SMEs. Part of the five-nation European 'Low-Cost Effectors and Autonomous Platforms' (LEAP) programme alongside Poland, France, Italy and Germany; the UK is the first European partner to act under the joint programme. Work spans Cambridge, Milton Keynes, Bristol and Stevenage, with suppliers committing to build UK manufacturing capability.",
+    "buyer": "Ministry of Defence (National Armaments Director Group)",
+    "status": "active",
+    "awardDate": "2026-07-13",
+    "value": 3160000,
+    "valueDisclosed": true,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "Frankenberg Technologies"
+      },
+      {
+        "name": "Greenjets"
+      },
+      {
+        "name": "Cambridge Aerospace"
+      }
+    ],
+    "category": "defence",
+    "competitive": true,
+    "source": "https://www.gov.uk/government/news/uk-leads-europe-with-contracts-for-low-cost-air-defence-systems"
   }
 ]

@@ -2,7 +2,7 @@
   "metadata": {
     "title": "UK Infrastructure Delivery Delays",
     "description": "Major UK government projects tracked from approval through delivery, measuring schedule slippage and cost growth. All timelines sourced from NAO, IPA, and official project updates.",
-    "lastUpdated": "2026-06-30",
+    "lastUpdated": "2026-07-15",
     "methodology": "Delay calculated as difference between original planned completion and latest estimated/actual completion. Cost growth measured from original budget at main investment decision to latest published estimate. Only projects with verifiable official schedule data included.",
     "sources": [
       "National Audit Office (NAO)",
@@ -26,14 +26,14 @@
       "delayPct": 76,
       "revisedDeadlines": 5,
       "primaryDelayCause": "Scope revision / cost escalation",
-      "delayCauseDetail": "Northern leg and Birmingham-Crewe leg cancelled. May 2026 6-monthly parliamentary report (Transport Secretary Heidi Alexander) confirmed Old Oak Common-Birmingham services pushed to May 2036-October 2039 window, Euston extension May 2040-December 2043. Speed cap reduced from 225mph to 200mph. Causes attributed to missed scope, prior-government underestimation, inefficient delivery and inflation. Stephen Lovegrove independent review (20 May 2026) found DfT 'consistently missed' scrutiny opportunities and that sanctions/interventions for HS2 Ltd underperformance were 'insufficient or not applied rigorously enough'; ministers and civil servants did not recognise or act on the 'scale of failure'. PAC opened a separate inquiry into HS2 and Euston delivery on 20 May 2026 (first evidence before 17 July 2026 recess). The National Audit Office's 'High Speed Two reset' report (29 June 2026) warned DfT and HS2 Ltd to put the programme on a stable footing before confirming revised plans, noting the reset (begun January 2025) is expected to conclude in spring 2027 and that £46.8bn had been spent to end-March 2026 (including Phase 2); it recommended reviewing the reset timetable in autumn 2026, maintaining focus on cost, schedule and commercial management, and revisiting governance as the programme moves into its next stage.",
+      "delayCauseDetail": "Northern leg and Birmingham-Crewe leg cancelled. May 2026 6-monthly parliamentary report (Transport Secretary Heidi Alexander) confirmed Old Oak Common-Birmingham services pushed to May 2036-October 2039 window, Euston extension May 2040-December 2043. Speed cap reduced from 225mph to 200mph. Causes attributed to missed scope, prior-government underestimation, inefficient delivery and inflation. Stephen Lovegrove independent review (20 May 2026) found DfT 'consistently missed' scrutiny opportunities and that sanctions/interventions for HS2 Ltd underperformance were 'insufficient or not applied rigorously enough'; ministers and civil servants did not recognise or act on the 'scale of failure'. PAC opened a separate inquiry into HS2 and Euston delivery on 20 May 2026 (first evidence before 17 July 2026 recess). The National Audit Office's 'High Speed Two reset' report (29 June 2026) warned DfT and HS2 Ltd to put the programme on a stable footing before confirming revised plans, noting the reset (begun January 2025) is expected to conclude in spring 2027 and that £46.8bn had been spent to end-March 2026 (including Phase 2); it recommended reviewing the reset timetable in autumn 2026, maintaining focus on cost, schedule and commercial management, and revisiting governance as the programme moves into its next stage. NISTA's Annual Report on Major Projects 2025-26 (13 July 2026) formally rated HS2 'Red' in the Government Major Projects Portfolio, stating delivery is 'unachievable' against the baseline confirmed in correspondence between HS2 Ltd chief executive Mark Wild and Transport Secretary Heidi Alexander.",
       "originalBudgetM": 33000,
       "latestBudgetM": 102700,
       "costGrowthM": 69700,
       "costGrowthPct": 211,
       "extraCostPerDelayDayM": 16.78,
       "status": "In Progress",
-      "sourceName": "NAO 'High Speed Two reset' (29 June 2026) / HS2 6-monthly report to Parliament (May 2026)",
+      "sourceName": "NAO 'High Speed Two reset' (29 June 2026) / HS2 6-monthly report to Parliament (May 2026) / NISTA Annual Report on Major Projects 2025-26 (13 July 2026)",
       "sourceUrl": "https://www.nao.org.uk/reports/high-speed-two-reset/",
       "sourceConfidence": "very_high",
       "methodologyNote": "Original 2026 date from 2012 command paper. Latest date is midpoint of confirmed May 2036-October 2039 OOC-Birmingham first services window per May 2026 reset baseline. Northern legs cancelled October 2023; Euston extension pushed to 2040-2043."
@@ -390,17 +390,17 @@
       "delayPct": null,
       "revisedDeadlines": 3,
       "primaryDelayCause": "Political descoping / funding withdrawal",
-      "delayCauseDetail": "Repeatedly descoped in Network North (October 2023). Full new line between Liverpool and Manchester replaced with upgrades. No confirmed delivery date.",
+      "delayCauseDetail": "Repeatedly descoped in Network North (October 2023). Full new line between Liverpool and Manchester replaced with upgrades. No confirmed delivery date. Revived January 2026 with an initial £1.1bn funding commitment; NISTA's Annual Report on Major Projects 2025-26 (13 July 2026) upgraded the project's delivery confidence rating from Red to Amber, citing the January 2026 funding commitment of up to £45bn (2025 prices) and subsequent scope decisions.",
       "originalBudgetM": 17200,
       "latestBudgetM": null,
       "costGrowthM": null,
       "costGrowthPct": null,
       "extraCostPerDelayDayM": null,
-      "status": "Descoped / Uncertain",
-      "sourceName": "DfT Network North / Transport for the North",
+      "status": "Descoped / Uncertain (Amber)",
+      "sourceName": "DfT Network North / Transport for the North / NISTA Annual Report on Major Projects 2025-26 (13 July 2026)",
       "sourceUrl": "https://www.gov.uk/government/publications/network-north",
       "sourceConfidence": "very_high",
-      "methodologyNote": "Original scope from 2019 strategic outline case. October 2023 Network North significantly reduced ambition. Delay cannot be calculated as project fundamentally changed."
+      "methodologyNote": "Original scope from 2019 strategic outline case. October 2023 Network North significantly reduced ambition. Delay cannot be calculated as project fundamentally changed. Budget/date fields not updated pending a confirmed scope and schedule baseline."
     },
     {
       "id": "new-prisons",

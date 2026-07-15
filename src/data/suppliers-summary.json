@@ -586,5 +586,20 @@
     ],
     "notes": "GCAP design authority JV. £686m bridge contract (Apr 2026) + £4.6bn design & development contract (Jul 2026), both awarded via the trilateral GCAP Agency and funded jointly by UK, Japan and Italy — UK share not separately disclosed. UK DIP commits £8.6bn to GCAP over four years.",
     "strategicSupplier": false
+  },
+  {
+    "name": "Omnia Training (Raytheon UK / Capita / Cervus / Rheinmetall UK / Skyral JV)",
+    "contractCount": 1,
+    "totalValue": 2000000000,
+    "annualGovSpend": null,
+    "sector": "Defence",
+    "departments": [
+      "Ministry of Defence"
+    ],
+    "projects": [
+      "Army Collective Training Service (ACTS)"
+    ],
+    "notes": "15-year Strategic Training Partner contract (awarded 10 Jul 2026) to deliver the British Army's digitally-enabled collective training system, downselected against a rival Elbit Systems UK-led consortium. Creates 270 jobs, sustains 150. Rheinmetall UK's individual share reported at just under €1bn.",
+    "strategicSupplier": false
   }
 ]
