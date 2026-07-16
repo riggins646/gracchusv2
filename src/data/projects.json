@@ -1289,13 +1289,15 @@
       "Galliford Try Construction Limited",
       "Tilbury Douglas Construction Limited"
     ],
-    "description": "Originally 40 hospitals by 2030. NAO January 2026 update: programme reset covers 41 schemes (plus 5 already complete), delivered in four waves over 20 years; total funding £60bn including £56bn capital — a £33.8bn increase on 2023 assumptions. £8.9bn capital allocated 2025-26 to 2029-30, rising to ~£3bn/year from 2030-31. Final hospitals expected 2045-46. Hospital 2.0 alliance contract due early 2026, design due April 2026. RAAC replacement at 7 prioritised hospitals at least 2 years behind schedule (now 2032-33 vs original 2030 target). NAO assessment: 'firmer footing' but significant delivery risks remain.",
+    "description": "Originally 40 hospitals by 2030. NAO January 2026 update: programme reset covers 41 schemes (plus 5 already complete), delivered in four waves over 20 years; total funding £60bn including £56bn capital — a £33.8bn increase on 2023 assumptions. £8.9bn capital allocated 2025-26 to 2029-30, rising to ~£3bn/year from 2030-31. Final hospitals expected 2045-46. Hospital 2.0 alliance contract due early 2026, design due April 2026. RAAC replacement at 7 prioritised hospitals at least 2 years behind schedule (now 2032-33 vs original 2030 target). NAO assessment: 'firmer footing' but significant delivery risks remain. DHSC's New Hospital Programme Annual Report 2025-26 (published 8 July 2026) now counts 46 schemes across England, with 7 open to patients (including Royal Liverpool University Hospital, Dyson Cancer Centre Bath and Midland Metropolitan University Hospital) and 9 in construction; £830m distributed to trusts in 2025-26 (£1.83bn cumulative since 2021-22); 7 further main scheme business cases approved during the year. NISTA's Annual Report on Major Projects 2025-26 (13 July 2026) rates the programme 'Amber' — successful delivery feasible but significant issues require management attention — an improvement on its 2024 'Red' rating.",
     "sources": [
       "https://www.nao.org.uk/reports/the-new-hospital-programme/",
       "https://www.nao.org.uk/reports/update-on-the-new-hospital-programme/",
-      "https://www.nao.org.uk/wp-content/uploads/2026/01/update-on-the-new-hospital-programme.pdf"
+      "https://www.nao.org.uk/wp-content/uploads/2026/01/update-on-the-new-hospital-programme.pdf",
+      "https://www.gov.uk/government/publications/new-hospital-programme-annual-report-financial-year-2025-to-2026/new-hospital-programme-annual-report-2025-to-2026",
+      "https://www.gov.uk/government/publications/nista-major-projects-annual-report-2025-26/nista-major-projects-annual-report-2025-26"
     ],
-    "lastUpdated": "2026-05-01",
+    "lastUpdated": "2026-07-16",
     "contractorResearch": {
       "groups": 2,
       "members": 16,

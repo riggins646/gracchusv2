@@ -2,7 +2,7 @@
   "metadata": {
     "title": "UK Infrastructure Delivery Delays",
     "description": "Major UK government projects tracked from approval through delivery, measuring schedule slippage and cost growth. All timelines sourced from NAO, IPA, and official project updates.",
-    "lastUpdated": "2026-07-15",
+    "lastUpdated": "2026-07-16",
     "methodology": "Delay calculated as difference between original planned completion and latest estimated/actual completion. Cost growth measured from original budget at main investment decision to latest published estimate. Only projects with verifiable official schedule data included.",
     "sources": [
       "National Audit Office (NAO)",
@@ -468,14 +468,14 @@
       "delayPct": 160,
       "revisedDeadlines": 4,
       "primaryDelayCause": "Funding constraints / RAAC crisis",
-      "delayCauseDetail": "Original 2020 manifesto pledge of 40 new hospitals by 2030. NAO January 2026 update: programme now reset to 41 schemes + 5 already complete (46 total), delivered in four waves over 20 years. Final hospitals expected 2045-46. Total funding £60bn including £56bn capital — £33.8bn increase on 2023 assumptions. RAAC replacement at 7 prioritised hospitals at least 2 years behind original 2030 target — now 2032-33.",
+      "delayCauseDetail": "Original 2020 manifesto pledge of 40 new hospitals by 2030. NAO January 2026 update: programme now reset to 41 schemes + 5 already complete (46 total), delivered in four waves over 20 years. Final hospitals expected 2045-46. Total funding £60bn including £56bn capital — £33.8bn increase on 2023 assumptions. RAAC replacement at 7 prioritised hospitals at least 2 years behind original 2030 target — now 2032-33. DHSC's New Hospital Programme Annual Report 2025-26 (8 July 2026) confirms 46 schemes, 7 now open to patients and 9 in construction; £830m distributed to trusts in 2025-26. NISTA's Annual Report on Major Projects 2025-26 (13 July 2026) rates the programme 'Amber', up from 'Red' in 2024.",
       "originalBudgetM": 20000,
       "latestBudgetM": 56000,
       "costGrowthM": 36000,
       "costGrowthPct": 180,
       "extraCostPerDelayDayM": 6.16,
       "status": "In Progress",
-      "sourceName": "NAO Update on the New Hospital Programme (Jan 2026)",
+      "sourceName": "NAO Update on the New Hospital Programme (Jan 2026) / DHSC Annual Report 2025-26 (8 Jul 2026) / NISTA Annual Report on Major Projects 2025-26 (13 Jul 2026)",
       "sourceUrl": "https://www.nao.org.uk/reports/update-on-the-new-hospital-programme/",
       "sourceConfidence": "very_high",
       "methodologyNote": "Delay measured from original 2030 target to latest NAO-reported completion date (2045-46 wave-4 finish). Capital cost £56bn per NAO Jan 2026 update."

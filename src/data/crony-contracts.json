@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "lastUpdated": "2026-07-03"
+    "lastUpdated": "2026-07-16"
   },
   "summary": {
     "totalVipLaneValue": 1700000000,
@@ -22,12 +22,12 @@
   "officialReports": [
     {
       "id": "OR-002",
-      "name": "UK Covid-19 Inquiry Module 5 report: Procurement (upcoming)",
-      "publishedDate": "2026-07-14 (scheduled)",
+      "name": "UK Covid-19 Inquiry Module 5 report: Procurement",
+      "publishedDate": "2026-07-14",
       "author": "UK Covid-19 Inquiry (Baroness Hallett)",
-      "headlineFindings": "Publication date announced June 2026. Module 5 examined how the UK procured and distributed key healthcare equipment and supplies during the pandemic (PPE, ventilators, oxygen, lateral flow and PCR tests) across all four nations, including the VIP lane. A chapter of findings on PPE Medpro is covered by a Restriction Order and will not be published on 14 July 2026, to avoid undermining current or future criminal investigations; it will be released once criminal proceedings conclude.",
+      "headlineFindings": "Published 14 July 2026. Found the VIP/high-priority lane was 'inherently biased towards those with connections to government' and should never have happened; VIP-referred suppliers were 13 times more likely to be awarded a contract, failed at 3 times the rate of standard contracts, cost 80% more per unit, and 53% supplied PPE unsuitable for frontline use. 15 of 36 VIP lane offers examined had Conservative Party connections. Around £10bn of the £14.9bn spent on PPE was wasted on unusable or unusable-standard stock; £324m of identified PPE fraud; over two-thirds of pandemic procurement awards had no competition; hundreds of lorry-loads of unwanted stock incinerated monthly at peak. 11 recommendations issued, including banning VIP-style lanes in future emergencies and lowering contract-publication thresholds; government must respond within six months. A chapter of findings on PPE Medpro remains withheld under the Chair's Restriction Order to avoid undermining current or future criminal investigations, and will be published once related criminal proceedings conclude.",
       "scope": "Robustness of pandemic procurement processes, quality and volume of items obtained, and distribution systems, UK-wide.",
-      "source": "https://covid19.public-inquiry.uk/news/inquiry-announces-fifth-report-publication-date-procurement-module-5/"
+      "source": "https://www.gov.uk/government/publications/uk-covid-19-inquiry-procurement-module-5-report"
     },
     {
       "id": "OR-001",
@@ -51,7 +51,7 @@
       "connectionType": "Peer / House of Lords",
       "competitive": false,
       "vipLane": true,
-      "outcome": "Court ordered £122m repayment Oct 2025. Gowns failed sterilisation. Company wound up Dec 2025 with £148m owed to government. Only ~£600k available for unsecured creditors. HMRC separately owed ~£39m. Recovery of taxpayer funds considered unlikely. Covid-19 Inquiry Module 5 (Procurement) report scheduled for 14 July 2026 contains a PPE Medpro chapter withheld under a Restriction Order so as not to undermine current or future criminal investigations; it will be published once criminal proceedings conclude. On 25 June 2026 PPE Medpro's liquidators (Interpath), via law firm Simmons & Simmons, issued civil proceedings against six individuals and five companies — including Baroness Mone and Doug Barrowman personally — to recover the ~£122m profit made on the gowns contract, since the company itself holds no assets. The National Crime Agency's criminal investigation into alleged conspiracy to defraud, fraud by false representation and bribery continues (roughly £75m of Mone/Barrowman assets have been restrained under the Proceeds of Crime Act since December 2023); neither has been charged and both deny wrongdoing.",
+      "outcome": "Court ordered £122m repayment Oct 2025. Gowns failed sterilisation. Company wound up Dec 2025 with £148m owed to government. Only ~£600k available for unsecured creditors. HMRC separately owed ~£39m. Recovery of taxpayer funds considered unlikely. Covid-19 Inquiry Module 5 (Procurement) report, published 14 July 2026, contains a PPE Medpro chapter withheld under a Restriction Order so as not to undermine current or future criminal investigations; it will be published once criminal proceedings conclude. The published portion of Module 5 found the VIP lane used to fast-track PPE Medpro and similar suppliers was 'inherently biased towards those with connections to government' and should never have happened. On 25 June 2026 PPE Medpro's liquidators (Interpath), via law firm Simmons & Simmons, issued civil proceedings against six individuals and five companies — including Baroness Mone and Doug Barrowman personally — to recover the ~£122m profit made on the gowns contract, since the company itself holds no assets. The National Crime Agency's criminal investigation into alleged conspiracy to defraud, fraud by false representation and bribery continues (roughly £75m of Mone/Barrowman assets have been restrained under the Proceeds of Crime Act since December 2023); neither has been charged and both deny wrongdoing.",
       "severity": "critical",
       "era": "COVID",
       "source": "https://goodlawproject.org/ppe-medpro-must-repay-122m-for-breach-of-contract/",
