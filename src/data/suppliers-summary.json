@@ -559,17 +559,19 @@
   },
   {
     "name": "Boeing Defence UK",
-    "contractCount": 1,
-    "totalValue": 879000000,
+    "contractCount": 3,
+    "totalValue": 1121700000,
     "annualGovSpend": null,
     "sector": "Defence",
     "departments": [
       "Ministry of Defence"
     ],
     "projects": [
-      "Apache / Chinook In-Service Support (Rotary Wing Enterprise)"
+      "Apache / Chinook In-Service Support (Rotary Wing Enterprise)",
+      "P-8 Poseidon In-Service Support Extension",
+      "E-7 Wedgetail Sustainment Contract"
     ],
-    "notes": "£879m 3-year integrated in-service support contract for British Army AH-64E Apache and RAF CH-47 Chinook fleets. Awarded 15 April 2026. First time both rotary fleets unified under a single contract. Supports 700+ Boeing UK jobs and 500 supply chain jobs.",
+    "notes": "£879m 3-year integrated in-service support contract for British Army AH-64E Apache and RAF CH-47 Chinook fleets. Awarded 15 April 2026. First time both rotary fleets unified under a single contract. Supports 700+ Boeing UK jobs and 500 supply chain jobs. On 14 July 2026, awarded two further RAF sustainment contracts worth £240m combined: £115.2m two-year extension for the P-8 Poseidon maritime patrol fleet (RAF Lossiemouth) and £127.5m for the incoming E-7 Wedgetail AEW&C fleet, together supporting 380+ jobs in Scotland.",
     "strategicSupplier": false
   },
   {

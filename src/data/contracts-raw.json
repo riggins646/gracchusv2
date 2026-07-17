@@ -1601,5 +1601,43 @@
     "category": "defence",
     "competitive": true,
     "source": "https://www.gov.uk/government/news/uk-leads-europe-with-contracts-for-low-cost-air-defence-systems"
+  },
+  {
+    "id": "DEF-034",
+    "title": "P-8 Poseidon In-Service Support Extension",
+    "description": "Two-year extension to sustain the RAF's fleet of nine P-8 Poseidon maritime patrol aircraft based at RAF Lossiemouth. Part of a wider £240m package of RAF sustainment contracts for Boeing Defence UK announced alongside a £26bn, 10-year naval base infrastructure investment programme. Supports over 200 highly skilled jobs and more than 20 apprenticeships.",
+    "buyer": "Ministry of Defence",
+    "status": "active",
+    "awardDate": "2026-07-14",
+    "value": 115200000,
+    "valueDisclosed": true,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "Boeing Defence UK"
+      }
+    ],
+    "category": "defence",
+    "competitive": false,
+    "source": "https://www.gov.uk/government/news/record-26-billion-investment-to-transform-uk-naval-bases-docking-facilities-and-waterfront-infrastructure"
+  },
+  {
+    "id": "DEF-035",
+    "title": "E-7 Wedgetail Sustainment Contract",
+    "description": "Sustainment contract for the RAF's E-7 Wedgetail airborne early warning and control fleet as the first aircraft nears handover and entry into service. Part of a wider £240m package of RAF sustainment contracts for Boeing Defence UK announced alongside a £26bn, 10-year naval base infrastructure investment programme. Supports around 180 jobs in Scotland, with 60-80 new roles and 4 further apprenticeships expected.",
+    "buyer": "Ministry of Defence",
+    "status": "active",
+    "awardDate": "2026-07-14",
+    "value": 127500000,
+    "valueDisclosed": true,
+    "currency": "GBP",
+    "suppliers": [
+      {
+        "name": "Boeing Defence UK"
+      }
+    ],
+    "category": "defence",
+    "competitive": false,
+    "source": "https://www.adsadvance.co.uk/boeing-raf-e7-wedgetail-sustainment-contract/"
   }
 ]
